@@ -432,7 +432,15 @@ export class NavigationService {
       tooltip: 'Client management',
       icon: 'person',
       state: 'cruds/ngx-table'
-    }//,
+    },
+    {
+      name: 'Product Catalogue',
+      type: 'link',
+      tooltip: 'Product management',
+      icon: 'assignment',
+      state: 'productCrud/show'
+    }
+    //,
     // {
     //   name: 'ECOMMERCE',
     //   type: 'dropDown',

@@ -1,0 +1,65 @@
+
+  <mat-form-field class="margin-333" style="width: 99%">
+    <input matInput placeholder="Type to filter all columns" value="">
+  </mat-form-field>
+
+
+<div class="m-333">
+  <!-- <span fxFlex></span> -->
+  <button mat-raised-button class="mb-05" color="primary" (click)="openProductPopup({}, true)">Add Product</button>
+</div>
+
+<div class="mat-box-shadow margin-333">
+  <ngx-datatable class="material bg-white" 
+    [columnMode]="'force'" 
+    [headerHeight]="50" 
+    [footerHeight]="50" 
+    [rowHeight]="50"
+    [limit]="10" 
+    [rows]="columns" 
+    [columns]="">
+
+    <ngx-datatable-column name="Client" [flexGrow]="1">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.code }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Product Code" [flexGrow]="1">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.code }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Description" [flexGrow]="1">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.code }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Batch Number" [flexGrow]="1">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.code }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Quantity" [flexGrow]="1">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.code }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Expire Date" [flexGrow]="1">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{ row?.code }}
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Actions" [flexGrow]="1">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <button mat-icon-button mat-sm-button color="primary" class="mr-1" ><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button mat-sm-button color="warn" ><mat-icon>delete</mat-icon></button>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>

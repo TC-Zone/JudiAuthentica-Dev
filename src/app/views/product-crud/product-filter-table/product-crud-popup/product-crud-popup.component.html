@@ -1,0 +1,61 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="">
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+
+    <div fxFlex="33" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select placeholder="Select a Client">
+          <mat-option>None</mat-option>
+          <mat-option value="option1">Option 1</mat-option>
+          <mat-option value="option2">Option 2</mat-option>
+          <mat-option value="option3">Option 3</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+
+    <div fxFlex="33" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="proCode" [formControl]="" placeholder="Product Code">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="34" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="desc" [formControl]="" placeholder="Description">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="33" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="batchNumber" [formControl]="" placeholder="Batch Number">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="33" class="pr-1">
+      <mat-form-field class="full-width">
+        <input type="number" matInput name="quantity" [formControl]="" placeholder="Quantity">
+      </mat-form-field>
+    </div>
+
+
+
+    <div fxFlex="33" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="expireDate" [formControl]="" placeholder="Expire Date">
+      </mat-form-field>
+    </div>
+
+
+
+
+
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+</form>
