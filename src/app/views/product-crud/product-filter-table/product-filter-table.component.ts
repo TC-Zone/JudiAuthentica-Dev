@@ -3,25 +3,71 @@ import { ProductCrudService } from '../product-crud.service';
 import { MatDialogRef, MatDialog, DateAdapter } from '../../../../../node_modules/@angular/material';
 import { ProductCrudPopupComponent } from './product-crud-popup/product-crud-popup.component';
 
+import * as _moment from 'moment';
+import { AppLoaderService } from '../../../shared/services/app-loader/app-loader.service';
+import { AppErrorService } from '../../../shared/services/app-error/app-error.service';
+import { Subscription } from '../../../../../node_modules/rxjs';
+import { egretAnimations } from '../../../shared/animations/egret-animations';
+import { AppConfirmService } from '../../../shared/services/app-confirm/app-confirm.service';
+const moment = _moment;
 
 @Component({
   selector: 'app-product-filter-table',
-  templateUrl: './product-filter-table.component.html'
+  templateUrl: './product-filter-table.component.html',
+  animations: egretAnimations
 })
 export class ProductFilterTableComponent implements OnInit {
 
-  rows = [];
+  rows: any[];
   columns = [];
-
-
+  public getProductsSub: Subscription;
 
   constructor(
     private prodService: ProductCrudService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private loader: AppLoaderService,
+    private errDialog: AppErrorService,
+    private confirmService: AppConfirmService) { }
+
 
 
 
   ngOnInit() {
+    this.getAllProduct();
+  }
+
+  ngOnDestroy() {
+    if (this.getProductsSub) {
+      this.getProductsSub.unsubscribe()
+    }
+  }
+
+  getAllProduct() {
+    this.getProductsSub = this.prodService.getAllProducts().
+      subscribe(successResp => {
+        this.rows = successResp.content;
+      }, error => {
+        this.loader.close();
+        this.errDialog.showError({ title: 'Error', status: error.status, type: 'http_error' });
+      })
+  }
+
+  deleteProduct(row) {
+    this.confirmService.confirm({ message: 'Delete ${row.description}?' }).
+      subscribe(res => {
+        if (res) {
+          this.loader.open();
+          this.prodService.removeProduct(row, this.rows)
+            .subscribe(data => {
+              this.rows = data;
+              this.loader.close();
+            }, error => {
+              this.loader.close();
+              this.errDialog.showError({ title: 'Error', status: error.status, type: 'http_error' });
+            }
+            )
+        }
+      })
   }
 
 
@@ -34,11 +80,39 @@ export class ProductFilterTableComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe(res => {
-      console.log(res);
-      
-      console.log(res.expDate);
-    })
+      if (!res) {
+        //if user press cancel.
+        return;
+      }
+      this.loader.open()
+      res.expireDate = res.expireDate.format('YYYY-MM-DD');
+      if (isNew) {
+        this.prodService.addProduct(res, this.rows)
+          .subscribe(data => {
+            this.rows = data;
+            this.loader.close();
+          }, error => {
+            this.loader.close();
+            this.errDialog.showError({ title: 'Error', status: error.status, type: 'http_error' });
+          }
+          );
+      } else {
+        console.log(data);
+        this.prodService.updateProduct(data.id, res, this.rows)
+          .subscribe(updatedItem => {
+            console.log('SUCESS UODATE ')
+            console.log(updatedItem)
+            this.rows = updatedItem;
+            this.loader.close();
+          }, error => {
+            this.loader.close();
+            this.errDialog.showError({ title: 'Error', status: error.status, type: 'http_error' });
+          }
+          );
+      }
 
+
+    })
   }
 
 }

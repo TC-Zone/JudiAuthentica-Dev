@@ -7,14 +7,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MomentDateAdapter } from '@angular/material-moment-adapter'
 
 
+
 export const MY_FORMATS = {
   parse: {
-    dateInput: 'LL',
+    dateInput: 'YYYY-MM-DD',
   },
   display: {
-    dateInput: 'LL',
+    dateInput: 'YYYY-MM-DD',
     monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
+    dateA11yLabel: 'YYYY-MM-DD',
     monthYearA11yLabel: 'MMMM YYYY',
   },
 };
@@ -40,7 +41,8 @@ export class ProductCrudPopupComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ProductCrudPopupComponent>,
     private clientService: CrudService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder
+  ) {
   }
 
   ngOnInit() {
@@ -52,20 +54,20 @@ export class ProductCrudPopupComponent implements OnInit {
     this.getClientSub = this.clientService.getItems()
       .subscribe(data => {
         this.response = data;
-        this.clients = this.response.content;
-        console.log(this.clients);
+        this.clients = this.response.content;      
       })
   }
 
   buildProductForm(fieldItem) {
+    console.log(fieldItem);
     this.productForm = this.fb.group(
       {
-        client: [fieldItem.client || '', Validators.required],
-        productCode: [fieldItem.productCode || '', Validators.required],
+        client: [fieldItem.client || ''],
+        code: [fieldItem.code || '', Validators.required],
         description: [fieldItem.description || '', Validators.required],
-        batchNo: [fieldItem.batchNo || '', Validators.required],
-        qty: [fieldItem.qty || '', Validators.required],
-        expDate: [fieldItem.expDate || '', Validators.required]
+        batchNumber: [fieldItem.batchNumber || '', Validators.required],
+        quantity: [fieldItem.quantity || '', Validators.required],
+        expireDate: [fieldItem.expireDate || '', Validators.required]
       }
     )
 

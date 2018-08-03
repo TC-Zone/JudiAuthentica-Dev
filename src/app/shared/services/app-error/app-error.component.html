@@ -1,0 +1,7 @@
+<h1 matDialogTitle>{{ data.title}}</h1>
+<div mat-dialog-content>{{ data.message}}</div>
+<div mat-dialog-actions>
+
+  <span fxFlex></span>
+  <button type="button" color="warn" mat-raised-button (click)="dialogRef.close(false)">OK</button>
+</div>

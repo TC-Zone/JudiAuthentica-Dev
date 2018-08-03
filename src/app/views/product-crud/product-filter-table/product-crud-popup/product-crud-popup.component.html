@@ -5,7 +5,7 @@
     <div fxFlex="33" class="pr-1">
       <mat-form-field class="full-width">
         <mat-select [formControl]="productForm.controls['client']" placeholder="Select a Client">
-          <mat-option *ngFor="let client of clients" [value]="client.id">
+          <mat-option *ngFor="let client of clients" [value]="client">
             {{client.name}}
           </mat-option>
         </mat-select>
@@ -14,7 +14,7 @@
 
     <div fxFlex="33" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput [formControl]="productForm.controls['productCode']" name="proCode" placeholder="Product Code">
+        <input matInput [formControl]="productForm.controls['code']" name="proCode" placeholder="Product Code">
       </mat-form-field>
     </div>
 
@@ -26,19 +26,19 @@
 
     <div fxFlex="33" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput name="batchNumber" [formControl]="productForm.controls['batchNo']" placeholder="Batch Number">
+        <input matInput name="batchNumber" [formControl]="productForm.controls['batchNumber']" placeholder="Batch Number">
       </mat-form-field>
     </div>
 
     <div fxFlex="33" class="pr-1">
       <mat-form-field class="full-width">
-        <input type="number" matInput name="quantity" [formControl]="productForm.controls['qty']" placeholder="Quantity">
+        <input type="number" matInput name="quantity" [formControl]="productForm.controls['quantity']" placeholder="Quantity">
       </mat-form-field>
     </div>
 
     <div fxFlex="33" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput name="expireDate" [matDatepicker]="picker" [formControl]="productForm.controls['expDate']" placeholder="Expire Date">
+        <input matInput name="expireDate" [matDatepicker]="picker" [formControl]="productForm.controls['expireDate']" placeholder="Expire Date">
         <mat-datepicker-toggle matSuffix [for]="picker">
           <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
         </mat-datepicker-toggle>
@@ -47,14 +47,11 @@
     </div>
 
 
-
-
-
-
     <div fxFlex="100" class="mt-1">
-      <button mat-raised-button color="primary" [disabled]="">Save</button>
+      <button mat-raised-button color="primary" [disabled]="productForm.invalid">Save</button>
       <span fxFlex></span>
       <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
     </div>
+
   </div>
 </form>
