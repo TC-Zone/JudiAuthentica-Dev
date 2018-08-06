@@ -4,7 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslateModule } from '@ngx-translate/core';
-import { 
+import {
   MatSidenavModule,
   MatListModule,
   MatTooltipModule,
@@ -64,6 +64,8 @@ import { RoutePartsService } from './services/route-parts.service';
 import { AuthGuard } from './services/auth/auth.guard';
 import { AppConfirmService } from './services/app-confirm/app-confirm.service';
 import { AppLoaderService } from './services/app-loader/app-loader.service';
+import { AppErrorComponent } from './services/app-error/app-error.component';
+import { AppErrorService } from './services/app-error/app-error.service';
 
 /* 
   Only Required if you want to use Angular Landing
@@ -83,6 +85,7 @@ const classesToInclude = [
   BreadcrumbComponent,
   AppComfirmComponent,
   AppLoaderComponent,
+  AppErrorComponent,
   CustomizerComponent,
   FontSizeDirective,
   ScrollToDirective,
@@ -119,7 +122,7 @@ const classesToInclude = [
     MatRippleModule,
     MatDialogModule
   ],
-  entryComponents: [AppComfirmComponent, AppLoaderComponent],
+  entryComponents: [AppComfirmComponent, AppLoaderComponent, AppErrorComponent],
   providers: [
     ThemeService,
     LayoutService,
@@ -128,6 +131,7 @@ const classesToInclude = [
     AuthGuard,
     AppConfirmService,
     AppLoaderService,
+    AppErrorService
     // LandingPageService
   ],
   declarations: classesToInclude,
