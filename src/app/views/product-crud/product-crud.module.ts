@@ -10,6 +10,7 @@ import { ProductCrudPopupComponent } from './product-filter-table/product-crud-p
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CrudService } from '../cruds/crud.service';
+import {  PositiveNumberOnly } from '../../directives/PositiveNumber.directive';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { CrudService } from '../cruds/crud.service';
     MatIconModule,
     RouterModule.forChild(ProductCrudRouts)
   ],
-  declarations: [ProductFilterTableComponent, ProductCrudPopupComponent],
+  declarations: [ProductFilterTableComponent, ProductCrudPopupComponent,PositiveNumberOnly],
   providers: [ProductCrudService, CrudService],
   entryComponents: [ProductCrudPopupComponent]
 })
