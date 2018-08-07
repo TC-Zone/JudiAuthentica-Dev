@@ -27,28 +27,19 @@ export class ProductCrudService {
 
   constructor(private http: HttpClient) {}
 
-  updateProduct(id, item, items) {
-    console.log("id :" + id);
-    return this.http.put(this.productApiUrl + id, item, this.httpOptions).pipe(
-      map(data => {
-        items = items.map(i => {
-          if (i.id === id) {
-            return Object.assign({}, i, item);
-          }
-          return i;
-        });
-        return items.slice();
-      }),
-      catchError(this.handleError)
-    );
+  updateProduct(id, item) {
+    return this.http
+      .put<any>(this.productApiUrl + id, item, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   addProduct(productObj, items): Observable<any> {
     return this.http
-      .post(this.productApiUrl, productObj, this.httpOptions)
+      .post<any>(this.productApiUrl, productObj, this.httpOptions)
       .pipe(
         map(data => {
-          items.unshift(productObj);
+          console.log(data.content)
+          items.unshift(data.content);
           return items.slice();
         }),
         catchError(this.handleError)

@@ -1,41 +1,54 @@
-import { Injectable } from '@angular/core';
-import { UserDB } from '../../shared/fake-db/users';
-import { Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '../../../../node_modules/@angular/common/http';
+import { Injectable } from "@angular/core";
+import { UserDB } from "../../shared/fake-db/users";
+import { Observable, of } from "rxjs";
+import { catchError, map } from "rxjs/operators";
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse
+} from "../../../../node_modules/@angular/common/http";
+import { environment } from "environments/environment.prod";
+import { _throw } from "rxjs/Observable/throw";
 
 @Injectable()
 export class CrudService {
-  items: any[];
-
+  clientApiUrl: string = environment.baseApiURL + "clients/";
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     })
   };
 
-  constructor(private http: HttpClient) {
-    let userDB = new UserDB();
-    this.items = userDB.users;
+  constructor(private http: HttpClient) {}
+
+  getItems(): Observable<any> {
+    return this.http.get(this.clientApiUrl).pipe(catchError(this.handleError));
   }
 
-  //******* Implement your APIs ********
-  getItems(): Observable<any> {
-    //return  of(this.items.slice())
-    return this.http.get('https://rootzg4t4ks63a.hana.ondemand.com/api/clients')
+  addItem(item, items: any[]): Observable<any> {
+    return this.http.post<any>(this.clientApiUrl, item, this.httpOptions).pipe(
+      map(data => {
+        items.unshift(data.content);
+        return items.slice();
+      }),
+      catchError(this.handleError)
+    );
   }
-  addItem(item): Observable<any> {
-    // item._id = Math.round(Math.random() * 10000000000).toString();
-    // this.items.unshift(item);
-    console.log(item);
-    return this.http.post<any>('https://rootzg4t4ks63a.hana.ondemand.com/api/clients', item, this.httpOptions)
-    //return this.getItems()
-    // return of(this.items.slice()).pipe(delay(1000));
+
+  updateItem(id, item): Observable<any> {
+    return this.http
+      .put<any>(this.clientApiUrl + id, item, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
-  updateItem(id, item) {
-    return this.http.put<any>('https://rootzg4t4ks63a.hana.ondemand.com/api/clients/' + id, item, this.httpOptions);
+
+  removeItem(id): Observable<any> {
+    return this.http
+      .delete(this.clientApiUrl + id)
+      .pipe(catchError(this.handleError));
   }
-  removeItem(id) {   
-    return this.http.delete('https://rootzg4t4ks63a.hana.ondemand.com/api/clients/'+id,this.httpOptions)
+
+  private handleError(error: HttpErrorResponse | any) {
+    console.log(error);
+    return _throw(error);
   }
 }
