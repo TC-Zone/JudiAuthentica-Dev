@@ -439,6 +439,13 @@ export class NavigationService {
       tooltip: 'Product management',
       icon: 'assignment',
       state: 'productCrud/show'
+    },
+    {
+      name: 'Form',
+      type: 'link',
+      tooltip: 'Form',
+      icon: 'favorite',
+      state: 'form/showForm'
     }
     //,
     // {
