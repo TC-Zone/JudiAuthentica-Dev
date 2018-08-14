@@ -6,7 +6,7 @@ interface IMenuItem {
   name?: string,      // Used as display text for item and title for separator type
   state?: string,     // Router state
   icon?: string,      // Material icon name
-  tooltip?: string,   // Tooltip text 
+  tooltip?: string,   // Tooltip text
   disabled?: boolean, // If true, item will not be appeared in sidenav.
   sub?: IChildItem[], // Dropdown items
   badges?: IBadge[]
@@ -393,31 +393,7 @@ export class NavigationService {
   //   }
   // ]
   iconMenu: IMenuItem[] = [
-    // {
-    //   name: 'HOME',
-    //   type: 'icon',
-    //   tooltip: 'Home',
-    //   icon: 'home',
-    //   state: 'home'
-    // },
-    // {
-    //   name: 'PROFILE',
-    //   type: 'icon',
-    //   tooltip: 'Profile',
-    //   icon: 'person',
-    //   state: 'profile/overview'
-    // },
-    // {
-    //   name: 'TOUR',
-    //   type: 'icon',
-    //   tooltip: 'Tour',
-    //   icon: 'flight_takeoff',
-    //   state: 'tour'
-    // },
-    // {
-    //   type: 'separator',
-    //   name: 'Main Items'
-    // },
+
     {
       name: 'DASHBOARD',
       type: 'link',
@@ -619,7 +595,7 @@ export class NavigationService {
     //   sub: [
     //     {
     //       name: 'Level Two', type: 'dropDown', state: 'fake-1', sub: [
-    //         { name: 'Level Three', state: 'fake-2' }, 
+    //         { name: 'Level Three', state: 'fake-2' },
     //         { name: 'Level Three', state: 'fake-3' }
     //       ]
     //     },
