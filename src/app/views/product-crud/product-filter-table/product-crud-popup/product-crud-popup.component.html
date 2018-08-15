@@ -3,6 +3,20 @@
   <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
 
     <div fxFlex="34" class="pr-1">
+
+
+
+      <!-- <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="productForm.controls['clientName']" [matAutocomplete]="auto">
+
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let client of clients" [value]="client">
+              {{client.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field> -->
+
+
       <mat-form-field class="full-width">
         <mat-select [formControl]="productForm.controls['client']" required placeholder="Select a Client">
           <mat-option *ngFor="let client of clients" [value]="client">
@@ -14,13 +28,13 @@
 
     <div fxFlex="33" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput [formControl]="productForm.controls['code']"  required name="proCode" placeholder="Product Code">
+        <input matInput [formControl]="productForm.controls['code']" required name="proCode" placeholder="Product Code">
       </mat-form-field>
     </div>
 
     <div fxFlex="33" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput [formControl]="productForm.controls['name']"  required name="name" placeholder="Product Name">
+        <input matInput [formControl]="productForm.controls['name']" required name="name" placeholder="Product Name">
       </mat-form-field>
     </div>
 
@@ -38,7 +52,8 @@
 
     <div fxFlex="33" class="pr-1">
       <mat-form-field class="full-width">
-        <input type="number" matInput name="quantity" [formControl]="productForm.controls['quantity']" min="1" postiveNumberOnly required placeholder="Quantity">
+        <input type="number" matInput name="quantity" [formControl]="productForm.controls['quantity']" min="1" postiveNumberOnly
+          required placeholder="Quantity">
       </mat-form-field>
     </div>
 

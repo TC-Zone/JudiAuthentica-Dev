@@ -25,6 +25,12 @@ export class CrudService {
     return this.http.get(this.clientApiUrl).pipe(catchError(this.handleError));
   }
 
+  getClientSuggestions(): Observable<any> {
+    return this.http
+      .get<string>(this.clientApiUrl + "suggestions")
+      .pipe(catchError(this.handleError));
+  }
+
   addItem(item, items: any[]): Observable<any> {
     return this.http.post<any>(this.clientApiUrl, item, this.httpOptions).pipe(
       map(data => {

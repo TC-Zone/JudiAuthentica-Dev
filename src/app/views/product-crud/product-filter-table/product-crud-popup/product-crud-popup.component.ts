@@ -9,8 +9,22 @@ import {
 import { CrudService } from "../../../cruds/crud.service";
 import { Subscription } from "../../../../../../node_modules/rxjs";
 import { ResponseModel } from "../../../../model/ResponseModel.model";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators
+} from "@angular/forms";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
+
+
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+
+import 'rxjs/add/operator/switchMap';
+import { startWith, map } from "../../../../../../node_modules/rxjs/operators";
+import { Observable } from 'rxjs/Observable';
+
+
 
 export const MY_FORMATS = {
   parse: {
@@ -41,6 +55,11 @@ export class ProductCrudPopupComponent implements OnInit {
   public clients: any[];
   public getClientSub: Subscription;
   public response: ResponseModel;
+  public filterOps: Observable<any[]>
+
+
+
+
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -52,7 +71,18 @@ export class ProductCrudPopupComponent implements OnInit {
   ngOnInit() {
     this.getAllClients();
     this.buildProductForm(this.data.payload);
+    this.getClientSuggestions();
+
   }
+
+
+
+  getClientSuggestions(){
+    this.getClientSub = this.clientService.getClientSuggestions().subscribe(data =>{
+      this.response = data;
+      this.clients = this.response.content;
+      console.log(this.clients)
+    }) }
 
   getAllClients() {
     this.getClientSub = this.clientService.getItems().subscribe(data => {
@@ -63,6 +93,7 @@ export class ProductCrudPopupComponent implements OnInit {
 
   buildProductForm(fieldItem) {
     this.productForm = this.fb.group({
+      clientName: [fieldItem.clientName || ""],
       client: [fieldItem.client || ""],
       code: [fieldItem.code || "", Validators.required],
       name: [fieldItem.name || "", Validators.required],

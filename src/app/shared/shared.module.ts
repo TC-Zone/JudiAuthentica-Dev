@@ -73,6 +73,7 @@ import { AppErrorService } from "./services/app-error/app-error.service";
 */
 // import { LandingPageService } from '../shared/services/landing-page.service';
 import { AppFileDownloadService } from "./services/file-download.service";
+import { AppDataConversionService } from './services/data-conversion.service';
 
 const classesToInclude = [
   HeaderTopComponent,
@@ -133,7 +134,8 @@ const classesToInclude = [
     AppConfirmService,
     AppLoaderService,
     AppErrorService,
-    AppFileDownloadService
+    AppFileDownloadService,
+    AppDataConversionService
     // LandingPageService
   ],
   declarations: classesToInclude,
