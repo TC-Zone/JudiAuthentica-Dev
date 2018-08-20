@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormService } from './form.service';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs/observable';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/map';
+
 
 @Component({
   selector: 'app-form',
@@ -8,15 +13,23 @@ import { FormService } from './form.service';
 })
 export class FormComponent implements OnInit {
 
+  
   constructor(private newform : FormService) { }
 
+  public items: any[];
   ngOnInit() {    
-    this.newform.getItems().subscribe(
-      success=>{
-        console.log(success);
-      },
-      error=>{
+    this.getItems();  
+    
+  }
 
+  getItems() {
+    this.newform.getItems().subscribe(
+      successResp => {
+        this.items = successResp;
+        console.log(this.items);
+      },
+      error => {
+        
       }
     );
   }
