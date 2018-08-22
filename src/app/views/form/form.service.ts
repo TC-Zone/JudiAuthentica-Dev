@@ -9,52 +9,48 @@ import {
 import {
   catchError,
   map,
+  tap,
   delay
 } from "../../../../node_modules/rxjs/operators";
 import { environment } from "environments/environment.prod";
 import { _throw } from "rxjs/Observable/throw";
-import { Client,Users} from "./client.model";
-import { ResponseModel } from '../../model/ResponseModel.model';
-
+import { Clients,Content } from '../../model/ClientModel.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormService {
-  clientApiUrl: string = environment.baseApiURL + "clients/suggestions";
-  response : ResponseModel;
+  
+
+  clientApiUrl: string = environment.baseApiURL + "clients/suggestions";  
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json"
     })
   };
-
-  constructor(private http: HttpClient) { }
   
-  extractData(res: Response){
-    return res.json();
-  }
+  constructor(private http: HttpClient) {}
 
-  
-  getItems(): Observable<any> {
-    return this.http.get<any>(this.clientApiUrl).pipe(
-      map(data=>{
-        let jsonObject = data.content; 
-        let client = new Users(jsonObject.id,
-          new Client(jsonObject.client.id,jsonObject.client.name)        
-        );     
-        console.log(client);  
-                
-      }),
-      catchError(this.handleError)
+  search(filter:{name:string} = {name:''},page=1):Observable<Clients>{
+    return this.http.get<Clients>(this.clientApiUrl)
+    .pipe(
+      tap((response: Clients) => {
+         response.content = response.content
+         .map(content => new Content(content.id, content.name))
+         .filter(content => content.name.includes(filter.name))          
+         console.log(response.content);    
+         return response;   
+         
+      })
     );
+    
   }
+  
+  
 
-    private handleError(error: HttpErrorResponse | any) {
-      console.log(error);
-      return _throw(error);
-    }
+  
+  
     
 
  

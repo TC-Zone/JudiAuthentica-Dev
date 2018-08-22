@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormService } from './form.service';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/observable';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/map';
+import {map, startWith, debounceTime, switchMap}from 'rxjs/operators';
+import { Clients,Content } from '../../model/ClientModel.model';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 
 @Component({
@@ -12,26 +13,30 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
+    
+  filteredClient: Observable<Clients>;
+  userForm: FormGroup;  
+
+  constructor(private fb:FormBuilder,private newform : FormService) { }
+    
+  ngOnInit() {    
+    this.userForm = this.fb.group({
+      userInput:null
+    })
+    this.filteredClient = this.userForm.get('userInput').valueChanges
+    .pipe(
+      debounceTime(300),
+      switchMap(value => this.newform.search({name:value},1))
+      
+    );
+    
+     
+  }
 
   
-  constructor(private newform : FormService) { }
 
-  public items: any[];
-  ngOnInit() {    
-    this.getItems();  
-    
-  }
+  
 
-  getItems() {
-    this.newform.getItems().subscribe(
-      successResp => {
-        this.items = successResp;
-        console.log(this.items);
-      },
-      error => {
-        
-      }
-    );
-  }
+  
 
 }
