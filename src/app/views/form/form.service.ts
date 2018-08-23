@@ -39,8 +39,8 @@ export class FormService {
          response.content = response.content         
          .map(content => new Content(content.id, content.name))
          
-         .filter(content => content.name.toLocaleLowerCase().includes(filter.name))         
-         console.log(response.content);    
+         .filter(content => content.name.toLocaleLowerCase().includes(filter.name))   
+             
          return response;   
          
       })
