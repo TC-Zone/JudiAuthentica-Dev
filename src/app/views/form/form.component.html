@@ -2,9 +2,9 @@
   <mat-form-field class="example-full-width">
     <input matInput placeholder="Choose a user" [matAutocomplete]="auto" formControlName='userInput'>
   </mat-form-field>  
-
+    
   <mat-autocomplete #auto="matAutocomplete" >
-      <mat-option *ngFor="let user of (filteredClient | async)?.clients" [value]="user">
+      <mat-option *ngFor="let user of (filteredClient | async)?.content" [value]="user">
         <span>{{ user.name }}</span>
         
       </mat-option>

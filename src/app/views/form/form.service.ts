@@ -36,9 +36,10 @@ export class FormService {
     return this.http.get<Clients>(this.clientApiUrl)
     .pipe(
       tap((response: Clients) => {
-         response.content = response.content
+         response.content = response.content         
          .map(content => new Content(content.id, content.name))
-         .filter(content => content.name.includes(filter.name))          
+         
+         .filter(content => content.name.toLocaleLowerCase().includes(filter.name))         
          console.log(response.content);    
          return response;   
          

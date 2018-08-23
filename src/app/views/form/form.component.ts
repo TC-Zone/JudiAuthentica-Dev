@@ -26,10 +26,12 @@ export class FormComponent implements OnInit {
     this.filteredClient = this.userForm.get('userInput').valueChanges
     .pipe(
       debounceTime(300),
-      switchMap(value => this.newform.search({name:value},1))
-      
+      switchMap(value => 
+        this.newform.search({name:value},1       
+        ))  
+            
     );
-    
+    console.log();
      
   }
 
