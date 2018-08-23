@@ -11,7 +11,9 @@ import {
   MatIconModule,
   MatSelectModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  MatAutocompleteModule
+  
 } from "../../../../node_modules/@angular/material";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { ProductCrudService } from "./product-crud.service";
@@ -34,7 +36,10 @@ import { PositiveNumberOnly } from "../../directives/PositiveNumber.directive";
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatIconModule,
+    MatIconModule,     
+    MatInputModule,    
+    MatButtonModule,
+    MatAutocompleteModule,
     RouterModule.forChild(ProductCrudRouts)
   ],
   declarations: [

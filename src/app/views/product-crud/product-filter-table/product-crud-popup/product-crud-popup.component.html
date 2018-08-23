@@ -2,14 +2,17 @@
 <form [formGroup]="productForm" (ngSubmit)="submit()">
   <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
 
-    <div fxFlex="34" class="pr-1">
-      <mat-form-field class="full-width">
-        <mat-select [formControl]="productForm.controls['client']" required placeholder="Select a Client">
-          <mat-option *ngFor="let client of clients" [value]="client">
-            {{client.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div fxFlex="34" class="pr-1">      
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Choose a user" [matAutocomplete]="auto" [formControl]="productForm.controls['client']" >
+        </mat-form-field>  
+          
+        <mat-autocomplete #auto="matAutocomplete" >
+            <mat-option *ngFor="let user of (filteredClient | async)?.content" [value]="user">
+              <span>{{ user.name }}</span>
+              
+            </mat-option>
+        </mat-autocomplete>      
     </div>
 
     <div fxFlex="33" class="pr-1">

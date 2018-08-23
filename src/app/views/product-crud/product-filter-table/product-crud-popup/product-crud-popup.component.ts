@@ -11,6 +11,9 @@ import { Subscription } from "../../../../../../node_modules/rxjs";
 import { ResponseModel } from "../../../../model/ResponseModel.model";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
+import { debounceTime, switchMap}from 'rxjs/operators';
+import { Clients,Content } from './../../../../model/ClientModel.model';
+import {Observable} from 'rxjs/observable';
 
 export const MY_FORMATS = {
   parse: {
@@ -41,17 +44,28 @@ export class ProductCrudPopupComponent implements OnInit {
   public clients: any[];
   public getClientSub: Subscription;
   public response: ResponseModel;
+  public filteredClient: Observable<Clients>;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ProductCrudPopupComponent>,
     private clientService: CrudService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    
   ) {}
 
   ngOnInit() {
     this.getAllClients();
     this.buildProductForm(this.data.payload);
+    
+    this.filteredClient = this.productForm.get('client').valueChanges
+    .pipe(
+      debounceTime(300),
+      switchMap(value => 
+        this.clientService.search({name:value},1       
+        ))  
+            
+    );
   }
 
   getAllClients() {
