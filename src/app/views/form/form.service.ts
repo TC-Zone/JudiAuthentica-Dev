@@ -1,16 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from "rxjs";
 import {
-  HttpClient,
-  HttpHeaders,
-  HttpErrorResponse,
-  HttpResponse,
+  HttpClient  
 } from "../../../../node_modules/@angular/common/http";
-import {
-  catchError,
-  map,
-  tap,
-  delay
+import {  
+  tap  
 } from "../../../../node_modules/rxjs/operators";
 import { environment } from "environments/environment.prod";
 import { _throw } from "rxjs/Observable/throw";
@@ -24,12 +18,7 @@ export class FormService {
   
 
   clientApiUrl: string = environment.baseApiURL + "clients/suggestions";  
-  httpOptions = {
-    headers: new HttpHeaders({
-      "Content-Type": "application/json"
-    })
-  };
-  
+    
   constructor(private http: HttpClient) {}
 
   search(filter:{name:string} = {name:''},page=1):Observable<Clients>{

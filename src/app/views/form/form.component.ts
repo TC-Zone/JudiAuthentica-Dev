@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormService } from './form.service';
-import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/observable';
-import {map, startWith, debounceTime, switchMap}from 'rxjs/operators';
+import { debounceTime, switchMap}from 'rxjs/operators';
 import { Clients,Content } from '../../model/ClientModel.model';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
