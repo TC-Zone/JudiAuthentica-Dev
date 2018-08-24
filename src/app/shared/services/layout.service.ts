@@ -55,6 +55,8 @@ export class LayoutService {
   }
 
   publishLayoutChange(lc: ILayoutConf, opt: ILayoutChangeOptions = {}) {
+    console.log('called publishLayoutChange')
+    console.log(lc)
     let duration = opt.duration || 250;
     if (!opt.transitionClass) {
       this.layoutConf = Object.assign(this.layoutConf, lc);
@@ -77,7 +79,7 @@ export class LayoutService {
     } catch (e) { }
   }
 
-  
+
   adjustLayout(options: IAdjustScreenOptions = {}) {
     let sidebarStyle: string;
     this.isMobile = this.isSm();

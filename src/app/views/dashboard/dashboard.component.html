@@ -6,14 +6,11 @@
         <small class="text-muted">Total Sales</small>
         <span fxFlex></span>
         <mat-chip
-        class="icon-chip" 
-        color="primary" 
+        class="icon-chip"
+        color="primary"
         selected="true"><mat-icon>trending_up</mat-icon>20%</mat-chip>
       </mat-card-title>
-      <mat-card-content>
-        <h3 class="m-0 font-normal">22,450</h3>
-        <small class="text-muted">Monthly</small>
-      </mat-card-content>
+
     </mat-card>
   </div>
 
@@ -23,8 +20,8 @@
         <small class="text-muted">Income</small>
         <span fxFlex></span>
         <mat-chip
-        class="icon-chip" 
-        color="accent" 
+        class="icon-chip"
+        color="accent"
         selected="true"><mat-icon>trending_up</mat-icon>10%</mat-chip>
       </mat-card-title>
       <mat-card-content>
@@ -40,8 +37,8 @@
         <small class="text-muted">Traffic</small>
         <span fxFlex></span>
         <mat-chip
-        class="icon-chip" 
-        color="accent" 
+        class="icon-chip"
+        color="accent"
         selected="true"><mat-icon>trending_up</mat-icon>9%</mat-chip>
       </mat-card-title>
       <mat-card-content>
@@ -56,8 +53,8 @@
         <small class="text-muted">New User</small>
         <span fxFlex></span>
         <mat-chip
-        class="icon-chip" 
-        color="warn" 
+        class="icon-chip"
+        color="warn"
         selected="true"><mat-icon>trending_down</mat-icon>2%</mat-chip>
       </mat-card-title>
       <mat-card-content>
@@ -78,9 +75,9 @@
       </mat-card-title>
       <mat-card-subtitle>Orders vs New user registrations</mat-card-subtitle>
       <mat-card-content class="p-0" [style.height]="'240px'">
-        <canvas 
+        <canvas
           height="240"
-          baseChart 
+          baseChart
           class="chart m-0"
           [datasets]="lineChartSteppedData"
           [labels]="lineChartLabels"
@@ -99,7 +96,7 @@
     <mat-card class="p-0" [@animate]="{value:'*',params:{delay:'300ms',scale:'.9'}}">
       <div fxLayout="row" fxLayoutWrap="wrap" class="doughnut-grid text-center">
           <div fxFlex="50" class="doughnut-grid-item light-mat-gray">
-            <canvas 
+            <canvas
             height="120"
             baseChart
             class="chart"
@@ -111,9 +108,9 @@
             <small>Space: {{data1}}/{{total1}} GB</small>
         </div>
         <div fxFlex="50" class="doughnut-grid-item">
-          <canvas 
-            height="120" 
-            baseChart 
+          <canvas
+            height="120"
+            baseChart
             class="chart"
             [data]="doughnutChartData2"
             [options]="doughnutOptions"
@@ -123,9 +120,9 @@
             <small>Tasks: 8/12</small>
       </div>
       <div fxFlex="50" class="doughnut-grid-item">
-        <canvas 
-          height="120" 
-          baseChart 
+        <canvas
+          height="120"
+          baseChart
           class="chart"
           [data]="doughnutChartData1"
           [options]="doughnutOptions"
@@ -135,9 +132,9 @@
           <small>Tickets: 15/40</small>
       </div>
       <div fxFlex="50" class="doughnut-grid-item light-mat-gray">
-        <canvas 
-        height="120" 
-        baseChart 
+        <canvas
+        height="120"
+        baseChart
         class="chart"
         [data]="doughnutChartData2"
         [options]="doughnutOptions"
@@ -304,7 +301,7 @@
     <!-- Users Row -->
     <div fxLayout="row" fxLayoutWrap="wrap" >
       <div
-      *ngFor="let user of users" 
+      *ngFor="let user of users"
       fxFlex="100"
       fxFlex.gt-sm="50">
         <mat-card class="user-card p-0">

@@ -15,7 +15,7 @@ export class CrudService {
   clientApiUrl: string = environment.baseApiURL + "clients/";
   httpOptions = {
     headers: new HttpHeaders({
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     })
   };
 

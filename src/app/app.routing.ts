@@ -113,6 +113,16 @@ export const rootRouterConfig: Routes = [
         path: 'productCrud',
         loadChildren: './views/product-crud/product-crud.module#ProductCrudModule',
         data: { title: 'Product Catalogue', breadcrumb: '' }
+      } ,
+      {
+        path: 'surveys',
+        loadChildren: './views/survey/survey.module#SurveyModule',
+        data: { title: 'Survey Service', breadcrumb: '' }
+      },
+      {
+        path: 'shop',
+        loadChildren: './views/shop/shop.module#ShopModule',
+        data: { title: 'Shop', breadcrumb: 'SHOP'}
       }
     ]
   },
