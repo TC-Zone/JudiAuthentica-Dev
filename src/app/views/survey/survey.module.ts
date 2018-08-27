@@ -19,7 +19,10 @@ import {
   MatListModule,
   MatExpansionModule,
   MatButtonToggleModule,
-  MatDialogActions
+  MatDialogActions,
+  MatSidenavModule,
+  MatSlideToggleModule,
+
 } from "@angular/material";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { SurveyTableComponent } from "./survey-table/survey-table.component";
@@ -28,6 +31,7 @@ import { AnswerTemplatePopupComponent } from "./answer-template-popup/answer-tem
 import { SurveyCreationPopupComponent } from "./survey-creation-popup/survey-creation-popup.component";
 import { SurveyBuilderComponent } from "./survey-builder/survey-builder.component";
 import { LayoutService } from "../../shared/services/layout.service";
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -48,7 +52,11 @@ import { LayoutService } from "../../shared/services/layout.service";
     MatListModule,
     MatExpansionModule,
     MatButtonToggleModule,
-    RouterModule.forChild(SurveyRoute)
+    MatSidenavModule,
+    RouterModule.forChild(SurveyRoute),
+    SharedModule,
+    MatSlideToggleModule
+
   ],
   declarations: [
     SurveyComponent,
@@ -59,6 +67,6 @@ import { LayoutService } from "../../shared/services/layout.service";
     SurveyBuilderComponent
   ],
   entryComponents: [AnswerTemplatePopupComponent, SurveyCreationPopupComponent],
-  providers: [LayoutService]
+  providers: []
 })
 export class SurveyModule {}

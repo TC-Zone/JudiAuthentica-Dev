@@ -40,13 +40,13 @@ var map = {
 	],
 	"./views/cruds/cruds.module": [
 		"./src/app/views/cruds/cruds.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~f542d541",
+		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
 		"common",
 		"views-cruds-cruds-module"
 	],
 	"./views/dashboard/dashboard.module": [
 		"./src/app/views/dashboard/dashboard.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~f542d541",
+		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
 		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-product~31f9f7d5",
 		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-profile~2658a0a7",
 		"common",
@@ -58,7 +58,7 @@ var map = {
 	],
 	"./views/forms/forms.module": [
 		"./src/app/views/forms/forms.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~f542d541",
+		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
 		"views-forms-forms-module~views-others-others-module~views-profile-profile-module",
 		"views-app-inbox-app-inbox-module~views-forms-forms-module",
 		"views-forms-forms-module~views-sessions-sessions-module",
@@ -80,7 +80,7 @@ var map = {
 	],
 	"./views/others/others.module": [
 		"./src/app/views/others/others.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~f542d541",
+		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
 		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-product~31f9f7d5",
 		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-profile~2658a0a7",
 		"views-forms-forms-module~views-others-others-module~views-profile-profile-module",
@@ -89,14 +89,14 @@ var map = {
 	],
 	"./views/product-crud/product-crud.module": [
 		"./src/app/views/product-crud/product-crud.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~f542d541",
+		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
 		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-product~31f9f7d5",
 		"common",
 		"views-product-crud-product-crud-module"
 	],
 	"./views/profile/profile.module": [
 		"./src/app/views/profile/profile.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~f542d541",
+		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
 		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-product~31f9f7d5",
 		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-profile~2658a0a7",
 		"views-forms-forms-module~views-others-others-module~views-profile-profile-module",
@@ -109,9 +109,21 @@ var map = {
 		"common",
 		"views-sessions-sessions-module"
 	],
+	"./views/shop/shop.module": [
+		"./src/app/views/shop/shop.module.ts",
+		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
+		"common",
+		"views-shop-shop-module"
+	],
+	"./views/survey/survey.module": [
+		"./src/app/views/survey/survey.module.ts",
+		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
+		"common",
+		"views-survey-survey-module"
+	],
 	"./views/tables/tables.module": [
 		"./src/app/views/tables/tables.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~f542d541",
+		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
 		"common",
 		"views-tables-tables-module"
 	]
@@ -442,6 +454,16 @@ var rootRouterConfig = [
                 path: 'productCrud',
                 loadChildren: './views/product-crud/product-crud.module#ProductCrudModule',
                 data: { title: 'Product Catalogue', breadcrumb: '' }
+            },
+            {
+                path: 'surveys',
+                loadChildren: './views/survey/survey.module#SurveyModule',
+                data: { title: 'Survey Service', breadcrumb: '' }
+            },
+            {
+                path: 'shop',
+                loadChildren: './views/shop/shop.module#ShopModule',
+                data: { title: 'Shop', breadcrumb: 'SHOP' }
             }
         ]
     },
@@ -727,6 +749,7 @@ var HeaderSideComponent = /** @class */ (function () {
         this.notificPanel.toggle();
     };
     HeaderSideComponent.prototype.toggleSidenav = function () {
+        console.log('TOGGLE NAV');
         if (this.layoutConf.sidebarStyle === 'closed') {
             return this.layout.publishLayoutChange({
                 sidebarStyle: 'full'
@@ -737,6 +760,7 @@ var HeaderSideComponent = /** @class */ (function () {
         });
     };
     HeaderSideComponent.prototype.toggleCollapse = function () {
+        console.log('TOGGLE CLSPS');
         // compact --> full
         if (this.layoutConf.sidebarStyle === 'compact') {
             return this.layout.publishLayoutChange({
@@ -1676,6 +1700,7 @@ var EgretSideNavToggleDirective = /** @class */ (function () {
         this.sideNav = sideNav;
     }
     EgretSideNavToggleDirective.prototype.ngOnInit = function () {
+        console.log("CALLED EGRET");
         this.initSideNav();
     };
     EgretSideNavToggleDirective.prototype.ngOnDestroy = function () {
@@ -3005,21 +3030,27 @@ var NavigationService = /** @class */ (function () {
                 tooltip: 'Product management',
                 icon: 'assignment',
                 state: 'productCrud/show'
+            },
+            {
+                name: 'Survey Service',
+                type: 'link',
+                tooltip: 'Survey Management',
+                icon: 'data_usage',
+                state: 'surveys'
+            },
+            {
+                name: 'ECOMMERCE',
+                type: 'dropDown',
+                tooltip: 'Shop',
+                icon: 'shopping_cart',
+                state: 'shop',
+                sub: [
+                    { name: 'PRODUCTS', state: '' },
+                    { name: 'PRODUCT DETAILS', state: 'products/5a9ae2106f155194e5c95d67' },
+                    { name: 'CART', state: 'cart' },
+                    { name: 'CECKOUT', state: 'checkout' }
+                ]
             }
-            //,
-            // {
-            //   name: 'ECOMMERCE',
-            //   type: 'dropDown',
-            //   tooltip: 'Shop',
-            //   icon: 'shopping_cart',
-            //   state: 'shop',
-            //   sub: [
-            //     { name: 'PRODUCTS', state: '' },
-            //     { name: 'PRODUCT DETAILS', state: 'products/5a9ae2106f155194e5c95d67' },
-            //     { name: 'CART', state: 'cart' },
-            //     { name: 'CECKOUT', state: 'checkout' }
-            //   ]
-            // },
             // {
             //   name: 'INBOX',
             //   type: 'link',
