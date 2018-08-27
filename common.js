@@ -117,7 +117,7 @@ var CrudService = /** @class */ (function () {
         this.clientApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].baseApiURL + "clients/";
         this.httpOptions = {
             headers: new _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             })
         };
     }
