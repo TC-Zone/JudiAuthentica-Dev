@@ -14,6 +14,10 @@ import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import { debounceTime, switchMap}from 'rxjs/operators';
 import { Clients,Content } from './../../../../model/ClientModel.model';
 import {Observable} from 'rxjs/observable';
+import { DateValidator} from '../../../../utility/dateValidator';
+
+
+
 
 export const MY_FORMATS = {
   parse: {
@@ -45,27 +49,32 @@ export class ProductCrudPopupComponent implements OnInit {
   public getClientSub: Subscription;
   public response: ResponseModel;
   public filteredClient: Observable<Clients>;
+  tomorrow : Date;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ProductCrudPopupComponent>,
     private clientService: CrudService,
-    private fb: FormBuilder,
+    private fb: FormBuilder    
     
   ) {}
 
   ngOnInit() {
+    //validate backdates
+    this.tomorrow = DateValidator.dateValidate();
+
     this.getAllClients();
     this.buildProductForm(this.data.payload);
-    
+        
     this.filteredClient = this.productForm.get('client').valueChanges
     .pipe(
-      debounceTime(300),
+      debounceTime(200),
       switchMap(value => 
         this.clientService.search({name:value},1       
         ))  
             
     );
+    
   }
 
   getAllClients() {
@@ -84,10 +93,11 @@ export class ProductCrudPopupComponent implements OnInit {
       batchNumber: [fieldItem.batchNumber || "", Validators.required],
       quantity: [fieldItem.quantity || "", Validators.required],
       expireDate: [fieldItem.expireDate || "", Validators.required]
-    });
+    });    
   }
 
   submit() {
     this.dialogRef.close(this.productForm.value);
   }
+  
 }

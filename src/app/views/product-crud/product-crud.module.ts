@@ -23,6 +23,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { CrudService } from "../cruds/crud.service";
 import { PositiveNumberOnly } from "../../directives/PositiveNumber.directive";
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -46,6 +47,7 @@ import { PositiveNumberOnly } from "../../directives/PositiveNumber.directive";
     ProductFilterTableComponent,
     ProductCrudPopupComponent,
     PositiveNumberOnly
+    
   ],
   providers: [ProductCrudService, CrudService],
   entryComponents: [ProductCrudPopupComponent]
