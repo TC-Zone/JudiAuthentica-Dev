@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-charts-charts-module~views-others-others-module~views-product-crud-product-crud-module~views-p~cd7c7dbb"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-product~31f9f7d5"],{
 
 /***/ "./node_modules/moment/locale sync recursive ^\\.\\/.*$":
 /*!**************************************************!*\
@@ -17168,4 +17168,4 @@ module.exports = function(module) {
 /***/ })
 
 }]);
-//# sourceMappingURL=views-charts-charts-module~views-others-others-module~views-product-crud-product-crud-module~views-p~cd7c7dbb.js.map
+//# sourceMappingURL=views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-product~31f9f7d5.js.map

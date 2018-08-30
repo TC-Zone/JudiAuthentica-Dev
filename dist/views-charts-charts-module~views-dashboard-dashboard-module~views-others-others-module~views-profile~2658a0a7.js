@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-charts-charts-module~views-others-others-module~views-profile-profile-module"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-profile~2658a0a7"],{
 
 /***/ "./node_modules/chartjs-color-string/color-string.js":
 /*!***********************************************************!*\
@@ -15283,4 +15283,4 @@ module.exports = function(Chart) {
 /***/ })
 
 }]);
-//# sourceMappingURL=views-charts-charts-module~views-others-others-module~views-profile-profile-module.js.map
+//# sourceMappingURL=views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-profile~2658a0a7.js.map
