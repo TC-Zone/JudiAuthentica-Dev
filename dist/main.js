@@ -33,24 +33,16 @@ var map = {
 	],
 	"./views/charts/charts.module": [
 		"./src/app/views/charts/charts.module.ts",
-		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-product~31f9f7d5",
-		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-profile~2658a0a7",
+		"views-charts-charts-module~views-others-others-module~views-product-crud-product-crud-module~views-p~cd7c7dbb",
+		"views-charts-charts-module~views-others-others-module~views-profile-profile-module",
 		"common",
 		"views-charts-charts-module"
 	],
 	"./views/cruds/cruds.module": [
 		"./src/app/views/cruds/cruds.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
+		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
 		"common",
 		"views-cruds-cruds-module"
-	],
-	"./views/dashboard/dashboard.module": [
-		"./src/app/views/dashboard/dashboard.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
-		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-product~31f9f7d5",
-		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-profile~2658a0a7",
-		"common",
-		"views-dashboard-dashboard-module"
 	],
 	"./views/dragndrop/dragndrop.module": [
 		"./src/app/views/dragndrop/dragndrop.module.ts",
@@ -58,7 +50,7 @@ var map = {
 	],
 	"./views/forms/forms.module": [
 		"./src/app/views/forms/forms.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
+		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
 		"views-forms-forms-module~views-others-others-module~views-profile-profile-module",
 		"views-app-inbox-app-inbox-module~views-forms-forms-module",
 		"views-forms-forms-module~views-sessions-sessions-module",
@@ -80,25 +72,25 @@ var map = {
 	],
 	"./views/others/others.module": [
 		"./src/app/views/others/others.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
-		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-product~31f9f7d5",
-		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-profile~2658a0a7",
+		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
+		"views-charts-charts-module~views-others-others-module~views-product-crud-product-crud-module~views-p~cd7c7dbb",
+		"views-charts-charts-module~views-others-others-module~views-profile-profile-module",
 		"views-forms-forms-module~views-others-others-module~views-profile-profile-module",
 		"common",
 		"views-others-others-module"
 	],
 	"./views/product-crud/product-crud.module": [
 		"./src/app/views/product-crud/product-crud.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
-		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-product~31f9f7d5",
+		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
+		"views-charts-charts-module~views-others-others-module~views-product-crud-product-crud-module~views-p~cd7c7dbb",
 		"common",
 		"views-product-crud-product-crud-module"
 	],
 	"./views/profile/profile.module": [
 		"./src/app/views/profile/profile.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
-		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-product~31f9f7d5",
-		"views-charts-charts-module~views-dashboard-dashboard-module~views-others-others-module~views-profile~2658a0a7",
+		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
+		"views-charts-charts-module~views-others-others-module~views-product-crud-product-crud-module~views-p~cd7c7dbb",
+		"views-charts-charts-module~views-others-others-module~views-profile-profile-module",
 		"views-forms-forms-module~views-others-others-module~views-profile-profile-module",
 		"common",
 		"views-profile-profile-module"
@@ -111,19 +103,19 @@ var map = {
 	],
 	"./views/shop/shop.module": [
 		"./src/app/views/shop/shop.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
+		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
 		"common",
 		"views-shop-shop-module"
 	],
 	"./views/survey/survey.module": [
 		"./src/app/views/survey/survey.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
+		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
 		"common",
 		"views-survey-survey-module"
 	],
 	"./views/tables/tables.module": [
 		"./src/app/views/tables/tables.module.ts",
-		"views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4",
+		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
 		"common",
 		"views-tables-tables-module"
 	]
@@ -351,7 +343,7 @@ __webpack_require__.r(__webpack_exports__);
 var rootRouterConfig = [
     {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'cruds',
         pathMatch: 'full'
     },
     {
@@ -370,11 +362,11 @@ var rootRouterConfig = [
         component: _shared_components_layouts_admin_layout_admin_layout_component__WEBPACK_IMPORTED_MODULE_0__["AdminLayoutComponent"],
         canActivate: [_shared_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]],
         children: [
-            {
-                path: 'dashboard',
-                loadChildren: './views/dashboard/dashboard.module#DashboardModule',
-                data: { title: 'Dashboard', breadcrumb: 'DASHBOARD' }
-            },
+            // {
+            //   path: 'dashboard',
+            //   loadChildren: './views/dashboard/dashboard.module#DashboardModule',
+            //   data: { title: 'Dashboard', breadcrumb: 'DASHBOARD' }
+            // },
             {
                 path: 'material',
                 loadChildren: './views/material/app-material.module#AppMaterialModule',
@@ -3010,14 +3002,6 @@ var NavigationService = /** @class */ (function () {
         // ]
         this.iconMenu = [
             {
-                name: 'DASHBOARD',
-                type: 'link',
-                tooltip: 'Dashboard',
-                icon: 'dashboard',
-                state: 'dashboard',
-                badges: [{ color: 'accent', value: '100+' }],
-            },
-            {
                 name: 'Clients',
                 type: 'link',
                 tooltip: 'Client management',
@@ -3037,19 +3021,6 @@ var NavigationService = /** @class */ (function () {
                 tooltip: 'Survey Management',
                 icon: 'data_usage',
                 state: 'surveys'
-            },
-            {
-                name: 'ECOMMERCE',
-                type: 'dropDown',
-                tooltip: 'Shop',
-                icon: 'shopping_cart',
-                state: 'shop',
-                sub: [
-                    { name: 'PRODUCTS', state: '' },
-                    { name: 'PRODUCT DETAILS', state: 'products/5a9ae2106f155194e5c95d67' },
-                    { name: 'CART', state: 'cart' },
-                    { name: 'CECKOUT', state: 'checkout' }
-                ]
             }
             // {
             //   name: 'INBOX',
