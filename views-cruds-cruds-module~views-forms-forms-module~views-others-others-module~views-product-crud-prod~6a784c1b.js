@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b"],{
 
 /***/ "./node_modules/@swimlane/ngx-datatable/release/index.js":
 /*!***************************************************************!*\
@@ -6814,4 +6814,4 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 }]);
-//# sourceMappingURL=views-cruds-cruds-module~views-dashboard-dashboard-module~views-forms-forms-module~views-others-othe~73d2a8d4.js.map
+//# sourceMappingURL=views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b.js.map
