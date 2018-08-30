@@ -395,14 +395,6 @@ export class NavigationService {
   iconMenu: IMenuItem[] = [
 
     {
-      name: 'DASHBOARD',
-      type: 'link',
-      tooltip: 'Dashboard',
-      icon: 'dashboard',
-      state: 'dashboard',
-      badges: [{ color: 'accent', value: '100+' }],
-    },
-    {
       name: 'Clients',
       type: 'link',
       tooltip: 'Client management',
@@ -422,19 +414,6 @@ export class NavigationService {
       tooltip: 'Survey Management',
       icon: 'data_usage',
       state: 'surveys'
-    }    ,
-    {
-      name: 'ECOMMERCE',
-      type: 'dropDown',
-      tooltip: 'Shop',
-      icon: 'shopping_cart',
-      state: 'shop',
-      sub: [
-        { name: 'PRODUCTS', state: '' },
-        { name: 'PRODUCT DETAILS', state: 'products/5a9ae2106f155194e5c95d67' },
-        { name: 'CART', state: 'cart' },
-        { name: 'CECKOUT', state: 'checkout' }
-      ]
     }
     // {
     //   name: 'INBOX',

@@ -19,9 +19,10 @@ import {
   MatListModule,
   MatExpansionModule,
   MatButtonToggleModule,
-  MatDialogActions,
   MatSidenavModule,
-  MatSlideToggleModule,
+  MatHorizontalStepper,
+  MatStepperModule,
+  MatStepper
 
 } from "@angular/material";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
@@ -55,7 +56,7 @@ import { SharedModule } from '../../shared/shared.module';
     MatSidenavModule,
     RouterModule.forChild(SurveyRoute),
     SharedModule,
-    MatSlideToggleModule
+    MatStepperModule
 
   ],
   declarations: [

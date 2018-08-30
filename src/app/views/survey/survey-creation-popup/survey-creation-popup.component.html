@@ -12,10 +12,8 @@
 
       <div fxFlex="100" class="pr-1">
         <mat-form-field class="full-width">
-          <mat-select [formControl]="surveyForm.controls['surveyType']" required placeholder="Survey Type" [(value)]="surveyForm.controls['surveyType'].value">
-            <mat-option>None</mat-option>
-            <mat-option value="product">Product Survey</mat-option>
-            <mat-option value="evote">Evote Survey</mat-option>
+          <mat-select [formControl]="surveyForm.controls['surveyType']" [(ngModel)]="selectedType" required placeholder="Survey Type">
+            <mat-option  *ngFor="let type of surveyTypes" [value]="type">{{type.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

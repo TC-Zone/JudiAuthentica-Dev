@@ -21,6 +21,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { CrudService } from "../cruds/crud.service";
 import { PositiveNumberOnly } from "../../directives/PositiveNumber.directive";
+import { DateValidator } from "../../directives/DateValidator.directive";
 
 @NgModule({
   imports: [
@@ -42,7 +43,9 @@ import { PositiveNumberOnly } from "../../directives/PositiveNumber.directive";
   declarations: [
     ProductFilterTableComponent,
     ProductCrudPopupComponent,
-    PositiveNumberOnly
+    PositiveNumberOnly,
+    DateValidator
+
   ],
   providers: [ProductCrudService, CrudService],
   entryComponents: [ProductCrudPopupComponent]

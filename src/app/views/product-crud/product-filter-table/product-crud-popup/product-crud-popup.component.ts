@@ -57,6 +57,8 @@ export class ProductCrudPopupComponent implements OnInit {
   public response: ResponseModel;
   public filterOps: Observable<any[]>
 
+
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ProductCrudPopupComponent>,
@@ -71,7 +73,7 @@ export class ProductCrudPopupComponent implements OnInit {
 
   }
 
-  private _filter(value: string): string[] {
+   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.clients.filter(option => {
       console.log(option)

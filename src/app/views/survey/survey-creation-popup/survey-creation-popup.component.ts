@@ -11,6 +11,8 @@ import { LayoutService } from '../../../shared/services/layout.service';
 })
 export class SurveyCreationPopupComponent implements OnInit {
   public surveyForm: FormGroup;
+  selectedType : any;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
@@ -18,14 +20,34 @@ export class SurveyCreationPopupComponent implements OnInit {
     private layout: LayoutService
   ) {}
 
+
+ surveyTypes = [
+    {
+      name: 'Product Survey',
+      value: 'product'
+     },
+    {
+      name: 'Evote Survey',
+      value: 'evote'
+    }
+  ];
+
+
+
   ngOnInit() {
     this.buildSurveyForm(this.data.payload);
+    this.selectedType = this.data.payload.type;
+    if(this.data.payload.type === this.surveyTypes[0]){
+      console.log('equals')
+    }
+    console.log(this.surveyTypes[0])
+    console.log(this.data.payload.type);
   }
 
   buildSurveyForm(fieldItem) {
     this.surveyForm = this.fb.group({
-      name: [fieldItem.name || ""],
-      surveyType : [fieldItem.name || ""]
+      name: [fieldItem.topic || ""],
+      surveyType : [fieldItem.type || ""]
     });
   }
 
