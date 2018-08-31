@@ -1,0 +1,9 @@
+.background-signup{
+    background-image: url("../../../../assets/images/signup/backimg.jpg") !important;
+    background-size:     cover !important;                      
+    background-repeat:   no-repeat !important;  
+    
+} 
+.session-form-hold{
+    margin-right: 5%;
+}
