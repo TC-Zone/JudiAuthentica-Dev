@@ -8,12 +8,14 @@ import {
 import {
   catchError,
   map,
-  delay
+  delay,
+  tap
 } from "../../../../node_modules/rxjs/operators";
 import { environment } from "environments/environment.prod";
 import { _throw } from "rxjs/Observable/throw";
 
 import { of } from "../../../../node_modules/rxjs";
+
 
 @Injectable()
 export class ProductCrudService {
@@ -59,6 +61,7 @@ export class ProductCrudService {
       catchError(this.handleError)
     );
   }
+  
 
   private handleError(error: HttpErrorResponse | any) {
     //console.log(error)

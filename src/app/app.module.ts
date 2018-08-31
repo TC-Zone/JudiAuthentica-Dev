@@ -12,6 +12,8 @@ import { AppComponent } from './app.component';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { FormComponent } from './views/form/form.component';
+
 
 
 
@@ -26,7 +28,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,
-    HttpClientModule,
+    HttpClientModule,   
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

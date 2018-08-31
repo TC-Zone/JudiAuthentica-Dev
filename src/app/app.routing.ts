@@ -34,6 +34,11 @@ export const rootRouterConfig: Routes = [
       //   data: { title: 'Dashboard', breadcrumb: 'DASHBOARD' }
       // },
       {
+        path: 'form',
+        loadChildren: './views/form/form.module#FormModule',
+        data: { title: 'Form', breadcrumb: 'Form' }
+      },
+      {
         path: 'material',
         loadChildren: './views/material/app-material.module#AppMaterialModule',
         data: { title: 'Material', breadcrumb: 'MATERIAL' }

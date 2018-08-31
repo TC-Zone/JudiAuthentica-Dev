@@ -15,6 +15,13 @@ import {
   Validators
 } from "@angular/forms";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
+import { debounceTime, switchMap}from 'rxjs/operators';
+import { Clients,Content } from './../../../../model/ClientModel.model';
+import {Observable} from 'rxjs/observable';
+import { DateValidator} from '../../../../utility/dateValidator';
+
+
+
 
 
 import 'rxjs/add/operator/debounceTime';
@@ -55,30 +62,33 @@ export class ProductCrudPopupComponent implements OnInit {
   public clients: any[];
   public getClientSub: Subscription;
   public response: ResponseModel;
-  public filterOps: Observable<any[]>
-
-
+  public filteredClient: Observable<Clients>;
+  tomorrow : Date;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ProductCrudPopupComponent>,
     private clientService: CrudService,
     private fb: FormBuilder
+
   ) {}
 
   ngOnInit() {
+    //validate backdates
+    this.tomorrow = DateValidator.dateValidate();
+
     this.getAllClients();
     this.buildProductForm(this.data.payload);
-    this.getClientSuggestions();
 
-  }
+    this.filteredClient = this.productForm.get('client').valueChanges
+    .pipe(
+      debounceTime(200),
+      switchMap(value =>
+        this.clientService.search({name:value},1
+        ))
 
-   private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.clients.filter(option => {
-      console.log(option)
-      option.toLowerCase().includes(filterValue)
-    });
+    );
+
   }
 
   getClientSuggestions(){
@@ -110,4 +120,5 @@ export class ProductCrudPopupComponent implements OnInit {
   submit() {
     this.dialogRef.close(this.productForm.value);
   }
+
 }
