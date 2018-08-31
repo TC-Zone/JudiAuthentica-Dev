@@ -26,7 +26,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,
-    HttpClientModule,
+    HttpClientModule,   
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
