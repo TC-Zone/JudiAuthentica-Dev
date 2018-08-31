@@ -5,7 +5,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 export class AuthGuard implements CanActivate {
   public authToken;
   private isAuthenticated = true; // Set this value dynamically
-  
+
   constructor(private router: Router) {}
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.isAuthenticated) {
