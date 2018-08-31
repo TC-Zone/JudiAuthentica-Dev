@@ -8,7 +8,7 @@ import { AuthGuard } from './shared/services/auth/auth.guard';
 export const rootRouterConfig: Routes = [
   {
     path: '',
-    redirectTo: 'cruds',
+    redirectTo: 'sessions/signin',
     pathMatch: 'full'
   },
 
