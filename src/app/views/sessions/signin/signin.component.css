@@ -1,0 +1,12 @@
+.background-signup{
+    background-image: url("../../../../assets/images/signin/backimg.jpg") !important;
+    background-size:     cover !important;                      
+    background-repeat:   no-repeat !important;  
+    
+} 
+.session-form-hold{
+    margin-top: 40px;
+}
+
+
+
