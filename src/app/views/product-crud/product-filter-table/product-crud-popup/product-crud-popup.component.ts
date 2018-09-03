@@ -20,10 +20,6 @@ import { Clients,Content } from './../../../../model/ClientModel.model';
 import {Observable} from 'rxjs/observable';
 import { DateValidator} from '../../../../utility/dateValidator';
 
-
-
-
-
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
