@@ -26,15 +26,27 @@ export class AnswerTemplatePopupComponent implements OnInit {
     this.ansTemplateForm = this.fb.group({
       name: [fieldItem.name || ""],
       answerTemplateType: [fieldItem.answerTemplateType || ""],
-      answers: this.fb.array([this.initAnswerTemplate(fieldItem)])
+      answers: this.fb.array([])
+    });
+    this.patch(fieldItem.answers);
+  }
+
+  patch(fields?) {
+    const control = <FormArray>this.ansTemplateForm.controls["answers"];
+    if (!fields) {
+      control.push(this.initAnswerTemplate());
+      return;
+    }
+    fields.forEach(x => {
+      control.push(this.initAnswerTemplate(x.lable, x.value, x.optionNumber));
     });
   }
 
-  initAnswerTemplate(fieldItem: any = {}) {
+  initAnswerTemplate(lable?, value?, optionNumber?) {
     return this.fb.group({
-      lable: ["test"],
-      value: ["test"],
-      option: ["test"]
+      lable: [lable || ""],
+      value: [value || ""],
+      optionNumber: [optionNumber || ""]
     });
   }
 
@@ -43,7 +55,7 @@ export class AnswerTemplatePopupComponent implements OnInit {
     answer.push(this.initAnswerTemplate());
   }
 
-  removeAnsTemplate(index : number) {
+  removeAnsTemplate(index: number) {
     const answer = <FormArray>this.ansTemplateForm.controls["answers"];
     answer.removeAt(index);
   }
@@ -53,6 +65,7 @@ export class AnswerTemplatePopupComponent implements OnInit {
   }
 
   submit() {
+    console.log(JSON.stringify(this.ansTemplateForm.value));
     this.dialogRef.close(this.ansTemplateForm.value);
   }
 }

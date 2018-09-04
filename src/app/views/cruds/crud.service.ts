@@ -13,7 +13,7 @@ import { Clients,Content } from "../../model/ClientModel.model";
 
 @Injectable()
 export class CrudService {
-  clientApiUrl: string = environment.baseApiURL + "clients/";
+  clientApiUrl: string = environment.productApiURL + "clients/";
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -58,16 +58,16 @@ export class CrudService {
     return this.http.get<Clients>(this.clientApiUrl+'suggestions')
     .pipe(
       tap((response: Clients) => {
-         response.content = response.content         
+         response.content = response.content
          .map(content => new Content(content.id, content.name))
-         
-         .filter(content => content.name.toLocaleLowerCase().includes(filter.name))   
-             
-         return response;   
-         
+
+         .filter(content => content.name.toLocaleLowerCase().includes(filter.name))
+
+         return response;
+
       })
     );
-    
+
   }
 
   private handleError(error: HttpErrorResponse | any) {

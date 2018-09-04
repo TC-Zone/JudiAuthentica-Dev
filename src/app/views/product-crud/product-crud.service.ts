@@ -19,7 +19,7 @@ import { of } from "../../../../node_modules/rxjs";
 
 @Injectable()
 export class ProductCrudService {
-  productApiUrl: string = environment.baseApiURL + "products/";
+  productApiUrl: string = environment.productApiURL + "products/";
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -28,7 +28,9 @@ export class ProductCrudService {
     })
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    console.log('URL : '+this.productApiUrl)
+  }
 
   updateProduct(id, item) {
     return this.http
@@ -61,7 +63,7 @@ export class ProductCrudService {
       catchError(this.handleError)
     );
   }
-  
+
 
   private handleError(error: HttpErrorResponse | any) {
     //console.log(error)

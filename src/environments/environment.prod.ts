@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
   apiURL: 'productionApi',
-  baseApiURL:'https://rootzg4t4ks63a.hana.ondemand.com/api/',
+  productApiURL:'https://productzg4t4ks63a.hana.ondemand.com/product/api/',
+  surveyApiURL : 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/',
 };

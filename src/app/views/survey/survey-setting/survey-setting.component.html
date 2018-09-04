@@ -28,7 +28,7 @@
         </mat-expansion-panel-header>
 
         <ngx-datatable class="material bg-white" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
-          [limit]="5" [rows]="answerTemplates">
+          [limit]="5" [rows]="rows">
 
           <ngx-datatable-column name="Template Name" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
@@ -37,12 +37,13 @@
           </ngx-datatable-column>
           <ngx-datatable-column name="Answer type" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{row?.type}}
+              {{row?.answerTemplateType}}
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Action" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              <button mat-icon-button mat-sm-button color="primary" class="mr-1"><mat-icon>edit</mat-icon></button>
+              <button mat-icon-button mat-sm-button (click)="getAnsTemplateById(row.id)" color="primary" class="mr-1"><mat-icon>edit</mat-icon></button>
+              <button mat-icon-button mat-sm-button (click)="deleteAnsTemplate(row)" color="warn"  class="mr-1" ><mat-icon>delete</mat-icon></button>
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>

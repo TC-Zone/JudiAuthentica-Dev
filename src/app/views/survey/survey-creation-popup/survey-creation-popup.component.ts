@@ -52,9 +52,6 @@ export class SurveyCreationPopupComponent implements OnInit {
   }
 
   submit(){
-    this.layout.publishLayoutChange({
-      sidebarStyle: "closed"
-    });
     this.dialogRef.close(this.surveyForm.value);
   }
 

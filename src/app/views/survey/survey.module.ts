@@ -33,6 +33,7 @@ import { SurveyCreationPopupComponent } from "./survey-creation-popup/survey-cre
 import { SurveyBuilderComponent } from "./survey-builder/survey-builder.component";
 import { LayoutService } from "../../shared/services/layout.service";
 import { SharedModule } from '../../shared/shared.module';
+import { SurveyService } from './survey.service';
 
 @NgModule({
   imports: [
@@ -68,6 +69,6 @@ import { SharedModule } from '../../shared/shared.module';
     SurveyBuilderComponent
   ],
   entryComponents: [AnswerTemplatePopupComponent, SurveyCreationPopupComponent],
-  providers: []
+  providers: [SurveyService]
 })
 export class SurveyModule {}

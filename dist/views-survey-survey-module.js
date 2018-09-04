@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 matDialogTitle>{{data.title}}</h1>\n<form [formGroup]=\"ansTemplateForm\" (ngSubmit)=\"submit()\">\n  <mat-dialog-content class=\"mat-typography\">\n\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\n\n      <div fxFlex=\"100\" class=\"pr-1\">\n        <div class=\"text-muted\">\n          Create your answer template by adding template name,type and answers. answers need to have a lable,value and option value\n        </div>\n      </div>\n\n      <div fxFlex=\"50\" class=\"pr-1\">\n        <mat-form-field class=\"full-width\">\n          <input matInput [formControl]=\"ansTemplateForm.controls['name']\" required name=\"name\" placeholder=\"Answer template name\">\n        </mat-form-field>\n      </div>\n\n      <div fxFlex=\"50\" class=\"pr-1\">\n        <mat-form-field class=\"full-width\">\n          <input matInput [formControl]=\"ansTemplateForm.controls['answerTemplateType']\" required name=\"answerTemplateType\" placeholder=\"Answer template type\">\n        </mat-form-field>\n      </div>\n\n\n\n      <div fxFlex=\"100\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" formArrayName='answers' *ngFor=\"let answer of ansTemplateForm.controls['answers'].controls; let i=index\">\n\n        <mat-card-title>\n          <small class=\"text-muted\"> Answer {{i + 1}}</small>\n        </mat-card-title>\n\n        <div [formGroupName]=\"i\">\n          <div fxFlex=\"25\" class=\"pr-1\">\n            <mat-form-field class=\"full-width\">\n              <input matInput formControlName='lable' required name=\"lable\" placeholder=\"Answer lable\">\n            </mat-form-field>\n          </div>\n\n          <div fxFlex=\"25\" class=\"pr-1\">\n            <mat-form-field class=\"full-width\">\n              <input matInput formControlName='value' required name=\"value\" placeholder=\"Answer value\">\n            </mat-form-field>\n          </div>\n\n          <div fxFlex=\"25\" class=\"pr-1\">\n            <mat-form-field class=\"full-width\">\n              <input matInput formControlName='option' required name=\"option\" placeholder=\"Answer option\">\n            </mat-form-field>\n          </div>\n\n          <div fxFlex=\"25\" class=\"pr-1\">\n            <mat-button-toggle  (click)='addAnsTemplate()' value=\"add\">\n              <mat-icon>add</mat-icon>\n            </mat-button-toggle>\n            <mat-button-toggle *ngIf=\"ansTemplateForm.controls['answers'].controls.length > 1\" (click)=removeAnsTemplate(i) value=\"remove\">\n              <mat-icon>remove</mat-icon>\n            </mat-button-toggle>\n          </div>\n\n        </div>\n\n      </div>\n    </div>\n\n  </mat-dialog-content>\n\n\n  <mat-dialog-actions align=\"end\">\n    <button mat-raised-button color=\"primary\" [disabled]=\"ansTemplateForm.invalid\">Save</button>\n    <span fxFlex></span>\n    <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\n  </mat-dialog-actions>\n\n\n</form>\n"
+module.exports = "<h1 matDialogTitle>{{data.title}}</h1>\r\n<form [formGroup]=\"ansTemplateForm\" (ngSubmit)=\"submit()\">\r\n  <mat-dialog-content class=\"mat-typography\">\r\n\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <div class=\"text-muted\">\r\n          Create your answer template by adding template name,type and answers. answers need to have a lable,value and option value\r\n        </div>\r\n      </div>\r\n\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput [formControl]=\"ansTemplateForm.controls['name']\" required name=\"name\" placeholder=\"Answer template name\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput [formControl]=\"ansTemplateForm.controls['answerTemplateType']\" required name=\"answerTemplateType\" placeholder=\"Answer template type\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n\r\n\r\n      <div fxFlex=\"100\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" formArrayName='answers' *ngFor=\"let answer of ansTemplateForm.controls['answers'].controls; let i=index\">\r\n\r\n        <mat-card-title>\r\n          <small class=\"text-muted\"> Answer {{i + 1}}</small>\r\n        </mat-card-title>\r\n\r\n        <div [formGroupName]=\"i\">\r\n          <div fxFlex=\"25\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput formControlName='lable' required name=\"lable\" placeholder=\"Answer lable\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"25\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput formControlName='value' required name=\"value\" placeholder=\"Answer value\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"25\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput formControlName='optionNumber' required name=\"optionNumber\" placeholder=\"Answer option\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"25\" class=\"pr-1\">\r\n            <mat-button-toggle  (click)='addAnsTemplate()' value=\"add\">\r\n              <mat-icon>add</mat-icon>\r\n            </mat-button-toggle>\r\n            <mat-button-toggle *ngIf=\"ansTemplateForm.controls['answers'].controls.length > 1\" (click)=removeAnsTemplate(i) value=\"remove\">\r\n              <mat-icon>remove</mat-icon>\r\n            </mat-button-toggle>\r\n          </div>\r\n\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n\r\n  </mat-dialog-content>\r\n\r\n\r\n  <mat-dialog-actions align=\"end\">\r\n    <button mat-raised-button color=\"primary\" [disabled]=\"ansTemplateForm.invalid\">Save</button>\r\n    <span fxFlex></span>\r\n    <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n  </mat-dialog-actions>\r\n\r\n\r\n</form>\r\n"
 
 /***/ }),
 
@@ -55,15 +55,26 @@ var AnswerTemplatePopupComponent = /** @class */ (function () {
         this.ansTemplateForm = this.fb.group({
             name: [fieldItem.name || ""],
             answerTemplateType: [fieldItem.answerTemplateType || ""],
-            answers: this.fb.array([this.initAnswerTemplate(fieldItem)])
+            answers: this.fb.array([])
+        });
+        this.patch(fieldItem.answers);
+    };
+    AnswerTemplatePopupComponent.prototype.patch = function (fields) {
+        var _this = this;
+        var control = this.ansTemplateForm.controls["answers"];
+        if (!fields) {
+            control.push(this.initAnswerTemplate());
+            return;
+        }
+        fields.forEach(function (x) {
+            control.push(_this.initAnswerTemplate(x.lable, x.value, x.optionNumber));
         });
     };
-    AnswerTemplatePopupComponent.prototype.initAnswerTemplate = function (fieldItem) {
-        if (fieldItem === void 0) { fieldItem = {}; }
+    AnswerTemplatePopupComponent.prototype.initAnswerTemplate = function (lable, value, optionNumber) {
         return this.fb.group({
-            lable: ["test"],
-            value: ["test"],
-            option: ["test"]
+            lable: [lable || ""],
+            value: [value || ""],
+            optionNumber: [optionNumber || ""]
         });
     };
     AnswerTemplatePopupComponent.prototype.addAnsTemplate = function () {
@@ -78,6 +89,7 @@ var AnswerTemplatePopupComponent = /** @class */ (function () {
         return this.ansTemplateForm.controls["answers"].value.length > 1;
     };
     AnswerTemplatePopupComponent.prototype.submit = function () {
+        console.log(JSON.stringify(this.ansTemplateForm.value));
         this.dialogRef.close(this.ansTemplateForm.value);
     };
     AnswerTemplatePopupComponent = __decorate([
@@ -104,7 +116,7 @@ var AnswerTemplatePopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\n  <mat-card-title>\n    <div class=\"card-title-text\">Survey Builder</div>\n    <mat-divider></mat-divider>\n  </mat-card-title>\n  <mat-card-content class=\"p-0\">\n\n    <form [formGroup]=\"questionForm\" (ngSubmit)=\"submit()\">\n      <mat-horizontal-stepper linear #stepper>\n        <mat-step [stepControl]=\"questionForm\">\n\n          <ng-template matStepLabel>Setup your questions</ng-template>\n\n          <div class=\"text-right mb-1\">\n            <div class=\"m-333 text-right\">\n              <button  type='button' mat-raised-button class=\"mb-05\" (click)=\"addQuestion()\" color=\"accent\">Add Question</button>\n            </div>\n          </div>\n\n          <mat-card formArrayName='questions' *ngFor=\"let answer of questionForm.controls['questions'].controls; let i=index\" class=\"p-1\"\n            [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\n\n            <mat-card-title class=\"p-0\">\n              <small class=\"text-muted\"> Question {{i+1}} </small>\n            </mat-card-title>\n\n            <div [formGroupName]=\"i\">\n              <div fxFlex=\"100\" class=\"pr-1\">\n                <mat-form-field class=\"full-width\">\n                  <input matInput formControlName=\"name\" required name=\"lable\" placeholder=\"Type your Question\">\n                </mat-form-field>\n              </div>\n\n              <div fxFlex=\"50\" class=\"pr-1\">\n                <mat-form-field class=\"full-width\">\n                  <mat-select formControlName=\"answerTemplate\" required placeholder=\"Choose Answer Template\">\n                    <mat-option>None</mat-option>\n                    <mat-option value=\"product\">Product Survey</mat-option>\n                    <mat-option value=\"evote\">Evote Survey</mat-option>\n                  </mat-select>\n                </mat-form-field>\n              </div>\n\n              <div fxFlex=\"20\" class=\"pr-0\">\n                <button  type='button' mat-raised-button *ngIf=\"questionForm.controls['questions'].controls.length > 1\" (click)='removeQuestion(i)' color=\"warn\">Remove</button>\n              </div>\n\n            </div>\n          </mat-card>\n\n          <div>\n            <button type='button' color=\"primary\" [disabled]=\"questionForm.invalid\" mat-button matStepperNext>Next</button>\n          </div>\n\n\n        </mat-step>\n\n        <mat-step [optional]=\"isOptional\">\n\n          <ng-template matStepLabel>Review</ng-template>\n          <mat-form-field>\n            <input matInput placeholder=\"Address\" required>\n          </mat-form-field>\n          <div>\n            <button type='button' mat-button color=\"primary\" matStepperPrevious>Back</button>\n            <button type='button' mat-button color=\"primary\" matStepperNext>Next</button>\n          </div>\n\n        </mat-step>\n        <mat-step>\n          <ng-template matStepLabel>Done</ng-template>\n          You are now done.\n          <div>\n            <button type='button' mat-button color=\"primary\" matStepperPrevious>Back</button>\n            <button type='submit' mat-button color=\"primary\" (click)=\"stepper.reset()\">Submit</button>\n          </div>\n        </mat-step>\n      </mat-horizontal-stepper>\n    </form>\n\n\n  </mat-card-content>\n</mat-card>\n"
+module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-title>\r\n    <div class=\"card-title-text\">Survey Builder</div>\r\n    <mat-divider></mat-divider>\r\n  </mat-card-title>\r\n  <mat-card-content class=\"p-0\">\r\n\r\n    <form [formGroup]=\"questionForm\" (ngSubmit)=\"submit()\">\r\n      <mat-horizontal-stepper linear #stepper>\r\n        <mat-step [stepControl]=\"questionForm\">\r\n\r\n          <ng-template matStepLabel>Setup your questions</ng-template>\r\n\r\n          <div class=\"text-right mb-1\">\r\n            <div class=\"m-333 text-right\">\r\n              <button  type='button' mat-raised-button class=\"mb-05\" (click)=\"addQuestion()\" color=\"accent\">Add Question</button>\r\n            </div>\r\n          </div>\r\n\r\n          <mat-card formArrayName='questions' *ngFor=\"let answer of questionForm.controls['questions'].controls; let i=index\" class=\"p-1\"\r\n            [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n\r\n            <mat-card-title class=\"p-0\">\r\n              <small class=\"text-muted\"> Question {{i+1}} </small>\r\n            </mat-card-title>\r\n\r\n            <div [formGroupName]=\"i\">\r\n              <div fxFlex=\"100\" class=\"pr-1\">\r\n                <mat-form-field class=\"full-width\">\r\n                  <input matInput formControlName=\"name\" required name=\"lable\" placeholder=\"Type your Question\">\r\n                </mat-form-field>\r\n              </div>\r\n\r\n              <div fxFlex=\"50\" class=\"pr-1\">\r\n                <mat-form-field class=\"full-width\">\r\n                  <mat-select formControlName=\"answerTemplate\" required placeholder=\"Choose Answer Template\">\r\n                    <mat-option>None</mat-option>\r\n                    <mat-option value=\"product\">Product Survey</mat-option>\r\n                    <mat-option value=\"evote\">Evote Survey</mat-option>\r\n                  </mat-select>\r\n                </mat-form-field>\r\n              </div>\r\n\r\n              <div fxFlex=\"20\" class=\"pr-0\">\r\n                <button  type='button' mat-raised-button *ngIf=\"questionForm.controls['questions'].controls.length > 1\" (click)='removeQuestion(i)' color=\"warn\">Remove</button>\r\n              </div>\r\n\r\n            </div>\r\n          </mat-card>\r\n\r\n          <div>\r\n            <button type='button' color=\"primary\" [disabled]=\"questionForm.invalid\" mat-button matStepperNext>Next</button>\r\n          </div>\r\n\r\n\r\n        </mat-step>\r\n\r\n        <mat-step [optional]=\"isOptional\">\r\n\r\n          <ng-template matStepLabel>Review</ng-template>\r\n          <mat-form-field>\r\n            <input matInput placeholder=\"Address\" required>\r\n          </mat-form-field>\r\n          <div>\r\n            <button type='button' mat-button color=\"primary\" matStepperPrevious>Back</button>\r\n            <button type='button' mat-button color=\"primary\" matStepperNext>Next</button>\r\n          </div>\r\n\r\n        </mat-step>\r\n        <mat-step>\r\n          <ng-template matStepLabel>Done</ng-template>\r\n          You are now done.\r\n          <div>\r\n            <button type='button' mat-button color=\"primary\" matStepperPrevious>Back</button>\r\n            <button type='submit' mat-button color=\"primary\" (click)=\"stepper.reset()\">Submit</button>\r\n          </div>\r\n        </mat-step>\r\n      </mat-horizontal-stepper>\r\n    </form>\r\n\r\n\r\n  </mat-card-content>\r\n</mat-card>\r\n"
 
 /***/ }),
 
@@ -121,6 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../shared/animations/egret-animations */ "./src/app/shared/animations/egret-animations.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -133,12 +146,20 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SurveyBuilderComponent = /** @class */ (function () {
-    function SurveyBuilderComponent(fb) {
+    function SurveyBuilderComponent(fb, route) {
         this.fb = fb;
+        this.route = route;
         this.isOptional = false;
     }
     SurveyBuilderComponent.prototype.ngOnInit = function () {
+        this.sub = this.route.queryParams.subscribe(function (params) {
+            var name = params["name"];
+            var type = params["surveyType"];
+            console.log("name : " + name);
+            console.log("type  : " + type);
+        });
         this.questionForm = this.fb.group({
             questions: this.fb.array([this.initQuestionTemplate()])
         });
@@ -169,7 +190,7 @@ var SurveyBuilderComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./survey-builder.component.html */ "./src/app/views/survey/survey-builder/survey-builder.component.html"),
             animations: _shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"]
         }),
-        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]])
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
     ], SurveyBuilderComponent);
     return SurveyBuilderComponent;
 }());
@@ -185,7 +206,7 @@ var SurveyBuilderComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 matDialogTitle>{{data.title}}</h1>\n\n<form [formGroup]=\"surveyForm\" (ngSubmit)=\"submit()\">\n  <mat-dialog-content class=\"mat-typography\">\n\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\n      <div fxFlex=\"100\" class=\"pr-1\">\n        <mat-form-field class=\"full-width\">\n          <input matInput [formControl]=\"surveyForm.controls['name']\" required name=\"name\" placeholder=\"Survey name\">\n        </mat-form-field>\n      </div>\n\n      <div fxFlex=\"100\" class=\"pr-1\">\n        <mat-form-field class=\"full-width\">\n          <mat-select [formControl]=\"surveyForm.controls['surveyType']\" [(ngModel)]=\"selectedType\" required placeholder=\"Survey Type\">\n            <mat-option  *ngFor=\"let type of surveyTypes\" [value]=\"type\">{{type.name}}</mat-option>\n          </mat-select>\n        </mat-form-field>\n      </div>\n    </div>\n\n  </mat-dialog-content>\n\n\n  <mat-dialog-actions align=\"end\">\n    <button mat-raised-button color=\"primary\" routerLink=\"/surveys/builder_v1\" [disabled]=\"surveyForm.invalid\">Save</button>\n    <span fxFlex></span>\n    <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\n  </mat-dialog-actions>\n\n</form>\n"
+module.exports = "<h1 matDialogTitle>{{data.title}}</h1>\r\n\r\n<form [formGroup]=\"surveyForm\" (ngSubmit)=\"submit()\">\r\n  <mat-dialog-content class=\"mat-typography\">\r\n\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput [formControl]=\"surveyForm.controls['name']\" required name=\"name\" placeholder=\"Survey name\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <mat-select [formControl]=\"surveyForm.controls['surveyType']\" [(ngModel)]=\"selectedType\" required placeholder=\"Survey Type\">\r\n            <mat-option  *ngFor=\"let type of surveyTypes\" [value]=\"type\">{{type.name}}</mat-option>\r\n          </mat-select>\r\n        </mat-form-field>\r\n      </div>\r\n    </div>\r\n\r\n  </mat-dialog-content>\r\n\r\n  <!-- routerLink=\"/surveys/builder_v1\" -->\r\n  <mat-dialog-actions align=\"end\">\r\n    <button mat-raised-button color=\"primary\"  [disabled]=\"surveyForm.invalid\">Save</button>\r\n    <span fxFlex></span>\r\n    <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n  </mat-dialog-actions>\r\n\r\n</form>\r\n"
 
 /***/ }),
 
@@ -254,9 +275,6 @@ var SurveyCreationPopupComponent = /** @class */ (function () {
         });
     };
     SurveyCreationPopupComponent.prototype.submit = function () {
-        this.layout.publishLayoutChange({
-            sidebarStyle: "closed"
-        });
         this.dialogRef.close(this.surveyForm.value);
     };
     SurveyCreationPopupComponent = __decorate([
@@ -284,7 +302,7 @@ var SurveyCreationPopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\n  <mat-card-title>\n    <div class=\"card-title-text\">Survey Settings</div>\n    <mat-divider></mat-divider>\n  </mat-card-title>\n  <mat-card-content class=\"p-0\">\n    <div class=\"text-muted mb-1 m-1 text-left\">\n      you can configure your survey question answer with adding different options per answer. To setup your predefined answer template,\n      navigate to \"Answser template section \" by clicking \"Create Answer template\" button.\n    </div>\n    <div class=\"profile-actions text-right mb-1\">\n      <div class=\"m-333 text-right\">\n        <button mat-raised-button (click)=\"openAnswerTemplatePopup({},true)\" class=\"mb-05\" color=\"accent\">Create Answer template</button>\n      </div>\n    </div>\n\n    <mat-divider></mat-divider>\n\n    <mat-accordion>\n      <mat-expansion-panel>\n        <mat-expansion-panel-header>\n          <mat-panel-title>\n            Answer templates\n          </mat-panel-title>\n          <mat-panel-description>\n            View or Edit Predefined Answer template\n          </mat-panel-description>\n        </mat-expansion-panel-header>\n\n        <ngx-datatable class=\"material bg-white\" [columnMode]=\"'force'\" [headerHeight]=\"50\" [footerHeight]=\"50\" [rowHeight]=\"'auto'\"\n          [limit]=\"5\" [rows]=\"answerTemplates\">\n\n          <ngx-datatable-column name=\"Template Name\" [flexGrow]=\"1\">\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\n              {{row?.name}}\n            </ng-template>\n          </ngx-datatable-column>\n          <ngx-datatable-column name=\"Answer type\" [flexGrow]=\"1\">\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\n              {{row?.type}}\n            </ng-template>\n          </ngx-datatable-column>\n          <ngx-datatable-column name=\"Action\" [flexGrow]=\"1\">\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\n              <button mat-icon-button mat-sm-button color=\"primary\" class=\"mr-1\"><mat-icon>edit</mat-icon></button>\n            </ng-template>\n          </ngx-datatable-column>\n        </ngx-datatable>\n\n\n      </mat-expansion-panel>\n    </mat-accordion>\n\n  </mat-card-content>\n</mat-card>\n"
+module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-title>\r\n    <div class=\"card-title-text\">Survey Settings</div>\r\n    <mat-divider></mat-divider>\r\n  </mat-card-title>\r\n  <mat-card-content class=\"p-0\">\r\n    <div class=\"text-muted mb-1 m-1 text-left\">\r\n      you can configure your survey question answer with adding different options per answer. To setup your predefined answer template,\r\n      navigate to \"Answser template section \" by clicking \"Create Answer template\" button.\r\n    </div>\r\n    <div class=\"profile-actions text-right mb-1\">\r\n      <div class=\"m-333 text-right\">\r\n        <button mat-raised-button (click)=\"openAnswerTemplatePopup({},true)\" class=\"mb-05\" color=\"accent\">Create Answer template</button>\r\n      </div>\r\n    </div>\r\n\r\n    <mat-divider></mat-divider>\r\n\r\n    <mat-accordion>\r\n      <mat-expansion-panel>\r\n        <mat-expansion-panel-header>\r\n          <mat-panel-title>\r\n            Answer templates\r\n          </mat-panel-title>\r\n          <mat-panel-description>\r\n            View or Edit Predefined Answer template\r\n          </mat-panel-description>\r\n        </mat-expansion-panel-header>\r\n\r\n        <ngx-datatable class=\"material bg-white\" [columnMode]=\"'force'\" [headerHeight]=\"50\" [footerHeight]=\"50\" [rowHeight]=\"'auto'\"\r\n          [limit]=\"5\" [rows]=\"rows\">\r\n\r\n          <ngx-datatable-column name=\"Template Name\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              {{row?.name}}\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n          <ngx-datatable-column name=\"Answer type\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              {{row?.answerTemplateType}}\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n          <ngx-datatable-column name=\"Action\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              <button mat-icon-button mat-sm-button (click)=\"getAnsTemplateById(row.id)\" color=\"primary\" class=\"mr-1\"><mat-icon>edit</mat-icon></button>\r\n              <button mat-icon-button mat-sm-button (click)=\"deleteAnsTemplate(row)\" color=\"warn\"  class=\"mr-1\" ><mat-icon>delete</mat-icon></button>\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n        </ngx-datatable>\r\n\r\n\r\n      </mat-expansion-panel>\r\n    </mat-accordion>\r\n\r\n  </mat-card-content>\r\n</mat-card>\r\n"
 
 /***/ }),
 
@@ -302,6 +320,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../shared/animations/egret-animations */ "./src/app/shared/animations/egret-animations.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _answer_template_popup_answer_template_popup_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../answer-template-popup/answer-template-popup.component */ "./src/app/views/survey/answer-template-popup/answer-template-popup.component.ts");
+/* harmony import */ var _survey_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../survey.service */ "./src/app/views/survey/survey.service.ts");
+/* harmony import */ var _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../shared/services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
+/* harmony import */ var _shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../shared/services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
+/* harmony import */ var _shared_services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../shared/services/app-confirm/app-confirm.service */ "./src/app/shared/services/app-confirm/app-confirm.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -315,22 +337,45 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
+
 var SurveySettingComponent = /** @class */ (function () {
-    function SurveySettingComponent(dialog) {
+    function SurveySettingComponent(dialog, surveyService, errDialog, loader, confirmService) {
         this.dialog = dialog;
-        this.answerTemplates = [
-            {
-                name: "Dichotomous Survey Questions",
-                type: "Yes/No"
-            },
-            {
-                name: "Multiple Choice answers",
-                type: "mcq"
-            }
-        ];
+        this.surveyService = surveyService;
+        this.errDialog = errDialog;
+        this.loader = loader;
+        this.confirmService = confirmService;
     }
-    SurveySettingComponent.prototype.ngOnInit = function () { };
+    SurveySettingComponent.prototype.ngOnInit = function () {
+        this.getAllAnsTemplates();
+    };
+    SurveySettingComponent.prototype.ngOnDestroy = function () {
+        if (this.getAnswersTemplatesSub) {
+            this.getAnswersTemplatesSub.unsubscribe();
+        }
+    };
+    SurveySettingComponent.prototype.getAllAnsTemplates = function () {
+        var _this = this;
+        this.getAnswersTemplatesSub = this.surveyService
+            .getAnswerTemplates()
+            .subscribe(function (successResp) {
+            _this.rows = successResp.content;
+            console.log(_this.rows);
+        }, function (error) {
+            console.log(error);
+            console.log(error.status);
+            _this.errDialog.showError({
+                title: "Error",
+                status: error.status,
+                type: "http_error"
+            });
+        });
+    };
     SurveySettingComponent.prototype.openAnswerTemplatePopup = function (data, isNew) {
+        var _this = this;
         if (data === void 0) { data = {}; }
         var title = isNew ? "Add New Answer Template " : "Update Answer Template ";
         var dialogRef = this.dialog.open(_answer_template_popup_answer_template_popup_component__WEBPACK_IMPORTED_MODULE_3__["AnswerTemplatePopupComponent"], {
@@ -342,8 +387,63 @@ var SurveySettingComponent = /** @class */ (function () {
             if (!res) {
                 return;
             }
+            _this.loader.open();
+            if (isNew) {
+                _this.surveyService.addNewAnsTemplate(res, _this.rows).subscribe(function (data) {
+                    console.log("response of creation ");
+                    console.log(data);
+                    _this.rows = data;
+                    _this.loader.close();
+                }, function (error) {
+                    _this.loader.close();
+                    _this.errDialog.showError({
+                        title: "Error",
+                        status: error.status,
+                        type: "http_error"
+                    });
+                });
+            }
+            else {
+            }
             console.log("input : ");
             console.log(JSON.stringify(res));
+        });
+    };
+    SurveySettingComponent.prototype.deleteAnsTemplate = function (row) {
+        var _this = this;
+        this.confirmService
+            .confirm({ message: "Delete " + row.name + "?" })
+            .subscribe(function (res) {
+            if (res) {
+                _this.loader.open();
+                _this.surveyService.removeAnsTemplate(row, _this.rows).subscribe(function (data) {
+                    console.log(data);
+                    _this.rows = data;
+                    _this.loader.close();
+                }, function (error) {
+                    _this.loader.close();
+                    _this.errDialog.showError({
+                        title: "Error",
+                        status: error.status,
+                        type: "http_error"
+                    });
+                });
+            }
+        });
+    };
+    //for the movement unused
+    SurveySettingComponent.prototype.getAnsTemplateById = function (id) {
+        var _this = this;
+        this.surveyService.getAnsTemplateById(id, this.rows).subscribe(function (successResp) {
+            console.log('by id response');
+            console.log(successResp);
+            _this.openAnswerTemplatePopup(successResp);
+        }, function (error) {
+            _this.errDialog.showError({
+                title: "Error",
+                status: error.status,
+                type: "http_error"
+            });
         });
     };
     SurveySettingComponent = __decorate([
@@ -352,7 +452,11 @@ var SurveySettingComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./survey-setting.component.html */ "./src/app/views/survey/survey-setting/survey-setting.component.html"),
             animations: _shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"]
         }),
-        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]])
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"],
+            _survey_service__WEBPACK_IMPORTED_MODULE_4__["SurveyService"],
+            _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_5__["AppErrorService"],
+            _shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_6__["AppLoaderService"],
+            _shared_services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_7__["AppConfirmService"]])
     ], SurveySettingComponent);
     return SurveySettingComponent;
 }());
@@ -368,7 +472,7 @@ var SurveySettingComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" >\n  <mat-card-title>\n    <div class=\"card-title-text\">Survey Summary</div>\n    <mat-divider></mat-divider>\n\n    <div class=\"profile-actions text-right mb-1\">\n        <div class=\"m-333\">\n          <button mat-raised-button class=\"mb-05\" (click)='openSurveyPopup({},true)' color=\"primary\">Add Survey</button>\n        </div>\n      </div>\n\n\n  </mat-card-title>\n  <mat-card-content class=\"p-0\">\n    <ngx-datatable class=\"material bg-white\" [columnMode]=\"'force'\" [headerHeight]=\"50\" [footerHeight]=\"50\" [rowHeight]=\"'auto'\"\n      [limit]=\"5\" [rows]=\"surveyData\">\n      <ngx-datatable-column name=\"Survey Topic\" [flexGrow]=\"1\">\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\n          {{row?.topic}}\n        </ng-template>\n      </ngx-datatable-column>\n      <ngx-datatable-column name=\"Survey Type\" [flexGrow]=\"1\">\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\n          {{row?.type.name}}\n        </ng-template>\n      </ngx-datatable-column>\n      <ngx-datatable-column name=\"Survey Source\" [flexGrow]=\"1\">\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\n          {{row?.source}}\n        </ng-template>\n      </ngx-datatable-column>\n      <ngx-datatable-column name=\"Start Date\" [flexGrow]=\"1\">\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\n          {{row?.start}}\n        </ng-template>\n      </ngx-datatable-column>\n      <ngx-datatable-column name=\"End Date\" [flexGrow]=\"1\">\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\n          {{row?.end}}\n        </ng-template>\n      </ngx-datatable-column>\n      <ngx-datatable-column name=\"Action\" [flexGrow]=\"1\">\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\n          <button mat-icon-button mat-sm-button (click)='openSurveyPopup(row,false)' color=\"primary\" class=\"mr-1\"><mat-icon>edit</mat-icon></button>\n          <button mat-icon-button mat-sm-button color=\"warn\" class=\"mr-1\" ><mat-icon>delete</mat-icon></button>\n        </ng-template>\n      </ngx-datatable-column>\n    </ngx-datatable>\n\n\n  </mat-card-content>\n</mat-card>\n"
+module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" >\r\n  <mat-card-title>\r\n    <div class=\"card-title-text\">Survey Summary</div>\r\n    <mat-divider></mat-divider>\r\n\r\n    <div class=\"profile-actions text-right mb-1\">\r\n        <div class=\"m-333\">\r\n          <button mat-raised-button class=\"mb-05\" (click)='openSurveyPopup({},true)' color=\"primary\">Add Survey</button>\r\n        </div>\r\n      </div>\r\n\r\n\r\n  </mat-card-title>\r\n  <mat-card-content class=\"p-0\">\r\n    <ngx-datatable class=\"material bg-white\" [columnMode]=\"'force'\" [headerHeight]=\"50\" [footerHeight]=\"50\" [rowHeight]=\"'auto'\"\r\n      [limit]=\"5\" [rows]=\"surveyData\">\r\n      <ngx-datatable-column name=\"Survey Topic\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{row?.topic}}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n      <ngx-datatable-column name=\"Survey Type\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{row?.type.name}}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n      <ngx-datatable-column name=\"Survey Source\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{row?.source}}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n      <ngx-datatable-column name=\"Start Date\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{row?.start}}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n      <ngx-datatable-column name=\"End Date\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{row?.end}}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n      <ngx-datatable-column name=\"Action\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <button mat-icon-button mat-sm-button (click)='openSurveyPopup(row,false)' color=\"primary\" class=\"mr-1\"><mat-icon>edit</mat-icon></button>\r\n          <button mat-icon-button mat-sm-button  color=\"warn\" class=\"mr-1\" ><mat-icon>delete</mat-icon></button>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n    </ngx-datatable>\r\n\r\n\r\n  </mat-card-content>\r\n</mat-card>\r\n"
 
 /***/ }),
 
@@ -386,6 +490,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../shared/animations/egret-animations */ "./src/app/shared/animations/egret-animations.ts");
 /* harmony import */ var _survey_creation_popup_survey_creation_popup_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../survey-creation-popup/survey-creation-popup.component */ "./src/app/views/survey/survey-creation-popup/survey-creation-popup.component.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -399,9 +504,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SurveyTableComponent = /** @class */ (function () {
-    function SurveyTableComponent(dialog) {
+    function SurveyTableComponent(dialog, router) {
         this.dialog = dialog;
+        this.router = router;
         this.surveyData = [
             {
                 topic: "Addidas Air Survey",
@@ -442,6 +549,7 @@ var SurveyTableComponent = /** @class */ (function () {
     }
     SurveyTableComponent.prototype.ngOnInit = function () { };
     SurveyTableComponent.prototype.openSurveyPopup = function (data, isNew) {
+        var _this = this;
         if (data === void 0) { data = {}; }
         var title = isNew ? "Add New Survey " : "Update Survey ";
         var dialogRef = this.dialog.open(_survey_creation_popup_survey_creation_popup_component__WEBPACK_IMPORTED_MODULE_2__["SurveyCreationPopupComponent"], {
@@ -455,6 +563,13 @@ var SurveyTableComponent = /** @class */ (function () {
             }
             console.log("input : ");
             console.log(JSON.stringify(res));
+            var extraParam = {
+                queryParams: {
+                    "name": res.name,
+                    "surveyType": res.surveyType
+                }
+            };
+            _this.router.navigate(['surveys/builder_v1'], extraParam);
         });
     };
     SurveyTableComponent = __decorate([
@@ -463,7 +578,7 @@ var SurveyTableComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./survey-table.component.html */ "./src/app/views/survey/survey-table/survey-table.component.html"),
             animations: _shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"]
         }),
-        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"]])
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_3__["MatDialog"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], SurveyTableComponent);
     return SurveyTableComponent;
 }());
@@ -479,7 +594,7 @@ var SurveyTableComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\n  <div fxFlex=\"100\" fxFlex.gt-md=\"300px\" fxFlex.gt-sm=\"50\">\n    <mat-card class=\"profile-sidebar mb-1 pb-0\">\n      <div class=\"propic text-center\">\n        <img src=\"assets/images/survey-icon.jpg\" alt=\"\">\n      </div>\n      <div class=\"profile-title text-center mb-1\">\n        <div class=\"main-title\">Survey Service</div>\n        <div class=\"subtitle mb-05\">Clear Picture Authentica</div>\n        <div class=\"text-muted\"> Provides the tools you need to easily create questionnaires.</div>\n      </div>\n\n      <div class=\"profile-nav\">\n        <mat-nav-list>\n          <mat-list-item routerLink=\"/surveys/summery\" routerLinkActive=\"list-item-active\">\n            <mat-icon>home</mat-icon>\n            Survey Summary\n          </mat-list-item>\n          <mat-divider></mat-divider>\n          <mat-list-item routerLink=\"/surveys/setting\" routerLinkActive=\"list-item-active\">\n            <mat-icon>settings</mat-icon>\n            Survey Settings\n          </mat-list-item>\n          <mat-divider></mat-divider>\n          <mat-list-item routerLink=\"/surveys/builder_v1\" routerLinkActive=\"list-item-active\">\n            <mat-icon>settings</mat-icon>\n            Survey Builder\n          </mat-list-item>\n          <mat-divider></mat-divider>\n        </mat-nav-list>\n      </div>\n    </mat-card>\n\n\n\n  </div>\n\n<!-- Profile Views -->\n  <div fxFlex=\"100\" fxFlex.gt-sm=\"50\" fxFlex.gt-md=\"calc(100% - 300px)\">\n    <router-outlet></router-outlet>\n  </div>\n</div>\n"
+module.exports = "\r\n<div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" fxFlex.gt-md=\"300px\" fxFlex.gt-sm=\"50\">\r\n    <mat-card class=\"profile-sidebar mb-1 pb-0\">\r\n      <div class=\"propic text-center\">\r\n        <img src=\"assets/images/survey-icon.jpg\" alt=\"\">\r\n      </div>\r\n      <div class=\"profile-title text-center mb-1\">\r\n        <div class=\"main-title\">Survey Service</div>\r\n        <div class=\"subtitle mb-05\">Clear Picture Authentica</div>\r\n        <div class=\"text-muted\"> Provides the tools you need to easily create questionnaires.</div>\r\n      </div>\r\n\r\n      <div class=\"profile-nav\">\r\n        <mat-nav-list>\r\n          <mat-list-item routerLink=\"/surveys/summery\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>home</mat-icon>\r\n            Survey Summary\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"/surveys/setting\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>settings</mat-icon>\r\n            Survey Settings\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"/surveys/builder_v1\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>settings</mat-icon>\r\n            Survey Builder\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n        </mat-nav-list>\r\n      </div>\r\n    </mat-card>\r\n\r\n\r\n\r\n  </div>\r\n\r\n<!-- Profile Views -->\r\n  <div fxFlex=\"100\" fxFlex.gt-sm=\"50\" fxFlex.gt-md=\"calc(100% - 300px)\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -552,12 +667,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _survey_creation_popup_survey_creation_popup_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./survey-creation-popup/survey-creation-popup.component */ "./src/app/views/survey/survey-creation-popup/survey-creation-popup.component.ts");
 /* harmony import */ var _survey_builder_survey_builder_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./survey-builder/survey-builder.component */ "./src/app/views/survey/survey-builder/survey-builder.component.ts");
 /* harmony import */ var _shared_shared_module__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../shared/shared.module */ "./src/app/shared/shared.module.ts");
+/* harmony import */ var _survey_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./survey.service */ "./src/app/views/survey/survey.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -610,7 +727,7 @@ var SurveyModule = /** @class */ (function () {
                 _survey_builder_survey_builder_component__WEBPACK_IMPORTED_MODULE_13__["SurveyBuilderComponent"]
             ],
             entryComponents: [_answer_template_popup_answer_template_popup_component__WEBPACK_IMPORTED_MODULE_11__["AnswerTemplatePopupComponent"], _survey_creation_popup_survey_creation_popup_component__WEBPACK_IMPORTED_MODULE_12__["SurveyCreationPopupComponent"]],
-            providers: []
+            providers: [_survey_service__WEBPACK_IMPORTED_MODULE_15__["SurveyService"]]
         })
     ], SurveyModule);
     return SurveyModule;
@@ -661,6 +778,87 @@ var SurveyRoute = [
         ]
     }
 ];
+
+
+/***/ }),
+
+/***/ "./src/app/views/survey/survey.service.ts":
+/*!************************************************!*\
+  !*** ./src/app/views/survey/survey.service.ts ***!
+  \************************************************/
+/*! exports provided: SurveyService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SurveyService", function() { return SurveyService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _environments_environment_prod__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../environments/environment.prod */ "./src/environments/environment.prod.ts");
+/* harmony import */ var _node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs_Observable_throw__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/Observable/throw */ "./node_modules/rxjs-compat/_esm5/Observable/throw.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var SurveyService = /** @class */ (function () {
+    function SurveyService(http) {
+        this.http = http;
+        this.surveyApiUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_2__["environment"].surveyApiURL + "answer-templates/";
+        this.httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+            })
+        };
+    }
+    SurveyService.prototype.getAnswerTemplates = function () {
+        return this.http.get(this.surveyApiUrl).pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
+    };
+    SurveyService.prototype.addNewAnsTemplate = function (templateObj, items) {
+        return this.http
+            .post(this.surveyApiUrl, templateObj, this.httpOptions)
+            .pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
+            items.unshift(data.content);
+            return items.slice();
+        }), Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
+    };
+    SurveyService.prototype.getAnsTemplateById = function (id, items) {
+        console.log("by id url : " + this.surveyApiUrl + id);
+        return this.http.get(this.surveyApiUrl + id).pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
+            console.log(data.content);
+            return data.content;
+        }), Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
+    };
+    SurveyService.prototype.removeAnsTemplate = function (row, items) {
+        return this.http.delete(this.surveyApiUrl + row.id, this.httpOptions).pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
+            var i = items.indexOf(row);
+            items.splice(i, 1);
+            return items;
+        }), Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
+    };
+    SurveyService.prototype.handleError = function (error) {
+        //console.log(error)
+        return Object(rxjs_Observable_throw__WEBPACK_IMPORTED_MODULE_4__["_throw"])(error);
+    };
+    SurveyService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], SurveyService);
+    return SurveyService;
+}());
+
 
 
 /***/ })

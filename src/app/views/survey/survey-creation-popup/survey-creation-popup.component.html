@@ -21,9 +21,9 @@
 
   </mat-dialog-content>
 
-
+  <!-- routerLink="/surveys/builder_v1" -->
   <mat-dialog-actions align="end">
-    <button mat-raised-button color="primary" routerLink="/surveys/builder_v1" [disabled]="surveyForm.invalid">Save</button>
+    <button mat-raised-button color="primary"  [disabled]="surveyForm.invalid">Save</button>
     <span fxFlex></span>
     <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
   </mat-dialog-actions>
