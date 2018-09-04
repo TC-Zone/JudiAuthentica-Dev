@@ -34,6 +34,28 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/app/model/ClientModel.model.ts":
+/*!********************************************!*\
+  !*** ./src/app/model/ClientModel.model.ts ***!
+  \********************************************/
+/*! exports provided: Content */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Content", function() { return Content; });
+var Content = /** @class */ (function () {
+    function Content(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+    return Content;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/animations/egret-animations.ts":
 /*!*******************************************************!*\
   !*** ./src/app/shared/animations/egret-animations.ts ***!
@@ -97,6 +119,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/@angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! environments/environment.prod */ "./src/environments/environment.prod.ts");
 /* harmony import */ var rxjs_Observable_throw__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/Observable/throw */ "./node_modules/rxjs-compat/_esm5/Observable/throw.js");
+/* harmony import */ var _model_ClientModel_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../model/ClientModel.model */ "./src/app/model/ClientModel.model.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -111,10 +134,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var CrudService = /** @class */ (function () {
     function CrudService(http) {
         this.http = http;
-        this.clientApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].baseApiURL + "clients/";
+        this.clientApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].productApiURL + "clients/";
         this.httpOptions = {
             headers: new _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                 'Content-Type': 'application/json'
@@ -145,6 +169,17 @@ var CrudService = /** @class */ (function () {
             .delete(this.clientApiUrl + id)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["catchError"])(this.handleError));
     };
+    CrudService.prototype.search = function (filter, page) {
+        if (filter === void 0) { filter = { name: '' }; }
+        if (page === void 0) { page = 1; }
+        return this.http.get(this.clientApiUrl + 'suggestions')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["tap"])(function (response) {
+            response.content = response.content
+                .map(function (content) { return new _model_ClientModel_model__WEBPACK_IMPORTED_MODULE_5__["Content"](content.id, content.name); })
+                .filter(function (content) { return content.name.toLocaleLowerCase().includes(filter.name); });
+            return response;
+        }));
+    };
     CrudService.prototype.handleError = function (error) {
         console.log(error);
         return Object(rxjs_Observable_throw__WEBPACK_IMPORTED_MODULE_4__["_throw"])(error);
@@ -173,7 +208,8 @@ __webpack_require__.r(__webpack_exports__);
 var environment = {
     production: true,
     apiURL: 'productionApi',
-    baseApiURL: 'https://rootzg4t4ks63a.hana.ondemand.com/api/',
+    productApiURL: 'https://productzg4t4ks63a.hana.ondemand.com/product/api/',
+    surveyApiURL: 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/',
 };
 
 
