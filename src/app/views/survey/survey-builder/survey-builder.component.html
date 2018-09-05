@@ -7,13 +7,96 @@
 
     <form [formGroup]="questionForm" (ngSubmit)="submit()">
       <mat-horizontal-stepper linear #stepper>
+
+        <mat-step [optional]="isOptional">
+
+          <ng-template matStepLabel>Fill Survey Details</ng-template>
+
+          <mat-card class="p-1" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+
+
+            <mat-card-title class="p-0">
+              <small class="text-muted"> Survey Details </small>
+            </mat-card-title>
+
+            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+
+              <div fxFlex="50" class="pr-1">
+                <mat-form-field class="full-width">
+                  <input matInput [formControl]="questionForm.controls['topic']" required name="name" placeholder="Survey topic">
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="50" class="pr-1">
+                <mat-form-field class="full-width">
+                  <mat-select [(value)]="selectedType" [(ngModel)]="selectedType" [formControl]="questionForm.controls['type']" required placeholder="Survey Type">
+                    <mat-option>none</mat-option>
+                    <mat-option *ngFor="let type of surveyTypes" (click)="popuplateDropdown(type.value)" [value]="type.value">{{type.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+              <div fxFlex="100" class="pr-1">
+
+                <mat-form-field *ngIf='selectedType === "P"' class="full-width">
+                  <mat-select [formControl]="questionForm.controls['productId']" required placeholder="Select A Product">
+                    <mat-option>none</mat-option>
+                    <mat-option *ngFor="let product of products" [value]="product.id">{{product.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <mat-form-field *ngIf='selectedType === "V"' class="full-width">
+                  <mat-select [formControl]="questionForm.controls['voteId']" required placeholder="Select An E-Vote">
+                    <mat-option>none</mat-option>
+                    <mat-option *ngFor="let evote of evotes" [value]="evote.id">{{evote.topic}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+
+              <div fxFlex="50" class="pr-1">
+                <mat-form-field class="full-width">
+                  <input matInput name="startDate" [matDatepicker]="picker1" [formControl]="questionForm.controls['startDate']" required placeholder="Start Date">
+                  <mat-datepicker-toggle matSuffix [for]="picker1">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+              <div fxFlex="50" class="pr-1">
+                <mat-form-field class="full-width">
+                  <input matInput name="endDate" [matDatepicker]="picker2" [formControl]="questionForm.controls['endDate']" required placeholder="End Date">
+                  <mat-datepicker-toggle matSuffix [for]="picker2">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+            </div>
+
+
+
+
+          </mat-card>
+
+        </mat-step>
+
+
         <mat-step [stepControl]="questionForm">
 
           <ng-template matStepLabel>Setup your questions</ng-template>
 
           <div class="text-right mb-1">
             <div class="m-333 text-right">
-              <button  type='button' mat-raised-button class="mb-05" (click)="addQuestion()" color="accent">Add Question</button>
+              <button type='button' mat-raised-button class="mb-05" (click)="addQuestion()" color="accent">Add Question</button>
             </div>
           </div>
 
@@ -42,7 +125,8 @@
               </div>
 
               <div fxFlex="20" class="pr-0">
-                <button  type='button' mat-raised-button *ngIf="questionForm.controls['questions'].controls.length > 1" (click)='removeQuestion(i)' color="warn">Remove</button>
+                <button type='button' mat-raised-button *ngIf="questionForm.controls['questions'].controls.length > 1" (click)='removeQuestion(i)'
+                  color="warn">Remove</button>
               </div>
 
             </div>

@@ -21,9 +21,8 @@ import {Observable} from 'rxjs/observable';
 import { DateValidator} from '../../../../utility/dateValidator';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-
 import 'rxjs/add/operator/switchMap';
-import { startWith, map } from "../../../../../../node_modules/rxjs/operators";
+
 
 
 
@@ -65,7 +64,6 @@ export class ProductCrudPopupComponent implements OnInit {
     public dialogRef: MatDialogRef<ProductCrudPopupComponent>,
     private clientService: CrudService,
     private fb: FormBuilder
-
   ) {}
 
   ngOnInit() {
@@ -81,7 +79,6 @@ export class ProductCrudPopupComponent implements OnInit {
       switchMap(value =>
         this.clientService.search({name:value},1
         ))
-
     );
 
   }
@@ -113,6 +110,7 @@ export class ProductCrudPopupComponent implements OnInit {
   }
 
   submit() {
+    console.log(this.productForm.value)
     this.dialogRef.close(this.productForm.value);
   }
 

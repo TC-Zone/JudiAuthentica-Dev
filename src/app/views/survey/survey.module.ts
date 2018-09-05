@@ -23,7 +23,6 @@ import {
   MatHorizontalStepper,
   MatStepperModule,
   MatStepper
-
 } from "@angular/material";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { SurveyTableComponent } from "./survey-table/survey-table.component";
@@ -32,8 +31,14 @@ import { AnswerTemplatePopupComponent } from "./answer-template-popup/answer-tem
 import { SurveyCreationPopupComponent } from "./survey-creation-popup/survey-creation-popup.component";
 import { SurveyBuilderComponent } from "./survey-builder/survey-builder.component";
 import { LayoutService } from "../../shared/services/layout.service";
-import { SharedModule } from '../../shared/shared.module';
-import { SurveyService } from './survey.service';
+import { SharedModule } from "../../shared/shared.module";
+import { SurveyService } from "./survey.service";
+
+import { ProductCrudService } from "../product-crud/product-crud.service";
+
+import { SurveyCommonComponent } from './survey-common.component';
+import { EvoteService } from '../evote/evote-service.service';
+
 
 @NgModule({
   imports: [
@@ -57,8 +62,8 @@ import { SurveyService } from './survey.service';
     MatSidenavModule,
     RouterModule.forChild(SurveyRoute),
     SharedModule,
-    MatStepperModule
-
+    MatStepperModule,
+    MatDatepickerModule
   ],
   declarations: [
     SurveyComponent,
@@ -66,9 +71,10 @@ import { SurveyService } from './survey.service';
     SurveySettingComponent,
     AnswerTemplatePopupComponent,
     SurveyCreationPopupComponent,
-    SurveyBuilderComponent
+    SurveyBuilderComponent,
+    SurveyCommonComponent
   ],
   entryComponents: [AnswerTemplatePopupComponent, SurveyCreationPopupComponent],
-  providers: [SurveyService]
+  providers: [SurveyService, ProductCrudService, EvoteService]
 })
 export class SurveyModule {}

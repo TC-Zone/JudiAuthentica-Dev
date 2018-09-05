@@ -418,8 +418,15 @@ export class NavigationService {
       name: "Form",
       type: "link",
       tooltip: "Form",
-      icon: "favorite",
+      icon: "description",
       state: "form/showForm"
+    },
+    {
+      name: "E-Vote",
+      type: "link",
+      tooltip: "E-Vote",
+      icon: "thumbs_up_down",
+      state: "evote/showEvote"
     }
     // {
     //   name: 'INBOX',

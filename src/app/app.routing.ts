@@ -128,6 +128,11 @@ export const rootRouterConfig: Routes = [
         path: 'shop',
         loadChildren: './views/shop/shop.module#ShopModule',
         data: { title: 'Shop', breadcrumb: 'SHOP'}
+      },
+      {
+        path: 'evote',
+        loadChildren: './views/evote/evote.module#EvoteModule',
+        data: { title: 'E - Vote', breadcrumb: 'E Vote'}
       }
     ]
   },

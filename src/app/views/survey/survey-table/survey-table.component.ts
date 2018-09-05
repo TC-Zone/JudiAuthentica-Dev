@@ -3,7 +3,9 @@ import { egretAnimations } from "../../../shared/animations/egret-animations";
 import { SurveyCreationPopupComponent } from "../survey-creation-popup/survey-creation-popup.component";
 import { MatDialogRef, MatDialog } from "@angular/material";
 import { LayoutService } from "../../../shared/services/layout.service";
-import { NavigationExtras, Router } from '@angular/router';
+import { NavigationExtras, Router } from "@angular/router";
+import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
+import * as moment from "moment";
 
 @Component({
   selector: "app-survey-table",
@@ -11,8 +13,7 @@ import { NavigationExtras, Router } from '@angular/router';
   animations: egretAnimations
 })
 export class SurveyTableComponent implements OnInit {
-  constructor(private dialog: MatDialog , private router: Router) {}
-
+  constructor(private dialog: MatDialog, private router: Router) {}
 
   ngOnInit() {}
 
@@ -32,55 +33,60 @@ export class SurveyTableComponent implements OnInit {
         return;
       }
 
-      console.log("input : ");
+      console.log("INPUT : ");
       console.log(JSON.stringify(res));
 
-      let extraParam  : NavigationExtras = {
-          queryParams : {
-            "name" : res.name,
-            "surveyType" :res.surveyType
-          }
+
+      res.startDate = moment(res.startDate).format("YYYY-MM-DD");
+      res.endDate = moment(res.endDate).format("YYYY-MM-DD");
+
+      let extraParam: NavigationExtras = {
+        queryParams: {
+          name: res.topic,
+          type: res.type,
+          productId : res.productId,
+          voteId : res.voteId,
+          startDate : res.startDate,
+          endDate : res.endDate
+        }
       };
 
-      this.router.navigate(['surveys/builder_v1'],extraParam);
-
-
+      this.router.navigate(["surveys/builder_v1"], extraParam);
     });
   }
-
 
   surveyData = [
     {
       topic: "Addidas Air Survey",
-      type: { name: "Product Survey", value: "product" },
+      type: "P",
       source: "Addidas Air XD1",
       start: "2018/04/10",
       end: "2018/05/10"
     },
     {
       topic: "Addidas Air Survey",
-      type: { name: "Evote Survey", value: "evote" },
+      type: "V",
       source: "Addidas Air XD1",
       start: "2018/04/10",
       end: "2018/05/10"
     },
     {
       topic: "Addidas Air Survey",
-      type: { name: "Evote Survey", value: "evote" },
+      type: "V",
       source: "Addidas Air XD1",
       start: "2018/04/10",
       end: "2018/05/10"
     },
     {
       topic: "Addidas Air Survey",
-      type: { name: "Product Survey", value: "product" },
+      type: "P",
       source: "Addidas Air XD1",
       start: "2018/04/10",
       end: "2018/05/10"
     },
     {
       topic: "Addidas Air Survey",
-      type: { name: "Product Survey", value: "product" },
+      type: "P",
       source: "Addidas Air XD1",
       start: "2018/04/10",
       end: "2018/05/10"

@@ -54,6 +54,8 @@ export class ProductCrudService {
     return this.http.get(this.productApiUrl).pipe(catchError(this.handleError));
   }
 
+
+
   removeProduct(row, items): Observable<any> {
     return this.http.delete(this.productApiUrl + row.id, this.httpOptions).pipe(
       map(data => {
@@ -63,6 +65,12 @@ export class ProductCrudService {
       catchError(this.handleError)
     );
   }
+
+  getAllProductSuggestions(): Observable<any>{
+    return this.http.get(this.productApiUrl + 'suggestions').pipe(catchError(this.handleError));
+  }
+
+
 
 
   private handleError(error: HttpErrorResponse | any) {
