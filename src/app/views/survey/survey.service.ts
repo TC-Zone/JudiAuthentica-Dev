@@ -12,7 +12,9 @@ import { map } from "rxjs/operators";
 
 @Injectable()
 export class SurveyService {
-  surveyApiUrl: string = environment.surveyApiURL + "answer-templates/";
+  surveyApiUrl: string = environment.surveyApiURL;
+
+
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -22,15 +24,23 @@ export class SurveyService {
     })
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+
+  }
 
   getAnswerTemplates(): Observable<any> {
-    return this.http.get(this.surveyApiUrl).pipe(catchError(this.handleError));
+    return this.http
+      .get(this.surveyApiUrl + "answer-templates/")
+      .pipe(catchError(this.handleError));
   }
 
   addNewAnsTemplate(templateObj, items): Observable<any> {
     return this.http
-      .post<any>(this.surveyApiUrl, templateObj, this.httpOptions)
+      .post<any>(
+        this.surveyApiUrl + "answer-templates/",
+        templateObj,
+        this.httpOptions
+      )
       .pipe(
         map(data => {
           items.unshift(data.content);
@@ -40,9 +50,16 @@ export class SurveyService {
       );
   }
 
+  updateAnsTemplate(id, item) {
+    return this.http
+      .put<any>(this.surveyApiUrl +"answer-templates/"+ id, item, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+
   getAnsTemplateById(id, items): Observable<any> {
-    console.log("by id url : " + this.surveyApiUrl + id);
-    return this.http.get<any>(this.surveyApiUrl + id).pipe(
+    console.log("by id url : " + this.surveyApiUrl + "answer-templates/" + id);
+    return this.http.get<any>(this.surveyApiUrl + "answer-templates/"+ id).pipe(
       map(data => {
         console.log(data.content);
         return data.content;
@@ -62,8 +79,23 @@ export class SurveyService {
     );
   }
 
+  addNewSurvey(surveyObj, items): Observable<any> {
+    return this.http
+      .post<any>(this.surveyApiUrl + "surveys", surveyObj, this.httpOptions)
+      .pipe(
+        map(data => {
+          items.unshift(data.content);
+          return items.slice();
+        }),
+        catchError(this.handleError)
+      );
+  }
 
-
+  getAllSurveys(): Observable<any> {
+    return this.http
+      .get(this.surveyApiUrl + "surveys")
+      .pipe(catchError(this.handleError));
+  }
 
   private handleError(error: HttpErrorResponse | any) {
     //console.log(error)

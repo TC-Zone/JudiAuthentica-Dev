@@ -1,9 +1,8 @@
 import { Component } from "@angular/core";
 import { ResponseModel } from "../../model/ResponseModel.model";
 import { Subscription } from "rxjs";
-import { ProductCrudService } from '../product-crud/product-crud.service';
-import { EvoteService } from '../evote/evote-service.service';
-
+import { ProductCrudService } from "../product-crud/product-crud.service";
+import { EvoteService } from "../evote/evote-service.service";
 
 @Component({
   selector: "survey-common",
@@ -16,6 +15,8 @@ export class SurveyCommonComponent {
   getEvotesSub: Subscription;
   public products: any[] = [];
   public evotes: any[] = [];
+
+   typeMap: Map<string, string>;
 
   constructor(
     public productService: ProductCrudService,
@@ -59,5 +60,14 @@ export class SurveyCommonComponent {
         console.log(this.evotes);
       });
     }
+  }
+
+   getTypeValue(key: string): string {
+    if (!this.typeMap) {
+      this.typeMap = new Map<string, string>();
+      this.typeMap.set("PRODUCT", "P");
+      this.typeMap.set("EVOTE", "V");
+    }
+    return this.typeMap.get(key);
   }
 }

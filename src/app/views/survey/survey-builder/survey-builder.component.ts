@@ -15,7 +15,9 @@ import {
 } from "@angular/material";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import { SurveyCommonComponent } from "../survey-common.component";
-import { EvoteService } from '../../evote/evote-service.service';
+import { EvoteService } from "../../evote/evote-service.service";
+import { SurveyService } from "../survey.service";
+import { AppErrorService } from '../../../shared/services/app-error/app-error.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -42,18 +44,46 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
   ]
 })
-export class SurveyBuilderComponent extends SurveyCommonComponent implements OnInit {
+export class SurveyBuilderComponent extends SurveyCommonComponent
+  implements OnInit {
   questionForm: FormGroup;
   sub: any;
   isOptional = false;
+  surveyName : string;
+
+  getAnswersTemplatesSub : Subscription;
+  ansTemplates : any[];
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     public productService: ProductCrudService,
-    public evoteService: EvoteService
+    public evoteService: EvoteService,
+    public surveyService : SurveyService,
+    private errDialog : AppErrorService
   ) {
     super(productService, evoteService);
+  }
+
+
+  getAllAnsTemplates() {
+    this.getAnswersTemplatesSub = this.surveyService
+      .getAnswerTemplates()
+      .subscribe(
+        successResp => {
+          this.ansTemplates = successResp.content;
+          console.log(this.ansTemplates);
+        },
+        error => {
+          console.log(error);
+          console.log(error.status);
+          this.errDialog.showError({
+            title: "Error",
+            status: error.status,
+            type: "http_error"
+          });
+        }
+      );
   }
 
   ngOnInit() {
@@ -64,19 +94,28 @@ export class SurveyBuilderComponent extends SurveyCommonComponent implements OnI
       let voteId = params["voteId"];
       let startDate = params["startDate"];
       let endDate = params["endDate"];
+      let questions = params["questions"];
+
+      this.surveyName = name;
       console.log("name :" + name);
       console.log("type :" + type);
       console.log("productId :" + productId);
       console.log("voteId :" + voteId);
       console.log("startDate :" + startDate);
       console.log("endDate :" + endDate);
+      console.log("questions :" + questions);
       this.selectedType = type;
-      this.buildSurveyForm(name, type, productId, voteId, startDate, endDate);
+
+      if (this.selectedType && this.selectedType.length > 1) {
+        this.selectedType = this.getTypeValue(this.selectedType);
+      }
+      this.buildSurveyForm(name, type, productId, voteId, startDate, endDate,questions);
+      this.getAllAnsTemplates();
       this.popuplateDropdown(this.selectedType);
     });
   }
 
-  buildSurveyForm(name, type, productId, voteId, startDate, endDate) {
+  buildSurveyForm(name, type, productId, voteId, startDate, endDate,questions) {
     this.questionForm = this.fb.group({
       topic: [name || ""],
       type: [type || ""],
@@ -84,14 +123,30 @@ export class SurveyBuilderComponent extends SurveyCommonComponent implements OnI
       voteId: [voteId || ""],
       startDate: [startDate, Validators.required],
       endDate: [endDate, Validators.required],
-      questions: this.fb.array([this.initQuestionTemplate()])
+      questions: this.fb.array([])
+    });
+    console.log('before pass to pacth : ')
+    console.log(questions)
+    this.patch(questions);
+  }
+
+  patch(fields?) {
+    console.log('patch called')
+    const control = <FormArray>this.questionForm.controls["questions"];
+    if (fields == null || fields.length == 0) {
+      console.log('no questions')
+      control.push(this.initQuestionTemplate());
+      return;
+    }
+    fields.forEach(x => {
+      control.push(this.initQuestionTemplate(x.name, x.answerTemplate));
     });
   }
 
-  initQuestionTemplate() {
+  initQuestionTemplate(name?, answerTemplate?) {
     return this.fb.group({
-      name: [],
-      answerTemplate: []
+      name: [name || " "],
+      answerTemplate: [answerTemplate || " "]
     });
   }
 
@@ -111,6 +166,13 @@ export class SurveyBuilderComponent extends SurveyCommonComponent implements OnI
 
   submit() {
     console.log(JSON.stringify(this.questionForm.value));
+    console.log(this.questionForm.value);
+
+  }
+
+  checkQuestions(){
+    console.log('question : ');
+    console.log(this.questionForm.controls['questions']);
   }
 
   surveyTypes = [

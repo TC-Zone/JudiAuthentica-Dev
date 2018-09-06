@@ -16,7 +16,7 @@ import { ResponseModel } from "../../../model/ResponseModel.model";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
 
 import { SurveyCommonComponent } from "../survey-common.component";
-import { EvoteService } from '../../evote/evote-service.service';
+import { EvoteService } from "../../evote/evote-service.service";
 
 export const MY_FORMATS = {
   parse: {
@@ -45,7 +45,6 @@ export const MY_FORMATS = {
 })
 export class SurveyCreationPopupComponent extends SurveyCommonComponent
   implements OnInit, OnDestroy {
-
   public surveyForm: FormGroup;
 
   constructor(
@@ -60,8 +59,13 @@ export class SurveyCreationPopupComponent extends SurveyCommonComponent
 
   ngOnInit() {
     this.buildSurveyForm(this.data.payload);
-    console.log("type : " + this.data.payload.type);
+    console.log("this.data.payload.type : " + this.data.payload.type);
     this.selectedType = this.data.payload.type;
+
+    if (this.selectedType && this.selectedType.length > 1) {
+      this.selectedType = this.getTypeValue(this.selectedType);
+    }
+    console.log("this.selectedType : " + this.selectedType);
     this.popuplateDropdown(this.selectedType);
   }
 
@@ -84,8 +88,6 @@ export class SurveyCreationPopupComponent extends SurveyCommonComponent
       endDate: [fieldItem.endDate, Validators.required]
     });
   }
-
-
 
   submit() {
     console.log(JSON.stringify(this.surveyForm.value));

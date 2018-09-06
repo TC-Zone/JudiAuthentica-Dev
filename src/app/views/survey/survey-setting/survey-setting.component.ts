@@ -5,8 +5,10 @@ import { AnswerTemplatePopupComponent } from "../answer-template-popup/answer-te
 import { Subscription } from "rxjs";
 import { SurveyService } from "../survey.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
-import { AppLoaderService } from '../../../shared/services/app-loader/app-loader.service';
-import { AppConfirmService } from '../../../shared/services/app-confirm/app-confirm.service';
+import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
+import { AppConfirmService } from "../../../shared/services/app-confirm/app-confirm.service";
+import { SurveyTableComponent } from "../survey-table/survey-table.component";
+import { filter } from "rxjs/operators";
 
 @Component({
   selector: "app-survey-setting",
@@ -21,8 +23,8 @@ export class SurveySettingComponent implements OnInit {
     private dialog: MatDialog,
     private surveyService: SurveyService,
     private errDialog: AppErrorService,
-    private loader : AppLoaderService,
-    private confirmService : AppConfirmService
+    private loader: AppLoaderService,
+    private confirmService: AppConfirmService
   ) {}
 
   ngOnInit() {
@@ -71,44 +73,11 @@ export class SurveySettingComponent implements OnInit {
         return;
       }
       this.loader.open();
-      if(isNew){
-        this.surveyService.addNewAnsTemplate(res,this.rows).subscribe(
+      if (isNew) {
+        this.surveyService.addNewAnsTemplate(res, this.rows).subscribe(
           data => {
-            console.log("response of creation ")
-            console.log(data)
-           this.rows =  data;
-            this.loader.close();
-          },
-          error => {
-            this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
-          }
-        );
-
-
-      }else{
-
-      }
-
-      console.log("input : ");
-      console.log(JSON.stringify(res));
-    });
-  }
-
-
-  deleteAnsTemplate(row){
-    this.confirmService
-    .confirm({ message: `Delete ${row.name}?` })
-    .subscribe(res => {
-      if (res) {
-        this.loader.open();
-        this.surveyService.removeAnsTemplate(row, this.rows).subscribe(
-          data => {
-            console.log(data)
+            console.log("response of creation ");
+            console.log(data);
             this.rows = data;
             this.loader.close();
           },
@@ -121,17 +90,69 @@ export class SurveySettingComponent implements OnInit {
             });
           }
         );
+      } else {
+        this.surveyService.updateAnsTemplate(data.id, res).subscribe(
+          response => {
+            console.log(response.content);
+            this.rows = this.rows.map(i => {
+              if (i.id === data.id) {
+                return Object.assign({}, i, response.content);
+              }
+              return i;
+            });
+
+            this.loader.close();
+            return this.rows.slice();
+          },
+          error => {
+            this.loader.close();
+            this.errDialog.showError({
+              title: "Error",
+              status: error.status,
+              type: "http_error"
+            });
+          }
+        );
+
+
       }
+
+      console.log("input : ");
+      console.log(JSON.stringify(res));
     });
   }
 
+  deleteAnsTemplate(row) {
+    this.confirmService
+      .confirm({ message: `Delete ${row.name}?` })
+      .subscribe(res => {
+        if (res) {
+          this.loader.open();
+          this.surveyService.removeAnsTemplate(row, this.rows).subscribe(
+            data => {
+              console.log(data);
+              this.rows = data;
+              this.loader.close();
+            },
+            error => {
+              this.loader.close();
+              this.errDialog.showError({
+                title: "Error",
+                status: error.status,
+                type: "http_error"
+              });
+            }
+          );
+        }
+      });
+  }
 
   //for the movement unused
-  getAnsTemplateById(id){
-    this.surveyService.getAnsTemplateById(id,this.rows).subscribe(
+  getAnsTemplateById(id) {
+    this.surveyService.getAnsTemplateById(id, this.rows).subscribe(
       successResp => {
-        console.log('by id response')
-        console.log(successResp)
+        console.log("by id response");
+        console.log(successResp);
         this.openAnswerTemplatePopup(successResp);
       },
       error => {
@@ -143,4 +164,9 @@ export class SurveySettingComponent implements OnInit {
       }
     );
   }
+
+
 }
+
+
+

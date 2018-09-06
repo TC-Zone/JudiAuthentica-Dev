@@ -10,6 +10,7 @@ import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
 })
 export class AnswerTemplatePopupComponent implements OnInit {
   public ansTemplateForm: FormGroup;
+  selectedAnsType : string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -19,6 +20,7 @@ export class AnswerTemplatePopupComponent implements OnInit {
 
   ngOnInit() {
     this.buildAnsTemplateform(this.data.payload);
+    this.selectedAnsType = this.data.payload.answerTemplateType;
     this.hideRemoveButton();
   }
 
@@ -43,10 +45,11 @@ export class AnswerTemplatePopupComponent implements OnInit {
   }
 
   initAnswerTemplate(lable?, value?, optionNumber?) {
+    console.log(" SET " + lable + " : " + value + " : " + optionNumber);
     return this.fb.group({
       lable: [lable || ""],
-      value: [value || ""],
-      optionNumber: [optionNumber || ""]
+      value: [value + "" || ""],
+      optionNumber: [optionNumber + "" || ""]
     });
   }
 
@@ -68,4 +71,19 @@ export class AnswerTemplatePopupComponent implements OnInit {
     console.log(JSON.stringify(this.ansTemplateForm.value));
     this.dialogRef.close(this.ansTemplateForm.value);
   }
+
+   answerTypes = [
+    {
+      name: "Free Text",
+      value: "F"
+    },
+    {
+      name: "Multiple Options",
+      value: "M"
+    },
+    {
+      name: "Single Answer Option",
+      value: "S"
+    }
+  ];
 }
