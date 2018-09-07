@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { EvoteComponent } from './evote.component';
+import { EvoteTableComponent } from './evote-table/evote-table.component';
 
 
 export const EvoteRouts: Routes = [
   {
     path: 'showEvote',
-    component: EvoteComponent,
+    component: EvoteTableComponent,
     data: { title: 'E-Vote', breadcrumb: 'E vote' }
   }
 ];

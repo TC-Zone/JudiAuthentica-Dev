@@ -4,9 +4,14 @@ import {
   HttpHeaders,
   HttpErrorResponse
 } from "@angular/common/http";
+import {
+  catchError,
+  map,
+  delay,
+  tap
+} from "../../../../node_modules/rxjs/operators";
 import { Observable } from "rxjs";
 import { environment } from "environments/environment.prod";
-import { catchError } from "rxjs/operators";
 import { _throw } from "rxjs/Observable/throw";
 
 @Injectable()
@@ -22,10 +27,24 @@ export class EvoteService {
   };
   constructor(private http: HttpClient) {}
 
-  getAllEvotes(): Observable<any> {
+  getAllEvotesSuggestions(): Observable<any> {
     return this.http
       .get(this.surveyApiUrl + 'suggestions')
       .pipe(catchError(this.handleError));
+  }
+
+  getAllEvotes():Observable<any> {
+    return this.http.get(this.surveyApiUrl).pipe(catchError(this.handleError));
+  }
+
+  removeEvotes(row, items): Observable<any> {
+    return this.http.delete(this.surveyApiUrl + row.id, this.httpOptions).pipe(
+      map(data => {
+        let i = items.indexOf(row);
+        return items.splice(i, 1);
+      }),
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse | any) {

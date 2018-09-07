@@ -1,0 +1,62 @@
+<mat-form-field class="margin-333" style="width: 99%">
+  <input matInput placeholder="Type to filter all columns" value="" (keyup)='updateFilter($event)'>
+</mat-form-field>
+
+<div class="m-333">
+  <!-- <span fxFlex></span> -->
+  <button mat-raised-button class="mb-05" color="primary" (click)="openProductPopup({}, true)">Add Product</button>
+</div>
+
+<mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+  <mat-card-content class="p-0">
+    <ngx-datatable class="material bg-white" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
+      [limit]="10" [rows]="rows" [columns]="">
+
+      <ngx-datatable-column name="Topic" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.topic }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Code" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.code }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Description" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.description }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Quantity" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.quantity }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Expire Date" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.expireDate }}
+        </ng-template>
+      </ngx-datatable-column>
+
+      <ngx-datatable-column name="Batch Number" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.batchNumber }}
+        </ng-template>
+      </ngx-datatable-column>
+      
+
+      <ngx-datatable-column name="Actions" [flexGrow]="1">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openProductPopup(row)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button mat-sm-button color="warn" class="mr-1" (click)="deleteEvote(row)"><mat-icon>delete</mat-icon></button>
+          <!-- <button mat-icon-button mat-sm-button   (click)="downloadCsv(row)"><mat-icon>file_download</mat-icon></button> -->
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+
+</mat-card>
