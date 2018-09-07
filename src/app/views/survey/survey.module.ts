@@ -22,7 +22,9 @@ import {
   MatSidenavModule,
   MatHorizontalStepper,
   MatStepperModule,
-  MatStepper
+  MatStepper,
+  MatAutocompleteModule
+  
 
 } from "@angular/material";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
@@ -33,6 +35,8 @@ import { SurveyCreationPopupComponent } from "./survey-creation-popup/survey-cre
 import { SurveyBuilderComponent } from "./survey-builder/survey-builder.component";
 import { LayoutService } from "../../shared/services/layout.service";
 import { SharedModule } from '../../shared/shared.module';
+import { CrudService } from "../cruds/crud.service";
+import { ProductCrudService } from "../../views/product-crud/product-crud.service";
 
 @NgModule({
   imports: [
@@ -56,7 +60,9 @@ import { SharedModule } from '../../shared/shared.module';
     MatSidenavModule,
     RouterModule.forChild(SurveyRoute),
     SharedModule,
-    MatStepperModule
+    MatStepperModule,
+    MatAutocompleteModule,
+    
 
   ],
   declarations: [
@@ -68,6 +74,6 @@ import { SharedModule } from '../../shared/shared.module';
     SurveyBuilderComponent
   ],
   entryComponents: [AnswerTemplatePopupComponent, SurveyCreationPopupComponent],
-  providers: []
+  providers: [CrudService,ProductCrudService]
 })
 export class SurveyModule {}

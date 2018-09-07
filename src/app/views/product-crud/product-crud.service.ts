@@ -13,7 +13,7 @@ import {
 } from "../../../../node_modules/rxjs/operators";
 import { environment } from "environments/environment.prod";
 import { _throw } from "rxjs/Observable/throw";
-
+import { Products,ProductsDet } from "../../model/ProductModel.model";
 import { of } from "../../../../node_modules/rxjs";
 
 
@@ -28,7 +28,7 @@ export class ProductCrudService {
     })
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   updateProduct(id, item) {
     return this.http
@@ -61,8 +61,30 @@ export class ProductCrudService {
       catchError(this.handleError)
     );
   }
-  
 
+  productSuggestion(filter: { name: string } = { name: '' }, page = 1): Observable<Products> {
+    return this.http.get<Products>(this.productApiUrl + 'suggestions')
+      .pipe(
+        tap((response: Products) => {
+          response.content = response.content
+            .map(productsdet => new ProductsDet(productsdet.id,productsdet.code,productsdet.batchNumber,productsdet.name))
+            .filter(productsdet => {
+              if (productsdet.name) {
+                productsdet.name.includes(filter.name);
+                 console.log(productsdet.name);
+              }
+
+             }
+            )
+          return response;
+          
+        })
+
+      );
+
+  }
+
+  // 
   private handleError(error: HttpErrorResponse | any) {
     //console.log(error)
     return _throw(error);

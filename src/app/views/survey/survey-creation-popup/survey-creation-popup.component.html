@@ -6,16 +6,27 @@
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
       <div fxFlex="100" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput [formControl]="surveyForm.controls['name']" required name="name" placeholder="Survey name">
+          <input matInput [formControl]="surveyForm.controls['topic']" required name="topic" placeholder="Survey topic">
         </mat-form-field>
       </div>
 
       <div fxFlex="100" class="pr-1">
         <mat-form-field class="full-width">
-          <mat-select [formControl]="surveyForm.controls['surveyType']" [(ngModel)]="selectedType" required placeholder="Survey Type">
+          <mat-select [formControl]="surveyForm.controls['type']" [(ngModel)]="selectedType" required placeholder="Survey Type">
             <mat-option  *ngFor="let type of surveyTypes" [value]="type">{{type.name}}</mat-option>
           </mat-select>
         </mat-form-field>
+      </div>
+      <div fxFlex="100" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Survey Source" [matAutocomplete]="auto" [formControl]="surveyForm.controls['product']" >
+        </mat-form-field>
+
+        <mat-autocomplete #auto="matAutocomplete" >
+            <mat-option *ngFor="let product of (filteredProduct | async)?.productsdet" [value]="product">
+              <span>{{ product.name }}</span>
+            </mat-option>
+        </mat-autocomplete>
       </div>
     </div>
 

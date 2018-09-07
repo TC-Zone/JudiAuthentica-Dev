@@ -19,11 +19,10 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { ProductCrudService } from "./product-crud.service";
 import { ProductCrudPopupComponent } from "./product-filter-table/product-crud-popup/product-crud-popup.component";
 import { ReactiveFormsModule } from "@angular/forms";
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { CrudService } from "../cruds/crud.service";
+import { FlexLayoutModule } from "@angular/flex-layout";;
 import { PositiveNumberOnly } from "../../directives/PositiveNumber.directive";
 import { DateValidator } from "../../directives/DateValidator.directive";
-
+import { CrudService } from "../cruds/crud.service";
 
 @NgModule({
   imports: [
@@ -48,7 +47,7 @@ import { DateValidator } from "../../directives/DateValidator.directive";
     PositiveNumberOnly,
     DateValidator
   ],
-  providers: [ProductCrudService, CrudService],
+  providers: [ProductCrudService,CrudService],
   entryComponents: [ProductCrudPopupComponent]
 })
 export class ProductCrudModule {}

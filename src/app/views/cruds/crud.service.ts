@@ -59,10 +59,9 @@ export class CrudService {
     .pipe(
       tap((response: Clients) => {
          response.content = response.content         
-         .map(content => new Content(content.id, content.name))
-         
+         .map(content => new Content(content.id, content.name))         
          .filter(content => content.name.toLocaleLowerCase().includes(filter.name))   
-             
+             console.log(content => new Content(content.id, content.name));
          return response;   
          
       })
