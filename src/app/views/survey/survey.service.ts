@@ -14,8 +14,6 @@ import { map } from "rxjs/operators";
 export class SurveyService {
   surveyApiUrl: string = environment.surveyApiURL;
 
-
-
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json",
@@ -24,9 +22,7 @@ export class SurveyService {
     })
   };
 
-  constructor(private http: HttpClient) {
-
-  }
+  constructor(private http: HttpClient) {}
 
   getAnswerTemplates(): Observable<any> {
     return this.http
@@ -52,20 +48,25 @@ export class SurveyService {
 
   updateAnsTemplate(id, item) {
     return this.http
-      .put<any>(this.surveyApiUrl +"answer-templates/"+ id, item, this.httpOptions)
+      .put<any>(
+        this.surveyApiUrl + "answer-templates/" + id,
+        item,
+        this.httpOptions
+      )
       .pipe(catchError(this.handleError));
   }
 
-
   getAnsTemplateById(id, items): Observable<any> {
     console.log("by id url : " + this.surveyApiUrl + "answer-templates/" + id);
-    return this.http.get<any>(this.surveyApiUrl + "answer-templates/"+ id).pipe(
-      map(data => {
-        console.log(data.content);
-        return data.content;
-      }),
-      catchError(this.handleError)
-    );
+    return this.http
+      .get<any>(this.surveyApiUrl + "answer-templates/" + id)
+      .pipe(
+        map(data => {
+          console.log(data.content);
+          return data.content;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   removeAnsTemplate(row, items): Observable<any> {
@@ -89,6 +90,13 @@ export class SurveyService {
         }),
         catchError(this.handleError)
       );
+  }
+
+  updateSurveyWithQuestions(id, item) {
+    console.log('update with ques : '+this.surveyApiUrl + "surveys/" + id);
+    return this.http
+      .put<any>(this.surveyApiUrl + "surveys/" + id, item, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   getAllSurveys(): Observable<any> {

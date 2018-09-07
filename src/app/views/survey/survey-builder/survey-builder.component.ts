@@ -88,6 +88,7 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
 
   ngOnInit() {
     this.sub = this.route.queryParams.subscribe(params => {
+      let id = params['id'];
       let name = params["name"];
       let type = params["type"];
       let productId = params["productId"];
@@ -97,6 +98,7 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
       let questions = params["questions"];
 
       this.surveyName = name;
+      console.log("id :" + id);
       console.log("name :" + name);
       console.log("type :" + type);
       console.log("productId :" + productId);
@@ -167,13 +169,17 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
   submit() {
     console.log(JSON.stringify(this.questionForm.value));
     console.log(this.questionForm.value);
+  }
+
+  updateSurveyWithQuestions(surveyObj){
 
   }
 
-  checkQuestions(){
-    console.log('question : ');
-    console.log(this.questionForm.controls['questions']);
-  }
+
+  // checkQuestions(){
+  //   console.log('question : ');
+  //   console.log(this.questionForm.controls['questions']);
+  // }
 
   surveyTypes = [
     {

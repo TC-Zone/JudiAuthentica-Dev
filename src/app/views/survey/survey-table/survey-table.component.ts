@@ -70,6 +70,7 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
             this.rows = data;
             console.log("survey response : ");
             console.log(this.rows);
+            this.navigateSurveyBuilder(this.rows[0]);
             this.loader.close();
           },
           error => {
@@ -83,7 +84,7 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
         );
       }
 
-      this.navigateSurveyBuilder(res);
+
 
     });
   }
@@ -109,6 +110,7 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
   navigateSurveyBuilder(res: any) {
     let extraParam: NavigationExtras = {
       queryParams: {
+        id: res.id,
         name: res.topic,
         type: res.type,
         productId: res.productId,

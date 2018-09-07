@@ -133,7 +133,7 @@
 
           <div>
             <button type='button' mat-button color="primary" matStepperPrevious>Back</button>
-            <button type='button' color="primary" [disabled]="questionForm.invalid" (click)="checkQuestions()" mat-button matStepperNext>Next</button>
+            <button color="primary" [disabled]="questionForm.invalid"  mat-button matStepperNext>Submit Question</button>
           </div>
 
 
@@ -207,7 +207,7 @@
           You are now done.
           <div>
             <button type='button' mat-button color="primary" matStepperPrevious>Back</button>
-            <button mat-button color="primary">Submit</button>
+            <button type ='button' mat-button color="primary">Done</button>
           </div>
         </mat-step>
       </mat-horizontal-stepper>
