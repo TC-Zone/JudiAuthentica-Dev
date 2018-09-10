@@ -122,7 +122,7 @@
                 <mat-form-field class="full-width">
                   <mat-select formControlName="answerTemplate" required placeholder="Choose Answer Template">
                     <mat-option>None</mat-option>
-                    <mat-option *ngFor='let template of ansTemplates'  [value]="template.id">{{template.name}}</mat-option>
+                    <mat-option *ngFor='let template of ansTemplates' [value]="template.id">{{template.name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -164,8 +164,8 @@
                 {{product.name }} </span>
             </div>
             <div fxFlex="100" class="pr-1" *ngIf='selectedType === "V"'>
-                <b>Survey Source : </b><span class="text-muted" *ngFor='let evote of evotes | arrayFilter : surveyDetailForm.controls["voteId"].value : "evotes" '>
-                    {{evote.topic }} </span>
+              <b>Survey Source : </b><span class="text-muted" *ngFor='let evote of evotes | arrayFilter : surveyDetailForm.controls["voteId"].value : "evotes" '>
+                {{evote.topic }} </span>
             </div>
             <div fxFlex="100" class="pr-1">
               <b>Survey Start Date : </b> <span class="text-muted">{{ surveyDetailForm.controls['startDate'].value }} </span>
@@ -207,10 +207,23 @@
 
       <mat-step>
         <ng-template matStepLabel>Done</ng-template>
-        You are now done.
+
+        <mat-card class="profile-sidebar mb-1 pb-0">
+
+          <div class="profile-title text-center mb-1">
+            <div class="main-title">Survey Question Setup is Successfully !</div>
+            <div class="subtitle mb-05">Move back to survey summery to see your surveys</div>
+          </div>
+          <div class="text-center">
+            <img src="assets/images/survey-icon.jpg" alt="">
+          </div>
+
+        </mat-card>
+
+
         <div>
           <button type='button' mat-button color="primary" matStepperPrevious>Back</button>
-          <button type='button' mat-button color="primary">Done</button>
+          <button type='button' [routerLink]="['/surveys/summery']" routerLinkActive="router-link-active" mat-button color="primary">Done</button>
         </div>
       </mat-step>
 
