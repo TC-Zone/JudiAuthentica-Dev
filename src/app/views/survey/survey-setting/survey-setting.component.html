@@ -37,7 +37,7 @@
           </ngx-datatable-column>
           <ngx-datatable-column name="Answer type" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{ row?.answerTemplateType }}
+              <mat-chip mat-sm-chip color="accent" [selected]="true" >{{ row?.answerTemplateType =='M' ? 'Multiple Option' : 'Single Option'}}</mat-chip>
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Action" [flexGrow]="1">

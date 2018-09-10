@@ -61,10 +61,6 @@ export class SurveyCreationPopupComponent extends SurveyCommonComponent
     this.buildSurveyForm(this.data.payload);
     console.log("this.data.payload.type : " + this.data.payload.type);
     this.selectedType = this.data.payload.type;
-
-    if (this.selectedType && this.selectedType.length > 1) {
-      this.selectedType = this.getTypeValue(this.selectedType);
-    }
     console.log("this.selectedType : " + this.selectedType);
     this.popuplateDropdown(this.selectedType);
   }

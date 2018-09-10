@@ -5,11 +5,12 @@
   </mat-card-title>
   <mat-card-content class="p-0">
 
-    <form [formGroup]="questionForm" (ngSubmit)="submit()">
-      <mat-horizontal-stepper linear #stepper>
 
-        <mat-step [stepControl]="questionForm">
+    <mat-horizontal-stepper linear #stepper>
 
+
+      <mat-step [stepControl]="surveyDetailForm">
+        <form [formGroup]="surveyDetailForm" (ngSubmit)="submit()">
           <ng-template matStepLabel>Fill Survey Details</ng-template>
 
           <mat-card class="p-1" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
@@ -23,13 +24,14 @@
 
               <div fxFlex="50" class="pr-1">
                 <mat-form-field class="full-width">
-                  <input matInput [formControl]="questionForm.controls['topic']" required name="name" placeholder="Survey topic">
+                  <input matInput [formControl]="surveyDetailForm.controls['topic']" required name="name" placeholder="Survey topic">
                 </mat-form-field>
               </div>
 
               <div fxFlex="50" class="pr-1">
                 <mat-form-field class="full-width">
-                  <mat-select [(value)]="selectedType" [(ngModel)]="selectedType" [formControl]="questionForm.controls['type']" required placeholder="Survey Type">
+                  <mat-select [(value)]="selectedType" [(ngModel)]="selectedType" [formControl]="surveyDetailForm.controls['type']" required
+                    placeholder="Survey Type">
                     <mat-option>none</mat-option>
                     <mat-option *ngFor="let type of surveyTypes" (click)="popuplateDropdown(type.value)" [value]="type.value">{{type.name}}</mat-option>
                   </mat-select>
@@ -42,14 +44,14 @@
               <div fxFlex="50" class="pr-1">
 
                 <mat-form-field *ngIf='selectedType === "P"' class="full-width">
-                  <mat-select [formControl]="questionForm.controls['productId']" required placeholder="Select A Product">
+                  <mat-select [formControl]="surveyDetailForm.controls['productId']" required placeholder="Select A Product">
                     <mat-option>none</mat-option>
                     <mat-option *ngFor="let product of products" [value]="product.id">{{product.name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
 
                 <mat-form-field *ngIf='selectedType === "V"' class="full-width">
-                  <mat-select [formControl]="questionForm.controls['voteId']" required placeholder="Select An E-Vote">
+                  <mat-select [formControl]="surveyDetailForm.controls['voteId']" required placeholder="Select An E-Vote">
                     <mat-option>none</mat-option>
                     <mat-option *ngFor="let evote of evotes" [value]="evote.id">{{evote.topic}}</mat-option>
                   </mat-select>
@@ -62,7 +64,8 @@
 
               <div fxFlex="50" class="pr-1">
                 <mat-form-field class="full-width">
-                  <input matInput name="startDate" [matDatepicker]="picker1" [formControl]="questionForm.controls['startDate']" required placeholder="Start Date">
+                  <input matInput name="startDate" [matDatepicker]="picker1" [formControl]="surveyDetailForm.controls['startDate']" required
+                    placeholder="Start Date">
                   <mat-datepicker-toggle matSuffix [for]="picker1">
                     <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                   </mat-datepicker-toggle>
@@ -72,7 +75,7 @@
 
               <div fxFlex="50" class="pr-1">
                 <mat-form-field class="full-width">
-                  <input matInput name="endDate" [matDatepicker]="picker2" [formControl]="questionForm.controls['endDate']" required placeholder="End Date">
+                  <input matInput name="endDate" [matDatepicker]="picker2" [formControl]="surveyDetailForm.controls['endDate']" required placeholder="End Date">
                   <mat-datepicker-toggle matSuffix [for]="picker2">
                     <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                   </mat-datepicker-toggle>
@@ -84,14 +87,15 @@
           </mat-card>
 
           <div>
-            <button type='button' color="primary" [disabled]="questionForm.invalid" mat-button matStepperNext>Next</button>
+            <button type='button' color="primary" [disabled]="surveyDetailForm.invalid" mat-button matStepperNext>Next</button>
           </div>
+        </form>
+      </mat-step>
 
-        </mat-step>
 
 
-        <mat-step [optional]="isOptional">
-
+      <mat-step [stepControl]="questionForm" [optional]="isOptional">
+        <form [formGroup]="questionForm" (ngSubmit)="submit()">
           <ng-template matStepLabel>Setup your questions</ng-template>
 
           <div class="text-right mb-1">
@@ -100,7 +104,7 @@
             </div>
           </div>
 
-          <mat-card formArrayName='questions' *ngFor="let answer of questionForm.controls['questions'].controls; let i=index" class="p-1"
+          <mat-card formArrayName='questions' *ngFor="let question of questionForm.controls['questions'].controls; let i=index" class="p-1"
             [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
 
             <mat-card-title class="p-0">
@@ -118,7 +122,7 @@
                 <mat-form-field class="full-width">
                   <mat-select formControlName="answerTemplate" required placeholder="Choose Answer Template">
                     <mat-option>None</mat-option>
-                    <mat-option *ngFor='let template of ansTemplates' [value]="template">{{template.name}}</mat-option>
+                    <mat-option *ngFor='let template of ansTemplates' [value]="template.id">{{template.name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -133,85 +137,85 @@
 
           <div>
             <button type='button' mat-button color="primary" matStepperPrevious>Back</button>
-            <button color="primary" [disabled]="questionForm.invalid"  mat-button matStepperNext>Submit Question</button>
+            <button color="primary" [disabled]="questionForm.invalid" mat-button matStepperNext>Submit Question</button>
           </div>
 
-
-        </mat-step>
-
-        <mat-step [optional]="isOptional">
-
-          <ng-template matStepLabel>Review</ng-template>
-
-          <mat-card class="p-2" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+        </form>
+      </mat-step>
 
 
+      <mat-step>
 
-            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
-              <mat-card-title class="p-0">
-                Please Review your survey details
-              </mat-card-title>
-              <div fxFlex="100" class="pr-1">
-                <b>Survey Topic : </b> <span class="text-muted">{{ questionForm.controls['topic'].value }} </span>
-              </div>
-              <div fxFlex="100" class="pr-1">
-                <b>Survey Source : </b> <span class="text-muted" *ngIf='selectedType === "P"'>{{ questionForm.controls['productId'].value
-                  }} </span>
-              </div>
-              <div fxFlex="100" class="pr-1">
-                <span class="text-muted" *ngIf='selectedType === "V"'>{{ questionForm.controls['voteId'].value }}</span>
-              </div>
-              <div fxFlex="100" class="pr-1">
-                <b>Survey Start Date : </b> <span class="text-muted">{{ questionForm.controls['startDate'].value }} </span>
-              </div>
-              <div fxFlex="100" class="pr-1">
-                <b>Survey End Date : </b> <span class="text-muted">{{ questionForm.controls['endDate'].value }} </span>
-              </div>
+        <ng-template matStepLabel>Review</ng-template>
+
+        <mat-card class="p-2" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+
+
+
+          <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+            <mat-card-title class="p-0">
+              Please Review your survey details
+            </mat-card-title>
+            <div fxFlex="100" class="pr-1">
+              <b>Survey Topic : </b> <span class="text-muted">{{ surveyDetailForm.controls['topic'].value }} </span>
             </div>
-          </mat-card>
+            <div fxFlex="100" class="pr-1" *ngIf='selectedType === "P"'>
+              <b>Survey Source : </b> <span class="text-muted" *ngFor='let product of products | arrayFilter : surveyDetailForm.controls["productId"].value : "products" '>
+                {{product.name }} </span>
+            </div>
+            <div fxFlex="100" class="pr-1" *ngIf='selectedType === "V"'>
+                <b>Survey Source : </b><span class="text-muted" *ngFor='let evote of evotes | arrayFilter : surveyDetailForm.controls["voteId"].value : "evotes" '>
+                    {{evote.topic }} </span>
+            </div>
+            <div fxFlex="100" class="pr-1">
+              <b>Survey Start Date : </b> <span class="text-muted">{{ surveyDetailForm.controls['startDate'].value }} </span>
+            </div>
+            <div fxFlex="100" class="pr-1">
+              <b>Survey End Date : </b> <span class="text-muted">{{ surveyDetailForm.controls['endDate'].value }} </span>
+            </div>
+          </div>
+        </mat-card>
 
-          <mat-card class="p-2" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
-            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
-              <mat-card-title class="p-0">
-                Review Survey Questions
-              </mat-card-title>
+        <mat-card class="p-2" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+          <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+            <mat-card-title class="p-0">
+              Review Survey Questions
+            </mat-card-title>
 
-              <div *ngFor="let question of questionForm.controls['questions'].controls; let i=index" fxFlex="100" class="timeline-body-top">
-                <span href="#" class="timeline-body-title mr-1"><b>Question {{i+1}}</b></span>
-                <span class="text-muted">{{question.value.name}}</span><br>
-                <div class="p-1" *ngFor='let temp of question.value.answerTemplate.answers; let a=index' class="timeline-body-top">
-                  <span class="text-muted">{{a+1}}. {{temp.lable}}<br></span>
+            <div *ngFor="let question of questionForm.controls['questions'].controls; let i=index " fxFlex="100" class="timeline-body-top">
+              <span href="#" class="timeline-body-title mr-1"><b>Question {{i+1}}</b></span>
+              <span class="text-muted">{{question.value.name}}</span><br>
+
+              <div *ngIf="question.value.answerTemplate">
+                <div class="p-1" *ngFor='let temp of ansTemplates | arrayFilter:question.value.answerTemplate:"answer_types" ;' class="timeline-body-top">
+                  <span class="text-muted" *ngFor='let ans of temp.answers; let a=index '>{{a+1}}. {{ans.lable}}<br></span>
                 </div>
               </div>
 
             </div>
-          </mat-card>
 
-
-
-
-
-
-
-
-          <div>
-            <button type='button' mat-button color="primary" matStepperPrevious>Back</button>
-            <button type='button' mat-button color="primary" [disabled]="questionForm.invalid" matStepperNext>Next</button>
           </div>
+        </mat-card>
 
-        </mat-step>
+        <div>
+          <button type='button' mat-button color="primary" matStepperPrevious>Back</button>
+          <button type='button' mat-button color="primary" [disabled]="questionForm.invalid" matStepperNext>Next</button>
+        </div>
+
+      </mat-step>
 
 
-        <mat-step>
-          <ng-template matStepLabel>Done</ng-template>
-          You are now done.
-          <div>
-            <button type='button' mat-button color="primary" matStepperPrevious>Back</button>
-            <button type ='button' mat-button color="primary">Done</button>
-          </div>
-        </mat-step>
-      </mat-horizontal-stepper>
-    </form>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        You are now done.
+        <div>
+          <button type='button' mat-button color="primary" matStepperPrevious>Back</button>
+          <button type='button' mat-button color="primary">Done</button>
+        </div>
+      </mat-step>
+
+    </mat-horizontal-stepper>
+
 
 
   </mat-card-content>

@@ -9,6 +9,7 @@ import * as moment from "moment";
 import { SurveyService } from "../survey.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { Subscription } from "rxjs";
+import { AppConfirmService } from "../../../shared/services/app-confirm/app-confirm.service";
 
 @Component({
   selector: "app-survey-table",
@@ -18,13 +19,15 @@ import { Subscription } from "rxjs";
 export class SurveyTableComponent implements OnInit, OnDestroy {
   rows: any[];
   getSurveysSub: Subscription;
+  typeMap: Map<string, string>;
 
   constructor(
     private dialog: MatDialog,
     private router: Router,
     private surveyService: SurveyService,
     private loader: AppLoaderService,
-    private errDialog: AppErrorService
+    private errDialog: AppErrorService,
+    private confirmService: AppConfirmService
   ) {}
 
   ngOnInit() {
@@ -83,10 +86,31 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
           }
         );
       }
-
-
-
     });
+  }
+
+  deleteSurvey(row) {
+    this.confirmService
+      .confirm({ message: `Delete ${row.topic}?` })
+      .subscribe(res => {
+        if (res) {
+          this.loader.open();
+          this.surveyService.removeSurvey(row, this.rows).subscribe(
+            data => {
+              this.rows = data;
+              this.loader.close();
+            },
+            error => {
+              this.loader.close();
+              this.errDialog.showError({
+                title: "Error",
+                status: error.status,
+                type: "http_error"
+              });
+            }
+          );
+        }
+      });
   }
 
   getAllSurvey() {
@@ -108,6 +132,8 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
   }
 
   navigateSurveyBuilder(res: any) {
+    console.log("navigation method : ");
+    console.log(res.questions);
     let extraParam: NavigationExtras = {
       queryParams: {
         id: res.id,
@@ -117,10 +143,19 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
         voteId: res.voteId,
         startDate: res.startDate,
         endDate: res.endDate,
-        questions: res.questions
+        questions: JSON.stringify(res.questions)
       }
     };
 
     this.router.navigate(["surveys/builder_v1"], extraParam);
+  }
+
+  getTypeValue(key: string): string {
+    if (!this.typeMap) {
+      this.typeMap = new Map<string, string>();
+      this.typeMap.set("P", "Product Survey");
+      this.typeMap.set("V", "Evote Survey");
+    }
+    return this.typeMap.get(key);
   }
 }

@@ -38,6 +38,7 @@ import { ProductCrudService } from "../product-crud/product-crud.service";
 
 import { SurveyCommonComponent } from './survey-common.component';
 import { EvoteService } from '../evote/evote-service.service';
+import { ArrayFilter } from '../../shared/pipes/array-filter.pipe';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { EvoteService } from '../evote/evote-service.service';
     AnswerTemplatePopupComponent,
     SurveyCreationPopupComponent,
     SurveyBuilderComponent,
-    SurveyCommonComponent
+    SurveyCommonComponent,
+    ArrayFilter
   ],
   entryComponents: [AnswerTemplatePopupComponent, SurveyCreationPopupComponent],
   providers: [SurveyService, ProductCrudService, EvoteService]

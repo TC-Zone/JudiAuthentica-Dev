@@ -40,7 +40,7 @@ export class ProductCrudService {
 
   addProduct(productObj, items): Observable<any> {
     return this.http
-      .post<any>(this.productApiUrl, productObj, this.httpOptions)
+      .post<any>(this.productApiUrl, productObj)
       .pipe(
         map(data => {
           items.unshift(data.content);

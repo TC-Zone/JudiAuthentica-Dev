@@ -141,7 +141,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
       console.log("RES obj :");
       console.log(res);
 
-      res.expireDate = moment(res.expireDate).format("YYYY-MM-DD");
+      //res.expireDate = moment(res.expireDate).format("YYYY-MM-DD");
 
       if (isNew) {
         this.prodService.addProduct(res, this.rows).subscribe(

@@ -54,7 +54,7 @@ export class SurveyCommonComponent {
   getEvotes() {
     console.log("called EVOTES " + this.evotes.length);
     if (this.evotes.length === 0) {
-      this.getEvotesSub = this.evoteService.getAllEvotes().subscribe(data => {
+      this.getEvotesSub = this.evoteService.getAllEvotesSuggestions().subscribe(data => {
         this.response = data;
         this.evotes = this.response.content;
         console.log(this.evotes);
@@ -62,12 +62,5 @@ export class SurveyCommonComponent {
     }
   }
 
-   getTypeValue(key: string): string {
-    if (!this.typeMap) {
-      this.typeMap = new Map<string, string>();
-      this.typeMap.set("PRODUCT", "P");
-      this.typeMap.set("EVOTE", "V");
-    }
-    return this.typeMap.get(key);
-  }
+
 }

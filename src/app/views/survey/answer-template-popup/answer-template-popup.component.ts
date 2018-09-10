@@ -73,16 +73,16 @@ export class AnswerTemplatePopupComponent implements OnInit {
   }
 
    answerTypes = [
-    {
-      name: "Free Text",
-      value: "F"
-    },
+    // {
+    //   name: "Free Text",
+    //   value: "F"
+    // },
     {
       name: "Multiple Options",
       value: "M"
     },
     {
-      name: "Single Answer Option",
+      name: "Single Option",
       value: "S"
     }
   ];

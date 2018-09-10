@@ -12,7 +12,8 @@ import {
   MatSelectModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatProgressBarModule
 
 } from "../../../../node_modules/@angular/material";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
@@ -23,6 +24,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { CrudService } from "../cruds/crud.service";
 import { PositiveNumberOnly } from "../../directives/PositiveNumber.directive";
 import { DateValidator } from "../../directives/DateValidator.directive";
+import { FileUploadModule } from "ng2-file-upload";
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import { DateValidator } from "../../directives/DateValidator.directive";
     MatNativeDateModule,
     MatIconModule,
     MatAutocompleteModule,
+    FileUploadModule,
+    MatProgressBarModule,
     RouterModule.forChild(ProductCrudRouts)
   ],
   declarations: [

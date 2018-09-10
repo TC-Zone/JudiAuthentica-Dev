@@ -17,7 +17,8 @@ import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import { SurveyCommonComponent } from "../survey-common.component";
 import { EvoteService } from "../../evote/evote-service.service";
 import { SurveyService } from "../survey.service";
-import { AppErrorService } from '../../../shared/services/app-error/app-error.service';
+import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
+import { SurveyModel } from "../../../model/SurveyRequest.model";
 
 export const MY_FORMATS = {
   parse: {
@@ -46,25 +47,29 @@ export const MY_FORMATS = {
 })
 export class SurveyBuilderComponent extends SurveyCommonComponent
   implements OnInit {
+  surveyDetailForm: FormGroup;
   questionForm: FormGroup;
+
   sub: any;
   isOptional = false;
-  surveyName : string;
+  surveyName: string;
+  surveyId: string;
+  surveyQuestions: any[] = [];
 
-  getAnswersTemplatesSub : Subscription;
-  ansTemplates : any[];
+  getAnswersTemplatesSub: Subscription;
+  ansTemplates: any[];
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     public productService: ProductCrudService,
     public evoteService: EvoteService,
-    public surveyService : SurveyService,
-    private errDialog : AppErrorService
+    public surveyService: SurveyService,
+    private errDialog: AppErrorService,
+    private loader: AppLoaderService
   ) {
     super(productService, evoteService);
   }
-
 
   getAllAnsTemplates() {
     this.getAnswersTemplatesSub = this.surveyService
@@ -72,11 +77,8 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
       .subscribe(
         successResp => {
           this.ansTemplates = successResp.content;
-          console.log(this.ansTemplates);
         },
         error => {
-          console.log(error);
-          console.log(error.status);
           this.errDialog.showError({
             title: "Error",
             status: error.status,
@@ -88,7 +90,7 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
 
   ngOnInit() {
     this.sub = this.route.queryParams.subscribe(params => {
-      let id = params['id'];
+      let id = params["id"];
       let name = params["name"];
       let type = params["type"];
       let productId = params["productId"];
@@ -98,6 +100,7 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
       let questions = params["questions"];
 
       this.surveyName = name;
+      this.surveyId = id;
       console.log("id :" + id);
       console.log("name :" + name);
       console.log("type :" + type);
@@ -105,50 +108,85 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
       console.log("voteId :" + voteId);
       console.log("startDate :" + startDate);
       console.log("endDate :" + endDate);
-      console.log("questions :" + questions);
+      console.log("questions :");
+      if (questions) {
+        console.log(JSON.parse(questions));
+      }
+
       this.selectedType = type;
 
-      if (this.selectedType && this.selectedType.length > 1) {
-        this.selectedType = this.getTypeValue(this.selectedType);
-      }
-      this.buildSurveyForm(name, type, productId, voteId, startDate, endDate,questions);
+      this.buildSurveyForm(name, type, productId, voteId, startDate, endDate);
+      this.buildQuestionForm(questions);
       this.getAllAnsTemplates();
       this.popuplateDropdown(this.selectedType);
     });
   }
 
-  buildSurveyForm(name, type, productId, voteId, startDate, endDate,questions) {
-    this.questionForm = this.fb.group({
+  buildSurveyForm(name, type, productId, voteId, startDate, endDate) {
+    this.surveyDetailForm = this.fb.group({
       topic: [name || ""],
       type: [type || ""],
       productId: [productId || ""],
       voteId: [voteId || ""],
       startDate: [startDate, Validators.required],
-      endDate: [endDate, Validators.required],
+      endDate: [endDate, Validators.required]
+    });
+  }
+
+  buildQuestionForm(questions) {
+    this.questionForm = this.fb.group({
       questions: this.fb.array([])
     });
-    console.log('before pass to pacth : ')
-    console.log(questions)
     this.patch(questions);
   }
 
   patch(fields?) {
-    console.log('patch called')
+    console.log("patch called");
+
     const control = <FormArray>this.questionForm.controls["questions"];
-    if (fields == null || fields.length == 0) {
-      console.log('no questions')
+    console.log("length  and obj  : " + control.length);
+    console.log(control);
+
+    if (fields == null) {
+      console.log("after imidiate survey creation");
       control.push(this.initQuestionTemplate());
       return;
     }
-    fields.forEach(x => {
-      control.push(this.initQuestionTemplate(x.name, x.answerTemplate));
+
+    let questionArray = JSON.parse(fields);
+    console.log("question array length");
+    console.log(questionArray.length);
+    if (questionArray.length == 0) {
+      console.log("without question loading situation");
+      control.push(this.initQuestionTemplate());
+      return;
+    }
+
+    questionArray.forEach(x => {
+      if (x.id) {
+        this.surveyService.getQuestionById(x.id).subscribe(response => {
+          console.log("QUESTION BY ID : ");
+          console.log(response);
+          console.log("this.surveyQuestions");
+          console.log(this.surveyQuestions);
+          this.surveyQuestions.unshift(response);
+          control.push(
+            this.initQuestionTemplate(response.name, response.answerTemplate)
+          );
+        });
+      }
     });
+
+    console.log("myquestions : ");
+    console.log(this.surveyQuestions);
   }
 
   initQuestionTemplate(name?, answerTemplate?) {
+    let anstempVal = answerTemplate ? answerTemplate.id : null;
+    console.log("anstempVAL : " + anstempVal);
     return this.fb.group({
-      name: [name || " "],
-      answerTemplate: [answerTemplate || " "]
+      name: [name || ""],
+      answerTemplate: [anstempVal || ""]
     });
   }
 
@@ -167,14 +205,38 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
   }
 
   submit() {
-    console.log(JSON.stringify(this.questionForm.value));
-    console.log(this.questionForm.value);
+    let surveyReq = new SurveyModel({
+      topic: this.surveyDetailForm.value.topic,
+      type: this.surveyDetailForm.value.type,
+      startDate: this.surveyDetailForm.value.startDate,
+      endDate: this.surveyDetailForm.value.endDate,
+      productId: this.surveyDetailForm.value.productId,
+      voteId: this.surveyDetailForm.value.voteId,
+      questions: this.questionForm.value
+    });
+
+    this.updateSurveyWithQuestions(this.surveyId, surveyReq);
   }
 
-  updateSurveyWithQuestions(surveyObj){
-
+  updateSurveyWithQuestions(id, surveyObj) {
+    console.log("sueveyobject");
+    console.log(surveyObj);
+    this.surveyService.updateSurveyWithQuestions(id, surveyObj).subscribe(
+      response => {
+        console.log("response after update questions");
+        console.log(response.content);
+        this.loader.close();
+      },
+      error => {
+        this.loader.close();
+        this.errDialog.showError({
+          title: "Error",
+          status: error.status,
+          type: "http_error"
+        });
+      }
+    );
   }
-
 
   // checkQuestions(){
   //   console.log('question : ');
