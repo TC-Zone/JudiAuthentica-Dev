@@ -1,510 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-product-crud-product-crud-module"],{
 
-/***/ "./node_modules/@angular/material-moment-adapter/esm5/material-moment-adapter.es5.js":
-/*!*******************************************************************************************!*\
-  !*** ./node_modules/@angular/material-moment-adapter/esm5/material-moment-adapter.es5.js ***!
-  \*******************************************************************************************/
-/*! exports provided: MomentDateModule, MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_ADAPTER_OPTIONS_FACTORY, MomentDateAdapter, MAT_MOMENT_DATE_FORMATS */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MomentDateModule", function() { return MomentDateModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatMomentDateModule", function() { return MatMomentDateModule; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAT_MOMENT_DATE_ADAPTER_OPTIONS", function() { return MAT_MOMENT_DATE_ADAPTER_OPTIONS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAT_MOMENT_DATE_ADAPTER_OPTIONS_FACTORY", function() { return MAT_MOMENT_DATE_ADAPTER_OPTIONS_FACTORY; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MomentDateAdapter", function() { return MomentDateAdapter; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAT_MOMENT_DATE_FORMATS", function() { return MAT_MOMENT_DATE_FORMATS; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-
-
-
-
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var /** @type {?} */ moment = moment__WEBPACK_IMPORTED_MODULE_3___default.a || moment__WEBPACK_IMPORTED_MODULE_3__;
-/**
- * InjectionToken for moment date adapter to configure options.
- */
-var /** @type {?} */ MAT_MOMENT_DATE_ADAPTER_OPTIONS = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["InjectionToken"]('MAT_MOMENT_DATE_ADAPTER_OPTIONS', {
-    providedIn: 'root',
-    factory: MAT_MOMENT_DATE_ADAPTER_OPTIONS_FACTORY
-});
-/**
- * \@docs-private
- * @return {?}
- */
-function MAT_MOMENT_DATE_ADAPTER_OPTIONS_FACTORY() {
-    return {
-        useUtc: false
-    };
-}
-/**
- * Creates an array and fills it with values.
- * @template T
- * @param {?} length
- * @param {?} valueFunction
- * @return {?}
- */
-function range(length, valueFunction) {
-    var /** @type {?} */ valuesArray = Array(length);
-    for (var /** @type {?} */ i = 0; i < length; i++) {
-        valuesArray[i] = valueFunction(i);
-    }
-    return valuesArray;
-}
-/**
- * Adapts Moment.js Dates for use with Angular Material.
- */
-var MomentDateAdapter = /** @class */ (function (_super) {
-    Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__extends"])(MomentDateAdapter, _super);
-    function MomentDateAdapter(dateLocale, options) {
-        var _this = _super.call(this) || this;
-        _this.options = options;
-        _this.setLocale(dateLocale || moment.locale());
-        return _this;
-    }
-    /**
-     * @param {?} locale
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.setLocale = /**
-     * @param {?} locale
-     * @return {?}
-     */
-    function (locale) {
-        var _this = this;
-        _super.prototype.setLocale.call(this, locale);
-        var /** @type {?} */ momentLocaleData = moment.localeData(locale);
-        this._localeData = {
-            firstDayOfWeek: momentLocaleData.firstDayOfWeek(),
-            longMonths: momentLocaleData.months(),
-            shortMonths: momentLocaleData.monthsShort(),
-            dates: range(31, function (i) { return _this.createDate(2017, 0, i + 1).format('D'); }),
-            longDaysOfWeek: momentLocaleData.weekdays(),
-            shortDaysOfWeek: momentLocaleData.weekdaysShort(),
-            narrowDaysOfWeek: momentLocaleData.weekdaysMin(),
-        };
-    };
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.getYear = /**
-     * @param {?} date
-     * @return {?}
-     */
-    function (date) {
-        return this.clone(date).year();
-    };
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.getMonth = /**
-     * @param {?} date
-     * @return {?}
-     */
-    function (date) {
-        return this.clone(date).month();
-    };
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.getDate = /**
-     * @param {?} date
-     * @return {?}
-     */
-    function (date) {
-        return this.clone(date).date();
-    };
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.getDayOfWeek = /**
-     * @param {?} date
-     * @return {?}
-     */
-    function (date) {
-        return this.clone(date).day();
-    };
-    /**
-     * @param {?} style
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.getMonthNames = /**
-     * @param {?} style
-     * @return {?}
-     */
-    function (style) {
-        // Moment.js doesn't support narrow month names, so we just use short if narrow is requested.
-        return style == 'long' ? this._localeData.longMonths : this._localeData.shortMonths;
-    };
-    /**
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.getDateNames = /**
-     * @return {?}
-     */
-    function () {
-        return this._localeData.dates;
-    };
-    /**
-     * @param {?} style
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.getDayOfWeekNames = /**
-     * @param {?} style
-     * @return {?}
-     */
-    function (style) {
-        if (style == 'long') {
-            return this._localeData.longDaysOfWeek;
-        }
-        if (style == 'short') {
-            return this._localeData.shortDaysOfWeek;
-        }
-        return this._localeData.narrowDaysOfWeek;
-    };
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.getYearName = /**
-     * @param {?} date
-     * @return {?}
-     */
-    function (date) {
-        return this.clone(date).format('YYYY');
-    };
-    /**
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.getFirstDayOfWeek = /**
-     * @return {?}
-     */
-    function () {
-        return this._localeData.firstDayOfWeek;
-    };
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.getNumDaysInMonth = /**
-     * @param {?} date
-     * @return {?}
-     */
-    function (date) {
-        return this.clone(date).daysInMonth();
-    };
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.clone = /**
-     * @param {?} date
-     * @return {?}
-     */
-    function (date) {
-        return date.clone().locale(this.locale);
-    };
-    /**
-     * @param {?} year
-     * @param {?} month
-     * @param {?} date
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.createDate = /**
-     * @param {?} year
-     * @param {?} month
-     * @param {?} date
-     * @return {?}
-     */
-    function (year, month, date) {
-        // Moment.js will create an invalid date if any of the components are out of bounds, but we
-        // explicitly check each case so we can throw more descriptive errors.
-        if (month < 0 || month > 11) {
-            throw Error("Invalid month index \"" + month + "\". Month index has to be between 0 and 11.");
-        }
-        if (date < 1) {
-            throw Error("Invalid date \"" + date + "\". Date has to be greater than 0.");
-        }
-        var /** @type {?} */ result = this._createMoment({ year: year, month: month, date: date }).locale(this.locale);
-        // If the result isn't valid, the date must have been out of bounds for this month.
-        if (!result.isValid()) {
-            throw Error("Invalid date \"" + date + "\" for month with index \"" + month + "\".");
-        }
-        return result;
-    };
-    /**
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.today = /**
-     * @return {?}
-     */
-    function () {
-        return this._createMoment().locale(this.locale);
-    };
-    /**
-     * @param {?} value
-     * @param {?} parseFormat
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.parse = /**
-     * @param {?} value
-     * @param {?} parseFormat
-     * @return {?}
-     */
-    function (value, parseFormat) {
-        if (value && typeof value == 'string') {
-            return this._createMoment(value, parseFormat, this.locale);
-        }
-        return value ? this._createMoment(value).locale(this.locale) : null;
-    };
-    /**
-     * @param {?} date
-     * @param {?} displayFormat
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.format = /**
-     * @param {?} date
-     * @param {?} displayFormat
-     * @return {?}
-     */
-    function (date, displayFormat) {
-        date = this.clone(date);
-        if (!this.isValid(date)) {
-            throw Error('MomentDateAdapter: Cannot format invalid date.');
-        }
-        return date.format(displayFormat);
-    };
-    /**
-     * @param {?} date
-     * @param {?} years
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.addCalendarYears = /**
-     * @param {?} date
-     * @param {?} years
-     * @return {?}
-     */
-    function (date, years) {
-        return this.clone(date).add({ years: years });
-    };
-    /**
-     * @param {?} date
-     * @param {?} months
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.addCalendarMonths = /**
-     * @param {?} date
-     * @param {?} months
-     * @return {?}
-     */
-    function (date, months) {
-        return this.clone(date).add({ months: months });
-    };
-    /**
-     * @param {?} date
-     * @param {?} days
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.addCalendarDays = /**
-     * @param {?} date
-     * @param {?} days
-     * @return {?}
-     */
-    function (date, days) {
-        return this.clone(date).add({ days: days });
-    };
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.toIso8601 = /**
-     * @param {?} date
-     * @return {?}
-     */
-    function (date) {
-        return this.clone(date).format();
-    };
-    /**
-     * Returns the given value if given a valid Moment or null. Deserializes valid ISO 8601 strings
-     * (https://www.ietf.org/rfc/rfc3339.txt) and valid Date objects into valid Moments and empty
-     * string into null. Returns an invalid date for all other values.
-     */
-    /**
-     * Returns the given value if given a valid Moment or null. Deserializes valid ISO 8601 strings
-     * (https://www.ietf.org/rfc/rfc3339.txt) and valid Date objects into valid Moments and empty
-     * string into null. Returns an invalid date for all other values.
-     * @param {?} value
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.deserialize = /**
-     * Returns the given value if given a valid Moment or null. Deserializes valid ISO 8601 strings
-     * (https://www.ietf.org/rfc/rfc3339.txt) and valid Date objects into valid Moments and empty
-     * string into null. Returns an invalid date for all other values.
-     * @param {?} value
-     * @return {?}
-     */
-    function (value) {
-        var /** @type {?} */ date;
-        if (value instanceof Date) {
-            date = this._createMoment(value);
-        }
-        if (typeof value === 'string') {
-            if (!value) {
-                return null;
-            }
-            date = this._createMoment(value, moment.ISO_8601).locale(this.locale);
-        }
-        if (date && this.isValid(date)) {
-            return date;
-        }
-        return _super.prototype.deserialize.call(this, value);
-    };
-    /**
-     * @param {?} obj
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.isDateInstance = /**
-     * @param {?} obj
-     * @return {?}
-     */
-    function (obj) {
-        return moment.isMoment(obj);
-    };
-    /**
-     * @param {?} date
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.isValid = /**
-     * @param {?} date
-     * @return {?}
-     */
-    function (date) {
-        return this.clone(date).isValid();
-    };
-    /**
-     * @return {?}
-     */
-    MomentDateAdapter.prototype.invalid = /**
-     * @return {?}
-     */
-    function () {
-        return moment.invalid();
-    };
-    /**
-     * Creates a Moment instance while respecting the current UTC settings.
-     * @param {...?} args
-     * @return {?}
-     */
-    MomentDateAdapter.prototype._createMoment = /**
-     * Creates a Moment instance while respecting the current UTC settings.
-     * @param {...?} args
-     * @return {?}
-     */
-    function () {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        return (this.options && this.options.useUtc) ? moment.utc.apply(moment, args) : moment.apply(void 0, args);
-    };
-    MomentDateAdapter.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"] },
-    ];
-    /** @nocollapse */
-    MomentDateAdapter.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DATE_LOCALE"],] },] },
-        { type: undefined, decorators: [{ type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Optional"] }, { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"], args: [MAT_MOMENT_DATE_ADAPTER_OPTIONS,] },] },
-    ]; };
-    return MomentDateAdapter;
-}(_angular_material__WEBPACK_IMPORTED_MODULE_2__["DateAdapter"]));
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-var /** @type {?} */ MAT_MOMENT_DATE_FORMATS = {
-    parse: {
-        dateInput: 'l',
-    },
-    display: {
-        dateInput: 'l',
-        monthYearLabel: 'MMM YYYY',
-        dateA11yLabel: 'LL',
-        monthYearA11yLabel: 'MMMM YYYY',
-    },
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var MomentDateModule = /** @class */ (function () {
-    function MomentDateModule() {
-    }
-    MomentDateModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"], args: [{
-                    providers: [
-                        {
-                            provide: _angular_material__WEBPACK_IMPORTED_MODULE_2__["DateAdapter"],
-                            useClass: MomentDateAdapter,
-                            deps: [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DATE_LOCALE"], MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-                        }
-                    ],
-                },] },
-    ];
-    return MomentDateModule;
-}());
-var ɵ0 = MAT_MOMENT_DATE_FORMATS;
-var MatMomentDateModule = /** @class */ (function () {
-    function MatMomentDateModule() {
-    }
-    MatMomentDateModule.decorators = [
-        { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"], args: [{
-                    imports: [MomentDateModule],
-                    providers: [{ provide: _angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DATE_FORMATS"], useValue: ɵ0 }],
-                },] },
-    ];
-    return MatMomentDateModule;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-
-//# sourceMappingURL=material-moment-adapter.es5.js.map
-
-
-/***/ }),
-
 /***/ "./node_modules/rxjs-compat/_esm5/add/operator/debounceTime.js":
 /*!*********************************************************************!*\
   !*** ./node_modules/rxjs-compat/_esm5/add/operator/debounceTime.js ***!
@@ -854,33 +349,6 @@ var PositiveNumberOnly = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/utility/dateValidator.ts":
-/*!******************************************!*\
-  !*** ./src/app/utility/dateValidator.ts ***!
-  \******************************************/
-/*! exports provided: DateValidator */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DateValidator", function() { return DateValidator; });
-//disable backdates and today date
-var DateValidator = /** @class */ (function () {
-    function DateValidator() {
-    }
-    DateValidator.dateValidate = function () {
-        var d = new Date();
-        var tomorrowDate = d.getDate() + 1;
-        d.setDate(tomorrowDate);
-        return d;
-    };
-    return DateValidator;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/views/product-crud/product-crud.module.ts":
 /*!***********************************************************!*\
   !*** ./src/app/views/product-crud/product-crud.module.ts ***!
@@ -906,12 +374,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cruds_crud_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../cruds/crud.service */ "./src/app/views/cruds/crud.service.ts");
 /* harmony import */ var _directives_PositiveNumber_directive__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../directives/PositiveNumber.directive */ "./src/app/directives/PositiveNumber.directive.ts");
 /* harmony import */ var _directives_DateValidator_directive__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../directives/DateValidator.directive */ "./src/app/directives/DateValidator.directive.ts");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(ng2_file_upload__WEBPACK_IMPORTED_MODULE_14__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -945,6 +416,8 @@ var ProductCrudModule = /** @class */ (function () {
                 _node_modules_angular_material__WEBPACK_IMPORTED_MODULE_5__["MatNativeDateModule"],
                 _node_modules_angular_material__WEBPACK_IMPORTED_MODULE_5__["MatIconModule"],
                 _node_modules_angular_material__WEBPACK_IMPORTED_MODULE_5__["MatAutocompleteModule"],
+                ng2_file_upload__WEBPACK_IMPORTED_MODULE_14__["FileUploadModule"],
+                _node_modules_angular_material__WEBPACK_IMPORTED_MODULE_5__["MatProgressBarModule"],
                 _node_modules_angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forChild(_product_crud_routing__WEBPACK_IMPORTED_MODULE_4__["ProductCrudRouts"])
             ],
             declarations: [
@@ -987,84 +460,6 @@ var ProductCrudRouts = [
 
 /***/ }),
 
-/***/ "./src/app/views/product-crud/product-crud.service.ts":
-/*!************************************************************!*\
-  !*** ./src/app/views/product-crud/product-crud.service.ts ***!
-  \************************************************************/
-/*! exports provided: ProductCrudService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProductCrudService", function() { return ProductCrudService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/@angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! environments/environment.prod */ "./src/environments/environment.prod.ts");
-/* harmony import */ var rxjs_Observable_throw__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/Observable/throw */ "./node_modules/rxjs-compat/_esm5/Observable/throw.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var ProductCrudService = /** @class */ (function () {
-    function ProductCrudService(http) {
-        this.http = http;
-        this.productApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].productApiURL + "products/";
-        this.httpOptions = {
-            headers: new _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
-            })
-        };
-        console.log('URL : ' + this.productApiUrl);
-    }
-    ProductCrudService.prototype.updateProduct = function (id, item) {
-        return this.http
-            .put(this.productApiUrl + id, item, this.httpOptions)
-            .pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    ProductCrudService.prototype.addProduct = function (productObj, items) {
-        return this.http
-            .post(this.productApiUrl, productObj, this.httpOptions)
-            .pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
-            items.unshift(data.content);
-            return items.slice();
-        }), Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    ProductCrudService.prototype.getAllProducts = function () {
-        return this.http.get(this.productApiUrl).pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    ProductCrudService.prototype.removeProduct = function (row, items) {
-        return this.http.delete(this.productApiUrl + row.id, this.httpOptions).pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
-            var i = items.indexOf(row);
-            return items.splice(i, 1);
-        }), Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    ProductCrudService.prototype.handleError = function (error) {
-        //console.log(error)
-        return Object(rxjs_Observable_throw__WEBPACK_IMPORTED_MODULE_4__["_throw"])(error);
-    };
-    ProductCrudService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
-    ], ProductCrudService);
-    return ProductCrudService;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/views/product-crud/product-filter-table/product-crud-popup/product-crud-popup.component.html":
 /*!**************************************************************************************************************!*\
   !*** ./src/app/views/product-crud/product-filter-table/product-crud-popup/product-crud-popup.component.html ***!
@@ -1072,7 +467,7 @@ var ProductCrudService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 matDialogTitle>{{data.title}}</h1>\r\n<form [formGroup]=\"productForm\" (ngSubmit)=\"submit()\">\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n\r\n    <div fxFlex=\"34\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput placeholder=\"Choose a client\" [matAutocomplete]=\"auto\" [formControl]=\"productForm.controls['client']\" >\r\n        </mat-form-field>\r\n\r\n        <mat-autocomplete #auto=\"matAutocomplete\" >\r\n            <mat-option *ngFor=\"let user of (filteredClient | async)?.content\" [value]=\"user\">\r\n              <span>{{ user.name }}</span>\r\n            </mat-option>\r\n        </mat-autocomplete>\r\n    </div>\r\n\r\n    <div fxFlex=\"33\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput [formControl]=\"productForm.controls['code']\" required name=\"proCode\" placeholder=\"Product Code\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"33\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput [formControl]=\"productForm.controls['name']\" required name=\"name\" placeholder=\"Product Name\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"34\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput name=\"desc\" [formControl]=\"productForm.controls['description']\" required name=\"description\" placeholder=\"Description\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"33\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput name=\"batchNumber\" [formControl]=\"productForm.controls['batchNumber']\" required placeholder=\"Batch Number\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"33\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input type=\"number\" matInput name=\"quantity\" [formControl]=\"productForm.controls['quantity']\" min=\"1\" postiveNumberOnly\r\n          required placeholder=\"Quantity\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"33\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput name=\"expireDate\" [min]=\"tomorrow\" [matDatepicker]=\"picker\"  [formControl]=\"productForm.controls['expireDate']\" required placeholder=\"Expire Date\">\r\n        <mat-datepicker-toggle matSuffix [for]=\"picker\">\r\n          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n        </mat-datepicker-toggle>\r\n        <mat-datepicker #picker></mat-datepicker>\r\n      </mat-form-field>\r\n    </div>\r\n\r\n\r\n    <div fxFlex=\"100\" class=\"mt-1\">\r\n      <button mat-raised-button color=\"primary\" [disabled]=\"productForm.invalid\">Save</button>\r\n      <span fxFlex></span>\r\n      <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n    </div>\r\n\r\n  </div>\r\n</form>\r\n"
+module.exports = "<h1 matDialogTitle>{{data.title}}</h1>\r\n<form [formGroup]=\"productForm\" (ngSubmit)=\"submit()\">\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n\r\n    <!-- <div fxFlex=\"34\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput placeholder=\"Choose a client\" [matAutocomplete]=\"auto\" [formControl]=\"productForm.controls['client']\">\r\n      </mat-form-field>\r\n\r\n      <mat-autocomplete #auto=\"matAutocomplete\">\r\n        <mat-option *ngFor=\"let user of (filteredClient | async)?.content\" [value]=\"user.name\">\r\n          <span>{{ user.name }}</span>\r\n        </mat-option>\r\n      </mat-autocomplete>\r\n    </div> -->\r\n\r\n    <div fxFlex=\"34\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <mat-select  [formControl]=\"productForm.controls['client']\" required placeholder=\"Select A Client\">\r\n            <mat-option>none</mat-option>\r\n            <mat-option *ngFor=\"let client of clients\" [value]=\"client.id\">{{client.name}}</mat-option>\r\n          </mat-select>\r\n        </mat-form-field>\r\n      </div>\r\n\r\n\r\n    <div fxFlex=\"33\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput [formControl]=\"productForm.controls['code']\" required name=\"proCode\" placeholder=\"Product Code\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"33\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput [formControl]=\"productForm.controls['name']\" required name=\"name\" placeholder=\"Product Name\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"34\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput name=\"desc\" [formControl]=\"productForm.controls['description']\" required name=\"description\" placeholder=\"Description\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"33\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput name=\"batchNumber\" [formControl]=\"productForm.controls['batchNumber']\" required placeholder=\"Batch Number\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"33\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input type=\"number\" matInput name=\"quantity\" [formControl]=\"productForm.controls['quantity']\" min=\"1\" postiveNumberOnly\r\n          required placeholder=\"Quantity\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"33\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput name=\"expireDate\" [min]=\"tomorrow\" [matDatepicker]=\"picker\" [formControl]=\"productForm.controls['expireDate']\"\r\n          required placeholder=\"Expire Date\">\r\n        <mat-datepicker-toggle matSuffix [for]=\"picker\">\r\n          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n        </mat-datepicker-toggle>\r\n        <mat-datepicker #picker></mat-datepicker>\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"100\" class=\"pr-1\">\r\n      <mat-card-content>\r\n\r\n        <div class=\"mb-1 mt-1\">\r\n          <p>Upload a Product Image</p>\r\n          <input (change)=\"onSelectFile($event)\" type=\"file\" [formControl]=\"productForm.controls['file']\" ng2FileSelect [uploader]=\"uploader\" />\r\n        </div>\r\n\r\n        <div class=\"mb-1\">\r\n          <div ng2FileDrop [ngClass]=\"{'dz-file-over': hasBaseDropZoneOver}\" [uploader]=\"uploader\" (fileOver)=\"fileOverBase($event)\"\r\n            class=\"fileupload-drop-zone\">\r\n            Drop png/jpeg file here\r\n          </div>\r\n        </div>\r\n\r\n        <table class=\"default-table mat-box-shadow\" style=\"width: 100%\">\r\n          <thead>\r\n            <tr>\r\n              <th width=\"50%\">Name</th>\r\n              <th>Size</th>\r\n              <th>Actions</th>\r\n            </tr>\r\n          </thead>\r\n          <tbody *ngIf=\"uploader.queue.length; else tableNoData\">\r\n            <tr>\r\n              <td>{{ imageObject.file.name }}</td>\r\n              <td nowrap>{{ imageObject.file.size/1024/1024 | number:'.2' }} MB</td>\r\n              <td nowrap>\r\n                <button mat-raised-button class=\"mat-warn\" type='button' (click)=\"imageObject.remove()\">Remove</button>\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n          <ng-template #tableNoData>\r\n            <p [ngStyle]=\"{padding: '0 1.2rem'}\">Queue is empty</p>\r\n          </ng-template>\r\n        </table>\r\n\r\n      </mat-card-content>\r\n    </div>\r\n\r\n\r\n\r\n\r\n    <div fxFlex=\"100\" class=\"mt-1\">\r\n      <button mat-raised-button color=\"primary\" [disabled]=\"productForm.invalid\">Save</button>\r\n      <span fxFlex></span>\r\n      <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n    </div>\r\n\r\n  </div>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -1097,6 +492,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var rxjs_add_operator_debounceTime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/add/operator/debounceTime */ "./node_modules/rxjs-compat/_esm5/add/operator/debounceTime.js");
 /* harmony import */ var rxjs_add_operator_distinctUntilChanged__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! rxjs/add/operator/distinctUntilChanged */ "./node_modules/rxjs-compat/_esm5/add/operator/distinctUntilChanged.js");
 /* harmony import */ var rxjs_add_operator_switchMap__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs/add/operator/switchMap */ "./node_modules/rxjs-compat/_esm5/add/operator/switchMap.js");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(ng2_file_upload__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_11__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1109,6 +508,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+
+
 
 
 
@@ -1136,6 +537,9 @@ var ProductCrudPopupComponent = /** @class */ (function () {
         this.dialogRef = dialogRef;
         this.clientService = clientService;
         this.fb = fb;
+        // image uploader related properties
+        this.uploader = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_10__["FileUploader"]({ url: "upload_url" });
+        this.hasBaseDropZoneOver = false;
     }
     ProductCrudPopupComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1143,14 +547,13 @@ var ProductCrudPopupComponent = /** @class */ (function () {
         this.tomorrow = _utility_dateValidator__WEBPACK_IMPORTED_MODULE_6__["DateValidator"].dateValidate();
         this.getAllClients();
         this.buildProductForm(this.data.payload);
-        this.filteredClient = this.productForm.get('client').valueChanges
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["debounceTime"])(200), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["switchMap"])(function (value) {
-            return _this.clientService.search({ name: value }, 1);
-        }));
+        this.filteredClient = this.productForm.get("client").valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["debounceTime"])(200), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["switchMap"])(function (value) { return _this.clientService.search({ name: value }, 1); }));
     };
     ProductCrudPopupComponent.prototype.getClientSuggestions = function () {
         var _this = this;
-        this.getClientSub = this.clientService.getClientSuggestions().subscribe(function (data) {
+        this.getClientSub = this.clientService
+            .getClientSuggestions()
+            .subscribe(function (data) {
             _this.response = data;
             _this.clients = _this.response.content;
         });
@@ -1164,18 +567,64 @@ var ProductCrudPopupComponent = /** @class */ (function () {
     };
     ProductCrudPopupComponent.prototype.buildProductForm = function (fieldItem) {
         this.productForm = this.fb.group({
-            clientName: [fieldItem.clientName || ""],
             client: [fieldItem.client || ""],
             code: [fieldItem.code || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             name: [fieldItem.name || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             description: [fieldItem.description || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             batchNumber: [fieldItem.batchNumber || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             quantity: [fieldItem.quantity || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            expireDate: [fieldItem.expireDate || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
+            expireDate: [fieldItem.expireDate || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
+            file: [fieldItem.file || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
         });
     };
     ProductCrudPopupComponent.prototype.submit = function () {
-        this.dialogRef.close(this.productForm.value);
+        console.log("PRODUCT FORM VALUES ");
+        console.log(this.productForm.value);
+        var formData = this.prepareToSave(this.productForm.value);
+        console.log("prepared form data ");
+        console.log(formData);
+        this.dialogRef.close(formData);
+    };
+    // image uploader related functions from here
+    ProductCrudPopupComponent.prototype.fileOverBase = function (e) {
+        console.log("fileOverBase Called");
+        console.log(e);
+        this.hasBaseDropZoneOver = e;
+    };
+    ProductCrudPopupComponent.prototype.onSelectFile = function (event) {
+        console.log("uploader : ");
+        console.log(this.uploader.queue);
+        var x = this.uploader.queue.length - 1;
+        this.imageObject = this.uploader.queue[x];
+        console.log("this image obj : ");
+        console.log(this.imageObject);
+        var reader = new FileReader();
+        if (event.target.files && event.target.files.length > 0) {
+            this.imageFile = event.target.files[0];
+            console.log("this ImageFile");
+            console.log(this.imageFile);
+            // reader.readAsDataURL(file);
+            // reader.onload = () => {
+            //   this.productForm.get("file").setValue({
+            //     filename: file.name,
+            //     filetype: file.type,
+            //     value: reader.result
+            //   });
+        }
+    };
+    ProductCrudPopupComponent.prototype.prepareToSave = function (formvalue) {
+        var input = new FormData();
+        input.append("file", this.imageFile);
+        input.append("code", formvalue.code);
+        input.append("quantity", formvalue.quantity);
+        input.append("client", formvalue.client);
+        input.append("expireDate", moment__WEBPACK_IMPORTED_MODULE_11__(formvalue.expireDate).format("YYYY-MM-DD"));
+        input.append("name", formvalue.name);
+        input.append("description", formvalue.description);
+        input.append("batchNumber", formvalue.batchNumber);
+        console.log("before return : ");
+        console.log(input);
+        return input;
     };
     ProductCrudPopupComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1231,10 +680,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../shared/services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
 /* harmony import */ var _shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../shared/animations/egret-animations */ "./src/app/shared/animations/egret-animations.ts");
 /* harmony import */ var _shared_services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../shared/services/app-confirm/app-confirm.service */ "./src/app/shared/services/app-confirm/app-confirm.service.ts");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var _shared_services_file_download_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../shared/services/file-download.service */ "./src/app/shared/services/file-download.service.ts");
-/* harmony import */ var _shared_services_data_conversion_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../shared/services/data-conversion.service */ "./src/app/shared/services/data-conversion.service.ts");
+/* harmony import */ var _shared_services_file_download_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../shared/services/file-download.service */ "./src/app/shared/services/file-download.service.ts");
+/* harmony import */ var _shared_services_data_conversion_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../shared/services/data-conversion.service */ "./src/app/shared/services/data-conversion.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1244,7 +691,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -1353,7 +799,7 @@ var ProductFilterTableComponent = /** @class */ (function () {
             _this.loader.open();
             console.log("RES obj :");
             console.log(res);
-            res.expireDate = moment__WEBPACK_IMPORTED_MODULE_8__(res.expireDate).format("YYYY-MM-DD");
+            //res.expireDate = moment(res.expireDate).format("YYYY-MM-DD");
             if (isNew) {
                 _this.prodService.addProduct(res, _this.rows).subscribe(function (data) {
                     _this.rows = data;
@@ -1400,8 +846,8 @@ var ProductFilterTableComponent = /** @class */ (function () {
             _shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_4__["AppLoaderService"],
             _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_5__["AppErrorService"],
             _shared_services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_7__["AppConfirmService"],
-            _shared_services_file_download_service__WEBPACK_IMPORTED_MODULE_9__["AppFileDownloadService"],
-            _shared_services_data_conversion_service__WEBPACK_IMPORTED_MODULE_10__["AppDataConversionService"]])
+            _shared_services_file_download_service__WEBPACK_IMPORTED_MODULE_8__["AppFileDownloadService"],
+            _shared_services_data_conversion_service__WEBPACK_IMPORTED_MODULE_9__["AppDataConversionService"]])
     ], ProductFilterTableComponent);
     return ProductFilterTableComponent;
 }());

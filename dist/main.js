@@ -33,20 +33,28 @@ var map = {
 	],
 	"./views/charts/charts.module": [
 		"./src/app/views/charts/charts.module.ts",
-		"views-charts-charts-module~views-others-others-module~views-product-crud-product-crud-module~views-p~cd7c7dbb",
+		"views-charts-charts-module~views-evote-evote-module~views-others-others-module~views-product-crud-pr~5e0a372b",
 		"views-charts-charts-module~views-others-others-module~views-profile-profile-module",
 		"common",
 		"views-charts-charts-module"
 	],
 	"./views/cruds/cruds.module": [
 		"./src/app/views/cruds/cruds.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
 		"common",
 		"views-cruds-cruds-module"
 	],
 	"./views/dragndrop/dragndrop.module": [
 		"./src/app/views/dragndrop/dragndrop.module.ts",
 		"views-dragndrop-dragndrop-module"
+	],
+	"./views/evote/evote.module": [
+		"./src/app/views/evote/evote.module.ts",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
+		"views-charts-charts-module~views-evote-evote-module~views-others-others-module~views-product-crud-pr~5e0a372b",
+		"views-evote-evote-module~views-product-crud-product-crud-module~views-survey-survey-module",
+		"common",
+		"views-evote-evote-module"
 	],
 	"./views/form/form.module": [
 		"./src/app/views/form/form.module.ts",
@@ -55,8 +63,8 @@ var map = {
 	],
 	"./views/forms/forms.module": [
 		"./src/app/views/forms/forms.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
-		"views-forms-forms-module~views-others-others-module~views-profile-profile-module",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
+		"views-forms-forms-module~views-others-others-module~views-product-crud-product-crud-module~views-pro~cd29c3a2",
 		"views-app-inbox-app-inbox-module~views-forms-forms-module",
 		"views-forms-forms-module~views-sessions-sessions-module",
 		"common",
@@ -77,26 +85,28 @@ var map = {
 	],
 	"./views/others/others.module": [
 		"./src/app/views/others/others.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
-		"views-charts-charts-module~views-others-others-module~views-product-crud-product-crud-module~views-p~cd7c7dbb",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
+		"views-charts-charts-module~views-evote-evote-module~views-others-others-module~views-product-crud-pr~5e0a372b",
+		"views-forms-forms-module~views-others-others-module~views-product-crud-product-crud-module~views-pro~cd29c3a2",
 		"views-charts-charts-module~views-others-others-module~views-profile-profile-module",
-		"views-forms-forms-module~views-others-others-module~views-profile-profile-module",
 		"common",
 		"views-others-others-module"
 	],
 	"./views/product-crud/product-crud.module": [
 		"./src/app/views/product-crud/product-crud.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
-		"views-charts-charts-module~views-others-others-module~views-product-crud-product-crud-module~views-p~cd7c7dbb",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
+		"views-charts-charts-module~views-evote-evote-module~views-others-others-module~views-product-crud-pr~5e0a372b",
+		"views-forms-forms-module~views-others-others-module~views-product-crud-product-crud-module~views-pro~cd29c3a2",
+		"views-evote-evote-module~views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
 		"views-product-crud-product-crud-module"
 	],
 	"./views/profile/profile.module": [
 		"./src/app/views/profile/profile.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
-		"views-charts-charts-module~views-others-others-module~views-product-crud-product-crud-module~views-p~cd7c7dbb",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
+		"views-charts-charts-module~views-evote-evote-module~views-others-others-module~views-product-crud-pr~5e0a372b",
+		"views-forms-forms-module~views-others-others-module~views-product-crud-product-crud-module~views-pro~cd29c3a2",
 		"views-charts-charts-module~views-others-others-module~views-profile-profile-module",
-		"views-forms-forms-module~views-others-others-module~views-profile-profile-module",
 		"common",
 		"views-profile-profile-module"
 	],
@@ -108,19 +118,21 @@ var map = {
 	],
 	"./views/shop/shop.module": [
 		"./src/app/views/shop/shop.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
 		"common",
 		"views-shop-shop-module"
 	],
 	"./views/survey/survey.module": [
 		"./src/app/views/survey/survey.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
+		"views-charts-charts-module~views-evote-evote-module~views-others-others-module~views-product-crud-pr~5e0a372b",
+		"views-evote-evote-module~views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
 		"views-survey-survey-module"
 	],
 	"./views/tables/tables.module": [
 		"./src/app/views/tables/tables.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
 		"common",
 		"views-tables-tables-module"
 	]
@@ -208,8 +220,8 @@ var AppComponent = /** @class */ (function () {
         this.routePartsService = routePartsService;
         this.themeService = themeService;
         this.renderer = renderer;
-        this.appTitle = 'CP Authentica';
-        this.pageTitle = '';
+        this.appTitle = "CP Authentica";
+        this.pageTitle = "";
     }
     AppComponent.prototype.ngOnInit = function () {
         this.changePageTitle();
@@ -219,7 +231,9 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.changePageTitle = function () {
         var _this = this;
-        this.router.events.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["filter"])(function (event) { return event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"]; })).subscribe(function (routeChange) {
+        this.router.events
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["filter"])(function (event) { return event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"]; }))
+            .subscribe(function (routeChange) {
             var routeParts = _this.routePartsService.generateRouteParts(_this.activeRoute.snapshot);
             if (!routeParts.length)
                 return _this.title.setTitle(_this.appTitle);
@@ -227,14 +241,16 @@ var AppComponent = /** @class */ (function () {
             _this.pageTitle = routeParts
                 .reverse()
                 .map(function (part) { return part.title; })
-                .reduce(function (partA, partI) { return partA + " > " + partI; });
+                .reduce(function (partA, partI) {
+                return partA + " > " + partI;
+            });
             _this.pageTitle += " | " + _this.appTitle;
             _this.title.setTitle(_this.pageTitle);
         });
     };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-root',
+            selector: "app-root",
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
         }),
@@ -274,12 +290,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
 /* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ngx-translate/http-loader */ "./node_modules/@ngx-translate/http-loader/esm5/ngx-translate-http-loader.js");
+/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -317,7 +335,8 @@ var AppModule = /** @class */ (function () {
             declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
             providers: [
                 // ANGULAR MATERIAL SLIDER FIX
-                { provide: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["HAMMER_GESTURE_CONFIG"], useClass: _angular_material__WEBPACK_IMPORTED_MODULE_4__["GestureConfig"] }
+                { provide: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["HAMMER_GESTURE_CONFIG"], useClass: _angular_material__WEBPACK_IMPORTED_MODULE_4__["GestureConfig"] },
+                _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_11__["UserService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         })
@@ -466,6 +485,11 @@ var rootRouterConfig = [
                 path: 'shop',
                 loadChildren: './views/shop/shop.module#ShopModule',
                 data: { title: 'Shop', breadcrumb: 'SHOP' }
+            },
+            {
+                path: 'evote',
+                loadChildren: './views/evote/evote.module#EvoteModule',
+                data: { title: 'E - Vote', breadcrumb: 'E Vote' }
             }
         ]
     },
@@ -707,6 +731,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_theme_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/theme.service */ "./src/app/shared/services/theme.service.ts");
 /* harmony import */ var _services_layout_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/layout.service */ "./src/app/shared/services/layout.service.ts");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
+/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _helpers_local_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../helpers/local-storage */ "./src/app/shared/helpers/local-storage.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -720,20 +757,28 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var HeaderSideComponent = /** @class */ (function () {
-    function HeaderSideComponent(themeService, layout, translate, renderer) {
-        this.themeService = themeService;
-        this.layout = layout;
-        this.translate = translate;
-        this.renderer = renderer;
-        this.currentLang = 'en';
-        this.availableLangs = [{
+
+
+
+var HeaderSideComponent = /** @class */ (function (_super) {
+    __extends(HeaderSideComponent, _super);
+    function HeaderSideComponent(themeService, layout, translate, renderer, userService, router) {
+        var _this = _super.call(this) || this;
+        _this.themeService = themeService;
+        _this.layout = layout;
+        _this.translate = translate;
+        _this.renderer = renderer;
+        _this.userService = userService;
+        _this.router = router;
+        _this.currentLang = 'en';
+        _this.availableLangs = [{
                 name: 'English',
                 code: 'en',
             }, {
                 name: 'Spanish',
                 code: 'es',
             }];
+        return _this;
     }
     HeaderSideComponent.prototype.ngOnInit = function () {
         this.egretThemes = this.themeService.egretThemes;
@@ -774,6 +819,14 @@ var HeaderSideComponent = /** @class */ (function () {
             sidebarStyle: 'compact'
         }, { transitionClass: true });
     };
+    HeaderSideComponent.prototype.signOut = function () {
+        console.log('sign out called HEADER SIDE');
+        this.userService.logout();
+        if (localStorage.getItem('currentUser')) {
+            console.log('NULL OI');
+        }
+        this.router.navigate(['/sessions/signin']);
+    };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Object)
@@ -786,10 +839,12 @@ var HeaderSideComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_services_theme_service__WEBPACK_IMPORTED_MODULE_1__["ThemeService"],
             _services_layout_service__WEBPACK_IMPORTED_MODULE_2__["LayoutService"],
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]])
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"],
+            _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_4__["UserService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
     ], HeaderSideComponent);
     return HeaderSideComponent;
-}());
+}(_helpers_local_storage__WEBPACK_IMPORTED_MODULE_6__["LocalStorageHandler"]));
 
 
 
@@ -802,7 +857,7 @@ var HeaderSideComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button -->\r\n  <button \r\n  *ngIf=\"layoutConf.sidebarStyle !== 'compact'\"\r\n  mat-icon-button\r\n  id=\"sidenavToggle\" \r\n  (click)=\"toggleSidenav()\"\r\n  matTooltip=\"Toggle Hide/Open\">\r\n  <mat-icon>menu</mat-icon>\r\n  </button>\r\n  <!-- Sidenav toggle collapse -->\r\n  <button \r\n  *ngIf=\"layoutConf.sidebarStyle !== 'closed'\"\r\n  mat-icon-button\r\n  id=\"collapseToggle\"\r\n  fxHide.lt-md=\"true\" \r\n  (click)=\"toggleCollapse()\"\r\n  matTooltip=\"Toggle Collapse\"\r\n  class=\"toggle-collapsed\">\r\n  <mat-icon>chevron_left</mat-icon>\r\n  </button>\r\n  <!-- Search form -->\r\n  <!-- <div \r\n  fxFlex\r\n  fxHide.lt-sm=\"true\" \r\n  class=\"search-bar\">\r\n    <form class=\"top-search-form\">\r\n      <mat-icon role=\"img\">search</mat-icon>\r\n      <input autofocus=\"true\" placeholder=\"Search\" type=\"text\">\r\n    </form>\r\n  </div> -->\r\n  <span fxFlex></span>\r\n  <!-- Language Switcher -->\r\n  <!-- <mat-select \r\n  placeholder=\"\"\r\n  id=\"langToggle\"\r\n  [style.width]=\"'auto'\"\r\n  name=\"currentLang\"\r\n  [(ngModel)]=\"currentLang\" \r\n  (selectionChange)=\"setLang($event)\">\r\n    <mat-option \r\n    *ngFor=\"let lang of availableLangs\" \r\n    [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n  </mat-select> -->\r\n  <!-- Theme Switcher -->\r\n  <button \r\n  mat-icon-button\r\n  id=\"schemeToggle\" \r\n  [style.overflow]=\"'visible'\"\r\n  matTooltip=\"Color Schemes\"\r\n  [matMenuTriggerFor]=\"themeMenu\"\r\n  class=\"topbar-button-right\">\r\n    <mat-icon>format_color_fill</mat-icon>\r\n  </button>\r\n  <mat-menu #themeMenu=\"matMenu\">\r\n    <mat-grid-list\r\n    class=\"theme-list\" \r\n    cols=\"2\" \r\n    rowHeight=\"48px\">\r\n      <mat-grid-tile \r\n      *ngFor=\"let theme of egretThemes\"\r\n      (click)=\"changeTheme(theme)\">\r\n        <div mat-menu-item [title]=\"theme.name\">\r\n          <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n          <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n        </div>\r\n      </mat-grid-tile>\r\n    </mat-grid-list>\r\n  </mat-menu>\r\n  <!-- Notification toggle button -->\r\n  <button \r\n  mat-icon-button\r\n  matTooltip=\"Notifications\" \r\n  (click)=\"toggleNotific()\"\r\n  [style.overflow]=\"'visible'\" \r\n  class=\"topbar-button-right\">\r\n    <mat-icon>notifications</mat-icon>\r\n    <span class=\"notification-number mat-bg-warn\">3</span>\r\n  </button>\r\n  <!-- Top left user menu -->\r\n  <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right img-button\">\r\n    <img src=\"assets/images/cp_user_1.jpg\" alt=\"\">\r\n  </button>\r\n  <mat-menu #accountMenu=\"matMenu\">\r\n    <button mat-menu-item [routerLink]=\"['/profile/overview']\">\r\n      <mat-icon>account_box</mat-icon>\r\n      <span>Profile</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/settings']\">\r\n      <mat-icon>settings</mat-icon>\r\n      <span>Account Settings</span>\r\n    </button>\r\n    <button mat-menu-item>\r\n      <mat-icon>notifications_off</mat-icon>\r\n      <span>Disable alerts</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/sessions/signin']\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </button>\r\n  </mat-menu>\r\n</mat-toolbar>"
+module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button -->\r\n  <button\r\n  *ngIf=\"layoutConf.sidebarStyle !== 'compact'\"\r\n  mat-icon-button\r\n  id=\"sidenavToggle\"\r\n  (click)=\"toggleSidenav()\"\r\n  matTooltip=\"Toggle Hide/Open\">\r\n  <mat-icon>menu</mat-icon>\r\n  </button>\r\n  <!-- Sidenav toggle collapse -->\r\n  <button\r\n  *ngIf=\"layoutConf.sidebarStyle !== 'closed'\"\r\n  mat-icon-button\r\n  id=\"collapseToggle\"\r\n  fxHide.lt-md=\"true\"\r\n  (click)=\"toggleCollapse()\"\r\n  matTooltip=\"Toggle Collapse\"\r\n  class=\"toggle-collapsed\">\r\n  <mat-icon>chevron_left</mat-icon>\r\n  </button>\r\n  <!-- Search form -->\r\n  <!-- <div\r\n  fxFlex\r\n  fxHide.lt-sm=\"true\"\r\n  class=\"search-bar\">\r\n    <form class=\"top-search-form\">\r\n      <mat-icon role=\"img\">search</mat-icon>\r\n      <input autofocus=\"true\" placeholder=\"Search\" type=\"text\">\r\n    </form>\r\n  </div> -->\r\n  <span fxFlex></span>\r\n  <!-- Language Switcher -->\r\n  <!-- <mat-select\r\n  placeholder=\"\"\r\n  id=\"langToggle\"\r\n  [style.width]=\"'auto'\"\r\n  name=\"currentLang\"\r\n  [(ngModel)]=\"currentLang\"\r\n  (selectionChange)=\"setLang($event)\">\r\n    <mat-option\r\n    *ngFor=\"let lang of availableLangs\"\r\n    [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n  </mat-select> -->\r\n  <!-- Theme Switcher -->\r\n  <button\r\n  mat-icon-button\r\n  id=\"schemeToggle\"\r\n  [style.overflow]=\"'visible'\"\r\n  matTooltip=\"Color Schemes\"\r\n  [matMenuTriggerFor]=\"themeMenu\"\r\n  class=\"topbar-button-right\">\r\n    <mat-icon>format_color_fill</mat-icon>\r\n  </button>\r\n  <mat-menu #themeMenu=\"matMenu\">\r\n    <mat-grid-list\r\n    class=\"theme-list\"\r\n    cols=\"2\"\r\n    rowHeight=\"48px\">\r\n      <mat-grid-tile\r\n      *ngFor=\"let theme of egretThemes\"\r\n      (click)=\"changeTheme(theme)\">\r\n        <div mat-menu-item [title]=\"theme.name\">\r\n          <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n          <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n        </div>\r\n      </mat-grid-tile>\r\n    </mat-grid-list>\r\n  </mat-menu>\r\n  <!-- Notification toggle button -->\r\n  <button\r\n  mat-icon-button\r\n  matTooltip=\"Notifications\"\r\n  (click)=\"toggleNotific()\"\r\n  [style.overflow]=\"'visible'\"\r\n  class=\"topbar-button-right\">\r\n    <mat-icon>notifications</mat-icon>\r\n    <span class=\"notification-number mat-bg-warn\">3</span>\r\n  </button>\r\n  <!-- Top left user menu -->\r\n  <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right img-button\">\r\n    <img src=\"{{currentUser.image}}\" alt=\"\">\r\n  </button>\r\n  <mat-menu #accountMenu=\"matMenu\">\r\n    <button mat-menu-item [routerLink]=\"['/profile/overview']\">\r\n      <mat-icon>account_box</mat-icon>\r\n      <span>Profile</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/settings']\">\r\n      <mat-icon>settings</mat-icon>\r\n      <span>Account Settings</span>\r\n    </button>\r\n    <button mat-menu-item>\r\n      <mat-icon>notifications_off</mat-icon>\r\n      <span>Disable alerts</span>\r\n    </button>\r\n    <button mat-menu-item (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </button>\r\n  </mat-menu>\r\n</mat-toolbar>\r\n"
 
 /***/ }),
 
@@ -813,7 +868,7 @@ module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header-topnav mat-elevation-z2\">\r\n  <div class=\"container\">\r\n    <div class=\"topnav\">\r\n      <!-- App Logo -->\r\n      <div class=\"topbar-branding\">\r\n        <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\">\r\n      </div>\r\n\r\n      <ul class=\"menu\" *ngIf=\"!layoutConf.isMobile\">\r\n        <li *ngFor=\"let item of menuItems; let i = index;\">\r\n          <div *ngIf=\"item.type !== 'separator'\" routerLinkActive=\"open\">\r\n            <a matRipple routerLink=\"/{{item.state}}\" *ngIf=\"item.type === 'link'\">\r\n              <mat-icon>{{item.icon}}</mat-icon> \r\n              {{item.name | translate}}\r\n            </a>\r\n            <div *ngIf=\"item.type === 'dropDown'\">\r\n              <label matRipple for=\"drop-{{i}}\" class=\"toggle\"><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</label>\r\n              <a matRipple><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</a>\r\n              <input type=\"checkbox\" id=\"drop-{{i}}\" />\r\n              <ul>\r\n                <li *ngFor=\"let itemLvL2 of item.sub; let j = index;\" routerLinkActive=\"open\">\r\n                  <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\" \r\n                  *ngIf=\"itemLvL2.type !== 'dropDown'\">\r\n                    <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>  \r\n                    {{itemLvL2.name | translate}}\r\n                  </a>\r\n                  \r\n                  <div *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n                    <label matRipple for=\"drop-{{i}}{{j}}\" class=\"toggle\">{{itemLvL2.name | translate}}</label>\r\n                    <a matRipple><mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>  {{itemLvL2.name | translate}}</a>\r\n                    <input type=\"checkbox\" id=\"drop-{{i}}{{j}}\" />\r\n                    <!-- Level 3 -->\r\n                    <ul>\r\n                      <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" routerLinkActive=\"open\">\r\n                        <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\">\r\n                          <mat-icon *ngIf=\"itemLvL3.icon\">{{itemLvL3.icon}}</mat-icon>\r\n                          {{itemLvL3.name | translate}}\r\n                        </a>\r\n                      </li>\r\n                    </ul>\r\n                  </div>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n      <span fxFlex></span>\r\n      <!-- End Navigation -->\r\n      \r\n      <!-- Language Switcher -->\r\n      <mat-select \r\n      *ngIf=\"!layoutConf.isMobile\"\r\n      placeholder=\"\"\r\n      id=\"langToggle\"\r\n      [style.width]=\"'auto'\"\r\n      name=\"currentLang\"\r\n      [(ngModel)]=\"currentLang\" \r\n      (selectionChange)=\"setLang()\"\r\n      class=\"topbar-button-right\">\r\n        <mat-option \r\n        *ngFor=\"let lang of availableLangs\" \r\n        [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n      </mat-select>\r\n      <!-- Theme Switcher -->\r\n      <button \r\n      mat-icon-button\r\n      id=\"schemeToggle\" \r\n      [style.overflow]=\"'visible'\"\r\n      matTooltip=\"Color Schemes\"\r\n      [matMenuTriggerFor]=\"themeMenu\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>format_color_fill</mat-icon>\r\n      </button>\r\n      <mat-menu #themeMenu=\"matMenu\">\r\n        <mat-grid-list\r\n        class=\"theme-list\" \r\n        cols=\"2\" \r\n        rowHeight=\"48px\">\r\n          <mat-grid-tile \r\n          *ngFor=\"let theme of egretThemes\"\r\n          (click)=\"changeTheme(theme)\">\r\n            <div mat-menu-item [title]=\"theme.name\">\r\n              <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n              <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </mat-menu>\r\n      <!-- Notification toggle button -->\r\n      <button \r\n      mat-icon-button\r\n      matTooltip=\"Notifications\" \r\n      (click)=\"toggleNotific()\"\r\n      [style.overflow]=\"'visible'\" \r\n      class=\"topbar-button-right\">\r\n        <mat-icon>notifications</mat-icon>\r\n        <span class=\"notification-number mat-bg-warn\">3</span>\r\n      </button>\r\n      <!-- Top left user menu -->\r\n      <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right mr-1 img-button\">\r\n        <img src=\"assets/images/cp_user_1.jpg\" alt=\"\">\r\n      </button>\r\n      <mat-menu #accountMenu=\"matMenu\">\r\n        <button mat-menu-item [routerLink]=\"['/profile/overview']\">\r\n          <mat-icon>account_box</mat-icon>\r\n          <span>Profile</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/settings']\">\r\n          <mat-icon>settings</mat-icon>\r\n          <span>Account Settings</span>\r\n        </button>\r\n        <button mat-menu-item>\r\n          <mat-icon>notifications_off</mat-icon>\r\n          <span>Disable alerts</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/sessions/signin']\">\r\n          <mat-icon>exit_to_app</mat-icon>\r\n          <span>Sign out</span>\r\n        </button>\r\n      </mat-menu>\r\n      <!-- Mobile screen menu toggle -->\r\n      <button \r\n      mat-icon-button \r\n      class=\"mr-1\" \r\n      (click)=\"toggleSidenav()\" \r\n      *ngIf=\"layoutConf.isMobile\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"header-topnav mat-elevation-z2\">\r\n  <div class=\"container\">\r\n    <div class=\"topnav\">\r\n      <!-- App Logo -->\r\n      <div class=\"topbar-branding\">\r\n        <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\">\r\n      </div>\r\n\r\n      <ul class=\"menu\" *ngIf=\"!layoutConf.isMobile\">\r\n        <li *ngFor=\"let item of menuItems; let i = index;\">\r\n          <div *ngIf=\"item.type !== 'separator'\" routerLinkActive=\"open\">\r\n            <a matRipple routerLink=\"/{{item.state}}\" *ngIf=\"item.type === 'link'\">\r\n              <mat-icon>{{item.icon}}</mat-icon>\r\n              {{item.name | translate}}\r\n            </a>\r\n            <div *ngIf=\"item.type === 'dropDown'\">\r\n              <label matRipple for=\"drop-{{i}}\" class=\"toggle\"><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</label>\r\n              <a matRipple><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</a>\r\n              <input type=\"checkbox\" id=\"drop-{{i}}\" />\r\n              <ul>\r\n                <li *ngFor=\"let itemLvL2 of item.sub; let j = index;\" routerLinkActive=\"open\">\r\n                  <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\"\r\n                  *ngIf=\"itemLvL2.type !== 'dropDown'\">\r\n                    <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>\r\n                    {{itemLvL2.name | translate}}\r\n                  </a>\r\n\r\n                  <div *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n                    <label matRipple for=\"drop-{{i}}{{j}}\" class=\"toggle\">{{itemLvL2.name | translate}}</label>\r\n                    <a matRipple><mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>  {{itemLvL2.name | translate}}</a>\r\n                    <input type=\"checkbox\" id=\"drop-{{i}}{{j}}\" />\r\n                    <!-- Level 3 -->\r\n                    <ul>\r\n                      <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" routerLinkActive=\"open\">\r\n                        <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\">\r\n                          <mat-icon *ngIf=\"itemLvL3.icon\">{{itemLvL3.icon}}</mat-icon>\r\n                          {{itemLvL3.name | translate}}\r\n                        </a>\r\n                      </li>\r\n                    </ul>\r\n                  </div>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n      <span fxFlex></span>\r\n      <!-- End Navigation -->\r\n\r\n      <!-- Language Switcher -->\r\n      <mat-select\r\n      *ngIf=\"!layoutConf.isMobile\"\r\n      placeholder=\"\"\r\n      id=\"langToggle\"\r\n      [style.width]=\"'auto'\"\r\n      name=\"currentLang\"\r\n      [(ngModel)]=\"currentLang\"\r\n      (selectionChange)=\"setLang()\"\r\n      class=\"topbar-button-right\">\r\n        <mat-option\r\n        *ngFor=\"let lang of availableLangs\"\r\n        [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n      </mat-select>\r\n      <!-- Theme Switcher -->\r\n      <button\r\n      mat-icon-button\r\n      id=\"schemeToggle\"\r\n      [style.overflow]=\"'visible'\"\r\n      matTooltip=\"Color Schemes\"\r\n      [matMenuTriggerFor]=\"themeMenu\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>format_color_fill</mat-icon>\r\n      </button>\r\n      <mat-menu #themeMenu=\"matMenu\">\r\n        <mat-grid-list\r\n        class=\"theme-list\"\r\n        cols=\"2\"\r\n        rowHeight=\"48px\">\r\n          <mat-grid-tile\r\n          *ngFor=\"let theme of egretThemes\"\r\n          (click)=\"changeTheme(theme)\">\r\n            <div mat-menu-item [title]=\"theme.name\">\r\n              <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n              <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </mat-menu>\r\n      <!-- Notification toggle button -->\r\n      <button\r\n      mat-icon-button\r\n      matTooltip=\"Notifications\"\r\n      (click)=\"toggleNotific()\"\r\n      [style.overflow]=\"'visible'\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>notifications</mat-icon>\r\n        <span class=\"notification-number mat-bg-warn\">3</span>\r\n      </button>\r\n      <!-- Top left user menu -->\r\n      <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right mr-1 img-button\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </button>\r\n      <mat-menu #accountMenu=\"matMenu\">\r\n        <button mat-menu-item [routerLink]=\"['/profile/overview']\">\r\n          <mat-icon>account_box</mat-icon>\r\n          <span>Profile</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/settings']\">\r\n          <mat-icon>settings</mat-icon>\r\n          <span>Account Settings</span>\r\n        </button>\r\n        <button mat-menu-item>\r\n          <mat-icon>notifications_off</mat-icon>\r\n          <span>Disable alerts</span>\r\n        </button>\r\n        <button mat-menu-item (click)=\"signOut()\" >\r\n          <mat-icon>exit_to_app</mat-icon>\r\n          <span>Sign out</span>\r\n        </button>\r\n      </mat-menu>\r\n      <!-- Mobile screen menu toggle -->\r\n      <button\r\n      mat-icon-button\r\n      class=\"mr-1\"\r\n      (click)=\"toggleSidenav()\"\r\n      *ngIf=\"layoutConf.isMobile\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -832,6 +887,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_theme_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../shared/services/theme.service */ "./src/app/shared/services/theme.service.ts");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
 /* harmony import */ var _services_layout_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/layout.service */ "./src/app/shared/services/layout.service.ts");
+/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _helpers_local_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../helpers/local-storage */ "./src/app/shared/helpers/local-storage.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -846,22 +914,30 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var HeaderTopComponent = /** @class */ (function () {
-    function HeaderTopComponent(layout, navService, themeService, translate, renderer) {
-        this.layout = layout;
-        this.navService = navService;
-        this.themeService = themeService;
-        this.translate = translate;
-        this.renderer = renderer;
-        this.egretThemes = [];
-        this.currentLang = 'en';
-        this.availableLangs = [{
+
+
+
+var HeaderTopComponent = /** @class */ (function (_super) {
+    __extends(HeaderTopComponent, _super);
+    function HeaderTopComponent(layout, navService, themeService, translate, renderer, userService, router) {
+        var _this = _super.call(this) || this;
+        _this.layout = layout;
+        _this.navService = navService;
+        _this.themeService = themeService;
+        _this.translate = translate;
+        _this.renderer = renderer;
+        _this.userService = userService;
+        _this.router = router;
+        _this.egretThemes = [];
+        _this.currentLang = 'en';
+        _this.availableLangs = [{
                 name: 'English',
                 code: 'en',
             }, {
                 name: 'Spanish',
                 code: 'es',
             }];
+        return _this;
     }
     HeaderTopComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -908,6 +984,14 @@ var HeaderTopComponent = /** @class */ (function () {
             sidebarStyle: 'closed'
         });
     };
+    HeaderTopComponent.prototype.signOut = function () {
+        console.log('sign out called HEADER TOP');
+        this.userService.logout();
+        if (localStorage.getItem('currentUser')) {
+            console.log('NULL OI');
+        }
+        this.router.navigate(['/sessions/signin']);
+    };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Object)
@@ -921,10 +1005,12 @@ var HeaderTopComponent = /** @class */ (function () {
             _shared_services_navigation_service__WEBPACK_IMPORTED_MODULE_1__["NavigationService"],
             _shared_services_theme_service__WEBPACK_IMPORTED_MODULE_2__["ThemeService"],
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]])
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"],
+            _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__["UserService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]])
     ], HeaderTopComponent);
     return HeaderTopComponent;
-}());
+}(_helpers_local_storage__WEBPACK_IMPORTED_MODULE_7__["LocalStorageHandler"]));
 
 
 
@@ -1233,7 +1319,7 @@ var NotificationsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sidebar-panel\">\r\n  <div id=\"scroll-area\" class=\"navigation-hold\" fxLayout=\"column\">\r\n    <!-- App Logo -->\r\n    <div class=\"branding default-bg\">\r\n      <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\">\r\n      <!-- Two different logos for dark and light themes -->\r\n      <img \r\n      src=\"assets/images/clear-picture-logo.png\" \r\n      alt=\"\" \r\n      class=\"app-logo-text\"\r\n      *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\">\r\n      <img \r\n      src=\"assets/images/cp_logo_text.png\" \r\n      alt=\"\" \r\n      class=\"app-logo-text\"\r\n      *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\">\r\n    </div>\r\n\r\n    <!-- Sidebar user -->\r\n    <div class=\"app-user\">\r\n      <div class=\"app-user-photo\">\r\n        <img src=\"assets/images/cp_user_1.jpg\" alt=\"\">\r\n      </div>\r\n      <span class=\"app-user-name mb-05\">\r\n        <mat-icon class=\"icon-xs text-muted\">lock</mat-icon> \r\n        Shalindra Weliwtia\r\n      </span>\r\n      <!-- Small buttons -->\r\n      <div class=\"app-user-controls\">\r\n        <button \r\n        class=\"text-muted\"\r\n        mat-icon-button \r\n        mat-xs-button\r\n        [matMenuTriggerFor]=\"appUserMenu\">\r\n          <mat-icon>settings</mat-icon>\r\n        </button>\r\n        <button \r\n        class=\"text-muted\"\r\n        mat-icon-button \r\n        mat-xs-button\r\n        matTooltip=\"Inbox\"\r\n        routerLink=\"/inbox\">\r\n          <mat-icon>email</mat-icon>\r\n        </button>\r\n        <button \r\n        class=\"text-muted\"\r\n        mat-icon-button \r\n        mat-xs-button\r\n        matTooltip=\"Sign Out\"\r\n        routerLink=\"/sessions/signin\">\r\n          <mat-icon>exit_to_app</mat-icon>\r\n        </button>\r\n        <mat-menu #appUserMenu=\"matMenu\">\r\n            <button mat-menu-item routerLink=\"/profile/overview\">\r\n              <mat-icon>account_box</mat-icon>\r\n              <span>Profile</span>\r\n            </button>\r\n            <button mat-menu-item routerLink=\"/profile/settings\">\r\n              <mat-icon>settings</mat-icon>\r\n              <span>Account Settings</span>\r\n            </button>\r\n            <button mat-menu-item routerLink=\"/calendar\">\r\n              <mat-icon>date_range</mat-icon>\r\n              <span>Calendar</span>\r\n            </button>\r\n            <button mat-menu-item routerLink=\"/sessions/signin\">\r\n              <mat-icon>exit_to_app</mat-icon>\r\n              <span>Sign out</span>\r\n            </button>\r\n          </mat-menu>\r\n      </div>\r\n    </div>\r\n    <!-- Navigation -->\r\n    <app-sidenav [items]=\"menuItems\" [hasIconMenu]=\"hasIconTypeMenuItem\" [iconMenuTitle]=\"iconTypeMenuTitle\"></app-sidenav>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"sidebar-panel\">\r\n  <div id=\"scroll-area\" class=\"navigation-hold\" fxLayout=\"column\">\r\n    <!-- App Logo -->\r\n    <div class=\"branding default-bg\">\r\n      <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\">\r\n      <!-- Two different logos for dark and light themes -->\r\n      <img src=\"assets/images/clear-picture-logo.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\">\r\n      <img src=\"assets/images/cp_logo_text.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\">\r\n    </div>\r\n\r\n    <!-- Sidebar user -->\r\n    <div class=\"app-user\">\r\n      <div class=\"app-user-photo\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </div>\r\n      <span class=\"app-user-name mb-05\">\r\n        <mat-icon class=\"icon-xs text-muted\">lock</mat-icon>\r\n        {{currentUser.profilename}}\r\n      </span>\r\n      <!-- Small buttons -->\r\n      <div class=\"app-user-controls\">\r\n        <button class=\"text-muted\" mat-icon-button mat-xs-button [matMenuTriggerFor]=\"appUserMenu\">\r\n          <mat-icon>settings</mat-icon>\r\n        </button>\r\n        <button class=\"text-muted\" mat-icon-button mat-xs-button matTooltip=\"Inbox\" routerLink=\"/inbox\">\r\n          <mat-icon>email</mat-icon>\r\n        </button>\r\n\r\n        <mat-menu #appUserMenu=\"matMenu\">\r\n          <button mat-menu-item routerLink=\"/profile/overview\">\r\n            <mat-icon>account_box</mat-icon>\r\n            <span>Profile</span>\r\n          </button>\r\n          <button mat-menu-item routerLink=\"/profile/settings\">\r\n            <mat-icon>settings</mat-icon>\r\n            <span>Account Settings</span>\r\n          </button>\r\n          <button mat-menu-item routerLink=\"/calendar\">\r\n            <mat-icon>date_range</mat-icon>\r\n            <span>Calendar</span>\r\n          </button>\r\n\r\n        </mat-menu>\r\n      </div>\r\n    </div>\r\n    <!-- Navigation -->\r\n    <app-sidenav [items]=\"menuItems\" [hasIconMenu]=\"hasIconTypeMenuItem\" [iconMenuTitle]=\"iconTypeMenuTitle\"></app-sidenav>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1251,6 +1337,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_navigation_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../shared/services/navigation.service */ "./src/app/shared/services/navigation.service.ts");
 /* harmony import */ var _services_theme_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/theme.service */ "./src/app/shared/services/theme.service.ts");
 /* harmony import */ var perfect_scrollbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! perfect-scrollbar */ "./node_modules/perfect-scrollbar/dist/perfect-scrollbar.esm.js");
+/* harmony import */ var _helpers_local_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/local-storage */ "./src/app/shared/helpers/local-storage.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1264,10 +1361,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var SidebarSideComponent = /** @class */ (function () {
+
+var SidebarSideComponent = /** @class */ (function (_super) {
+    __extends(SidebarSideComponent, _super);
     function SidebarSideComponent(navService, themeService) {
-        this.navService = navService;
-        this.themeService = themeService;
+        var _this = _super.call(this) || this;
+        _this.navService = navService;
+        _this.themeService = themeService;
+        return _this;
     }
     SidebarSideComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1303,7 +1404,7 @@ var SidebarSideComponent = /** @class */ (function () {
             _services_theme_service__WEBPACK_IMPORTED_MODULE_2__["ThemeService"]])
     ], SidebarSideComponent);
     return SidebarSideComponent;
-}());
+}(_helpers_local_storage__WEBPACK_IMPORTED_MODULE_4__["LocalStorageHandler"]));
 
 
 
@@ -1458,7 +1559,7 @@ var SidenavComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sidenav-hold\">\r\n  <div class=\"icon-menu\" *ngIf=\"hasIconTypeMenuItem\">\r\n    <!-- Icon menu separator -->\r\n    <div class=\"mt-1 mb-1 nav-item-sep\">\r\n      <mat-divider [ngStyle]=\"{margin: '0 -24px'}\"></mat-divider>\r\n      <span class=\"text-muted icon-menu-title\">{{iconTypeMenuTitle}}</span>\r\n    </div>\r\n    <!-- Icon menu items -->\r\n    <div class=\"icon-menu-item\" *ngFor=\"let item of menuItems\">\r\n      <button *ngIf=\"!item.disabled && item.type === 'icon'\" mat-raised-button [matTooltip]=\"item.tooltip\" routerLink=\"/{{item.state}}\"\r\n        routerLinkActive=\"mat-bg-primary\">\r\n        <mat-icon>{{item.icon}}</mat-icon>\r\n      </button>\r\n    </div>\r\n  </div>\r\n\r\n  <ul appDropdown class=\"sidenav\">\r\n    <li *ngFor=\"let item of menuItems\" appDropdownLink routerLinkActive=\"open\">\r\n      <div class=\"nav-item-sep\" *ngIf=\"item.type === 'separator'\">\r\n        <mat-divider></mat-divider>\r\n        <span class=\"text-muted\">{{item.name | translate}}</span>\r\n      </div>\r\n      <div *ngIf=\"!item.disabled && item.type !== 'separator' && item.type !== 'icon'\" class=\"lvl1\">\r\n        <a routerLink=\"/{{item.state}}\" appDropdownToggle matRipple *ngIf=\"item.type === 'link'\">\r\n          <mat-icon>{{item.icon}}</mat-icon>\r\n          <span class=\"item-name lvl1\">{{item.name | translate}}</span>\r\n          <span fxFlex></span>\r\n          <span class=\"menuitem-badge mat-bg-{{ badge.color }}\" [ngStyle]=\"{background: badge.color}\" *ngFor=\"let badge of item.badges\">{{ badge.value }}</span>\r\n        </a>\r\n        <a [href]=\"item.state\" appDropdownToggle matRipple *ngIf=\"item.type === 'extLink'\" target=\"_blank\">\r\n          <mat-icon>{{item.icon}}</mat-icon>\r\n          <span class=\"item-name lvl1\">{{item.name | translate}}</span>\r\n          <span fxFlex></span>\r\n          <span class=\"menuitem-badge mat-bg-{{ badge.color }}\" [ngStyle]=\"{background: badge.color}\" *ngFor=\"let badge of item.badges\">{{ badge.value }}</span>\r\n        </a>\r\n\r\n        <!-- DropDown -->\r\n        <a *ngIf=\"item.type === 'dropDown'\" appDropdownToggle matRipple>\r\n          <mat-icon>{{item.icon}}</mat-icon>\r\n          <span class=\"item-name lvl1\">{{item.name | translate}}</span>\r\n          <span fxFlex></span>\r\n          <span class=\"menuitem-badge mat-bg-{{ badge.color }}\" [ngStyle]=\"{background: badge.color}\" *ngFor=\"let badge of item.badges\">{{ badge.value }}</span>\r\n          <mat-icon class=\"menu-caret\">keyboard_arrow_right</mat-icon>\r\n        </a>\r\n        <!-- LEVEL 2 -->\r\n        <ul class=\"submenu lvl2\" appDropdown *ngIf=\"item.type === 'dropDown'\">\r\n          <li *ngFor=\"let itemLvL2 of item.sub\" appDropdownLink routerLinkActive=\"open\">\r\n\r\n            <a routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\" appDropdownToggle *ngIf=\"itemLvL2.type !== 'dropDown'\"\r\n              matRipple>\r\n              <span class=\"item-name lvl2\">{{itemLvL2.name | translate}}</span>\r\n              <span fxFlex></span>\r\n            </a>\r\n\r\n            <a *ngIf=\"itemLvL2.type === 'dropDown'\" appDropdownToggle matRipple>\r\n              <span class=\"item-name lvl2\">{{itemLvL2.name | translate}}</span>\r\n              <span fxFlex></span>\r\n              <mat-icon class=\"menu-caret\">keyboard_arrow_right</mat-icon>\r\n            </a>\r\n\r\n            <!-- LEVEL 3 -->\r\n            <ul class=\"submenu lvl3\" appDropdown *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n              <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" appDropdownLink routerLinkActive=\"open\">\r\n                <a routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\" appDropdownToggle\r\n                  matRipple>\r\n                  <span class=\"item-name lvl3\">{{itemLvL3.name | translate}}</span>\r\n                </a>\r\n              </li>\r\n            </ul>\r\n\r\n          </li>\r\n        </ul>\r\n      </div>\r\n    </li>\r\n  </ul>\r\n</div>"
+module.exports = "<div class=\"sidenav-hold\">\r\n  <div class=\"icon-menu\" *ngIf=\"hasIconTypeMenuItem\">\r\n    <!-- Icon menu separator -->\r\n    <div class=\"mt-1 mb-1 nav-item-sep\">\r\n      <mat-divider [ngStyle]=\"{margin: '0 -24px'}\"></mat-divider>\r\n      <span class=\"text-muted icon-menu-title\">{{iconTypeMenuTitle}}</span>\r\n    </div>\r\n    <!-- Icon menu items -->\r\n    <div class=\"icon-menu-item\" *ngFor=\"let item of menuItems\">\r\n      <button *ngIf=\"!item.disabled && item.type === 'icon'\" mat-raised-button [matTooltip]=\"item.tooltip\" routerLink=\"/{{item.state}}\"\r\n        routerLinkActive=\"mat-bg-primary\">\r\n        <mat-icon>{{item.icon}}</mat-icon>\r\n      </button>\r\n    </div>\r\n  </div>\r\n\r\n  <ul appDropdown class=\"sidenav\">\r\n    <li *ngFor=\"let item of menuItems\" appDropdownLink routerLinkActive=\"open\">\r\n      <div class=\"nav-item-sep\" *ngIf=\"item.type === 'separator'\">\r\n        <mat-divider></mat-divider>\r\n        <span class=\"text-muted\">{{item.name | translate}}</span>\r\n      </div>\r\n      <div *ngIf=\"!item.disabled && item.type !== 'separator' && item.type !== 'icon'\" class=\"lvl1\">\r\n        <a routerLink=\"/{{item.state}}\" appDropdownToggle matRipple *ngIf=\"item.type === 'link'\">\r\n          <mat-icon>{{item.icon}}</mat-icon>\r\n          <span class=\"item-name lvl1\">{{item.name | translate}}</span>\r\n          <span fxFlex></span>\r\n          <span class=\"menuitem-badge mat-bg-{{ badge.color }}\" [ngStyle]=\"{background: badge.color}\" *ngFor=\"let badge of item.badges\">{{ badge.value }}</span>\r\n        </a>\r\n        <a [href]=\"item.state\" appDropdownToggle matRipple *ngIf=\"item.type === 'extLink'\" target=\"_blank\">\r\n          <mat-icon>{{item.icon}}</mat-icon>\r\n          <span class=\"item-name lvl1\">{{item.name | translate}}</span>\r\n          <span fxFlex></span>\r\n          <span class=\"menuitem-badge mat-bg-{{ badge.color }}\" [ngStyle]=\"{background: badge.color}\" *ngFor=\"let badge of item.badges\">{{ badge.value }}</span>\r\n        </a>\r\n\r\n        <!-- DropDown -->\r\n        <a *ngIf=\"item.type === 'dropDown'\" appDropdownToggle matRipple>\r\n          <mat-icon>{{item.icon}}</mat-icon>\r\n          <span class=\"item-name lvl1\">{{item.name | translate}}</span>\r\n          <span fxFlex></span>\r\n          <span class=\"menuitem-badge mat-bg-{{ badge.color }}\" [ngStyle]=\"{background: badge.color}\" *ngFor=\"let badge of item.badges\">{{ badge.value }}</span>\r\n          <mat-icon class=\"menu-caret\">keyboard_arrow_right</mat-icon>\r\n        </a>\r\n        <!-- LEVEL 2 -->\r\n        <ul class=\"submenu lvl2\" appDropdown *ngIf=\"item.type === 'dropDown'\">\r\n          <li *ngFor=\"let itemLvL2 of item.sub\" appDropdownLink routerLinkActive=\"open\">\r\n\r\n            <a routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\" appDropdownToggle *ngIf=\"itemLvL2.type !== 'dropDown'\"\r\n              matRipple>\r\n              <span class=\"item-name lvl2\">{{itemLvL2.name | translate}}</span>\r\n              <span fxFlex></span>\r\n            </a>\r\n\r\n            <a *ngIf=\"itemLvL2.type === 'dropDown'\" appDropdownToggle matRipple>\r\n              <span class=\"item-name lvl2\">{{itemLvL2.name | translate}}</span>\r\n              <span fxFlex></span>\r\n              <mat-icon class=\"menu-caret\">keyboard_arrow_right</mat-icon>\r\n            </a>\r\n\r\n            <!-- LEVEL 3 -->\r\n            <ul class=\"submenu lvl3\" appDropdown *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n              <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" appDropdownLink routerLinkActive=\"open\">\r\n                <a routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\" appDropdownToggle\r\n                  matRipple>\r\n                  <span class=\"item-name lvl3\">{{itemLvL3.name | translate}}</span>\r\n                </a>\r\n              </li>\r\n            </ul>\r\n\r\n          </li>\r\n        </ul>\r\n      </div>\r\n    </li>\r\n  </ul>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1887,6 +1988,96 @@ var ScrollToDirective = /** @class */ (function () {
         __metadata("design:paramtypes", [String, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
     ], ScrollToDirective);
     return ScrollToDirective;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/fake-db/cp-users.ts":
+/*!********************************************!*\
+  !*** ./src/app/shared/fake-db/cp-users.ts ***!
+  \********************************************/
+/*! exports provided: CpUsersDB */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CpUsersDB", function() { return CpUsersDB; });
+var CpUsersDB = /** @class */ (function () {
+    function CpUsersDB() {
+        this.users = [
+            {
+                id: "1",
+                user_name: "judec",
+                profile_name: "Jude Cedric",
+                password: "jude123",
+                image: "assets/images/cp_users/Jude-Weerasekara.jpg",
+                company: "Clear Picture - Canada",
+                position: "Product Owner"
+            },
+            {
+                id: "2",
+                user_name: "shalindraw",
+                profile_name: "Shalindra Weliwita",
+                password: "shalindra123",
+                image: "assets/images/cp_users/cp_user_1.jpg",
+                company: "Clear Picture - Sri Lanka",
+                position: "Project Manager"
+            },
+            {
+                id: "3",
+                user_name: "raveens",
+                profile_name: "Yasas Ravindu",
+                password: "raveen123",
+                image: "assets/images/cp_users/raveen sankalpa.jpg",
+                company: "Clear Picture - Sri Lanka",
+                position: "Senior Software Engineer"
+            },
+            {
+                id: "4",
+                user_name: "kushanp",
+                profile_name: "Kushan Pabasara",
+                password: "kushan123",
+                image: "assets/images/cp_users/kushan pabasara.jpg",
+                company: "Clear Picture - Sri Lanka",
+                position: "UI/UX Engineer"
+            },
+            {
+                id: "5",
+                user_name: "nuwanp",
+                profile_name: "Nuwan Prasanna",
+                password: "nuwan123",
+                image: "assets/images/cp_users/nuwan prasanna.jpg",
+                company: "Clear Picture - Sri Lanka",
+                position: "Tech Lead"
+            }
+        ];
+    }
+    return CpUsersDB;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/helpers/local-storage.ts":
+/*!*************************************************!*\
+  !*** ./src/app/shared/helpers/local-storage.ts ***!
+  \*************************************************/
+/*! exports provided: LocalStorageHandler */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocalStorageHandler", function() { return LocalStorageHandler; });
+var LocalStorageHandler = /** @class */ (function () {
+    function LocalStorageHandler() {
+        this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        console.log("current user obj : ");
+        console.log(this.currentUser);
+    }
+    return LocalStorageHandler;
 }());
 
 
@@ -2388,10 +2579,11 @@ var AuthGuard = /** @class */ (function () {
         this.isAuthenticated = true; // Set this value dynamically
     }
     AuthGuard.prototype.canActivate = function (route, state) {
-        if (this.isAuthenticated) {
+        if (localStorage.getItem("currentUser")) {
+            // logged in so return true
             return true;
         }
-        this.router.navigate(['/sessions/signin']);
+        this.router.navigate(["/sessions/signin"]);
         return false;
     };
     AuthGuard = __decorate([
@@ -3036,8 +3228,15 @@ var NavigationService = /** @class */ (function () {
                 name: "Form",
                 type: "link",
                 tooltip: "Form",
-                icon: "favorite",
+                icon: "description",
                 state: "form/showForm"
+            },
+            {
+                name: "E-Vote",
+                type: "link",
+                tooltip: "E-Vote",
+                icon: "thumbs_up_down",
+                state: "evote/showEvote"
             }
             // {
             //   name: 'INBOX',
@@ -3591,6 +3790,78 @@ var SharedModule = /** @class */ (function () {
         })
     ], SharedModule);
     return SharedModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/views/sessions/UserService.service.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/views/sessions/UserService.service.ts ***!
+  \*******************************************************/
+/*! exports provided: UserService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return UserService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _shared_fake_db_cp_users__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/fake-db/cp-users */ "./src/app/shared/fake-db/cp-users.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var UserService = /** @class */ (function () {
+    function UserService(http) {
+        this.http = http;
+        var user = new _shared_fake_db_cp_users__WEBPACK_IMPORTED_MODULE_2__["CpUsersDB"]();
+        this.users = user.users;
+    }
+    UserService.prototype.login = function (signinFormData) {
+        console.log(this.users);
+        var currentUser = this.users.filter(function (user) {
+            return (user.user_name === signinFormData.username &&
+                user.password === signinFormData.password);
+        });
+        console.log("current log users" + currentUser);
+        if (currentUser.length > 0) {
+            console.log(currentUser);
+            var loggedUser = currentUser[0];
+            var userToken = {
+                id: loggedUser.id,
+                username: loggedUser.user_name,
+                profilename: loggedUser.profile_name,
+                image: loggedUser.image,
+                token: "fake-logged-user",
+                company: loggedUser.company,
+                position: loggedUser.position
+            };
+            localStorage.setItem("currentUser", JSON.stringify(userToken));
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+    UserService.prototype.logout = function () {
+        // remove user from local storage to log user out
+        localStorage.removeItem("currentUser");
+    };
+    UserService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], UserService);
+    return UserService;
 }());
 
 

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-forms-forms-module~views-others-others-module~views-profile-profile-module"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-forms-forms-module~views-others-others-module~views-product-crud-product-crud-module~views-pro~cd29c3a2"],{
 
 /***/ "./node_modules/ng2-file-upload/file-upload/file-drop.directive.js":
 /*!*************************************************************************!*\
@@ -1016,24 +1016,7 @@ var file_upload_module_1 = __webpack_require__(/*! ./file-upload/file-upload.mod
 exports.FileUploadModule = file_upload_module_1.FileUploadModule;
 
 
-/***/ }),
-
-/***/ "./node_modules/ng2-file-upload/ng2-file-upload.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/ng2-file-upload/ng2-file-upload.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-__export(__webpack_require__(/*! ./index */ "./node_modules/ng2-file-upload/index.js"));
-
-
 /***/ })
 
 }]);
-//# sourceMappingURL=views-forms-forms-module~views-others-others-module~views-profile-profile-module.js.map
+//# sourceMappingURL=views-forms-forms-module~views-others-others-module~views-product-crud-product-crud-module~views-pro~cd29c3a2.js.map

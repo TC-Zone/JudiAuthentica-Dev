@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form class=\"example-form\" [formGroup]='userForm'>\r\n  <mat-form-field class=\"example-full-width\">\r\n    <input matInput placeholder=\"Choose a user\" [matAutocomplete]=\"auto\" formControlName='userInput'>\r\n  </mat-form-field>  \r\n    \r\n  <mat-autocomplete #auto=\"matAutocomplete\" >\r\n      <mat-option *ngFor=\"let user of (filteredClient | async)?.content\" [value]=\"user\">\r\n        <span>{{ user.name }}</span>\r\n        \r\n      </mat-option>\r\n  </mat-autocomplete>\r\n</form> "
+module.exports = "<form class=\"example-form\" [formGroup]='userForm'>\r\n  <mat-form-field class=\"example-full-width\">\r\n    <input matInput placeholder=\"Choose a user\" [matAutocomplete]=\"auto\" formControlName='userInput'>\r\n  </mat-form-field>\r\n  <img src=\"https://productzg4t4ks63a.hana.ondemand.com/product/downloadFile/bljmY_5VgFlwM-WCMP7huDNzv9CuHWvAogEJnY_Bh8U\" alt=\"Flowers in Chania\" width=\"460\" height=\"345\">\r\n  <mat-autocomplete #auto=\"matAutocomplete\" >\r\n      <mat-option *ngFor=\"let user of (filteredClient | async)?.content\" [value]=\"user\">\r\n        <span>{{ user.name }}</span>\r\n\r\n\r\n      </mat-option>\r\n  </mat-autocomplete>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -211,6 +211,26 @@ var FormService = /** @class */ (function () {
     return FormService;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/environments/environment.prod.ts":
+/*!**********************************************!*\
+  !*** ./src/environments/environment.prod.ts ***!
+  \**********************************************/
+/*! exports provided: environment */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
+var environment = {
+    production: true,
+    apiURL: 'productionApi',
+    productApiURL: 'https://productzg4t4ks63a.hana.ondemand.com/product/api/',
+    surveyApiURL: 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/',
+};
 
 
 /***/ })
