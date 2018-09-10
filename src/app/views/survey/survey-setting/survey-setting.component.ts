@@ -19,6 +19,12 @@ export class SurveySettingComponent implements OnInit {
   rows: any[];
   public getAnswersTemplatesSub: Subscription;
 
+  public defaultAnswerTemplate: any = {
+    name: "Free Text Answer",
+    answerTemplateType: "F",
+    answers: [{ lable: "", value: 1, optionNumber: 1 }]
+  };
+
   constructor(
     private dialog: MatDialog,
     private surveyService: SurveyService,
@@ -29,6 +35,35 @@ export class SurveySettingComponent implements OnInit {
 
   ngOnInit() {
     this.getAllAnsTemplates();
+  }
+
+  defaultTemplateCreate(templates: any) {
+    console.log("passed rows :");
+    console.log(templates);
+    let result = templates.filter(
+      item => item.answerTemplateType.indexOf("F") !== -1
+    );
+    if (result.length === 0) {
+      console.log("need to create Free text ");
+      this.loader.open("Installing Default Settings");
+      console.log(this.defaultAnswerTemplate);
+      this.surveyService
+        .addNewAnsTemplate(this.defaultAnswerTemplate,this.rows)
+        .subscribe(
+          data => {
+            this.rows = data;
+            this.loader.close();
+          },
+          error => {
+            this.loader.close();
+            this.errDialog.showError({
+              title: "Error",
+              status: error.status,
+              type: "http_error"
+            });
+          }
+        );
+    }
   }
 
   ngOnDestroy() {
@@ -44,6 +79,7 @@ export class SurveySettingComponent implements OnInit {
         successResp => {
           this.rows = successResp.content;
           console.log(this.rows);
+          this.defaultTemplateCreate(this.rows);
         },
         error => {
           console.log(error);
@@ -113,8 +149,6 @@ export class SurveySettingComponent implements OnInit {
             });
           }
         );
-
-
       }
 
       console.log("input : ");
@@ -165,8 +199,5 @@ export class SurveySettingComponent implements OnInit {
     );
   }
 
-
+  //{"name":"Free text ","answerTemplateType":"M","answers":[{"lable":"fee","value":1,"optionNumber":1}]}
 }
-
-
-

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {EvoteService } from '../evote-service.service';
+import { Component, OnInit } from "@angular/core";
+import { EvoteService } from "../evote-service.service";
 import { Subscription } from "../../../../../node_modules/rxjs";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
@@ -13,19 +13,20 @@ import { AppConfirmService } from "../../../shared/services/app-confirm/app-conf
 
 import * as moment from "moment";
 import { AppFileDownloadService } from "../../../shared/services/file-download.service";
-import { AppDataConversionService } from '../../../shared/services/data-conversion.service';
-import { EvotePopupComponent } from '../../evote/evote-table/evote-popup/evote-popup.component';
+import { AppDataConversionService } from "../../../shared/services/data-conversion.service";
+import { EvotePopupComponent } from "../../evote/evote-table/evote-popup/evote-popup.component";
+import { VoterPopupComponent } from "../voter-popup/voter-popup.component";
 
 @Component({
-  selector: 'app-evote-table',
-  templateUrl: './evote-table.component.html',  
+  selector: "app-evote-table",
+  templateUrl: "./evote-table.component.html",
   animations: egretAnimations
 })
 export class EvoteTableComponent implements OnInit {
   rows: any[];
   columns = [];
   temp = [];
-  
+
   public getEvoteSub: Subscription;
   constructor(
     private evoteService: EvoteService,
@@ -33,9 +34,9 @@ export class EvoteTableComponent implements OnInit {
     private errDialog: AppErrorService,
     private confirmService: AppConfirmService,
     private downloadService: AppFileDownloadService,
-    private conversionService : AppDataConversionService,
-    private dialog: MatDialog,
-  ) { }
+    private conversionService: AppDataConversionService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.getAllEvote();
@@ -46,10 +47,9 @@ export class EvoteTableComponent implements OnInit {
   //   const csvData =  this.conversionService.convertToCsv(selectedRow.productDetails);
   //   this.downloadService.downloadFile({ name: fileName, type : 'csv' , data : csvData });
   // }
-  
+
   updateFilter(event) {
-    
-    const val = event.target.value.toLowerCase();    
+    const val = event.target.value.toLowerCase();
     let columns = Object.keys(this.temp[0]);
     columns.splice(columns.length - 1);
 
@@ -70,7 +70,6 @@ export class EvoteTableComponent implements OnInit {
       }
     });
     this.rows = rows;
-    
   }
 
   getAllEvote() {
@@ -113,16 +112,14 @@ export class EvoteTableComponent implements OnInit {
         }
       });
   }
-  openProductPopup(data: any = {}, isNew?) {
-    let title = isNew ? "Add new Product" : "Update Product";
-    let dialogRef: MatDialogRef<any> = this.dialog.open(
-      EvotePopupComponent,
-      {
-        width: "720px",
-        disableClose: true,
-        data: { title: title, payload: data }
-      }
-    );
+
+  openEvotePopup(data: any = {}, isNew?) {
+    let title = isNew ? "Add new E vote" : "Update E vote";
+    let dialogRef: MatDialogRef<any> = this.dialog.open(EvotePopupComponent, {
+      width: "720px",
+      disableClose: true,
+      data: { title: title, payload: data }
+    });
 
     dialogRef.afterClosed().subscribe(res => {
       if (!res) {
@@ -175,6 +172,39 @@ export class EvoteTableComponent implements OnInit {
           }
         );
       }
+    });
+  }
+
+  openVoterPopup(data: any = {}) {
+    let title = "Populate Voters ";
+    let dialogRef: MatDialogRef<any> = this.dialog.open(VoterPopupComponent, {
+      width: "400px",
+      disableClose: true,
+      data: { title: title, payload: data }
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (!res) {
+        // if user press cancel.
+        return;
+      }
+      console.log("FORM DATA  : ");
+      console.log(res);
+
+      this.evoteService.populateVoters(res).subscribe(
+        response => {
+          console.log("response of populate voters : ");
+          console.log(response);
+        },
+        error => {
+          this.loader.close();
+          this.errDialog.showError({
+            title: "Error",
+            status: error.status,
+            type: "http_error"
+          });
+        }
+      );
     });
   }
 }

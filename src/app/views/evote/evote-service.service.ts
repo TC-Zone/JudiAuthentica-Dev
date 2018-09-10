@@ -16,7 +16,8 @@ import { _throw } from "rxjs/Observable/throw";
 
 @Injectable()
 export class EvoteService {
-  surveyApiUrl: string = environment.surveyApiURL + 'evotes/';
+  surveyApiUrl: string = environment.surveyApiURL + "evotes/";
+  populateVoterUrl: string = environment.surveyApiURL + "voters";
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -29,11 +30,11 @@ export class EvoteService {
 
   getAllEvotesSuggestions(): Observable<any> {
     return this.http
-      .get(this.surveyApiUrl + 'suggestions')
+      .get(this.surveyApiUrl + "suggestions")
       .pipe(catchError(this.handleError));
   }
 
-  getAllEvotes():Observable<any> {
+  getAllEvotes(): Observable<any> {
     return this.http.get(this.surveyApiUrl).pipe(catchError(this.handleError));
   }
 
@@ -58,9 +59,16 @@ export class EvoteService {
         catchError(this.handleError)
       );
   }
+
   updateEvote(id, item) {
     return this.http
       .put<any>(this.surveyApiUrl + id, item, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  populateVoters(voteObj): Observable<any> {
+    return this.http
+      .post<any>(this.populateVoterUrl, voteObj)
       .pipe(catchError(this.handleError));
   }
 

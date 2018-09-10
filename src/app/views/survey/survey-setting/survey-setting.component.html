@@ -37,12 +37,14 @@
           </ngx-datatable-column>
           <ngx-datatable-column name="Answer type" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              <mat-chip mat-sm-chip color="accent" [selected]="true" >{{ row?.answerTemplateType =='M' ? 'Multiple Option' : 'Single Option'}}</mat-chip>
+              <mat-chip mat-sm-chip *ngIf='row?.answerTemplateType =="M"'   color="accent" [selected]="true" >Multiple Option</mat-chip>
+              <mat-chip mat-sm-chip *ngIf='row?.answerTemplateType =="S"'   color="primary" [selected]="true" >Single Option</mat-chip>
+              <mat-chip mat-sm-chip *ngIf='row?.answerTemplateType =="F"'   color="default" [selected]="true" >Free Text</mat-chip>
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Action" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              <button mat-icon-button mat-sm-button (click)="getAnsTemplateById(row.id)" color="primary" class="mr-1"><mat-icon>edit</mat-icon></button>
+              <button mat-icon-button mat-sm-button  [disabled]='row?.answerTemplateType =="F"'  (click)="getAnsTemplateById(row.id)" color="primary" class="mr-1"><mat-icon>edit</mat-icon></button>
               <button mat-icon-button mat-sm-button (click)="deleteAnsTemplate(row)" color="warn"  class="mr-1" ><mat-icon>delete</mat-icon></button>
             </ng-template>
           </ngx-datatable-column>
