@@ -47,6 +47,23 @@ export class EvoteService {
     );
   }
 
+  addEvote(evoteObj, items): Observable<any> {
+    return this.http
+      .post<any>(this.surveyApiUrl, evoteObj, this.httpOptions)
+      .pipe(
+        map(data => {
+          items.unshift(data.content);
+          return items.slice();
+        }),
+        catchError(this.handleError)
+      );
+  }
+  updateEvote(id, item) {
+    return this.http
+      .put<any>(this.surveyApiUrl + id, item, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse | any) {
     return _throw(error);
   }

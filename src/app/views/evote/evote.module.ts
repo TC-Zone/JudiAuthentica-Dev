@@ -17,7 +17,7 @@ import { EvoteTableComponent } from './evote-table/evote-table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { EvotePopupComponent } from './evote-table/evote-popup/evote-popup/evote-popup.component';
+import { EvotePopupComponent } from './evote-table/evote-popup/evote-popup.component';
 
 
 @NgModule({
@@ -39,6 +39,7 @@ import { EvotePopupComponent } from './evote-table/evote-popup/evote-popup/evote
     RouterModule.forChild(EvoteRouts)
   ],
   providers: [EvoteService],
-  declarations: [EvoteTableComponent, EvotePopupComponent]
+  declarations: [EvoteTableComponent, EvotePopupComponent],
+  entryComponents: [EvotePopupComponent]
 })
 export class EvoteModule { }

@@ -1,0 +1,64 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+<form [formGroup]="evoteForm" (ngSubmit)="submit()">
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+
+    <!-- <div fxFlex="34" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Choose a client" [matAutocomplete]="auto" [formControl]="productForm.controls['client']" >
+        </mat-form-field>
+
+        <mat-autocomplete #auto="matAutocomplete" >
+            <mat-option *ngFor="let user of (filteredClient | async)?.content" [value]="user">
+              <span>{{ user.name }}</span>
+            </mat-option>
+        </mat-autocomplete>
+    </div> -->
+    <div fxFlex="33" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput [formControl]="evoteForm.controls['topic']" required name="topic" placeholder="topic">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="33" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput [formControl]="evoteForm.controls['code']" required name="proCode" placeholder="Product Code">
+      </mat-form-field>
+    </div>   
+
+    <div fxFlex="34" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="desc" [formControl]="evoteForm.controls['description']" required name="description" placeholder="Description">
+      </mat-form-field>
+    </div>    
+
+    <div fxFlex="33" class="pr-1">
+      <mat-form-field class="full-width">
+        <input type="number" matInput name="quantity" [formControl]="evoteForm.controls['quantity']" min="1" postiveNumberOnly
+          required placeholder="Quantity">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="33" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="expireDate" [min]="tomorrow" [matDatepicker]="picker"  [formControl]="evoteForm.controls['expireDate']" required placeholder="Expire Date">
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div fxFlex="33" class="pr-1">
+      <mat-form-field class="full-width">
+        <input matInput name="batchNumber" [formControl]="evoteForm.controls['batchNumber']" required placeholder="Batch Number">
+      </mat-form-field>
+    </div> 
+
+
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" [disabled]="evoteForm.invalid">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+
+  </div>
+</form>
