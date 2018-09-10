@@ -5,7 +5,7 @@ export class SurveyModel {
   public endDate: string;
   public productId: string;
   public voteId: string;
-  public questions?: any;
+  public questions?: any[] = [];
 
   constructor(obj: ISurveyView) {
     this.topic = obj.topic;
@@ -14,8 +14,30 @@ export class SurveyModel {
     this.endDate = obj.endDate;
     this.productId = obj.productId;
     this.voteId = obj.voteId;
-    this.questions = obj.questions;
+    console.log(" obj.questions ");
+    console.log(obj.questions);
+
+    obj.questions.forEach(question => {
+      const answerTemplate = new AnswerTemplate(
+        "name",
+        question.answerTemplate
+      );
+
+      let qOBj = new Question(question.name, answerTemplate);
+      console.log("question object");
+      console.log(qOBj);
+      this.questions.unshift(qOBj);
+    });
   }
+}
+
+export class Question {
+  //answerTemplate
+  constructor(public name: string, public answerTemplate: AnswerTemplate) {}
+}
+
+export class AnswerTemplate {
+  constructor(public name: string, public id: string) {}
 }
 
 interface ISurveyView {
@@ -25,5 +47,5 @@ interface ISurveyView {
   endDate: string;
   productId: string;
   voteId: string;
-  questions?: any;
+  questions?: any[];
 }

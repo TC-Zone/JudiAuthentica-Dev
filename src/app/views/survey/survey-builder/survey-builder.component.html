@@ -122,7 +122,7 @@
                 <mat-form-field class="full-width">
                   <mat-select formControlName="answerTemplate" required placeholder="Choose Answer Template">
                     <mat-option>None</mat-option>
-                    <mat-option *ngFor='let template of ansTemplates' [value]="template.id">{{template.name}}</mat-option>
+                    <mat-option *ngFor='let template of ansTemplates'  [value]="template.id">{{template.name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>

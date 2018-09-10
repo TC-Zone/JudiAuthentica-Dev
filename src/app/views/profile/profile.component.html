@@ -2,12 +2,12 @@
   <div fxFlex="100" fxFlex.gt-md="300px" fxFlex.gt-sm="50">
     <mat-card class="profile-sidebar mb-1 pb-0">
       <div class="propic text-center">
-        <img src="assets/images/sq-face-220.jpg" alt="">
+        <img src="{{currentUser.image}}" alt="">
       </div>
       <div class="profile-title text-center mb-1">
-        <div class="main-title">Jhone <b>Doe</b></div>
-        <div class="subtitle mb-05">Big Data Expert</div>
-        <div class="text-muted">Hi I'm Jhone, sit amet consectetur adipisicing elit. Aperiam repellendus nam perspiciatis.</div>
+        <div class="main-title">{{currentUser.profilename}}</div>
+        <div class="subtitle mb-05">{{currentUser.position}}</div>
+        <div class="text-muted">Hi  {{currentUser.profilename}} ! Hope you are doing great at {{currentUser.company}}</div>
       </div>
       <div class="profile-actions text-center mb-1">
         <button mat-raised-button color="primary">Message</button>
@@ -34,12 +34,12 @@
     </mat-card>
 
     <!-- Chart grid -->
-    <mat-card class="default">
+    <!-- <mat-card class="default">
       <mat-card-title>Summary</mat-card-title>
       <mat-card-content>
           <div fxLayout="row" fxLayoutWrap="wrap" class="doughnut-grid text-center">
               <div fxFlex="50" class="doughnut-grid-item mat-bg-primary">
-                  <canvas 
+                  <canvas
                   baseChart
                   class="chart"
                   [data]="doughnutChartData1"
@@ -49,8 +49,8 @@
                   <small>Space: {{data1}}/{{total1}} GB</small>
             </div>
             <div fxFlex="50" class="doughnut-grid-item light-gray">
-                <canvas  
-                baseChart 
+                <canvas
+                baseChart
                 class="chart"
                 [data]="doughnutChartData2"
                 [options]="doughnutOptions"
@@ -59,8 +59,8 @@
                 <small>Sales: 450</small>
           </div>
           <div fxFlex="50" class="doughnut-grid-item light-gray">
-              <canvas  
-              baseChart 
+              <canvas
+              baseChart
               class="chart"
               [data]="doughnutChartData2"
               [options]="doughnutOptions"
@@ -69,8 +69,8 @@
               <small>Spent: $500</small>
         </div>
         <div fxFlex="50" class="doughnut-grid-item mat-bg-primary">
-            <canvas 
-            baseChart 
+            <canvas
+            baseChart
             class="chart"
             [data]="doughnutChartData2"
             [options]="doughnutOptions"
@@ -80,9 +80,9 @@
       </div>
         </div>
       </mat-card-content>
-    </mat-card>
+    </mat-card> -->
     <!-- Contact Information -->
-    <mat-card class="default">
+    <!-- <mat-card class="default">
       <mat-card-title>Contact Information</mat-card-title>
       <mat-card-content class="pt-0">
         <mat-list>
@@ -92,10 +92,10 @@
           <mat-list-item><mat-icon class="mr-1">add_location</mat-icon> SUST, Sylhet, BD</mat-list-item>
         </mat-list>
       </mat-card-content>
-    </mat-card>
+    </mat-card> -->
   </div>
 
-<!-- Profile Views -->
+  <!-- Profile Views -->
   <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="calc(100% - 300px)">
     <router-outlet></router-outlet>
   </div>

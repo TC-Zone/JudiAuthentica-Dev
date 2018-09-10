@@ -4,12 +4,15 @@ import { Subscription } from 'rxjs';
 import { ThemeService } from '../../../shared/services/theme.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LayoutService } from '../../services/layout.service';
+import { UserService } from '../../../views/sessions/UserService.service';
+import { Router } from '@angular/router';
+import { LocalStorageHandler } from '../../helpers/local-storage';
 
 @Component({
   selector: 'app-header-top',
   templateUrl: './header-top.component.html'
 })
-export class HeaderTopComponent implements OnInit, OnDestroy {
+export class HeaderTopComponent extends LocalStorageHandler implements OnInit, OnDestroy {
   layoutConf: any;
   menuItems:any;
   menuItemSub: Subscription;
@@ -28,8 +31,10 @@ export class HeaderTopComponent implements OnInit, OnDestroy {
     private navService: NavigationService,
     public themeService: ThemeService,
     public translate: TranslateService,
-    private renderer: Renderer2
-  ) { }
+    private renderer: Renderer2,
+    private userService : UserService,
+    private router : Router
+  ) {super(); }
 
   ngOnInit() {
     this.layoutConf = this.layout.layoutConf;
@@ -74,5 +79,15 @@ export class HeaderTopComponent implements OnInit, OnDestroy {
     this.layout.publishLayoutChange({
       sidebarStyle: 'closed'
     })
+  }
+
+  signOut(){
+    console.log('sign out called HEADER TOP');
+    this.userService.logout();
+    if(localStorage.getItem('currentUser')){
+      console.log('NULL OI');
+    }
+
+    this.router.navigate(['/sessions/signin']);
   }
 }

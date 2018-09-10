@@ -205,6 +205,9 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
   }
 
   submit() {
+
+    this.loader.open('Questions are upadating')
+
     let surveyReq = new SurveyModel({
       topic: this.surveyDetailForm.value.topic,
       type: this.surveyDetailForm.value.type,
@@ -212,9 +215,14 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
       endDate: this.surveyDetailForm.value.endDate,
       productId: this.surveyDetailForm.value.productId,
       voteId: this.surveyDetailForm.value.voteId,
-      questions: this.questionForm.value
+      questions: this.questionForm.value.questions
     });
 
+    console.log('final request : ');
+    console.log(surveyReq);
+    let jOb =  JSON.stringify(surveyReq);
+    console.log(jOb)
+    console.log(JSON.parse(jOb));
     this.updateSurveyWithQuestions(this.surveyId, surveyReq);
   }
 

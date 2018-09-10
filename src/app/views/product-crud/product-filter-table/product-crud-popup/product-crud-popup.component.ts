@@ -148,9 +148,7 @@ export class ProductCrudPopupComponent implements OnInit {
   }
 
   prepareToSave(formvalue): FormData {
-    let input: FormData = new FormData();
-    console.log("this.ImageFILE");
-    console.log(this.imageFile);
+    let input: FormData = new FormData();   
     input.append("file", this.imageFile);
     input.append("code", formvalue.code);
     input.append("quantity", formvalue.quantity);

@@ -2,12 +2,15 @@ import { Component, OnInit, EventEmitter, Input, Output, Renderer2 } from '@angu
 import { ThemeService } from '../../services/theme.service';
 import { LayoutService } from '../../services/layout.service';
 import { TranslateService } from '@ngx-translate/core';
+import { UserService } from '../../../views/sessions/UserService.service';
+import { Router } from '@angular/router';
+import { LocalStorageHandler } from '../../helpers/local-storage';
 
 @Component({
   selector: 'app-header-side',
   templateUrl: './header-side.template.html'
 })
-export class HeaderSideComponent implements OnInit {
+export class HeaderSideComponent extends LocalStorageHandler implements OnInit {
   @Input() notificPanel;
   currentLang = 'en';
   public availableLangs = [{
@@ -23,8 +26,10 @@ export class HeaderSideComponent implements OnInit {
     private themeService: ThemeService,
     private layout: LayoutService,
     public translate: TranslateService,
-    private renderer: Renderer2
-  ) {}
+    private renderer: Renderer2,
+    private userService : UserService,
+    private router : Router
+  ) {super();}
   ngOnInit() {
     this.egretThemes = this.themeService.egretThemes;
     this.layoutConf = this.layout.layoutConf;
@@ -67,5 +72,15 @@ export class HeaderSideComponent implements OnInit {
       sidebarStyle: 'compact'
     }, {transitionClass: true})
 
+  }
+
+  signOut(){
+    console.log('sign out called HEADER SIDE');
+    this.userService.logout();
+    if(localStorage.getItem('currentUser')){
+      console.log('NULL OI');
+    }
+
+    this.router.navigate(['/sessions/signin']);
   }
 }

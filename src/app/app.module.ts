@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { UserService } from './views/sessions/UserService.service';
 
 
 
@@ -26,7 +27,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,
-    HttpClientModule,   
+    HttpClientModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -39,7 +40,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   declarations: [AppComponent],
   providers: [
     // ANGULAR MATERIAL SLIDER FIX
-    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
+    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
+    UserService
   ],
   bootstrap: [AppComponent]
 })
