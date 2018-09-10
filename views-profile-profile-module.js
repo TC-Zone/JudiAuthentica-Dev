@@ -296,7 +296,7 @@ var ProfileSettingsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" fxFlex.gt-md=\"300px\" fxFlex.gt-sm=\"50\">\r\n    <mat-card class=\"profile-sidebar mb-1 pb-0\">\r\n      <div class=\"propic text-center\">\r\n        <img src=\"assets/images/sq-face-220.jpg\" alt=\"\">\r\n      </div>\r\n      <div class=\"profile-title text-center mb-1\">\r\n        <div class=\"main-title\">Jhone <b>Doe</b></div>\r\n        <div class=\"subtitle mb-05\">Big Data Expert</div>\r\n        <div class=\"text-muted\">Hi I'm Jhone, sit amet consectetur adipisicing elit. Aperiam repellendus nam perspiciatis.</div>\r\n      </div>\r\n      <div class=\"profile-actions text-center mb-1\">\r\n        <button mat-raised-button color=\"primary\">Message</button>\r\n        <button mat-raised-button color=\"accent\">Follow</button>\r\n      </div>\r\n      <div class=\"profile-nav\">\r\n        <mat-nav-list>\r\n          <mat-list-item routerLink=\"/profile/overview\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>home</mat-icon>\r\n            Overview\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"/profile/settings\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>settings</mat-icon>\r\n            Settings\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"/profile/blank\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>content_paste</mat-icon>\r\n            Blank\r\n          </mat-list-item>\r\n        </mat-nav-list>\r\n      </div>\r\n    </mat-card>\r\n\r\n    <!-- Chart grid -->\r\n    <mat-card class=\"default\">\r\n      <mat-card-title>Summary</mat-card-title>\r\n      <mat-card-content>\r\n          <div fxLayout=\"row\" fxLayoutWrap=\"wrap\" class=\"doughnut-grid text-center\">\r\n              <div fxFlex=\"50\" class=\"doughnut-grid-item mat-bg-primary\">\r\n                  <canvas \r\n                  baseChart\r\n                  class=\"chart\"\r\n                  [data]=\"doughnutChartData1\"\r\n                  [options]=\"doughnutOptions\"\r\n                  [colors]=\"doughnutChartColors\"\r\n                  [chartType]=\"doughnutChartType\"></canvas>\r\n                  <small>Space: {{data1}}/{{total1}} GB</small>\r\n            </div>\r\n            <div fxFlex=\"50\" class=\"doughnut-grid-item light-gray\">\r\n                <canvas  \r\n                baseChart \r\n                class=\"chart\"\r\n                [data]=\"doughnutChartData2\"\r\n                [options]=\"doughnutOptions\"\r\n                [colors]=\"doughnutChartColors\"\r\n                [chartType]=\"doughnutChartType\"></canvas>\r\n                <small>Sales: 450</small>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"doughnut-grid-item light-gray\">\r\n              <canvas  \r\n              baseChart \r\n              class=\"chart\"\r\n              [data]=\"doughnutChartData2\"\r\n              [options]=\"doughnutOptions\"\r\n              [colors]=\"doughnutChartColors\"\r\n              [chartType]=\"doughnutChartType\"></canvas>\r\n              <small>Spent: $500</small>\r\n        </div>\r\n        <div fxFlex=\"50\" class=\"doughnut-grid-item mat-bg-primary\">\r\n            <canvas \r\n            baseChart \r\n            class=\"chart\"\r\n            [data]=\"doughnutChartData2\"\r\n            [options]=\"doughnutOptions\"\r\n            [colors]=\"doughnutChartColors\"\r\n            [chartType]=\"doughnutChartType\"></canvas>\r\n            <small>Follower: 2000</small>\r\n      </div>\r\n        </div>\r\n      </mat-card-content>\r\n    </mat-card>\r\n    <!-- Contact Information -->\r\n    <mat-card class=\"default\">\r\n      <mat-card-title>Contact Information</mat-card-title>\r\n      <mat-card-content class=\"pt-0\">\r\n        <mat-list>\r\n          <mat-list-item><mat-icon class=\"mr-1\">public</mat-icon> www.mhrafi.com</mat-list-item>\r\n          <mat-list-item><mat-icon class=\"mr-1\">email</mat-icon> example@gmail.com</mat-list-item>\r\n          <mat-list-item><mat-icon class=\"mr-1\">phone</mat-icon> 8801822778800</mat-list-item>\r\n          <mat-list-item><mat-icon class=\"mr-1\">add_location</mat-icon> SUST, Sylhet, BD</mat-list-item>\r\n        </mat-list>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n\r\n<!-- Profile Views -->\r\n  <div fxFlex=\"100\" fxFlex.gt-sm=\"50\" fxFlex.gt-md=\"calc(100% - 300px)\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>"
+module.exports = "<div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" fxFlex.gt-md=\"300px\" fxFlex.gt-sm=\"50\">\r\n    <mat-card class=\"profile-sidebar mb-1 pb-0\">\r\n      <div class=\"propic text-center\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </div>\r\n      <div class=\"profile-title text-center mb-1\">\r\n        <div class=\"main-title\">{{currentUser.profilename}}</div>\r\n        <div class=\"subtitle mb-05\">{{currentUser.position}}</div>\r\n        <div class=\"text-muted\">Hi  {{currentUser.profilename}} ! Hope you are doing great at {{currentUser.company}}</div>\r\n      </div>\r\n      <div class=\"profile-actions text-center mb-1\">\r\n        <button mat-raised-button color=\"primary\">Message</button>\r\n        <button mat-raised-button color=\"accent\">Follow</button>\r\n      </div>\r\n      <div class=\"profile-nav\">\r\n        <mat-nav-list>\r\n          <mat-list-item routerLink=\"/profile/overview\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>home</mat-icon>\r\n            Overview\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"/profile/settings\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>settings</mat-icon>\r\n            Settings\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"/profile/blank\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>content_paste</mat-icon>\r\n            Blank\r\n          </mat-list-item>\r\n        </mat-nav-list>\r\n      </div>\r\n    </mat-card>\r\n\r\n    <!-- Chart grid -->\r\n    <!-- <mat-card class=\"default\">\r\n      <mat-card-title>Summary</mat-card-title>\r\n      <mat-card-content>\r\n          <div fxLayout=\"row\" fxLayoutWrap=\"wrap\" class=\"doughnut-grid text-center\">\r\n              <div fxFlex=\"50\" class=\"doughnut-grid-item mat-bg-primary\">\r\n                  <canvas\r\n                  baseChart\r\n                  class=\"chart\"\r\n                  [data]=\"doughnutChartData1\"\r\n                  [options]=\"doughnutOptions\"\r\n                  [colors]=\"doughnutChartColors\"\r\n                  [chartType]=\"doughnutChartType\"></canvas>\r\n                  <small>Space: {{data1}}/{{total1}} GB</small>\r\n            </div>\r\n            <div fxFlex=\"50\" class=\"doughnut-grid-item light-gray\">\r\n                <canvas\r\n                baseChart\r\n                class=\"chart\"\r\n                [data]=\"doughnutChartData2\"\r\n                [options]=\"doughnutOptions\"\r\n                [colors]=\"doughnutChartColors\"\r\n                [chartType]=\"doughnutChartType\"></canvas>\r\n                <small>Sales: 450</small>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"doughnut-grid-item light-gray\">\r\n              <canvas\r\n              baseChart\r\n              class=\"chart\"\r\n              [data]=\"doughnutChartData2\"\r\n              [options]=\"doughnutOptions\"\r\n              [colors]=\"doughnutChartColors\"\r\n              [chartType]=\"doughnutChartType\"></canvas>\r\n              <small>Spent: $500</small>\r\n        </div>\r\n        <div fxFlex=\"50\" class=\"doughnut-grid-item mat-bg-primary\">\r\n            <canvas\r\n            baseChart\r\n            class=\"chart\"\r\n            [data]=\"doughnutChartData2\"\r\n            [options]=\"doughnutOptions\"\r\n            [colors]=\"doughnutChartColors\"\r\n            [chartType]=\"doughnutChartType\"></canvas>\r\n            <small>Follower: 2000</small>\r\n      </div>\r\n        </div>\r\n      </mat-card-content>\r\n    </mat-card> -->\r\n    <!-- Contact Information -->\r\n    <!-- <mat-card class=\"default\">\r\n      <mat-card-title>Contact Information</mat-card-title>\r\n      <mat-card-content class=\"pt-0\">\r\n        <mat-list>\r\n          <mat-list-item><mat-icon class=\"mr-1\">public</mat-icon> www.mhrafi.com</mat-list-item>\r\n          <mat-list-item><mat-icon class=\"mr-1\">email</mat-icon> example@gmail.com</mat-list-item>\r\n          <mat-list-item><mat-icon class=\"mr-1\">phone</mat-icon> 8801822778800</mat-list-item>\r\n          <mat-list-item><mat-icon class=\"mr-1\">add_location</mat-icon> SUST, Sylhet, BD</mat-list-item>\r\n        </mat-list>\r\n      </mat-card-content>\r\n    </mat-card> -->\r\n  </div>\r\n\r\n  <!-- Profile Views -->\r\n  <div fxFlex=\"100\" fxFlex.gt-sm=\"50\" fxFlex.gt-md=\"calc(100% - 300px)\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -312,6 +312,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileComponent", function() { return ProfileComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _shared_helpers_local_storage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/helpers/local-storage */ "./src/app/shared/helpers/local-storage.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -323,51 +334,57 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
-var ProfileComponent = /** @class */ (function () {
+
+var ProfileComponent = /** @class */ (function (_super) {
+    __extends(ProfileComponent, _super);
     function ProfileComponent(router) {
-        this.router = router;
-        this.activeView = 'overview';
+        var _this = _super.call(this) || this;
+        _this.router = router;
+        _this.activeView = "overview";
         // Doughnut
-        this.doughnutChartColors = [{
-                backgroundColor: ['#fff', 'rgba(0, 0, 0, .24)',]
-            }];
-        this.total1 = 500;
-        this.data1 = 200;
-        this.doughnutChartData1 = [this.data1, (this.total1 - this.data1)];
-        this.total2 = 1000;
-        this.data2 = 400;
-        this.doughnutChartData2 = [this.data2, (this.total2 - this.data2)];
-        this.doughnutChartType = 'doughnut';
-        this.doughnutOptions = {
+        _this.doughnutChartColors = [
+            {
+                backgroundColor: ["#fff", "rgba(0, 0, 0, .24)"]
+            }
+        ];
+        _this.total1 = 500;
+        _this.data1 = 200;
+        _this.doughnutChartData1 = [_this.data1, _this.total1 - _this.data1];
+        _this.total2 = 1000;
+        _this.data2 = 400;
+        _this.doughnutChartData2 = [_this.data2, _this.total2 - _this.data2];
+        _this.doughnutChartType = "doughnut";
+        _this.doughnutOptions = {
             cutoutPercentage: 85,
             responsive: true,
             maintainAspectRatio: true,
             legend: {
                 display: false,
-                position: 'bottom'
+                position: "bottom"
             },
             elements: {
                 arc: {
-                    borderWidth: 0,
+                    borderWidth: 0
                 }
             },
             tooltips: {
                 enabled: false
             }
         };
+        return _this;
     }
     ProfileComponent.prototype.ngOnInit = function () {
-        this.activeView = this.router.snapshot.params['view'];
+        this.activeView = this.router.snapshot.params["view"];
     };
     ProfileComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-profile',
+            selector: "app-profile",
             template: __webpack_require__(/*! ./profile.component.html */ "./src/app/views/profile/profile.component.html")
         }),
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
     ], ProfileComponent);
     return ProfileComponent;
-}());
+}(_shared_helpers_local_storage__WEBPACK_IMPORTED_MODULE_2__["LocalStorageHandler"]));
 
 
 

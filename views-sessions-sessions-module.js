@@ -307,6 +307,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sessions_routing__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./sessions.routing */ "./src/app/views/sessions/sessions.routing.ts");
 /* harmony import */ var _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./not-found/not-found.component */ "./src/app/views/sessions/not-found/not-found.component.ts");
 /* harmony import */ var _error_error_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./error/error.component */ "./src/app/views/sessions/error/error.component.ts");
+/* harmony import */ var _UserService_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./UserService.service */ "./src/app/views/sessions/UserService.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -320,6 +321,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 // import { CommonDirectivesModule } from './sdirectives/common/common-directives.module';
+
 
 
 
@@ -345,7 +347,15 @@ var SessionsModule = /** @class */ (function () {
                 _angular_flex_layout__WEBPACK_IMPORTED_MODULE_5__["FlexLayoutModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forChild(_sessions_routing__WEBPACK_IMPORTED_MODULE_10__["SessionsRoutes"])
             ],
-            declarations: [_forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_6__["ForgotPasswordComponent"], _lockscreen_lockscreen_component__WEBPACK_IMPORTED_MODULE_7__["LockscreenComponent"], _signin_signin_component__WEBPACK_IMPORTED_MODULE_8__["SigninComponent"], _signup_signup_component__WEBPACK_IMPORTED_MODULE_9__["SignupComponent"], _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_11__["NotFoundComponent"], _error_error_component__WEBPACK_IMPORTED_MODULE_12__["ErrorComponent"]]
+            declarations: [
+                _forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_6__["ForgotPasswordComponent"],
+                _lockscreen_lockscreen_component__WEBPACK_IMPORTED_MODULE_7__["LockscreenComponent"],
+                _signin_signin_component__WEBPACK_IMPORTED_MODULE_8__["SigninComponent"],
+                _signup_signup_component__WEBPACK_IMPORTED_MODULE_9__["SignupComponent"],
+                _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_11__["NotFoundComponent"],
+                _error_error_component__WEBPACK_IMPORTED_MODULE_12__["ErrorComponent"]
+            ],
+            providers: [_UserService_service__WEBPACK_IMPORTED_MODULE_13__["UserService"]]
         })
     ], SessionsModule);
     return SessionsModule;
@@ -429,7 +439,7 @@ module.exports = ".background-signin{\r\n    background-image: url('signinimg.jp
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"page-wrap height-100 mat-bg-primary background-signin\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-progress-bar mode=\"determinate\" class=\"session-progress\"></mat-progress-bar>\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <img src=\"assets/images/signin/logo.jpg\" alt=\"\">          \r\n          <p class=\"text-muted m-0\">Sign in to your account</p>\r\n        </div>\r\n        <form [formGroup]=\"signinForm\" (ngSubmit)=\"signin()\">\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input\r\n                matInput\r\n                name=\"username\"\r\n                [formControl]=\"signinForm.controls['username']\"\r\n                placeholder=\"Username\"\r\n                value=\"\">\r\n            </mat-form-field>\r\n            <small \r\n              *ngIf=\"signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched\" \r\n              class=\"form-error-msg\"> Username is required </small>\r\n          </div>\r\n\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input \r\n                type=\"password\"\r\n                name=\"password\"\r\n                matInput\r\n                [formControl]=\"signinForm.controls['password']\"\r\n                placeholder=\"Password\" \r\n                value=\"\">\r\n            </mat-form-field>\r\n            <small \r\n              *ngIf=\"signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched\" \r\n              class=\"form-error-msg\"> Password is required </small>\r\n          </div>\r\n          \r\n          <div class=\"pb-1\">\r\n            <mat-checkbox\r\n              name=\"rememberMe\"\r\n              [formControl]=\"signinForm.controls['rememberMe']\"\r\n              class=\"pb-1\">Remember this computer</mat-checkbox>\r\n          </div>\r\n          \r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"signinForm.invalid\">Sign in</button>\r\n          <div class=\"text-center\">\r\n            <a [routerLink]=\"'/sessions/forgot-password'\" class=\"mat-primary text-center full-width\">Forgot password</a>\r\n            <span fxFlex></span>\r\n            <a [routerLink]=\"'/sessions/signup'\" class=\"mat-primary text-center full-width\">Create a new account</a>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"page-wrap height-100 mat-bg-primary background-signin\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-progress-bar mode=\"determinate\" class=\"session-progress\"></mat-progress-bar>\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <img src=\"assets/images/signin/logo.jpg\" alt=\"\">\r\n          <p class=\"text-muted m-0\">Sign in to your account</p>\r\n          <small *ngIf=\"!result\" class=\" m-0 form-error-msg\"> Invalid Login Credentials ! </small>\r\n        </div>\r\n        <form [formGroup]=\"signinForm\" (ngSubmit)=\"signin()\">\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" [formControl]=\"signinForm.controls['username']\" placeholder=\"Username\" value=\"\">\r\n            </mat-form-field>\r\n            <small *ngIf=\"signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched\" class=\"form-error-msg\">\r\n            Username is required </small>\r\n          </div>\r\n\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"password\" name=\"password\" matInput [formControl]=\"signinForm.controls['password']\" placeholder=\"Password\" value=\"\">\r\n            </mat-form-field>\r\n            <small *ngIf=\"signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched\" class=\"form-error-msg\">\r\n            Password is required </small>\r\n          </div>\r\n\r\n          <div class=\"pb-1\">\r\n            <mat-checkbox name=\"rememberMe\" [formControl]=\"signinForm.controls['rememberMe']\" class=\"pb-1\">Remember this\r\n              computer</mat-checkbox>\r\n          </div>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"signinForm.invalid\">Sign in</button>\r\n          <div class=\"text-center\">\r\n            <a [routerLink]=\"'/sessions/forgot-password'\" class=\"mat-primary text-center full-width\">Forgot password</a>\r\n            <span fxFlex></span>\r\n            <a [routerLink]=\"'/sessions/signup'\" class=\"mat-primary text-center full-width\">Create a new account</a>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -446,6 +456,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _UserService_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -458,21 +470,41 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var SigninComponent = /** @class */ (function () {
-    function SigninComponent() {
+    function SigninComponent(userService, router) {
+        this.userService = userService;
+        this.router = router;
+        this.successUrl = "profile";
+        this.signInUrl = "sessions/signin";
+        this.result = true;
     }
     SigninComponent.prototype.ngOnInit = function () {
         this.signinForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-            username: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
-            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+            username: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
             rememberMe: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](false)
         });
     };
     SigninComponent.prototype.signin = function () {
         var signinData = this.signinForm.value;
         console.log(signinData);
+        console.log("LOCAL STORAGE");
+        console.log(localStorage.getItem("currentUser"));
         this.submitButton.disabled = true;
-        this.progressBar.mode = 'indeterminate';
+        this.progressBar.mode = "indeterminate";
+        this.result = this.userService.login(signinData);
+        console.log(this.result);
+        console.log(JSON.parse(localStorage.getItem("currentUser")));
+        if (this.result) {
+            this.router.navigate([this.successUrl]);
+        }
+        else {
+            this.progressBar.mode = "determinate";
+            this.signinForm.reset();
+            this.router.navigate([this.signInUrl]);
+        }
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatProgressBar"]),
@@ -484,11 +516,11 @@ var SigninComponent = /** @class */ (function () {
     ], SigninComponent.prototype, "submitButton", void 0);
     SigninComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-signin',
+            selector: "app-signin",
             template: __webpack_require__(/*! ./signin.component.html */ "./src/app/views/sessions/signin/signin.component.html"),
             styles: [__webpack_require__(/*! ./signin.component.css */ "./src/app/views/sessions/signin/signin.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_UserService_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], SigninComponent);
     return SigninComponent;
 }());
