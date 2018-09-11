@@ -19,6 +19,15 @@
       </mat-form-field>
     </div>
 
+    <div fxFlex="34" class="pr-1">
+      <mat-form-field class="full-width">
+        <mat-select [(value)]='selectedClient' [formControl]="evoteForm.controls['client']" required placeholder="Select A Client">
+          <mat-option>none</mat-option>
+          <mat-option *ngFor="let client of clients"  [value]="client.id">{{client.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
     <div fxFlex="33" class="pr-1">
       <mat-form-field class="full-width">
         <input matInput [formControl]="evoteForm.controls['code']" required name="proCode" placeholder="Product Code">

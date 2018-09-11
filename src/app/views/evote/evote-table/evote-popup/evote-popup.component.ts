@@ -15,6 +15,8 @@ import { Subscription } from "../../../../../../node_modules/rxjs";
 import {EvoteService } from '../../evote-service.service';
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import { DateValidator} from '../../../../utility/dateValidator';
+import { CrudService } from "../../../cruds/crud.service";
+import { ResponseModel } from "../../../../model/ResponseModel.model";
 
 export const MY_FORMATS = {
   parse: {
@@ -41,34 +43,47 @@ export const MY_FORMATS = {
   ]
 })
 export class EvotePopupComponent implements OnInit {
-  
+
   public evoteForm: FormGroup;
   public getClientSub: Subscription;
+  public response: ResponseModel;
   tomorrow : Date;
+  public clients: any[];
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private evoteService: EvoteService,
+    private clientService: CrudService,
     public dialogRef: MatDialogRef<EvotePopupComponent>,
   ) { }
 
   ngOnInit() {
     this.tomorrow = DateValidator.dateValidate();
     this.buildEvoteForm(this.data.payload);
+    this.getClientSuggestions();
    // console.log(this.data.payload);
   }
 
-    
+  getClientSuggestions() {
+    this.getClientSub = this.clientService
+      .getClientSuggestions()
+      .subscribe(data => {
+        this.response = data;
+        this.clients = this.response.content;
+      });
+  }
+
+
   buildEvoteForm(fieldItem) {
     this.evoteForm = this.fb.group({
       topic: [fieldItem.topic || "",Validators.required],
-      // client: [fieldItem.client || ""],
-      code: [fieldItem.code || "", Validators.required],      
+      client: [fieldItem.client || ""],
+      code: [fieldItem.code || "", Validators.required],
       description: [fieldItem.description || "", Validators.required],
       quantity: [fieldItem.quantity || "", Validators.required],
       expireDate: [fieldItem.expireDate || "", Validators.required],
-      batchNumber: [fieldItem.batchNumber || "", Validators.required]     
-      
+      batchNumber: [fieldItem.batchNumber || "", Validators.required]
+
     });
   }
   submit() {
