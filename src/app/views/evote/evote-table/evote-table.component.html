@@ -22,7 +22,7 @@
 
       <ngx-datatable-column name="Client" [width]="250" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <span *ngFor='let c of clients | arrayFilter : row?.clientId : "clients"' >{{ c.name }}</span>
+          <span *ngFor='let client of clients | arrayFilter : row?.clientId : "clients"' >{{ client.name }}</span>
         </ng-template>
       </ngx-datatable-column>
 
