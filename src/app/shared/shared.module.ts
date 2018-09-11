@@ -74,6 +74,7 @@ import { AppErrorService } from "./services/app-error/app-error.service";
 // import { LandingPageService } from '../shared/services/landing-page.service';
 import { AppFileDownloadService } from "./services/file-download.service";
 import { AppDataConversionService } from './services/data-conversion.service';
+import { ArrayFilter } from './pipes/array-filter.pipe';
 
 const classesToInclude = [
   HeaderTopComponent,
@@ -96,7 +97,8 @@ const classesToInclude = [
   DropdownLinkDirective,
   EgretSideNavToggleDirective,
   RelativeTimePipe,
-  ExcerptPipe
+  ExcerptPipe,
+  ArrayFilter
 ];
 
 @NgModule({
