@@ -20,6 +20,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { EvotePopupComponent } from './evote-table/evote-popup/evote-popup.component';
 import { VoterPopupComponent } from './voter-popup/voter-popup.component';
 import { CrudService } from '../cruds/crud.service';
+import { ArrayFilter } from '../../shared/pipes/array-filter.pipe';
 
 
 @NgModule({
@@ -41,7 +42,7 @@ import { CrudService } from '../cruds/crud.service';
     RouterModule.forChild(EvoteRouts)
   ],
   providers: [EvoteService,CrudService],
-  declarations: [EvoteTableComponent, EvotePopupComponent, VoterPopupComponent],
+  declarations: [EvoteTableComponent, EvotePopupComponent, VoterPopupComponent,ArrayFilter],
   entryComponents: [EvotePopupComponent,VoterPopupComponent]
 })
 export class EvoteModule { }

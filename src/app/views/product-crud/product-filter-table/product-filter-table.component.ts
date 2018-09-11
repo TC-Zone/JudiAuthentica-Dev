@@ -15,7 +15,7 @@ import { AppConfirmService } from "../../../shared/services/app-confirm/app-conf
 
 import * as moment from "moment";
 import { AppFileDownloadService } from "../../../shared/services/file-download.service";
-import { AppDataConversionService } from '../../../shared/services/data-conversion.service';
+import { AppDataConversionService } from "../../../shared/services/data-conversion.service";
 
 @Component({
   selector: "app-product-filter-table",
@@ -27,6 +27,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
   columns = [];
   temp = [];
   public getProductsSub: Subscription;
+  updatable: boolean;
 
   constructor(
     private prodService: ProductCrudService,
@@ -35,7 +36,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
     private errDialog: AppErrorService,
     private confirmService: AppConfirmService,
     private downloadService: AppFileDownloadService,
-    private conversionService : AppDataConversionService
+    private conversionService: AppDataConversionService
   ) {}
 
   ngOnInit() {
@@ -49,9 +50,16 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
   }
 
   downloadCsv(selectedRow) {
-    const fileName  =  selectedRow.name + '_' + selectedRow.code + '_' + selectedRow.batchNumber;
-    const csvData =  this.conversionService.convertToCsv(selectedRow.productDetails);
-    this.downloadService.downloadFile({ name: fileName, type : 'csv' , data : csvData });
+    const fileName =
+      selectedRow.name + "_" + selectedRow.code + "_" + selectedRow.batchNumber;
+    const csvData = this.conversionService.convertToCsv(
+      selectedRow.productDetails
+    );
+    this.downloadService.downloadFile({
+      name: fileName,
+      type: "csv",
+      data: csvData
+    });
   }
 
   updateFilter(event) {
@@ -122,12 +130,13 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
 
   openProductPopup(data: any = {}, isNew?) {
     let title = isNew ? "Add new Product" : "Update Product";
+
     let dialogRef: MatDialogRef<any> = this.dialog.open(
       ProductCrudPopupComponent,
       {
         width: "720px",
         disableClose: true,
-        data: { title: title, payload: data }
+        data: { title: title, payload: data, isNew: isNew }
       }
     );
 

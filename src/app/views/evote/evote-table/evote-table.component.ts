@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { EvoteService } from "../evote-service.service";
 import { Subscription } from "../../../../../node_modules/rxjs";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
@@ -16,16 +16,22 @@ import { AppFileDownloadService } from "../../../shared/services/file-download.s
 import { AppDataConversionService } from "../../../shared/services/data-conversion.service";
 import { EvotePopupComponent } from "../../evote/evote-table/evote-popup/evote-popup.component";
 import { VoterPopupComponent } from "../voter-popup/voter-popup.component";
+import { ResponseModel } from "../../../model/ResponseModel.model";
+import { CrudService } from "../../cruds/crud.service";
 
 @Component({
   selector: "app-evote-table",
   templateUrl: "./evote-table.component.html",
   animations: egretAnimations
 })
-export class EvoteTableComponent implements OnInit {
+export class EvoteTableComponent implements OnInit, OnDestroy {
   rows: any[];
   columns = [];
   temp = [];
+
+  public clients: any[];
+  public getClientSub: Subscription;
+  public response: ResponseModel;
 
   public getEvoteSub: Subscription;
   constructor(
@@ -35,11 +41,19 @@ export class EvoteTableComponent implements OnInit {
     private confirmService: AppConfirmService,
     private downloadService: AppFileDownloadService,
     private conversionService: AppDataConversionService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private clientService : CrudService
   ) {}
 
   ngOnInit() {
     this.getAllEvote();
+    this.getClientSuggestions();
+  }
+
+  ngOnDestroy() {
+    if (this.getClientSub) {
+      this.getClientSub.unsubscribe();
+    }
   }
 
   // downloadCsv(selectedRow) {
@@ -70,6 +84,17 @@ export class EvoteTableComponent implements OnInit {
       }
     });
     this.rows = rows;
+  }
+
+  getClientSuggestions() {
+    console.log('called suggestions')
+    this.getClientSub = this.clientService
+      .getClientSuggestions()
+      .subscribe(data => {
+        this.response = data;
+        this.clients = this.response.content;
+        console.log(this.clients)
+      });
   }
 
   getAllEvote() {

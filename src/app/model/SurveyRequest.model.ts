@@ -14,8 +14,7 @@ export class SurveyModel {
     this.endDate = obj.endDate;
     this.productId = obj.productId;
     this.voteId = obj.voteId;
-    console.log(" obj.questions ");
-    console.log(obj.questions);
+
 
     obj.questions.forEach(question => {
       const answerTemplate = new AnswerTemplate(
@@ -24,7 +23,6 @@ export class SurveyModel {
       );
 
       let qOBj = new Question(question.name, answerTemplate);
-      console.log("question object");
       console.log(qOBj);
       this.questions.unshift(qOBj);
     });

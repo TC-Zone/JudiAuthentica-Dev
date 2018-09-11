@@ -20,6 +20,8 @@ import "rxjs/add/operator/distinctUntilChanged";
 import "rxjs/add/operator/switchMap";
 import { FileUploader } from "ng2-file-upload";
 import * as moment from "moment";
+import { Client } from "../../../cruds/user.model";
+import { Product } from "../../../../shared/models/product.model";
 
 export const MY_FORMATS = {
   parse: {
@@ -67,12 +69,11 @@ export class ProductCrudPopupComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //validate backdates
+    // validate back dates
     this.tomorrow = DateValidator.dateValidate();
 
-    this.getAllClients();
+    this.getClientSuggestions();
     this.buildProductForm(this.data.payload);
-
     this.filteredClient = this.productForm.get("client").valueChanges.pipe(
       debounceTime(200),
       switchMap(value => this.clientService.search({ name: value }, 1))
@@ -96,47 +97,58 @@ export class ProductCrudPopupComponent implements OnInit {
   }
 
   buildProductForm(fieldItem) {
+    const client = fieldItem.client;
+    const clientId = client ? client.id : null;
+
     this.productForm = this.fb.group({
-      client: [fieldItem.client || ""],
+      client: [clientId || ""],
       code: [fieldItem.code || "", Validators.required],
       name: [fieldItem.name || "", Validators.required],
       description: [fieldItem.description || "", Validators.required],
       batchNumber: [fieldItem.batchNumber || "", Validators.required],
       quantity: [fieldItem.quantity || "", Validators.required],
       expireDate: [fieldItem.expireDate || "", Validators.required],
-      file: [fieldItem.file || "", Validators.required]
+      file: [fieldItem.file || ""]
     });
   }
 
   submit() {
     console.log("PRODUCT FORM VALUES ");
     console.log(this.productForm.value);
-    let formData = this.prepareToSave(this.productForm.value);
+
+    let productRequest: ProductCreationRequest = new ProductCreationRequest(
+      this.productForm.value
+    );
+
+    console.log("ProductCreationRequest" + JSON.stringify(productRequest));
+
+    let formData;
+    if (this.data.isNew) {
+      console.log("NEW SAVE CONTEXT");
+      formData = this.prepareToSave(productRequest);
+    } else {
+      console.log("update context");
+      formData = productRequest;
+    }
+
     console.log("prepared form data ");
-    console.log(formData);
+    console.log(JSON.stringify(formData));
     this.dialogRef.close(formData);
   }
 
   // image uploader related functions from here
   public fileOverBase(e: any): void {
-    console.log("fileOverBase Called");
-    console.log(e);
     this.hasBaseDropZoneOver = e;
   }
 
   onSelectFile(event) {
-    console.log("uploader : ");
-    console.log(this.uploader.queue);
     let x = this.uploader.queue.length - 1;
     this.imageObject = this.uploader.queue[x];
-    console.log("this image obj : ");
-    console.log(this.imageObject);
 
-    let reader = new FileReader();
+    //let reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {
       this.imageFile = event.target.files[0];
-      console.log("this ImageFile");
-      console.log(this.imageFile);
+
       // reader.readAsDataURL(file);
       // reader.onload = () => {
       //   this.productForm.get("file").setValue({
@@ -148,11 +160,11 @@ export class ProductCrudPopupComponent implements OnInit {
   }
 
   prepareToSave(formvalue): FormData {
-    let input: FormData = new FormData();   
+    let input: FormData = new FormData();
     input.append("file", this.imageFile);
     input.append("code", formvalue.code);
     input.append("quantity", formvalue.quantity);
-    input.append("client", formvalue.client);
+    input.append("client", formvalue.client.id);
     input.append(
       "expireDate",
       moment(formvalue.expireDate).format("YYYY-MM-DD")
@@ -161,9 +173,32 @@ export class ProductCrudPopupComponent implements OnInit {
     input.append("description", formvalue.description);
     input.append("batchNumber", formvalue.batchNumber);
 
-    console.log("before return : ");
-    console.log(input);
-
     return input;
   }
+}
+
+export class ProductCreationRequest {
+  client: ClientSub;
+  code: string;
+  name: string;
+  description: string;
+  batchNumber: string;
+  quantity: string;
+  expireDate: string;
+  file: any;
+
+  constructor(public formValue: any) {
+    this.client = new ClientSub(formValue.client);
+    this.code = formValue.code;
+    this.name = formValue.name;
+    this.description = formValue.description;
+    this.batchNumber = formValue.batchNumber;
+    this.quantity = formValue.quantity;
+    this.expireDate = formValue.expireDate;
+    this.file = formValue.file;
+  }
+}
+
+class ClientSub {
+  constructor(public id: string) {}
 }

@@ -25,6 +25,8 @@ export class ArrayFilter implements PipeTransform {
         return item.id.indexOf(filterVal) !== -1;
       case "evotes":
         return item.id.indexOf(filterVal) !== -1;
+      case "clients":
+        return item.id.indexOf(filterVal) !== -1;
       default:
         break;
     }
