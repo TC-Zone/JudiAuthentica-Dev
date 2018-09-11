@@ -73,8 +73,7 @@ import { ArrayFilter } from '../../shared/pipes/array-filter.pipe';
     AnswerTemplatePopupComponent,
     SurveyCreationPopupComponent,
     SurveyBuilderComponent,
-    SurveyCommonComponent,
-    ArrayFilter
+    SurveyCommonComponent
   ],
   entryComponents: [AnswerTemplatePopupComponent, SurveyCreationPopupComponent],
   providers: [SurveyService, ProductCrudService, EvoteService]

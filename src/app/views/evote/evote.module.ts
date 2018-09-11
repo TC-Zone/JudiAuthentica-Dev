@@ -21,6 +21,7 @@ import { EvotePopupComponent } from './evote-table/evote-popup/evote-popup.compo
 import { VoterPopupComponent } from './voter-popup/voter-popup.component';
 import { CrudService } from '../cruds/crud.service';
 import { ArrayFilter } from '../../shared/pipes/array-filter.pipe';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
@@ -39,10 +40,11 @@ import { ArrayFilter } from '../../shared/pipes/array-filter.pipe';
     MatNativeDateModule,
     MatIconModule,
     MatAutocompleteModule,
+    SharedModule,
     RouterModule.forChild(EvoteRouts)
   ],
   providers: [EvoteService,CrudService],
-  declarations: [EvoteTableComponent, EvotePopupComponent, VoterPopupComponent,ArrayFilter],
+  declarations: [EvoteTableComponent, EvotePopupComponent, VoterPopupComponent],
   entryComponents: [EvotePopupComponent,VoterPopupComponent]
 })
 export class EvoteModule { }
