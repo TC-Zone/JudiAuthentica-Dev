@@ -69,8 +69,7 @@ export class AnswerTemplatePopupComponent implements OnInit {
 
   submit() {
     console.log(JSON.stringify(this.ansTemplateForm.value));
-    return;
-    //this.dialogRef.close(this.ansTemplateForm.value);
+    this.dialogRef.close(this.ansTemplateForm.value);
   }
 
    answerTypes = [

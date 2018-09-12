@@ -14,22 +14,20 @@ import {
 import { environment } from "environments/environment.prod";
 import { _throw } from "rxjs/Observable/throw";
 
-import { of } from "../../../../node_modules/rxjs";
-
-
 @Injectable()
 export class ProductCrudService {
   productApiUrl: string = environment.productApiURL + "products/";
-
+  recentProduct: any;
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Headers":
+        "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
     })
   };
 
   constructor(private http: HttpClient) {
-    console.log('URL : '+this.productApiUrl)
+    console.log("URL : " + this.productApiUrl);
   }
 
   updateProduct(id, item) {
@@ -39,22 +37,22 @@ export class ProductCrudService {
   }
 
   addProduct(productObj, items): Observable<any> {
-    return this.http
-      .post<any>(this.productApiUrl, productObj)
-      .pipe(
-        map(data => {
+    return this.http.post<any>(this.productApiUrl, productObj).pipe(
+      map(response => {
+        console.log(JSON.stringify(response.content.id));
+        this.getProductById(response.content.id).subscribe(data => {
           items.unshift(data.content);
-          return items.slice();
-        }),
-        catchError(this.handleError)
-      );
+        });
+
+        return items.slice();
+      }),
+      catchError(this.handleError)
+    );
   }
 
   getAllProducts(): Observable<any> {
     return this.http.get(this.productApiUrl).pipe(catchError(this.handleError));
   }
-
-
 
   removeProduct(row, items): Observable<any> {
     return this.http.delete(this.productApiUrl + row.id, this.httpOptions).pipe(
@@ -66,12 +64,18 @@ export class ProductCrudService {
     );
   }
 
-  getAllProductSuggestions(): Observable<any>{
-    return this.http.get(this.productApiUrl + 'suggestions').pipe(catchError(this.handleError));
+  getAllProductSuggestions(): Observable<any> {
+    return this.http
+      .get(this.productApiUrl + "suggestions")
+      .pipe(catchError(this.handleError));
   }
 
-
-
+  getProductById(proId): Observable<any> {
+    console.log('called get product by id')
+    return this.http
+      .get<any>(this.productApiUrl + proId, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
 
   private handleError(error: HttpErrorResponse | any) {
     //console.log(error)

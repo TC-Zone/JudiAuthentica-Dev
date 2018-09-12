@@ -133,7 +133,13 @@ export const rootRouterConfig: Routes = [
         path: 'evote',
         loadChildren: './views/evote/evote.module#EvoteModule',
         data: { title: 'E - Vote', breadcrumb: 'E Vote'}
-      }
+      }, {
+        path: 'survey-interaction',
+        loadChildren: './views/survey-interaction/survey-interaction.module#SurveyInteractionModule',
+        data: { title: 'Survey Interaction', breadcrumb: 'Survey Demo'}
+      },
+
+
     ]
   },
   {

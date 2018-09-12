@@ -15,13 +15,14 @@
     </div> -->
 
     <div fxFlex="34" class="pr-1">
-        <mat-form-field class="full-width">
-          <mat-select [(value)]='selectedClient' [formControl]="productForm.controls['client']" required placeholder="Select A Client">
-            <mat-option>none</mat-option>
-            <mat-option *ngFor="let client of clients"  [value]="client.id">{{client.name}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+
+      <mat-form-field class="full-width">
+        <mat-select [disabled]='!data.isNew' [formControl]="productForm.controls['client']" required placeholder="Select A Client">
+          <mat-option>none</mat-option>
+          <mat-option *ngFor="let client of clients" [value]="client.id">{{client.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
 
     <div fxFlex="33" class="pr-1">
@@ -71,7 +72,8 @@
 
         <div class="mb-1 mt-1">
           <p>Upload a Product Image</p>
-          <input (change)="onSelectFile($event)" type="file" [formControl]="productForm.controls['file']" ng2FileSelect [uploader]="uploader" />
+          <input (change)="onSelectFile($event)" type="file" [formControl]="productForm.controls['file']" ng2FileSelect [uploader]="uploader"
+          />
         </div>
 
         <div class="mb-1">

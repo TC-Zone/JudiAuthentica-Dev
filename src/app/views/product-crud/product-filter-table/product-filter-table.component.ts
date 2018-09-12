@@ -16,6 +16,7 @@ import { AppConfirmService } from "../../../shared/services/app-confirm/app-conf
 import * as moment from "moment";
 import { AppFileDownloadService } from "../../../shared/services/file-download.service";
 import { AppDataConversionService } from "../../../shared/services/data-conversion.service";
+import { Content } from "../../../model/ClientModel.model";
 
 @Component({
   selector: "app-product-filter-table",
@@ -156,6 +157,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
         this.prodService.addProduct(res, this.rows).subscribe(
           data => {
             this.rows = data;
+            console.log(this.rows);
             this.loader.close();
           },
           error => {
@@ -171,12 +173,17 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
         this.prodService.updateProduct(data.id, res).subscribe(
           response => {
             console.log(response.content);
-            this.rows = this.rows.map(i => {
-              if (i.id === data.id) {
-                return Object.assign({}, i, response.content);
-              }
-              return i;
-            });
+            this.prodService
+              .getProductById(response.content.id)
+              .subscribe(data => {
+                this.rows = this.rows.map(i => {
+                  if (i.id === data.content.id) {
+                    console.log("recent obj " + JSON.stringify(data.content));
+                    return Object.assign({}, i, data.content);
+                  }
+                  return i;
+                });
+              });
 
             this.loader.close();
             return this.rows.slice();
@@ -193,4 +200,23 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  // getProductById(productId) {
+  //   this.prodService.getProductById(productId).subscribe(
+  //     response => {
+  //       this.recentProduct = response.content;
+  //       console.log(
+  //         "recent product obj : " + JSON.stringify(this.recentProduct)
+  //       );
+  //     },
+  //     error => {
+  //       this.loader.close();
+  //       this.errDialog.showError({
+  //         title: "Error",
+  //         status: error.status,
+  //         type: "http_error"
+  //       });
+  //     }
+  //   );
+  // }
 }

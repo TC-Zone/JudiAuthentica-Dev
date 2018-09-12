@@ -427,6 +427,13 @@ export class NavigationService {
       tooltip: "E-Vote",
       icon: "thumbs_up_down",
       state: "evote/showEvote"
+    },
+    {
+      name: "Survey Interaction",
+      type: "link",
+      tooltip: "Survey Demo",
+      icon: "streetview",
+      state: "survey-interaction"
     }
     // {
     //   name: 'INBOX',
