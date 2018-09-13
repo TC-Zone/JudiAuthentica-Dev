@@ -22,6 +22,7 @@ import { VoterPopupComponent } from './voter-popup/voter-popup.component';
 import { CrudService } from '../cruds/crud.service';
 import { ArrayFilter } from '../../shared/pipes/array-filter.pipe';
 import { SharedModule } from '../../shared/shared.module';
+import { FileUploadModule } from "ng2-file-upload";
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { SharedModule } from '../../shared/shared.module';
     MatIconModule,
     MatAutocompleteModule,
     SharedModule,
+    FileUploadModule,
     RouterModule.forChild(EvoteRouts)
   ],
   providers: [EvoteService,CrudService],

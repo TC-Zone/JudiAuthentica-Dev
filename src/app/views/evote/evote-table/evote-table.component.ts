@@ -143,7 +143,7 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
     let dialogRef: MatDialogRef<any> = this.dialog.open(EvotePopupComponent, {
       width: "720px",
       disableClose: true,
-      data: { title: title, payload: data }
+      data: { title: title, payload: data ,isNew: isNew}
     });
 
     dialogRef.afterClosed().subscribe(res => {

@@ -21,7 +21,7 @@
 
     <div fxFlex="34" class="pr-1">
       <mat-form-field class="full-width">
-        <mat-select [(value)]='selectedClient' [formControl]="evoteForm.controls['client']" required placeholder="Select A Client">
+        <mat-select [disabled]='!data.isNew' [formControl]="evoteForm.controls['client']" required placeholder="Select A Client">
           <mat-option>none</mat-option>
           <mat-option *ngFor="let client of clients"  [value]="client.id">{{client.name}}</mat-option>
         </mat-select>
@@ -60,6 +60,47 @@
       <mat-form-field class="full-width">
         <input matInput name="batchNumber" [formControl]="evoteForm.controls['batchNumber']" required placeholder="Batch Number">
       </mat-form-field>
+    </div>
+
+    <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
+      <mat-card-content>
+
+        <div class="mb-1 mt-1">
+          <p>Upload a Product Image</p>
+          <input (change)="onSelectFile($event)" type="file" [formControl]="evoteForm.controls['file']" ng2FileSelect [uploader]="uploader"
+          />
+        </div>
+
+        <div class="mb-1">
+          <div ng2FileDrop [ngClass]="{'dz-file-over': hasBaseDropZoneOver}" [uploader]="uploader" (fileOver)="fileOverBase($event)"
+            class="fileupload-drop-zone">
+            Drop png/jpeg file here
+          </div>
+        </div>
+
+        <table class="default-table mat-box-shadow" style="width: 100%">
+          <thead>
+            <tr>
+              <th width="50%">Name</th>
+              <th>Size</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="uploader.queue.length; else tableNoData">
+            <tr>
+              <td>{{ imageObject.file.name }}</td>
+              <td nowrap>{{ imageObject.file.size/1024/1024 | number:'.2' }} MB</td>
+              <td nowrap>
+                <button mat-raised-button class="mat-warn" type='button' (click)="imageObject.remove()">Remove</button>
+              </td>
+            </tr>
+          </tbody>
+          <ng-template #tableNoData>
+            <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
+          </ng-template>
+        </table>
+
+      </mat-card-content>
     </div>
 
 
