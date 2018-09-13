@@ -4,15 +4,9 @@ import {
   HttpHeaders,
   HttpErrorResponse
 } from "@angular/common/http";
-import {
-  catchError,
-  map,
-  delay,
-  tap
-} from "../../../../node_modules/rxjs/operators";
-import { Observable } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 import { environment } from "environments/environment.prod";
-import { _throw } from "rxjs/Observable/throw";
+import { Observable, throwError } from "rxjs";
 
 @Injectable()
 export class EvoteService {
@@ -72,7 +66,14 @@ export class EvoteService {
       .pipe(catchError(this.handleError));
   }
 
+  getEvoteById(evoteId): Observable<any> {
+    console.log("called get evote by id");
+    return this.http
+      .get<any>(this.surveyApiUrl + evoteId, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse | any) {
-    return _throw(error);
+    return throwError(error);
   }
 }

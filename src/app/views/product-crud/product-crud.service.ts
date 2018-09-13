@@ -1,18 +1,13 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+
 import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse
-} from "../../../../node_modules/@angular/common/http";
-import {
-  catchError,
-  map,
-  delay,
-  tap
-} from "../../../../node_modules/rxjs/operators";
+} from "@angular/common/http";
+import { catchError, map } from "rxjs/operators";
 import { environment } from "environments/environment.prod";
-import { _throw } from "rxjs/Observable/throw";
+import { throwError, Observable } from "rxjs";
 
 @Injectable()
 export class ProductCrudService {
@@ -71,7 +66,6 @@ export class ProductCrudService {
   }
 
   getProductById(proId): Observable<any> {
-    console.log('called get product by id')
     return this.http
       .get<any>(this.productApiUrl + proId, this.httpOptions)
       .pipe(catchError(this.handleError));
@@ -79,6 +73,6 @@ export class ProductCrudService {
 
   private handleError(error: HttpErrorResponse | any) {
     //console.log(error)
-    return _throw(error);
+    return throwError(error);
   }
 }

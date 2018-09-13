@@ -1,0 +1,88 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+
+  <div fxFlex="100" *ngFor="let item of sourceDetail" fxFlex.gt-md="300px" fxFlex.gt-sm="50">
+
+    <mat-card class="profile-sidebar mb-1 pb-0">
+      <div class="app-user">
+        <div class="app-user-photo">
+          <img src="assets/images/sq-8.jpg" alt="">
+        </div>
+        <span class="app-user-name mb-05">
+          {{item.client.name}}
+        </span>
+      </div>
+    </mat-card>
+
+
+
+    <mat-card class="profile-sidebar mb-1 pb-0">
+
+      <div class="profile-title text-center mb-1">
+        <div class="main-title">{{item.sourceName}} </div>
+        <div class="subtitle mb-05">Batch Number : {{item.batch}}</div>
+      </div>
+
+      <div class="product-photos-wrap">
+        <div class="gallery-thumbnails" [@animate]="{value:'*',params:{delay: '100ms', x:'-100px'}}">
+          <img src="{{item.imageName}}" alt="">
+        </div>
+      </div>
+
+
+
+    </mat-card>
+  </div>
+
+  <div fxFlex="100" *ngFor="let surveyRecord of surveyRecords" fxFlex.gt-md="auto" fxFlex.gt-sm="50">
+    <mat-card>
+      <mat-card-title>
+        <div class="card-title-text">{{surveyRecord.topic}}</div>
+      </mat-card-title>
+    </mat-card>
+
+    <mat-card>
+      <form [formGroup]="surveyViewForm">
+        <input type='hidden' formControlName="surveyId" required>
+
+        <mat-vertical-stepper [linear]="isLinear" #stepper>
+
+          <mat-step formArrayName='questions' *ngFor="let question of surveyViewForm.controls['questions'].controls; let i=index"
+            [stepControl]="surveyViewForm">
+
+            <ng-template matStepLabel>{{question.name}}</ng-template>
+            <mat-form-field>
+              <input matInput placeholder="Question ID" formControlName="id" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Question Name" formControlName="name" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Question anwers" formControlName="answers" required>
+            </mat-form-field>
+
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+
+          </mat-step>
+
+        </mat-vertical-stepper>
+      </form>
+
+
+
+    </mat-card>
+  </div>
+
+
+
+
+
+
+
+
+
+
+</div>

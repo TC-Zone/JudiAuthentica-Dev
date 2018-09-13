@@ -4,12 +4,12 @@ import {
   MatDialogRef,
   MatDialog,
   DateAdapter
-} from "../../../../../node_modules/@angular/material";
+} from "@angular/material";
 import { ProductCrudPopupComponent } from "./product-crud-popup/product-crud-popup.component";
 
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
-import { Subscription } from "../../../../../node_modules/rxjs";
+import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
 import { AppConfirmService } from "../../../shared/services/app-confirm/app-confirm.service";
 

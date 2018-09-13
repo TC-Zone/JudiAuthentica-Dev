@@ -7,32 +7,82 @@
       <div class="profile-title text-center mb-1">
         <div class="main-title">Survey Interaction</div>
         <div class="subtitle mb-05">Clear Picture Authentica</div>
-        <div class="text-muted"> Provide the interactions for product authentication & respond to E -Vote by facing surveys</div>
+        <div class="text-muted"> Provide the interactions for product authentication & respond to E -Vote by facing
+          surveys</div>
       </div>
 
       <div class="profile-nav">
         <mat-nav-list>
-          <mat-list-item routerLink="/surveys/summery" routerLinkActive="list-item-active">
-            <mat-icon>home</mat-icon>
-            Survey Summary
+          <mat-list-item routerLink="/survey-interaction" routerLinkActive="list-item-active">
+            <mat-icon>explore</mat-icon>
+            Demo Entrance 1
           </mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item routerLink="/surveys/setting" routerLinkActive="list-item-active">
-            <mat-icon>settings</mat-icon>
-            Survey Settings
+          <mat-list-item routerLink="/survey-interaction" routerLinkActive="list-item-active">
+            <mat-icon>explore</mat-icon>
+            Demo Entrance 2
           </mat-list-item>
           <mat-divider></mat-divider>
 
         </mat-nav-list>
       </div>
     </mat-card>
-
-
-
   </div>
+
+
+
+
+
+
+
 
   <!-- Profile Views -->
   <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="calc(100% - 300px)">
+    <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+      <mat-card-title>
+        <div class="card-title-text">Survey Catalogue</div>
+        <mat-divider></mat-divider>
+
+        <!-- <div class="profile-actions text-right mb-1">
+                <div class="m-333">
+                  <button mat-raised-button class="mb-05" (click)='openSurveyPopup({},true)' color="primary">Add Survey</button>
+                </div>
+              </div> -->
+
+
+      </mat-card-title>
+      <mat-card-content class="p-0">
+        <ngx-datatable class="material bg-white" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+          [rowHeight]="'auto'" [limit]="5" [rows]="surveyRows">
+
+          <ngx-datatable-column name="Survey Topic" [minWidth]="250" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row?.topic}}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Survey Type" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <mat-chip *ngIf="row?.type==='P'" mat-sm-chip color="primary" [selected]="true">Product Survey</mat-chip>
+              <mat-chip *ngIf="row?.type==='V'" mat-sm-chip color="accent" [selected]="true">E-Vote Survey</mat-chip>
+            </ng-template>
+          </ngx-datatable-column>
+
+
+          <ngx-datatable-column name="Action" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <button routerLink="/survey-interaction/surveyView/{{row?.id}}/{{row?.type}}/{{ row?.type=='P'? row?.productId : row?.voteId }}"
+                mat-icon-button mat-sm-button color="primary" class="mr-1">
+                <mat-icon>view_headline</mat-icon>
+              </button>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+
+
+      </mat-card-content>
+    </mat-card>
+
     <router-outlet></router-outlet>
   </div>
 </div>

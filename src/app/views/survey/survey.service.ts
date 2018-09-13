@@ -4,11 +4,9 @@ import {
   HttpHeaders,
   HttpErrorResponse
 } from "@angular/common/http";
-import { environment } from "../../../environments/environment.prod";
-import { Observable } from "rxjs/Observable";
-import { catchError } from "../../../../node_modules/rxjs/operators";
-import { _throw } from "rxjs/Observable/throw";
-import { map } from "rxjs/operators";
+import { environment } from "environments/environment.prod";
+import { Observable, throwError } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 
 @Injectable()
 export class SurveyService {
@@ -56,7 +54,7 @@ export class SurveyService {
       .pipe(catchError(this.handleError));
   }
 
-  getAnsTemplateById(id, items): Observable<any> {
+  getAnsTemplateById(id, items?): Observable<any> {
     console.log("by id url : " + this.surveyApiUrl + "answer-templates/" + id);
     return this.http
       .get<any>(this.surveyApiUrl + "answer-templates/" + id)
@@ -134,8 +132,17 @@ export class SurveyService {
       );
   }
 
+  getSurveyById(surveyId) {
+    return this.http.get<any>(this.surveyApiUrl + "surveys/" + surveyId).pipe(
+      map(response => {
+        return response.content;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse | any) {
     //console.log(error)
-    return _throw(error);
+    return throwError(error);
   }
 }
