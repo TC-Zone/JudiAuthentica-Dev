@@ -102,6 +102,12 @@ export class SurveyService {
       .pipe(catchError(this.handleError));
   }
 
+  updateSurveyPopup(id, item): Observable<any> {
+    return this.http
+      .put<any>(this.surveyApiUrl + "surveys/" + id, item, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
   getAllSurveys(): Observable<any> {
     return this.http
       .get(this.surveyApiUrl + "surveys")

@@ -413,21 +413,24 @@ export class NavigationService {
       tooltip: "Survey Management",
       icon: "data_usage",
       state: "surveys"
-    },
-    {
-      name: "Form",
-      type: "link",
-      tooltip: "Form",
-      icon: "description",
-      state: "form/showForm"
-    },
+    }
+    // ,
+    // {
+    //   name: "Form",
+    //   type: "link",
+    //   tooltip: "Form",
+    //   icon: "description",
+    //   state: "form/showForm"
+    // }
+    ,
     {
       name: "E-Vote",
       type: "link",
       tooltip: "E-Vote",
       icon: "thumbs_up_down",
       state: "evote/showEvote"
-    },
+    }
+    ,
     {
       name: "Survey Interaction",
       type: "link",

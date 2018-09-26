@@ -38,5 +38,5 @@ export class SurveyViewModel {
 }
 
 export class QuestionModel {
-  constructor(public name: string, public answerTemplate: any) {}
+  constructor(public id, public name: string, public answerTemplate: any) {}
 }

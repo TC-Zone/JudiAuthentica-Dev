@@ -10,7 +10,7 @@ import {
   SurveyViewModel
 } from "../survey-interaction.service";
 import { SurveyService } from "../../survey/survey.service";
-import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
+import { FormGroup, FormBuilder, FormArray, FormControl } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { filter } from "rxjs/operators";
 
@@ -27,6 +27,7 @@ export class SurveyViewerComponent implements OnInit, OnDestroy {
 
   getAnswersTemplatesSub: Subscription;
   ansTemplates: any[];
+  ansTemplate: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,9 +39,10 @@ export class SurveyViewerComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.getAllAnsTemplates();
+
     this.route.params.subscribe(params => {
       console.log("passed params " + JSON.stringify(params));
-      this.getAllAnsTemplates();
 
       if (params.type === "P") {
         this.getProductRecord(params.sourceId);
@@ -55,11 +57,12 @@ export class SurveyViewerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.getAnswersTemplatesSub) {
-      this.getAnswersTemplatesSub.unsubscribe;
+      this.getAnswersTemplatesSub.unsubscribe();
     }
   }
 
   getAllAnsTemplates() {
+    console.log("CALLED ANS TEMPLATES ");
     this.getAnswersTemplatesSub = this.surveyService
       .getAnswerTemplates()
       .subscribe(successResp => {
@@ -100,6 +103,8 @@ export class SurveyViewerComponent implements OnInit, OnDestroy {
       this.sourceDetail.unshift(
         new SourceDetail(sourceName, batchNumber, imageObj, clientRes.content)
       );
+
+      console.log("this.sourceDetail" + this.sourceDetail);
     });
   }
 
@@ -112,71 +117,100 @@ export class SurveyViewerComponent implements OnInit, OnDestroy {
           surveyResp.questions
         )
       );
-
-      this.populateQuestions(surveyId, this.surveyRecords[0]);
-    });
-  }
-
-  populateQuestions(surveyId, questions) {
-    console.log("PASSED QUESTIONS");
-    console.log(questions);
-
-    this.surveyViewForm = this.fb.group({
-      surveyId: [surveyId],
-      questions: this.fb.array([])
-    });
-
-    this.patchQuestion(questions.questions);
-  }
-
-  patchQuestion(questions) {
-    const control = <FormArray>this.surveyViewForm.controls["questions"];
-
-    console.log("array ques");
-    console.log(questions);
-
-    questions.forEach(question => {
-      control.push(
-        this.initQuestion(
-          question.id,
-          question.name,
-          question.answerTemplate,
-          control
-        )
-      );
+      this.getAllAnsTemplates();
+      this.initMainForm(surveyId, this.surveyRecords[0]);
     });
   }
 
   getTemplate(id): any {
-    console.log("ANSWER TEMPS : " + JSON.stringify(this.ansTemplates));
-    return this.ansTemplates.filter(temp => {
-      return temp.id.indexOf(id) !== -1;
+    this.surveyService.getAnsTemplateById(id).subscribe(response => {
+      this.ansTemplate = response;
+      console.log("anstemplate ");
+      console.log(this.ansTemplate);
+    });
+
+    // console.log("ANSWER TEMPS : " + JSON.stringify(this.ansTemplates));
+    // return this.ansTemplates.filter(temp => {
+    //   return temp.id.indexOf(id) !== -1;
+    // });
+  }
+
+  initMainForm(surveyId, questions) {
+    console.log("QUESTIONS : ");
+    console.log(questions.questions);
+
+    let questionArr: FormArray = new FormArray([]);
+    let answers: FormArray = new FormArray([]);
+
+    this.surveyViewForm = new FormGroup({
+      surveyId: new FormControl(surveyId),
+      questions: questionArr
+    });
+
+    questions.questions.forEach((question, qIndex) => {
+      this.addQuestion(question);
+
+      this.surveyService
+        .getAnsTemplateById(question.answerTemplate.id)
+        .subscribe(response => {
+          this.ansTemplate = response;
+          console.log("TEMP OBJ :");
+          console.log(this.ansTemplate);
+          console.log(this.ansTemplate.answerTemplateType);
+          this.ansTemplate.answers.forEach((answer, ansIndex) => {
+            console.log('INDEX : '+ qIndex);
+            this.addAnswer(qIndex, answer, this.ansTemplate);
+          });
+        });
     });
   }
 
-  initQuestion(quesId, name, answerTemp, control) {
+  addQuestion(questionObj) {
+    let id = questionObj.id;
+    let name = questionObj.name;
+    let answers = new FormArray([]);
+    let answerTypeId = questionObj.answerTemplate.id;
+    (<FormArray>this.surveyViewForm.controls["questions"]).push(
+      this.returnQuestion(id, name, answers,answerTypeId)
+    );
+  }
+
+  returnQuestion(id, name, answers,answerTypeId) {
     return this.fb.group({
-      id: [quesId],
-      name: [name],
-      answers: this.fb.array([this.initAnswers(answerTemp)])
+      id: [id || ""],
+      name: [name || ""],
+      answers: answers,
+      answerTypeId : answerTypeId
     });
   }
 
-  initAnswers(answerTemp) {
-    let temp = this.getTemplate(answerTemp.id);
-    return this.initAnswer(temp);
+  addAnswer(questionIndex, answer, ansTemplate) {
+    console.log("answers :" + JSON.stringify(ansTemplate));
+    console.log(answer);
+    (<FormArray>(
+      (<FormGroup>(
+        (<FormArray>this.surveyViewForm.controls["questions"]).controls[
+          questionIndex
+        ]
+      )).controls["answers"]
+    )).push(this.returnAnswer(answer.id, ansTemplate, answer));
   }
 
-  initAnswer(temp) {
+  returnAnswer(id, ansTemplate, answer) {
     return this.fb.group({
-      id: [temp.id]
+      id: id,
+      answerTemplateType: new FormControl(ansTemplate.answerTemplateType),
+      answer: answer
     });
   }
 
-  // patchAnswers(template, control) {
-  //   let ansControl = <FormArray>control.controls["answers"];
-  //   this.surveyService.getAnsTemplateById(template.id).subscribe(temp => {
-  //     ansControl.push(this.initAnswer(temp));
-  //   });
-  // }
+  printQuestion() {
+    const con = <FormArray>this.surveyViewForm.controls["questions"];
+    const con2   =  <FormArray>(
+      (<FormGroup>(
+        (<FormArray>this.surveyViewForm.controls["questions"]).controls[0]
+      )).controls["answers"].value
+    );
+    console.log(con2[0]);
+  }
 }

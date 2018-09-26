@@ -85,6 +85,25 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
             });
           }
         );
+      } else {
+        this.surveyService.updateSurveyPopup(data.id, res).subscribe(
+          response => {
+            this.loader.close();
+            this.getSurveysSub = this.surveyService
+              .getAllSurveys()
+              .subscribe(successResp => {
+                this.rows = successResp.content;
+              });
+          },
+          error => {
+            this.loader.close();
+            this.errDialog.showError({
+              title: "Error",
+              status: error.status,
+              type: "http_error"
+            });
+          }
+        );
       }
     });
   }
@@ -120,8 +139,6 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
       },
       error => {
         this.loader.close();
-        console.log(error);
-        console.log(error.status);
         this.errDialog.showError({
           title: "Error",
           status: error.status,

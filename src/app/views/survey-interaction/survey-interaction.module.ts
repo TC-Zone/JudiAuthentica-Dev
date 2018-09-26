@@ -18,7 +18,8 @@ import {
   MatButtonToggleModule,
   MatIconModule,
   MatChipsModule,
-  MatStepperModule
+  MatStepperModule,
+  MatRadioModule
 } from "@angular/material";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { SharedModule } from "../../shared/shared.module";
@@ -50,6 +51,7 @@ import { SurveyViewerComponent } from './survey-viewer/survey-viewer.component';
     MatIconModule,
     MatChipsModule,
     MatStepperModule,
+    MatRadioModule,
     RouterModule.forChild(SurveyInteractionRoutes)
   ],
   declarations: [SurveyInteractionComponent, SurveyViewerComponent],
