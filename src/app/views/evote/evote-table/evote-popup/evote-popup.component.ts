@@ -107,9 +107,12 @@ export class EvotePopupComponent implements OnInit {
     }
 
   buildEvoteForm(fieldItem) {
+    const client = fieldItem.client;
+    const clientId = client ? client.id : null;
+
     this.evoteForm = this.fb.group({
       topic: [fieldItem.topic || "",Validators.required],
-      client: [fieldItem.clientId || ""],
+      client: [clientId || ""],
       code: [fieldItem.code || "", Validators.required],
       description: [fieldItem.description || "", Validators.required],
       quantity: [fieldItem.quantity || "", Validators.required],
@@ -137,12 +140,15 @@ export class EvotePopupComponent implements OnInit {
       console.log("update context");
       formData = evoteRequest;
     }
+  
+    
     //console.log(this.evoteForm.value)
     console.log("prepared form data ");
     console.log(formData);
-    //this.dialogRef.close(formData);
+    this.dialogRef.close(formData);
   }
   prepareToSave(formvalue): FormData {
+    
     let input: FormData = new FormData();
     input.append("code", formvalue.code);
     input.append("quantity", formvalue.quantity);
@@ -157,6 +163,8 @@ export class EvotePopupComponent implements OnInit {
     input.append("file", this.imageFile);
 
     return input;
+  
+    
   }
 }
 
