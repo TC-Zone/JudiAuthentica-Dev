@@ -159,7 +159,7 @@ export class EvotePopupComponent implements OnInit {
     input.append("topic", formvalue.topic);
     input.append("description", formvalue.description);
     input.append("batchNumber", formvalue.batchNumber);
-    input.append("client", formvalue.client.id);
+    input.append("clientId", formvalue.client.id);
     input.append("file", this.imageFile);
 
     return input;
