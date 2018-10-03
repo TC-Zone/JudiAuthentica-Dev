@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { 
+import {
   MatIconModule,
   MatButtonModule,
   MatCardModule,
@@ -33,6 +33,7 @@ import { ShopRoutes } from './shop.routing';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { FutureSurveyComponent } from './future-survey/future-survey.component';
 
 @NgModule({
   imports: [
@@ -64,9 +65,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
     SharedModule
   ],
   declarations: [
-    ProductsComponent, 
-    ProductDetailsComponent, 
-    CartComponent, CheckoutComponent
+    ProductsComponent,
+    ProductDetailsComponent,
+    CartComponent, CheckoutComponent, FutureSurveyComponent
   ],
   providers: [ShopService]
 })

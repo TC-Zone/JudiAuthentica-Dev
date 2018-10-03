@@ -413,7 +413,7 @@ export class NavigationService {
       tooltip: "Survey Management",
       icon: "data_usage",
       state: "surveys"
-    }
+    },
     // ,
     // {
     //   name: "Form",
@@ -422,22 +422,25 @@ export class NavigationService {
     //   icon: "description",
     //   state: "form/showForm"
     // }
-    ,
     {
       name: "E-Vote",
       type: "link",
       tooltip: "E-Vote",
       icon: "thumbs_up_down",
       state: "evote/showEvote"
-    }
-    ,
+    },
     {
-      name: "Survey Interaction",
-      type: "link",
-      tooltip: "Survey Demo",
-      icon: "streetview",
-      state: "survey-interaction"
+      name: "Future Survey",
+      type: "dropDown",
+      tooltip: "Future Survey",
+      icon: "shopping_cart",
+      state: "shop",
+      sub: [
+        { name: "Survey Editor", state: "sEditor" },
+        { name: "Survey Viewer", state: "sViewer" }
+      ]
     }
+
     // {
     //   name: 'INBOX',
     //   type: 'link',

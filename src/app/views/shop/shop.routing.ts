@@ -3,6 +3,7 @@ import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { FutureSurveyComponent } from './future-survey/future-survey.component';
 
 export const ShopRoutes: Routes = [{
   path: '',
@@ -18,8 +19,8 @@ export const ShopRoutes: Routes = [{
     component: CartComponent,
     data: { title: 'Cart', breadcrumb: 'CART' }
   }, {
-    path: 'checkout',
-    component: CheckoutComponent,
-    data: { title: 'Checkout', breadcrumb: 'CHECKOUT' }
+    path: 'sEditor',
+    component: FutureSurveyComponent,
+    data: { title: 'Survey Editor', breadcrumb: 'Survey Editor' }
   }]
 }]
