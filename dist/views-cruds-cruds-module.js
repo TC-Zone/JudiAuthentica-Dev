@@ -1,22 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-cruds-cruds-module"],{
 
-/***/ "./node_modules/rxjs-compat/_esm5/Observable/throw.js":
-/*!************************************************************!*\
-  !*** ./node_modules/rxjs-compat/_esm5/Observable/throw.js ***!
-  \************************************************************/
-/*! exports provided: _throw */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_throw", function() { return rxjs__WEBPACK_IMPORTED_MODULE_0__["throwError"]; });
-
-
-//# sourceMappingURL=throw.js.map
-
-/***/ }),
-
 /***/ "./src/app/shared/animations/egret-animations.ts":
 /*!*******************************************************!*\
   !*** ./src/app/shared/animations/egret-animations.ts ***!
@@ -72,7 +55,7 @@ var egretAnimations = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"m-333\">\r\n  <!-- <span fxFlex></span> -->\r\n  <button mat-raised-button class=\"mb-05\" color=\"primary\" (click)=\"openPopUp({}, true)\">Add Client</button>\r\n</div>\r\n<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-content class=\"p-0\">\r\n    <ngx-datatable\r\n          class=\"material ml-0 mr-0\"\r\n          [rows]=\"items\"\r\n          [columnMode]=\"'flex'\"\r\n          [headerHeight]=\"50\"\r\n          [footerHeight]=\"50\"\r\n          [limit]=\"10\"\r\n          [rowHeight]=\"'auto'\">\r\n          <ngx-datatable-column name=\"Client Code\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              {{ row?.code }}\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n          <ngx-datatable-column name=\"Name\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              {{ row?.name }}\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n\r\n          <ngx-datatable-column name=\"Description\" [flexGrow]=\"2\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              {{ row?.description }}\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n\r\n\r\n          <ngx-datatable-column name=\"Actions\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              <button mat-icon-button mat-sm-button color=\"primary\" class=\"mr-1\" (click)=\"openPopUp(row)\"><mat-icon>edit</mat-icon></button>\r\n              <button mat-icon-button mat-sm-button color=\"warn\" (click)=\"deleteItem(row)\"><mat-icon>delete</mat-icon></button>\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n        </ngx-datatable>\r\n  </mat-card-content>\r\n</mat-card>\r\n"
+module.exports = "<div class=\"m-333\">\r\n  <!-- <span fxFlex></span> -->\r\n  <button mat-raised-button class=\"mb-05\" color=\"primary\" (click)=\"openPopUp({}, true)\">Add Client</button>\r\n</div>\r\n<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-content class=\"p-0\">\r\n    <ngx-datatable\r\n          class=\"material ml-0 mr-0\"\r\n          [rows]=\"items\"\r\n          [columnMode]=\"'flex'\"\r\n          [headerHeight]=\"50\"\r\n          [footerHeight]=\"50\"\r\n          [limit]=\"10\"\r\n          [rowHeight]=\"'auto'\">\r\n          <ngx-datatable-column name=\"Client Code\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              {{ row?.code }}\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n          <ngx-datatable-column name=\"Name\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              {{ row?.name }}\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n\r\n          <ngx-datatable-column name=\"Contacts\" [flexGrow]=\"2\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              {{ row?.description }}\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n\r\n\r\n          <ngx-datatable-column name=\"Actions\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              <button mat-icon-button mat-sm-button color=\"primary\" class=\"mr-1\" (click)=\"openPopUp(row)\"><mat-icon>edit</mat-icon></button>\r\n              <button mat-icon-button mat-sm-button color=\"warn\" (click)=\"deleteItem(row)\"><mat-icon>delete</mat-icon></button>\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n        </ngx-datatable>\r\n  </mat-card-content>\r\n</mat-card>\r\n"
 
 /***/ }),
 
@@ -244,7 +227,7 @@ var CrudNgxTableComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 matDialogTitle>{{data.title}}</h1>\r\n<form [formGroup]=\"itemForm\" (ngSubmit)=\"submit()\">\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n\r\n    <div fxFlex=\"100\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput name=\"code\" [formControl]=\"itemForm.controls['code']\" placeholder=\"Client Code\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"100\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput name=\"clientName\" [formControl]=\"itemForm.controls['name']\" placeholder=\"Name\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"100\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"itemForm.controls['description']\"></textarea>\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"100\" class=\"mt-1\">\r\n      <button mat-raised-button color=\"primary\" [disabled]=\"itemForm.invalid\">Save</button>\r\n      <span fxFlex></span>\r\n      <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n    </div>\r\n  </div>\r\n</form>\r\n"
+module.exports = "<h1 matDialogTitle>{{data.title}}</h1>\r\n<form [formGroup]=\"itemForm\" (ngSubmit)=\"submit()\">\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n\r\n    <div fxFlex=\"100\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput name=\"code\" [formControl]=\"itemForm.controls['code']\" placeholder=\"Client Code\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"100\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput name=\"clientName\" [formControl]=\"itemForm.controls['name']\" placeholder=\"Name\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"100\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <textarea matInput name=\"description\" placeholder=\"Contacts\" [formControl]=\"itemForm.controls['description']\"></textarea>\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"100\" class=\"mt-1\">\r\n      <button mat-raised-button color=\"primary\" [disabled]=\"itemForm.invalid\">Save</button>\r\n      <span fxFlex></span>\r\n      <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n    </div>\r\n  </div>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -425,9 +408,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
 var environment = {
     production: true,
-    apiURL: 'productionApi',
-    productApiURL: 'https://productzg4t4ks63a.hana.ondemand.com/product/api/',
-    surveyApiURL: 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/',
+    apiURL: "productionApi",
+    // productApiURL:'https://authentican60aazs63l.ca1.hana.ondemand.com/product/api/',
+    // surveyApiURL : 'https://authentican60aazs63l.ca1.hana.ondemand.com/survey/api/',
+    //productApiURL: "http://localhost:10001/api/",
+    //surveyApiURL: "http://localhost:10002/api/"
+    productApiURL: "https://productzg4t4ks63a.hana.ondemand.com/product/api/",
+    surveyApiURL: "https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/"
 };
 
 

@@ -1,8 +1,7 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import * as SurveyEditor from 'surveyjs-editor';
-import * as SurveyKo from 'survey-knockout';
+import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
+import * as SurveyEditor from "surveyjs-editor";
+import * as SurveyKo from "survey-knockout";
 import * as widgets from "surveyjs-widgets";
-
 
 import "inputmask/dist/inputmask/phone-codes/phone.js";
 
@@ -40,15 +39,13 @@ SurveyEditor.SurveyPropertyModalEditor.registerCustomWidget(
   CkEditor_ModalEditor
 );
 
-
 @Component({
-  selector: 'app-future-survey',
-  templateUrl: './future-survey.component.html',
-  styleUrls: ['./future-survey.component.scss']
+  selector: "app-future-survey",
+  templateUrl: "./future-survey.component.html",
+  styleUrls: ["./future-survey.component.scss"]
 })
 export class FutureSurveyComponent implements OnInit {
   editor: SurveyEditor.SurveyEditor;
-
 
   json = {
     title: "Product Feedback Survey Example",
@@ -58,11 +55,13 @@ export class FutureSurveyComponent implements OnInit {
         name: "page1",
         elements: [
           {
+            qId: 1,
             type: "text",
             name: "question1",
             title: "Question 1 ?"
           },
           {
+            qId: 2,
             type: "imagepicker",
             name: "question2",
             title: "Image Chooser ?",
@@ -90,6 +89,7 @@ export class FutureSurveyComponent implements OnInit {
             ]
           },
           {
+            qId: 3,
             type: "matrix",
             name: "question3",
             columns: ["A", "B", "C"],
@@ -100,30 +100,38 @@ export class FutureSurveyComponent implements OnInit {
     ]
   };
 
-
-  @Output() surveySaved: EventEmitter<Object> = new EventEmitter();
+  @Output()
+  surveySaved: EventEmitter<Object> = new EventEmitter();
   ngOnInit() {
-    SurveyKo.JsonObject.metaData.addProperty(
-      "questionbase",
-      "popupdescription:text"
-    );
+    SurveyKo.JsonObject.metaData.addProperty("questionbase", {
+      name: "tag",
+      type: "number",
+      qID: "questionId"
+    });
+    //"popupdescription:text"
     SurveyKo.JsonObject.metaData.addProperty("page", "popupdescription:text");
-    SurveyEditor.StylesManager.applyTheme("winterstone");
+    SurveyEditor.StylesManager.applyTheme();
 
-    let editorOptions = { showEmbededSurveyTab: true, generateValidJSON: true };
+    let editorOptions = {
+      showEmbededSurveyTab: true,
+      generateValidJSON: true,
+      questionTypes: ["text", "checkbox", "radiogroup", "dropdown"]
+    };
     this.editor = new SurveyEditor.SurveyEditor(
       "surveyEditorContainer",
       editorOptions
     );
+
+    this.editor.toolbox.removeItem("bootstrapslider");
+
     this.editor.text = JSON.stringify(this.json);
     this.editor.saveSurveyFunc = this.saveMySurvey;
   }
 
   saveMySurvey = () => {
     console.log(this.editor);
-    //console.log(JSON.stringify(this.editor.text));
-    //console.log(this.editor.text);
+    console.log(JSON.stringify(this.editor.text));
+    console.log(this.editor.text);
     this.surveySaved.emit(JSON.parse(this.editor.text));
   };
-
 }

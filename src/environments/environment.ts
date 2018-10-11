@@ -5,5 +5,6 @@
 
 export const environment = {
   production: true,
-  apiURL: 'developmentApi'
+  productApiURL:'http://localhost:10001/api/',
+  surveyApiURL : 'http://localhost:10002/api/',
 };

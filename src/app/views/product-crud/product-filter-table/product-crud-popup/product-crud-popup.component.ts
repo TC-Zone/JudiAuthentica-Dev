@@ -51,6 +51,7 @@ export class ProductCrudPopupComponent implements OnInit {
   public filteredClient: Observable<Clients>;
   tomorrow: Date;
   imageFile: File;
+  imageUrl: any = "assets/images/placeholder.jpg";
 
   // image uploader related properties
   public uploader: FileUploader = new FileUploader({ url: "upload_url" });
@@ -141,17 +142,14 @@ export class ProductCrudPopupComponent implements OnInit {
     let x = this.uploader.queue.length - 1;
     this.imageObject = this.uploader.queue[x];
 
-    //let reader = new FileReader();
+    let reader = new FileReader();
     if (event.target.files && event.target.files.length > 0) {
       this.imageFile = event.target.files[0];
-
-      // reader.readAsDataURL(file);
-      // reader.onload = () => {
-      //   this.productForm.get("file").setValue({
-      //     filename: file.name,
-      //     filetype: file.type,
-      //     value: reader.result
-      //   });
+      reader.readAsDataURL(this.imageFile);
+      reader.onload = (event: any) => {
+        this.imageUrl = event.target.result;
+        console.log("IMAGE URL  : " + this.imageUrl);
+      };
     }
   }
 

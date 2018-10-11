@@ -1,10 +1,6 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ProductCrudService } from "../product-crud.service";
-import {
-  MatDialogRef,
-  MatDialog,
-  DateAdapter
-} from "@angular/material";
+import { MatDialogRef, MatDialog, DateAdapter } from "@angular/material";
 import { ProductCrudPopupComponent } from "./product-crud-popup/product-crud-popup.component";
 
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
@@ -141,6 +137,9 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
       }
     );
 
+    console.log("RES data :");
+    console.log(data);
+
     dialogRef.afterClosed().subscribe(res => {
       if (!res) {
         // if user press cancel.
@@ -156,8 +155,12 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
       if (isNew) {
         this.prodService.addProduct(res, this.rows).subscribe(
           data => {
-            this.rows = data;
-            console.log(this.rows);
+            let id = data;
+            this.prodService.getProductById(id).subscribe(data => {
+              this.rows = this.rows.concat(data.content);
+              console.log(this.rows);
+            });
+
             this.loader.close();
           },
           error => {

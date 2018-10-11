@@ -35,11 +35,7 @@ export class ProductCrudService {
     return this.http.post<any>(this.productApiUrl, productObj).pipe(
       map(response => {
         console.log(JSON.stringify(response.content.id));
-        this.getProductById(response.content.id).subscribe(data => {
-          items.unshift(data.content);
-        });
-
-        return items.slice();
+        return response.content.id;
       }),
       catchError(this.handleError)
     );
@@ -50,10 +46,11 @@ export class ProductCrudService {
   }
 
   removeProduct(row, items): Observable<any> {
-    return this.http.delete(this.productApiUrl + row.id, this.httpOptions).pipe(
+    return this.http.delete(this.productApiUrl + row.id).pipe(
       map(data => {
         let i = items.indexOf(row);
-        return items.splice(i, 1);
+        items.splice(i, 1);
+        return items;
       }),
       catchError(this.handleError)
     );

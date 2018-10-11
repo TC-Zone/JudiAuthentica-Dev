@@ -22,12 +22,9 @@ var SurveyModel = /** @class */ (function () {
         this.endDate = obj.endDate;
         this.productId = obj.productId;
         this.voteId = obj.voteId;
-        console.log(" obj.questions ");
-        console.log(obj.questions);
         obj.questions.forEach(function (question) {
             var answerTemplate = new AnswerTemplate("name", question.answerTemplate);
             var qOBj = new Question(question.name, answerTemplate);
-            console.log("question object");
             console.log(qOBj);
             _this.questions.unshift(qOBj);
         });
@@ -50,64 +47,6 @@ var AnswerTemplate = /** @class */ (function () {
         this.id = id;
     }
     return AnswerTemplate;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/shared/pipes/array-filter.pipe.ts":
-/*!***************************************************!*\
-  !*** ./src/app/shared/pipes/array-filter.pipe.ts ***!
-  \***************************************************/
-/*! exports provided: ArrayFilter */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ArrayFilter", function() { return ArrayFilter; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-var ArrayFilter = /** @class */ (function () {
-    function ArrayFilter() {
-    }
-    ArrayFilter.prototype.transform = function (items, filterVal, arrType) {
-        var _this = this;
-        // console.log("array type : " + arrType);
-        if (!items || !filterVal) {
-            console.log("no items");
-            return items;
-        }
-        // console.log(' here items : ');
-        // console.log('filterVal : '+filterVal);
-        // console.log(items);
-        return items.filter(function (item) { return _this.applyFilter(item, filterVal, arrType); });
-    };
-    ArrayFilter.prototype.applyFilter = function (item, filterVal, arrType) {
-        switch (arrType) {
-            case "answer_types":
-                return item.id.indexOf(filterVal) !== -1;
-            case "products":
-                return item.id.indexOf(filterVal) !== -1;
-            case "evotes":
-                return item.id.indexOf(filterVal) !== -1;
-            default:
-                break;
-        }
-    };
-    ArrayFilter = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({
-            name: "arrayFilter",
-            pure: false
-        })
-    ], ArrayFilter);
-    return ArrayFilter;
 }());
 
 
@@ -220,8 +159,7 @@ var AnswerTemplatePopupComponent = /** @class */ (function () {
     };
     AnswerTemplatePopupComponent.prototype.submit = function () {
         console.log(JSON.stringify(this.ansTemplateForm.value));
-        return;
-        //this.dialogRef.close(this.ansTemplateForm.value);
+        this.dialogRef.close(this.ansTemplateForm.value);
     };
     AnswerTemplatePopupComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1080,6 +1018,23 @@ var SurveyTableComponent = /** @class */ (function () {
                     });
                 });
             }
+            else {
+                _this.surveyService.updateSurveyPopup(data.id, res).subscribe(function (response) {
+                    _this.loader.close();
+                    _this.getSurveysSub = _this.surveyService
+                        .getAllSurveys()
+                        .subscribe(function (successResp) {
+                        _this.rows = successResp.content;
+                    });
+                }, function (error) {
+                    _this.loader.close();
+                    _this.errDialog.showError({
+                        title: "Error",
+                        status: error.status,
+                        type: "http_error"
+                    });
+                });
+            }
         });
     };
     SurveyTableComponent.prototype.deleteSurvey = function (row) {
@@ -1109,8 +1064,6 @@ var SurveyTableComponent = /** @class */ (function () {
             _this.rows = successResp.content;
         }, function (error) {
             _this.loader.close();
-            console.log(error);
-            console.log(error.status);
             _this.errDialog.showError({
                 title: "Error",
                 status: error.status,
@@ -1247,14 +1200,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _product_crud_product_crud_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../product-crud/product-crud.service */ "./src/app/views/product-crud/product-crud.service.ts");
 /* harmony import */ var _survey_common_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./survey-common.component */ "./src/app/views/survey/survey-common.component.ts");
 /* harmony import */ var _evote_evote_service_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../evote/evote-service.service */ "./src/app/views/evote/evote-service.service.ts");
-/* harmony import */ var _shared_pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../shared/pipes/array-filter.pipe */ "./src/app/shared/pipes/array-filter.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -1310,8 +1261,7 @@ var SurveyModule = /** @class */ (function () {
                 _answer_template_popup_answer_template_popup_component__WEBPACK_IMPORTED_MODULE_11__["AnswerTemplatePopupComponent"],
                 _survey_creation_popup_survey_creation_popup_component__WEBPACK_IMPORTED_MODULE_12__["SurveyCreationPopupComponent"],
                 _survey_builder_survey_builder_component__WEBPACK_IMPORTED_MODULE_13__["SurveyBuilderComponent"],
-                _survey_common_component__WEBPACK_IMPORTED_MODULE_17__["SurveyCommonComponent"],
-                _shared_pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_19__["ArrayFilter"]
+                _survey_common_component__WEBPACK_IMPORTED_MODULE_17__["SurveyCommonComponent"]
             ],
             entryComponents: [_answer_template_popup_answer_template_popup_component__WEBPACK_IMPORTED_MODULE_11__["AnswerTemplatePopupComponent"], _survey_creation_popup_survey_creation_popup_component__WEBPACK_IMPORTED_MODULE_12__["SurveyCreationPopupComponent"]],
             providers: [_survey_service__WEBPACK_IMPORTED_MODULE_15__["SurveyService"], _product_crud_product_crud_service__WEBPACK_IMPORTED_MODULE_16__["ProductCrudService"], _evote_evote_service_service__WEBPACK_IMPORTED_MODULE_18__["EvoteService"]]
@@ -1365,133 +1315,6 @@ var SurveyRoute = [
         ]
     }
 ];
-
-
-/***/ }),
-
-/***/ "./src/app/views/survey/survey.service.ts":
-/*!************************************************!*\
-  !*** ./src/app/views/survey/survey.service.ts ***!
-  \************************************************/
-/*! exports provided: SurveyService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SurveyService", function() { return SurveyService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _environments_environment_prod__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../environments/environment.prod */ "./src/environments/environment.prod.ts");
-/* harmony import */ var _node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var rxjs_Observable_throw__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/Observable/throw */ "./node_modules/rxjs-compat/_esm5/Observable/throw.js");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-var SurveyService = /** @class */ (function () {
-    function SurveyService(http) {
-        this.http = http;
-        this.surveyApiUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_2__["environment"].surveyApiURL;
-        this.httpOptions = {
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
-            })
-        };
-    }
-    SurveyService.prototype.getAnswerTemplates = function () {
-        return this.http
-            .get(this.surveyApiUrl + "answer-templates/")
-            .pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
-    };
-    SurveyService.prototype.addNewAnsTemplate = function (templateObj, items) {
-        return this.http
-            .post(this.surveyApiUrl + "answer-templates/", templateObj, this.httpOptions)
-            .pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
-            items.unshift(data.content);
-            return items.slice();
-        }), Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
-    };
-    SurveyService.prototype.updateAnsTemplate = function (id, item) {
-        return this.http
-            .put(this.surveyApiUrl + "answer-templates/" + id, item, this.httpOptions)
-            .pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
-    };
-    SurveyService.prototype.getAnsTemplateById = function (id, items) {
-        console.log("by id url : " + this.surveyApiUrl + "answer-templates/" + id);
-        return this.http
-            .get(this.surveyApiUrl + "answer-templates/" + id)
-            .pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
-            console.log(data.content);
-            return data.content;
-        }), Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
-    };
-    SurveyService.prototype.removeAnsTemplate = function (row, items) {
-        return this.http
-            .delete(this.surveyApiUrl + "answer-templates/" + row.id, this.httpOptions)
-            .pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
-            var i = items.indexOf(row);
-            items.splice(i, 1);
-            return items;
-        }), Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
-    };
-    SurveyService.prototype.addNewSurvey = function (surveyObj, items) {
-        return this.http
-            .post(this.surveyApiUrl + "surveys", surveyObj, this.httpOptions)
-            .pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
-            items.unshift(data.content);
-            return items.slice();
-        }), Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
-    };
-    SurveyService.prototype.updateSurveyWithQuestions = function (id, item) {
-        console.log("update with ques : " + this.surveyApiUrl + "surveys/" + id);
-        return this.http
-            .put(this.surveyApiUrl + "surveys/" + id, item, this.httpOptions)
-            .pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
-    };
-    SurveyService.prototype.getAllSurveys = function () {
-        return this.http
-            .get(this.surveyApiUrl + "surveys")
-            .pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
-    };
-    SurveyService.prototype.removeSurvey = function (row, items) {
-        return this.http
-            .delete(this.surveyApiUrl + "surveys/" + row.id, this.httpOptions)
-            .pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
-            var i = items.indexOf(row);
-            items.splice(i, 1);
-            return items;
-        }), Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
-    };
-    SurveyService.prototype.getQuestionById = function (questionId) {
-        return this.http
-            .get(this.surveyApiUrl + "questions/" + questionId)
-            .pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (response) {
-            return response.content;
-        }), Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
-    };
-    SurveyService.prototype.handleError = function (error) {
-        //console.log(error)
-        return Object(rxjs_Observable_throw__WEBPACK_IMPORTED_MODULE_4__["_throw"])(error);
-    };
-    SurveyService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
-    ], SurveyService);
-    return SurveyService;
-}());
-
 
 
 /***/ })

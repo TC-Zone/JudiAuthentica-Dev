@@ -59,15 +59,12 @@ var FormComponent = /** @class */ (function () {
         this.userForm = this.fb.group({
             userInput: null
         });
-        this.filteredClient = this.userForm.get('userInput').valueChanges
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["debounceTime"])(300), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["switchMap"])(function (value) {
-            return _this.newform.search({ name: value }, 1);
-        }));
+        this.filteredClient = this.userForm.get("userInput").valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["debounceTime"])(300), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["switchMap"])(function (value) { return _this.newform.search({ name: value }, 1); }));
         console.log();
     };
     FormComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-form',
+            selector: "app-form",
             template: __webpack_require__(/*! ./form.component.html */ "./src/app/views/form/form.component.html"),
             styles: [__webpack_require__(/*! ./form.component.scss */ "./src/app/views/form/form.component.scss")]
         }),
@@ -169,7 +166,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FormService", function() { return FormService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/@angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! environments/environment.prod */ "./src/environments/environment.prod.ts");
 /* harmony import */ var _model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../model/ClientModel.model */ "./src/app/model/ClientModel.model.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -192,19 +189,20 @@ var FormService = /** @class */ (function () {
         this.clientApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].productApiURL + "clients/suggestions";
     }
     FormService.prototype.search = function (filter, page) {
-        if (filter === void 0) { filter = { name: '' }; }
+        if (filter === void 0) { filter = { name: "" }; }
         if (page === void 0) { page = 1; }
-        return this.http.get(this.clientApiUrl)
-            .pipe(Object(_node_modules_rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (response) {
+        return this.http.get(this.clientApiUrl).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (response) {
             response.content = response.content
                 .map(function (content) { return new _model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["Content"](content.id, content.name); })
-                .filter(function (content) { return content.name.toLocaleLowerCase().includes(filter.name); });
+                .filter(function (content) {
+                return content.name.toLocaleLowerCase().includes(filter.name);
+            });
             return response;
         }));
     };
     FormService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
-            providedIn: 'root'
+            providedIn: "root"
         }),
         __metadata("design:paramtypes", [_node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], FormService);
@@ -227,9 +225,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
 var environment = {
     production: true,
-    apiURL: 'productionApi',
-    productApiURL: 'https://productzg4t4ks63a.hana.ondemand.com/product/api/',
-    surveyApiURL: 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/',
+    apiURL: "productionApi",
+    // productApiURL:'https://authentican60aazs63l.ca1.hana.ondemand.com/product/api/',
+    // surveyApiURL : 'https://authentican60aazs63l.ca1.hana.ondemand.com/survey/api/',
+    //productApiURL: "http://localhost:10001/api/",
+    //surveyApiURL: "http://localhost:10002/api/"
+    productApiURL: "https://productzg4t4ks63a.hana.ondemand.com/product/api/",
+    surveyApiURL: "https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/"
 };
 
 

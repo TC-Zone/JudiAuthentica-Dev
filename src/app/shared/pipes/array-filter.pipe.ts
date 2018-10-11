@@ -6,9 +6,14 @@ import { PipeTransform, Pipe } from "@angular/core";
 })
 export class ArrayFilter implements PipeTransform {
   transform(items: any[], filterVal: any, arrType: string): any {
-    // console.log("array type : " + arrType);
-    if (!items || !filterVal) {
+    //console.log("filterVal : " + filterVal);
+    if (!items) {
       console.log("no items");
+      return items;
+    }
+
+    if (!filterVal) {
+      console.log("no filterValue");
       return items;
     }
     // console.log(' here items : ');

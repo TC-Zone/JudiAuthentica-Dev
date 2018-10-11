@@ -122,7 +122,7 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
           this.loader.open();
           this.evoteService.removeEvotes(row, this.rows).subscribe(
             data => {
-              this.rows = data;
+              this.getAllEvote();
               this.loader.close();
             },
             error => {
@@ -146,6 +146,9 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
       data: { title: title, payload: data ,isNew: isNew}
     });
 
+    console.log("RES data :");
+    console.log(data);
+
     dialogRef.afterClosed().subscribe(res => {
       if (!res) {
         // if user press cancel.
@@ -156,7 +159,8 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
       console.log("RES obj :");
       console.log(res);
 
-      res.expireDate = moment(res.expireDate).format("YYYY-MM-DD");
+
+     // res.expireDate = moment(res.expireDate).format("YYYY-MM-DD");
 
       if (isNew) {
         this.evoteService.addEvote(res, this.rows).subscribe(

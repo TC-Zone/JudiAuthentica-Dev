@@ -21,10 +21,15 @@
 
     <div fxFlex="34" class="pr-1">
       <mat-form-field class="full-width">
-        <mat-select [disabled]='!data.isNew' [formControl]="evoteForm.controls['client']" required placeholder="Select A Client">
+        <mat-select *ngIf='data.isNew'  [formControl]="evoteForm.controls['clientId']" required placeholder="Select A Client">
           <mat-option>none</mat-option>
           <mat-option *ngFor="let client of clients"  [value]="client.id">{{client.name}}</mat-option>
         </mat-select>
+
+        <mat-select *ngIf='!data.isNew' [disabled]='!data.isNew' [formControl]="evoteForm.controls['clientId']" required placeholder="Select A Client">
+          <mat-option  *ngFor='let client of clients | arrayFilter : evoteForm.controls["clientId"].value : "clients"'  [value]="client.id">{{client.name}}</mat-option>
+        </mat-select>
+
       </mat-form-field>
     </div>
 
@@ -62,7 +67,20 @@
       </mat-form-field>
     </div>
 
+
     <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
+      <mat-card-content>
+        <input (change)="onSelectFile($event)" id="imageAvatar" type="file"  [formControl]="evoteForm.controls['file']" />
+      </mat-card-content>
+    </div>
+
+    <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
+      <p>Image Preview</p>
+      <img width="200px" height="250px" src=""  src="{{ imageUrl}}" id="dishPhoto">
+    </div>
+
+
+    <!-- <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
       <mat-card-content>
 
         <div class="mb-1 mt-1">
@@ -101,7 +119,7 @@
         </table>
 
       </mat-card-content>
-    </div>
+    </div> -->
 
 
     <div fxFlex="100" class="mt-1">

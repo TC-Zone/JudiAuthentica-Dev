@@ -39,7 +39,8 @@
 
     <div fxFlex="34" class="pr-1">
       <mat-form-field class="full-width">
-        <input matInput name="desc" [formControl]="productForm.controls['description']" required name="description" placeholder="Description">
+        <input matInput name="desc" [formControl]="productForm.controls['description']" required name="description"
+          placeholder="Description">
       </mat-form-field>
     </div>
 
@@ -51,8 +52,8 @@
 
     <div fxFlex="33" class="pr-1">
       <mat-form-field class="full-width">
-        <input type="number" matInput name="quantity" [formControl]="productForm.controls['quantity']" min="1" postiveNumberOnly
-          required placeholder="Quantity">
+        <input type="number" matInput name="quantity" [formControl]="productForm.controls['quantity']" min="1"
+          postiveNumberOnly required placeholder="Quantity">
       </mat-form-field>
     </div>
 
@@ -67,13 +68,26 @@
       </mat-form-field>
     </div>
 
-    <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
+
+      <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
+        <mat-card-content>
+          <input (change)="onSelectFile($event)" id="imageAvatar" type="file" [formControl]="productForm.controls['file']" />
+        </mat-card-content>
+      </div>
+
+      <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
+        <p>Image Preview</p>
+        <img width="200px" height="250px" src=""  src="{{ imageUrl}}" id="dishPhoto">
+      </div>
+
+
+    <!-- <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
       <mat-card-content>
 
         <div class="mb-1 mt-1">
           <p>Upload a Product Image</p>
-          <input (change)="onSelectFile($event)" type="file" [formControl]="productForm.controls['file']" ng2FileSelect [uploader]="uploader"
-          />
+          <input (change)="onSelectFile($event)" type="file" [formControl]="productForm.controls['file']" ng2FileSelect
+            [uploader]="uploader" />
         </div>
 
         <div class="mb-1">
@@ -105,8 +119,11 @@
           </ng-template>
         </table>
 
+
+
       </mat-card-content>
-    </div>
+    </div> -->
+
 
 
 
