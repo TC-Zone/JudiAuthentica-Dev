@@ -505,23 +505,6 @@ var MatMomentDateModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./node_modules/rxjs-compat/_esm5/Observable/throw.js":
-/*!************************************************************!*\
-  !*** ./node_modules/rxjs-compat/_esm5/Observable/throw.js ***!
-  \************************************************************/
-/*! exports provided: _throw */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "_throw", function() { return rxjs__WEBPACK_IMPORTED_MODULE_0__["throwError"]; });
-
-
-//# sourceMappingURL=throw.js.map
-
-/***/ }),
-
 /***/ "./src/app/shared/animations/egret-animations.ts":
 /*!*******************************************************!*\
   !*** ./src/app/shared/animations/egret-animations.ts ***!
@@ -582,9 +565,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
 var environment = {
     production: true,
-    apiURL: 'productionApi',
-    productApiURL: 'https://productzg4t4ks63a.hana.ondemand.com/product/api/',
-    surveyApiURL: 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/',
+    apiURL: "productionApi",
+    // productApiURL:'https://authentican60aazs63l.ca1.hana.ondemand.com/product/api/',
+    // surveyApiURL : 'https://authentican60aazs63l.ca1.hana.ondemand.com/survey/api/',
+    //productApiURL: "http://localhost:10001/api/",
+    //surveyApiURL: "http://localhost:10002/api/"
+    productApiURL: "https://productzg4t4ks63a.hana.ondemand.com/product/api/",
+    surveyApiURL: "https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/"
 };
 
 

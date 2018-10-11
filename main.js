@@ -40,7 +40,7 @@ var map = {
 	],
 	"./views/cruds/cruds.module": [
 		"./src/app/views/cruds/cruds.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~e1ffe8b6",
 		"common",
 		"views-cruds-cruds-module"
 	],
@@ -50,8 +50,9 @@ var map = {
 	],
 	"./views/evote/evote.module": [
 		"./src/app/views/evote/evote.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~e1ffe8b6",
 		"views-charts-charts-module~views-evote-evote-module~views-others-others-module~views-product-crud-pr~5e0a372b",
+		"views-evote-evote-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~f27e946c",
 		"views-evote-evote-module~views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
 		"views-evote-evote-module"
@@ -63,8 +64,8 @@ var map = {
 	],
 	"./views/forms/forms.module": [
 		"./src/app/views/forms/forms.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
-		"views-forms-forms-module~views-others-others-module~views-product-crud-product-crud-module~views-pro~cd29c3a2",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~e1ffe8b6",
+		"views-evote-evote-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~f27e946c",
 		"views-app-inbox-app-inbox-module~views-forms-forms-module",
 		"views-forms-forms-module~views-sessions-sessions-module",
 		"common",
@@ -85,27 +86,27 @@ var map = {
 	],
 	"./views/others/others.module": [
 		"./src/app/views/others/others.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~e1ffe8b6",
 		"views-charts-charts-module~views-evote-evote-module~views-others-others-module~views-product-crud-pr~5e0a372b",
-		"views-forms-forms-module~views-others-others-module~views-product-crud-product-crud-module~views-pro~cd29c3a2",
+		"views-evote-evote-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~f27e946c",
 		"views-charts-charts-module~views-others-others-module~views-profile-profile-module",
 		"common",
 		"views-others-others-module"
 	],
 	"./views/product-crud/product-crud.module": [
 		"./src/app/views/product-crud/product-crud.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~e1ffe8b6",
 		"views-charts-charts-module~views-evote-evote-module~views-others-others-module~views-product-crud-pr~5e0a372b",
-		"views-forms-forms-module~views-others-others-module~views-product-crud-product-crud-module~views-pro~cd29c3a2",
+		"views-evote-evote-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~f27e946c",
 		"views-evote-evote-module~views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
 		"views-product-crud-product-crud-module"
 	],
 	"./views/profile/profile.module": [
 		"./src/app/views/profile/profile.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~e1ffe8b6",
 		"views-charts-charts-module~views-evote-evote-module~views-others-others-module~views-product-crud-pr~5e0a372b",
-		"views-forms-forms-module~views-others-others-module~views-product-crud-product-crud-module~views-pro~cd29c3a2",
+		"views-evote-evote-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~f27e946c",
 		"views-charts-charts-module~views-others-others-module~views-profile-profile-module",
 		"common",
 		"views-profile-profile-module"
@@ -118,21 +119,29 @@ var map = {
 	],
 	"./views/shop/shop.module": [
 		"./src/app/views/shop/shop.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~e1ffe8b6",
 		"common",
 		"views-shop-shop-module"
 	],
+	"./views/survey-interaction/survey-interaction.module": [
+		"./src/app/views/survey-interaction/survey-interaction.module.ts",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~e1ffe8b6",
+		"views-survey-interaction-survey-interaction-module~views-survey-survey-module",
+		"common",
+		"views-survey-interaction-survey-interaction-module"
+	],
 	"./views/survey/survey.module": [
 		"./src/app/views/survey/survey.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~e1ffe8b6",
 		"views-charts-charts-module~views-evote-evote-module~views-others-others-module~views-product-crud-pr~5e0a372b",
 		"views-evote-evote-module~views-product-crud-product-crud-module~views-survey-survey-module",
+		"views-survey-interaction-survey-interaction-module~views-survey-survey-module",
 		"common",
 		"views-survey-survey-module"
 	],
 	"./views/tables/tables.module": [
 		"./src/app/views/tables/tables.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~177acc02",
+		"views-cruds-cruds-module~views-evote-evote-module~views-forms-forms-module~views-others-others-modul~e1ffe8b6",
 		"common",
 		"views-tables-tables-module"
 	]
@@ -490,7 +499,11 @@ var rootRouterConfig = [
                 path: 'evote',
                 loadChildren: './views/evote/evote.module#EvoteModule',
                 data: { title: 'E - Vote', breadcrumb: 'E Vote' }
-            }
+            }, {
+                path: 'survey-interaction',
+                loadChildren: './views/survey-interaction/survey-interaction.module#SurveyInteractionModule',
+                data: { title: 'Survey Interaction', breadcrumb: 'Survey Demo' }
+            },
         ]
     },
     {
@@ -2108,6 +2121,70 @@ function getQueryParam(prop) {
 
 /***/ }),
 
+/***/ "./src/app/shared/pipes/array-filter.pipe.ts":
+/*!***************************************************!*\
+  !*** ./src/app/shared/pipes/array-filter.pipe.ts ***!
+  \***************************************************/
+/*! exports provided: ArrayFilter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ArrayFilter", function() { return ArrayFilter; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var ArrayFilter = /** @class */ (function () {
+    function ArrayFilter() {
+    }
+    ArrayFilter.prototype.transform = function (items, filterVal, arrType) {
+        var _this = this;
+        //console.log("filterVal : " + filterVal);
+        if (!items) {
+            console.log("no items");
+            return items;
+        }
+        if (!filterVal) {
+            console.log("no filterValue");
+            return items;
+        }
+        // console.log(' here items : ');
+        // console.log('filterVal : '+filterVal);
+        // console.log(items);
+        return items.filter(function (item) { return _this.applyFilter(item, filterVal, arrType); });
+    };
+    ArrayFilter.prototype.applyFilter = function (item, filterVal, arrType) {
+        switch (arrType) {
+            case "answer_types":
+                return item.id.indexOf(filterVal) !== -1;
+            case "products":
+                return item.id.indexOf(filterVal) !== -1;
+            case "evotes":
+                return item.id.indexOf(filterVal) !== -1;
+            case "clients":
+                return item.id.indexOf(filterVal) !== -1;
+            default:
+                break;
+        }
+    };
+    ArrayFilter = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({
+            name: "arrayFilter",
+            pure: false
+        })
+    ], ArrayFilter);
+    return ArrayFilter;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/pipes/excerpt.pipe.ts":
 /*!**********************************************!*\
   !*** ./src/app/shared/pipes/excerpt.pipe.ts ***!
@@ -3224,19 +3301,31 @@ var NavigationService = /** @class */ (function () {
                 icon: "data_usage",
                 state: "surveys"
             },
-            {
-                name: "Form",
-                type: "link",
-                tooltip: "Form",
-                icon: "description",
-                state: "form/showForm"
-            },
+            // ,
+            // {
+            //   name: "Form",
+            //   type: "link",
+            //   tooltip: "Form",
+            //   icon: "description",
+            //   state: "form/showForm"
+            // }
             {
                 name: "E-Vote",
                 type: "link",
                 tooltip: "E-Vote",
                 icon: "thumbs_up_down",
                 state: "evote/showEvote"
+            },
+            {
+                name: "Future Survey",
+                type: "dropDown",
+                tooltip: "Future Survey",
+                icon: "language",
+                state: "shop",
+                sub: [
+                    { name: "Survey Editor", state: "sEditor" },
+                    { name: "Survey Viewer", state: "sViewer" }
+                ]
             }
             // {
             //   name: 'INBOX',
@@ -3663,6 +3752,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
 /* harmony import */ var _services_file_download_service__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./services/file-download.service */ "./src/app/shared/services/file-download.service.ts");
 /* harmony import */ var _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./services/data-conversion.service */ "./src/app/shared/services/data-conversion.service.ts");
+/* harmony import */ var _pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./pipes/array-filter.pipe */ "./src/app/shared/pipes/array-filter.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3719,6 +3809,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 // import { LandingPageService } from '../shared/services/landing-page.service';
 
 
+
 var classesToInclude = [
     _components_header_top_header_top_component__WEBPACK_IMPORTED_MODULE_9__["HeaderTopComponent"],
     _components_sidebar_top_sidebar_top_component__WEBPACK_IMPORTED_MODULE_10__["SidebarTopComponent"],
@@ -3740,7 +3831,8 @@ var classesToInclude = [
     _directives_dropdown_link_directive__WEBPACK_IMPORTED_MODULE_23__["DropdownLinkDirective"],
     _directives_egret_side_nav_toggle_directive__WEBPACK_IMPORTED_MODULE_24__["EgretSideNavToggleDirective"],
     _pipes_relative_time_pipe__WEBPACK_IMPORTED_MODULE_25__["RelativeTimePipe"],
-    _pipes_excerpt_pipe__WEBPACK_IMPORTED_MODULE_26__["ExcerptPipe"]
+    _pipes_excerpt_pipe__WEBPACK_IMPORTED_MODULE_26__["ExcerptPipe"],
+    _pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_38__["ArrayFilter"]
 ];
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
@@ -3884,7 +3976,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 var environment = {
     production: true,
-    apiURL: 'developmentApi'
+    productApiURL: 'http://localhost:10001/api/',
+    surveyApiURL: 'http://localhost:10002/api/',
 };
 
 
