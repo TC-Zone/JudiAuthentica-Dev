@@ -44,6 +44,15 @@ export class CpUsersDB {
       image: "assets/images/cp_users/nuwan prasanna.jpg",
       company: "Clear Picture - Sri Lanka",
       position:"Tech Lead"
+    },
+    {
+      id: "6",
+      user_name: "amilaj",
+      profile_name: "Amila Jayanga",
+      password: "amila123",
+      image: "assets/images/cp_users/amila ayya.jpg",
+      company: "Clear Picture - Sri Lanka",
+      position:"Android Developer"
     }
   ];
 }
