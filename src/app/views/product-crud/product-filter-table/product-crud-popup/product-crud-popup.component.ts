@@ -18,6 +18,7 @@ import { DateValidator } from "../../../../utility/dateValidator";
 
 import { FileUploader } from "ng2-file-upload";
 import * as moment from "moment";
+import { SurveyService } from "../../../survey/survey.service";
 
 export const MY_FORMATS = {
   parse: {
@@ -53,6 +54,9 @@ export class ProductCrudPopupComponent implements OnInit {
   imageFile: File;
   imageUrl: any = "assets/images/placeholder.jpg";
 
+  getAllSurveySub: Subscription;
+  surveyRows: any[];
+
   // image uploader related properties
   public uploader: FileUploader = new FileUploader({ url: "upload_url" });
   public hasBaseDropZoneOver: boolean = false;
@@ -62,13 +66,14 @@ export class ProductCrudPopupComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ProductCrudPopupComponent>,
     private clientService: CrudService,
+    private surveyService: SurveyService,
     private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     // validate back dates
     this.tomorrow = DateValidator.dateValidate();
-
+    this.getAllSurvey();
     this.getClientSuggestions();
     this.buildProductForm(this.data.payload);
     this.filteredClient = this.productForm.get("client").valueChanges.pipe(
@@ -105,6 +110,7 @@ export class ProductCrudPopupComponent implements OnInit {
       batchNumber: [fieldItem.batchNumber || "", Validators.required],
       quantity: [fieldItem.quantity || "", Validators.required],
       expireDate: [fieldItem.expireDate || "", Validators.required],
+      surveyId: [fieldItem.surveyId || null],
       file: [fieldItem.file || ""]
     });
   }
@@ -163,11 +169,22 @@ export class ProductCrudPopupComponent implements OnInit {
       "expireDate",
       moment(formvalue.expireDate).format("YYYY-MM-DD")
     );
+
+    input.append("surveyId", formvalue.surveyId);
+
     input.append("name", formvalue.name);
     input.append("description", formvalue.description);
     input.append("batchNumber", formvalue.batchNumber);
 
     return input;
+  }
+
+  getAllSurvey() {
+    this.getAllSurveySub = this.surveyService
+      .getAllSurveys()
+      .subscribe(successResp => {
+        this.surveyRows = successResp.content;
+      });
   }
 }
 
@@ -179,9 +196,11 @@ export class ProductCreationRequest {
   batchNumber: string;
   quantity: string;
   expireDate: string;
+  surveyId: string;
   file: any;
 
   constructor(public formValue: any) {
+    console.log('SURVEY ID :  '+formValue.surveyId);
     this.client = new ClientSub(formValue.client);
     this.code = formValue.code;
     this.name = formValue.name;
@@ -189,6 +208,7 @@ export class ProductCreationRequest {
     this.batchNumber = formValue.batchNumber;
     this.quantity = formValue.quantity;
     this.expireDate = formValue.expireDate;
+    this.surveyId = formValue.surveyId;
     this.file = formValue.file;
   }
 }
