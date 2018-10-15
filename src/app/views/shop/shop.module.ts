@@ -34,6 +34,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { FutureSurveyComponent } from './future-survey/future-survey.component';
+import { CrudService } from '../cruds/crud.service';
 
 @NgModule({
   imports: [
@@ -69,6 +70,6 @@ import { FutureSurveyComponent } from './future-survey/future-survey.component';
     ProductDetailsComponent,
     CartComponent, CheckoutComponent, FutureSurveyComponent
   ],
-  providers: [ShopService]
+  providers: [ShopService,CrudService]
 })
 export class ShopModule { }
