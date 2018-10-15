@@ -433,7 +433,7 @@ export class NavigationService {
       name: "Future Survey",
       type: "dropDown",
       tooltip: "Future Survey",
-      icon: "shopping_cart",
+      icon: "language",
       state: "shop",
       sub: [
         { name: "Survey Editor", state: "sEditor" },

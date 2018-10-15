@@ -34,29 +34,30 @@ export class EvoteService {
 
   removeEvotes(row, items): Observable<any> {
     return this.http.delete(this.surveyApiUrl + row.id, this.httpOptions).pipe(
-      map(data => {
-        let i = items.indexOf(row);
-        return items.splice(i, 1);
-      }),
+      // map(data => {
+      //   console.log(items);
+      //   let i = items.indexOf(row);
+      //   console.log('I : ' + i);
+      //   items.splice(i, 1);
+      //   return items;
+      // }),
       catchError(this.handleError)
     );
   }
 
   addEvote(evoteObj, items): Observable<any> {
-    return this.http
-      .post<any>(this.surveyApiUrl, evoteObj, this.httpOptions)
-      .pipe(
-        map(data => {
-          items.unshift(data.content);
-          return items.slice();
-        }),
-        catchError(this.handleError)
-      );
+    return this.http.post<any>(this.surveyApiUrl, evoteObj).pipe(
+      map(data => {
+        items.unshift(data.content);
+        return items.slice();
+      }),
+      catchError(this.handleError)
+    );
   }
 
   updateEvote(id, item) {
     return this.http
-      .put<any>(this.surveyApiUrl + id, item, this.httpOptions)
+      .put<any>(this.surveyApiUrl + id, item)
       .pipe(catchError(this.handleError));
   }
 

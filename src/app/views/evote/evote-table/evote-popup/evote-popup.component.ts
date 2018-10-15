@@ -1,9 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators
-} from "@angular/forms";
+import { Component, OnInit, Inject } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
@@ -12,9 +8,9 @@ import {
   MAT_DATE_LOCALE
 } from "../../../../../../node_modules/@angular/material";
 import { Subscription } from "../../../../../../node_modules/rxjs";
-import {EvoteService } from '../../evote-service.service';
+import { EvoteService } from "../../evote-service.service";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
-import { DateValidator} from '../../../../utility/dateValidator';
+import { DateValidator } from "../../../../utility/dateValidator";
 import { CrudService } from "../../../cruds/crud.service";
 import { ResponseModel } from "../../../../model/ResponseModel.model";
 import { FileUploader } from "ng2-file-upload";
@@ -33,8 +29,8 @@ export const MY_FORMATS = {
 };
 
 @Component({
-  selector: 'app-evote-popup',
-  templateUrl: './evote-popup.component.html',
+  selector: "app-evote-popup",
+  templateUrl: "./evote-popup.component.html",
   providers: [
     {
       provide: DateAdapter,
@@ -45,11 +41,10 @@ export const MY_FORMATS = {
   ]
 })
 export class EvotePopupComponent implements OnInit {
-
   public evoteForm: FormGroup;
   public getClientSub: Subscription;
   public response: ResponseModel;
-  tomorrow : Date;
+  tomorrow: Date;
   public clients: any[];
   imageFile: File;
 
@@ -57,21 +52,21 @@ export class EvotePopupComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({ url: "upload_url" });
   public hasBaseDropZoneOver: boolean = false;
   imageObject: any;
+  imageUrl: any = "assets/images/placeholder.jpg";
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private evoteService: EvoteService,
     private clientService: CrudService,
-    public dialogRef: MatDialogRef<EvotePopupComponent>,
-  ) { }
+    public dialogRef: MatDialogRef<EvotePopupComponent>
+  ) {}
 
   ngOnInit() {
     this.tomorrow = DateValidator.dateValidate();
     this.buildEvoteForm(this.data.payload);
     this.getClientSuggestions();
-   // console.log(this.data.payload);
-
+    // console.log(this.data.payload);
   }
 
   getClientSuggestions() {
@@ -83,36 +78,30 @@ export class EvotePopupComponent implements OnInit {
       });
   }
 
-    // image uploader related functions from here
-    public fileOverBase(e: any): void {
-      this.hasBaseDropZoneOver = e;
+  // image uploader related functions from here
+  public fileOverBase(e: any): void {
+    this.hasBaseDropZoneOver = e;
+  }
+
+  onSelectFile(event) {
+    let x = this.uploader.queue.length - 1;
+    this.imageObject = this.uploader.queue[x];
+
+    let reader = new FileReader();
+    if (event.target.files && event.target.files.length > 0) {
+      this.imageFile = event.target.files[0];
+      reader.readAsDataURL(this.imageFile);
+      reader.onload = (event: any) => {
+        this.imageUrl = event.target.result;
+        console.log("IMAGE URL  : " + this.imageUrl);
+      };
     }
-
-    onSelectFile(event) {
-      let x = this.uploader.queue.length - 1;
-      this.imageObject = this.uploader.queue[x];
-
-      //let reader = new FileReader();
-      if (event.target.files && event.target.files.length > 0) {
-        this.imageFile = event.target.files[0];
-
-        // reader.readAsDataURL(file);
-        // reader.onload = () => {
-        //   this.productForm.get("file").setValue({
-        //     filename: file.name,
-        //     filetype: file.type,
-        //     value: reader.result
-        //   });
-      }
-    }
+  }
 
   buildEvoteForm(fieldItem) {
-    const client = fieldItem.client;
-    const clientId = client ? client.id : null;
-
     this.evoteForm = this.fb.group({
-      topic: [fieldItem.topic || "",Validators.required],
-      client: [clientId || ""],
+      topic: [fieldItem.topic || "", Validators.required],
+      clientId: [fieldItem.clientId || ""],
       code: [fieldItem.code || "", Validators.required],
       description: [fieldItem.description || "", Validators.required],
       quantity: [fieldItem.quantity || "", Validators.required],
@@ -125,30 +114,24 @@ export class EvotePopupComponent implements OnInit {
     console.log("PRODUCT FORM VALUES ");
     console.log(this.evoteForm.value);
 
-    let evoteRequest: ProductCreationRequest = new ProductCreationRequest(
+    let evoteRequest: EvoteCreationRequest = new EvoteCreationRequest(
       this.evoteForm.value
     );
 
-    console.log("ProductCreationRequest" + JSON.stringify(evoteRequest));
+    console.log("EVOTE CreationRequest" + JSON.stringify(evoteRequest));
 
     let formData;
-    if (this.data.isNew) {
-      console.log("NEW SAVE CONTEXT");
-      console.log(this.prepareToSave(evoteRequest));
-      formData = this.prepareToSave(evoteRequest);
-    } else {
-      console.log("update context");
-      formData = evoteRequest;
-    }
-  
-    
+
+    console.log("NEW SAVE CONTEXT");
+    console.log(this.prepareToSave(evoteRequest));
+    formData = this.prepareToSave(evoteRequest);
+
     //console.log(this.evoteForm.value)
     console.log("prepared form data ");
     console.log(formData);
     this.dialogRef.close(formData);
   }
   prepareToSave(formvalue): FormData {
-    
     let input: FormData = new FormData();
     input.append("code", formvalue.code);
     input.append("quantity", formvalue.quantity);
@@ -159,35 +142,31 @@ export class EvotePopupComponent implements OnInit {
     input.append("topic", formvalue.topic);
     input.append("description", formvalue.description);
     input.append("batchNumber", formvalue.batchNumber);
-    input.append("clientId", formvalue.client.id);
+    input.append("clientId", formvalue.clientId.id);
     input.append("file", this.imageFile);
 
     return input;
-  
-    
   }
 }
 
-export class ProductCreationRequest {
-
+export class EvoteCreationRequest {
   code: string;
   quantity: string;
   expireDate: string;
   topic: string;
   description: string;
   batchNumber: string;
-  client: ClientSub;
+  clientId: ClientSub;
   file: any;
 
   constructor(public formValue: any) {
-
     this.code = formValue.code;
     this.quantity = formValue.quantity;
     this.expireDate = formValue.expireDate;
     this.topic = formValue.topic;
     this.description = formValue.description;
     this.batchNumber = formValue.batchNumber;
-    this.client = new ClientSub(formValue.client);
+    this.clientId = new ClientSub(formValue.clientId);
     this.file = formValue.file;
   }
 }

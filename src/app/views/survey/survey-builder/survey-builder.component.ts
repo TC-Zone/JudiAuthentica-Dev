@@ -59,6 +59,8 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
   getAnswersTemplatesSub: Subscription;
   ansTemplates: any[];
 
+  questionFormArray : FormArray;
+
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -146,6 +148,7 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
     const control = <FormArray>this.questionForm.controls["questions"];
     console.log("length  and obj  : " + control.length);
     console.log(control);
+    this.questionFormArray = control;
 
     if (fields == null) {
       console.log("after imidiate survey creation");

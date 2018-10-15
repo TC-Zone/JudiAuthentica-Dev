@@ -11,6 +11,7 @@ import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
 export class AnswerTemplatePopupComponent implements OnInit {
   public ansTemplateForm: FormGroup;
   selectedAnsType : string;
+  ansTemplateArray : FormArray;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -35,6 +36,7 @@ export class AnswerTemplatePopupComponent implements OnInit {
 
   patch(fields?) {
     const control = <FormArray>this.ansTemplateForm.controls["answers"];
+    this.ansTemplateArray =control;
     if (!fields) {
       control.push(this.initAnswerTemplate());
       return;

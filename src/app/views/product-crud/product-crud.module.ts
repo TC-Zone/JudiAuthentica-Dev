@@ -25,6 +25,7 @@ import { CrudService } from "../cruds/crud.service";
 import { PositiveNumberOnly } from "../../directives/PositiveNumber.directive";
 import { DateValidator } from "../../directives/DateValidator.directive";
 import { FileUploadModule } from "ng2-file-upload";
+import { SurveyService } from '../survey/survey.service';
 
 
 @NgModule({
@@ -52,7 +53,7 @@ import { FileUploadModule } from "ng2-file-upload";
     PositiveNumberOnly,
     DateValidator
   ],
-  providers: [ProductCrudService, CrudService],
+  providers: [ProductCrudService, CrudService,SurveyService],
   entryComponents: [ProductCrudPopupComponent]
 })
 export class ProductCrudModule {}
