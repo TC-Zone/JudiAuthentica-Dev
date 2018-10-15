@@ -1,8 +1,7 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import * as SurveyEditor from 'surveyjs-editor';
-import * as SurveyKo from 'survey-knockout';
+import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
+import * as SurveyEditor from "surveyjs-editor";
+import * as SurveyKo from "survey-knockout";
 import * as widgets from "surveyjs-widgets";
-
 
 import "inputmask/dist/inputmask/phone-codes/phone.js";
 import { CrudService } from '../../cruds/crud.service';
@@ -43,11 +42,10 @@ SurveyEditor.SurveyPropertyModalEditor.registerCustomWidget(
   CkEditor_ModalEditor
 );
 
-
 @Component({
-  selector: 'app-future-survey',
-  templateUrl: './future-survey.component.html',
-  styleUrls: ['./future-survey.component.scss']
+  selector: "app-future-survey",
+  templateUrl: "./future-survey.component.html",
+  styleUrls: ["./future-survey.component.scss"]
 })
 export class FutureSurveyComponent implements OnInit {
   editor: SurveyEditor.SurveyEditor;
@@ -58,7 +56,6 @@ export class FutureSurveyComponent implements OnInit {
 
   }
 
-
   json = {
     title: "Product Feedback Survey Example",
     showProgressBar: "top",
@@ -67,11 +64,13 @@ export class FutureSurveyComponent implements OnInit {
         name: "page1",
         elements: [
           {
+            qId: 1,
             type: "text",
             name: "question1",
             title: "Question 1 ?"
           },
           {
+            qId: 2,
             type: "imagepicker",
             name: "question2",
             title: "Image Chooser ?",
@@ -99,6 +98,7 @@ export class FutureSurveyComponent implements OnInit {
             ]
           },
           {
+            qId: 3,
             type: "matrix",
             name: "question3",
             columns: ["A", "B", "C"],
@@ -108,6 +108,7 @@ export class FutureSurveyComponent implements OnInit {
       }
     ]
   };
+
 
   getAllClients() {
     this.getClientSub = this.clientService.getItems().subscribe(data => {
@@ -181,6 +182,7 @@ export class FutureSurveyComponent implements OnInit {
 
     this.getAllClients();
     
+
   }
 
   saveMySurvey = () => {
@@ -189,5 +191,4 @@ export class FutureSurveyComponent implements OnInit {
     console.log(this.editor.text);
     this.surveySaved.emit(JSON.parse(this.editor.text));
   };
-
 }
