@@ -113,9 +113,9 @@ export class EvotePopupComponent implements OnInit {
       description: [fieldItem.description || "", Validators.required],
       quantity: [fieldItem.quantity || "", Validators.required],
       expireDate: [fieldItem.expireDate || "", Validators.required],
-      batchNumber: [fieldItem.batchNumber || "", Validators.required],
-      surveyId: [fieldItem.surveyId || null],
-      file: [fieldItem.file || ""]
+      batchNumber: [fieldItem.batchNumber || "", Validators.required], 
+      file: [fieldItem.file || ""],
+      surveyId: [fieldItem.surveyId || null]
     });
   }
   submit() {
@@ -151,8 +151,8 @@ export class EvotePopupComponent implements OnInit {
     input.append("description", formvalue.description);
     input.append("batchNumber", formvalue.batchNumber);
     input.append("clientId", formvalue.clientId.id);
-    input.append("surveyId", formvalue.surveyId);
     input.append("file", this.imageFile);
+    input.append("surveyId", formvalue.surveyId);
 
     return input;
   }
@@ -173,8 +173,8 @@ export class EvoteCreationRequest {
   description: string;
   batchNumber: string;
   clientId: ClientSub;
-  surveyId: string;
   file: any;
+  surveyId: string;
 
   constructor(public formValue: any) {
     this.code = formValue.code;
@@ -183,9 +183,9 @@ export class EvoteCreationRequest {
     this.topic = formValue.topic;
     this.description = formValue.description;
     this.batchNumber = formValue.batchNumber;
-    this.clientId = new ClientSub(formValue.clientId);
-    this.surveyId = formValue.surveyId;
+    this.clientId = new ClientSub(formValue.clientId);   
     this.file = formValue.file;
+    this.surveyId = formValue.surveyId;
   }
 }
 
