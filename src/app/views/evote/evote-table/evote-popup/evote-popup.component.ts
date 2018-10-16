@@ -15,6 +15,7 @@ import { CrudService } from "../../../cruds/crud.service";
 import { ResponseModel } from "../../../../model/ResponseModel.model";
 import { FileUploader } from "ng2-file-upload";
 import * as moment from "moment";
+import { SurveyService } from "../../../survey/survey.service";
 
 export const MY_FORMATS = {
   parse: {
@@ -54,18 +55,24 @@ export class EvotePopupComponent implements OnInit {
   imageObject: any;
   imageUrl: any = "assets/images/placeholder.jpg";
 
+  getAllSurveySub: Subscription;
+  surveyRows: any[];
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private evoteService: EvoteService,
     private clientService: CrudService,
+    private surveyService: SurveyService,
     public dialogRef: MatDialogRef<EvotePopupComponent>
+   
   ) {}
 
   ngOnInit() {
     this.tomorrow = DateValidator.dateValidate();
     this.buildEvoteForm(this.data.payload);
     this.getClientSuggestions();
+    this.getAllSurvey();
     // console.log(this.data.payload);
   }
 
@@ -107,6 +114,7 @@ export class EvotePopupComponent implements OnInit {
       quantity: [fieldItem.quantity || "", Validators.required],
       expireDate: [fieldItem.expireDate || "", Validators.required],
       batchNumber: [fieldItem.batchNumber || "", Validators.required],
+      surveyId: [fieldItem.surveyId || null],
       file: [fieldItem.file || ""]
     });
   }
@@ -143,9 +151,17 @@ export class EvotePopupComponent implements OnInit {
     input.append("description", formvalue.description);
     input.append("batchNumber", formvalue.batchNumber);
     input.append("clientId", formvalue.clientId.id);
+    input.append("surveyId", formvalue.surveyId);
     input.append("file", this.imageFile);
 
     return input;
+  }
+  getAllSurvey(){
+    this.getAllSurveySub = this.surveyService
+    .getAllSurveys()
+    .subscribe(successResp => {
+      this.surveyRows = successResp.content;
+    });
   }
 }
 
@@ -157,6 +173,7 @@ export class EvoteCreationRequest {
   description: string;
   batchNumber: string;
   clientId: ClientSub;
+  surveyId: string;
   file: any;
 
   constructor(public formValue: any) {
@@ -167,6 +184,7 @@ export class EvoteCreationRequest {
     this.description = formValue.description;
     this.batchNumber = formValue.batchNumber;
     this.clientId = new ClientSub(formValue.clientId);
+    this.surveyId = formValue.surveyId;
     this.file = formValue.file;
   }
 }

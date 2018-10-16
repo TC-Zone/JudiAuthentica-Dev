@@ -121,12 +121,6 @@ export class FutureSurveyComponent implements OnInit {
         "popupdescription:text"
       );
       SurveyKo.JsonObject.metaData.addProperty("page", "popupdescription:text");
-       
-      // this.choices = [
-      //   { value: "Email", text: "Email: {email}", visibleIf: "{phone} notempty"},
-      //   { value: "SMS", text: "SMS: {phone}",  visibleIf: "{phone} notempty"},
-      //   { value: "WhatsApp", text: "WhatsApp: {phone}",  visibleIf: "{phone} notempty"}
-      // ]
       
       let noneClients = [{value:'none',text:'none'}]
       let newClients = []

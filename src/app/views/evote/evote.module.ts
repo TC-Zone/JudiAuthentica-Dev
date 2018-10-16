@@ -23,6 +23,7 @@ import { CrudService } from '../cruds/crud.service';
 import { ArrayFilter } from '../../shared/pipes/array-filter.pipe';
 import { SharedModule } from '../../shared/shared.module';
 import { FileUploadModule } from "ng2-file-upload";
+import { SurveyService } from '../survey/survey.service';
 
 
 @NgModule({
@@ -45,7 +46,7 @@ import { FileUploadModule } from "ng2-file-upload";
     FileUploadModule,
     RouterModule.forChild(EvoteRouts)
   ],
-  providers: [EvoteService,CrudService],
+  providers: [EvoteService,CrudService,SurveyService],
   declarations: [EvoteTableComponent, EvotePopupComponent, VoterPopupComponent],
   entryComponents: [EvotePopupComponent,VoterPopupComponent]
 })
