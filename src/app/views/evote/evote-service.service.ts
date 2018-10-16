@@ -33,7 +33,7 @@ export class EvoteService {
   }
 
   removeEvotes(row, items): Observable<any> {
-    return this.http.delete(this.surveyApiUrl + row.id, this.httpOptions).pipe(
+    return this.http.delete(this.surveyApiUrl + row.id).pipe(
       // map(data => {
       //   console.log(items);
       //   let i = items.indexOf(row);
@@ -70,7 +70,7 @@ export class EvoteService {
   getEvoteById(evoteId): Observable<any> {
     console.log("called get evote by id");
     return this.http
-      .get<any>(this.surveyApiUrl + evoteId, this.httpOptions)
+      .get<any>(this.surveyApiUrl + evoteId)
       .pipe(catchError(this.handleError));
   }
 

@@ -126,13 +126,9 @@ export class ProductCrudPopupComponent implements OnInit {
     console.log("ProductCreationRequest" + JSON.stringify(productRequest));
 
     let formData;
-    if (this.data.isNew) {
-      console.log("NEW SAVE CONTEXT");
-      formData = this.prepareToSave(productRequest);
-    } else {
-      console.log("update context");
-      formData = productRequest;
-    }
+
+    formData = this.prepareToSave(productRequest);
+
 
     console.log("prepared form data ");
     console.log(JSON.stringify(formData));
@@ -161,6 +157,10 @@ export class ProductCrudPopupComponent implements OnInit {
 
   prepareToSave(formvalue): FormData {
     let input: FormData = new FormData();
+    if(formvalue.surveyId){
+      input.append("surveyId", formvalue.surveyId);
+    }
+
     input.append("file", this.imageFile);
     input.append("code", formvalue.code);
     input.append("quantity", formvalue.quantity);
@@ -170,7 +170,7 @@ export class ProductCrudPopupComponent implements OnInit {
       moment(formvalue.expireDate).format("YYYY-MM-DD")
     );
 
-    input.append("surveyId", formvalue.surveyId);
+
 
     input.append("name", formvalue.name);
     input.append("description", formvalue.description);

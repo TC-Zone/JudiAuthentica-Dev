@@ -32,8 +32,7 @@ export class SurveyService {
     return this.http
       .post<any>(
         this.surveyApiUrl + "answer-templates/",
-        templateObj,
-        this.httpOptions
+        templateObj
       )
       .pipe(
         map(data => {
@@ -46,11 +45,7 @@ export class SurveyService {
 
   updateAnsTemplate(id, item) {
     return this.http
-      .put<any>(
-        this.surveyApiUrl + "answer-templates/" + id,
-        item,
-        this.httpOptions
-      )
+      .put<any>(this.surveyApiUrl + "answer-templates/" + id, item)
       .pipe(catchError(this.handleError));
   }
 
@@ -69,10 +64,7 @@ export class SurveyService {
 
   removeAnsTemplate(row, items): Observable<any> {
     return this.http
-      .delete(
-        this.surveyApiUrl + "answer-templates/" + row.id,
-        this.httpOptions
-      )
+      .delete(this.surveyApiUrl + "answer-templates/" + row.id)
       .pipe(
         map(data => {
           let i = items.indexOf(row);
@@ -84,27 +76,25 @@ export class SurveyService {
   }
 
   addNewSurvey(surveyObj, items): Observable<any> {
-    return this.http
-      .post<any>(this.surveyApiUrl + "surveys", surveyObj, this.httpOptions)
-      .pipe(
-        map(data => {
-          items.unshift(data.content);
-          return items.slice();
-        }),
-        catchError(this.handleError)
-      );
+    return this.http.post<any>(this.surveyApiUrl + "surveys", surveyObj).pipe(
+      map(data => {
+        items.unshift(data.content);
+        return items.slice();
+      }),
+      catchError(this.handleError)
+    );
   }
 
   updateSurveyWithQuestions(id, item) {
     console.log("update with ques : " + this.surveyApiUrl + "surveys/" + id);
     return this.http
-      .put<any>(this.surveyApiUrl + "surveys/" + id, item, this.httpOptions)
+      .put<any>(this.surveyApiUrl + "surveys/" + id, item)
       .pipe(catchError(this.handleError));
   }
 
   updateSurveyPopup(id, item): Observable<any> {
     return this.http
-      .put<any>(this.surveyApiUrl + "surveys/" + id, item, this.httpOptions)
+      .put<any>(this.surveyApiUrl + "surveys/" + id, item)
       .pipe(catchError(this.handleError));
   }
 
@@ -115,16 +105,14 @@ export class SurveyService {
   }
 
   removeSurvey(row, items): Observable<any> {
-    return this.http
-      .delete(this.surveyApiUrl + "surveys/" + row.id, this.httpOptions)
-      .pipe(
-        map(data => {
-          let i = items.indexOf(row);
-          items.splice(i, 1);
-          return items;
-        }),
-        catchError(this.handleError)
-      );
+    return this.http.delete(this.surveyApiUrl + "surveys/" + row.id).pipe(
+      map(data => {
+        let i = items.indexOf(row);
+        items.splice(i, 1);
+        return items;
+      }),
+      catchError(this.handleError)
+    );
   }
 
   getQuestionById(questionId): any {

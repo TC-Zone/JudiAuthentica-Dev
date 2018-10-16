@@ -27,7 +27,7 @@ export class ProductCrudService {
 
   updateProduct(id, item) {
     return this.http
-      .put<any>(this.productApiUrl + id, item, this.httpOptions)
+      .put<any>(this.productApiUrl + id, item)
       .pipe(catchError(this.handleError));
   }
 
@@ -46,14 +46,9 @@ export class ProductCrudService {
   }
 
   removeProduct(row, items): Observable<any> {
-    return this.http.delete(this.productApiUrl + row.id).pipe(
-      map(data => {
-        let i = items.indexOf(row);
-        items.splice(i, 1);
-        return items;
-      }),
-      catchError(this.handleError)
-    );
+    return this.http
+      .delete(this.productApiUrl + row.id)
+      .pipe(catchError(this.handleError));
   }
 
   getAllProductSuggestions(): Observable<any> {
@@ -64,7 +59,13 @@ export class ProductCrudService {
 
   getProductById(proId): Observable<any> {
     return this.http
-      .get<any>(this.productApiUrl + proId, this.httpOptions)
+      .get<any>(this.productApiUrl + proId)
+      .pipe(catchError(this.handleError));
+  }
+
+  getProductDetails(proId): Observable<any> {
+    return this.http
+      .get<any>(environment.productApiURL + "productDetails/" + proId)
       .pipe(catchError(this.handleError));
   }
 
