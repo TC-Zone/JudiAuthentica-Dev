@@ -65,6 +65,7 @@ export class EvotePopupComponent implements OnInit {
     private clientService: CrudService,
     private surveyService: SurveyService,
     public dialogRef: MatDialogRef<EvotePopupComponent>
+
   ) {}
 
   ngOnInit() {
@@ -72,6 +73,7 @@ export class EvotePopupComponent implements OnInit {
     this.tomorrow = DateValidator.dateValidate();
     this.buildEvoteForm(this.data.payload);
     this.getClientSuggestions();
+    this.getAllSurvey();
     // console.log(this.data.payload);
   }
 
@@ -156,6 +158,7 @@ export class EvotePopupComponent implements OnInit {
     input.append("batchNumber", formvalue.batchNumber);
     input.append("clientId", formvalue.clientId.id);
     input.append("file", this.imageFile);
+    input.append("surveyId", formvalue.surveyId);
 
     return input;
   }
@@ -184,6 +187,7 @@ export class EvoteCreationRequest {
   clientId: ClientSub;
   file: any;
 
+
   constructor(public formValue: any) {
     this.code = formValue.code;
     this.quantity = formValue.quantity;
@@ -194,6 +198,7 @@ export class EvoteCreationRequest {
     this.surveyId = formValue.surveyId;
     this.clientId = new ClientSub(formValue.clientId);
     this.file = formValue.file;
+    this.surveyId = formValue.surveyId;
   }
 }
 
