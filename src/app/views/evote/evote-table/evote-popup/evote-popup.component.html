@@ -66,6 +66,15 @@
         <input matInput name="batchNumber" [formControl]="evoteForm.controls['batchNumber']" required placeholder="Batch Number">
       </mat-form-field>
     </div>
+    <div fxFlex="34" class="pr-1">
+
+      <mat-form-field class="full-width">
+        <mat-select  [formControl]="evoteForm.controls['surveyId']"  placeholder="Select A Survey">
+          <mat-option>none</mat-option>
+          <mat-option *ngFor="let survey of surveyRows" [value]="survey.id">{{survey.topic}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
     <div fxFlex="34" class="pr-1">
 
@@ -85,10 +94,14 @@
       </mat-card-content>
     </div>
 
+    
+
     <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
       <p>Image Preview</p>
       <img width="200px" height="250px" src=""  src="{{ imageUrl}}" id="dishPhoto">
     </div>
+
+    
 
 
     <!-- <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
