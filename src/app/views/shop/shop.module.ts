@@ -35,6 +35,7 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { FutureSurveyComponent } from './future-survey/future-survey.component';
 import { CrudService } from '../cruds/crud.service';
+import { FutureSurveyViewComponent } from './future-survey-view/future-survey-view.component';
 
 @NgModule({
   imports: [
@@ -68,7 +69,7 @@ import { CrudService } from '../cruds/crud.service';
   declarations: [
     ProductsComponent,
     ProductDetailsComponent,
-    CartComponent, CheckoutComponent, FutureSurveyComponent
+    CartComponent, CheckoutComponent, FutureSurveyComponent, FutureSurveyViewComponent
   ],
   providers: [ShopService,CrudService]
 })
