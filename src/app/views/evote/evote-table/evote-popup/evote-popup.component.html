@@ -1,156 +1,169 @@
 <h1 matDialogTitle>{{data.title}}</h1>
 <form [formGroup]="evoteForm" (ngSubmit)="submit()">
-  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
 
-    <!-- <div fxFlex="34" class="pr-1">
+
+  <mat-dialog-content class="mat-typography">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+
+      <!-- <div fxFlex="34" class="pr-1">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Choose a client" [matAutocomplete]="auto" [formControl]="productForm.controls['client']" >
+                </mat-form-field>
+        
+                <mat-autocomplete #auto="matAutocomplete" >
+                    <mat-option *ngFor="let user of (filteredClient | async)?.content" [value]="user">
+                      <span>{{ user.name }}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </div> -->
+      <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput placeholder="Choose a client" [matAutocomplete]="auto" [formControl]="productForm.controls['client']" >
+          <input matInput [formControl]="evoteForm.controls['topic']" required name="topic" placeholder="Topic">
         </mat-form-field>
+      </div>
 
-        <mat-autocomplete #auto="matAutocomplete" >
-            <mat-option *ngFor="let user of (filteredClient | async)?.content" [value]="user">
-              <span>{{ user.name }}</span>
-            </mat-option>
-        </mat-autocomplete>
-    </div> -->
-    <div fxFlex="33" class="pr-1">
-      <mat-form-field class="full-width">
-        <input matInput [formControl]="evoteForm.controls['topic']" required name="topic" placeholder="Topic">
-      </mat-form-field>
+      <div fxFlex="34" class="pr-1">
+        <mat-form-field class="full-width">
+          <mat-select *ngIf='data.isNew' [formControl]="evoteForm.controls['clientId']" required placeholder="Select A Client">
+            <mat-option>none</mat-option>
+            <mat-option *ngFor="let client of clients" [value]="client.id">{{client.name}}</mat-option>
+          </mat-select>
+
+          <mat-select *ngIf='!data.isNew' [disabled]='!data.isNew' [formControl]="evoteForm.controls['clientId']"
+            required placeholder="Select A Client">
+            <mat-option *ngFor='let client of clients | arrayFilter : evoteForm.controls["clientId"].value : "clients"'
+              [value]="client.id">{{client.name}}</mat-option>
+          </mat-select>
+
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="33" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput [formControl]="evoteForm.controls['code']" required name="proCode" placeholder="Product Code">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="34" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="desc" [formControl]="evoteForm.controls['description']" required name="description"
+            placeholder="Description">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="33" class="pr-1">
+        <mat-form-field class="full-width">
+          <input type="number" matInput name="quantity" [formControl]="evoteForm.controls['quantity']" min="1"
+            postiveNumberOnly required placeholder="Quantity">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="33" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="expireDate" [min]="tomorrow" [matDatepicker]="picker" [formControl]="evoteForm.controls['expireDate']"
+            required placeholder="Expire Date">
+          <mat-datepicker-toggle matSuffix [for]="picker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div fxFlex="33" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="batchNumber" [formControl]="evoteForm.controls['batchNumber']" required placeholder="Batch Number">
+        </mat-form-field>
+      </div>
+      <div fxFlex="34" class="pr-1">
+
+        <mat-form-field class="full-width">
+          <mat-select [formControl]="evoteForm.controls['surveyId']" placeholder="Select A Survey">
+            <mat-option>none</mat-option>
+            <mat-option *ngFor="let survey of surveyRows" [value]="survey.id">{{survey.topic}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="34" class="pr-1">
+
+        <mat-form-field class="full-width">
+          <mat-select [formControl]="evoteForm.controls['surveyId']" placeholder="Select A Survey">
+            <mat-option>none</mat-option>
+            <mat-option *ngFor="let survey of surveyRows" [value]="survey.id">{{survey.topic}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+
+
+      <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
+        <mat-card-content>
+          <input (change)="onSelectFile($event)" id="imageAvatar" type="file" [formControl]="evoteForm.controls['file']" />
+        </mat-card-content>
+      </div>
+
+
+
+      <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
+        <p>Image Preview</p>
+        <img width="200px" height="250px" src="" src="{{ imageUrl}}" id="dishPhoto">
+      </div>
+
+
+
+
+      <!-- <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
+              <mat-card-content>
+        
+                <div class="mb-1 mt-1">
+                  <p>Upload a Product Image</p>
+                  <input (change)="onSelectFile($event)" type="file" [formControl]="evoteForm.controls['file']" ng2FileSelect [uploader]="uploader"
+                  />
+                </div>
+        
+                <div class="mb-1">
+                  <div ng2FileDrop [ngClass]="{'dz-file-over': hasBaseDropZoneOver}" [uploader]="uploader" (fileOver)="fileOverBase($event)"
+                    class="fileupload-drop-zone">
+                    Drop png/jpeg file here
+                  </div>
+                </div>
+        
+                <table class="default-table mat-box-shadow" style="width: 100%">
+                  <thead>
+                    <tr>
+                      <th width="50%">Name</th>
+                      <th>Size</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="uploader.queue.length; else tableNoData">
+                    <tr>
+                      <td>{{ imageObject.file.name }}</td>
+                      <td nowrap>{{ imageObject.file.size/1024/1024 | number:'.2' }} MB</td>
+                      <td nowrap>
+                        <button mat-raised-button class="mat-warn" type='button' (click)="imageObject.remove()">Remove</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <ng-template #tableNoData>
+                    <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
+                  </ng-template>
+                </table>
+        
+              </mat-card-content>
+            </div> -->
+
+
     </div>
-
-    <div fxFlex="34" class="pr-1">
-      <mat-form-field class="full-width">
-        <mat-select *ngIf='data.isNew'  [formControl]="evoteForm.controls['clientId']" required placeholder="Select A Client">
-          <mat-option>none</mat-option>
-          <mat-option *ngFor="let client of clients"  [value]="client.id">{{client.name}}</mat-option>
-        </mat-select>
-
-        <mat-select *ngIf='!data.isNew' [disabled]='!data.isNew' [formControl]="evoteForm.controls['clientId']" required placeholder="Select A Client">
-          <mat-option  *ngFor='let client of clients | arrayFilter : evoteForm.controls["clientId"].value : "clients"'  [value]="client.id">{{client.name}}</mat-option>
-        </mat-select>
-
-      </mat-form-field>
-    </div>
-
-    <div fxFlex="33" class="pr-1">
-      <mat-form-field class="full-width">
-        <input matInput [formControl]="evoteForm.controls['code']" required name="proCode" placeholder="Product Code">
-      </mat-form-field>
-    </div>
-
-    <div fxFlex="34" class="pr-1">
-      <mat-form-field class="full-width">
-        <input matInput name="desc" [formControl]="evoteForm.controls['description']" required name="description" placeholder="Description">
-      </mat-form-field>
-    </div>
-
-    <div fxFlex="33" class="pr-1">
-      <mat-form-field class="full-width">
-        <input type="number" matInput name="quantity" [formControl]="evoteForm.controls['quantity']" min="1" postiveNumberOnly
-          required placeholder="Quantity">
-      </mat-form-field>
-    </div>
-
-    <div fxFlex="33" class="pr-1">
-      <mat-form-field class="full-width">
-        <input matInput name="expireDate" [min]="tomorrow" [matDatepicker]="picker"  [formControl]="evoteForm.controls['expireDate']" required placeholder="Expire Date">
-        <mat-datepicker-toggle matSuffix [for]="picker">
-          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-        </mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </div>
-    <div fxFlex="33" class="pr-1">
-      <mat-form-field class="full-width">
-        <input matInput name="batchNumber" [formControl]="evoteForm.controls['batchNumber']" required placeholder="Batch Number">
-      </mat-form-field>
-    </div>
-    <div fxFlex="34" class="pr-1">
-
-      <mat-form-field class="full-width">
-        <mat-select  [formControl]="evoteForm.controls['surveyId']"  placeholder="Select A Survey">
-          <mat-option>none</mat-option>
-          <mat-option *ngFor="let survey of surveyRows" [value]="survey.id">{{survey.topic}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-
-    <div fxFlex="34" class="pr-1">
-
-      <mat-form-field class="full-width">
-        <mat-select  [formControl]="evoteForm.controls['surveyId']"  placeholder="Select A Survey">
-          <mat-option>none</mat-option>
-          <mat-option *ngFor="let survey of surveyRows" [value]="survey.id">{{survey.topic}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
+  </mat-dialog-content>
 
 
 
-    <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
-      <mat-card-content>
-        <input (change)="onSelectFile($event)" id="imageAvatar" type="file"  [formControl]="evoteForm.controls['file']" />
-      </mat-card-content>
-    </div>
 
-    
-
-    <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
-      <p>Image Preview</p>
-      <img width="200px" height="250px" src=""  src="{{ imageUrl}}" id="dishPhoto">
-    </div>
-
-    
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" [disabled]="evoteForm.invalid">Save</button>
+    <span fxFlex></span>
+    <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+  </mat-dialog-actions>
 
 
-    <!-- <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
-      <mat-card-content>
-
-        <div class="mb-1 mt-1">
-          <p>Upload a Product Image</p>
-          <input (change)="onSelectFile($event)" type="file" [formControl]="evoteForm.controls['file']" ng2FileSelect [uploader]="uploader"
-          />
-        </div>
-
-        <div class="mb-1">
-          <div ng2FileDrop [ngClass]="{'dz-file-over': hasBaseDropZoneOver}" [uploader]="uploader" (fileOver)="fileOverBase($event)"
-            class="fileupload-drop-zone">
-            Drop png/jpeg file here
-          </div>
-        </div>
-
-        <table class="default-table mat-box-shadow" style="width: 100%">
-          <thead>
-            <tr>
-              <th width="50%">Name</th>
-              <th>Size</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody *ngIf="uploader.queue.length; else tableNoData">
-            <tr>
-              <td>{{ imageObject.file.name }}</td>
-              <td nowrap>{{ imageObject.file.size/1024/1024 | number:'.2' }} MB</td>
-              <td nowrap>
-                <button mat-raised-button class="mat-warn" type='button' (click)="imageObject.remove()">Remove</button>
-              </td>
-            </tr>
-          </tbody>
-          <ng-template #tableNoData>
-            <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
-          </ng-template>
-        </table>
-
-      </mat-card-content>
-    </div> -->
-
-
-    <div fxFlex="100" class="mt-1">
-      <button mat-raised-button color="primary" [disabled]="evoteForm.invalid">Save</button>
-      <span fxFlex></span>
-      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
-    </div>
-
-  </div>
 </form>
