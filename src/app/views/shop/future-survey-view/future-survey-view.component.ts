@@ -60,6 +60,7 @@ export class FutureSurveyViewComponent implements OnInit {
             type: "radiogroup",
             name: "prettycheckbox",
             renderAs: "prettycheckbox",
+            colCount: 0,
             choices: ["One", "Two", "Three"]
           },
           {
