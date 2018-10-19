@@ -1,11 +1,11 @@
 import { Component, OnInit, AfterViewInit, ViewChild, HostListener } from '@angular/core';
-import { 
-  Router, 
-  NavigationEnd, 
-  RouteConfigLoadStart, 
-  RouteConfigLoadEnd, 
-  ResolveStart, 
-  ResolveEnd 
+import {
+  Router,
+  NavigationEnd,
+  RouteConfigLoadStart,
+  RouteConfigLoadEnd,
+  ResolveStart,
+  ResolveEnd
 } from '@angular/router';
 import { Subscription } from "rxjs";
 import { MatSidenav } from '@angular/material';
@@ -38,26 +38,40 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
     private layout: LayoutService,
     private media: ObservableMedia
   ) {
-    // Close sidenav after route change in mobile
+
     this.routerEventSub = router.events.pipe(filter(event => event instanceof NavigationEnd))
-    .subscribe((routeChange: NavigationEnd) => {
-      this.layout.adjustLayout({ route: routeChange.url });
-    });
-    
+      .subscribe((routeChange: NavigationEnd) => {
+
+        // --------- Original Code -----------------
+        // Close sidenav after route change in mobile
+        // this.layout.adjustLayout({ route: routeChange.url });
+
+        // --------- Costomized Code -----------------
+        // costomized adjust full width routes layout
+        this.layout.costomizedAdjustScreenOptions({ route: routeChange.url });
+
+      });
+
     // Translator init
     const browserLang: string = translate.getBrowserLang();
     translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+
   }
+
+
   ngOnInit() {
+
+    localStorage.setItem("sideBarStatus", "full");
+
     this.layoutConf = this.layout.layoutConf;
     // this.layout.adjustLayout();
 
     // FOR MODULE LOADER FLAG
     this.moduleLoaderSub = this.router.events.subscribe(event => {
-      if(event instanceof RouteConfigLoadStart || event instanceof ResolveStart) {
+      if (event instanceof RouteConfigLoadStart || event instanceof ResolveStart) {
         this.isModuleLoading = true;
       }
-      if(event instanceof RouteConfigLoadEnd || event instanceof ResolveEnd) {
+      if (event instanceof RouteConfigLoadEnd || event instanceof ResolveEnd) {
         this.isModuleLoading = false;
       }
     });
@@ -66,14 +80,15 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
   onResize(event) {
     this.layout.adjustLayout(event);
   }
-  
+
   ngAfterViewInit() {
     this.layoutConfSub = this.layout.layoutConf$.subscribe(change => {
       this.initBodyPS(change)
     })
   }
-  initBodyPS(layoutConf:any = {}) {
-    if(layoutConf.navigationPos === 'side' && layoutConf.topbarFixed) {
+  initBodyPS(layoutConf: any = {}) {
+
+    if (layoutConf.navigationPos === 'side' && layoutConf.topbarFixed) {
       if (this.bodyPS) this.bodyPS.destroy();
       if (this.headerFixedBodyPS) this.headerFixedBodyPS.destroy();
       this.headerFixedBodyPS = new PerfectScrollbar('.rightside-content-hold', {
@@ -88,21 +103,23 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
       });
       this.scrollToTop('.main-content-wrap');
     }
+
   }
+
   scrollToTop(selector: string) {
-    if(document) {
+    if (document) {
       let element = <HTMLElement>document.querySelector(selector);
       element.scrollTop = 0;
     }
   }
   ngOnDestroy() {
-    if(this.moduleLoaderSub) {
+    if (this.moduleLoaderSub) {
       this.moduleLoaderSub.unsubscribe()
     }
-    if(this.layoutConfSub) {
+    if (this.layoutConfSub) {
       this.layoutConfSub.unsubscribe()
     }
-    if(this.routerEventSub) {
+    if (this.routerEventSub) {
       this.routerEventSub.unsubscribe()
     }
   }
@@ -111,5 +128,5 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
       sidebarStyle: 'closed'
     })
   }
-  
+
 }
