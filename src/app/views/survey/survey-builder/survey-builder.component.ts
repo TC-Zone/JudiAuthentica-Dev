@@ -151,13 +151,13 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
     this.questionFormArray = control;
 
     if (fields == null) {
-      console.log("after imidiate survey creation");
+
       control.push(this.initQuestionTemplate());
       return;
     }
 
     let questionArray = JSON.parse(fields);
-    console.log("question array length");
+
     console.log(questionArray.length);
     if (questionArray.length == 0) {
       console.log("without question loading situation");
@@ -180,7 +180,7 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
       }
     });
 
-    console.log("myquestions : ");
+
     console.log(this.surveyQuestions);
   }
 

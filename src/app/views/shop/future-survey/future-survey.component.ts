@@ -4,9 +4,9 @@ import * as SurveyKo from "survey-knockout";
 import * as widgets from "surveyjs-widgets";
 
 import "inputmask/dist/inputmask/phone-codes/phone.js";
-import { CrudService } from '../../cruds/crud.service';
-import { Subscription } from 'rxjs';
-import { ResponseModel } from '../../../model/ResponseModel.model';
+import { CrudService } from "../../cruds/crud.service";
+import { Subscription } from "rxjs";
+import { ResponseModel } from "../../../model/ResponseModel.model";
 
 widgets.icheck(SurveyKo);
 widgets.select2(SurveyKo);
@@ -44,17 +44,14 @@ SurveyEditor.SurveyPropertyModalEditor.registerCustomWidget(
 
 @Component({
   selector: "app-future-survey",
-  templateUrl: "./future-survey.component.html",
-  styleUrls: ["./future-survey.component.scss"]
+  templateUrl: "./future-survey.component.html"
 })
 export class FutureSurveyComponent implements OnInit {
   editor: SurveyEditor.SurveyEditor;
   public clients: any[];
   public getClientSub: Subscription;
   public response: ResponseModel;
-  constructor(private clientService :CrudService){
-
-  }
+  constructor(private clientService: CrudService) {}
 
   json = {
     title: "Product Feedback Survey Example",
@@ -98,7 +95,6 @@ export class FutureSurveyComponent implements OnInit {
             ]
           },
           {
-            qId: 3,
             type: "matrix",
             name: "question3",
             columns: ["A", "B", "C"],
@@ -109,80 +105,139 @@ export class FutureSurveyComponent implements OnInit {
     ]
   };
 
-
   getAllClients() {
     this.getClientSub = this.clientService.getItems().subscribe(data => {
       this.response = data;
       this.clients = this.response.content;
-      
 
       SurveyKo.JsonObject.metaData.addProperty(
         "questionbase",
         "popupdescription:text"
       );
       SurveyKo.JsonObject.metaData.addProperty("page", "popupdescription:text");
-       
-      // this.choices = [
-      //   { value: "Email", text: "Email: {email}", visibleIf: "{phone} notempty"},
-      //   { value: "SMS", text: "SMS: {phone}",  visibleIf: "{phone} notempty"},
-      //   { value: "WhatsApp", text: "WhatsApp: {phone}",  visibleIf: "{phone} notempty"}
-      // ]
-      
-      let noneClients = [{value:'none',text:'none'}]
-      let newClients = []
-      for (var i = 0; i < this.clients.length; i++){
-          newClients.push({value: this.clients[i].id, text: this.clients[i].name});
-        
+
+      let noneClients = [{ value: "none", text: "none" }];
+      let newClients = [];
+      for (var i = 0; i < this.clients.length; i++) {
+        newClients.push({
+          value: this.clients[i].id,
+          text: this.clients[i].name
+        });
       }
       let fullClients = [];
-      fullClients = noneClients.concat(newClients)
+      fullClients = noneClients.concat(newClients);
 
-      
-     console.log(fullClients);
+      console.log(fullClients);
 
-      SurveyKo.JsonObject.metaData.addProperty("survey", {name: "clientId", choices: fullClients});
-  
-  
+      SurveyKo.JsonObject.metaData.addProperty("survey", {
+        name: "clientId",
+        choices: fullClients
+      });
+
       SurveyKo.JsonObject.metaData.addProperty("questionbase", "questionId");
-      SurveyKo.JsonObject.metaData.findProperty("questionbase", "questionId").readOnly = true;
-  
-      
-  
+      SurveyKo.JsonObject.metaData.findProperty(
+        "questionbase",
+        "questionId"
+      ).readOnly = true;
+
       SurveyEditor.StylesManager.applyTheme("winterstone");
-  
-      let editorOptions = { showEmbededSurveyTab: true, generateValidJSON: true };
+
+      let editorOptions = {
+        showEmbededSurveyTab: true,
+        generateValidJSON: true
+      };
       this.editor = new SurveyEditor.SurveyEditor(
         "surveyEditorContainer",
         editorOptions
       );
-  
+
       var questionCounter = 1;
       //Set the name property different from the default value
       //and set the tag property to a generated GUID value.
-      this.editor
-          .onQuestionAdded
-          .add(function (sender, options) {
-              var q = options.question;
-              var t = q.getType();
-              //q.name = "Question" + t[0].toUpperCase() + t.substring(1) + questionCounter;
-              q.questionId = "Q" + t[0].toUpperCase() + t.substring(1) + questionCounter;
-              questionCounter++;
-          });
-  
-  
-  
+      this.editor.onQuestionAdded.add(function(sender, options) {
+        var q = options.question;
+        var t = q.getType();
+        //q.name = "Question" + t[0].toUpperCase() + t.substring(1) + questionCounter;
+        q.questionId =
+          "Q" + t[0].toUpperCase() + t.substring(1) + questionCounter;
+        questionCounter++;
+      });
+
       this.editor.text = JSON.stringify(this.json);
       this.editor.saveSurveyFunc = this.saveMySurvey;
     });
   }
 
+  setClients() {
+    this.getClientSub = this.clientService.getItems().subscribe(data => {
+      this.response = data;
+      this.clients = this.response.content;
 
-  @Output() surveySaved: EventEmitter<Object> = new EventEmitter();
+      let noneClients = [{ value: "none", text: "none" }];
+      let newClients = [];
+
+      for (let i = 0; i < this.clients.length; i++) {
+        newClients.push({
+          value: this.clients[i].id,
+          text: this.clients[i].name
+        });
+      }
+      let fullClients = [];
+      fullClients = noneClients.concat(newClients);
+
+      SurveyKo.JsonObject.metaData.addProperty("survey", {
+        name: "clientId",
+        choices: fullClients
+      });
+
+      this.setupProperty();
+      this.loadSurveyEditor();
+    });
+  }
+
+  setupProperty() {
+    SurveyKo.JsonObject.metaData.addProperty(
+      "questionbase",
+      "popupdescription:text"
+    );
+    SurveyKo.JsonObject.metaData.addProperty("page", "popupdescription:text");
+    SurveyKo.JsonObject.metaData.addProperty("questionbase", "questionId");
+    SurveyKo.JsonObject.metaData.findProperty(
+      "questionbase",
+      "questionId"
+    ).readOnly = true;
+    SurveyEditor.StylesManager.applyTheme("winterstone");
+
+  }
+
+  loadSurveyEditor() {
+    let editorOptions = { showEmbededSurveyTab: true, generateValidJSON: true };
+    this.editor = new SurveyEditor.SurveyEditor(
+      "surveyEditorContainer",
+      editorOptions
+    );
+
+    var questionCounter = 1;
+    //Set the name property different from the default value
+    //and set the tag property to a generated GUID value.
+    this.editor.onQuestionAdded.add(function(sender, options) {
+      var q = options.question;
+      var t = q.getType();
+      //q.name = "Question" + t[0].toUpperCase() + t.substring(1) + questionCounter;
+      q.questionId =
+        "Q" + t[0].toUpperCase() + t.substring(1) + questionCounter;
+      questionCounter++;
+    });
+
+    this.editor.text = JSON.stringify(this.json);
+    this.editor.saveSurveyFunc = this.saveMySurvey;
+  }
+
+  @Output()
+  surveySaved: EventEmitter<Object> = new EventEmitter();
   ngOnInit() {
-
-    this.getAllClients();
-    
-
+    //this.getAllClients();
+    this.setClients();
   }
 
   saveMySurvey = () => {

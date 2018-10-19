@@ -47,16 +47,25 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
   }
 
   downloadCsv(selectedRow) {
-    const fileName =
-      selectedRow.name + "_" + selectedRow.code + "_" + selectedRow.batchNumber;
-    const csvData = this.conversionService.convertToCsv(
-      selectedRow.productDetails
-    );
-    this.downloadService.downloadFile({
-      name: fileName,
-      type: "csv",
-      data: csvData
-    });
+    console.log("SELECTED RAW : " + selectedRow.id);
+    this.prodService
+      .getProductDetails(selectedRow.id)
+      .subscribe(successResp => {
+        let auths = successResp.content;
+        const fileName =
+          selectedRow.name +
+          "_" +
+          selectedRow.code +
+          "_" +
+          selectedRow.batchNumber;
+        const csvData = this.conversionService.convertToCsv(auths);
+
+        this.downloadService.downloadFile({
+          name: fileName,
+          type: "csv",
+          data: csvData
+        });
+      });
   }
 
   updateFilter(event) {
@@ -103,13 +112,13 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
 
   deleteProduct(row) {
     this.confirmService
-      .confirm({ message: `Delete ${row.description}?` })
+      .confirm({ message: `Delete ${row.name}?` })
       .subscribe(res => {
         if (res) {
           this.loader.open();
           this.prodService.removeProduct(row, this.rows).subscribe(
             data => {
-              this.rows = data;
+              this.getAllProduct();
               this.loader.close();
             },
             error => {
@@ -222,4 +231,11 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
   //     }
   //   );
   // }
+}
+
+export class CSVDTO {
+  productDetails: any;
+  authenticationCode: any;
+
+  constructor(public proDetails: any, public authCodes: any) {}
 }
