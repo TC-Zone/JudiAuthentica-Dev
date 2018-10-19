@@ -53,6 +53,15 @@ export class CpUsersDB {
       image: "assets/images/cp_users/amila ayya.jpg",
       company: "Clear Picture - Sri Lanka",
       position:"Android Developer"
+    },
+    {
+      id: "7",
+      user_name: "buddhi",
+      profile_name: "Buddhi Hasanka",
+      password: "hbh123",
+      image: "assets/images/cp_users/buddhi_hasanka.jpg",
+      company: "Clear Picture - Sri Lanka",
+      position:"Software Engineer"
     }
   ];
 }
