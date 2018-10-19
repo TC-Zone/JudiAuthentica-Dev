@@ -437,7 +437,7 @@ export class NavigationService {
       state: "shop",
       sub: [
         { name: "Survey Editor", state: "sEditor" },
-        { name: "Survey Viewer", state: "sViewer" }
+        { name: "Survey Viewer", state: "sViewer" },
       ]
     }
 
