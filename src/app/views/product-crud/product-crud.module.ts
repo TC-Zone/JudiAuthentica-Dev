@@ -23,6 +23,8 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { CrudService } from "../cruds/crud.service";
 import { PositiveNumberOnly } from "../../directives/PositiveNumber.directive";
+import { PositiveNumberAndLetterOnly } from "../../directives/PositiveNumberAndLetter.directive";
+import { LetterOnly } from "../../directives/Letter.directive";
 import { DateValidator } from "../../directives/DateValidator.directive";
 import { FileUploadModule } from "ng2-file-upload";
 import { SurveyService } from '../survey/survey.service';
@@ -51,6 +53,8 @@ import { SurveyService } from '../survey/survey.service';
     ProductFilterTableComponent,
     ProductCrudPopupComponent,
     PositiveNumberOnly,
+    PositiveNumberAndLetterOnly,
+    LetterOnly,
     DateValidator
   ],
   providers: [ProductCrudService, CrudService,SurveyService],

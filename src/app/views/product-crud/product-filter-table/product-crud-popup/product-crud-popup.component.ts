@@ -57,6 +57,9 @@ export class ProductCrudPopupComponent implements OnInit {
   getAllSurveySub: Subscription;
   surveyRows: any[];
 
+  urls = [];
+  maxUploadableFileCount: number = 4;
+
   // image uploader related properties
   public uploader: FileUploader = new FileUploader({ url: "upload_url" });
   public hasBaseDropZoneOver: boolean = false;
@@ -68,7 +71,7 @@ export class ProductCrudPopupComponent implements OnInit {
     private clientService: CrudService,
     private surveyService: SurveyService,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
     // validate back dates
@@ -140,24 +143,53 @@ export class ProductCrudPopupComponent implements OnInit {
     this.hasBaseDropZoneOver = e;
   }
 
-  onSelectFile(event) {
-    let x = this.uploader.queue.length - 1;
-    this.imageObject = this.uploader.queue[x];
 
-    let reader = new FileReader();
-    if (event.target.files && event.target.files.length > 0) {
-      this.imageFile = event.target.files[0];
-      reader.readAsDataURL(this.imageFile);
-      reader.onload = (event: any) => {
-        this.imageUrl = event.target.result;
-        console.log("IMAGE URL  : " + this.imageUrl);
-      };
+  
+  // --------- Old Code -----------------
+
+  // onSelectFile(event) {
+  //   let x = this.uploader.queue.length - 1;
+  //   this.imageObject = this.uploader.queue[x];
+
+  //   let reader = new FileReader();
+  //   if (event.target.files && event.target.files.length > 0) {
+  //     this.imageFile = event.target.files[0];
+  //     reader.readAsDataURL(this.imageFile);
+  //     reader.onload = (event: any) => {
+  //       this.imageUrl = event.target.result;
+  //       console.log("IMAGE URL  : " + this.imageUrl);
+  //     };
+  //   }
+  // }
+
+
+
+
+  // --------- New Code -----------------
+  // File uploader validation and upload
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      var filesAmount = event.target.files.length;
+
+      if (filesAmount <= this.maxUploadableFileCount) {
+        for (let i = 0; i < filesAmount; i++) {
+          var reader = new FileReader();
+
+          reader.onload = (event) => {
+            this.urls.push(event.target.result);
+          }
+
+          reader.readAsDataURL(event.target.files[i]);
+        }
+      } else {
+        
+      }
     }
   }
 
   prepareToSave(formvalue): FormData {
     let input: FormData = new FormData();
-    if(formvalue.surveyId){
+    if (formvalue.surveyId) {
       input.append("surveyId", formvalue.surveyId);
     }
 
@@ -200,7 +232,7 @@ export class ProductCreationRequest {
   file: any;
 
   constructor(public formValue: any) {
-    console.log('SURVEY ID :  '+formValue.surveyId);
+    console.log('SURVEY ID :  ' + formValue.surveyId);
     this.client = new ClientSub(formValue.client);
     this.code = formValue.code;
     this.name = formValue.name;
@@ -214,5 +246,5 @@ export class ProductCreationRequest {
 }
 
 class ClientSub {
-  constructor(public id: string) {}
+  constructor(public id: string) { }
 }

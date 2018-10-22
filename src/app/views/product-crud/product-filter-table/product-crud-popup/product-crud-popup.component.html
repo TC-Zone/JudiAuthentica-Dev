@@ -18,13 +18,14 @@
 
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput [formControl]="productForm.controls['code']" required name="proCode" placeholder="Product Code">
+          <input matInput [formControl]="productForm.controls['code']" required name="proCode"
+            positiveNumberAndLetterOnly placeholder="Product Code">
         </mat-form-field>
       </div>
 
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput [formControl]="productForm.controls['name']" required name="name" placeholder="Product Name">
+          <input matInput [formControl]="productForm.controls['name']" required name="name" letterOnly placeholder="Product Name">
         </mat-form-field>
       </div>
 
@@ -37,14 +38,15 @@
 
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="batchNumber" [formControl]="productForm.controls['batchNumber']" required placeholder="Batch Number">
+          <input matInput name="batchNumber" [formControl]="productForm.controls['batchNumber']"
+            positiveNumberAndLetterOnly required placeholder="Batch Number">
         </mat-form-field>
       </div>
 
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
-          <input type="number" matInput name="quantity" [formControl]="productForm.controls['quantity']" min="1"
-            postiveNumberOnly required placeholder="Quantity">
+          <input type="number" matInput name="quantity" [formControl]="productForm.controls['quantity']"
+            positiveNumberOnly required placeholder="Quantity">
         </mat-form-field>
       </div>
 
@@ -70,16 +72,52 @@
       </div>
 
 
-      <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
-        <mat-card-content>
-          <input (change)="onSelectFile($event)" id="imageAvatar" type="file" [formControl]="productForm.controls['file']" />
-        </mat-card-content>
-      </div>
 
+      <!-- --------- Old Code ----------------- -->
+
+      <!-- <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
+        <mat-card-content>
+          <input (change)="onSelectFile($event)" id="imageAvatar" type="file" [formControl]="productForm.controls['file']"
+            multiple />
+        </mat-card-content>
+      </div> -->
+
+      <!-- 
       <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
         <p>Image Preview</p>
         <img width="200px" height="250px" src="" src="{{ imageUrl}}" id="dishPhoto">
+        <img *ngFor='let url of urls' [src]="url" height="200"> <br />
+      </div> -->
+
+
+      
+
+      <!-- --------- New Code ----------------- -->
+
+      <input (change)="onSelectFile($event)" #imageAvatar type="file" [formControl]="productForm.controls['file']"
+        multiple style="display: none" />
+
+
+      <div *ngIf='data.isNew' layout-margin layout-padding>
+        <button mat-raised-button class="mr-1" (click)="imageAvatar.click()" type="button">Browse Images</button>
       </div>
+
+      <!-- <mat-card fxFlex="100" class="mat-bg-warn">
+        <div class="profile-title text-center">
+          <div class="main-title">Can't upload more than 2 photos</div>
+        </div>
+      </mat-card> -->
+
+      <div fxLayout="row" fxLayoutWrap="wrap" layout-align="center">
+
+        <div *ngFor='let url of urls' fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" style="display: flex;">
+          <mat-card>
+            <img [src]="url">
+          </mat-card>
+        </div>
+
+      </div>
+
     </div>
 
   </mat-dialog-content>
