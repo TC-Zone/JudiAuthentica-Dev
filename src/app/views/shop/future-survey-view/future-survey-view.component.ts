@@ -265,11 +265,11 @@ export class FutureSurveyViewComponent implements OnInit {
         
       var modifiedData = Object.keys(result.data).map(function(qName) {
       
-       let question : any = result.getQuestionByName(qName);
-       console.log(question);
+       let questionDet : any = result.getQuestionByName(qName);//resolve Survey.IQuestion interface
+       console.log(questionDet);
         return {
-          value: result.data[qName],
-          qid: question.qid
+          value: result.data[qName],// attached for new output result 
+          qid: questionDet.qid
         }
       })
       console.log(modifiedData);

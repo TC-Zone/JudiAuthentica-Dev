@@ -53,6 +53,7 @@ export class FutureSurveyComponent implements OnInit {
   public response: ResponseModel;
   constructor(private clientService: CrudService) {}
 
+
   json = {
     title: "Product Feedback Survey Example",
     showProgressBar: "top",
@@ -104,6 +105,8 @@ export class FutureSurveyComponent implements OnInit {
       }
     ]
   };
+
+  
 
   getAllClients() {
     this.getClientSub = this.clientService.getItems().subscribe(data => {
@@ -207,6 +210,7 @@ export class FutureSurveyComponent implements OnInit {
       "questionId"
     ).readOnly = true;
     SurveyEditor.StylesManager.applyTheme("winterstone");
+    
 
   }
 
@@ -239,6 +243,7 @@ export class FutureSurveyComponent implements OnInit {
     //this.getAllClients();
     this.setClients();
   }
+
 
   saveMySurvey = () => {
     console.log(this.editor);
