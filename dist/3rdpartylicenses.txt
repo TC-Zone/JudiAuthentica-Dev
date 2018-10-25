@@ -687,6 +687,10 @@ surveyjs-widgets@1.0.46
 MIT
 MIT
 
+survey-angular@1.0.46
+MIT
+MIT
+
 bootstrap-slider@10.2.1
 MIT
 ----------------------------------------------------------------------
@@ -1136,6 +1140,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+@angular/core@6.0.1
+MIT
+MIT
+
 @angular/platform-browser@6.0.1
 MIT
 MIT
@@ -1215,10 +1223,6 @@ MIT
 MIT
 
 @angular/router@6.0.1
-MIT
-MIT
-
-@angular/core@6.0.1
 MIT
 MIT
 
