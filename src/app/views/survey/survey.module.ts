@@ -22,7 +22,8 @@ import {
   MatSidenavModule,
   MatHorizontalStepper,
   MatStepperModule,
-  MatStepper
+  MatStepper,
+  MatToolbarModule
 } from "@angular/material";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { SurveyTableComponent } from "./survey-table/survey-table.component";
@@ -64,6 +65,8 @@ import { ArrayFilter } from '../../shared/pipes/array-filter.pipe';
     RouterModule.forChild(SurveyRoute),
     SharedModule,
     MatStepperModule,
+    MatToolbarModule,
+
     MatDatepickerModule
   ],
   declarations: [

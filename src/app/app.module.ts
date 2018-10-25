@@ -38,7 +38,9 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     }),
     RouterModule.forRoot(rootRouterConfig, { useHash: false })
   ],
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+  ],
   providers: [
     // ANGULAR MATERIAL SLIDER FIX
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },

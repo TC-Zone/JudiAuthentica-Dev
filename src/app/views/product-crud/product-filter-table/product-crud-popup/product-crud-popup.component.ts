@@ -4,7 +4,8 @@ import {
   MatDialogRef,
   MAT_DATE_FORMATS,
   DateAdapter,
-  MAT_DATE_LOCALE
+  MAT_DATE_LOCALE,
+  MatSnackBar
 } from "@angular/material";
 import { CrudService } from "../../../cruds/crud.service";
 import { Subscription, Observable } from "rxjs";
@@ -19,6 +20,7 @@ import { DateValidator } from "../../../../utility/dateValidator";
 import { FileUploader } from "ng2-file-upload";
 import * as moment from "moment";
 import { SurveyService } from "../../../survey/survey.service";
+
 
 export const MY_FORMATS = {
   parse: {
@@ -44,6 +46,7 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
   ]
 })
+
 export class ProductCrudPopupComponent implements OnInit {
   public productForm: FormGroup;
   public clients: any[];
@@ -57,18 +60,27 @@ export class ProductCrudPopupComponent implements OnInit {
   getAllSurveySub: Subscription;
   surveyRows: any[];
 
+
   // image uploader related properties
   public uploader: FileUploader = new FileUploader({ url: "upload_url" });
   public hasBaseDropZoneOver: boolean = false;
   imageObject: any;
+  //------- new --------
+  urls = [];
+  selectedFileList = [];
+  maxUploadableFileCount: number = 4; // IF THIS IS NULL, THERE IS NO IMAGE LIMIT FOR FILE UPLOADER
+
+
+
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ProductCrudPopupComponent>,
     private clientService: CrudService,
     private surveyService: SurveyService,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    public snackBar: MatSnackBar
+  ) { }
 
   ngOnInit() {
     // validate back dates
@@ -101,9 +113,9 @@ export class ProductCrudPopupComponent implements OnInit {
   buildProductForm(fieldItem) {
     const client = fieldItem.client;
     const clientId = client ? client.id : null;
-
+    
     this.productForm = this.fb.group({
-      client: [clientId || ""],
+      client: [clientId || "", {disabled: !this.data.isNew}],
       code: [fieldItem.code || "", Validators.required],
       name: [fieldItem.name || "", Validators.required],
       description: [fieldItem.description || "", Validators.required],
@@ -130,7 +142,8 @@ export class ProductCrudPopupComponent implements OnInit {
     formData = this.prepareToSave(productRequest);
 
 
-    console.log("prepared form data ");
+    console.log("-----------  prepared form data ");
+    console.log(formData);
     console.log(JSON.stringify(formData));
     this.dialogRef.close(formData);
   }
@@ -140,24 +153,84 @@ export class ProductCrudPopupComponent implements OnInit {
     this.hasBaseDropZoneOver = e;
   }
 
-  onSelectFile(event) {
-    let x = this.uploader.queue.length - 1;
-    this.imageObject = this.uploader.queue[x];
 
-    let reader = new FileReader();
-    if (event.target.files && event.target.files.length > 0) {
-      this.imageFile = event.target.files[0];
-      reader.readAsDataURL(this.imageFile);
-      reader.onload = (event: any) => {
-        this.imageUrl = event.target.result;
-        console.log("IMAGE URL  : " + this.imageUrl);
-      };
+
+  // --------- Old Code -----------------
+
+  // onSelectFile(event) {
+  //   let x = this.uploader.queue.length - 1;
+  //   this.imageObject = this.uploader.queue[x];
+
+  //   let reader = new FileReader();
+  //   if (event.target.files && event.target.files.length > 0) {
+  //     this.imageFile = event.target.files[0];
+  //     reader.readAsDataURL(this.imageFile);
+  //     reader.onload = (event: any) => {
+  //       this.imageUrl = event.target.result;
+  //       console.log("IMAGE URL  : " + this.imageUrl);
+  //     };
+  //   }
+  // }
+
+
+
+
+  // --------- New Code -----------------
+  // File uploader validation and upload
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      var filesAmount = event.target.files.length;
+      if (
+        this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1 ?
+          (true) :
+          (this.selectedFileList.length + filesAmount <= this.maxUploadableFileCount)
+      ) {
+        for (let i = 0; i < filesAmount; i++) {
+          var reader = new FileReader();
+
+          reader.onload = (event: any) => {
+            this.urls.push(event.target.result);
+          }
+
+          reader.readAsDataURL(event.target.files[i]);
+          this.selectedFileList.push(event.target.files[i]);
+        }
+      } else {
+        // alert for file uploa limit
+        this.snackBar.open("Can't upload more than " + this.maxUploadableFileCount + " photos", 'close', { duration: 2000 });
+      }
+
+      this.viewIPArray();
+
     }
   }
 
+
+  // --------- For Testing -----------------
+
+  viewIPArray() {
+    console.log("--------------- start ------------------");
+    console.log(this.selectedFileList.length);
+    console.log("---------------------------------");
+    // console.log(this.urls);
+    console.log("---------------------------------");
+    console.log(this.selectedFileList);
+    console.log("--------------- end ------------------");
+  }
+
+  removeSelectedImg(index: number) {
+    console.log("remove -- " + index);
+    this.urls.splice(index, 1);
+    this.selectedFileList.splice(index, 1);
+    this.viewIPArray();
+  }
+
+
+
+
   prepareToSave(formvalue): FormData {
     let input: FormData = new FormData();
-    if(formvalue.surveyId){
+    if (formvalue.surveyId) {
       input.append("surveyId", formvalue.surveyId);
     }
 
@@ -175,6 +248,13 @@ export class ProductCrudPopupComponent implements OnInit {
     input.append("name", formvalue.name);
     input.append("description", formvalue.description);
     input.append("batchNumber", formvalue.batchNumber);
+
+    for (let i = 0; i < this.selectedFileList.length; i++) {
+      input.append("file_" + i, this.selectedFileList[i], "image_" + i);
+    }
+
+    console.log("------------------ tst 01 ");
+    console.log(input.get("file_1"));
 
     return input;
   }
@@ -200,7 +280,7 @@ export class ProductCreationRequest {
   file: any;
 
   constructor(public formValue: any) {
-    console.log('SURVEY ID :  '+formValue.surveyId);
+    console.log('SURVEY ID :  ' + formValue.surveyId);
     this.client = new ClientSub(formValue.client);
     this.code = formValue.code;
     this.name = formValue.name;
@@ -211,8 +291,9 @@ export class ProductCreationRequest {
     this.surveyId = formValue.surveyId;
     this.file = formValue.file;
   }
+
 }
 
 class ClientSub {
-  constructor(public id: string) {}
+  constructor(public id: string) { }
 }

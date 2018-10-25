@@ -47,7 +47,11 @@ import { SurveyService } from '../survey/survey.service';
     RouterModule.forChild(EvoteRouts)
   ],
   providers: [EvoteService,CrudService,SurveyService],
-  declarations: [EvoteTableComponent, EvotePopupComponent, VoterPopupComponent],
+  declarations: [
+    EvoteTableComponent, 
+    EvotePopupComponent, 
+    VoterPopupComponent,
+  ],
   entryComponents: [EvotePopupComponent,VoterPopupComponent]
 })
 export class EvoteModule { }
