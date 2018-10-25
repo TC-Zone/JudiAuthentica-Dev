@@ -44,7 +44,8 @@ SurveyEditor.SurveyPropertyModalEditor.registerCustomWidget(
 
 @Component({
   selector: "app-future-survey",
-  templateUrl: "./future-survey.component.html"
+  templateUrl: "./future-survey.component.html",
+  styleUrls: ['./future-survey.component.scss']
 })
 export class FutureSurveyComponent implements OnInit {
   editor: SurveyEditor.SurveyEditor;
@@ -52,6 +53,7 @@ export class FutureSurveyComponent implements OnInit {
   public getClientSub: Subscription;
   public response: ResponseModel;
   constructor(private clientService: CrudService) {}
+
 
 
   json = {
@@ -107,7 +109,6 @@ export class FutureSurveyComponent implements OnInit {
   };
 
   
-
   getAllClients() {
     this.getClientSub = this.clientService.getItems().subscribe(data => {
       this.response = data;
@@ -132,6 +133,7 @@ export class FutureSurveyComponent implements OnInit {
 
       console.log(fullClients);
 
+      
       SurveyKo.JsonObject.metaData.addProperty("survey", {
         name: "clientId",
         choices: fullClients
@@ -142,16 +144,19 @@ export class FutureSurveyComponent implements OnInit {
         "questionbase",
         "questionId"
       ).readOnly = true;
+      
 
-      SurveyEditor.StylesManager.applyTheme("winterstone");
+      //SurveyEditor.StylesManager.applyTheme("winterstone");
 
       let editorOptions = {
         showEmbededSurveyTab: true,
-        generateValidJSON: true
+        generateValidJSON: true,
+        
       };
       this.editor = new SurveyEditor.SurveyEditor(
         "surveyEditorContainer",
-        editorOptions
+        editorOptions,
+        
       );
 
       var questionCounter = 1;
@@ -209,7 +214,8 @@ export class FutureSurveyComponent implements OnInit {
       "questionbase",
       "questionId"
     ).readOnly = true;
-    SurveyEditor.StylesManager.applyTheme("winterstone");
+    
+    //SurveyEditor.StylesManager.applyTheme("winterstone");
     
 
   }
@@ -236,12 +242,53 @@ export class FutureSurveyComponent implements OnInit {
     this.editor.text = JSON.stringify(this.json);
     this.editor.saveSurveyFunc = this.saveMySurvey;
   }
+  
+  setuptheme(){
+var mainColor = "#0684C0";
+var mainHoverColor = "#5DAAD2";
+var textColor = "#4a4a4a";
+var headerColor = "#ffffff";
+var headerBackgroundColor = "#000000";
+var bodyContainerBackgroundColor = "#f8f8f8";
+
+var defaultThemeColorsSurvey = SurveyKo
+    .StylesManager
+    .ThemeColors["default"];
+defaultThemeColorsSurvey["$main-color"] = mainColor;
+defaultThemeColorsSurvey["$main-hover-color"] = mainHoverColor;
+defaultThemeColorsSurvey["$text-color"] = textColor;
+defaultThemeColorsSurvey["$header-color"] = headerColor;
+defaultThemeColorsSurvey["$header-background-color"] = headerBackgroundColor;
+defaultThemeColorsSurvey["$body-container-background-color"] = bodyContainerBackgroundColor;
+
+var defaultThemeColorsEditor = SurveyEditor
+    .StylesManager
+    .ThemeColors["default"];
+defaultThemeColorsEditor["$primary-color"] = mainColor;
+defaultThemeColorsEditor["$secondary-color"] = mainColor;
+defaultThemeColorsEditor["$primary-hover-color"] = mainHoverColor;
+defaultThemeColorsEditor["$primary-text-color"] = textColor;
+defaultThemeColorsEditor["$selection-border-color"] = mainColor;
+
+SurveyKo.defaultStandardCss.header = "title";
+
+SurveyKo
+    .StylesManager
+    .applyTheme();
+SurveyEditor
+    .StylesManager
+    .applyTheme();
+
+
+  }
 
   @Output()
   surveySaved: EventEmitter<Object> = new EventEmitter();
   ngOnInit() {
     //this.getAllClients();
+    this.setuptheme();
     this.setClients();
+    
   }
 
 
