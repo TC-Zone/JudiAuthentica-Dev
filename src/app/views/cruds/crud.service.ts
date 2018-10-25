@@ -79,6 +79,10 @@ export class CrudService {
       .pipe(catchError(this.handleError));
   }
 
+  getImageById(url) : Observable<Blob>{
+    return this.http.get(url,{responseType : 'blob'});
+  }
+
   private handleError(error: HttpErrorResponse | any) {
     console.log(error);
     return throwError(error);
