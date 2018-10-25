@@ -7,7 +7,7 @@
 
       <!-- <div fxFlex="34" class="pr-1">
                 <mat-form-field class="full-width">
-                  <input matInput placeholder="Choose a client" [matAutocomplete]="auto" [formControl]="productForm.controls['client']" >
+                  <input matInput placeholder="Choose a client" [matAutocomplete]="auto" [formControl]="evoteForm.controls['client']" >
                 </mat-form-field>
         
                 <mat-autocomplete #auto="matAutocomplete" >
@@ -18,7 +18,8 @@
             </div> -->
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput [formControl]="evoteForm.controls['topic']" required name="topic" placeholder="Topic">
+          <input matInput [formControl]="evoteForm.controls['topic']" required name="topic" positiveNumberAndLetterOnly
+            placeholder="Topic">
         </mat-form-field>
       </div>
 
@@ -40,21 +41,22 @@
 
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput [formControl]="evoteForm.controls['code']" required name="proCode" placeholder="Product Code">
+          <input matInput [formControl]="evoteForm.controls['code']" required name="proCode"
+            positiveNumberAndLetterOnly placeholder="Product Code">
         </mat-form-field>
       </div>
 
       <div fxFlex="34" class="pr-1">
         <mat-form-field class="full-width">
           <input matInput name="desc" [formControl]="evoteForm.controls['description']" required name="description"
-            placeholder="Description">
+            positiveNumberAndLetterOnly placeholder="Description">
         </mat-form-field>
       </div>
 
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
-          <input type="number" matInput name="quantity" [formControl]="evoteForm.controls['quantity']" min="1"
-            postiveNumberOnly required placeholder="Quantity">
+          <input type="number" matInput name="quantity" [formControl]="evoteForm.controls['quantity']"
+            positiveNumberOnly required placeholder="Quantity">
         </mat-form-field>
       </div>
 
@@ -70,7 +72,8 @@
       </div>
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="batchNumber" [formControl]="evoteForm.controls['batchNumber']" required placeholder="Batch Number">
+          <input matInput name="batchNumber" [formControl]="evoteForm.controls['batchNumber']" 
+          positiveNumberAndLetterOnly required placeholder="Batch Number">
         </mat-form-field>
       </div>
       <div fxFlex="34" class="pr-1">
@@ -83,19 +86,10 @@
         </mat-form-field>
       </div>
 
-      <div fxFlex="34" class="pr-1">
-
-        <mat-form-field class="full-width">
-          <mat-select [formControl]="evoteForm.controls['surveyId']" placeholder="Select A Survey">
-            <mat-option>none</mat-option>
-            <mat-option *ngFor="let survey of surveyRows" [value]="survey.id">{{survey.topic}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
 
 
 
-      <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
+      <!-- <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
         <mat-card-content>
           <input (change)="onSelectFile($event)" id="imageAvatar" type="file" [formControl]="evoteForm.controls['file']" />
         </mat-card-content>
@@ -106,7 +100,45 @@
       <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
         <p>Image Preview</p>
         <img width="200px" height="250px" src="" src="{{ imageUrl}}" id="dishPhoto">
+      </div> -->
+
+
+
+      <!-- --------- hidden file input --------- -->
+      <input (change)="onSelectFile($event)" #productImgs type="file" [formControl]="evoteForm.controls['file']"
+        multiple style="display: none" />
+
+
+      <!-- --------- file input click button --------- -->
+      <div *ngIf='data.isNew' layout-margin layout-padding>
+          <button mat-raised-button class="mr-1" (click)="productImgs.click()" 
+          [disabled]="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
+          (false) :
+          (this.selectedFileList.length === this.maxUploadableFileCount)"
+            type="button">
+            Browse Images
+            <span *ngIf="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
+            (false) :
+            (this.selectedFileList.length > 0)"> ({{this.selectedFileList.length}} / 4)</span>
+          </button>
+        </div>
+
+      <!-- --------- start images preview container --------- -->
+      <div id="cp_image_preview_container" fxLayout="row" fxLayoutWrap="wrap" layout-align="center">
+
+        <!-- --------- start card --------- -->
+        <div *ngFor='let url of urls; let i = index' fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" style="display: flex;">
+          <mat-card class="p-0">
+            <button type="button" class="close" aria-label="Close" (click)="removeSelectedImg(i)">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <img [src]="url">
+          </mat-card>
+        </div>
+        <!-- --------- end card --------- -->
+
       </div>
+      <!-- --------- end images preview container --------- -->
 
 
 

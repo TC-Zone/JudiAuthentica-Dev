@@ -1,25 +1,34 @@
-<h1 matDialogTitle>{{data.title}}</h1>
+<!-- <h1 matDialogTitle>{{data.title}}</h1> -->
 <form [formGroup]="ansTemplateForm" (ngSubmit)="submit()">
-  
+  <mat-toolbar matDialogTitle class="mat-primary m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">{{data.title}}</span>
+      <!-- <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button> -->
+    </div>
+  </mat-toolbar>
   <mat-dialog-content class="mat-typography">
 
-    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="pt-1">
 
-      <div fxFlex="100" class="pr-1">
-        <div class="text-muted">
-          Create your answer template by adding template name,type and answers. answers need to have a lable,value and option value
+      <div fxFlex="100" class="">
+        <div class="text-muted" >
+          Create your answer template by adding template name, type and answers. answers need to have a lable, value and
+          option value
         </div>
       </div>
 
-      <div fxFlex="50" class="pr-1">
+      <div fxFlex.sm="50" class="pr-1">
         <mat-form-field class="full-width">
           <input matInput [formControl]="ansTemplateForm.controls['name']" required name="name" placeholder="Answer template name">
         </mat-form-field>
       </div>
 
-      <div fxFlex="50" class="pr-1">
+      <div fxFlex.sm="50" class="pr-1">
         <mat-form-field class="full-width">
-          <mat-select [(ngModel)]="selectedAnsType" [formControl]="ansTemplateForm.controls['answerTemplateType']" required placeholder="Answer template type">
+          <mat-select [(ngModel)]="selectedAnsType" [formControl]="ansTemplateForm.controls['answerTemplateType']"
+            required placeholder="Answer template type">
             <mat-option>none</mat-option>
             <mat-option *ngFor="let type of answerTypes" [value]="type.value">{{type.name}}</mat-option>
           </mat-select>
@@ -29,11 +38,11 @@
 
       <div fxFlex="100" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" formArrayName='answers' *ngFor="let answer of ansTemplateArray.controls; let i=index">
 
-        <mat-card-title>
+        <mat-card-title class="mt-1">
           <small class="text-muted"> Answer {{i + 1}}</small>
         </mat-card-title>
 
-        <div [formGroupName]="i">
+        <div [formGroupName]="i" fxLayout="row" fxLayout.lt-sm="column" class="mb-1">
           <div fxFlex="25" class="pr-1">
             <mat-form-field class="full-width">
               <input matInput formControlName='lable' required name="lable" placeholder="Answer lable">
@@ -53,12 +62,20 @@
           </div>
 
           <div fxFlex="25" class="pr-1">
-            <mat-button-toggle (click)='addAnsTemplate()' value="add">
+            <!-- <mat-button-toggle (click)='addAnsTemplate()' value="add">
               <mat-icon>add</mat-icon>
             </mat-button-toggle>
-            <mat-button-toggle *ngIf="ansTemplateForm.controls['answers'].controls.length > 1" (click)=removeAnsTemplate(i) value="remove">
+            <mat-button-toggle *ngIf="ansTemplateForm.controls['answers'].controls.length > 1" (click)=removeAnsTemplate(i)
+              value="remove">
               <mat-icon>remove</mat-icon>
-            </mat-button-toggle>
+            </mat-button-toggle> -->
+            <button mat-mini-fab color="default" class="ml-1" (click)='addAnsTemplate()' value="add" type="button">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button mat-mini-fab color="default" class="ml-1" *ngIf="ansTemplateForm.controls['answers'].controls.length > 1"
+              (click)=removeAnsTemplate(i) value="remove" type="button">
+              <mat-icon>remove</mat-icon>
+            </button>
           </div>
 
         </div>
