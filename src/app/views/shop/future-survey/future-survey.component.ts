@@ -7,6 +7,7 @@ import "inputmask/dist/inputmask/phone-codes/phone.js";
 import { CrudService } from "../../cruds/crud.service";
 import { Subscription } from "rxjs";
 import { ResponseModel } from "../../../model/ResponseModel.model";
+import { FutureSurveyService } from "../future-survey.service";
 
 widgets.icheck(SurveyKo);
 widgets.select2(SurveyKo);
@@ -44,18 +45,17 @@ SurveyEditor.SurveyPropertyModalEditor.registerCustomWidget(
 
 @Component({
   selector: "app-future-survey",
-  templateUrl: "./future-survey.component.html",
-  styleUrls: ['./future-survey.component.css'],
-  
+  templateUrl: "./future-survey.component.html"
 })
 export class FutureSurveyComponent implements OnInit {
   editor: SurveyEditor.SurveyEditor;
   public clients: any[];
   public getClientSub: Subscription;
   public response: ResponseModel;
-  constructor(private clientService: CrudService) {}
-
-
+  constructor(
+    private clientService: CrudService,
+    private furureSurveyService: FutureSurveyService
+  ) {}
 
   json = {
     title: "Product Feedback Survey Example",
@@ -109,78 +109,6 @@ export class FutureSurveyComponent implements OnInit {
     ]
   };
 
-  
-  getAllClients() {
-    this.getClientSub = this.clientService.getItems().subscribe(data => {
-      this.response = data;
-      this.clients = this.response.content;
-
-      SurveyKo.JsonObject.metaData.addProperty(
-        "questionbase",
-        "popupdescription:text"
-      );
-      SurveyKo.JsonObject.metaData.addProperty("page", "popupdescription:text");
-
-      let noneClients = [{ value: "none", text: "none" }];
-      let newClients = [];
-      for (var i = 0; i < this.clients.length; i++) {
-        newClients.push({
-          value: this.clients[i].id,
-          text: this.clients[i].name
-        });
-      }
-      let fullClients = [];
-      fullClients = noneClients.concat(newClients);
-
-      console.log(fullClients);
-
-      
-      SurveyKo.JsonObject.metaData.addProperty("survey", {
-        name: "clientId",
-        choices: fullClients
-      });
-
-      SurveyKo.JsonObject.metaData.addProperty("questionbase", "questionId");
-      SurveyKo.JsonObject.metaData.findProperty(
-        "questionbase",
-        "questionId"
-      ).readOnly = true;
-      
- 
-     
-      //SurveyEditor.StylesManager.applyTheme("winterstone");
-
-
-      let editorOptions = {
-        showEmbededSurveyTab: true,
-        generateValidJSON: true,
-        
-      };
-
-      
-      this.editor = new SurveyEditor.SurveyEditor(
-        "surveyEditorContainer",
-        editorOptions,
-        
-      );
-
-      var questionCounter = 1;
-      //Set the name property different from the default value
-      //and set the tag property to a generated GUID value.
-      this.editor.onQuestionAdded.add(function(sender, options) {
-        var q = options.question;
-        var t = q.getType();
-        //q.name = "Question" + t[0].toUpperCase() + t.substring(1) + questionCounter;
-        q.questionId =
-          "Q" + t[0].toUpperCase() + t.substring(1) + questionCounter;
-        questionCounter++;
-      });
-
-      this.editor.text = JSON.stringify(this.json);
-      this.editor.saveSurveyFunc = this.saveMySurvey;
-    });
-  }
-
   setClients() {
     this.getClientSub = this.clientService.getItems().subscribe(data => {
       this.response = data;
@@ -219,10 +147,8 @@ export class FutureSurveyComponent implements OnInit {
       "questionbase",
       "questionId"
     ).readOnly = true;
-    
-    //SurveyEditor.StylesManager.applyTheme("winterstone");
-    
 
+    //SurveyEditor.StylesManager.applyTheme("winterstone");
   }
 
   loadSurveyEditor() {
@@ -247,64 +173,96 @@ export class FutureSurveyComponent implements OnInit {
     this.editor.text = JSON.stringify(this.json);
     this.editor.saveSurveyFunc = this.saveMySurvey;
   }
-  
-  setuptheme(){
-var mainColor = "#0684C0";
-var mainHoverColor = "#5DAAD2";
-var textColor = "#4a4a4a";
-var headerColor = "#a5a5a5";
-var headerBackgroundColor = "#000000";
-var bodyContainerBackgroundColor = "#f8f8f8";
 
-var defaultThemeColorsSurvey = SurveyKo
-    .StylesManager
-    .ThemeColors["default"];
-defaultThemeColorsSurvey["$main-color"] = mainColor;
-defaultThemeColorsSurvey["$main-hover-color"] = mainHoverColor;
-defaultThemeColorsSurvey["$text-color"] = textColor;
-defaultThemeColorsSurvey["$header-color"] = headerColor;
-defaultThemeColorsSurvey["$header-background-color"] = headerBackgroundColor;
-defaultThemeColorsSurvey["$body-container-background-color"] = bodyContainerBackgroundColor;
+  setuptheme() {
+    var mainColor = "#0684C0";
+    var mainHoverColor = "#5DAAD2";
+    var textColor = "#4a4a4a";
+    var headerColor = "#ffffff";
+    var headerBackgroundColor = "#000000";
+    var bodyContainerBackgroundColor = "#f8f8f8";
 
-var defaultThemeColorsEditor = SurveyEditor
-    .StylesManager
-    .ThemeColors["default"];
-defaultThemeColorsEditor["$primary-color"] = mainColor;
-defaultThemeColorsEditor["$secondary-color"] = mainColor;
-defaultThemeColorsEditor["$primary-hover-color"] = mainHoverColor;
-defaultThemeColorsEditor["$primary-text-color"] = textColor;
-defaultThemeColorsEditor["$selection-border-color"] = mainColor;
+    var defaultThemeColorsSurvey =
+      SurveyKo.StylesManager.ThemeColors["default"];
+    defaultThemeColorsSurvey["$main-color"] = mainColor;
+    defaultThemeColorsSurvey["$main-hover-color"] = mainHoverColor;
+    defaultThemeColorsSurvey["$text-color"] = textColor;
+    defaultThemeColorsSurvey["$header-color"] = headerColor;
+    defaultThemeColorsSurvey[
+      "$header-background-color"
+    ] = headerBackgroundColor;
+    defaultThemeColorsSurvey[
+      "$body-container-background-color"
+    ] = bodyContainerBackgroundColor;
 
+    var defaultThemeColorsEditor =
+      SurveyEditor.StylesManager.ThemeColors["default"];
+    defaultThemeColorsEditor["$primary-color"] = mainColor;
+    defaultThemeColorsEditor["$secondary-color"] = mainColor;
+    defaultThemeColorsEditor["$primary-hover-color"] = mainHoverColor;
+    defaultThemeColorsEditor["$primary-text-color"] = textColor;
+    defaultThemeColorsEditor["$selection-border-color"] = mainColor;
 
-//SurveyKo.defaultStandardCss.header = "titleheader";
+    SurveyKo.defaultStandardCss.header = "title";
 
-
-SurveyKo
-    .StylesManager
-    .applyTheme();
-SurveyEditor
-    .StylesManager
-    .applyTheme(
-
-    );
-
-
+    SurveyKo.StylesManager.applyTheme();
+    SurveyEditor.StylesManager.applyTheme();
   }
 
   @Output()
   surveySaved: EventEmitter<Object> = new EventEmitter();
   ngOnInit() {
-    //this.getAllClients();
     this.setuptheme();
     this.setClients();
-    
   }
 
-
   saveMySurvey = () => {
-    console.log(this.editor);
-    console.log(JSON.stringify(this.editor.text));
-    console.log(this.editor.text);
+    let jsonText = JSON.stringify(this.editor.text);
+    let jsonObject = JSON.parse(this.editor.text);
+
+    let request: FutureSurveyRequest = new FutureSurveyRequest(
+      jsonText,
+      jsonObject.title,
+      jsonObject.clientId,
+      jsonObject.pages
+    );
+
+    //IN UNDER CONSTRUCTIONS
+    //this.submitFutureSurvey(request);
     this.surveySaved.emit(JSON.parse(this.editor.text));
   };
+
+  submitFutureSurvey(jsonContent: any) {
+    this.furureSurveyService
+      .submitFutureSurveyContent(jsonContent)
+      .subscribe(data => {
+        console.log("COMPO..................");
+        console.log(data.jsonContent);
+        console.log("COMPO 2..................");
+        let jData = JSON.parse(data.jsonContent);
+        console.log(jData);
+        let JsonD = JSON.stringify(jData);
+        console.log("COMPO 3..................");
+        console.log(JsonD);
+        // let jsonContent = JSON.parse(data.jsonContent);
+        // let pagesResp : any[] =  data.pages;
+        // let pages: any[] = jsonContent.pages;
+        // console.log("pages..............................");
+        // console.log(pages);
+        // console.log("pages response ..............................");
+        // console.log(pagesResp)
+
+        // pages.forEach(page => {
+        // });
+      });
+  }
+}
+
+export class FutureSurveyRequest {
+  constructor(
+    public jsonContent: String,
+    public title: string,
+    public clientId: string,
+    public pages: any[]
+  ) {}
 }
