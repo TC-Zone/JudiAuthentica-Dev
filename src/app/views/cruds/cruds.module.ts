@@ -13,7 +13,8 @@ import {
   MatTooltipModule,
   MatDialogModule,
   MatSnackBarModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatToolbarModule
  } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -42,6 +43,7 @@ import { NgxTablePopupComponent } from './crud-ngx-table/ngx-table-popup/ngx-tab
     MatSnackBarModule,
     MatSlideToggleModule,
     SharedModule,
+    MatToolbarModule,
     RouterModule.forChild(CrudsRoutes)
   ],
   declarations: [CrudNgxTableComponent, NgxTablePopupComponent],

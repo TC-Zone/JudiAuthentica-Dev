@@ -19,6 +19,7 @@ import { EvoteService } from "../../evote/evote-service.service";
 import { SurveyService } from "../survey.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { SurveyModel } from "../../../model/SurveyRequest.model";
+import { DateValidator } from "app/utility/dateValidator";
 
 export const MY_FORMATS = {
   parse: {
@@ -49,6 +50,7 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
   implements OnInit {
   surveyDetailForm: FormGroup;
   questionForm: FormGroup;
+  today: Date;
 
   sub: any;
   isOptional = false;
@@ -121,6 +123,9 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
       this.buildQuestionForm(questions);
       this.getAllAnsTemplates();
       this.popuplateDropdown(this.selectedType);
+
+      
+    this.today = DateValidator.getToday();
     });
   }
 

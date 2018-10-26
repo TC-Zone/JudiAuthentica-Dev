@@ -1,9 +1,12 @@
-<h1 matDialogTitle>{{data.title}}</h1>
 <form [formGroup]="productForm" (ngSubmit)="submit()">
+  <mat-toolbar matDialogTitle class="mat-primary m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">{{data.title}}</span>
+    </div>
+  </mat-toolbar>
+  <mat-dialog-content class="mat-typography mt-1">
 
-  <mat-dialog-content class="mat-typography">
-
-    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
 
       <div fxFlex="34" class="pr-1">
 
@@ -100,6 +103,7 @@
 
 
       <!-- --------- file input click button --------- -->
+
       <div *ngIf="data.isNew" layout-margin layout-padding>
         <button mat-raised-button class="mr-1" (click)="productImgs.click()"
         [disabled]="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
@@ -109,7 +113,8 @@
           Browse Images
           <span *ngIf="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
           (false) :
-          (this.selectedFileList.length > 0)"> ({{this.selectedFileList.length}} / 4)</span>
+          (this.selectedFileList.length > 0)">
+            ({{this.selectedFileList.length}} / 4)</span>
         </button>
       </div>
 
@@ -143,4 +148,3 @@
 
 
 </form>
-

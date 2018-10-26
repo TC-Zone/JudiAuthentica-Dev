@@ -79,32 +79,8 @@ export class ProductCrudPopupComponent implements OnInit {
 
   ngOnInit() {
     // validate back dates
-    this.tomorrow = DateValidator.dateValidate();
-
-    if (!this.data.isNew) {
-      console.log("IPDATE CONTEXT");
-      console.log(this.data.payload.imageObjects);
-      let images: any[] = this.data.payload.imageObjects;
-      images.forEach(image => {
-        let img = environment.imageUrl + "downloadFile/" + image.id;
-
-        this.clientService.getImageById(img).subscribe(data => {
-          console.log("BLOB....................");
-          console.log(data);
-          const file = new File([data], "testfile");
-          console.log("FILE ..............");
-          console.log(file);
-          this.selectedFileList.push(file);
-        });
-
-        this.urls.push(img);
-      });
-      console.log("UPDATE URLS ...............................");
-      console.log(this.urls);
-      console.log("FILE ARRAY....................................");
-      console.log(this.selectedFileList);
-    }
-
+    this.tomorrow = DateValidator.getTomorrow();
+    
     this.getAllSurvey();
     this.getClientSuggestions();
     this.buildProductForm(this.data.payload);
