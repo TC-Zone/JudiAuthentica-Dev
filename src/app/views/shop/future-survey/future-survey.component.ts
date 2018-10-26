@@ -8,6 +8,7 @@ import { CrudService } from "../../cruds/crud.service";
 import { Subscription } from "rxjs";
 import { ResponseModel } from "../../../model/ResponseModel.model";
 import { FutureSurveyService } from "../future-survey.service";
+import { NavigationExtras, Router, ActivatedRoute } from "@angular/router";
 
 widgets.icheck(SurveyKo);
 widgets.select2(SurveyKo);
@@ -52,62 +53,27 @@ export class FutureSurveyComponent implements OnInit {
   public clients: any[];
   public getClientSub: Subscription;
   public response: ResponseModel;
+  sub: any;
+
+  jsonContent: any;
+
   constructor(
     private clientService: CrudService,
-    private furureSurveyService: FutureSurveyService
+    private furureSurveyService: FutureSurveyService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
-  json = {
-    title: "Product Feedback Survey Example",
-    showProgressBar: "top",
-    pages: [
-      {
-        name: "page1",
-        elements: [
-          {
-            qId: 1,
-            type: "text",
-            name: "question1",
-            title: "Question 1 ?"
-          },
-          {
-            qId: 2,
-            type: "imagepicker",
-            name: "question2",
-            title: "Image Chooser ?",
-            choices: [
-              {
-                value: "lion",
-                imageLink:
-                  "https://surveyjs.io/Content/Images/examples/image-picker/lion.jpg"
-              },
-              {
-                value: "giraffe",
-                imageLink:
-                  "https://surveyjs.io/Content/Images/examples/image-picker/giraffe.jpg"
-              },
-              {
-                value: "panda",
-                imageLink:
-                  "https://surveyjs.io/Content/Images/examples/image-picker/panda.jpg"
-              },
-              {
-                value: "camel",
-                imageLink:
-                  "https://surveyjs.io/Content/Images/examples/image-picker/camel.jpg"
-              }
-            ]
-          },
-          {
-            type: "matrix",
-            name: "question3",
-            columns: ["A", "B", "C"],
-            rows: ["Row A", "Row B"]
-          }
-        ]
-      }
-    ]
-  };
+  @Output()
+  surveySaved: EventEmitter<Object> = new EventEmitter();
+  ngOnInit() {
+    this.sub = this.route.queryParams.subscribe(params => {
+      this.jsonContent = params["jsonContent"];
+    });
+
+    this.setuptheme();
+    this.setClients();
+  }
 
   setClients() {
     this.getClientSub = this.clientService.getItems().subscribe(data => {
@@ -148,23 +114,39 @@ export class FutureSurveyComponent implements OnInit {
       "questionId"
     ).readOnly = true;
 
-
     //SurveyEditor.StylesManager.applyTheme("winterstone");
   }
 
   loadSurveyEditor() {
-    let editorOptions = { showEmbededSurveyTab: true, generateValidJSON: true, questionTypes: ["text", "checkbox", "radiogroup", "dropdown","imagepicker","matrix","rating"]  };
+    let editorOptions = {
+      showEmbededSurveyTab: true,
+      generateValidJSON: true,
+      questionTypes: [
+        "text",
+        "checkbox",
+        "radiogroup",
+        "dropdown",
+        "imagepicker",
+        "matrix",
+        "rating",
+        "comment"
+      ]
+    };
     this.editor = new SurveyEditor.SurveyEditor(
       "surveyEditorContainer",
       editorOptions
     );
 
-      let removeItems : string[] = ["editor","sortablelist","nouislider","bootstrapslider"];
+    let removeItems: string[] = [
+      "editor",
+      "sortablelist",
+      "nouislider",
+      "bootstrapslider"
+    ];
 
-      removeItems.forEach(item=>{
-        this.editor.toolbox.removeItem(item);
-      });
-
+    removeItems.forEach(item => {
+      this.editor.toolbox.removeItem(item);
+    });
 
     var questionCounter = 1;
     //Set the name property different from the default value
@@ -178,7 +160,11 @@ export class FutureSurveyComponent implements OnInit {
       questionCounter++;
     });
 
-    this.editor.text = JSON.stringify(this.json);
+    if (this.jsonContent) {
+      let js: any = JSON.parse(this.jsonContent);
+      this.editor.text = js;
+    }
+
     this.editor.saveSurveyFunc = this.saveMySurvey;
   }
 
@@ -211,23 +197,14 @@ export class FutureSurveyComponent implements OnInit {
     defaultThemeColorsEditor["$primary-text-color"] = textColor;
     defaultThemeColorsEditor["$selection-border-color"] = mainColor;
 
-
     SurveyKo.StylesManager.applyTheme();
     SurveyEditor.StylesManager.applyTheme();
-
-  }
-
-  @Output()
-  surveySaved: EventEmitter<Object> = new EventEmitter();
-  ngOnInit() {
-    this.setuptheme();
-    this.setClients();
   }
 
   saveMySurvey = () => {
     let jsonText = JSON.stringify(this.editor.text);
     let jsonObject = JSON.parse(this.editor.text);
-    console.log(jsonObject)
+    console.log(jsonObject);
     let request: FutureSurveyRequest = new FutureSurveyRequest(
       jsonText,
       jsonObject.title,
@@ -237,8 +214,19 @@ export class FutureSurveyComponent implements OnInit {
 
     //IN UNDER CONSTRUCTIONS
     //this.submitFutureSurvey(request);
+    this.navigateToSurveyView(jsonObject);
     this.surveySaved.emit(JSON.parse(this.editor.text));
   };
+
+  navigateToSurveyView(res: any) {
+    let extraParam: NavigationExtras = {
+      queryParams: {
+        jsonContent: JSON.stringify(res)
+      }
+    };
+
+    this.router.navigate(["shop/sViewer"], extraParam);
+  }
 
   submitFutureSurvey(jsonContent: any) {
     this.furureSurveyService
