@@ -103,8 +103,10 @@
 
 
       <!-- --------- file input click button --------- -->
-      <div *ngIf='data.isNew' layout-margin layout-padding>
-        <button mat-raised-button class="mr-1" (click)="productImgs.click()" [disabled]="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
+
+      <div *ngIf="data.isNew" layout-margin layout-padding>
+        <button mat-raised-button class="mr-1" (click)="productImgs.click()"
+        [disabled]="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
         (false) :
         (this.selectedFileList.length === this.maxUploadableFileCount)"
           type="button">
