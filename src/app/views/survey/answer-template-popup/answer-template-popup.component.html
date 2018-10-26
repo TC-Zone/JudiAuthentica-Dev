@@ -1,4 +1,3 @@
-<!-- <h1 matDialogTitle>{{data.title}}</h1> -->
 <form [formGroup]="ansTemplateForm" (ngSubmit)="submit()">
   <mat-toolbar matDialogTitle class="mat-primary m-0">
     <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
@@ -21,7 +20,8 @@
 
       <div fxFlex.sm="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput [formControl]="ansTemplateForm.controls['name']" required name="name" placeholder="Answer template name">
+          <input matInput [formControl]="ansTemplateForm.controls['name']" required name="name" 
+          letterOnly placeholder="Answer template name">
         </mat-form-field>
       </div>
 
@@ -51,13 +51,15 @@
 
           <div fxFlex="25" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput type="number" formControlName='value' required name="value" placeholder="Answer value">
+              <input matInput type="number" formControlName='value' required name="value" 
+              positiveNumberOnly placeholder="Answer value">
             </mat-form-field>
           </div>
 
           <div fxFlex="25" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput type="number" formControlName='optionNumber' required name="optionNumber" placeholder="Answer option">
+              <input matInput type="number" formControlName='optionNumber' required name="optionNumber" 
+              positiveNumberOnly placeholder="Answer option">
             </mat-form-field>
           </div>
 

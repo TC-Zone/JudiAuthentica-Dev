@@ -84,7 +84,7 @@ export class ProductCrudPopupComponent implements OnInit {
 
   ngOnInit() {
     // validate back dates
-    this.tomorrow = DateValidator.dateValidate();
+    this.tomorrow = DateValidator.getTomorrow();
     this.getAllSurvey();
     this.getClientSuggestions();
     this.buildProductForm(this.data.payload);
