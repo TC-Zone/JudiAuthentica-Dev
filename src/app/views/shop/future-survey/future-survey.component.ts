@@ -148,11 +148,12 @@ export class FutureSurveyComponent implements OnInit {
       "questionId"
     ).readOnly = true;
 
+    
     //SurveyEditor.StylesManager.applyTheme("winterstone");
   }
 
   loadSurveyEditor() {
-    let editorOptions = { showEmbededSurveyTab: true, generateValidJSON: true };
+    let editorOptions = { showEmbededSurveyTab: true, generateValidJSON: true, questionTypes: ["text", "checkbox", "radiogroup", "dropdown"]  };
     this.editor = new SurveyEditor.SurveyEditor(
       "surveyEditorContainer",
       editorOptions
@@ -206,6 +207,7 @@ export class FutureSurveyComponent implements OnInit {
 
     SurveyKo.StylesManager.applyTheme();
     SurveyEditor.StylesManager.applyTheme();
+   
   }
 
   @Output()
