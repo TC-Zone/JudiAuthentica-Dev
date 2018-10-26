@@ -178,7 +178,7 @@ export class FutureSurveyComponent implements OnInit {
     var mainColor = "#0684C0";
     var mainHoverColor = "#5DAAD2";
     var textColor = "#4a4a4a";
-    var headerColor = "#ffffff";
+    var headerColor = "#b7b7b7";
     var headerBackgroundColor = "#000000";
     var bodyContainerBackgroundColor = "#f8f8f8";
 
@@ -203,7 +203,6 @@ export class FutureSurveyComponent implements OnInit {
     defaultThemeColorsEditor["$primary-text-color"] = textColor;
     defaultThemeColorsEditor["$selection-border-color"] = mainColor;
 
-    SurveyKo.defaultStandardCss.header = "title";
 
     SurveyKo.StylesManager.applyTheme();
     SurveyEditor.StylesManager.applyTheme();
