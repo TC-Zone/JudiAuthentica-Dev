@@ -148,16 +148,23 @@ export class FutureSurveyComponent implements OnInit {
       "questionId"
     ).readOnly = true;
 
-    
+
     //SurveyEditor.StylesManager.applyTheme("winterstone");
   }
 
   loadSurveyEditor() {
-    let editorOptions = { showEmbededSurveyTab: true, generateValidJSON: true, questionTypes: ["text", "checkbox", "radiogroup", "dropdown"]  };
+    let editorOptions = { showEmbededSurveyTab: true, generateValidJSON: true, questionTypes: ["text", "checkbox", "radiogroup", "dropdown","imagepicker","matrix","rating"]  };
     this.editor = new SurveyEditor.SurveyEditor(
       "surveyEditorContainer",
       editorOptions
     );
+
+      let removeItems : string[] = ["editor","sortablelist","nouislider","bootstrapslider"];
+
+      removeItems.forEach(item=>{
+        this.editor.toolbox.removeItem(item);
+      });
+
 
     var questionCounter = 1;
     //Set the name property different from the default value
@@ -207,7 +214,7 @@ export class FutureSurveyComponent implements OnInit {
 
     SurveyKo.StylesManager.applyTheme();
     SurveyEditor.StylesManager.applyTheme();
-   
+
   }
 
   @Output()
@@ -220,7 +227,7 @@ export class FutureSurveyComponent implements OnInit {
   saveMySurvey = () => {
     let jsonText = JSON.stringify(this.editor.text);
     let jsonObject = JSON.parse(this.editor.text);
-
+    console.log(jsonObject)
     let request: FutureSurveyRequest = new FutureSurveyRequest(
       jsonText,
       jsonObject.title,
