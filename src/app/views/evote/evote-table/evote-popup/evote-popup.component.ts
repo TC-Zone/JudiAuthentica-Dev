@@ -244,6 +244,16 @@ export class EvotePopupComponent implements OnInit {
     input.append("file", this.imageFile);
     input.append("surveyId", formvalue.surveyId);
 
+    if(this.remainImagesID != null && this.remainImagesID.length > 0){
+      input.append("remainImagesID", this.remainImagesID.toString());
+    }
+
+    for (let i = 0; i < this.newlySelectedFileList.length; i++) {
+      let selectedFile: File = this.newlySelectedFileList[i];
+      let type = selectedFile.type.split("/");
+      let imageName = "image_" + i + "." + type[1];
+      input.append("file", selectedFile, imageName);
+    }
     return input;
   }
 
