@@ -6,7 +6,8 @@
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
       <div fxFlex="100" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput [formControl]="surveyForm.controls['topic']" required name="topic" placeholder="Survey topic">
+          <input matInput [formControl]="surveyForm.controls['topic']" required name="topic" 
+          letterOnly placeholder="Survey topic">
         </mat-form-field>
       </div>
 
@@ -40,7 +41,7 @@
 
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="startDate" [matDatepicker]="picker1" [formControl]="surveyForm.controls['startDate']" required placeholder="Start Date">
+          <input matInput name="startDate" [min]="startDateMin" [max]="startDateMax" (dateChange)="validateDatePickerMinMax()" [matDatepicker]="picker1" [formControl]="surveyForm.controls['startDate']" required placeholder="Start Date">
           <mat-datepicker-toggle matSuffix [for]="picker1">
             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
           </mat-datepicker-toggle>
@@ -51,7 +52,7 @@
 
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="endDate" [matDatepicker]="picker2" [formControl]="surveyForm.controls['endDate']" required placeholder="End Date">
+          <input matInput name="endDate" [min]="endDateMin" [max]="endDateMax" (dateChange)="validateDatePickerMinMax()"  [matDatepicker]="picker2" [formControl]="surveyForm.controls['endDate']" required placeholder="End Date">
           <mat-datepicker-toggle matSuffix [for]="picker2">
             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
           </mat-datepicker-toggle>

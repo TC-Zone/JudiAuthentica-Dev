@@ -1,11 +1,13 @@
-import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
+import { Component, OnInit, Inject, OnDestroy, ViewChild } from "@angular/core";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
   DateAdapter,
   MAT_DATE_LOCALE,
-  MAT_DATE_FORMATS
+  MAT_DATE_FORMATS,
+  MatDatepickerInputEvent,
+  MatDatepicker
 } from "@angular/material";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { LayoutService } from "../../../shared/services/layout.service";
@@ -17,6 +19,7 @@ import { MomentDateAdapter } from "@angular/material-moment-adapter";
 
 import { SurveyCommonComponent } from "../survey-common.component";
 import { EvoteService } from "../../evote/evote-service.service";
+import { DateValidator } from "app/utility/dateValidator";
 
 export const MY_FORMATS = {
   parse: {
@@ -46,6 +49,13 @@ export const MY_FORMATS = {
 export class SurveyCreationPopupComponent extends SurveyCommonComponent
   implements OnInit, OnDestroy {
   public surveyForm: FormGroup;
+  // startDateMax = DateValidator.getTomorrow();
+
+  // date Validate
+  startDateMin;
+  startDateMax;
+  endDateMin;
+  endDateMax;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -63,6 +73,9 @@ export class SurveyCreationPopupComponent extends SurveyCommonComponent
     this.selectedType = this.data.payload.type;
     console.log("this.selectedType : " + this.selectedType);
     this.popuplateDropdown(this.selectedType);
+    // this.startDateMax = DateValidator.;
+
+    this.validateDatePickerMinMax();
   }
 
   ngOnDestroy() {
@@ -83,6 +96,26 @@ export class SurveyCreationPopupComponent extends SurveyCommonComponent
       startDate: [fieldItem.startDate, Validators.required],
       endDate: [fieldItem.endDate, Validators.required]
     });
+  }
+
+
+  validateDatePickerMinMax() {
+    let sdv = this.surveyForm.get('startDate').value;
+    let edv = this.surveyForm.get('endDate').value;
+
+    if (sdv == null && edv == null) {
+      this.startDateMin = DateValidator.getToday();
+      this.endDateMin = DateValidator.getToday();
+    } else {
+      if (sdv != null) {
+        let sd: Date = sdv._d;
+        this.endDateMin = sd;
+      }
+      if (edv != null) {
+        let ed: Date = edv._d;
+        this.startDateMax = ed;
+      }
+    }
   }
 
   submit() {

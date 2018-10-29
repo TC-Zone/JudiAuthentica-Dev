@@ -110,18 +110,19 @@
 
 
       <!-- --------- file input click button --------- -->
-      <div *ngIf='data.isNew' layout-margin layout-padding>
-          <button mat-raised-button class="mr-1" (click)="productImgs.click()" 
-          [disabled]="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
+      <!-- *ngIf="data.isNew"  -->
+      <div layout-margin layout-padding>
+        <button mat-raised-button class="mr-1" (click)="productImgs.click()"
+        [disabled]="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
+        (false) :
+        (this.currentTotalImageCount === this.maxUploadableFileCount)"
+          type="button">
+          Browse Images
+          <span *ngIf="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
           (false) :
-          (this.selectedFileList.length === this.maxUploadableFileCount)"
-            type="button">
-            Browse Images
-            <span *ngIf="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
-            (false) :
-            (this.selectedFileList.length > 0)"> ({{this.selectedFileList.length}} / 4)</span>
-          </button>
-        </div>
+          (this.currentTotalImageCount > 0)"> ({{this.currentTotalImageCount}} / 4)</span>
+        </button>
+      </div>
 
       <!-- --------- start images preview container --------- -->
       <div id="cp_image_preview_container" fxLayout="row" fxLayoutWrap="wrap" layout-align="center">

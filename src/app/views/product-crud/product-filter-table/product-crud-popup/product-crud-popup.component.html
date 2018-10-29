@@ -100,16 +100,17 @@
 
 
       <!-- --------- file input click button --------- -->
-      <div *ngIf="data.isNew" layout-margin layout-padding>
+      <!-- *ngIf="data.isNew"  -->
+      <div layout-margin layout-padding>
         <button mat-raised-button class="mr-1" (click)="productImgs.click()"
         [disabled]="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
         (false) :
-        (this.selectedFileList.length === this.maxUploadableFileCount)"
+        (this.currentTotalImageCount === this.maxUploadableFileCount)"
           type="button">
           Browse Images
           <span *ngIf="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
           (false) :
-          (this.selectedFileList.length > 0)"> ({{this.selectedFileList.length}} / 4)</span>
+          (this.currentTotalImageCount > 0)"> ({{this.currentTotalImageCount}} / 4)</span>
         </button>
       </div>
 

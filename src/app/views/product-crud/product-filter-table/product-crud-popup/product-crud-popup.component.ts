@@ -64,9 +64,12 @@ export class ProductCrudPopupComponent implements OnInit {
   public hasBaseDropZoneOver: boolean = false;
   imageObject: any;
   //------- new --------
-  urls = [];
-  selectedFileList = [];
   maxUploadableFileCount: number = 4; // IF THIS IS NULL, THERE IS NO IMAGE LIMIT FOR FILE UPLOADER
+  urls = [];
+  newlySelectedFileList = [];
+  remainImagesID = []
+  currentTotalImageCount: number = 0;
+
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -75,34 +78,23 @@ export class ProductCrudPopupComponent implements OnInit {
     private surveyService: SurveyService,
     private fb: FormBuilder,
     public snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit() {
     // validate back dates
-    this.tomorrow = DateValidator.dateValidate();
+    this.tomorrow = DateValidator.getTomorrow();
 
     if (!this.data.isNew) {
-      console.log("IPDATE CONTEXT");
-      console.log(this.data.payload.imageObjects);
       let images: any[] = this.data.payload.imageObjects;
       images.forEach(image => {
         let img = environment.imageUrl + "downloadFile/" + image.id;
-
-        this.clientService.getImageById(img).subscribe(data => {
-          console.log("BLOB....................");
-          console.log(data);
-          const file = new File([data], "testfile");
-          console.log("FILE ..............");
-          console.log(file);
-          this.selectedFileList.push(file);
-        });
-
+        this.remainImagesID.push(image.id);
         this.urls.push(img);
       });
-      console.log("UPDATE URLS ...............................");
-      console.log(this.urls);
-      console.log("FILE ARRAY....................................");
-      console.log(this.selectedFileList);
+
+      this.currentTotalImageCount = this.remainImagesID.length;
+
+      this.printTest();
     }
 
     this.getAllSurvey();
@@ -197,8 +189,8 @@ export class ProductCrudPopupComponent implements OnInit {
       if (
         this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1
           ? true
-          : this.selectedFileList.length + filesAmount <=
-            this.maxUploadableFileCount
+          : this.currentTotalImageCount + filesAmount <=
+          this.maxUploadableFileCount
       ) {
         for (let i = 0; i < filesAmount; i++) {
           var reader = new FileReader();
@@ -208,8 +200,9 @@ export class ProductCrudPopupComponent implements OnInit {
           };
 
           reader.readAsDataURL(event.target.files[i]);
-          this.selectedFileList.push(event.target.files[i]);
+          this.newlySelectedFileList.push(event.target.files[i]);
         }
+        this.currentTotalImageCount += filesAmount;
       } else {
         // alert for file uploa limit
         this.snackBar.open(
@@ -219,30 +212,42 @@ export class ProductCrudPopupComponent implements OnInit {
         );
       }
 
-      this.viewIPArray();
+      this.printTest();
     }
   }
 
   // --------- For Testing -----------------
 
-  viewIPArray() {
+  printTest() {
     console.log("--------------- start ------------------");
-    console.log(this.selectedFileList.length);
-    console.log("---------------------------------");
-    // console.log(this.urls);
-    console.log("---------------------------------");
-    console.log(this.selectedFileList);
+    console.log("UPDATE URLS ...............................");
+    console.log(this.urls);
+    console.log("REMAIN IMAGE ID ARRAY ....................................");
+    console.log(this.remainImagesID);
+    console.log("TOTAL IMAGE COUNT ....................................");
+    console.log(this.currentTotalImageCount);
+    console.log("NEWLY SELECTED FILE ARRAY  ....................................");
+    console.log(this.newlySelectedFileList);
     console.log("--------------- end ------------------");
   }
 
   removeSelectedImg(index: number) {
     console.log("remove -- " + index);
     this.urls.splice(index, 1);
-    this.selectedFileList.splice(index, 1);
-    this.viewIPArray();
+    this.currentTotalImageCount -= 1;
+
+    if (this.remainImagesID.length < index + 1) {
+      this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
+    } else {
+      this.remainImagesID.splice(index);
+    }
+    this.printTest();
   }
 
   prepareToSave(formvalue): FormData {
+    console.log("--------------- newlySelectedFileList ------------------");
+    console.log(this.newlySelectedFileList);
+    console.log("--------------- newlySelectedFileList ------------------");
     let input: FormData = new FormData();
     if (formvalue.surveyId) {
       input.append("surveyId", formvalue.surveyId);
@@ -261,15 +266,17 @@ export class ProductCrudPopupComponent implements OnInit {
     input.append("description", formvalue.description);
     input.append("batchNumber", formvalue.batchNumber);
 
-    for (let i = 0; i < this.selectedFileList.length; i++) {
-      let selectedFile: File = this.selectedFileList[i];
+    if(this.remainImagesID != null && this.remainImagesID.length > 0){
+      input.append("remainImagesID", this.remainImagesID.toString());
+    }
+
+    for (let i = 0; i < this.newlySelectedFileList.length; i++) {
+      let selectedFile: File = this.newlySelectedFileList[i];
       let type = selectedFile.type.split("/");
       let imageName = "image_" + i + "." + type[1];
       input.append("file", selectedFile, imageName);
     }
-
-    console.log("------------------ tst 01 ");
-    console.log(input.get("file_1"));
+    
 
     return input;
   }
@@ -309,5 +316,5 @@ export class ProductCreationRequest {
 }
 
 class ClientSub {
-  constructor(public id: string) {}
+  constructor(public id: string) { }
 }

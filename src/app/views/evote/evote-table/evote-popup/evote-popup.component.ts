@@ -57,9 +57,11 @@ export class EvotePopupComponent implements OnInit {
   imageUrl: any = "assets/images/placeholder.jpg";
 
   //------- new --------
-  urls = [];
-  selectedFileList = [];
   maxUploadableFileCount: number = null; // IF THIS IS NULL, THERE IS NO IMAGE LIMIT FOR FILE UPLOADER
+  urls = [];
+  newlySelectedFileList = [];
+  remainImagesID = []
+  currentTotalImageCount: number = 0;
 
 
 
@@ -79,7 +81,7 @@ export class EvotePopupComponent implements OnInit {
 
   ngOnInit() {
     this.getAllSurvey();
-    this.tomorrow = DateValidator.dateValidate();
+    this.tomorrow = DateValidator.getTomorrow();
     this.buildEvoteForm(this.data.payload);
     this.getClientSuggestions();
     this.getAllSurvey();
@@ -119,54 +121,67 @@ export class EvotePopupComponent implements OnInit {
   // }
 
 
-
-  // --------- New Code -----------------
+// --------- New Code -----------------
   // File uploader validation and upload
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       var filesAmount = event.target.files.length;
       if (
-        this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1 ?
-          (true) :
-          (this.selectedFileList.length + filesAmount <= this.maxUploadableFileCount)
+        this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1
+          ? true
+          : this.currentTotalImageCount + filesAmount <=
+          this.maxUploadableFileCount
       ) {
         for (let i = 0; i < filesAmount; i++) {
           var reader = new FileReader();
 
           reader.onload = (event: any) => {
             this.urls.push(event.target.result);
-          }
+          };
 
           reader.readAsDataURL(event.target.files[i]);
-          this.selectedFileList.push(event.target.files[i]);
+          this.newlySelectedFileList.push(event.target.files[i]);
         }
+        this.currentTotalImageCount += filesAmount;
       } else {
         // alert for file uploa limit
-        this.snackBar.open("Can't upload more than " + this.maxUploadableFileCount + " photos", 'close', { duration: 2000 });
+        this.snackBar.open(
+          "Can't upload more than " + this.maxUploadableFileCount + " photos",
+          "close",
+          { duration: 2000 }
+        );
       }
 
-      this.viewIPArray();
-
+      this.printTest();
     }
   }
 
   // --------- For Testing -----------------
-  
-  viewIPArray() {
+
+  printTest() {
     console.log("--------------- start ------------------");
-    console.log(this.selectedFileList.length);
-    console.log("---------------------------------");
-    // console.log(this.urls);
-    console.log("---------------------------------");
-    console.log(this.selectedFileList);
+    console.log("UPDATE URLS ...............................");
+    console.log(this.urls);
+    console.log("REMAIN IMAGE ID ARRAY ....................................");
+    console.log(this.remainImagesID);
+    console.log("TOTAL IMAGE COUNT ....................................");
+    console.log(this.currentTotalImageCount);
+    console.log("NEWLY SELECTED FILE ARRAY  ....................................");
+    console.log(this.newlySelectedFileList);
     console.log("--------------- end ------------------");
   }
 
   removeSelectedImg(index: number) {
     console.log("remove -- " + index);
     this.urls.splice(index, 1);
-    this.selectedFileList.splice(index, 1);
-    this.viewIPArray();
+    this.currentTotalImageCount -= 1;
+
+    if (this.remainImagesID.length < index + 1) {
+      this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
+    } else {
+      this.remainImagesID.splice(index);
+    }
+    this.printTest();
   }
 
 
