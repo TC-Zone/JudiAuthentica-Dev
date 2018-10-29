@@ -15,6 +15,7 @@ import {
   MatAutocompleteModule,
   MatProgressBarModule,
   MatMenuModule,
+  MatToolbarModule,
 
 } from "../../../../node_modules/@angular/material";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
@@ -48,6 +49,7 @@ import { SharedModule } from '../../shared/shared.module';
     FileUploadModule,
     MatProgressBarModule,
     SharedModule,
+    MatToolbarModule,
     RouterModule.forChild(ProductCrudRouts)
   ],
   declarations: [

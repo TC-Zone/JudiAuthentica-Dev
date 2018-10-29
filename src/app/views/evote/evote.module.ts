@@ -12,7 +12,8 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatIconModule,
-  MatAutocompleteModule } from '@angular/material';
+  MatAutocompleteModule, 
+  MatToolbarModule} from '@angular/material';
 import { EvoteTableComponent } from './evote-table/evote-table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -44,6 +45,7 @@ import { SurveyService } from '../survey/survey.service';
     MatAutocompleteModule,
     SharedModule,
     FileUploadModule,
+    MatToolbarModule,
     RouterModule.forChild(EvoteRouts)
   ],
   providers: [EvoteService,CrudService,SurveyService],

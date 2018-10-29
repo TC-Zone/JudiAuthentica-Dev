@@ -1,19 +1,27 @@
-<h1 matDialogTitle>{{data.title}}</h1>
-
 <form [formGroup]="surveyForm" (ngSubmit)="submit()">
-  <mat-dialog-content class="mat-typography">
+  <mat-toolbar matDialogTitle class="mat-primary m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">{{data.title}}</span>
+    </div>
+  </mat-toolbar>
+  <mat-dialog-content class="mat-typography mt-1">
 
-    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <div fxFlex="100" class="pr-1">
         <mat-form-field class="full-width">
+<<<<<<< HEAD
           <input matInput [formControl]="surveyForm.controls['topic']" required name="topic" 
           letterOnly placeholder="Survey topic">
+=======
+          <input matInput [formControl]="surveyForm.controls['topic']" name="topic" letterOnly placeholder="Survey topic">
+>>>>>>> 69ead0639d8bed2ef9a07c2946a576bc00d98d91
         </mat-form-field>
       </div>
 
       <div fxFlex="100" class="pr-1">
         <mat-form-field class="full-width">
-          <mat-select [(value)]="selectedType" [(ngModel)]="selectedType" [formControl]="surveyForm.controls['type']" required placeholder="Survey Type">
+          <mat-select [(value)]="selectedType" [(ngModel)]="selectedType" [formControl]="surveyForm.controls['type']"
+            placeholder="Survey Type">
             <mat-option>none</mat-option>
             <mat-option *ngFor="let type of surveyTypes" (click)="popuplateDropdown(type.value)" [value]="type.value">{{type.name}}</mat-option>
           </mat-select>
@@ -24,14 +32,14 @@
       <div fxFlex="100" class="pr-1">
 
         <mat-form-field *ngIf='selectedType === "P"' class="full-width">
-          <mat-select [formControl]="surveyForm.controls['productId']" required placeholder="Select A Product">
+          <mat-select [formControl]="surveyForm.controls['productId']" placeholder="Select A Product">
             <mat-option>none</mat-option>
             <mat-option *ngFor="let product of products" [value]="product.id">{{product.name}}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field *ngIf='selectedType === "V"' class="full-width">
-          <mat-select [formControl]="surveyForm.controls['voteId']" required placeholder="Select An E-Vote">
+          <mat-select [formControl]="surveyForm.controls['voteId']" placeholder="Select An E-Vote">
             <mat-option>none</mat-option>
             <mat-option *ngFor="let evote of evotes" [value]="evote.id">{{evote.topic}}</mat-option>
           </mat-select>
@@ -41,7 +49,12 @@
 
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
+<<<<<<< HEAD
           <input matInput name="startDate" [min]="startDateMin" [max]="startDateMax" (dateChange)="validateDatePickerMinMax()" [matDatepicker]="picker1" [formControl]="surveyForm.controls['startDate']" required placeholder="Start Date">
+=======
+          <input matInput name="startDate"   [matDatepicker]="picker1"
+            [formControl]="surveyForm.controls['startDate']" placeholder="Start Date">
+>>>>>>> 69ead0639d8bed2ef9a07c2946a576bc00d98d91
           <mat-datepicker-toggle matSuffix [for]="picker1">
             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
           </mat-datepicker-toggle>
@@ -52,7 +65,12 @@
 
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
+<<<<<<< HEAD
           <input matInput name="endDate" [min]="endDateMin" [max]="endDateMax" (dateChange)="validateDatePickerMinMax()"  [matDatepicker]="picker2" [formControl]="surveyForm.controls['endDate']" required placeholder="End Date">
+=======
+          <input matInput name="endDate"  [matDatepicker]="picker2" [formControl]="surveyForm.controls['endDate']"
+            placeholder="End Date">
+>>>>>>> 69ead0639d8bed2ef9a07c2946a576bc00d98d91
           <mat-datepicker-toggle matSuffix [for]="picker2">
             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
           </mat-datepicker-toggle>

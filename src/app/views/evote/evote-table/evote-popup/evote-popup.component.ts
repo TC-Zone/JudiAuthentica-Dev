@@ -11,12 +11,12 @@ import {
 import { Subscription } from "../../../../../../node_modules/rxjs";
 import { EvoteService } from "../../evote-service.service";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
-import { DateValidator } from "../../../../utility/dateValidator";
 import { CrudService } from "../../../cruds/crud.service";
 import { ResponseModel } from "../../../../model/ResponseModel.model";
 import { FileUploader } from "ng2-file-upload";
 import * as moment from "moment";
 import { SurveyService } from '../../../survey/survey.service';
+import { DateValidator } from "app/utility/dateValidator";
 
 export const MY_FORMATS = {
   parse: {
@@ -191,7 +191,7 @@ export class EvotePopupComponent implements OnInit {
   buildEvoteForm(fieldItem) {
     this.evoteForm = this.fb.group({
       topic: [fieldItem.topic || "", Validators.required],
-      clientId: [fieldItem.clientId || ""],
+      clientId: [fieldItem.clientId || "",{disabled: !this.data.isNew}],
       code: [fieldItem.code || "", Validators.required],
       description: [fieldItem.description || "", Validators.required],
       quantity: [fieldItem.quantity || "", Validators.required],
