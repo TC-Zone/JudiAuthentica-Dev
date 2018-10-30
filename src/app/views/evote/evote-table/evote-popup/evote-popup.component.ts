@@ -84,6 +84,7 @@ export class EvotePopupComponent implements OnInit {
 
 
     if (!this.data.isNew) {
+      console.log("---------- IN -------------");
       let images: any[] = this.data.payload.imageObjects;
       images.forEach(image => {
         let img = environment.evoteimageUrl + "downloadFile/" + image.id;
@@ -189,13 +190,15 @@ export class EvotePopupComponent implements OnInit {
 
   removeSelectedImg(index: number) {
     console.log("remove -- " + index);
+    console.log("remainImagesID.length -- " +this.remainImagesID.length);
+    console.log("remove -- " + index);
     this.urls.splice(index, 1);
     this.currentTotalImageCount -= 1;
 
     if (this.remainImagesID.length < index + 1) {
       this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
     } else {
-      this.remainImagesID.splice(index);
+      this.remainImagesID.splice(index,1);
     }
     this.printTest();
   }

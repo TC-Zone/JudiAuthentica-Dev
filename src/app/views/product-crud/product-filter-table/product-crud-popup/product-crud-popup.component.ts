@@ -240,7 +240,7 @@ export class ProductCrudPopupComponent implements OnInit {
     if (this.remainImagesID.length < index + 1) {
       this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
     } else {
-      this.remainImagesID.splice(index);
+      this.remainImagesID.splice(index,1);
     }
     this.printTest();
   }
