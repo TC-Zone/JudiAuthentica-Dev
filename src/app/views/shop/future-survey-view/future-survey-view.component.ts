@@ -30,12 +30,14 @@ Survey.JsonObject.metaData.addProperty("page", "popupdescription:text");
 export class FutureSurveyViewComponent implements OnInit {
   jsonContent: Object;
   sub: any;
+  jsonObj;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.sub = this.route.queryParams.subscribe(params => {
       this.jsonContent = params["jsonContent"];
+      this.jsonObj = JSON.parse(params["jsonContent"]).pages[0].elements;
     });
 
     this.viewSurvey();
@@ -43,6 +45,8 @@ export class FutureSurveyViewComponent implements OnInit {
 
   viewSurvey() {
     const surveyModel = new Survey.Model(this.jsonContent);
+    let elementsArray = this.jsonObj;
+    let resultArray = [];
 
     surveyModel.onAfterRenderQuestion.add((survey, options) => {
       if (!options.question.popupdescription) return;
@@ -52,7 +56,7 @@ export class FutureSurveyViewComponent implements OnInit {
       btn.className = "btn btn-info btn-xs";
       btn.innerHTML = "More Info";
       var question = options.question;
-      btn.onclick = function() {
+      btn.onclick = function () {
         //showDescription(question);
         alert(options.question.popupdescription);
       };
@@ -70,8 +74,30 @@ export class FutureSurveyViewComponent implements OnInit {
       default: "none"
     });
 
-    surveyModel.onComplete.add(function(result) {
-      var modifiedData = Object.keys(result.data).map(function(qName) {
+    surveyModel.onComplete.add(function (result) {
+
+      //------- new start --------
+      elementsArray.forEach(element => {
+        let elementArray = {};
+        if (result.data[element.name] == null) {
+          elementArray["value"] = null;
+          elementArray["questionId"] = element.questionId;
+        } else {
+          elementArray["value"] = result.data[element.name];
+          elementArray["questionId"] = element.questionId;
+        }
+        resultArray.push(elementArray);
+      });
+
+      console.log("---------------------");
+      console.log("---------------------");
+      console.log(resultArray);
+      console.log("---------------------");
+      console.log("---------------------");
+      //------- new end --------
+
+
+      var modifiedData = Object.keys(result.data).map(function (qName) {
         let questionDet: any = result.getQuestionByName(qName); //resolve Survey.IQuestion interface
         return {
           value: result.data[qName], // attached for new output result
@@ -90,7 +116,6 @@ export class FutureSurveyViewComponent implements OnInit {
         jsonContent: JSON.stringify(res)
       }
     };
-
     this.router.navigate(["shop/sEditor"], extraParam);
   }
 }
