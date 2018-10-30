@@ -1,13 +1,22 @@
 export const environment = {
   production: true,
   apiURL: "productionApi",
-  productApiURL:'https://authentican60aazs63l.ca1.hana.ondemand.com/product/api/',
-  surveyApiURL : 'https://authentican60aazs63l.ca1.hana.ondemand.com/survey/api/',
-  imageUrl :"https://authentican60aazs63l.ca1.hana.ondemand.com/product/",
-  //productApiURL: "http://localhost:10001/api/",
-  //surveyApiURL: "http://localhost:10002/api/",
-  //imageUrl :"http://localhost:10001/",
-  // productApiURL: "https://productzg4t4ks63a.hana.ondemand.com/product/api/",
-  // surveyApiURL: "https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/",
-  // imageUrl: "https://productzg4t4ks63a.hana.ondemand.com/product/"
+
+  //SAP NEW 64GB
+  //productApiURL:'https://authentican60aazs63l.ca1.hana.ondemand.com/product/api/',
+  //surveyApiURL : 'https://authentican60aazs63l.ca1.hana.ondemand.com/survey/api/',
+  //productimageUrl :"https://authentican60aazs63l.ca1.hana.ondemand.com/product/",
+  //evoteimageUrl: "https://authentican60aazs63l.ca1.hana.ondemand.com/survey/",
+
+  //LOCALE
+  // productApiURL: "http://localhost:10001/api/",
+  // surveyApiURL: "http://localhost:10002/api/",
+  // productimageUrl: "http://localhost:10001/",
+  // evoteimageUrl: "http://localhost:10002/",
+
+  //SAP OLD
+  productApiURL: "https://productzg4t4ks63a.hana.ondemand.com/product/api/",
+  surveyApiURL: "https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/",
+  productimageUrl: "https://productzg4t4ks63a.hana.ondemand.com/product/",
+  evoteimageUrl : 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/'
 };

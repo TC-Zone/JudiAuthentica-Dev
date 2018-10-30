@@ -88,7 +88,7 @@ export class ProductCrudPopupComponent implements OnInit {
     if (!this.data.isNew) {
       let images: any[] = this.data.payload.imageObjects;
       images.forEach(image => {
-        let img = environment.imageUrl + "downloadFile/" + image.id;
+        let img = environment.productApiURL + "downloadFile/" + image.id;
         this.remainImagesID.push(image.id);
         this.urls.push(img);
       });
@@ -277,7 +277,7 @@ export class ProductCrudPopupComponent implements OnInit {
       let imageName = "image_" + i + "." + type[1];
       input.append("file", selectedFile, imageName);
     }
-    
+
 
     return input;
   }

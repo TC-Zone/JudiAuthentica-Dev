@@ -17,6 +17,7 @@ import { FileUploader } from "ng2-file-upload";
 import * as moment from "moment";
 import { SurveyService } from '../../../survey/survey.service';
 import { DateValidator } from "app/utility/dateValidator";
+import { environment } from 'environments/environment.prod';
 
 export const MY_FORMATS = {
   parse: {
@@ -80,6 +81,21 @@ export class EvotePopupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+
+    if (!this.data.isNew) {
+      let images: any[] = this.data.payload.imageObjects;
+      images.forEach(image => {
+        let img = environment.evoteimageUrl + "downloadFile/" + image.id;
+        this.remainImagesID.push(image.id);
+        this.urls.push(img);
+      });
+
+      this.currentTotalImageCount = this.remainImagesID.length;
+
+      this.printTest();
+    }
+
     this.getAllSurvey();
     this.tomorrow = DateValidator.getTomorrow();
     this.buildEvoteForm(this.data.payload);
@@ -241,8 +257,8 @@ export class EvotePopupComponent implements OnInit {
     input.append("description", formvalue.description);
     input.append("batchNumber", formvalue.batchNumber);
     input.append("clientId", formvalue.clientId.id);
-    input.append("file", this.imageFile);
-    input.append("surveyId", formvalue.surveyId);
+
+
 
     if(this.remainImagesID != null && this.remainImagesID.length > 0){
       input.append("remainImagesID", this.remainImagesID.toString());
@@ -292,7 +308,7 @@ export class EvoteCreationRequest {
     this.surveyId = formValue.surveyId;
     this.clientId = new ClientSub(formValue.clientId);
     this.file = formValue.file;
-    this.surveyId = formValue.surveyId;
+
   }
 }
 
