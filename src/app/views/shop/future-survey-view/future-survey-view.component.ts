@@ -37,7 +37,10 @@ export class FutureSurveyViewComponent implements OnInit {
   ngOnInit() {
     this.sub = this.route.queryParams.subscribe(params => {
       this.jsonContent = params["jsonContent"];
-      this.jsonObj = JSON.parse(params["jsonContent"]).pages[0].elements;
+      // this.jsonObj = JSON.parse(params["jsonContent"]).pages[0].elements;
+      this.jsonObj = JSON.parse(params["jsonContent"]).pages;
+
+      console.log(this.jsonObj);
     });
 
     this.viewSurvey();
@@ -45,7 +48,8 @@ export class FutureSurveyViewComponent implements OnInit {
 
   viewSurvey() {
     const surveyModel = new Survey.Model(this.jsonContent);
-    let elementsArray = this.jsonObj;
+    let pageArray = this.jsonObj;
+    // let elementsArray = this.jsonObj;
     let resultArray = [];
 
     surveyModel.onAfterRenderQuestion.add((survey, options) => {
@@ -76,18 +80,35 @@ export class FutureSurveyViewComponent implements OnInit {
 
     surveyModel.onComplete.add(function (result) {
 
-      //------- new start --------
-      elementsArray.forEach(element => {
-        let elementArray = {};
-        if (result.data[element.name] == null) {
-          elementArray["value"] = null;
-          elementArray["questionId"] = element.questionId;
-        } else {
-          elementArray["value"] = result.data[element.name];
-          elementArray["questionId"] = element.questionId;
-        }
-        resultArray.push(elementArray);
+      // ------- new start --------
+
+      pageArray.forEach(element => {
+        console.log(element.elements);
+        element.elements.forEach(element => {
+          let elementArray = {};
+          if (result.data[element.name] == null) {
+            elementArray["value"] = null;
+            elementArray["questionId"] = element.questionId;
+          } else {
+            elementArray["value"] = result.data[element.name];
+            elementArray["questionId"] = element.questionId;
+          }
+          resultArray.push(elementArray);
+        });
       });
+
+
+      // elementsArray.forEach(element => {
+      //   let elementArray = {};
+      //   if (result.data[element.name] == null) {
+      //     elementArray["value"] = null;
+      //     elementArray["questionId"] = element.questionId;
+      //   } else {
+      //     elementArray["value"] = result.data[element.name];
+      //     elementArray["questionId"] = element.questionId;
+      //   }
+      //   resultArray.push(elementArray);
+      // });
 
       console.log("---------------------");
       console.log("---------------------");
