@@ -1,17 +1,17 @@
-<form [formGroup]="evoteForm" (ngSubmit)="submit()">
+<form  [formGroup]="evoteForm" (ngSubmit)="submit()">
   <mat-toolbar matDialogTitle class="mat-primary m-0">
     <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
       <span class="title dialog-title">{{data.title}}</span>
     </div>
   </mat-toolbar>
-  <mat-dialog-content class="mat-typography mt-1">
+  <mat-dialog-content  [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" class="mat-typography mt-1">
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
 
       <!-- <div fxFlex="34" class="pr-1">
                 <mat-form-field class="full-width">
                   <input matInput placeholder="Choose a client" [matAutocomplete]="auto" [formControl]="evoteForm.controls['client']" >
                 </mat-form-field>
-        
+
                 <mat-autocomplete #auto="matAutocomplete" >
                     <mat-option *ngFor="let user of (filteredClient | async)?.content" [value]="user">
                       <span>{{ user.name }}</span>
@@ -105,7 +105,7 @@
 
 
 
-      <!-- --------- New Code --------- -->
+     <!-- --------- New Code --------- -->
       <!-- --------- hidden file input --------- -->
       <input (change)="onSelectFile($event)" #productImgs type="file" [formControl]="evoteForm.controls['file']"
         multiple style="display: none" />
@@ -130,8 +130,8 @@
       <div id="cp_image_preview_container" fxLayout="row" fxLayoutWrap="wrap" layout-align="center">
 
         <!-- --------- start card --------- -->
-        <div *ngFor='let url of urls; let i = index' fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" style="display: flex;">
-          <mat-card class="p-0">
+        <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngFor='let url of urls; let i = index' fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" style="display: flex;">
+          <mat-card    class="p-0">
             <button type="button" class="close" aria-label="Close" (click)="removeSelectedImg(i)">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -152,20 +152,20 @@
 
       <!-- <div *ngIf='data.isNew' fxFlex="100" class="pr-1">
               <mat-card-content>
-        
+
                 <div class="mb-1 mt-1">
                   <p>Upload a Product Image</p>
                   <input (change)="onSelectFile($event)" type="file" [formControl]="evoteForm.controls['file']" ng2FileSelect [uploader]="uploader"
                   />
                 </div>
-        
+
                 <div class="mb-1">
                   <div ng2FileDrop [ngClass]="{'dz-file-over': hasBaseDropZoneOver}" [uploader]="uploader" (fileOver)="fileOverBase($event)"
                     class="fileupload-drop-zone">
                     Drop png/jpeg file here
                   </div>
                 </div>
-        
+
                 <table class="default-table mat-box-shadow" style="width: 100%">
                   <thead>
                     <tr>
@@ -187,7 +187,7 @@
                     <p [ngStyle]="{padding: '0 1.2rem'}">Queue is empty</p>
                   </ng-template>
                 </table>
-        
+
               </mat-card-content>
             </div> -->
 
