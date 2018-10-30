@@ -153,10 +153,11 @@ export class FutureSurveyComponent implements OnInit {
     //and set the tag property to a generated GUID value.
     this.editor.onQuestionAdded.add(function(sender, options) {
       var q = options.question;
+      var d = q.surveyValue.currentPageValue.name;
       var t = q.getType();
       //q.name = "Question" + t[0].toUpperCase() + t.substring(1) + questionCounter;
       q.questionId =
-        "Q" + t[0].toUpperCase() + t.substring(1) + questionCounter;
+      d + "Q" + t[0].toUpperCase() + t.substring(1) + questionCounter;
       questionCounter++;
     });
 

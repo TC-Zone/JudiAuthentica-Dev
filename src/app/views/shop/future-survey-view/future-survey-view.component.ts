@@ -55,7 +55,7 @@ export class FutureSurveyViewComponent implements OnInit {
       var btn = document.createElement("button");
       btn.className = "btn btn-info btn-xs";
       btn.innerHTML = "More Info";
-      var question = options.question;
+
       btn.onclick = function () {
         //showDescription(question);
         alert(options.question.popupdescription);
@@ -69,10 +69,10 @@ export class FutureSurveyViewComponent implements OnInit {
 
     Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 
-    Survey.JsonObject.metaData.addProperty("questionbase", {
-      name: "qid:text",
-      default: "none"
-    });
+    // Survey.JsonObject.metaData.addProperty("questionbase", {
+    //   name: "qid:text",
+    //   default: "none"
+    // });
 
     surveyModel.onComplete.add(function (result) {
 
@@ -97,16 +97,16 @@ export class FutureSurveyViewComponent implements OnInit {
       //------- new end --------
 
 
-      var modifiedData = Object.keys(result.data).map(function (qName) {
-        let questionDet: any = result.getQuestionByName(qName); //resolve Survey.IQuestion interface
-        return {
-          value: result.data[qName], // attached for new output result
-          questionId: questionDet.questionId
-        };
-      });
+      // var modifiedData = Object.keys(result.data).map(function (qName) {
+      //   let questionDet: any = result.getQuestionByName(qName); //resolve Survey.IQuestion interface
+      //   return {
+      //     value: result.data[qName], // attached for new output result
+      //     questionId: questionDet.questionId
+      //   };
+      // });
       console.log("MODIFIED DATA");
-      console.log(modifiedData);
-      alert("Anser Result is : " + JSON.stringify(modifiedData));
+      console.log(resultArray);
+      alert("Anser Result is : " + JSON.stringify(resultArray));
     });
   }
 
