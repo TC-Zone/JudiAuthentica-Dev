@@ -10,14 +10,14 @@ import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
 })
 export class AnswerTemplatePopupComponent implements OnInit {
   public ansTemplateForm: FormGroup;
-  selectedAnsType : string;
-  ansTemplateArray : FormArray;
+  selectedAnsType: string;
+  ansTemplateArray: FormArray;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AnswerTemplatePopupComponent>,
     public fb: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.buildAnsTemplateform(this.data.payload);
@@ -36,7 +36,7 @@ export class AnswerTemplatePopupComponent implements OnInit {
 
   patch(fields?) {
     const control = <FormArray>this.ansTemplateForm.controls["answers"];
-    this.ansTemplateArray =control;
+    this.ansTemplateArray = control;
     if (!fields) {
       control.push(this.initAnswerTemplate());
       return;
@@ -74,7 +74,11 @@ export class AnswerTemplatePopupComponent implements OnInit {
     this.dialogRef.close(this.ansTemplateForm.value);
   }
 
-   answerTypes = [
+  onSelectFile(event) {
+    console.log("Ok...");
+  }
+
+  answerTypes = [
     // {
     //   name: "Free Text",
     //   value: "F"
@@ -86,6 +90,10 @@ export class AnswerTemplatePopupComponent implements OnInit {
     {
       name: "Single Option",
       value: "S"
+    },
+    {
+      name: "Test",
+      value: "T"
     }
   ];
 }

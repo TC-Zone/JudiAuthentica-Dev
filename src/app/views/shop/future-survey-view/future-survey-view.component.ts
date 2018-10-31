@@ -73,15 +73,10 @@ export class FutureSurveyViewComponent implements OnInit {
 
     Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 
-    // Survey.JsonObject.metaData.addProperty("questionbase", {
-    //   name: "qid:text",
-    //   default: "none"
-    // });
-
     surveyModel.onComplete.add(function (result) {
 
-      // ------- new start --------
 
+      // ------- new start --------
       pageArray.forEach(element => {
         console.log(element.elements);
         element.elements.forEach(element => {
@@ -96,19 +91,6 @@ export class FutureSurveyViewComponent implements OnInit {
           resultArray.push(elementArray);
         });
       });
-
-
-      // elementsArray.forEach(element => {
-      //   let elementArray = {};
-      //   if (result.data[element.name] == null) {
-      //     elementArray["value"] = null;
-      //     elementArray["questionId"] = element.questionId;
-      //   } else {
-      //     elementArray["value"] = result.data[element.name];
-      //     elementArray["questionId"] = element.questionId;
-      //   }
-      //   resultArray.push(elementArray);
-      // });
 
       console.log("---------------------");
       console.log("---------------------");

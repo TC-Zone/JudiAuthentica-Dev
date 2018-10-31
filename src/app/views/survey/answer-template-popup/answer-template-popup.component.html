@@ -12,16 +12,16 @@
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="pt-1">
 
       <div fxFlex="100" class="">
-        <div class="text-muted" >
-          Create your answer template by adding template name, type and answers. answers need to have a lable, value and
+        <div class="text-muted">
+          Create your answer template by adding template name, type and answers. answers need to have a lable, value
+          and
           option value
         </div>
       </div>
 
       <div fxFlex.sm="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput [formControl]="ansTemplateForm.controls['name']" required name="name" 
-          letterOnly placeholder="Answer template name">
+          <input matInput [formControl]="ansTemplateForm.controls['name']" required name="name" letterOnly placeholder="Answer template name">
         </mat-form-field>
       </div>
 
@@ -35,7 +35,6 @@
         </mat-form-field>
       </div>
 
-
       <div fxFlex="100" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" formArrayName='answers' *ngFor="let answer of ansTemplateArray.controls; let i=index">
 
         <mat-card-title class="mt-1">
@@ -43,23 +42,49 @@
         </mat-card-title>
 
         <div [formGroupName]="i" fxLayout="row" fxLayout.lt-sm="column" class="mb-1">
+          <div fxFlex="25" class="pr-1" [ngSwitch]="selectedAnsType">
+
+
+            <!-- --------- Answer Image Start--------- -->
+            <ng-template [ngSwitchCase]="'T'">
+
+              <!-- --------- hidden file input --------- -->
+              <input (change)="onSelectFile($event)" #answerImgs type="file" formControlName='lable' multiple style="display: none" />
+
+              <!-- --------- file input click button --------- -->
+              <div layout-margin layout-padding>
+                <button mat-raised-button class="mr-1" (click)="answerImgs.click()" type="button"> Browse Images
+                </button>
+              </div>
+
+            </ng-template>
+            <!-- --------- Answer Image End--------- -->
+
+
+            <!-- --------- Answer Lable Start--------- -->
+            <ng-template ngSwitchDefault>
+
+              <mat-form-field class="full-width">
+                <input matInput formControlName='lable' required name="lable" placeholder="Answer lable">
+              </mat-form-field>
+
+            </ng-template>
+            <!-- --------- Answer Lable End--------- -->
+
+
+          </div>
+
           <div fxFlex="25" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput formControlName='lable' required name="lable" placeholder="Answer lable">
+              <input matInput type="number" formControlName='value' required name="value" positiveNumberOnly
+                placeholder="Answer value">
             </mat-form-field>
           </div>
 
           <div fxFlex="25" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput type="number" formControlName='value' required name="value" 
-              positiveNumberOnly placeholder="Answer value">
-            </mat-form-field>
-          </div>
-
-          <div fxFlex="25" class="pr-1">
-            <mat-form-field class="full-width">
-              <input matInput type="number" formControlName='optionNumber' required name="optionNumber" 
-              positiveNumberOnly placeholder="Answer option">
+              <input matInput type="number" formControlName='optionNumber' required name="optionNumber"
+                positiveNumberOnly placeholder="Answer option">
             </mat-form-field>
           </div>
 
