@@ -74,10 +74,6 @@ export class AnswerTemplatePopupComponent implements OnInit {
     this.dialogRef.close(this.ansTemplateForm.value);
   }
 
-  onSelectFile(event) {
-    console.log("Ok...");
-  }
-
   answerTypes = [
     // {
     //   name: "Free Text",
@@ -90,10 +86,6 @@ export class AnswerTemplatePopupComponent implements OnInit {
     {
       name: "Single Option",
       value: "S"
-    },
-    {
-      name: "Test",
-      value: "T"
     }
   ];
 }
