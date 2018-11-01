@@ -102,7 +102,7 @@
         <img src="{{currentUser.image}}" alt="">
       </button>
       <mat-menu #accountMenu="matMenu">
-        <button mat-menu-item [routerLink]="['/profile/overview']">
+        <button mat-menu-item [routerLink]="['/profile/']">
           <mat-icon>account_box</mat-icon>
           <span>Profile</span>
         </button>
@@ -110,10 +110,10 @@
           <mat-icon>settings</mat-icon>
           <span>Account Settings</span>
         </button>
-        <button mat-menu-item>
+        <!-- <button mat-menu-item>
           <mat-icon>notifications_off</mat-icon>
           <span>Disable alerts</span>
-        </button>
+        </button> -->
         <button mat-menu-item (click)="signOut()" >
           <mat-icon>exit_to_app</mat-icon>
           <span>Sign out</span>

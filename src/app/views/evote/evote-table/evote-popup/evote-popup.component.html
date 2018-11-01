@@ -44,7 +44,7 @@
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
           <input matInput [formControl]="evoteForm.controls['code']" required name="proCode"
-            positiveNumberAndLetterOnly placeholder="Product Code">
+            positiveNumberAndLetterOnly placeholder="E-Vote Code">
         </mat-form-field>
       </div>
 
@@ -52,13 +52,6 @@
         <mat-form-field class="full-width">
           <input matInput name="desc" [formControl]="evoteForm.controls['description']" required name="description"
             positiveNumberAndLetterOnly placeholder="Description">
-        </mat-form-field>
-      </div>
-
-      <div fxFlex="33" class="pr-1">
-        <mat-form-field class="full-width">
-          <input type="number" matInput name="quantity" [formControl]="evoteForm.controls['quantity']"
-            positiveNumberOnly required placeholder="Quantity">
         </mat-form-field>
       </div>
 

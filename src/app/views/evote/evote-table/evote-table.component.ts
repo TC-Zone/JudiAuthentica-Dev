@@ -42,12 +42,34 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
     private downloadService: AppFileDownloadService,
     private conversionService: AppDataConversionService,
     private dialog: MatDialog,
-    private clientService : CrudService
+    private clientService: CrudService
   ) {}
 
   ngOnInit() {
     this.getAllEvote();
     this.getClientSuggestions();
+  }
+
+  downloadCsv(selectedRow) {
+    console.log("SELECTED RAW : " + selectedRow.id);
+    this.evoteService
+      .getEvoteDetails(selectedRow.id)
+      .subscribe(successResp => {
+        let auths = successResp.content;
+        const fileName =
+          selectedRow.topic +
+          "_" +
+          selectedRow.code +
+          "_" +
+          selectedRow.batchNumber;
+        const csvData = this.conversionService.convertToCsv(auths);
+
+        this.downloadService.downloadFile({
+          name: fileName,
+          type: "csv",
+          data: csvData
+        });
+      });
   }
 
   ngOnDestroy() {
@@ -87,13 +109,12 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
   }
 
   getClientSuggestions() {
-    console.log('called suggestions')
     this.getClientSub = this.clientService
       .getClientSuggestions()
       .subscribe(data => {
         this.response = data;
         this.clients = this.response.content;
-        console.log(this.clients)
+        console.log(this.clients);
       });
   }
 
@@ -104,8 +125,6 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
       },
       error => {
         this.loader.close();
-        console.log(error);
-        console.log(error.status);
         this.errDialog.showError({
           title: "Error",
           status: error.status,
@@ -139,15 +158,12 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
   }
 
   openEvotePopup(data: any = {}, isNew?) {
-    let title = isNew ? "Add new E vote" : "Update E vote";
+    let title = isNew ? "Add New E-Vote" : "Update E-Vote";
     let dialogRef: MatDialogRef<any> = this.dialog.open(EvotePopupComponent, {
       width: "720px",
       disableClose: true,
-      data: { title: title, payload: data ,isNew: isNew}
+      data: { title: title, payload: data, isNew: isNew }
     });
-
-    console.log("RES data :");
-    console.log(data);
 
     dialogRef.afterClosed().subscribe(res => {
       if (!res) {
@@ -155,12 +171,6 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
         return;
       }
       this.loader.open();
-
-      console.log("RES obj :");
-      console.log(res);
-
-
-     // res.expireDate = moment(res.expireDate).format("YYYY-MM-DD");
 
       if (isNew) {
         this.evoteService.addEvote(res, this.rows).subscribe(
@@ -170,11 +180,23 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            let backEndError = error.error.validationFailures[0].field;
+
+            console.log(backEndError);
+
+            if (backEndError == "eVote") {
+              this.errDialog.showError({
+                title: "Client Error !",
+                clientError: " Voters are not exists for entered batch number !",
+                type: "client_error"
+              });
+            } else {
+              this.errDialog.showError({
+                title: "Error",
+                status: error.status,
+                type: "http_error"
+              });
+            }
           }
         );
       } else {
@@ -217,13 +239,9 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
         // if user press cancel.
         return;
       }
-      console.log("FORM DATA  : ");
-      console.log(res);
 
       this.evoteService.populateVoters(res).subscribe(
         response => {
-          console.log("response of populate voters : ");
-          console.log(response);
         },
         error => {
           this.loader.close();

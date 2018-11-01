@@ -21,6 +21,7 @@ import { FileUploader } from "ng2-file-upload";
 import * as moment from "moment";
 import { SurveyService } from "../../../survey/survey.service";
 import { environment } from "environments/environment.prod";
+import { egretAnimations } from '../../../../shared/animations/egret-animations';
 
 export const MY_FORMATS = {
   parse: {
@@ -37,6 +38,7 @@ export const MY_FORMATS = {
 @Component({
   selector: "app-product-crud-popup",
   templateUrl: "./product-crud-popup.component.html",
+  animations : egretAnimations,
   providers: [
     {
       provide: DateAdapter,

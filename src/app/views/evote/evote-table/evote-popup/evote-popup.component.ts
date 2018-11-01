@@ -18,6 +18,7 @@ import * as moment from "moment";
 import { SurveyService } from '../../../survey/survey.service';
 import { DateValidator } from "app/utility/dateValidator";
 import { environment } from 'environments/environment.prod';
+import { egretAnimations } from '../../../../shared/animations/egret-animations';
 
 export const MY_FORMATS = {
   parse: {
@@ -34,6 +35,7 @@ export const MY_FORMATS = {
 @Component({
   selector: "app-evote-popup",
   templateUrl: "./evote-popup.component.html",
+  animations : egretAnimations,
   providers: [
     {
       provide: DateAdapter,
@@ -213,7 +215,6 @@ export class EvotePopupComponent implements OnInit {
       clientId: [fieldItem.clientId || "",{disabled: !this.data.isNew}],
       code: [fieldItem.code || "", Validators.required],
       description: [fieldItem.description || "", Validators.required],
-      quantity: [fieldItem.quantity || "", Validators.required],
       expireDate: [fieldItem.expireDate || "", Validators.required],
       batchNumber: [fieldItem.batchNumber || "", Validators.required],
       surveyId: [fieldItem.surveyId || null],

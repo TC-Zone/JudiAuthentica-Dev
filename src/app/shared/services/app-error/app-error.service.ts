@@ -11,6 +11,7 @@ interface ErrorData {
   message?: string;
   type?: string;
   status?: string;
+  clientError?: string;
 }
 
 @Injectable()
@@ -35,8 +36,10 @@ export class AppErrorService {
     let errorMsg;
     if (error.type == "http_error") {
       errorMsg = this.showHttpError(error);
+    } else if (error.type == "client_error") {
+      errorMsg = error.clientError;
     } else {
-      errorMsg = "CP Authentica : Something went wrong ";
+      errorMsg = "CP Judi Authentica : Something went wrong ";
     }
 
     let dialogRef: MatDialogRef<AppErrorComponent>;

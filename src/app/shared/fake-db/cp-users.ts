@@ -62,6 +62,14 @@ export class CpUsersDB {
       image: "assets/images/cp_users/buddhi_hasanka.jpg",
       company: "Clear Picture - Sri Lanka",
       position:"Software Engineer"
+    },{
+      id: "8",
+      user_name: "scottm",
+      profile_name: "Scott Murray",
+      password: "scott123",
+      image: "assets/images/cp_users/scott.jpg",
+      company: "Clear Picture - Global",
+      position:"President & Chief Executive Officer"
     }
   ];
 }

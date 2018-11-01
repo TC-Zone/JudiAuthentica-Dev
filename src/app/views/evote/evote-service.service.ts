@@ -68,10 +68,15 @@ export class EvoteService {
   }
 
   getEvoteById(evoteId): Observable<any> {
-    console.log("called get evote by id");
     return this.http
       .get<any>(this.surveyApiUrl + evoteId)
       .pipe(catchError(this.handleError));
+  }
+
+  getEvoteDetails(evoteId){
+    return this.http
+    .get<any>(environment.surveyApiURL+ "eVoterDetails/"+evoteId)
+    .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse | any) {
