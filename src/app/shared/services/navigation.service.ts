@@ -414,14 +414,13 @@ export class NavigationService {
       icon: "data_usage",
       state: "surveys"
     },
-    // ,
-    // {
-    //   name: "Form",
-    //   type: "link",
-    //   tooltip: "Form",
-    //   icon: "description",
-    //   state: "form/showForm"
-    // }
+    {
+      name: "Form",
+      type: "link",
+      tooltip: "Form",
+      icon: "description",
+      state: "form/showForm"
+    },
     {
       name: "E-Vote",
       type: "link",
@@ -440,8 +439,7 @@ export class NavigationService {
         { name: "Survey Viewer", state: "sViewer" },
       ]
     }
-
-    // {
+    // ,{
     //   name: 'INBOX',
     //   type: 'link',
     //   tooltip: 'Inbox',
@@ -614,13 +612,13 @@ export class NavigationService {
     //     { name: 'Level Two', state: 'fake-5' }
     //   ]
     // },
-    // {
-    //   name: 'DOC',
-    //   type: 'extLink',
-    //   tooltip: 'Documentation',
-    //   icon: 'library_books',
-    //   state: 'http://egret-doc.mhrafi.com/'
-    // }
+    ,{
+      name: 'DOC',
+      type: 'extLink',
+      tooltip: 'Documentation',
+      icon: 'library_books',
+      state: 'http://egret-doc.mhrafi.com/'
+    }
   ];
 
   // Icon menu TITLE at the very top of navigation.
