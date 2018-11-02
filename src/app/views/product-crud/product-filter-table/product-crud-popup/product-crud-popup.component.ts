@@ -21,7 +21,7 @@ import { FileUploader } from "ng2-file-upload";
 import * as moment from "moment";
 import { SurveyService } from "../../../survey/survey.service";
 import { environment } from "environments/environment.prod";
-import { egretAnimations } from '../../../../shared/animations/egret-animations';
+import { egretAnimations } from "../../../../shared/animations/egret-animations";
 
 export const MY_FORMATS = {
   parse: {
@@ -38,7 +38,7 @@ export const MY_FORMATS = {
 @Component({
   selector: "app-product-crud-popup",
   templateUrl: "./product-crud-popup.component.html",
-  animations : egretAnimations,
+  animations: egretAnimations,
   providers: [
     {
       provide: DateAdapter,
@@ -55,7 +55,6 @@ export class ProductCrudPopupComponent implements OnInit {
   public response: ResponseModel;
   public filteredClient: Observable<Clients>;
   tomorrow: Date;
-  imageFile: File;
   imageUrl: any = "assets/images/placeholder.jpg";
 
   getAllSurveySub: Subscription;
@@ -69,9 +68,8 @@ export class ProductCrudPopupComponent implements OnInit {
   maxUploadableFileCount: number = 4; // IF THIS IS NULL, THERE IS NO IMAGE LIMIT FOR FILE UPLOADER
   urls = [];
   newlySelectedFileList = [];
-  remainImagesID = []
+  remainImagesID = [];
   currentTotalImageCount: number = 0;
-
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -80,10 +78,9 @@ export class ProductCrudPopupComponent implements OnInit {
     private surveyService: SurveyService,
     private fb: FormBuilder,
     public snackBar: MatSnackBar
-  ) { }
+  ) {}
 
   ngOnInit() {
-
     // validate back dates
     this.tomorrow = DateValidator.getTomorrow();
 
@@ -96,8 +93,6 @@ export class ProductCrudPopupComponent implements OnInit {
       });
 
       this.currentTotalImageCount = this.remainImagesID.length;
-
-      this.printTest();
     }
 
     this.getAllSurvey();
@@ -143,22 +138,11 @@ export class ProductCrudPopupComponent implements OnInit {
   }
 
   submit() {
-    console.log("PRODUCT FORM VALUES ");
-    console.log(this.productForm.value);
-
     let productRequest: ProductCreationRequest = new ProductCreationRequest(
       this.productForm.value
     );
-
-    console.log("ProductCreationRequest" + JSON.stringify(productRequest));
-
     let formData;
-
     formData = this.prepareToSave(productRequest);
-
-    console.log("-----------  prepared form data ");
-    console.log(formData);
-    console.log(JSON.stringify(formData));
     this.dialogRef.close(formData);
   }
 
@@ -166,23 +150,6 @@ export class ProductCrudPopupComponent implements OnInit {
   public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
-
-  // --------- Old Code -----------------
-
-  // onSelectFile(event) {
-  //   let x = this.uploader.queue.length - 1;
-  //   this.imageObject = this.uploader.queue[x];
-
-  //   let reader = new FileReader();
-  //   if (event.target.files && event.target.files.length > 0) {
-  //     this.imageFile = event.target.files[0];
-  //     reader.readAsDataURL(this.imageFile);
-  //     reader.onload = (event: any) => {
-  //       this.imageUrl = event.target.result;
-  //       console.log("IMAGE URL  : " + this.imageUrl);
-  //     };
-  //   }
-  // }
 
   // --------- New Code -----------------
   // File uploader validation and upload
@@ -193,7 +160,7 @@ export class ProductCrudPopupComponent implements OnInit {
         this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1
           ? true
           : this.currentTotalImageCount + filesAmount <=
-          this.maxUploadableFileCount
+            this.maxUploadableFileCount
       ) {
         for (let i = 0; i < filesAmount; i++) {
           var reader = new FileReader();
@@ -214,49 +181,25 @@ export class ProductCrudPopupComponent implements OnInit {
           { duration: 2000 }
         );
       }
-
-      this.printTest();
     }
   }
 
-  // --------- For Testing -----------------
-
-  printTest() {
-    console.log("--------------- start ------------------");
-    console.log("UPDATE URLS ...............................");
-    console.log(this.urls);
-    console.log("REMAIN IMAGE ID ARRAY ....................................");
-    console.log(this.remainImagesID);
-    console.log("TOTAL IMAGE COUNT ....................................");
-    console.log(this.currentTotalImageCount);
-    console.log("NEWLY SELECTED FILE ARRAY  ....................................");
-    console.log(this.newlySelectedFileList);
-    console.log("--------------- end ------------------");
-  }
-
   removeSelectedImg(index: number) {
-    console.log("remove -- " + index);
     this.urls.splice(index, 1);
     this.currentTotalImageCount -= 1;
 
     if (this.remainImagesID.length < index + 1) {
       this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
     } else {
-      this.remainImagesID.splice(index,1);
+      this.remainImagesID.splice(index, 1);
     }
-    this.printTest();
   }
 
   prepareToSave(formvalue): FormData {
-    console.log("--------------- newlySelectedFileList ------------------");
-    console.log(this.newlySelectedFileList);
-    console.log("--------------- newlySelectedFileList ------------------");
     let input: FormData = new FormData();
     if (formvalue.surveyId) {
       input.append("surveyId", formvalue.surveyId);
     }
-
-    input.append("file", this.imageFile);
     input.append("code", formvalue.code);
     input.append("quantity", formvalue.quantity);
     input.append("client", formvalue.client.id);
@@ -264,12 +207,11 @@ export class ProductCrudPopupComponent implements OnInit {
       "expireDate",
       moment(formvalue.expireDate).format("YYYY-MM-DD")
     );
-
     input.append("name", formvalue.name);
     input.append("description", formvalue.description);
     input.append("batchNumber", formvalue.batchNumber);
 
-    if(this.remainImagesID != null && this.remainImagesID.length > 0){
+    if (this.remainImagesID != null && this.remainImagesID.length > 0) {
       input.append("remainImagesID", this.remainImagesID.toString());
     }
 
@@ -279,7 +221,6 @@ export class ProductCrudPopupComponent implements OnInit {
       let imageName = "image_" + i + "." + type[1];
       input.append("file", selectedFile, imageName);
     }
-
 
     return input;
   }
@@ -305,7 +246,6 @@ export class ProductCreationRequest {
   file: any;
 
   constructor(public formValue: any) {
-    console.log("SURVEY ID :  " + formValue.surveyId);
     this.client = new ClientSub(formValue.client);
     this.code = formValue.code;
     this.name = formValue.name;
@@ -319,5 +259,5 @@ export class ProductCreationRequest {
 }
 
 class ClientSub {
-  constructor(public id: string) { }
+  constructor(public id: string) {}
 }

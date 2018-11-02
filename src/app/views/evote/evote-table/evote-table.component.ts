@@ -52,24 +52,22 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
 
   downloadCsv(selectedRow) {
     console.log("SELECTED RAW : " + selectedRow.id);
-    this.evoteService
-      .getEvoteDetails(selectedRow.id)
-      .subscribe(successResp => {
-        let auths = successResp.content;
-        const fileName =
-          selectedRow.topic +
-          "_" +
-          selectedRow.code +
-          "_" +
-          selectedRow.batchNumber;
-        const csvData = this.conversionService.convertToCsv(auths);
+    this.evoteService.getEvoteDetails(selectedRow.id).subscribe(successResp => {
+      let auths = successResp.content;
+      const fileName =
+        selectedRow.topic +
+        "_" +
+        selectedRow.code +
+        "_" +
+        selectedRow.batchNumber;
+      const csvData = this.conversionService.convertToCsv(auths);
 
-        this.downloadService.downloadFile({
-          name: fileName,
-          type: "csv",
-          data: csvData
-        });
+      this.downloadService.downloadFile({
+        name: fileName,
+        type: "csv",
+        data: csvData
       });
+    });
   }
 
   ngOnDestroy() {
@@ -187,7 +185,8 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
             if (backEndError == "eVote") {
               this.errDialog.showError({
                 title: "Client Error !",
-                clientError: " Voters are not exists for entered batch number !",
+                clientError:
+                  " Voters are not exists for entered batch number !",
                 type: "client_error"
               });
             } else {
@@ -239,9 +238,12 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
         // if user press cancel.
         return;
       }
-
+      this.loader.open();
       this.evoteService.populateVoters(res).subscribe(
         response => {
+          console.log('RESPONSE : ');
+          console.log(response)
+          this.loader.close();
         },
         error => {
           this.loader.close();

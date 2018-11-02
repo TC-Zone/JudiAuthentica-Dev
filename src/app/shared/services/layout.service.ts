@@ -32,8 +32,8 @@ export class LayoutService {
   layoutConf$ = this.layoutConfSubject.asObservable();
   public isMobile: boolean;
   public currentRoute: string;
-  public fullWidthRoutes = ['shop/'];
-
+  public fullWidthRoutes = ['future-survey/'];
+  public compactRoutes = ['surveys'];
   constructor(
     private router: Router
   ) {
@@ -82,6 +82,7 @@ export class LayoutService {
 
 
   adjustLayout(options: IAdjustScreenOptions = {}) {
+
     let sidebarStyle: string;
     this.isMobile = this.isSm();
     this.currentRoute = options.route || this.currentRoute;
@@ -121,6 +122,12 @@ export class LayoutService {
           this.publishLayoutChange({ sidebarStyle: 'closed' });
         }
       })
+
+      this.compactRoutes.forEach(route => {
+        if (this.currentRoute.indexOf(route) !== -1) {
+          this.publishLayoutChange({ sidebarStyle: 'compact' });
+        }
+      });
     }
   }
 
