@@ -70,6 +70,30 @@ export class CpUsersDB {
       image: "assets/images/cp_users/scott.jpg",
       company: "Clear Picture - Global",
       position:"President & Chief Executive Officer"
+    },{
+      id: "9",
+      user_name: "hasitham",
+      profile_name: "Hasitha De Mel",
+      password: "hasitha123",
+      image: "assets/images/cp_users/hasitha.jpg",
+      company: "Clear Picture - Sri Lanka",
+      position:"iOS Development"
+    },{
+      id: "10",
+      user_name: "andrewf",
+      profile_name: "Andrew Fraser",
+      password: "andrew123",
+      image: "assets/images/cp_users/andrew_replace.png",
+      company: "Clear Picture - Global",
+      position:"Service Delivery"
+    },{
+      id: "11",
+      user_name: "rashmid",
+      profile_name: "Rashmi Deldeniya",
+      password: "rashmi123",
+      image: "assets/images/cp_users/rashmi.jpg",
+      company: "Clear Picture - Sri Lanka",
+      position:"Quality Assurance"
     }
   ];
 }
