@@ -1,16 +1,19 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Injector } from "@angular/core";
 import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse
 } from "@angular/common/http";
-import { environment } from "../../../environments/environment";
+
 import { Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
+import { InjectorInstance } from "./future-survey.module";
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable()
 export class FutureSurveyService {
   surveyApiUrl: string = environment.surveyApiURL;
+  private http: HttpClient;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -20,7 +23,9 @@ export class FutureSurveyService {
     })
   };
 
-  constructor(private http: HttpClient) {}
+  constructor() {
+    this.http = InjectorInstance.get<HttpClient>(HttpClient);
+  }
 
   submitFutureSurveyContent(content): Observable<any> {
     return this.http
@@ -33,8 +38,48 @@ export class FutureSurveyService {
       );
   }
 
+  updateFutureSurveyContent(content, id): Observable<any> {
+    return this.http
+      .put<any>(this.surveyApiUrl + "surveys" + "/futureSurvey/" + id, content)
+      .pipe(
+        map(data => {
+          return data.content;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  getAllFutureSurveys(): Observable<any> {
+    return this.http
+      .get(this.surveyApiUrl + "surveys" + "/futureSurvey")
+      .pipe(catchError(this.handleError));
+  }
+
+  deleteFutureSurvey(row): Observable<any> {
+    return this.http
+      .delete(this.surveyApiUrl + "surveys" + "/futureSurvey/" + row.id)
+      .pipe(catchError(this.handleError));
+  }
+
+  getFutureSurveyById(surveyId): Observable<any> {
+    return this.http
+      .get<any>(this.surveyApiUrl + "surveys" + "/futureSurvey/" + surveyId)
+      .pipe(catchError(this.handleError));
+  }
+
+  submitAnswers(answers): Observable<any> {
+    return this.http
+      .post<any>(this.surveyApiUrl + "surveys" + "/futureSurveyAnswer", answers)
+      .pipe(
+        map(data => {
+          console.log(data);
+          return data.content;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse | any) {
-    //console.log(error)
     return throwError(error);
   }
 }

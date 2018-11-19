@@ -428,8 +428,8 @@ export class NavigationService {
       icon: "language",
       state: "future-survey",
       sub: [
-        { name: "Survey Editor", state: "sEditor" },
-        { name: "Survey Viewer", state: "sViewer" },
+        { name: "Future Survey Designer", state: "sEditor" },
+        { name: "Future Survey Catalog", state: "sList" },
       ]
     }
     // ,{

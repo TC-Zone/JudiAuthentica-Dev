@@ -98,9 +98,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
         this.rows = this.temp = successResp.content;
       },
       error => {
-        this.loader.close();
-        console.log(error);
-        console.log(error.status);
+        this.loader.close();       
         this.errDialog.showError({
           title: "Error",
           status: error.status,

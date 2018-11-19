@@ -4,6 +4,10 @@ import * as widgets from "surveyjs-widgets";
 
 import "inputmask/dist/inputmask/phone-codes/phone.js";
 import { ActivatedRoute, NavigationExtras, Router } from "@angular/router";
+import { FutureSurveyService } from "../future-survey.service";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
+import { HttpClient } from "@angular/common/http";
 
 widgets.icheck(Survey);
 widgets.select2(Survey);
@@ -24,43 +28,56 @@ Survey.JsonObject.metaData.addProperty("page", "popupdescription:text");
 
 @Component({
   selector: "app-future-survey-view",
-  templateUrl: "./future-survey-view.component.html",
-  styleUrls: ["./future-survey-view.component.scss"]
+  templateUrl: "./future-survey-view.component.html"
 })
 export class FutureSurveyViewComponent implements OnInit {
   jsonContent: any;
   sub: any;
-  jsonObj;
+  pageJson;
+  public surveyViewForm: FormGroup;
+  public answerResult: any;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private furureSurveyService: FutureSurveyService,
+    private fb: FormBuilder,
+    private errDialog: AppErrorService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.sub = this.route.queryParams.subscribe(params => {
-      this.jsonContent = params["jsonContent"];
-      this.jsonObj = JSON.parse(this.jsonContent).pages;
+      const surveyId = params["surveyId"];
+      if (surveyId) {
+        this.furureSurveyService
+          .getFutureSurveyById(surveyId)
+          .subscribe(response => {
+            this.jsonContent = JSON.parse(response.content.jsonContent);
+            console.log(this.jsonContent)
+            console.log(response.content.jsonContent);
 
-      console.log(this.jsonObj);
+            this.pageJson = JSON.parse(this.jsonContent).pages;
+            this.viewSurvey();
+          });
+      }
     });
-
-    this.viewSurvey();
   }
-
+  // ........... Survey Respond view should be re architecturing with following certin Angular techniquees .............
   viewSurvey() {
     const surveyModel = new Survey.Model(this.jsonContent);
-    let pageArray = this.jsonObj;
-    // let elementsArray = this.jsonObj;
+    let pageArray = this.pageJson;
     let resultArray = [];
 
     surveyModel.onAfterRenderQuestion.add((survey, options) => {
       if (!options.question.popupdescription) return;
 
-      //Add a button;
+      // Add a button;
       var btn = document.createElement("button");
       btn.className = "btn btn-info btn-xs";
       btn.innerHTML = "More Info";
 
-      btn.onclick = function () {
-        //showDescription(question);
+      btn.onclick = function() {
         alert(options.question.popupdescription);
       };
       var header = options.htmlElement.querySelector("h5");
@@ -72,52 +89,47 @@ export class FutureSurveyViewComponent implements OnInit {
 
     Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 
-    surveyModel.onComplete.add(function (result) {
-
-
+    surveyModel.onComplete.add(function(result) {
       // ------- new start --------
       pageArray.forEach(element => {
         console.log(element.elements);
         element.elements.forEach(element => {
           let elementArray = {};
-          if (result.data[element.name] == null) {
-            elementArray["value"] = null;
-            elementArray["questionId"] = element.questionId;
-          } else {
-            elementArray["value"] = result.data[element.name];
-            elementArray["questionId"] = element.questionId;
+
+          if (element.type != "html") {
+            if (result.data[element.name] == null) {
+              elementArray["value"] = null;
+              elementArray["qcode"] = element.qcode;
+            } else {
+              elementArray["value"] = result.data[element.name];
+              elementArray["qcode"] = element.qcode;
+            }
+            resultArray.push(elementArray);
           }
-          resultArray.push(elementArray);
         });
       });
 
-      console.log("---------------------");
-      console.log("---------------------");
-      console.log(resultArray);
-      console.log("---------------------");
-      console.log("---------------------");
-      //------- new end --------
+      // ------- new end --------
 
+      // console.log('...............ANSWER ARRAY.................');
+      // console.log(resultArray);
 
-      // var modifiedData = Object.keys(result.data).map(function (qName) {
-      //   let questionDet: any = result.getQuestionByName(qName); //resolve Survey.IQuestion interface
-      //   return {
-      //     value: result.data[qName], // attached for new output result
-      //     questionId: questionDet.questionId
-      //   };
-      // });
-      console.log("MODIFIED DATA");
-      console.log(resultArray);
-      alert("Anser Result is : " + JSON.stringify(resultArray));
+      const fsService: FutureSurveyService = new FutureSurveyService();
+      fsService.submitAnswers(resultArray).subscribe(
+        response => {
+          console.log("SUCCESS");
+          console.log(response);
+        },
+        error => {
+          console.log("ERROR");
+          console.log(error);
+          alert("Something went wrong !");
+        }
+      );
     });
   }
 
-  navigateToSurveyEditor(res: any) {
-    let extraParam: NavigationExtras = {
-      queryParams: {
-        jsonContent: JSON.stringify(res)
-      }
-    };
-    this.router.navigate(["future-survey/sEditor"], extraParam);
+  navigateToSurveyEditor() {
+    this.router.navigate(["future-survey/sList"]);
   }
 }

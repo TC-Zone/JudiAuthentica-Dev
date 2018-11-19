@@ -1,0 +1,96 @@
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <div fxFlex="100" fxFlex.gt-md="300px" fxFlex.gt-sm="50">
+    <mat-card class="profile-sidebar mb-1 pb-0">
+      <div class="propic text-center">
+        <img src="assets/images/future-survey-logo.png" alt="">
+      </div>
+      <div class="profile-title text-center mb-1">
+        <div class="main-title">Future Survey</div>
+        <div class="subtitle mb-05">Judi Authentica</div>
+        <div class="text-muted"> New generation survey management tool for advnance usage</div>
+      </div>
+
+      <!-- <div class="profile-nav">
+        <mat-nav-list>
+          <mat-list-item routerLink="/survey-interaction" routerLinkActive="list-item-active">
+            <mat-icon>explore</mat-icon>
+            Demo Entrance 1
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item routerLink="/survey-interaction" routerLinkActive="list-item-active">
+            <mat-icon>explore</mat-icon>
+            Demo Entrance 2
+          </mat-list-item>
+          <mat-divider></mat-divider>
+
+        </mat-nav-list>
+      </div> -->
+    </mat-card>
+  </div>
+
+
+
+
+
+
+
+
+  <!-- Profile Views -->
+  <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="calc(100% - 300px)">
+    <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+      <mat-card-title>
+        <div class="card-title-text">Future Survey Catalog</div>
+        <mat-divider></mat-divider>
+
+        <div class="profile-actions text-right mb-1">
+          <div class="m-333">
+            <button mat-raised-button class="mb-05" (click)="navigateToSurveyEditor()" routerLinkActive="router-link-active"  color="accent">Create New Survey</button>
+          </div>
+        </div>
+
+
+      </mat-card-title>
+      <mat-card-content class="p-0">
+        <ngx-datatable class="material bg-white" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+          [rowHeight]="'auto'" [limit]="5" [rows]="futureSurveys">
+
+          <ngx-datatable-column name="Survey Title" [minWidth]="250" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row?.title}}
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Survey Author" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              <span *ngFor='let client of clients | arrayFilter : row?.clientId : "clients"'>{{ client.name }}</span>
+            </ng-template>
+          </ngx-datatable-column>
+
+
+          <ngx-datatable-column name="Action" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+
+
+              <button mat-icon-button mat-sm-button (click)="navigateToSurveyEditor(row)" color="primary" class="mr-1">
+                <mat-icon>view_headline</mat-icon>
+              </button>
+
+              <button mat-icon-button mat-sm-button  (click)="navigateToSurveyView(row)" class="mr-1">
+                <mat-icon>laptop_windows</mat-icon>
+              </button>
+
+              <button mat-icon-button mat-sm-button color="warn" (click)="deleteFutureSurvey(row)" class="mr-1">
+                <mat-icon>delete</mat-icon>
+              </button>
+
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+
+
+      </mat-card-content>
+    </mat-card>
+
+    <router-outlet></router-outlet>
+  </div>
+</div>

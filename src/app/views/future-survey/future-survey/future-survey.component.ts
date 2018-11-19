@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import * as SurveyEditor from "surveyjs-editor";
 import * as SurveyKo from "survey-knockout";
 import * as widgets from "surveyjs-widgets";
@@ -8,7 +8,10 @@ import { CrudService } from "../../cruds/crud.service";
 import { Subscription } from "rxjs";
 import { ResponseModel } from "../../../model/ResponseModel.model";
 import { FutureSurveyService } from "../future-survey.service";
-import { NavigationExtras, Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
+import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
+import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
+import { MatSnackBar } from "@angular/material";
 
 widgets.icheck(SurveyKo);
 widgets.select2(SurveyKo);
@@ -55,24 +58,39 @@ export class FutureSurveyComponent implements OnInit {
   public response: ResponseModel;
   sub: any;
 
+  surveyId: any;
   jsonContent: any;
 
   constructor(
     private clientService: CrudService,
     private furureSurveyService: FutureSurveyService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private loader: AppLoaderService,
+    private errDialog: AppErrorService,
+    private snack: MatSnackBar
   ) {}
 
-  @Output()
-  surveySaved: EventEmitter<Object> = new EventEmitter();
   ngOnInit() {
+    this.loader.open();
     this.sub = this.route.queryParams.subscribe(params => {
-      this.jsonContent = params["jsonContent"];
-    });
+      this.surveyId = params["surveyId"];
+      console.log("survey id : " + this.surveyId);
 
-    this.setuptheme();
-    this.setClients();
+      if (this.surveyId) {
+        this.furureSurveyService
+          .getFutureSurveyById(this.surveyId)
+          .subscribe(response => {
+            this.jsonContent = JSON.parse(response.content.jsonContent);
+            console.log(this.jsonContent);
+            this.setuptheme();
+            this.setClients();
+          });
+      } else {
+        this.setuptheme();
+        this.setClients();
+      }
+    });
   }
 
   setClients() {
@@ -96,7 +114,7 @@ export class FutureSurveyComponent implements OnInit {
         name: "clientId",
         choices: fullClients
       });
-
+      this.loader.close();
       this.setupProperty();
       this.loadSurveyEditor();
     });
@@ -108,10 +126,10 @@ export class FutureSurveyComponent implements OnInit {
       "popupdescription:text"
     );
     SurveyKo.JsonObject.metaData.addProperty("page", "popupdescription:text");
-    SurveyKo.JsonObject.metaData.addProperty("questionbase", "questionId");
+    SurveyKo.JsonObject.metaData.addProperty("questionbase", "qcode");
     SurveyKo.JsonObject.metaData.findProperty(
       "questionbase",
-      "questionId"
+      "qcode"
     ).readOnly = true;
 
     //SurveyEditor.StylesManager.applyTheme("winterstone");
@@ -123,14 +141,15 @@ export class FutureSurveyComponent implements OnInit {
       generateValidJSON: true,
       questionTypes: [
         "text",
-        "checkbox",
         "radiogroup",
         "dropdown",
         "imagepicker",
-        "matrix",
         "rating",
         "comment",
-        "panel"
+        "panel",
+        "microphone",
+        "html",
+
       ]
     };
     this.editor = new SurveyEditor.SurveyEditor(
@@ -142,43 +161,52 @@ export class FutureSurveyComponent implements OnInit {
       "editor",
       "sortablelist",
       "nouislider",
-      "bootstrapslider"
+      "bootstrapslider",
+      "matrix",
+      "checkbox",
+      "signaturepad"
     ];
 
     removeItems.forEach(item => {
       this.editor.toolbox.removeItem(item);
     });
 
-    var questionCounter = 1;
-    //Set the name property different from the default value
-    //and set the tag property to a generated GUID value.
+    let questionCounter = 1;
+    // Set the name property different from the default value
+    // and set the tag property to a generated GUID value.
+
     this.editor.onQuestionAdded.add(function(sender, options) {
-      var q = options.question;
-      var d = q.surveyValue.currentPageValue.name;
-      var t = q.getType();
-      //q.name = "Question" + t[0].toUpperCase() + t.substring(1) + questionCounter;
-      q.questionId =
-      d + "Q" + t[0].toUpperCase() + t.substring(1) + questionCounter;
+      let q = options.question;
+
+      let text = "";
+      let possible = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+      for (let i = 0; i < 10; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+
+      q.qcode = text;
       questionCounter++;
     });
 
     if (this.jsonContent) {
-      let js: any = JSON.parse(this.jsonContent);
-      this.editor.text = js;
+       // console.log("JSON CONTENT : ");
+       // console.log(this.jsonContent);
+      this.editor.text = this.jsonContent;
     }
 
     this.editor.saveSurveyFunc = this.saveMySurvey;
   }
 
   setuptheme() {
-    var mainColor = "#0684C0";
-    var mainHoverColor = "#5DAAD2";
-    var textColor = "#4a4a4a";
-    var headerColor = "#b7b7b7";
-    var headerBackgroundColor = "#000000";
-    var bodyContainerBackgroundColor = "#f8f8f8";
+    const mainColor = "#0684C0";
+    const mainHoverColor = "#5DAAD2";
+    const textColor = "#4a4a4a";
+    const headerColor = "#b7b7b7";
+    const headerBackgroundColor = "#000000";
+    const bodyContainerBackgroundColor = "#f8f8f8";
 
-    var defaultThemeColorsSurvey =
+    const defaultThemeColorsSurvey =
       SurveyKo.StylesManager.ThemeColors["default"];
     defaultThemeColorsSurvey["$main-color"] = mainColor;
     defaultThemeColorsSurvey["$main-hover-color"] = mainHoverColor;
@@ -191,7 +219,7 @@ export class FutureSurveyComponent implements OnInit {
       "$body-container-background-color"
     ] = bodyContainerBackgroundColor;
 
-    var defaultThemeColorsEditor =
+    const defaultThemeColorsEditor =
       SurveyEditor.StylesManager.ThemeColors["default"];
     defaultThemeColorsEditor["$primary-color"] = mainColor;
     defaultThemeColorsEditor["$secondary-color"] = mainColor;
@@ -204,58 +232,133 @@ export class FutureSurveyComponent implements OnInit {
   }
 
   saveMySurvey = () => {
-    let jsonText = JSON.stringify(this.editor.text);
-    let jsonObject = JSON.parse(this.editor.text);
-    console.log(jsonObject);
-    let request: FutureSurveyRequest = new FutureSurveyRequest(
+    const jsonText = JSON.stringify(this.editor.text);
+    const jsonObject = JSON.parse(this.editor.text);
+    // console.log('CONTEN :')
+    // console.log(jsonObject);
+    // console.log(jsonText);
+    if (this.validateFutureSurveyRequest(jsonObject)) {
+      return;
+    }
+
+    const request: FutureSurveyRequest = new FutureSurveyRequest(
       jsonText,
       jsonObject.title,
       jsonObject.clientId,
       jsonObject.pages
     );
 
-    //IN UNDER CONSTRUCTIONS
-    //this.submitFutureSurvey(request);
-    this.navigateToSurveyView(jsonObject);
-    this.surveySaved.emit(JSON.parse(this.editor.text));
+    this.submitFutureSurvey(request, this.surveyId);
   };
 
-  navigateToSurveyView(res: any) {
-    let extraParam: NavigationExtras = {
-      queryParams: {
-        jsonContent: JSON.stringify(res)
-      }
-    };
-
-    this.router.navigate(["future-survey/sViewer"], extraParam);
+  navigateSurveyList() {
+    this.router.navigate(["future-survey/sList"]);
   }
 
-  submitFutureSurvey(jsonContent: any) {
-    this.furureSurveyService
-      .submitFutureSurveyContent(jsonContent)
-      .subscribe(data => {
-        console.log("COMPO..................");
-        console.log(data.jsonContent);
-        console.log("COMPO 2..................");
-        let jData = JSON.parse(data.jsonContent);
-        console.log(jData);
-        let JsonD = JSON.stringify(jData);
-        console.log("COMPO 3..................");
-        console.log(JsonD);
-        // let jsonContent = JSON.parse(data.jsonContent);
-        // let pagesResp : any[] =  data.pages;
-        // let pages: any[] = jsonContent.pages;
-        // console.log("pages..............................");
-        // console.log(pages);
-        // console.log("pages response ..............................");
-        // console.log(pagesResp)
+  submitFutureSurvey(jsonContent: any, futureSurveyId?: any) {
+    console.log('FutureSurveUD : '+futureSurveyId);
+    if (futureSurveyId) {
+      this.furureSurveyService
+        .updateFutureSurveyContent(jsonContent, futureSurveyId)
+        .subscribe(
+          response => {
+            let title = response.title;
+            this.snack.open(title + " survey has updated !", "OK", {
+              duration: 4000
+            });
+          },
+          error => {
+            this.errDialog.showError({
+              title: "Error",
+              status: error.status,
+              type: "http_error"
+            });
+          }
+        );
+    } else {
+      console.log(jsonContent);
+      this.furureSurveyService.submitFutureSurveyContent(jsonContent).subscribe(
+        response => {
+          let title = response.title;
+          this.surveyId = response.id;
+          this.snack.open("New " + title + " survey is created !", "OK", {
+            duration: 4000
+          });
+        },
+        error => {
+          this.errDialog.showError({
+            title: "Error",
+            status: error.status,
+            type: "http_error"
+          });
+        }
+      );
+    }
+  }
 
-        // pages.forEach(page => {
-        // });
+  validateFutureSurveyRequest(jsonRequest) {
+    let title = jsonRequest.title;
+    let clientId = jsonRequest.clientId;
+    let pages = jsonRequest.pages;
+
+    let clientError;
+    // ------- Root Element validations of JsonRequest   --------
+    if (!clientId) {
+      clientError = "Please choose a client for the survey!";
+    }
+    if (!title) {
+      clientError = "Please add a Title for the Survey!";
+    }
+    if (!pages) {
+      clientError = "Page will be a mandatory item for the Survey!";
+    }
+
+    // -------  Page Element Validations of JsonRequest --------
+    pages.forEach(page => {
+      const elements = page.elements;
+
+      if (!elements) {
+        clientError = "Survey should have atleast one question!";
+      } else {
+        elements.forEach(element => {
+          if ((<any>Object).values(QuestionTypeEnum).includes(element.type)) {
+            let choices = element.choices;
+            if (choices) {
+              choices.forEach(choice => {
+                let value = choice.value;
+                let text = choice.text;
+                if (!value || value == null) {
+                  clientError =
+                    "Please add a value for the choice item of " + element.name;
+                }
+                if (!text || text == null) {
+                  clientError =
+                    "Please add a text for the choice item of " + element.name;
+                }
+              });
+            } else {
+              clientError =
+                "Please add choice items for the " + element.name + "!";
+            }
+          }
+        });
+      }
+    });
+
+    if (clientError) {
+      this.errDialog.showError({
+        title: "Error",
+        type: "client_error",
+        clientError: clientError
       });
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
+// DTO class for FutureSurvey Creation and Update Request
 export class FutureSurveyRequest {
   constructor(
     public jsonContent: String,
@@ -263,4 +366,11 @@ export class FutureSurveyRequest {
     public clientId: string,
     public pages: any[]
   ) {}
+}
+
+enum QuestionTypeEnum {
+  DROP_DOWN = "dropdown",
+  RADIO_GROUP = "radiogroup",
+  IMAGE_PICKER = "imagepicker",
+  CHECKBOX = "checkbox"
 }
