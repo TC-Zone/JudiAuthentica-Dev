@@ -1,11 +1,11 @@
-/* 
-* REQUIRED STYLES 
+/*
+* REQUIRED STYLES
 */
 @import "main/scaffolding";
 @import "main/typography";
 @import "main/layout";
 @import "main/header";
-@import "main/sidenav"; 
+@import "main/sidenav";
 
 /*
 * ALTERNATIVE STYLES
@@ -24,3 +24,4 @@
 * CUSTOMIZE STYLES
 */
 @import "main/cp-popup"; // REQUIRED ONLY FOR POPUP, IMAGE PRIVIEW OF IMAGE UPLOADER
+@import "main/cp-table"; // REQUIRED ONLY FOR RESPONSIVE TABLE

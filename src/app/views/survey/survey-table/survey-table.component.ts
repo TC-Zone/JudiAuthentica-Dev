@@ -21,6 +21,12 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
   getSurveysSub: Subscription;
   typeMap: Map<string, string>;
 
+  // pagination
+  pageNumber = 1;
+  pageSize = 10;
+  totalPages = [];
+  totalRecords = 0;
+
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -45,7 +51,7 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
   }
 
   openSurveyPopup(data: any = {}, isNew?) {
-    let title = isNew ? "Add New Survey " : "Update Survey ";
+    let title = isNew ? "Add New Feedback " : "Update Feedback ";
     let dialogRef: MatDialogRef<any> = this.dialog.open(
       SurveyCreationPopupComponent,
       {
@@ -107,6 +113,46 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  // --------- BH ----------
+  getPageSurvey(pageNumber) {
+    if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
+      this.pageNumber = pageNumber;
+
+      this.getSurveysSub = this.surveyService.getPageSurveys(pageNumber, this.pageSize).subscribe(
+        successResp => {
+          this.rows = successResp.content;
+          let totalPages = successResp.pagination.totalPages;
+          let totalPagesArray = [];
+
+          if (totalPages > 1) {
+            for (let i = 1; i <= totalPages; i++) {
+              totalPagesArray.push(i);
+            }
+          }
+          this.totalPages = totalPagesArray;
+          this.totalRecords = successResp.pagination.totalRecords;
+
+        },
+        error => {
+          this.loader.close();
+          console.log(error);
+          console.log(error.status);
+          this.errDialog.showError({
+            title: "Error",
+            status: error.status,
+            type: "http_error"
+          });
+        }
+      );
+    }
+  }
+
+  changeValue() {
+    this.pageNumber = 1;
+    this.getPageSurvey(this.pageNumber);
+  }
+  // --------- BH ----------
 
   deleteSurvey(row) {
     this.confirmService

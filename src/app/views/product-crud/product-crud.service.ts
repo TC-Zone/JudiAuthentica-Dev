@@ -57,6 +57,12 @@ export class ProductCrudService {
       .pipe(catchError(this.handleError));
   }
 
+   // --------- BH ----------
+   getPageProducts(pageNumber,pageSize): Observable<any> {
+    return this.http.get(this.productApiUrl+"?pageNumber="+pageNumber+"&pageSize="+pageSize).pipe(catchError(this.handleError));
+  }
+  // --------- BH ----------
+
   getProductById(proId): Observable<any> {
     return this.http
       .get<any>(this.productApiUrl + proId)

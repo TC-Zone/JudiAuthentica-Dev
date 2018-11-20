@@ -9,15 +9,15 @@
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <div fxFlex="100" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput [formControl]="surveyForm.controls['topic']" required name="topic" 
-          placeholder="Survey topic">
+          <input matInput [formControl]="surveyForm.controls['topic']" required name="topic"
+          placeholder="Feedback topic">
         </mat-form-field>
       </div>
 
       <div fxFlex="100" class="pr-1">
         <mat-form-field class="full-width">
           <mat-select [(value)]="selectedType" [(ngModel)]="selectedType" [formControl]="surveyForm.controls['type']"
-            placeholder="Survey Type">
+            placeholder="Feedback Type">
             <mat-option>none</mat-option>
             <mat-option *ngFor="let type of surveyTypes" (click)="popuplateDropdown(type.value)" [value]="type.value">{{type.name}}</mat-option>
           </mat-select>

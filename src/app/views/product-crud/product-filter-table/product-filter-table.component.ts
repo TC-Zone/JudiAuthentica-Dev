@@ -12,7 +12,7 @@ import { AppConfirmService } from "../../../shared/services/app-confirm/app-conf
 import * as moment from "moment";
 import { AppFileDownloadService } from "../../../shared/services/file-download.service";
 import { AppDataConversionService } from "../../../shared/services/data-conversion.service";
-import { Content } from "../../../model/ClientModel.model";
+
 
 @Component({
   selector: "app-product-filter-table",
@@ -23,6 +23,15 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
   rows: any[];
   columns = [];
   temp = [];
+
+
+   // pagination
+   pageNumber = 1;
+   pageSize = 10;
+   totalPages = [];
+   totalRecords = 0;
+
+
   public getProductsSub: Subscription;
   updatable: boolean;
 
@@ -98,7 +107,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
         this.rows = this.temp = successResp.content;
       },
       error => {
-        this.loader.close();       
+        this.loader.close();
         this.errDialog.showError({
           title: "Error",
           status: error.status,
@@ -107,6 +116,49 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+
+
+  // --------- BH ----------
+  getPageProduct(pageNumber) {
+    if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
+      this.pageNumber = pageNumber;
+
+      this.getProductsSub = this.prodService.getPageProducts(pageNumber, this.pageSize).subscribe(
+        successResp => {
+          this.rows = this.temp = successResp.content;
+          let totalPages = successResp.pagination.totalPages;
+          let totalPagesArray = [];
+
+          if (totalPages > 1) {
+            for (let i = 1; i <= totalPages; i++) {
+              totalPagesArray.push(i);
+            }
+          }
+          this.totalPages = totalPagesArray;
+          this.totalRecords = successResp.pagination.totalRecords;
+
+        },
+        error => {
+          this.loader.close();
+          console.log(error);
+          console.log(error.status);
+          this.errDialog.showError({
+            title: "Error",
+            status: error.status,
+            type: "http_error"
+          });
+        }
+      );
+    }
+  }
+
+
+  changeValue() {
+    this.pageNumber = 1;
+    this.getPageProduct(this.pageNumber);
+  }
+  // --------- BH ----------
 
   deleteProduct(row) {
     this.confirmService

@@ -408,10 +408,10 @@ export class NavigationService {
       state: "productCrud/show"
     },
     {
-      name: "Survey Service",
+      name: "Instant Feedback",
       type: "link",
-      tooltip: "Survey Management",
-      icon: "data_usage",
+      tooltip: "Feedback Management",
+      icon: "feedback",
       state: "surveys"
     },
     {
@@ -428,8 +428,9 @@ export class NavigationService {
       icon: "language",
       state: "future-survey",
       sub: [
-        { name: "Future Survey Designer", state: "sEditor" },
         { name: "Future Survey Catalog", state: "sList" },
+        { name: "Future Survey Designer", state: "sEditor" }
+
       ]
     }
     // ,{

@@ -54,8 +54,8 @@ export class FutureSurveyViewComponent implements OnInit {
           .getFutureSurveyById(surveyId)
           .subscribe(response => {
             this.jsonContent = JSON.parse(response.content.jsonContent);
-            console.log(this.jsonContent)
-            console.log(response.content.jsonContent);
+            //console.log(this.jsonContent)
+            //console.log(response.content.jsonContent);
 
             this.pageJson = JSON.parse(this.jsonContent).pages;
             this.viewSurvey();
