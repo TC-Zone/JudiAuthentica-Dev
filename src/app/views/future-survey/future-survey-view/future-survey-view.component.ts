@@ -98,22 +98,25 @@ export class FutureSurveyViewComponent implements OnInit {
           let elementArray = {};
 
           if (element.type != "html") {
-            if (result.data[element.name] == null) {
-              elementArray["value"] = null;
-              elementArray["qcode"] = element.qcode;
-            } else {
-              elementArray["value"] = result.data[element.name];
-              elementArray["qcode"] = element.qcode;
+            let qCode = element.qcode;
+            if (qCode != null) {
+              if (result.data[element.name] == null) {
+                elementArray["value"] = null;
+                elementArray["qcode"] = qCode ? qCode : null;
+              } else {
+                elementArray["value"] = result.data[element.name];
+                elementArray["qcode"] = qCode ? qCode : null;
+              }
+              resultArray.push(elementArray);
             }
-            resultArray.push(elementArray);
           }
         });
       });
 
       // ------- new end --------
 
-      // console.log('...............ANSWER ARRAY.................');
-      // console.log(resultArray);
+      console.log("...............ANSWER ARRAY.................");
+      console.log(resultArray);
 
       const fsService: FutureSurveyService = new FutureSurveyService();
       fsService.submitAnswers(resultArray).subscribe(
@@ -124,7 +127,7 @@ export class FutureSurveyViewComponent implements OnInit {
         error => {
           console.log("ERROR");
           console.log(error);
-          alert("Something went wrong !");
+          //alert("Something went wrong !");
         }
       );
     });
@@ -143,7 +146,7 @@ export class FutureSurveyViewComponent implements OnInit {
     const bodyContainerBackgroundColor = "#f8f8f8";
 
     const defaultThemeColorsSurvey =
-    Survey.StylesManager.ThemeColors["default"];
+      Survey.StylesManager.ThemeColors["default"];
     defaultThemeColorsSurvey["$main-color"] = mainColor;
     defaultThemeColorsSurvey["$main-hover-color"] = mainHoverColor;
     defaultThemeColorsSurvey["$text-color"] = textColor;
@@ -156,6 +159,5 @@ export class FutureSurveyViewComponent implements OnInit {
     ] = bodyContainerBackgroundColor;
 
     Survey.StylesManager.applyTheme();
-
   }
 }

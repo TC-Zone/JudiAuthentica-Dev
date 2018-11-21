@@ -148,8 +148,7 @@ export class FutureSurveyComponent implements OnInit {
         "comment",
         "panel",
         "microphone",
-        "html",
-
+        "html"
       ]
     };
     this.editor = new SurveyEditor.SurveyEditor(
@@ -190,8 +189,8 @@ export class FutureSurveyComponent implements OnInit {
     });
 
     if (this.jsonContent) {
-       // console.log("JSON CONTENT : ");
-       // console.log(this.jsonContent);
+      // console.log("JSON CONTENT : ");
+      // console.log(this.jsonContent);
       this.editor.text = this.jsonContent;
     }
 
@@ -235,8 +234,8 @@ export class FutureSurveyComponent implements OnInit {
     const jsonText = JSON.stringify(this.editor.text);
     const jsonObject = JSON.parse(this.editor.text);
     // console.log('CONTEN :')
-    // console.log(jsonObject);
-    // console.log(jsonText);
+    //  console.log(jsonObject);
+    //  console.log(jsonText);
     if (this.validateFutureSurveyRequest(jsonObject)) {
       return;
     }
@@ -247,7 +246,7 @@ export class FutureSurveyComponent implements OnInit {
       jsonObject.clientId,
       jsonObject.pages
     );
-
+    this.loader.open();
     this.submitFutureSurvey(request, this.surveyId);
   };
 
@@ -256,18 +255,20 @@ export class FutureSurveyComponent implements OnInit {
   }
 
   submitFutureSurvey(jsonContent: any, futureSurveyId?: any) {
-    console.log('FutureSurveUD : '+futureSurveyId);
+    console.log("FutureSurveUD : " + futureSurveyId);
     if (futureSurveyId) {
       this.furureSurveyService
         .updateFutureSurveyContent(jsonContent, futureSurveyId)
         .subscribe(
           response => {
             let title = response.title;
+            this.loader.close();
             this.snack.open(title + " survey has updated !", "OK", {
               duration: 4000
             });
           },
           error => {
+            this.loader.close();
             this.errDialog.showError({
               title: "Error",
               status: error.status,
@@ -281,11 +282,13 @@ export class FutureSurveyComponent implements OnInit {
         response => {
           let title = response.title;
           this.surveyId = response.id;
+          this.loader.close();
           this.snack.open("New " + title + " survey is created !", "OK", {
             duration: 4000
           });
         },
         error => {
+          this.loader.close();
           this.errDialog.showError({
             title: "Error",
             status: error.status,
