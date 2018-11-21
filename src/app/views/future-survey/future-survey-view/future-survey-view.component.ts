@@ -59,6 +59,7 @@ export class FutureSurveyViewComponent implements OnInit {
 
             this.pageJson = JSON.parse(this.jsonContent).pages;
             this.viewSurvey();
+            this.setuptheme();
           });
       }
     });
@@ -131,5 +132,30 @@ export class FutureSurveyViewComponent implements OnInit {
 
   navigateToSurveyEditor() {
     this.router.navigate(["future-survey/sList"]);
+  }
+
+  setuptheme() {
+    const mainColor = "#0684C0";
+    const mainHoverColor = "#5DAAD2";
+    const textColor = "#4a4a4a";
+    const headerColor = "#b7b7b7";
+    const headerBackgroundColor = "#000000";
+    const bodyContainerBackgroundColor = "#f8f8f8";
+
+    const defaultThemeColorsSurvey =
+    Survey.StylesManager.ThemeColors["default"];
+    defaultThemeColorsSurvey["$main-color"] = mainColor;
+    defaultThemeColorsSurvey["$main-hover-color"] = mainHoverColor;
+    defaultThemeColorsSurvey["$text-color"] = textColor;
+    defaultThemeColorsSurvey["$header-color"] = headerColor;
+    defaultThemeColorsSurvey[
+      "$header-background-color"
+    ] = headerBackgroundColor;
+    defaultThemeColorsSurvey[
+      "$body-container-background-color"
+    ] = bodyContainerBackgroundColor;
+
+    Survey.StylesManager.applyTheme();
+
   }
 }
