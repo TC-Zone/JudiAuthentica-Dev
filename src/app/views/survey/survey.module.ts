@@ -40,6 +40,7 @@ import { ProductCrudService } from "../product-crud/product-crud.service";
 import { SurveyCommonComponent } from './survey-common.component';
 import { EvoteService } from '../evote/evote-service.service';
 import { ArrayFilter } from '../../shared/pipes/array-filter.pipe';
+import { SurveyInteractionComponent } from './survey-interaction/survey-interaction.component';
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import { ArrayFilter } from '../../shared/pipes/array-filter.pipe';
     AnswerTemplatePopupComponent,
     SurveyCreationPopupComponent,
     SurveyBuilderComponent,
-    SurveyCommonComponent
+    SurveyCommonComponent,
+    SurveyInteractionComponent
   ],
   entryComponents: [AnswerTemplatePopupComponent, SurveyCreationPopupComponent],
   providers: [SurveyService, ProductCrudService, EvoteService]

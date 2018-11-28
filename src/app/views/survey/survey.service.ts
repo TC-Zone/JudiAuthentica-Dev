@@ -30,10 +30,7 @@ export class SurveyService {
 
   addNewAnsTemplate(templateObj, items): Observable<any> {
     return this.http
-      .post<any>(
-        this.surveyApiUrl + "answer-templates/",
-        templateObj
-      )
+      .post<any>(this.surveyApiUrl + "answer-templates/", templateObj)
       .pipe(
         map(data => {
           items.unshift(data.content);
@@ -50,12 +47,12 @@ export class SurveyService {
   }
 
   getAnsTemplateById(id, items?): Observable<any> {
-    console.log("by id url : " + this.surveyApiUrl + "answer-templates/" + id);
+
     return this.http
       .get<any>(this.surveyApiUrl + "answer-templates/" + id)
       .pipe(
         map(data => {
-          console.log(data.content);
+          //console.log(data.content);
           return data.content;
         }),
         catchError(this.handleError)
@@ -105,9 +102,15 @@ export class SurveyService {
   }
 
   // --------- BH ----------
-  getPageSurveys(pageNumber,pageSize): Observable<any> {
+  getPageSurveys(pageNumber, pageSize): Observable<any> {
     return this.http
-      .get(this.surveyApiUrl + "surveys?pageNumber="+pageNumber+"&pageSize="+pageSize)
+      .get(
+        this.surveyApiUrl +
+          "surveys?pageNumber=" +
+          pageNumber +
+          "&pageSize=" +
+          pageSize
+      )
       .pipe(catchError(this.handleError));
   }
   // --------- BH ----------
@@ -141,6 +144,18 @@ export class SurveyService {
       }),
       catchError(this.handleError)
     );
+  }
+
+  submitFeedbackAnswers(request): Observable<any> {
+    return this.http
+      .post<any>(this.surveyApiUrl + "survey/questions/answers", request)
+      .pipe(
+        map(data => {
+          //console.log("submit response");
+          console.log(data);
+        }),
+        catchError(this.handleError)
+      );
   }
 
   private handleError(error: HttpErrorResponse | any) {

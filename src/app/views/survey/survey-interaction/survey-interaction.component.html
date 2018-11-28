@@ -1,0 +1,160 @@
+<form [formGroup]="interactionForm" (ngSubmit)="doBulkUpload()">
+  <mat-card
+    class="p-1"
+    [@animate]="{ value: '*', params: { y: '50px', delay: '300ms' } }"
+  >
+    <mat-card-title class="p-0">
+      <div class="card-title-text">Authenticate Demo</div>
+      <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content class="p-0">
+      <div class="text-muted mb-1 m-1 text-left">
+        You can make mock product authenticate request from front-end with
+        adjusting configurations.
+      </div>
+    </mat-card-content>
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <mat-select
+            [formControl]="interactionForm.controls['productId']"
+            placeholder="Select A Product"
+          >
+            <mat-option>none</mat-option>
+            <mat-option
+              (click)="setProductDetails(product)"
+              *ngFor="let product of products"
+              [value]="product.id"
+              >{{ product.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input
+            [readOnly]
+            matInput
+            [formControl]="interactionForm.controls['currentQty']"
+            required
+            name="currentQty"
+            placeholder="Proudct Quantity"
+          />
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input
+            type="number"
+            matInput
+            [formControl]="interactionForm.controls['qty']"
+            required
+            name="qty"
+            placeholder="Request Quantity"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="interactionForm.invalid"
+    >
+      Launch
+    </button>
+  </mat-card>
+</form>
+
+<form
+
+  [formGroup]="feedbackForm"
+  (ngSubmit)="doFeedBackRequest()"
+>
+
+  <mat-card
+  *ngIf="productDetails"
+    class="p-1"
+    [@animate]="{ value: '*', params: { y: '50px', delay: '300ms' } }"
+  >
+    <mat-card-title class="p-0">
+      <div class="card-title-text">Feedback Demo  {{detailLength}}</div>
+      <mat-divider></mat-divider>
+    </mat-card-title>
+    <mat-card-content class="p-0">
+      <div class="text-muted mb-1 m-1 text-left">
+        You can make mock product feedback request adjusting configurations.
+      </div>
+    </mat-card-content>
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <mat-select
+            [formControl]="feedbackForm.controls['surveyId']"
+            placeholder="Select A Feedback"
+          >
+            <mat-option>none</mat-option>
+            <mat-option
+              (click)="showSurveyInfo(survey)"
+              *ngFor="let survey of surveyRows"
+              [value]="survey.id"
+              >{{ survey.topic }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input
+            type="number"
+            matInput
+            [formControl]="feedbackForm.controls['qty']"
+            required
+            name="qty"
+            placeholder="Request Quantity"
+          />
+        </mat-form-field>
+      </div>
+
+      <!--
+        <div  *ngIf="surveyRecord" fxFlex="50" class="pr-1">{{ surveyRecord.topic }}</div>
+      -->
+      <mat-card
+        *ngIf="surveyRecord"
+        class="p-1"
+        [@animate]="{ value: '*', params: { y: '50px', delay: '300ms' } }"
+      >
+        {{ surveyRecord.topic }}
+
+        <div
+          *ngFor="let question of surveyRecord.questions; let i = index"
+          fxLayout="row"
+          fxLayout.lt-sm="column"
+          fxLayoutWrap="wrap"
+        >
+          <span href="#" class="timeline-body-title mr-1"
+            ><b>Question {{ i + 1 }}</b></span
+          >
+          <span class="text-muted">{{ question.name }}</span
+          ><br />
+
+          <div *ngIf="question.answerTemplate">
+            <div class="p-1" class="timeline-body-top">
+              <span class="text-muted"
+                >{{ question.answerTemplate.name }}<br
+              /></span>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+
+    <button mat-raised-button color="accent" [disabled]="feedbackForm.invalid">
+      Launch
+    </button>
+  </mat-card>
+</form>
