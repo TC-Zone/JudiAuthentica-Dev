@@ -88,7 +88,19 @@ export class FutureSurveyViewComponent implements OnInit {
       header.appendChild(btn);
     });
 
-    Survey.SurveyNG.render("surveyElement", { model: surveyModel });
+    Survey
+    .StylesManager
+    .applyTheme("bootstrap");
+
+    var myCss = {
+      matrix: {
+          root: "table table-striped"
+      },
+      navigationButton: "button btn-lg",  
+      
+    };
+
+    Survey.SurveyNG.render("surveyElement", { model: surveyModel,css: myCss});
 
     surveyModel.onComplete.add(function(result) {
       // ------- new start --------
@@ -159,5 +171,7 @@ export class FutureSurveyViewComponent implements OnInit {
     ] = bodyContainerBackgroundColor;
 
     Survey.StylesManager.applyTheme();
+
+    
   }
 }
