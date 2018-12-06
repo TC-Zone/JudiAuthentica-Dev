@@ -12,7 +12,7 @@ import { Subscription, Observable } from "rxjs";
 import { ResponseModel } from "../../../../model/ResponseModel.model";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
-import { debounceTime, switchMap, distinctUntilChanged } from "rxjs/operators";
+import { debounceTime, switchMap, distinctUntilChanged, startWith, map } from "rxjs/operators";
 import { Clients, Content } from "./../../../../model/ClientModel.model";
 
 import { DateValidator } from "../../../../utility/dateValidator";
@@ -22,6 +22,7 @@ import * as moment from "moment";
 import { SurveyService } from "../../../survey/survey.service";
 import { environment } from "environments/environment.prod";
 import { egretAnimations } from "../../../../shared/animations/egret-animations";
+import { ProductCommonComponent } from "../../product-crud-common.component";
 
 export const MY_FORMATS = {
   parse: {
@@ -48,7 +49,7 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
   ]
 })
-export class ProductCrudPopupComponent implements OnInit {
+export class ProductCrudPopupComponent extends ProductCommonComponent implements OnInit {
   public productForm: FormGroup;
   public clients: any[];
   public getClientSub: Subscription;
@@ -57,9 +58,7 @@ export class ProductCrudPopupComponent implements OnInit {
   tomorrow: Date;
   imageUrl: any = "assets/images/placeholder.jpg";
 
-  getAllSurveySub: Subscription;
-  surveyRows: any[];
-
+  
   // image uploader related properties
   public uploader: FileUploader = new FileUploader({ url: "upload_url" });
   public hasBaseDropZoneOver: boolean = false;
@@ -70,15 +69,25 @@ export class ProductCrudPopupComponent implements OnInit {
   newlySelectedFileList = [];
   remainImagesID = [];
   currentTotalImageCount: number = 0;
+  
+  getAllSurveySub: Subscription;
+  surveyRows: any[];
+  
+  surveyFilteredOptions: Observable<string[]>;
+  surveys: string[] = [];
+  surveyIDs: string[] = [];
+  selectedSurveyID: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ProductCrudPopupComponent>,
-    private clientService: CrudService,
-    private surveyService: SurveyService,
+    public clientService: CrudService,
+    public surveyService: SurveyService,
     private fb: FormBuilder,
     public snackBar: MatSnackBar
-  ) {}
+  ) {
+    super(surveyService, clientService);
+  }
 
   ngOnInit() {
     // validate back dates
@@ -102,6 +111,55 @@ export class ProductCrudPopupComponent implements OnInit {
       debounceTime(200),
       switchMap(value => this.clientService.search({ name: value }, 1))
     );
+  }
+
+  
+  public surveyOnChange() {
+    this.surveyFilteredOptions = this.productForm.controls['surveyId'].valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._surveyFilter(value))
+      );
+    this.onSelectionChanged();
+  }
+
+  private _surveyFilter(value: string): string[] {
+    if (value === "" || isNaN(Number(value))) {
+      const filterValue = value.toLowerCase();
+      return this.surveys.filter(option => option.toLowerCase().includes(filterValue));
+    }
+  }
+
+  onSelectionChanged() {
+    const input_value = this.productForm.controls['surveyId'].value;
+    const id = this.surveyIDs.indexOf(input_value);
+
+    if (id > -1) {
+      this.productForm.controls['surveyId'].setValue(this.surveys[id]);
+      this.selectedSurveyID = input_value;
+      console.log("===================== ID: - " + this.selectedSurveyID);
+      console.log("===================== Value: - " + this.surveys[id]);
+    } else {
+      console.log("============ else ==================");
+    }
+  }
+
+  checkValue(event) {
+    if (!(this.surveys.indexOf(event.currentTarget.value) > -1)) {
+      this.productForm.controls['surveyId'].setValue("");
+    }
+  }
+
+  getAllSurvey() {
+    this.getAllSurveySub = this.surveyService
+      .getAllSurveys()
+      .subscribe(successResp => {
+        successResp.content.forEach(element => {
+          this.surveys.push(element.topic);
+          this.surveyIDs.push(element.id);
+          this.surveyOnChange();
+        });
+      });
   }
 
   getClientSuggestions() {
@@ -198,7 +256,7 @@ export class ProductCrudPopupComponent implements OnInit {
   prepareToSave(formvalue): FormData {
     let input: FormData = new FormData();
     if (formvalue.surveyId) {
-      input.append("surveyId", formvalue.surveyId);
+      input.append("surveyId", this.selectedSurveyID);
     }
     input.append("code", formvalue.code);
     input.append("quantity", formvalue.quantity);
@@ -224,14 +282,7 @@ export class ProductCrudPopupComponent implements OnInit {
 
     return input;
   }
-
-  getAllSurvey() {
-    this.getAllSurveySub = this.surveyService
-      .getAllSurveys()
-      .subscribe(successResp => {
-        this.surveyRows = successResp.content;
-      });
-  }
+  
 }
 
 export class ProductCreationRequest {
