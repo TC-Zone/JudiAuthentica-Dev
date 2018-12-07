@@ -79,6 +79,19 @@ export class FutureSurveyService {
       );
   }
 
+
+  demoDO(testInput): Observable<any> {
+    console.log('calllled');
+
+    return this.http.post<any>('https://clearpicture-sl.atlassian.net/',testInput).pipe(
+      map(response => {
+        console.log(JSON.stringify(response.content.id));
+        return response.content.id;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);
   }

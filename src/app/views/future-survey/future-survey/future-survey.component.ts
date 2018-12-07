@@ -82,7 +82,10 @@ export class FutureSurveyComponent implements OnInit {
           .getFutureSurveyById(this.surveyId)
           .subscribe(response => {
             this.jsonContent = JSON.parse(response.content.jsonContent);
-            console.log(this.jsonContent);
+            let title = response.content.title;
+            this.snack.open("New " + title + " survey is loaded !", "OK", {
+              duration: 4000
+            });
             this.setuptheme();
             this.setClients();
           });
@@ -189,8 +192,8 @@ export class FutureSurveyComponent implements OnInit {
     });
 
     if (this.jsonContent) {
-      // console.log("JSON CONTENT : ");
-      // console.log(this.jsonContent);
+      console.log("JSON CONTENT : ");
+      console.log(this.jsonContent);
       this.editor.text = this.jsonContent;
     }
 
@@ -231,11 +234,15 @@ export class FutureSurveyComponent implements OnInit {
   }
 
   saveMySurvey = () => {
+    console.log("...........plain text............");
+    console.log(this.editor.text);
+
     const jsonText = JSON.stringify(this.editor.text);
     const jsonObject = JSON.parse(this.editor.text);
-    // console.log('CONTEN :')
-    //  console.log(jsonObject);
-    //  console.log(jsonText);
+
+    console.log("...........after json strigfy text............");
+    console.log(jsonText);
+
     if (this.validateFutureSurveyRequest(jsonObject)) {
       return;
     }
@@ -276,27 +283,30 @@ export class FutureSurveyComponent implements OnInit {
             });
           }
         );
-    } else {
-      console.log(jsonContent);
-      this.furureSurveyService.submitFutureSurveyContent(jsonContent).subscribe(
-        response => {
-          let title = response.title;
-          this.surveyId = response.id;
-          this.loader.close();
-          this.snack.open("New " + title + " survey is created !", "OK", {
-            duration: 4000
-          });
-        },
-        error => {
-          this.loader.close();
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
-        }
-      );
     }
+
+    // ............... SAVE PROCESS REMOVED with CONFIG popup replacement : YRS
+    // else {
+    //   console.log(jsonContent);
+    //   this.furureSurveyService.submitFutureSurveyContent(jsonContent).subscribe(
+    //     response => {
+    //       let title = response.title;
+    //       this.surveyId = response.id;
+    //       this.loader.close();
+    //       this.snack.open("New " + title + " survey is created !", "OK", {
+    //         duration: 4000
+    //       });
+    //     },
+    //     error => {
+    //       this.loader.close();
+    //       this.errDialog.showError({
+    //         title: "Error",
+    //         status: error.status,
+    //         type: "http_error"
+    //       });
+    //     }
+    //   );
+    // }
   }
 
   validateFutureSurveyRequest(jsonRequest) {
