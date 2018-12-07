@@ -8,7 +8,7 @@ export class ArrayFilter implements PipeTransform {
   transform(items: any[], filterVal: any, arrType: string): any {
     //console.log("filterVal : " + filterVal);
     if (!items) {
-      console.log("no items");
+      //console.log("no items");
       return items;
     }
 

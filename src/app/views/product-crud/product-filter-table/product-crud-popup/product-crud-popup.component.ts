@@ -174,7 +174,7 @@ export class ProductCrudPopupComponent implements OnInit {
         }
         this.currentTotalImageCount += filesAmount;
       } else {
-        // alert for file uploa limit
+        // alert for file upload limit
         this.snackBar.open(
           "Can't upload more than " + this.maxUploadableFileCount + " photos",
           "close",

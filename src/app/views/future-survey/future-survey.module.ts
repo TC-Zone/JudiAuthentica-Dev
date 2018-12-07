@@ -11,7 +11,13 @@ import {
   MatSnackBarModule,
   MatListModule,
   MatIconModule,
-  MatInputModule
+  MatInputModule,
+  MatToolbarModule,
+  MatSelectModule,
+  MatDialogModule,
+  MatRadioModule,
+  MatExpansionModule,
+  MatCheckboxModule
 } from "@angular/material";
 
 import { StarRatingModule } from "angular-star-rating";
@@ -25,7 +31,10 @@ import { FutureSurveyService } from "./future-survey.service";
 import { FutureSurveyRoutes } from "./future-survey.routing";
 import { FutureSurveyListComponent } from "./future-survey-list/future-survey-list.component";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FutureSurveyConfigPopupComponent } from "./future-survey-config-popup/future-survey-config-popup.component";
+import { FutureSurveyCommonConfigComponent } from './future-survey-config-popup/future-survey-common-config.component';
+import { AppDataConversionService } from '../../shared/services/data-conversion.service';
 
 export let InjectorInstance: Injector;
 
@@ -45,15 +54,25 @@ export let InjectorInstance: Injector;
     MatIconModule,
     NgxDatatableModule,
     MatInputModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatRadioModule,
+    MatExpansionModule,
+    FormsModule,
+    MatCheckboxModule,
     RouterModule.forChild(FutureSurveyRoutes),
     SharedModule
   ],
   declarations: [
     FutureSurveyComponent,
     FutureSurveyViewComponent,
-    FutureSurveyListComponent
+    FutureSurveyListComponent,
+    FutureSurveyConfigPopupComponent,
+    FutureSurveyCommonConfigComponent
   ],
-  providers: [CrudService, FutureSurveyService]
+  providers: [CrudService, FutureSurveyService,AppDataConversionService],
+  entryComponents: [FutureSurveyConfigPopupComponent]
 })
 export class FutureSurveyModule {
   constructor(private injector: Injector) {
