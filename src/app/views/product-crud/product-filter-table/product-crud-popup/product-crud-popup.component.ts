@@ -114,7 +114,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent implements
   }
 
   
-  public surveyOnChange() {
+  surveyOnChange() {
     this.surveyFilteredOptions = this.productForm.controls['surveyId'].valueChanges
       .pipe(
         startWith(''),
@@ -133,22 +133,21 @@ export class ProductCrudPopupComponent extends ProductCommonComponent implements
   onSelectionChanged() {
     const input_value = this.productForm.controls['surveyId'].value;
     const id = this.surveyIDs.indexOf(input_value);
-
     if (id > -1) {
       this.productForm.controls['surveyId'].setValue(this.surveys[id]);
       this.selectedSurveyID = input_value;
-      console.log("===================== ID: - " + this.selectedSurveyID);
-      console.log("===================== Value: - " + this.surveys[id]);
     } else {
       console.log("============ else ==================");
     }
   }
 
-  checkValue(event) {
+  surveyOnFocusOut(event) {
     if (!(this.surveys.indexOf(event.currentTarget.value) > -1)) {
       this.productForm.controls['surveyId'].setValue("");
     }
   }
+
+
 
   getAllSurvey() {
     this.getAllSurveySub = this.surveyService
