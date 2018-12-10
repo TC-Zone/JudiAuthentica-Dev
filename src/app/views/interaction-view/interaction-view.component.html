@@ -1,7 +1,13 @@
-<div fxFlex="100" fxLayoutAlign="center center" >
-    <div class="survey-container contentcontainer codecontainer">
-        <mat-card class="container">
-      <div id="surveyElement" ></div>
-         </mat-card>
+<div fxFlex="100" fxLayoutAlign="center center">
+  <mat-toolbar matDialogTitle class="mat-primary m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title"
+        >Welcome to {{ surveyTitle }}</span
+      >
     </div>
+  </mat-toolbar>
+
+  <div class="survey-container contentcontainer codecontainer">
+    <mat-card class="container"> <div id="surveyElement"></div> </mat-card>
   </div>
+</div>
