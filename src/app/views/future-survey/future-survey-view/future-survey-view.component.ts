@@ -91,16 +91,14 @@ export class FutureSurveyViewComponent implements OnInit {
     Survey
     .StylesManager
     .applyTheme("bootstrap");
+    //Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
+    // console.log('.....bootstrap');
+    // console.log(Survey.defaultBootstrapCss);
+    
+    
 
-    var myCss = {
-      matrix: {
-          root: "table table-striped"
-      },
-      navigationButton: "button btn-lg",  
-      
-    };
 
-    Survey.SurveyNG.render("surveyElement", { model: surveyModel,css: myCss});
+    Survey.SurveyNG.render("surveyElement", { model: surveyModel});
 
     surveyModel.onComplete.add(function(result) {
       // ------- new start --------
@@ -169,6 +167,13 @@ export class FutureSurveyViewComponent implements OnInit {
     defaultThemeColorsSurvey[
       "$body-container-background-color"
     ] = bodyContainerBackgroundColor;
+
+    // console.log("--- theme color setting---");
+    // console.log(defaultThemeColorsSurvey);
+    // console.log(Survey.StylesManager.ThemeColors);
+    // console.log(Survey);
+    
+    
 
     Survey.StylesManager.applyTheme();
 
