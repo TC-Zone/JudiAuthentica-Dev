@@ -28,6 +28,7 @@ import { DateValidator } from "../../directives/DateValidator.directive";
 import { FileUploadModule } from "ng2-file-upload";
 import { SurveyService } from '../survey/survey.service';
 import { SharedModule } from '../../shared/shared.module';
+import { ProductCommonComponent } from './product-crud-common.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { SharedModule } from '../../shared/shared.module';
   declarations: [
     ProductFilterTableComponent,
     ProductCrudPopupComponent,
-    DateValidator
+    DateValidator,
+    ProductCommonComponent
   ],
   providers: [ProductCrudService, CrudService, SurveyService],
   entryComponents: [ProductCrudPopupComponent]

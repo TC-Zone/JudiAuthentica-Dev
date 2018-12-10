@@ -12,7 +12,13 @@ import { Subscription, Observable } from "rxjs";
 import { ResponseModel } from "../../../../model/ResponseModel.model";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
-import { debounceTime, switchMap, distinctUntilChanged, startWith, map } from "rxjs/operators";
+import {
+  debounceTime,
+  switchMap,
+  distinctUntilChanged,
+  startWith,
+  map
+} from "rxjs/operators";
 import { Clients, Content } from "./../../../../model/ClientModel.model";
 
 import { DateValidator } from "../../../../utility/dateValidator";
@@ -49,7 +55,8 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
   ]
 })
-export class ProductCrudPopupComponent extends ProductCommonComponent implements OnInit {
+export class ProductCrudPopupComponent extends ProductCommonComponent
+  implements OnInit {
   public productForm: FormGroup;
   public clients: any[];
   public getClientSub: Subscription;
@@ -58,7 +65,6 @@ export class ProductCrudPopupComponent extends ProductCommonComponent implements
   tomorrow: Date;
   imageUrl: any = "assets/images/placeholder.jpg";
 
-  
   // image uploader related properties
   public uploader: FileUploader = new FileUploader({ url: "upload_url" });
   public hasBaseDropZoneOver: boolean = false;
@@ -69,14 +75,17 @@ export class ProductCrudPopupComponent extends ProductCommonComponent implements
   newlySelectedFileList = [];
   remainImagesID = [];
   currentTotalImageCount: number = 0;
-  
+
   getAllSurveySub: Subscription;
   surveyRows: any[];
-  
+
   surveyFilteredOptions: Observable<string[]>;
   surveys: string[] = [];
   surveyIDs: string[] = [];
   selectedSurveyID: string;
+
+  // .............REGEX for Youtube link validation...............
+  public youtubeRegex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -113,28 +122,30 @@ export class ProductCrudPopupComponent extends ProductCommonComponent implements
     );
   }
 
-  
   surveyOnChange() {
-    this.surveyFilteredOptions = this.productForm.controls['surveyId'].valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._surveyFilter(value))
-      );
+    this.surveyFilteredOptions = this.productForm.controls[
+      "surveyId"
+    ].valueChanges.pipe(
+      startWith(""),
+      map(value => this._surveyFilter(value))
+    );
     this.onSelectionChanged();
   }
 
   private _surveyFilter(value: string): string[] {
     if (value === "" || isNaN(Number(value))) {
       const filterValue = value.toLowerCase();
-      return this.surveys.filter(option => option.toLowerCase().includes(filterValue));
+      return this.surveys.filter(option =>
+        option.toLowerCase().includes(filterValue)
+      );
     }
   }
 
   onSelectionChanged() {
-    const input_value = this.productForm.controls['surveyId'].value;
+    const input_value = this.productForm.controls["surveyId"].value;
     const id = this.surveyIDs.indexOf(input_value);
     if (id > -1) {
-      this.productForm.controls['surveyId'].setValue(this.surveys[id]);
+      this.productForm.controls["surveyId"].setValue(this.surveys[id]);
       this.selectedSurveyID = input_value;
     } else {
       console.log("============ else ==================");
@@ -143,11 +154,9 @@ export class ProductCrudPopupComponent extends ProductCommonComponent implements
 
   surveyOnFocusOut(event) {
     if (!(this.surveys.indexOf(event.currentTarget.value) > -1)) {
-      this.productForm.controls['surveyId'].setValue("");
+      this.productForm.controls["surveyId"].setValue("");
     }
   }
-
-
 
   getAllSurvey() {
     this.getAllSurveySub = this.surveyService
@@ -190,6 +199,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent implements
       quantity: [fieldItem.quantity || "", Validators.required],
       expireDate: [fieldItem.expireDate || "", Validators.required],
       surveyId: [fieldItem.surveyId || null],
+      videoUrl: [fieldItem.videoUrl, Validators.pattern(this.youtubeRegex)],
       file: [fieldItem.file || ""]
     });
   }
@@ -257,6 +267,10 @@ export class ProductCrudPopupComponent extends ProductCommonComponent implements
     if (formvalue.surveyId) {
       input.append("surveyId", this.selectedSurveyID);
     }
+    if (formvalue.videoUrl) {
+      input.append("videoUrl", formvalue.videoUrl);
+    }
+
     input.append("code", formvalue.code);
     input.append("quantity", formvalue.quantity);
     input.append("client", formvalue.client.id);
@@ -281,7 +295,6 @@ export class ProductCrudPopupComponent extends ProductCommonComponent implements
 
     return input;
   }
-  
 }
 
 export class ProductCreationRequest {
@@ -293,6 +306,7 @@ export class ProductCreationRequest {
   quantity: string;
   expireDate: string;
   surveyId: string;
+  videoUrl: string;
   file: any;
 
   constructor(public formValue: any) {
@@ -305,6 +319,7 @@ export class ProductCreationRequest {
     this.expireDate = formValue.expireDate;
     this.surveyId = formValue.surveyId;
     this.file = formValue.file;
+    this.videoUrl = formValue.videoUrl;
   }
 }
 

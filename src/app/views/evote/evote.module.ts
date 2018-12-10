@@ -12,7 +12,7 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatIconModule,
-  MatAutocompleteModule, 
+  MatAutocompleteModule,
   MatToolbarModule} from '@angular/material';
 import { EvoteTableComponent } from './evote-table/evote-table.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -50,8 +50,8 @@ import { SurveyService } from '../survey/survey.service';
   ],
   providers: [EvoteService,CrudService,SurveyService],
   declarations: [
-    EvoteTableComponent, 
-    EvotePopupComponent, 
+    EvoteTableComponent,
+    EvotePopupComponent,
     VoterPopupComponent,
   ],
   entryComponents: [EvotePopupComponent,VoterPopupComponent]

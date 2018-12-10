@@ -8,7 +8,7 @@ import {
 import { Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { InjectorInstance } from "./future-survey.module";
-import { environment } from '../../../environments/environment.prod';
+import { environment } from "../../../environments/environment.prod";
 
 @Injectable()
 export class FutureSurveyService {
@@ -79,17 +79,24 @@ export class FutureSurveyService {
       );
   }
 
-
   demoDO(testInput): Observable<any> {
-    console.log('calllled');
+    console.log("calllled");
 
-    return this.http.post<any>('https://clearpicture-sl.atlassian.net/',testInput).pipe(
-      map(response => {
-        console.log(JSON.stringify(response.content.id));
-        return response.content.id;
-      }),
-      catchError(this.handleError)
-    );
+    return this.http
+      .post<any>("https://clearpicture-sl.atlassian.net/", testInput)
+      .pipe(
+        map(response => {
+          console.log(JSON.stringify(response.content.id));
+          return response.content.id;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  launchFutureSurvey(surveyId): Observable<any> {
+    return this.http
+      .get<any>(this.surveyApiUrl + "surveys" + "/futureSurveyLaunch/" + surveyId)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse | any) {

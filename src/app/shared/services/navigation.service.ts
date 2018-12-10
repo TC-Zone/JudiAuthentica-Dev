@@ -432,6 +432,13 @@ export class NavigationService {
         { name: "Future Survey Designer", state: "sEditor" }
 
       ]
+    },
+    {
+      name: "Interaction View",
+      type: "link",
+      tooltip: "E-Vote",
+      icon: "thumbs_up_down",
+      state: "interaction/viewInteraction"
     }
     // ,{
     //   name: 'INBOX',

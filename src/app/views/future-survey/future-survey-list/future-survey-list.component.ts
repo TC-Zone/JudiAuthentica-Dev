@@ -58,7 +58,6 @@ export class FutureSurveyListComponent implements OnInit {
     );
 
     dialogRef.afterClosed().subscribe(res => {
-
       if (!res) {
         // if user press cancel.
         return;
@@ -67,11 +66,13 @@ export class FutureSurveyListComponent implements OnInit {
       console.log("...............Clicked SAVE.................");
       console.log(res);
 
-      this.futureSurveyService.submitFutureSurveyContent(res).subscribe(response => {
-        console.log("...............AFTER SAVED.................");
-        console.log(response);
-        this.navigateToSurveyEditor(response);
-      });
+      this.futureSurveyService
+        .submitFutureSurveyContent(res)
+        .subscribe(response => {
+          console.log("...............AFTER SAVED.................");
+          console.log(response);
+          this.navigateToSurveyEditor(response);
+        });
     });
   }
 
@@ -134,6 +135,18 @@ export class FutureSurveyListComponent implements OnInit {
             }
           );
         }
+      });
+  }
+
+  launchFutureSurvey(surveyObj) {
+    console.log("surveyOBJ ");
+    console.log(surveyObj);
+
+    this.futureSurveyService
+      .launchFutureSurvey(surveyObj.id)
+      .subscribe(response => {
+        console.log("LAUNCH RESPONSE");
+        console.log(response);
       });
   }
 }

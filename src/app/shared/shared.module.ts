@@ -79,6 +79,7 @@ import { AppFileDownloadService } from "./services/file-download.service";
 import { AppDataConversionService } from './services/data-conversion.service';
 import { ArrayFilter } from './pipes/array-filter.pipe';
 
+
 const classesToInclude = [
   HeaderTopComponent,
   SidebarTopComponent,
