@@ -94,8 +94,8 @@ export class FutureSurveyViewComponent implements OnInit {
     //Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
     // console.log('.....bootstrap');
     // console.log(Survey.defaultBootstrapCss);
-    
-    
+
+
 
 
     Survey.SurveyNG.render("surveyElement", { model: surveyModel});
@@ -172,11 +172,11 @@ export class FutureSurveyViewComponent implements OnInit {
     // console.log(defaultThemeColorsSurvey);
     // console.log(Survey.StylesManager.ThemeColors);
     // console.log(Survey);
-    
-    
+
+
 
     Survey.StylesManager.applyTheme();
 
-    
+
   }
 }

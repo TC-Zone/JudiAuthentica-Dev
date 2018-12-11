@@ -7,11 +7,13 @@ import { environment } from "../../../environments/environment.prod";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
+import { InjectorInstance2 } from "./interaction-view.module";
 
 @Injectable()
 export class InteractionViewService {
   surveyApiUrl: string = environment.surveyApiURL;
+  private http: HttpClient;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -21,7 +23,9 @@ export class InteractionViewService {
     })
   };
 
-  constructor(private http: HttpClient) {}
+  constructor() {
+    this.http = InjectorInstance2.get<HttpClient>(HttpClient);
+  }
 
   getInteractionById(interactionId): Observable<any> {
     return this.http
@@ -31,7 +35,34 @@ export class InteractionViewService {
       .pipe(catchError(this.handleError));
   }
 
+  getFutureSurveyById(surveyId): Observable<any> {
+    return this.http
+      .get<any>(this.surveyApiUrl + "surveys" + "/futureSurvey/" + surveyId)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);
   }
+
+  submitAnswers(answers): Observable<any> {
+    return this.http
+      .post<any>(this.surveyApiUrl + "surveys" + "/futureSurveyAnswer", answers)
+      .pipe(
+        map(data => {
+          console.log(data);
+          return data.content;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+
+  interactLogin(loginReq){
+    return this.http
+    .get<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInteraction/login/" + loginReq.password)
+    .pipe(catchError(this.handleError));
+  }
+
+
 }

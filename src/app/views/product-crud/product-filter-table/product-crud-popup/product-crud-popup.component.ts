@@ -86,6 +86,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
 
   // .............REGEX for Youtube link validation...............
   public youtubeRegex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+  public youTubeIdRegex = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\/)|(\?v=|\&v=))([^#\&\?]*).*/;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -199,7 +200,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
       quantity: [fieldItem.quantity || "", Validators.required],
       expireDate: [fieldItem.expireDate || "", Validators.required],
       surveyId: [fieldItem.surveyId || null],
-      videoUrl: [fieldItem.videoUrl, Validators.pattern(this.youtubeRegex)],
+      videoUrl: [fieldItem.videoUrl, Validators.pattern(this.youTubeIdRegex)],
       file: [fieldItem.file || ""]
     });
   }
@@ -267,8 +268,14 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
     if (formvalue.surveyId) {
       input.append("surveyId", this.selectedSurveyID);
     }
-    if (formvalue.videoUrl) {
-      input.append("videoUrl", formvalue.videoUrl);
+
+    let videoUrl=formvalue.videoUrl;
+    if (videoUrl) {
+      let match = videoUrl.match(this.youTubeIdRegex)
+      if (match && match[8].length == 11) {
+        console.log("---------------- youtubeVideoId: - " + match[8]);
+      }
+      input.append("videoUrl", match[8]);
     }
 
     input.append("code", formvalue.code);

@@ -1,9 +1,11 @@
 <div fxFlex="100" fxLayoutAlign="center center">
-  <mat-toolbar matDialogTitle class="mat-primary m-0">
+  <mat-toolbar
+    fxLayoutAlign="center center"
+    matDialogTitle
+    class="mat-primary m-0"
+  >
     <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-      <span class="title dialog-title"
-        >Welcome to {{ surveyTitle }}</span
-      >
+      <span class="title dialog-title">Welcome to {{ surveyTitle }}</span>
     </div>
   </mat-toolbar>
 
@@ -11,3 +13,38 @@
     <mat-card class="container"> <div id="surveyElement"></div> </mat-card>
   </div>
 </div>
+
+<form [formGroup]="interactForm">
+  <mat-card class="container">
+    <div
+      *ngIf="showLogin"
+      fxFlex
+      fxLayout="row"
+      fxFlex="50"
+      fxLayoutAlign="space-between center"
+    >
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input
+            type="password"
+            matInput
+            [formControl]="interactForm.controls['password']"
+            required
+            name="password"
+            placeholder="Entry Password"
+          />
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          class="mb-05"
+          (click)="doLog()"
+          routerLinkActive="router-link-active"
+          color="accent"
+        >
+          Login to Survey
+        </button>
+      </div>
+    </div>
+  </mat-card>
+</form>
