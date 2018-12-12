@@ -3,9 +3,9 @@ import * as Survey from "survey-angular";
 import * as widgets from "surveyjs-widgets";
 
 import "inputmask/dist/inputmask/phone-codes/phone.js";
-import { ActivatedRoute, NavigationExtras, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { FutureSurveyService } from "../future-survey.service";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { FormGroup, FormBuilder } from "@angular/forms";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { HttpClient } from "@angular/common/http";
 
@@ -88,35 +88,63 @@ export class FutureSurveyViewComponent implements OnInit {
       header.appendChild(btn);
     });
 
-    Survey
-    .StylesManager
-    .applyTheme("bootstrap");
+    Survey.StylesManager.applyTheme("bootstrap");
     //Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
     // console.log('.....bootstrap');
     // console.log(Survey.defaultBootstrapCss);
 
-
-
-
-    Survey.SurveyNG.render("surveyElement", { model: surveyModel});
+    Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 
     surveyModel.onComplete.add(function(result) {
+      console.log("..............SURVEY ANSWER RESULR/.............");
+      console.log(result);
+
       // ------- new start --------
       pageArray.forEach(element => {
-        console.log(element.elements);
+        // console.log(element.elements);
         element.elements.forEach(element => {
-          let elementArray = {};
+          const elementArray = {};
 
-          if (element.type != "html") {
-            let qCode = element.qcode;
+          const eleType: string = element.type;
+          console.log("..........ELEMENT TYPE...........");
+          console.log(eleType);
+          if (eleType != "html") {
+            const valueArray: any[] = [];
+            const qCode = element.qcode;
             if (qCode != null) {
-              if (result.data[element.name] == null) {
-                elementArray["value"] = null;
-                elementArray["qcode"] = qCode ? qCode : null;
+              const answerObj = result.data[element.name];
+              if (answerObj != null) {
+                // ..... Matrix question answer wrapping section.............
+                if (eleType == "matrix") {
+                  console.log("MATRIX ANSWR OB");
+                  for (let answer in answerObj) {
+                    valueArray.push(
+                      new MatrixBaseTemplate(answer, answerObj[answer])
+                    );
+                  }
+                  elementArray["matrixValues"] = valueArray;
+                }
+                // ..... Non Matrix question answer wrapping section.............
+                else {
+                  if (answerObj instanceof Array) {
+                    answerObj.forEach(ans => {
+                      valueArray.push(new ValueTemplate(ans));
+                    });
+                  } else {
+                    valueArray.push(new ValueTemplate(answerObj));
+                  }
+                  elementArray["values"] = valueArray;
+                }
+
+                elementArray["type"] = eleType;
+                elementArray["qcode"] = qCode;
               } else {
-                elementArray["value"] = result.data[element.name];
+                // YS : manage non required answering situations
+                valueArray.push(new ValueTemplate(null));
+                elementArray["values"] = valueArray;
                 elementArray["qcode"] = qCode ? qCode : null;
               }
+
               resultArray.push(elementArray);
             }
           }
@@ -127,6 +155,7 @@ export class FutureSurveyViewComponent implements OnInit {
 
       console.log("...............ANSWER ARRAY.................");
       console.log(resultArray);
+      console.log(JSON.stringify(resultArray));
 
       const fsService: FutureSurveyService = new FutureSurveyService();
       fsService.submitAnswers(resultArray).subscribe(
@@ -173,10 +202,14 @@ export class FutureSurveyViewComponent implements OnInit {
     // console.log(Survey.StylesManager.ThemeColors);
     // console.log(Survey);
 
-
-
     Survey.StylesManager.applyTheme();
-
-
   }
+}
+
+export class ValueTemplate {
+  constructor(public value: any) {}
+}
+
+export class MatrixBaseTemplate {
+  constructor(public rowValue, public columnValue: any) {}
 }

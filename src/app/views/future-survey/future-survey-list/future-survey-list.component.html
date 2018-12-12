@@ -10,32 +10,10 @@
         <div class="text-muted"> New generation survey management tool for advnance usage</div>
       </div>
 
-      <!-- <div class="profile-nav">
-        <mat-nav-list>
-          <mat-list-item routerLink="/survey-interaction" routerLinkActive="list-item-active">
-            <mat-icon>explore</mat-icon>
-            Demo Entrance 1
-          </mat-list-item>
-          <mat-divider></mat-divider>
-          <mat-list-item routerLink="/survey-interaction" routerLinkActive="list-item-active">
-            <mat-icon>explore</mat-icon>
-            Demo Entrance 2
-          </mat-list-item>
-          <mat-divider></mat-divider>
-
-        </mat-nav-list>
-      </div> -->
     </mat-card>
   </div>
 
-
-
-
-
-
-
-
-  <!-- Profile Views -->
+  <!--Future Survey Catalog Top Section  -->
   <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="calc(100% - 300px)">
     <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
       <mat-card-title>
@@ -44,8 +22,8 @@
 
         <div class="profile-actions text-right mb-1">
           <div class="m-333">
-            <button mat-raised-button class="mb-05" (click)="navigateToSurveyEditor()" routerLinkActive="router-link-active"  color="accent">Create New Survey</button>
-            <button mat-raised-button class="mb-05" (click)="openConfigPopup({},true)" routerLinkActive="router-link-active"  color="accent">Open Popup</button>
+            <!-- <button mat-raised-button class="mb-05" (click)="navigateToSurveyEditor()" routerLinkActive="router-link-active"  color="accent">Create New Survey</button> -->
+            <button mat-raised-button class="mb-05" (click)="openConfigPopup({},true)" routerLinkActive="router-link-active"  color="accent">Create New Survey</button>
           </div>
         </div>
 
@@ -91,6 +69,10 @@
               </button>
               <button mat-icon-button mat-sm-button color="warn" (click)="launchFutureSurvey(row)" class="mr-1">
                 <mat-icon>airplanemode_active</mat-icon>
+              </button>
+
+              <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openConfigPopup(row)">
+                <mat-icon>edit</mat-icon>
               </button>
 
             </ng-template>

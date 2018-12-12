@@ -1,15 +1,11 @@
-import {
-  Component,
-  OnInit,
-  Injectable,
-  ViewChild,
-  ElementRef
-} from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { FormGroup, Validators, AbstractControl } from "@angular/forms";
 import { Subscription } from "rxjs";
 import { CrudService } from "../../cruds/crud.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { MatSnackBar } from "@angular/material";
+import { FutureSurveyService } from "../future-survey.service";
+import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 
 @Component({
   selector: "app-future-survey-common-config",
@@ -23,6 +19,7 @@ export class FutureSurveyCommonConfigComponent implements OnInit {
   public csvFile;
   public csvFileName;
 
+  public inviteeGroups: any[];
 
   public getClientSub: Subscription;
 
@@ -42,7 +39,9 @@ export class FutureSurveyCommonConfigComponent implements OnInit {
   constructor(
     public clientService: CrudService,
     public errDialog: AppErrorService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public futureSurveyService: FutureSurveyService,
+    public loader: AppLoaderService
   ) {}
 
   ngOnInit() {}
@@ -172,6 +171,24 @@ export class FutureSurveyCommonConfigComponent implements OnInit {
     }
 
     return new ValidateRequest(correctSet, errorSet);
+  }
+
+  fetchGroupsByClient(clientId) {
+    this.futureSurveyService.fetchGroupsByClientId(clientId).subscribe(
+      response => {
+        console.log(".....INVITEE GROUP....");
+        console.log(response.content);
+        this.inviteeGroups = response.content;
+      },
+      error => {
+        this.loader.close();
+        this.errDialog.showError({
+          title: "Error",
+          status: error.status,
+          type: "http_error"
+        });
+      }
+    );
   }
 }
 

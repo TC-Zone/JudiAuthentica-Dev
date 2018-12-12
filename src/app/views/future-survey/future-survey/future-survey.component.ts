@@ -151,7 +151,9 @@ export class FutureSurveyComponent implements OnInit {
         "comment",
         "panel",
         "microphone",
-        "html"
+        "html",
+        "matrix",
+        "checkbox"
       ]
     };
     this.editor = new SurveyEditor.SurveyEditor(
@@ -164,9 +166,9 @@ export class FutureSurveyComponent implements OnInit {
       "sortablelist",
       "nouislider",
       "bootstrapslider",
-      "matrix",
-      "checkbox",
-      "signaturepad"
+      "signaturepad",
+      "matrixdropdown",
+      "matrixdynamic"
     ];
 
     removeItems.forEach(item => {
@@ -334,7 +336,7 @@ export class FutureSurveyComponent implements OnInit {
         clientError = "Survey should have atleast one question!";
       } else {
         elements.forEach(element => {
-          if ((<any>Object).values(QuestionTypeEnum).includes(element.type)) {
+          if ((<any>Object).values(ChoiceTypeEnum).includes(element.type)) {
             let choices = element.choices;
             if (choices) {
               choices.forEach(choice => {
@@ -381,7 +383,7 @@ export class FutureSurveyRequest {
   ) {}
 }
 
-enum QuestionTypeEnum {
+enum ChoiceTypeEnum {
   DROP_DOWN = "dropdown",
   RADIO_GROUP = "radiogroup",
   IMAGE_PICKER = "imagepicker",

@@ -59,10 +59,12 @@
               fxLayout="row"
               fxLayoutGap="100px"
             >
-              <mat-radio-button [checked]="true" value="1"
+              <mat-radio-button [checked]="channel === '1'" value="1"
                 >Public
               </mat-radio-button>
-              <mat-radio-button value="2">Private</mat-radio-button>
+              <mat-radio-button [checked]="channel === '2'" value="2"
+                >Private</mat-radio-button
+              >
             </mat-radio-group>
           </div>
         </div>
@@ -88,7 +90,7 @@
           <div fxFlex="40" class="pr-1">
             <mat-checkbox
               value="predefined"
-              [checked]="false"
+              [ngModel]="checkBoxModel"
               [formControl]="configForm.controls['isPreDefined']"
               >Select predefined invitee group</mat-checkbox
             >
@@ -109,7 +111,7 @@
                 placeholder="Select A Invitee Group"
               >
                 <mat-option>none</mat-option>
-                <mat-option value="my">My Value</mat-option>
+                <mat-option *ngFor="let group of inviteeGroups" [value]="group.id">{{group.inviteeGroupName}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
