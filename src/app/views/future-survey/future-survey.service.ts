@@ -95,7 +95,15 @@ export class FutureSurveyService {
 
   launchFutureSurvey(surveyId): Observable<any> {
     return this.http
-      .get<any>(this.surveyApiUrl + "surveys" + "/futureSurveyLaunch/" + surveyId)
+      .get<any>(
+        this.surveyApiUrl + "surveys" + "/futureSurveyLaunch/" + surveyId
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  fetchGroupsByClientId(clientId) {
+    return this.http
+      .get<any>(this.surveyApiUrl + "surveys" + "/inviteeGroup/" + clientId)
       .pipe(catchError(this.handleError));
   }
 

@@ -46,7 +46,7 @@ export class FutureSurveyListComponent implements OnInit {
   }
 
   openConfigPopup(data: any = {}, isNew?) {
-    let title = isNew ? "Add new Product" : "Update Product";
+    let title = isNew ? "Create New Survey" : "Update Survey Settings";
 
     let dialogRef: MatDialogRef<any> = this.dialog.open(
       FutureSurveyConfigPopupComponent,
@@ -66,13 +66,15 @@ export class FutureSurveyListComponent implements OnInit {
       console.log("...............Clicked SAVE.................");
       console.log(res);
 
-      this.futureSurveyService
-        .submitFutureSurveyContent(res)
-        .subscribe(response => {
-          console.log("...............AFTER SAVED.................");
-          console.log(response);
-          this.navigateToSurveyEditor(response);
-        });
+      if (isNew) {
+        this.futureSurveyService
+          .submitFutureSurveyContent(res)
+          .subscribe(response => {
+            console.log("...............AFTER SAVED.................");
+            console.log(response);
+            this.navigateToSurveyEditor(response);
+          });
+      }
     });
   }
 

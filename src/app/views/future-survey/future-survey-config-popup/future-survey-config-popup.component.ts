@@ -13,6 +13,8 @@ import {
 import { PublicPart } from "../../../model/FSurveyConfigRequest.model";
 import { AppDataConversionService } from "../../../shared/services/data-conversion.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
+import { FutureSurveyService } from "../future-survey.service";
+import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 
 @Component({
   selector: "app-future-survey-config-popup",
@@ -26,12 +28,17 @@ export class FutureSurveyConfigPopupComponent
 
   // UI status maintaining variables
   public panelOpenState = false;
-  public channel;
 
   public invitees: any[];
 
   // default page json for initial saving
   public pageItem: any = [{ name: "page1" }];
+
+  // check box module
+  public checkBoxModel = false;
+
+  // radio button check/unchecked setting
+  public channel = "1";
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -40,15 +47,17 @@ export class FutureSurveyConfigPopupComponent
     public clientService: CrudService,
     public snackBar: MatSnackBar,
     private conversionService: AppDataConversionService,
-    public errDialog: AppErrorService
+    public errDialog: AppErrorService,
+    public futureSurveyService: FutureSurveyService,
+    public loader: AppLoaderService
   ) {
-    super(clientService, errDialog, snackBar);
+    super(clientService, errDialog, snackBar, futureSurveyService, loader);
   }
 
   ngOnInit() {
     this.getClientSuggestions();
     this.buildConfigForm(this.data.payload);
-
+    this.setGroupCheckBox(this.data.payload, this.data.isNew);
     // Manage validation when select private channel
     this.configForm
       .get("channel")
@@ -58,6 +67,23 @@ export class FutureSurveyConfigPopupComponent
     this.configForm
       .get("isPreDefined")
       .valueChanges.subscribe(value => this.setInviteeValidations(value));
+  }
+
+  // ............. set settings of predefined gorup checkbox ................
+  setGroupCheckBox(payLoad, isNew) {
+    if (isNew) {
+      this.checkBoxModel = false;
+    } else {
+      this.checkBoxModel = true;
+      console.log("...............CLIENT ID.." + payLoad.clientId);
+
+      this.fetchGroupsByClient(payLoad.clientId);
+    }
+    console.log("............CHANNEL" + payLoad.channel);
+
+    if (!isNew && payLoad.channel == "2") {
+      this.channel = "2";
+    }
   }
 
   ngOnDestroy() {
@@ -95,7 +121,6 @@ export class FutureSurveyConfigPopupComponent
 
         reader.onload = e => {
           let readerResult = reader.result;
-
           let resultStr = readerResult + "";
 
           if (resultStr && resultStr.length > 0) {
