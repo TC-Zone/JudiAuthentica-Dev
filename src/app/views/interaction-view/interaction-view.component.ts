@@ -16,7 +16,7 @@ export class InteractionViewComponent implements OnInit {
   public futureSurveyObj: any;
   public surveyTitle: any;
   public showLogin: boolean = false;
-  public showSurvey: boolean = false;
+  // public showSurvey: boolean = false;
 
   public interactionId;
   public surveyId;
@@ -50,7 +50,6 @@ export class InteractionViewComponent implements OnInit {
       }
       if (this.surveyId) {
         console.log("SURVEY ID : " + this.surveyId);
-
         this.retrieveSurvey(this.surveyId);
       }
     });
@@ -65,9 +64,9 @@ export class InteractionViewComponent implements OnInit {
         this.futureSurveyObj = response.content.futureSurvey;
         this.surveyTitle = this.futureSurveyObj.title;
         this.showLogin = true;
+        console.log("ID : " + this.futureSurveyObj.id);
         console.log("title : " + this.surveyTitle);
         console.log("FUTURE SURVEY OBJ");
-        console.log(this.futureSurveyObj);
       });
   }
 
@@ -76,11 +75,13 @@ export class InteractionViewComponent implements OnInit {
     this.interactionViewService
       .getFutureSurveyById(surveyId)
       .subscribe(response => {
-        this.showSurvey = true;
+        this.showLogin = false;
+        // this.showSurvey = true;
         this.futureSurveyObj = response.content;
         this.jsonContent = JSON.parse(this.futureSurveyObj.jsonContent);
         this.surveyTitle = this.futureSurveyObj.title;
         this.pageJson = JSON.parse(this.jsonContent).pages;
+        
         this.viewSurvey();
         this.setuptheme();
       });
@@ -95,6 +96,7 @@ export class InteractionViewComponent implements OnInit {
   // ........... Survey Respond view should be re architecturing with following certin Angular techniquees .............
   viewSurvey() {
     const surveyModel = new Survey.Model(this.jsonContent);
+    
     let pageArray = this.pageJson;
     let resultArray = [];
 
@@ -115,11 +117,22 @@ export class InteractionViewComponent implements OnInit {
       header.appendChild(span);
       header.appendChild(btn);
     });
-
+    
     Survey.StylesManager.applyTheme("bootstrap");
-    //Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
-    // console.log('.....bootstrap');
-    // console.log(Survey.defaultBootstrapCss);
+
+    surveyModel
+      .onUpdateQuestionCssClasses
+      .add(function (survey, options) {
+        var classes = options.cssClasses
+
+        if (options.question.getType() === "rating") {
+          classes.item = "btn btn-default btn-secondary";
+        }
+
+        if (options.question.getType() === "radiogroup") {
+          classes.item = "radio sv-q-col-1";
+        }
+      });
 
     Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 

@@ -23,6 +23,7 @@
 /*
 * CUSTOMIZE STYLES
 */
+@import "main/cp-common"; // CUSTOM COMMON SCSS
 @import "main/cp-popup"; // REQUIRED ONLY FOR POPUP, IMAGE PRIVIEW OF IMAGE UPLOADER
 @import "main/cp-table"; // REQUIRED ONLY FOR RESPONSIVE TABLE
 
