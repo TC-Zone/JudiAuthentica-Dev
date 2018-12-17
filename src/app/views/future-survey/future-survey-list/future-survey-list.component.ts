@@ -62,18 +62,49 @@ export class FutureSurveyListComponent implements OnInit {
         // if user press cancel.
         return;
       }
-
-      console.log("...............Clicked SAVE.................");
-      console.log(res);
+      this.loader.open();
 
       if (isNew) {
-        this.futureSurveyService
-          .submitFutureSurveyContent(res)
-          .subscribe(response => {
+        console.log("SAVE CONTEXT");
+        console.log(res);
+        this.futureSurveyService.submitFutureSurveyContent(res).subscribe(
+          response => {
             console.log("...............AFTER SAVED.................");
             console.log(response);
+            this.loader.close();
             this.navigateToSurveyEditor(response);
-          });
+          },
+          error => {
+            this.loader.close();
+            this.errDialog.showError({
+              title: "Error",
+              status: error.status,
+              type: "http_error"
+            });
+          }
+        );
+      } else {
+        console.log("UPDATE CONTEXT");
+        console.log("FutureSurvey ID : " + data.id);
+        console.log(res);
+        this.futureSurveyService
+          .updateFutureSurveyConfig(res, data.id)
+          .subscribe(
+            response => {
+              console.log("...............AFTER UPDATED.................");
+              console.log(response);
+              this.getAllFutureSurveys();
+              this.loader.close();
+            },
+            error => {
+              this.loader.close();
+              this.errDialog.showError({
+                title: "Error",
+                status: error.status,
+                type: "http_error"
+              });
+            }
+          );
       }
     });
   }

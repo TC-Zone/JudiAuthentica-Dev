@@ -192,7 +192,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
     const clientId = client ? client.id : null;
 
     this.productForm = this.fb.group({
-      client: [clientId || "", { disabled: !this.data.isNew }],
+      client: [clientId || ""],
       code: [fieldItem.code || "", Validators.required],
       name: [fieldItem.name || "", Validators.required],
       description: [fieldItem.description || "", Validators.required],
@@ -269,9 +269,9 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
       input.append("surveyId", this.selectedSurveyID);
     }
 
-    let videoUrl=formvalue.videoUrl;
+    let videoUrl = formvalue.videoUrl;
     if (videoUrl) {
-      let match = videoUrl.match(this.youTubeIdRegex)
+      let match = videoUrl.match(this.youTubeIdRegex);
       if (match && match[8].length == 11) {
         console.log("---------------- youtubeVideoId: - " + match[8]);
       }

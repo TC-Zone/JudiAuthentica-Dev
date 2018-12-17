@@ -3,7 +3,7 @@ export class FSurveyConfigRequest {
   clientId: string;
   channel: string;
   jsonContent: string;
-  isPreDefined?: string;
+  isPreDefined?: boolean;
   inviteeGroupId?: string;
   inviteeGroupName?: string;
   invitees?: any[];
@@ -16,7 +16,7 @@ export class FSurveyConfigRequest {
     this.clientId = formValue.client;
     this.channel = formValue.channel;
     this.jsonContent = jsoncontent;
-    this.isPreDefined = formValue.isPreDefined ? "true" : "false";
+    this.isPreDefined = formValue.isPreDefined ? true : false;
     this.inviteeGroupId = formValue.inviteeGroupId;
     this.inviteeGroupName = formValue.inviteeGroupName;
     this.invitees = csvArray;
@@ -29,7 +29,7 @@ export class PublicPart {
     public clientId,
     public channel,
     public jsonContent: string,
-    public pages : any[]
+    public pages: any[]
   ) {}
 }
 
@@ -39,8 +39,8 @@ export class PrivatePart {
     public clientId,
     public channel,
     public jsonContent: string,
-    public pages : any[],
-    public isPreDefined,
+    public pages: any[],
+    public isPreDefined: boolean,
     public inviteeGroupId?,
     public inviteeGroupName?: string,
     public invitees?: any[]

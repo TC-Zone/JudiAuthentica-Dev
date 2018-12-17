@@ -107,25 +107,28 @@ export class FutureSurveyViewComponent implements OnInit {
 
           const eleType: string = element.type;
           console.log("..........ELEMENT TYPE...........");
+
           console.log(eleType);
           if (eleType != "html") {
             const valueArray: any[] = [];
             const qCode = element.qcode;
             if (qCode != null) {
+              elementArray["type"] = eleType;
+              elementArray["qcode"] = qCode;
+
               const answerObj = result.data[element.name];
               if (answerObj != null) {
                 // ..... Matrix question answer wrapping section.............
-                if (eleType == "matrix") {
-                  console.log("MATRIX ANSWR OB");
+                if (eleType === "matrix") {
+                  console.log("MATRIX ANSWR OB ");
                   for (let answer in answerObj) {
                     valueArray.push(
                       new MatrixBaseTemplate(answer, answerObj[answer])
                     );
                   }
                   elementArray["matrixValues"] = valueArray;
-                }
-                // ..... Non Matrix question answer wrapping section.............
-                else {
+                } else {
+                  // ..... Non Matrix question answer wrapping section.............
                   if (answerObj instanceof Array) {
                     answerObj.forEach(ans => {
                       valueArray.push(new ValueTemplate(ans));
@@ -135,14 +138,15 @@ export class FutureSurveyViewComponent implements OnInit {
                   }
                   elementArray["values"] = valueArray;
                 }
-
-                elementArray["type"] = eleType;
-                elementArray["qcode"] = qCode;
               } else {
                 // YS : manage non required answering situations
-                valueArray.push(new ValueTemplate(null));
-                elementArray["values"] = valueArray;
-                elementArray["qcode"] = qCode ? qCode : null;
+                if (eleType === "matrix") {
+                  valueArray.push(new MatrixBaseTemplate(null, null));
+                  elementArray["matrixValues"] = valueArray;
+                } else {
+                  valueArray.push(new ValueTemplate(null));
+                  elementArray["values"] = valueArray;
+                }
               }
 
               resultArray.push(elementArray);

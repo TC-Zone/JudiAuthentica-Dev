@@ -1,4 +1,4 @@
-<form [formGroup]="configForm" (ngSubmit)="submit()">
+<form [formGroup]="configForm" (ngSubmit)="submit(data.isNew)">
   <mat-toolbar matDialogTitle class="mat-primary m-0">
     <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
       <span class="title dialog-title">{{ data.title }}</span>
@@ -37,6 +37,7 @@
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
               <mat-select
+
                 [formControl]="configForm.controls['client']"
                 required
                 placeholder="Select A Client"
@@ -91,6 +92,7 @@
             <mat-checkbox
               value="predefined"
               [ngModel]="checkBoxModel"
+              (click)='loadGroupsByClientid($event)'
               [formControl]="configForm.controls['isPreDefined']"
               >Select predefined invitee group</mat-checkbox
             >

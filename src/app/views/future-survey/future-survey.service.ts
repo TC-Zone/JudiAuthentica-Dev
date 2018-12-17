@@ -38,6 +38,18 @@ export class FutureSurveyService {
       );
   }
 
+
+  updateFutureSurveyConfig(setting,id){
+    return this.http
+    .put<any>(this.surveyApiUrl + "surveys" + "/futureSurveyConfigUpdate/" + id, setting)
+    .pipe(
+      map(data => {
+        return data.content;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   updateFutureSurveyContent(content, id): Observable<any> {
     return this.http
       .put<any>(this.surveyApiUrl + "surveys" + "/futureSurvey/" + id, content)

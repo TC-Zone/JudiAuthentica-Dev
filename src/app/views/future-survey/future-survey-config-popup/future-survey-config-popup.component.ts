@@ -1,7 +1,12 @@
 import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from "@angular/material";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl
+} from "@angular/forms";
 import { Subscription } from "rxjs";
 import { CrudService } from "../../cruds/crud.service";
 import { FutureSurveyCommonConfigComponent } from "./future-survey-common-config.component";
@@ -64,13 +69,16 @@ export class FutureSurveyConfigPopupComponent
       .valueChanges.subscribe(value => this.setPrivateChannelValidation(value));
 
     // Manage validation when checked predefined invitee groups.
-    this.configForm
-      .get("isPreDefined")
-      .valueChanges.subscribe(value => this.setInviteeValidations(value));
+    this.configForm.get("isPreDefined").valueChanges.subscribe(value => {
+      this.setInviteeValidations(value);
+    });
   }
 
   // ............. set settings of predefined gorup checkbox ................
   setGroupCheckBox(payLoad, isNew) {
+    let clientId = this.configForm.get("client").value;
+    console.log("CLIENT LOG WHEN OPUP " + clientId);
+
     if (isNew) {
       this.checkBoxModel = false;
     } else {
@@ -83,6 +91,19 @@ export class FutureSurveyConfigPopupComponent
 
     if (!isNew && payLoad.channel == "2") {
       this.channel = "2";
+    }
+  }
+
+  // ..........  fetch groups by client once after checked predefined groups ..........
+  loadGroupsByClientid(event) {
+    console.log("event");
+    console.log(event);
+    console.log(this.configForm.get("isPreDefined").value);
+    let isDefined: boolean = this.configForm.get("isPreDefined").value;
+    let client = this.configForm.get("client").value;
+    if (!isDefined && client && this.data.isNew) {
+      console.log(!isDefined);
+      this.fetchGroupsByClient(client);
     }
   }
 
@@ -139,9 +160,10 @@ export class FutureSurveyConfigPopupComponent
     }
   }
 
-  submit() {
+  submit(isNew) {
     let title = this.configForm.get("title").value;
     let client = this.configForm.get("client").value;
+    let sendingReq: any;
 
     let jsonContent: JsonContentPart = new JsonContentPart(
       title,
@@ -160,7 +182,6 @@ export class FutureSurveyConfigPopupComponent
       this.invitees
     );
 
-    let sendingReq: any;
     let publicRequest: PublicPart;
     let privateRequest: PrivatePart;
     if (commonRoot.channel === "1") {
