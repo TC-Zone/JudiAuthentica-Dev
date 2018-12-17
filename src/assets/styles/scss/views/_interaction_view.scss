@@ -1,3 +1,5 @@
+// for interaction view
+@import url('https://fonts.googleapis.com/css?family=Poppins');
 
 .background-survey-signin{
     background-image: url("assets/images/survey_signin/test_bg2.jpg") !important;
@@ -7,8 +9,7 @@
 } 
 
 .background-survey-form{
-    background-image: url("assets/images/survey_signin/test_bg8.jpg") !important;
-    // background-image: url("assets/images/signin/signinimg.jpg") !important;
+    background-image: url("assets/images/survey_signin/test_bg12.png") !important;
     background-size:     cover !important;                      
     background-repeat:   no-repeat !important;  
 } 
@@ -31,7 +32,6 @@
   span{
     font-size: 10px;
   }
-
 }
 
 .survey-page-wrap{
@@ -43,10 +43,40 @@
 
 .survey-form-hold{
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
 .sv_main .sv_p_root > .sv_row:nth-child(2n+1) {
   background-color: #f4f4f4;
+}
+
+.sv_container{
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.sv_row h5{
+  font-size: 1rem ;
+}
+
+.panel-footer.card-footer.survey-page-footer{
+  display: flex;
+  justify-content: center;
+  background-color: #fff !important;
+  padding: 50px 0px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+.sv_container .sv_row{
+  text-align: left;
+  padding-top: 20px;
+}
+
+.survey-form-question{
+  
+}
+
+.survey-form-answer{
+  // padding-left: 30px;
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { egretAnimations } from "../../shared/animations/egret-animations";
 import { ActivatedRoute, Router } from "@angular/router";
 import { InteractionViewService } from "./interaction-view.service";
-import { FutureSurveyService } from "../future-survey/future-survey.service";
 import * as Survey from "survey-angular";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
@@ -31,7 +30,7 @@ export class InteractionViewComponent implements OnInit {
     private router: Router,
     private interactionViewService: InteractionViewService,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.buildInteractForm();
@@ -81,7 +80,7 @@ export class InteractionViewComponent implements OnInit {
         this.jsonContent = JSON.parse(this.futureSurveyObj.jsonContent);
         this.surveyTitle = this.futureSurveyObj.title;
         this.pageJson = JSON.parse(this.jsonContent).pages;
-        
+
         this.viewSurvey();
         this.setuptheme();
       });
@@ -95,29 +94,41 @@ export class InteractionViewComponent implements OnInit {
 
   // ........... Survey Respond view should be re architecturing with following certin Angular techniquees .............
   viewSurvey() {
-    const surveyModel = new Survey.Model(this.jsonContent);
-    
     let pageArray = this.pageJson;
     let resultArray = [];
 
-    surveyModel.onAfterRenderQuestion.add((survey, options) => {
-      if (!options.question.popupdescription) return;
 
-      // Add a button;
-      var btn = document.createElement("button");
-      btn.className = "btn btn-info btn-xs";
-      btn.innerHTML = "More Info";
+    let htmlValue =
+      '<h3>Thank you for completing the survey!</h3>' +
+      '<div class="panel-footer card-footer survey-page-footer">' +
+      '</div>' +
+      '<div class="sv_container">';
 
-      btn.onclick = function() {
-        alert(options.question.popupdescription);
-      };
-      var header = options.htmlElement.querySelector("h5");
-      var span = document.createElement("span");
-      span.innerHTML = "  ";
-      header.appendChild(span);
-      header.appendChild(btn);
+    pageArray.forEach(element => {
+      console.log(element.elements);
+      element.elements.forEach(element => {
+        htmlValue +=
+          "<div class='sv_row'>" +
+          "<div class='sv_qstn'>" +
+          "<h5>" +
+          "<span class='survey-form-question'>Q :- " + element.title + "</span>" +
+          "</h5>" +
+          "<span class='survey-form-answer'>A :- {" + element.name + "} </span>" +
+          "</div>" +
+          "</div></br>";
+      });
     });
-    
+
+    htmlValue += '</div>';
+
+
+
+
+    let jsonc = JSON.parse(this.jsonContent);
+    jsonc.completedHtml = htmlValue;
+
+    const surveyModel = new Survey.Model(jsonc);
+
     Survey.StylesManager.applyTheme("bootstrap");
 
     surveyModel
@@ -132,14 +143,20 @@ export class InteractionViewComponent implements OnInit {
         if (options.question.getType() === "radiogroup") {
           classes.item = "radio sv-q-col-1";
         }
+
+        if (options.question.getType() === "checkbox") {
+          classes.item = "checkbox sv-q-col-1";
+        }
+
       });
 
     Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 
-    surveyModel.onComplete.add(function(result) {
+    surveyModel.onComplete.add(function (result) {
+
+
       // ------- new start --------
       pageArray.forEach(element => {
-        console.log(element.elements);
         element.elements.forEach(element => {
           let elementArray = {};
 
@@ -156,11 +173,11 @@ export class InteractionViewComponent implements OnInit {
               resultArray.push(elementArray);
             }
           }
+
         });
       });
 
       // ------- new end --------
-
       console.log("...............ANSWER ARRAY.................");
       console.log(resultArray);
 
@@ -176,8 +193,12 @@ export class InteractionViewComponent implements OnInit {
           //alert("Something went wrong !");
         }
       );
+
+
     });
+
   }
+
 
   setuptheme() {
     const mainColor = "#0684C0";
@@ -239,5 +260,6 @@ export class LoginRequest {
     public interactionId,
     public password,
     public futureSurveyId: any
-  ) {}
+  ) { }
 }
+
