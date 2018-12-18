@@ -68,7 +68,14 @@ export class FutureSurveyListComponent implements OnInit {
         return;
       }
 
-      this.loader.open("Sending Email Invitations!");
+      let launchText = "";
+      if (isPublic) {
+        launchText = " Public Survey is Launching...";
+      } else {
+        launchText = " Sending Email Invitations...";
+      }
+
+      this.loader.open(launchText);
 
       this.futureSurveyService.launchFutureSurvey(res.id).subscribe(
         response => {
@@ -120,7 +127,7 @@ export class FutureSurveyListComponent implements OnInit {
         // if user press cancel.
         return;
       }
-      this.loader.open();
+      //this.loader.open();
 
       if (isNew) {
         console.log("SAVE CONTEXT");
@@ -129,7 +136,7 @@ export class FutureSurveyListComponent implements OnInit {
           response => {
             console.log("...............AFTER SAVED.................");
             console.log(response);
-            this.loader.close();
+            //this.loader.close();
             this.navigateToSurveyEditor(response);
           },
           error => {
@@ -142,6 +149,7 @@ export class FutureSurveyListComponent implements OnInit {
           }
         );
       } else {
+        this.loader.open("Survey Configurations Updating..");
         console.log("UPDATE CONTEXT");
         console.log("FutureSurvey ID : " + data.id);
         console.log(res);

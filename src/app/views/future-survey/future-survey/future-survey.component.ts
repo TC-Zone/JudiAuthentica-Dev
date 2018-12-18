@@ -336,6 +336,7 @@ export class FutureSurveyComponent implements OnInit {
         clientError = "Survey should have atleast one question!";
       } else {
         elements.forEach(element => {
+          // ...... Validation Rules for Choice Question Types
           if ((<any>Object).values(ChoiceTypeEnum).includes(element.type)) {
             let choices = element.choices;
             if (choices) {
@@ -354,6 +355,46 @@ export class FutureSurveyComponent implements OnInit {
             } else {
               clientError =
                 "Please add choice items for the " + element.name + "!";
+            }
+          }
+
+          // ....... validation rules for Matrix Question Types ............
+          if ((<any>Object).values(MatrixTypeEnum).includes(element.type)) {
+            let columns = element.columns;
+            let rows = element.rows;
+            if (columns) {
+              columns.forEach(col => {
+                let value = col.value;
+                let text = col.text;
+                if (!value || value == null) {
+                  clientError =
+                    "Please add a value for the column  of " + element.name;
+                }
+                if (!text || text == null) {
+                  clientError =
+                    "Please add a text for the column  of " + element.name;
+                }
+              });
+            } else {
+              clientError = "Please add columns  for the " + element.name + "!";
+            }
+
+            if (rows) {
+              rows.forEach(row => {
+                let value = row.value;
+                let text = row.text;
+
+                if (!value || value == null) {
+                  clientError =
+                    "Please add a value for the row  of " + element.name;
+                }
+                if (!text || text == null) {
+                  clientError =
+                    "Please add a text for the row  of " + element.name;
+                }
+              });
+            } else {
+              clientError = "Please add rows  for the " + element.name + "!";
             }
           }
         });
@@ -388,4 +429,10 @@ enum ChoiceTypeEnum {
   RADIO_GROUP = "radiogroup",
   IMAGE_PICKER = "imagepicker",
   CHECKBOX = "checkbox"
+}
+
+enum MatrixTypeEnum {
+  MATRIX = "matrix",
+  MATRIX_DROPDOWN = "matrixdropdown",
+  MATRIX_DYNAMIC = "matrixdynamic"
 }
