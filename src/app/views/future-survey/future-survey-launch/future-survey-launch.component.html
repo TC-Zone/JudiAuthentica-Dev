@@ -51,6 +51,7 @@
 
 <mat-dialog-actions align="end">
   <button
+    [disabled]="currentStatus[0].id == 1"
     mat-raised-button
     (click)="launchFutureSurvey(surveyObj)"
     color="accent"

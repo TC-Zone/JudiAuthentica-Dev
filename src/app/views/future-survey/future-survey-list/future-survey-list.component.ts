@@ -8,7 +8,7 @@ import { Router, NavigationExtras } from "@angular/router";
 import { AppConfirmService } from "../../../shared/services/app-confirm/app-confirm.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
-import { MatDialog, MatDialogRef } from "@angular/material";
+import { MatDialog, MatDialogRef, MatSnackBar } from "@angular/material";
 import { FutureSurveyConfigPopupComponent } from "../future-survey-config-popup/future-survey-config-popup.component";
 import { FutureSurveyLaunchComponent } from "../future-survey-launch/future-survey-launch.component";
 
@@ -32,7 +32,8 @@ export class FutureSurveyListComponent implements OnInit {
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snack: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -66,6 +67,39 @@ export class FutureSurveyListComponent implements OnInit {
         // if user press cancel.
         return;
       }
+
+      this.loader.open("Sending Email Invitations!");
+
+      this.futureSurveyService.launchFutureSurvey(res.id).subscribe(
+        response => {
+          console.log("LAUNCH RESPONSE");
+          console.log(response);
+          const content = response.content;
+
+          this.loader.close();
+          let inviteeText = "";
+          if (content.channel == 2) {
+            inviteeText = "for " + content.interactions + "invitees !";
+          }
+          this.snack.open(
+            content.title + " Survey was Launched ! " + inviteeText,
+            "OK",
+            {
+              duration: 4000
+            }
+          );
+
+          this.getAllFutureSurveys();
+        },
+        error => {
+          this.loader.close();
+          this.errDialog.showError({
+            title: "Error",
+            status: error.status,
+            type: "http_error"
+          });
+        }
+      );
     });
   }
 
@@ -194,6 +228,4 @@ export class FutureSurveyListComponent implements OnInit {
         }
       });
   }
-
-
 }

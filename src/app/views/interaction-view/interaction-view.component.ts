@@ -221,6 +221,7 @@ export class InteractionViewComponent implements OnInit {
       console.log(JSON.stringify(resultArray));
 
       const interactService: InteractionViewService = new InteractionViewService();
+
       interactService.submitAnswers(resultArray).subscribe(
         response => {
           console.log("SUCCESS");
@@ -280,14 +281,24 @@ export class InteractionViewComponent implements OnInit {
     console.log("Login REQUEST ");
     console.log(loginReq);
 
-    this.interactionViewService.interactLoginPost(loginReq).subscribe(response => {
-      this.showLogin = false;
-      console.log("Login RESPONSE ");
+    this.interactionViewService
+      .interactLoginPost(loginReq)
+      .subscribe(response => {
+        const loggedInteraction = response;
+        console.log("LOGGED INTERACTION RESPONSE");
+        console.log(loggedInteraction);
 
-      console.log(response);
-
-      this.retrieveSurvey(response.content.futureSurvey.id);
-    });
+        if (loggedInteraction != null) {
+          if (loggedInteraction.responStatus == 1) {
+            // Situation all ready responded to survey
+          } else {
+            this.showLogin = false;
+            this.retrieveSurvey(loggedInteraction.futureSurvey.id);
+          }
+        } else {
+          // could not find a record for password and interaction id
+        }
+      });
   }
 }
 

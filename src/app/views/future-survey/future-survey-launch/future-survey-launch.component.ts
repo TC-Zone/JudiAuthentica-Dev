@@ -66,37 +66,8 @@ export class FutureSurveyLaunchComponent implements OnInit {
   }
 
   launchFutureSurvey(surveyObj) {
+    this.dialogRef.close(surveyObj);
     console.log("surveyOBJ ");
     console.log(surveyObj);
-    this.loader.open();
-
-    this.futureSurveyService.launchFutureSurvey(surveyObj.id).subscribe(
-      response => {
-        console.log("LAUNCH RESPONSE");
-        console.log(response);
-        const content = response.content;
-        this.dialogRef.close();
-        this.loader.close();
-        let inviteeText = null;
-        if (content.channel == 2) {
-          inviteeText = "for " + content.interactions + "invitees !";
-        }
-        this.snack.open(
-          content.title + " Survey was Launched ! " + inviteeText,
-          "OK",
-          {
-            duration: 4000
-          }
-        );
-      },
-      error => {
-        this.loader.close();
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
-      }
-    );
   }
 }
