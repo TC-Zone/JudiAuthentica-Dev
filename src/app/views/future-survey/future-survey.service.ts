@@ -8,7 +8,8 @@ import {
 import { Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 import { InjectorInstance } from "./future-survey.module";
-import { environment } from "../../../environments/environment.prod";
+
+import { environment } from "environments/environment.prod";
 
 @Injectable()
 export class FutureSurveyService {
@@ -38,16 +39,18 @@ export class FutureSurveyService {
       );
   }
 
-
-  updateFutureSurveyConfig(setting,id){
+  updateFutureSurveyConfig(setting, id) {
     return this.http
-    .put<any>(this.surveyApiUrl + "surveys" + "/futureSurveyConfigUpdate/" + id, setting)
-    .pipe(
-      map(data => {
-        return data.content;
-      }),
-      catchError(this.handleError)
-    );
+      .put<any>(
+        this.surveyApiUrl + "surveys" + "/futureSurveyConfigUpdate/" + id,
+        setting
+      )
+      .pipe(
+        map(data => {
+          return data.content;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   updateFutureSurveyContent(content, id): Observable<any> {
@@ -111,6 +114,15 @@ export class FutureSurveyService {
         this.surveyApiUrl + "surveys" + "/futureSurveyLaunch/" + surveyId
       )
       .pipe(catchError(this.handleError));
+  }
+
+  // Fetch public survey link by using survey id
+  getPublicSurveyLink(id) {
+    let link =
+      environment.frontEndBaseUrl +
+      "/interaction/viewInteraction?surveyId=" +
+      id;
+    return link;
   }
 
   fetchGroupsByClientId(clientId) {

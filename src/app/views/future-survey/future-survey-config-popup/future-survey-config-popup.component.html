@@ -92,7 +92,7 @@
             <mat-checkbox
               value="predefined"
               [ngModel]="checkBoxModel"
-              (click)='loadGroupsByClientid($event)'
+              (change)='loadGroupsByClientid($event)'
               [formControl]="configForm.controls['isPreDefined']"
               >Select predefined invitee group</mat-checkbox
             >

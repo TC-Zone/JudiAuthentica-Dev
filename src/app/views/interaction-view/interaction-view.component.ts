@@ -32,9 +32,8 @@ export class InteractionViewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private interactionViewService: InteractionViewService,
-    private fb: FormBuilder,
-  ) {
-  }
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.buildInteractForm();
@@ -48,16 +47,15 @@ export class InteractionViewComponent implements OnInit {
       this.interactionId = params["interactionId"];
       this.surveyId = params["surveyId"];
       this.preview = params["preview"];
-
-      if (this.interactionId) {
-        this.viewInteraction(this.interactionId);
-      }
-      if (this.surveyId) {
-        console.log("SURVEY ID : " + this.surveyId);
-        this.retrieveSurvey(this.surveyId);
-      }
     });
 
+    if (this.interactionId) {
+      this.viewInteraction(this.interactionId);
+    }
+    if (this.surveyId) {
+      console.log("SURVEY ID : " + this.surveyId);
+      this.retrieveSurvey(this.surveyId);
+    }
   }
 
   viewInteraction(interactionId) {
@@ -100,11 +98,40 @@ export class InteractionViewComponent implements OnInit {
 
   // ........... Survey Respond view should be re architecturing with following certin Angular techniquees .............
   viewSurvey() {
-    let pageArray = this.pageJson;
+    let pageArray: any[] = this.pageJson;
     let resultArray = [];
 
+    let htmlValue =
+      "<h3>Thank you for completing the survey!</h3>" +
+      '<div class="panel-footer card-footer survey-page-footer">' +
+      "</div>" +
+      '<div class="sv_container">';
 
+    if (pageArray.length != 0) {
+      pageArray.forEach(element => {
+        const elementArray: any[] = element.elements;
+        console.log(elementArray);
+        if (elementArray) {
+          elementArray.forEach(element => {
+            htmlValue +=
+              "<div class='sv_row'>" +
+              "<div class='sv_qstn'>" +
+              "<h5>" +
+              "<span class='survey-form-question'>Q :- " +
+              element.title +
+              "</span>" +
+              "</h5>" +
+              "<span class='survey-form-answer'>A :- {" +
+              element.name +
+              "} </span>" +
+              "</div>" +
+              "</div></br>";
+          });
+        }
+      });
+    }
 
+    htmlValue += "</div>";
 
     let jsonc = JSON.parse(this.jsonContent);
     // jsonc.completedHtml = htmlValue;
@@ -113,61 +140,93 @@ export class InteractionViewComponent implements OnInit {
 
     Survey.StylesManager.applyTheme("bootstrap");
 
-    surveyModel
-      .onUpdateQuestionCssClasses
-      .add(function (survey, options) {
-        var classes = options.cssClasses
+    surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
+      var classes = options.cssClasses;
 
-        if (options.question.getType() === "rating") {
-          classes.item = "btn btn-default btn-secondary";
-        }
+      if (options.question.getType() === "rating") {
+        classes.item = "btn btn-default btn-secondary";
+      }
 
-        if (options.question.getType() === "radiogroup") {
-          classes.item = "radio sv-q-col-1";
-        }
+      if (options.question.getType() === "radiogroup") {
+        classes.item = "radio sv-q-col-1";
+      }
 
-        if (options.question.getType() === "checkbox") {
-          classes.item = "checkbox sv-q-col-1";
-        }
-
-      });
+      if (options.question.getType() === "checkbox") {
+        classes.item = "checkbox sv-q-col-1";
+      }
+    });
 
     Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 
-
+    // .............. ON COMPLET START HERE ..........................
     surveyModel.onComplete.add(function (result) {
-      localStorage.setItem("surveyResult", JSON.stringify(result.data));
+      console.log("..............SURVEY ANSWER RESULR/.............");
+      console.log(result);
 
-      document.getElementById("surveyResult").innerHTML = "<a class='btn sv_next_btn' href='" + window.location.href + "&preview=true' >View Summary</a>";
+      // ------- new start --------
+      pageArray.forEach(element => {
+        // console.log(element.elements);
+        element.elements.forEach(element => {
+          const elementArray = {};
 
-      
-        // ------- new start --------
-        pageArray.forEach(element => {
-          element.elements.forEach(element => {
-            let elementArray = {};
+          const eleType: string = element.type;
+          console.log("..........ELEMENT TYPE...........");
 
-            if (element.type != "html") {
-              let qCode = element.qcode;
-              if (qCode != null) {
-                if (result.data[element.name] == null) {
-                  elementArray["value"] = null;
-                  elementArray["qcode"] = qCode ? qCode : null;
+          console.log(eleType);
+          if (eleType != "html") {
+            const valueArray: any[] = [];
+            const qCode = element.qcode;
+            if (qCode != null) {
+              elementArray["type"] = eleType;
+              elementArray["qcode"] = qCode;
+
+              const answerObj = result.data[element.name];
+              if (answerObj != null) {
+                // ..... Matrix question answer wrapping section.............
+                if (eleType === "matrix") {
+                  console.log("MATRIX ANSWR OB ");
+                  for (let answer in answerObj) {
+                    valueArray.push(
+                      new MatrixBaseTemplate(answer, answerObj[answer])
+                    );
+                  }
+                  elementArray["matrixValues"] = valueArray;
                 } else {
-                  elementArray["value"] = result.data[element.name];
-                  elementArray["qcode"] = qCode ? qCode : null;
+                  // ..... Non Matrix question answer wrapping section.............
+                  if (answerObj instanceof Array) {
+                    answerObj.forEach(ans => {
+                      valueArray.push(new ValueTemplate(ans));
+                    });
+                  } else {
+                    valueArray.push(new ValueTemplate(answerObj));
+                  }
+                  elementArray["values"] = valueArray;
                 }
-                resultArray.push(elementArray);
+              } else {
+                // YS : manage non required answering situations
+                if (eleType === "matrix") {
+                  valueArray.push(new MatrixBaseTemplate(null, null));
+                  elementArray["matrixValues"] = valueArray;
+                } else {
+                  valueArray.push(new ValueTemplate(null));
+                  elementArray["values"] = valueArray;
+                }
               }
-            }
 
-          });
+              resultArray.push(elementArray);
+            }
+          }
         });
+      });
 
       // ------- new end --------
+
       console.log("...............ANSWER ARRAY.................");
       console.log(resultArray);
+      console.log(JSON.stringify(resultArray));
 
       const interactService: InteractionViewService = new InteractionViewService();
+
       interactService.submitAnswers(resultArray).subscribe(
         response => {
           console.log("SUCCESS");
@@ -179,16 +238,17 @@ export class InteractionViewComponent implements OnInit {
           //alert("Something went wrong !");
         }
       );
-
     });
+
+    // ................. ON COMPLETE END HERE .........
 
     if (this.preview) {
       surveyModel.data = JSON.parse(localStorage.getItem("surveyResult"))
       surveyModel.mode = 'display';
     }
 
-  }
 
+  }
 
   setuptheme() {
     const mainColor = "#0684C0";
@@ -224,40 +284,50 @@ export class InteractionViewComponent implements OnInit {
 
     let password = this.interactForm.get("password").value;
 
+    let fsPart: FSurveyPart = new FSurveyPart(this.futureSurveyObj.id);
+
     let loginReq: LoginRequest = new LoginRequest(
       this.interactionId,
       password,
-      this.futureSurveyObj.id
+      fsPart
     );
 
     console.log("Login REQUEST ");
-
     console.log(loginReq);
 
-    this.interactionViewService.interactLogin(loginReq).subscribe(response => {
-      this.showLogin = false;
-      this.loginResult = true;
+    this.interactionViewService
+      .interactLoginPost(loginReq)
+      .subscribe(response => {
+        const loggedInteraction = response;
+        console.log("LOGGED INTERACTION RESPONSE");
+        console.log(loggedInteraction);
 
-      console.log("PRIVATE SURVEY ID : " + response.content.futureSurveyId);
-      console.log(response);
-      console.log(response.content.futureSurveyId);
-
-      this.retrieveSurvey(response.content.futureSurveyId);
-    }, error => {
-      // this.errors = error;
-      this.loginResult = false;
-    }
-
-
-    );
+        if (loggedInteraction != null) {
+          if (loggedInteraction.responStatus == 1) {
+            // Situation all ready responded to survey
+          } else {
+            this.showLogin = false;
+            this.retrieveSurvey(loggedInteraction.futureSurvey.id);
+          }
+        } else {
+          // could not find a record for password and interaction id
+        }
+      });
   }
 }
 
 export class LoginRequest {
-  constructor(
-    public interactionId,
-    public password,
-    public futureSurveyId: any
-  ) { }
+  constructor(public id, public password, public futureSurvey: any) { }
 }
 
+export class FSurveyPart {
+  constructor(public id) { }
+}
+
+export class ValueTemplate {
+  constructor(public value: any) { }
+}
+
+export class MatrixBaseTemplate {
+  constructor(public rowValue, public columnValue: any) { }
+}
