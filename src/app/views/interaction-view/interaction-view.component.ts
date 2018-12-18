@@ -33,7 +33,7 @@ export class InteractionViewComponent implements OnInit {
     private router: Router,
     private interactionViewService: InteractionViewService,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.buildInteractForm();
@@ -160,6 +160,12 @@ export class InteractionViewComponent implements OnInit {
 
     // .............. ON COMPLET START HERE ..........................
     surveyModel.onComplete.add(function (result) {
+
+      localStorage.setItem("surveyResult", JSON.stringify(result.data));
+
+      document.getElementById("surveyResult").innerHTML = "<a class='btn sv_preview_btn' href='" + window.location.href + "&preview=true' >View Summary</a>";
+
+
       console.log("..............SURVEY ANSWER RESULR/.............");
       console.log(result);
 
@@ -298,6 +304,9 @@ export class InteractionViewComponent implements OnInit {
     this.interactionViewService
       .interactLoginPost(loginReq)
       .subscribe(response => {
+        this.showLogin = false;
+        this.loginResult = true;
+
         const loggedInteraction = response;
         console.log("LOGGED INTERACTION RESPONSE");
         console.log(loggedInteraction);
@@ -312,6 +321,9 @@ export class InteractionViewComponent implements OnInit {
         } else {
           // could not find a record for password and interaction id
         }
+      }, error => {
+        // this.errors = error;
+        this.loginResult = false;
       });
   }
 }

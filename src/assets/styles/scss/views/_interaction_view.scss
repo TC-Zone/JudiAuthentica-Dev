@@ -84,3 +84,25 @@
 .sv_bootstrap_css .sv_qstn{
   padding: 0px 14px;
 }
+
+.sv_preview_btn{
+  background-color: #3e86bd;
+  color: #fff;
+  font-size: 0.85em;
+  font-weight: bold;
+  line-height: 2em;
+  border: none;
+  min-width: 100px;
+  cursor: pointer;
+  padding: 0 2em;
+  border-radius: 2px;
+}
+
+.sv_preview_btn:hover {
+  background-color: #339fd6;
+  color: #fff;
+}
+
+#surveyResult{
+  text-align: center;
+}
