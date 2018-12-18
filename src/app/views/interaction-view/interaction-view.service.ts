@@ -64,5 +64,17 @@ export class InteractionViewService {
     .pipe(catchError(this.handleError));
   }
 
+  interactLoginPost(loginReq){
+    return this.http
+    .post<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInteraction/login/",loginReq )
+    .pipe(
+      map(data => {
+        console.log(data);
+        return data.content;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
 
 }

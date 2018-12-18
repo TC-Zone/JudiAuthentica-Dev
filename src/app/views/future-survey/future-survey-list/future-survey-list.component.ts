@@ -10,6 +10,7 @@ import { AppLoaderService } from "../../../shared/services/app-loader/app-loader
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { MatDialog, MatDialogRef } from "@angular/material";
 import { FutureSurveyConfigPopupComponent } from "../future-survey-config-popup/future-survey-config-popup.component";
+import { FutureSurveyLaunchComponent } from "../future-survey-launch/future-survey-launch.component";
 
 @Component({
   selector: "app-future-survey-list",
@@ -43,6 +44,29 @@ export class FutureSurveyListComponent implements OnInit {
     if (this.getSurveysSub) {
       this.getSurveysSub.unsubscribe();
     }
+  }
+
+  openLaunchPopup(data: any = {}, channel?) {
+    let isPublic = channel == 1 ? true : false;
+    let title = isPublic
+      ? "Public Future Survey - Launch Pad"
+      : "Private Future Survey - Launch Pad";
+
+    let dialogRef: MatDialogRef<any> = this.dialog.open(
+      FutureSurveyLaunchComponent,
+      {
+        width: "720px",
+        disableClose: true,
+        data: { title: title, payload: data, isNew: isPublic }
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (!res) {
+        // if user press cancel.
+        return;
+      }
+    });
   }
 
   openConfigPopup(data: any = {}, isNew?) {
@@ -171,15 +195,5 @@ export class FutureSurveyListComponent implements OnInit {
       });
   }
 
-  launchFutureSurvey(surveyObj) {
-    console.log("surveyOBJ ");
-    console.log(surveyObj);
 
-    this.futureSurveyService
-      .launchFutureSurvey(surveyObj.id)
-      .subscribe(response => {
-        console.log("LAUNCH RESPONSE");
-        console.log(response);
-      });
-  }
 }

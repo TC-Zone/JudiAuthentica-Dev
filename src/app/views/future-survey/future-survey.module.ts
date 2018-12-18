@@ -31,10 +31,11 @@ import { FutureSurveyService } from "./future-survey.service";
 import { FutureSurveyRoutes } from "./future-survey.routing";
 import { FutureSurveyListComponent } from "./future-survey-list/future-survey-list.component";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { FutureSurveyConfigPopupComponent } from "./future-survey-config-popup/future-survey-config-popup.component";
-import { FutureSurveyCommonConfigComponent } from './future-survey-config-popup/future-survey-common-config.component';
-import { AppDataConversionService } from '../../shared/services/data-conversion.service';
+import { FutureSurveyCommonConfigComponent } from "./future-survey-config-popup/future-survey-common-config.component";
+import { AppDataConversionService } from "../../shared/services/data-conversion.service";
+import { FutureSurveyLaunchComponent } from "./future-survey-launch/future-survey-launch.component";
 
 export let InjectorInstance: Injector;
 
@@ -69,10 +70,14 @@ export let InjectorInstance: Injector;
     FutureSurveyViewComponent,
     FutureSurveyListComponent,
     FutureSurveyConfigPopupComponent,
-    FutureSurveyCommonConfigComponent
+    FutureSurveyCommonConfigComponent,
+    FutureSurveyLaunchComponent
   ],
-  providers: [CrudService, FutureSurveyService,AppDataConversionService],
-  entryComponents: [FutureSurveyConfigPopupComponent]
+  providers: [CrudService, FutureSurveyService, AppDataConversionService],
+  entryComponents: [
+    FutureSurveyConfigPopupComponent,
+    FutureSurveyLaunchComponent
+  ]
 })
 export class FutureSurveyModule {
   constructor(private injector: Injector) {
