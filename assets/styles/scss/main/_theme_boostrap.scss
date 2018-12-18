@@ -1,0 +1,51 @@
+.sv_main .sv_custom_header {
+    //  height: 25% !important;
+    max-height: 90px !important; 
+  }
+  .sv_main span {
+    word-break: break-all !important;
+  } 
+
+  // .btn-green {
+  //   background-color: #367BB5 !important;
+  //   color: #fff;
+  //   border-radius: 3px;
+  //   }
+  //   .btn-green:focus,
+  //   .btn-green:hover {
+  //       background-color: #18a689;
+  //       color: #fff;
+  //   }
+
+  .sv_main input[type="button"], .sv_main button{
+    color: white;
+    background-color: #3e86bd;
+    
+  }
+  .sv_main input[type="button"]:hover{
+    background-color: #339fd6;
+    color: #fff;
+  }
+
+
+  .sv_main .sv_body {
+    background-color: white;
+    border-top: 2px solid #3e86bd;
+
+  }
+  .sv_main.sv_main .sv_q_imgsel label > div {
+    // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    // max-width: 300px;
+    // margin: auto;
+    // text-align: center;
+    // font-family: arial;
+  }
+  .sv_main.sv_main .sv_q_imgsel.checked label > div {
+    // background-color: rgb(51,159,214);
+    background-color: #f4f4f4 !important;
+    -webkit-box-shadow: 0px 0px 10px 2px rgb(6,132,192);
+    -moz-box-shadow: 0px 0px 10px 2px rgb(6,132,192);
+    box-shadow: 0px 0px 10px 2px rgb(6,132,192);
+  }
+
+
