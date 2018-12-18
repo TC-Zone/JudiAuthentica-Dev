@@ -120,7 +120,7 @@ export class FutureSurveyService {
   getPublicSurveyLink(id) {
     let link =
       environment.frontEndBaseUrl +
-      "/interaction/viewInteraction?surveyId=" +
+      "interaction/viewInteraction?surveyId=" +
       id;
     return link;
   }
