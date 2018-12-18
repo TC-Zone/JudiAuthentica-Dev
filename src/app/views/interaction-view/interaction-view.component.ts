@@ -47,6 +47,20 @@ export class InteractionViewComponent implements OnInit {
       this.interactionId = params["interactionId"];
       this.surveyId = params["surveyId"];
       this.preview = params["preview"];
+
+
+      // if (this.preview === undefined) {
+      //   console.log("-----------------------------------");
+      //   console.log("02");
+      //   console.log("-----------------------------------");
+      // }
+      // if (this.preview === "true") {
+      //   console.log("-----------------------------------");
+      //   console.log("03");
+      //   console.log("-----------------------------------");
+      // }
+
+
     });
 
     if (this.interactionId) {
@@ -66,7 +80,19 @@ export class InteractionViewComponent implements OnInit {
         console.log(response);
         this.futureSurveyObj = response.content.futureSurvey;
         this.surveyTitle = this.futureSurveyObj.title;
-        this.showLogin = true;
+        if (this.preview === undefined) {
+          this.showLogin = true;
+          localStorage.setItem("futureSurveyid", "");
+          localStorage.setItem("surveyResult", "");
+        } else  {
+          if(localStorage.getItem("futureSurveyid") === ""){
+            window.location.href=window.location.href.split("&")[0];
+          } else {
+            this.retrieveSurvey(localStorage.getItem("futureSurveyid"));
+          }
+        }
+
+        
         console.log("ID : " + this.futureSurveyObj.id);
         console.log("title : " + this.surveyTitle);
         console.log("FUTURE SURVEY OBJ");
@@ -101,40 +127,45 @@ export class InteractionViewComponent implements OnInit {
     let pageArray: any[] = this.pageJson;
     let resultArray = [];
 
-    let htmlValue =
-      "<h3>Thank you for completing the survey!</h3>" +
-      '<div class="panel-footer card-footer survey-page-footer">' +
-      "</div>" +
-      '<div class="sv_container">';
+    // let htmlValue =
+    //   "<h3>Thank you for completing the survey!</h3>" +
+    //   '<div class="panel-footer card-footer survey-page-footer">' +
+    //   "</div>" +
+    //   '<div class="sv_container">';
 
-    if (pageArray.length != 0) {
-      pageArray.forEach(element => {
-        const elementArray: any[] = element.elements;
-        console.log(elementArray);
-        if (elementArray) {
-          elementArray.forEach(element => {
-            htmlValue +=
-              "<div class='sv_row'>" +
-              "<div class='sv_qstn'>" +
-              "<h5>" +
-              "<span class='survey-form-question'>Q :- " +
-              element.title +
-              "</span>" +
-              "</h5>" +
-              "<span class='survey-form-answer'>A :- {" +
-              element.name +
-              "} </span>" +
-              "</div>" +
-              "</div></br>";
-          });
-        }
-      });
-    }
+    // if (pageArray.length != 0) {
+    //   pageArray.forEach(element => {
+    //     const elementArray: any[] = element.elements;
+    //     console.log(elementArray);
+    //     if (elementArray) {
+    //       elementArray.forEach(element => {
+    //         htmlValue +=
+    //           "<div class='sv_row'>" +
+    //           "<div class='sv_qstn'>" +
+    //           "<h5>" +
+    //           "<span class='survey-form-question'>Q :- " +
+    //           element.title +
+    //           "</span>" +
+    //           "</h5>" +
+    //           "<span class='survey-form-answer'>A :- {" +
+    //           element.name +
+    //           "} </span>" +
+    //           "</div>" +
+    //           "</div></br>";
+    //       });
+    //     }
+    //   });
+    // }
 
-    htmlValue += "</div>";
+    // htmlValue += "</div>";
+
 
     let jsonc = JSON.parse(this.jsonContent);
     // jsonc.completedHtml = htmlValue;
+
+    if (this.preview) {
+      jsonc.title = "Summary of " + jsonc.title;
+    }
 
     const surveyModel = new Survey.Model(jsonc);
 
@@ -316,7 +347,9 @@ export class InteractionViewComponent implements OnInit {
             // Situation all ready responded to survey
           } else {
             this.showLogin = false;
+            localStorage.setItem("futureSurveyid", loggedInteraction.futureSurvey.id);
             this.retrieveSurvey(loggedInteraction.futureSurvey.id);
+
           }
         } else {
           // could not find a record for password and interaction id
