@@ -6,14 +6,19 @@
           <div class="text-center pb-1">
             <img src="assets/images/signin/logo.jpg" alt="">
             <p class="text-muted m-0">Sign in to your account</p>
+            <small *ngIf="!loginResult" class=" m-0 form-error-msg"> Invalid Access Code ! </small>
           </div>
 
           <mat-form-field class="full-width">
-            <input type="password" name="password" matInput placeholder="Password" value="" [formControl]="interactForm.controls['password']"
+            <input type="password" name="password" matInput placeholder="Access Code" value="" [formControl]="interactForm.controls['password']"
               required name="password">
           </mat-form-field>
+          <small *ngIf="interactForm.controls['password'].hasError('required') && interactForm.controls['password'].touched"
+            class="form-error-msg">
+            Access code is required </small>
 
-          <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()">Login to Survey</button>
+          <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()" [disabled]="interactForm.invalid">Login
+            to Survey</button>
         </mat-card-content>
       </mat-card>
     </div>
@@ -29,6 +34,7 @@
     </div>
   </mat-toolbar>
 
+
   <div class="survey-page-wrap height-100" *ngIf="!showLogin">
     <div class="survey-form-hold">
       <mat-card>
@@ -39,6 +45,7 @@
       </mat-card>
     </div>
   </div>
+
 
   <div id="survey-view-footer">
     <div class="container custom-center">

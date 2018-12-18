@@ -14,14 +14,17 @@ export class InteractionViewComponent implements OnInit {
   public sub: any;
   public futureSurveyObj: any;
   public surveyTitle: any;
-  public showLogin: boolean = false;
-  // public showSurvey: boolean = false;
 
   public interactionId;
   public surveyId;
+  public preview;
+  public showLogin: boolean = false;
+  public loginResult = true;
+  // public showDetails = false;
 
   jsonContent: any;
   pageJson;
+
 
   public interactForm: FormGroup;
 
@@ -29,8 +32,9 @@ export class InteractionViewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private interactionViewService: InteractionViewService,
-    private fb: FormBuilder
-  ) { }
+    private fb: FormBuilder,
+  ) {
+  }
 
   ngOnInit() {
     this.buildInteractForm();
@@ -43,6 +47,7 @@ export class InteractionViewComponent implements OnInit {
     this.sub = this.route.queryParams.subscribe(params => {
       this.interactionId = params["interactionId"];
       this.surveyId = params["surveyId"];
+      this.preview = params["preview"];
 
       if (this.interactionId) {
         this.viewInteraction(this.interactionId);
@@ -52,6 +57,7 @@ export class InteractionViewComponent implements OnInit {
         this.retrieveSurvey(this.surveyId);
       }
     });
+
   }
 
   viewInteraction(interactionId) {
@@ -98,34 +104,10 @@ export class InteractionViewComponent implements OnInit {
     let resultArray = [];
 
 
-    let htmlValue =
-      '<h3>Thank you for completing the survey!</h3>' +
-      '<div class="panel-footer card-footer survey-page-footer">' +
-      '</div>' +
-      '<div class="sv_container">';
-
-    pageArray.forEach(element => {
-      console.log(element.elements);
-      element.elements.forEach(element => {
-        htmlValue +=
-          "<div class='sv_row'>" +
-          "<div class='sv_qstn'>" +
-          "<h5>" +
-          "<span class='survey-form-question'>Q :- " + element.title + "</span>" +
-          "</h5>" +
-          "<span class='survey-form-answer'>A :- {" + element.name + "} </span>" +
-          "</div>" +
-          "</div></br>";
-      });
-    });
-
-    htmlValue += '</div>';
-
-
 
 
     let jsonc = JSON.parse(this.jsonContent);
-    jsonc.completedHtml = htmlValue;
+    // jsonc.completedHtml = htmlValue;
 
     const surveyModel = new Survey.Model(jsonc);
 
@@ -152,30 +134,34 @@ export class InteractionViewComponent implements OnInit {
 
     Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 
+
     surveyModel.onComplete.add(function (result) {
+      localStorage.setItem("surveyResult", JSON.stringify(result.data));
 
+      document.getElementById("surveyResult").innerHTML = "<a class='btn sv_next_btn' href='" + window.location.href + "&preview=true' >View Summary</a>";
 
-      // ------- new start --------
-      pageArray.forEach(element => {
-        element.elements.forEach(element => {
-          let elementArray = {};
+      
+        // ------- new start --------
+        pageArray.forEach(element => {
+          element.elements.forEach(element => {
+            let elementArray = {};
 
-          if (element.type != "html") {
-            let qCode = element.qcode;
-            if (qCode != null) {
-              if (result.data[element.name] == null) {
-                elementArray["value"] = null;
-                elementArray["qcode"] = qCode ? qCode : null;
-              } else {
-                elementArray["value"] = result.data[element.name];
-                elementArray["qcode"] = qCode ? qCode : null;
+            if (element.type != "html") {
+              let qCode = element.qcode;
+              if (qCode != null) {
+                if (result.data[element.name] == null) {
+                  elementArray["value"] = null;
+                  elementArray["qcode"] = qCode ? qCode : null;
+                } else {
+                  elementArray["value"] = result.data[element.name];
+                  elementArray["qcode"] = qCode ? qCode : null;
+                }
+                resultArray.push(elementArray);
               }
-              resultArray.push(elementArray);
             }
-          }
 
+          });
         });
-      });
 
       // ------- new end --------
       console.log("...............ANSWER ARRAY.................");
@@ -194,8 +180,12 @@ export class InteractionViewComponent implements OnInit {
         }
       );
 
-
     });
+
+    if (this.preview) {
+      surveyModel.data = JSON.parse(localStorage.getItem("surveyResult"))
+      surveyModel.mode = 'display';
+    }
 
   }
 
@@ -246,12 +236,20 @@ export class InteractionViewComponent implements OnInit {
 
     this.interactionViewService.interactLogin(loginReq).subscribe(response => {
       this.showLogin = false;
+      this.loginResult = true;
+
       console.log("PRIVATE SURVEY ID : " + response.content.futureSurveyId);
       console.log(response);
       console.log(response.content.futureSurveyId);
 
       this.retrieveSurvey(response.content.futureSurveyId);
-    });
+    }, error => {
+      // this.errors = error;
+      this.loginResult = false;
+    }
+
+
+    );
   }
 }
 
