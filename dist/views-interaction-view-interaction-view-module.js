@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"interactForm\">\r\n  <div class=\"page-wrap height-100 background-survey-signin\" *ngIf=\"showLogin\">\r\n    <div class=\"session-form-hold\">\r\n      <mat-card>\r\n        <mat-card-content>\r\n          <div class=\"text-center pb-1\">\r\n            <img src=\"assets/images/signin/logo.jpg\" alt=\"\">\r\n            <p class=\"text-muted m-0\">Sign in to your account</p>\r\n            <small *ngIf=\"!loginResult\" class=\" m-0 form-error-msg\"> Invalid Access Code ! </small>\r\n          </div>\r\n\r\n          <mat-form-field class=\"full-width\">\r\n            <input type=\"password\" name=\"password\" matInput placeholder=\"Access Code\" value=\"\" [formControl]=\"interactForm.controls['password']\"\r\n              required name=\"password\">\r\n          </mat-form-field>\r\n          <small *ngIf=\"interactForm.controls['password'].hasError('required') && interactForm.controls['password'].touched\"\r\n            class=\"form-error-msg\">\r\n            Access code is required </small>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"doLog()\" [disabled]=\"interactForm.invalid\">Login\r\n            to Survey</button>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>\r\n\r\n\r\n\r\n<div fxFlex=\"100\" fxLayoutAlign=\"center center\" id=\"survey-view-survey\" class=\"background-survey-form\">\r\n  <mat-toolbar fxLayoutAlign=\"center center\" matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{ surveyTitle }}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n\r\n\r\n  <div class=\"survey-page-wrap height-100\" *ngIf=\"!showLogin\">\r\n    <div class=\"survey-form-hold\">\r\n      <mat-card>\r\n        <mat-card-content>\r\n          <div id=\"surveyElement\"></div>\r\n          <div id=\"surveyResult\"></div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n\r\n\r\n  <div id=\"survey-view-footer\">\r\n    <div class=\"container custom-center\">\r\n      <span>Powered by</span>\r\n      <img src=\"assets/images/cp_logo_text.png\" alt=\"\">\r\n    </div>\r\n  </div>\r\n\r\n</div>\r\n\r\n<script>\r\n  $.material.init();\r\n</script>\r\n"
+module.exports = "<form [formGroup]=\"interactForm\">\r\n  <div class=\"page-wrap height-100 background-survey-signin\" *ngIf=\"showLogin\">\r\n    <div class=\"session-form-hold\">\r\n      <mat-card>\r\n        <mat-card-content>\r\n          <div class=\"text-center pb-1\">\r\n            <img src=\"assets/images/signin/logo.jpg\" alt=\"\">\r\n            <p class=\"text-muted m-0\">Sign in to your account</p>\r\n            <small *ngIf=\"!loginResult\" class=\" m-0 form-error-msg\"> Invalid Access Code ! </small>\r\n          </div>\r\n\r\n          <mat-form-field class=\"full-width\">\r\n            <input type=\"password\" name=\"password\" matInput placeholder=\"Access Code\" value=\"\" [formControl]=\"interactForm.controls['password']\"\r\n              required name=\"password\">\r\n          </mat-form-field>\r\n          <small *ngIf=\"interactForm.controls['password'].hasError('required') && interactForm.controls['password'].touched\"\r\n            class=\"form-error-msg\">\r\n            Access code is required </small>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"doLog()\" [disabled]=\"interactForm.invalid\">Login\r\n            to Survey</button>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>\r\n\r\n\r\n\r\n<!-- <div fxFlex=\"100\" fxLayoutAlign=\"center center\" id=\"survey-view-survey\" class=\"background-survey-form\">\r\n  <mat-toolbar fxLayoutAlign=\"center center\" matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{ surveyTitle }}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n\r\n\r\n  <div class=\"survey-page-wrap height-100\" *ngIf=\"!showLogin\">\r\n    <div class=\"survey-form-hold\">\r\n      <mat-card>\r\n        <mat-card-content>\r\n          <div id=\"surveyElement\"></div>\r\n          <div id=\"surveyResult\"></div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n\r\n\r\n  <div id=\"survey-view-footer\">\r\n    <div class=\"container custom-center\">\r\n      <span>Powered by</span>\r\n      <img src=\"assets/images/cp_logo_text.png\" alt=\"\">\r\n    </div>\r\n  </div>\r\n\r\n</div> -->\r\n\r\n<div fxFlex=\"100\" fxLayoutAlign=\"center center\" id=\"survey-view-survey\" class=\"background-survey-form\">\r\n<header>\r\n  <mat-toolbar fxLayoutAlign=\"center center\" matDialogTitle class=\"mat-primary m-0\">\r\n      <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <div mat-card-avatar class=\"example-header-image\"></div>\r\n      </div>\r\n      <!-- <mat-card-title class=\"example-card-title\">Nova Scotia Engineers</mat-card-title> -->\r\n      <span class=\"example-card-title hidden-xs\">Clear Picture</span>\r\n      <span class=\"example-spacer\"></span>\r\n      <span *ngIf=\"loggedInvitee\" class=\"example-invite\">Hi, {{loggedInvitee}}</span>\r\n  </mat-toolbar>\r\n</header>\r\n\r\n\r\n\r\n    <!-- <div class=\"col-md-2\"> -->\r\n        <!-- <mat-card class=\"example-card\"> -->\r\n            <!-- <mat-card-header> -->\r\n              <!-- <div mat-card-avatar class=\"example-header-image\"> -->\r\n              <!-- </div> -->\r\n              <!-- <br> -->\r\n              <!-- <mat-card-title class=\"example-card-title\">Nova Scotia Engineers</mat-card-title> -->\r\n\r\n            <!-- </mat-card-header> -->\r\n        <!-- </mat-card> -->\r\n    <!-- </div> -->\r\n    <!-- <div class=\"col-md-10\"> -->\r\n      <div class=\"survey-page-wrap height-100\" *ngIf=\"!showLogin\">\r\n          <div class=\"survey-form-hold\">\r\n            <mat-card class=\"survey-mat-card\">\r\n              <mat-card-content>\r\n                <div id=\"surveyElement\"></div>\r\n                <div id=\"surveyResult\"></div>\r\n              </mat-card-content>\r\n            </mat-card>\r\n          </div>\r\n      </div>\r\n    <!-- </div> -->\r\n\r\n\r\n  <div id=\"survey-view-footer\">\r\n    <div class=\"container custom-center\">\r\n      <span>Powered by</span>\r\n      <img src=\"assets/images/cp_logo_text.png\" alt=\"\">\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n\r\n<script>\r\n  $.material.init();\r\n</script>\r\n"
 
 /***/ }),
 
@@ -67,6 +67,16 @@ var InteractionViewComponent = /** @class */ (function () {
             _this.interactionId = params["interactionId"];
             _this.surveyId = params["surveyId"];
             _this.preview = params["preview"];
+            // if (this.preview === undefined) {
+            //   console.log("-----------------------------------");
+            //   console.log("02");
+            //   console.log("-----------------------------------");
+            // }
+            // if (this.preview === "true") {
+            //   console.log("-----------------------------------");
+            //   console.log("03");
+            //   console.log("-----------------------------------");
+            // }
         });
         if (this.interactionId) {
             this.viewInteraction(this.interactionId);
@@ -85,7 +95,21 @@ var InteractionViewComponent = /** @class */ (function () {
             console.log(response);
             _this.futureSurveyObj = response.content.futureSurvey;
             _this.surveyTitle = _this.futureSurveyObj.title;
-            _this.showLogin = true;
+            _this.loggedInvitee = response.content.invitee.name;
+            console.log('LOGGED INSTANCE - ' + _this.loggedInvitee);
+            if (_this.preview === undefined) {
+                _this.showLogin = true;
+                localStorage.setItem("futureSurveyid", "");
+                localStorage.setItem("surveyResult", "");
+            }
+            else {
+                if (localStorage.getItem("futureSurveyid") === "") {
+                    window.location.href = window.location.href.split("&")[0];
+                }
+                else {
+                    _this.retrieveSurvey(localStorage.getItem("futureSurveyid"));
+                }
+            }
             console.log("ID : " + _this.futureSurveyObj.id);
             console.log("title : " + _this.surveyTitle);
             console.log("FUTURE SURVEY OBJ");
@@ -116,41 +140,46 @@ var InteractionViewComponent = /** @class */ (function () {
     InteractionViewComponent.prototype.viewSurvey = function () {
         var pageArray = this.pageJson;
         var resultArray = [];
-        var htmlValue = "<h3>Thank you for completing the survey!</h3>" +
-            '<div class="panel-footer card-footer survey-page-footer">' +
-            "</div>" +
-            '<div class="sv_container">';
-        if (pageArray.length != 0) {
-            pageArray.forEach(function (element) {
-                var elementArray = element.elements;
-                console.log(elementArray);
-                if (elementArray) {
-                    elementArray.forEach(function (element) {
-                        htmlValue +=
-                            "<div class='sv_row'>" +
-                                "<div class='sv_qstn'>" +
-                                "<h5>" +
-                                "<span class='survey-form-question'>Q :- " +
-                                element.title +
-                                "</span>" +
-                                "</h5>" +
-                                "<span class='survey-form-answer'>A :- {" +
-                                element.name +
-                                "} </span>" +
-                                "</div>" +
-                                "</div></br>";
-                    });
-                }
-            });
-        }
-        htmlValue += "</div>";
+        // let htmlValue =
+        //   "<h3>Thank you for completing the survey!</h3>" +
+        //   '<div class="panel-footer card-footer survey-page-footer">' +
+        //   "</div>" +
+        //   '<div class="sv_container">';
+        // if (pageArray.length != 0) {
+        //   pageArray.forEach(element => {
+        //     const elementArray: any[] = element.elements;
+        //     console.log(elementArray);
+        //     if (elementArray) {
+        //       elementArray.forEach(element => {
+        //         htmlValue +=
+        //           "<div class='sv_row'>" +
+        //           "<div class='sv_qstn'>" +
+        //           "<h5>" +
+        //           "<span class='survey-form-question'>Q :- " +
+        //           element.title +
+        //           "</span>" +
+        //           "</h5>" +
+        //           "<span class='survey-form-answer'>A :- {" +
+        //           element.name +
+        //           "} </span>" +
+        //           "</div>" +
+        //           "</div></br>";
+        //       });
+        //     }
+        //   });
+        // }
+        // htmlValue += "</div>";
         var jsonc = JSON.parse(this.jsonContent);
         // jsonc.completedHtml = htmlValue;
+        if (this.preview) {
+            jsonc.title = "Summary of " + jsonc.title;
+        }
         var surveyModel = new survey_angular__WEBPACK_IMPORTED_MODULE_4__["Model"](jsonc);
         survey_angular__WEBPACK_IMPORTED_MODULE_4__["StylesManager"].applyTheme("bootstrap");
         surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
             var classes = options.cssClasses;
             if (options.question.getType() === "rating") {
+                classes.root = "btn-group";
                 classes.item = "btn btn-default btn-secondary";
             }
             if (options.question.getType() === "radiogroup") {
@@ -158,6 +187,9 @@ var InteractionViewComponent = /** @class */ (function () {
             }
             if (options.question.getType() === "checkbox") {
                 classes.item = "checkbox sv-q-col-1";
+            }
+            if (options.question.getType() === "matrix") {
+                classes.root = "table sv_q_matrix";
             }
         });
         survey_angular__WEBPACK_IMPORTED_MODULE_4__["SurveyNG"].render("surveyElement", { model: surveyModel });
@@ -282,6 +314,7 @@ var InteractionViewComponent = /** @class */ (function () {
                 }
                 else {
                     _this.showLogin = false;
+                    localStorage.setItem("futureSurveyid", loggedInteraction.futureSurvey.id);
                     _this.retrieveSurvey(loggedInteraction.futureSurvey.id);
                 }
             }
