@@ -89,6 +89,30 @@ export class FutureSurveyViewComponent implements OnInit {
     });
 
     Survey.StylesManager.applyTheme("bootstrap");
+
+    
+    surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
+      var classes = options.cssClasses;
+
+      if (options.question.getType() === "rating") {
+        classes.root = "btn-group";
+        classes.item = "btn btn-default btn-secondary";
+      }
+
+      if (options.question.getType() === "radiogroup") {
+        classes.item = "radio sv-q-col-1";
+      }
+
+      if (options.question.getType() === "checkbox") {
+        classes.item = "checkbox sv-q-col-1";
+      }
+
+      if(options.question.getType() === "matrix"){
+        classes.root = "table sv_q_matrix"; 
+      }
+    });
+
+    
     //Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
     // console.log('.....bootstrap');
     // console.log(Survey.defaultBootstrapCss);

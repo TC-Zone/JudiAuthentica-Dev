@@ -175,6 +175,7 @@ export class InteractionViewComponent implements OnInit {
       var classes = options.cssClasses;
 
       if (options.question.getType() === "rating") {
+        classes.root = "btn-group";
         classes.item = "btn btn-default btn-secondary";
       }
 
@@ -185,10 +186,15 @@ export class InteractionViewComponent implements OnInit {
       if (options.question.getType() === "checkbox") {
         classes.item = "checkbox sv-q-col-1";
       }
+
+      if(options.question.getType() === "matrix"){
+        classes.root = "table sv_q_matrix"; 
+      }
     });
 
     Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 
+    
     // .............. ON COMPLET START HERE ..........................
     surveyModel.onComplete.add(function (result) {
 
