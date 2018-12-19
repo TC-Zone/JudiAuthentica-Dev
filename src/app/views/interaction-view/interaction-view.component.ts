@@ -20,6 +20,7 @@ export class InteractionViewComponent implements OnInit {
   public preview;
   public showLogin: boolean = false;
   public loginResult = true;
+  public loggedInvitee;
   // public showDetails = false;
 
   jsonContent: any;
@@ -80,19 +81,21 @@ export class InteractionViewComponent implements OnInit {
         console.log(response);
         this.futureSurveyObj = response.content.futureSurvey;
         this.surveyTitle = this.futureSurveyObj.title;
+        this.loggedInvitee = response.content.invitee.name;
+        console.log('LOGGED INSTANCE - '+ this.loggedInvitee);
         if (this.preview === undefined) {
           this.showLogin = true;
           localStorage.setItem("futureSurveyid", "");
           localStorage.setItem("surveyResult", "");
         } else  {
           if(localStorage.getItem("futureSurveyid") === ""){
-            window.location.href=window.location.href.split("&")[0];
+            window.location.href = window.location.href.split("&")[0];
           } else {
             this.retrieveSurvey(localStorage.getItem("futureSurveyid"));
           }
         }
 
-        
+
         console.log("ID : " + this.futureSurveyObj.id);
         console.log("title : " + this.surveyTitle);
         console.log("FUTURE SURVEY OBJ");
