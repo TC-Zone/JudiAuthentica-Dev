@@ -65,12 +65,12 @@
       <!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
       <span class="example-card-title hidden-xs">Clear Picture</span>
       <span class="example-spacer"></span>
-      <span class="example-invite">{{loggedInteraction}}</span>
+      <span *ngIf="loggedInvitee" class="example-invite">Hi, {{loggedInvitee}}</span>
   </mat-toolbar>
 </header>
 
 
-  
+
     <!-- <div class="col-md-2"> -->
         <!-- <mat-card class="example-card"> -->
             <!-- <mat-card-header> -->
@@ -94,8 +94,8 @@
           </div>
       </div>
     <!-- </div> -->
-    
-  
+
+
   <div id="survey-view-footer">
     <div class="container custom-center">
       <span>Powered by</span>
