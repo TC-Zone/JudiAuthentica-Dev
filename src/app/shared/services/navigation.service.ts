@@ -428,18 +428,18 @@ export class NavigationService {
       icon: "language",
       state: "future-survey",
       sub: [
-        { name: "Future Survey Catalog", state: "sList" },
-        { name: "Future Survey Designer", state: "sEditor" }
-
+        { name: "Future Survey Catalog", state: "sList" }
+        //{ name: "Future Survey Designer", state: "sEditor" }
       ]
     },
-    {
-      name: "Interaction View",
-      type: "link",
-      tooltip: "E-Vote",
-      icon: "thumbs_up_down",
-      state: "interaction/viewInteraction"
-    }
+    // ,
+    // {
+    //   name: "Interaction View",
+    //   type: "link",
+    //   tooltip: "E-Vote",
+    //   icon: "thumbs_up_down",
+    //   state: "interaction/viewInteraction"
+    // },
     // ,{
     //   name: 'INBOX',
     //   type: 'link',
@@ -613,12 +613,12 @@ export class NavigationService {
     //     { name: 'Level Two', state: 'fake-5' }
     //   ]
     // },
-    ,{
-      name: 'DOC',
-      type: 'extLink',
-      tooltip: 'Documentation',
-      icon: 'library_books',
-      state: 'http://egret-doc.mhrafi.com/'
+    {
+      name: "DOC",
+      type: "extLink",
+      tooltip: "Documentation",
+      icon: "library_books",
+      state: "http://egret-doc.mhrafi.com/"
     }
   ];
 

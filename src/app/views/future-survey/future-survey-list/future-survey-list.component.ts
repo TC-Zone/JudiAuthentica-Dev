@@ -140,6 +140,9 @@ export class FutureSurveyListComponent implements OnInit {
             this.navigateToSurveyEditor(response);
           },
           error => {
+            console.log('ERROR LOGESTERS');
+
+            console.log(error);
             this.loader.close();
             this.errDialog.showError({
               title: "Error",
@@ -163,6 +166,8 @@ export class FutureSurveyListComponent implements OnInit {
               this.loader.close();
             },
             error => {
+              console.log('ERROR LOGESTERS');
+              console.log(error);
               this.loader.close();
               this.errDialog.showError({
                 title: "Error",
