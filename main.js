@@ -3517,17 +3517,18 @@ var NavigationService = /** @class */ (function () {
                 icon: "language",
                 state: "future-survey",
                 sub: [
-                    { name: "Future Survey Catalog", state: "sList" },
-                    { name: "Future Survey Designer", state: "sEditor" }
+                    { name: "Future Survey Catalog", state: "sList" }
+                    //{ name: "Future Survey Designer", state: "sEditor" }
                 ]
             },
-            {
-                name: "Interaction View",
-                type: "link",
-                tooltip: "E-Vote",
-                icon: "thumbs_up_down",
-                state: "interaction/viewInteraction"
-            }
+            // ,
+            // {
+            //   name: "Interaction View",
+            //   type: "link",
+            //   tooltip: "E-Vote",
+            //   icon: "thumbs_up_down",
+            //   state: "interaction/viewInteraction"
+            // },
             // ,{
             //   name: 'INBOX',
             //   type: 'link',
@@ -3701,13 +3702,12 @@ var NavigationService = /** @class */ (function () {
             //     { name: 'Level Two', state: 'fake-5' }
             //   ]
             // },
-            ,
             {
-                name: 'DOC',
-                type: 'extLink',
-                tooltip: 'Documentation',
-                icon: 'library_books',
-                state: 'http://egret-doc.mhrafi.com/'
+                name: "DOC",
+                type: "extLink",
+                tooltip: "Documentation",
+                icon: "library_books",
+                state: "http://egret-doc.mhrafi.com/"
             }
         ];
         // Icon menu TITLE at the very top of navigation.
