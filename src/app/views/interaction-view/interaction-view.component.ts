@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { InteractionViewService } from "./interaction-view.service";
 import * as Survey from "survey-angular";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { AppErrorService } from '../../shared/services/app-error/app-error.service';
 
 @Component({
   selector: "app-interaction-view",
@@ -33,7 +34,8 @@ export class InteractionViewComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private interactionViewService: InteractionViewService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private errDialog: AppErrorService
   ) { }
 
   ngOnInit() {
@@ -121,6 +123,9 @@ export class InteractionViewComponent implements OnInit {
         localStorage.setItem('privateSurveyName', this.interactionId);
         this.viewSurvey();
         this.setuptheme();
+      },
+      error => {
+        this.errDialog.showErrorWithMessage(error);
       });
   }
 
