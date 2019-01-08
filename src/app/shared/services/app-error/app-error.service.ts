@@ -53,34 +53,16 @@ export class AppErrorService {
   }
   // show popup window for custom error message (by prasad kumara)
   handleCustomError(error: ErrorData = {}): any {
-    console.log(errorMessages[error.type]['futureSurveyViewFutureSurveyNotExist']);
-    console.log(errorMessages.hasOwnProperty(error.type));
+    const errorTitle = this.removeUnderscore(error.title);
     if (errorMessages.hasOwnProperty(error.type)) {
-      if (errorMessages[error.type].hasOwnProperty(this.getEnumKey(error.message))) {
-        let dialogRef: MatDialogRef<AppErrorComponent>;
-        dialogRef = this.dialog.open(AppErrorComponent, {
-          width: "380px",
-          disableClose: true,
-          data: { title: this.removeUnderscore(error.title), message: errorMessages[error.type][this.getEnumKey(error.message)]}
-        });
-        return dialogRef.afterClosed();
+      const jsonArrayKey = this.getEnumKey(error.message);
+      if (errorMessages[error.type].hasOwnProperty(jsonArrayKey)) {
+        this.openPopUpWindow(errorTitle, errorMessages[error.type][jsonArrayKey]);
       } else {
-        let dialogRef: MatDialogRef<AppErrorComponent>;
-        dialogRef = this.dialog.open(AppErrorComponent, {
-          width: "380px",
-          disableClose: true,
-          data: { title: this.removeUnderscore(error.title), message: error.message}
-        });
-        return dialogRef.afterClosed();
+        this.openPopUpWindow(errorTitle, error.message);
       }
     } else {
-      let dialogRef: MatDialogRef<AppErrorComponent>;
-      dialogRef = this.dialog.open(AppErrorComponent, {
-        width: "380px",
-        disableClose: true,
-        data: { title: this.removeUnderscore(error.title), message: error.message}
-      });
-      return dialogRef.afterClosed();
+      this.openPopUpWindow(errorTitle, error.message);
     }
   }
   // handle custom error (by prasad kumara)
@@ -88,8 +70,6 @@ export class AppErrorService {
     console.log('view survey error with message');
     console.log(error);
     if (error.error !== null) {
-      console.log('error.error !== null');
-      console.log(error.error);
       if (error.error.hasOwnProperty('validationFailures')) {
         this.handleCustomError({
           title: error.error.status,
@@ -99,18 +79,10 @@ export class AppErrorService {
           clientError: ''
         });
       } else {
-        this.showHttpError({
-          title: 'Error',
-          message: '',
-          type: 'http_error',
-          status: error.status,
-          clientError: ''
-        });
+        this.openPopUpWindow(this.removeUnderscore(error.error.status), 'CP Judi Authentica : Something went wrong');
       }
 
     } else {
-      console.log('error.error == null');
-      console.log(error);
       this.showHttpError({
         title: 'Error',
         message: '',
@@ -141,5 +113,15 @@ export class AppErrorService {
       errorTitle += stringArray[i].substring(0, 1).toUpperCase() + stringArray[i].substring(1).toLowerCase() + ' ';
     }
     return errorTitle;
+  }
+  // open pop up window
+  openPopUpWindow(title, message): any{
+    let dialogRef: MatDialogRef<AppErrorComponent>;
+      dialogRef = this.dialog.open(AppErrorComponent, {
+        width: '380px',
+        disableClose: true,
+        data: { title: title, message: message}
+      });
+      return dialogRef.afterClosed();
   }
 }
