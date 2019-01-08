@@ -5,6 +5,7 @@ import {
 } from "../../../../../node_modules/@angular/material";
 import { Observable } from "../../../../../node_modules/rxjs";
 import { AppErrorComponent } from "./app-error.component";
+import { errorMessages } from './error.messages';
 
 interface ErrorData {
   title?: string;
