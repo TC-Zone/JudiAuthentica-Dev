@@ -42,6 +42,10 @@ export class InteractionViewComponent implements OnInit {
       password: ["", Validators.required]
     });
 
+    // set public temporary save local storage name to the local storage (by prasad kumara)
+    localStorage.setItem('publicSurveyName', 'public');
+    localStorage.setItem('surveyType', 'public');
+
     console.log("NG ON INIT CALLED");
 
     this.sub = this.route.queryParams.subscribe(params => {
@@ -113,7 +117,8 @@ export class InteractionViewComponent implements OnInit {
         this.jsonContent = JSON.parse(this.futureSurveyObj.jsonContent);
         this.surveyTitle = this.futureSurveyObj.title;
         this.pageJson = JSON.parse(this.jsonContent).pages;
-
+        // Set the private Survey Name to the local storage (by prasad kumara)
+        localStorage.setItem('privateSurveyName', this.interactionId);
         this.viewSurvey();
         this.setuptheme();
       });
@@ -171,6 +176,19 @@ export class InteractionViewComponent implements OnInit {
     }
 
     const surveyModel = new Survey.Model(jsonc);
+    // Call Answer Later Button (by prasad kumara)
+    this.answerLaterButtonClick(surveyModel);
+    // load data from local storage (by prasad kumara)
+    const results = this.loadSurveyFromLocalStorage();
+    // Set the loaded data into the survey (by prasad kumara)
+    if (results.pageName >= 0) {
+      surveyModel.currentPageNo = results.pageName;
+      if (results.completedData) {
+        surveyModel.data = results.completedData;
+      }
+    }
+    // set interval function to save survey data to localstorage (by prasad kumara)
+    setInterval(() => this.saveSurveyToLocalStorage(surveyModel.currentPageNo, surveyModel.data), 60000);
 
     Survey.StylesManager.applyTheme("bootstrap");
 
@@ -202,6 +220,15 @@ export class InteractionViewComponent implements OnInit {
     surveyModel.onComplete.add(function (result) {
 
       localStorage.setItem("surveyResult", JSON.stringify(result.data));
+
+      // Remove Temporary saved survey results and empty the survey data (by prasad kumara)
+      if (localStorage.getItem('surveyType') !== 'private') {
+        localStorage.removeItem(localStorage.getItem('publicSurveyName'));
+        surveyModel.data = '';
+      } else {
+        localStorage.removeItem(localStorage.getItem('privateSurveyName'));
+        surveyModel.data = '';
+      }
 
       document.getElementById("surveyResult").innerHTML = "<a class='btn sv_preview_btn' href='" + window.location.href + "&preview=true' >View Summary</a>";
 
@@ -291,6 +318,11 @@ export class InteractionViewComponent implements OnInit {
     if (this.preview) {
       surveyModel.data = JSON.parse(localStorage.getItem("surveyResult"))
       surveyModel.mode = 'display';
+      // Hide the answer later button when view the summery of the survey (by prasad kumara)
+      document
+        .getElementById('answer-later')
+        .style
+        .display = 'none';
     }
 
 
@@ -355,6 +387,8 @@ export class InteractionViewComponent implements OnInit {
           if (loggedInteraction.responStatus == 1) {
             // Situation all ready responded to survey
           } else {
+            // Change localstorage survey type public to private (by prasad kymara)
+            localStorage.setItem('surveyType', 'private');
             this.showLogin = false;
             localStorage.setItem("futureSurveyid", loggedInteraction.futureSurvey.id);
             this.retrieveSurvey(loggedInteraction.futureSurvey.id);
@@ -367,6 +401,63 @@ export class InteractionViewComponent implements OnInit {
         // this.errors = error;
         this.loginResult = false;
       });
+  }
+
+  // Save survey answers to the local storage (by prasad kumara)
+  saveSurveyToLocalStorage(pageName: any, surveyResultArray: any) {
+    let storageName = localStorage.getItem('publicSurveyName');
+    if (localStorage.getItem('surveyType') !== 'public') {
+      storageName = localStorage.getItem('privateSurveyName');
+    }
+    // Set Survey result to the local storage with current page name (by prasad kumara)
+    window.localStorage.setItem(storageName, JSON.stringify({
+      pageName: pageName,
+      completedData: surveyResultArray}));
+  }
+  // Get Survey result from local storage (by prasad kumara)
+  loadSurveyFromLocalStorage(): any {
+    let storageName = localStorage.getItem('publicSurveyName');
+    if (localStorage.getItem('surveyType') !== 'public') {
+      storageName = localStorage.getItem('privateSurveyName');
+    }
+    const storageSt = window.localStorage.getItem(storageName) || '';
+    let res = {};
+    if (storageSt) {
+      console.log('view');
+      console.log(JSON.parse(storageSt));
+      return JSON.parse(storageSt);
+    } else {
+        res = {
+            currentPageNo: 0,
+            data: {}
+          };
+      return res;
+    }
+  }
+  // Answer Later button click function (by prasad kumara)
+  answerLaterButtonClick(surveyModel) {
+    let storageName = localStorage.getItem('publicSurveyName');
+    if (localStorage.getItem('surveyType') !== 'public') {
+      storageName = localStorage.getItem('privateSurveyName');
+    }
+    // Requires for knockout platoform only for adding custom buttons
+    surveyModel.onRendered.add(function (sender) {
+      const survey = sender;
+      // console.log(document.getElementsByClassName('panel-footer')[0]);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-info btn-xs float-right';
+      btn.innerHTML = 'Answer Later';
+      btn.id = 'answer-later';
+      btn.onclick = function () {
+        window.localStorage.setItem(storageName, JSON.stringify({
+          pageName: surveyModel.currentPageNo,
+          completedData: surveyModel.data
+        }));
+      };
+      const pannelFooter = document.getElementsByClassName('panel-footer')[0];
+      pannelFooter.appendChild(btn);
+    });
   }
 }
 
