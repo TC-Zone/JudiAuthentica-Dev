@@ -133,4 +133,13 @@ export class AppErrorService {
     }
     return enumkey;
   }
+  // Remove _ from Error Title
+  removeUnderscore(string: string): string {
+    const stringArray = string.split('_');
+    let errorTitle = '';
+    for (let i = 0; i < stringArray.length; i++) {
+      errorTitle += stringArray[i].substring(0, 1).toUpperCase() + stringArray[i].substring(1).toLowerCase() + ' ';
+    }
+    return errorTitle;
+  }
 }
