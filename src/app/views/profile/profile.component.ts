@@ -1,38 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { LocalStorageHandler } from "../../shared/helpers/local-storage";
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html'
+  selector: "app-profile",
+  templateUrl: "./profile.component.html"
 })
-export class ProfileComponent implements OnInit {
-  activeView : string = 'overview';
+export class ProfileComponent extends LocalStorageHandler implements OnInit {
+  activeView: string = "overview";
 
   // Doughnut
-  doughnutChartColors: any[] = [{
-    backgroundColor: ['#fff', 'rgba(0, 0, 0, .24)',]
-  }];
-  
+  doughnutChartColors: any[] = [
+    {
+      backgroundColor: ["#fff", "rgba(0, 0, 0, .24)"]
+    }
+  ];
+
   total1: number = 500;
   data1: number = 200;
-  doughnutChartData1: number[] = [this.data1, (this.total1 - this.data1)];
+  doughnutChartData1: number[] = [this.data1, this.total1 - this.data1];
 
   total2: number = 1000;
   data2: number = 400;
-  doughnutChartData2: number[] = [this.data2, (this.total2 - this.data2)];
+  doughnutChartData2: number[] = [this.data2, this.total2 - this.data2];
 
-  doughnutChartType = 'doughnut';
+  doughnutChartType = "doughnut";
   doughnutOptions: any = {
     cutoutPercentage: 85,
     responsive: true,
     maintainAspectRatio: true,
     legend: {
       display: false,
-      position: 'bottom'
+      position: "bottom"
     },
     elements: {
       arc: {
-        borderWidth: 0,
+        borderWidth: 0
       }
     },
     tooltips: {
@@ -40,10 +43,11 @@ export class ProfileComponent implements OnInit {
     }
   };
 
-  constructor(private router: ActivatedRoute) { }
-
-  ngOnInit() {
-    this.activeView = this.router.snapshot.params['view']
+  constructor(private router: ActivatedRoute) {
+    super();
   }
 
+  ngOnInit() {
+    this.activeView = this.router.snapshot.params["view"];
+  }
 }

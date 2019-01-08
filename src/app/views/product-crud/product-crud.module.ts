@@ -12,7 +12,10 @@ import {
   MatSelectModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatProgressBarModule,
+  MatMenuModule,
+  MatToolbarModule,
 
 } from "../../../../node_modules/@angular/material";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
@@ -21,8 +24,11 @@ import { ProductCrudPopupComponent } from "./product-filter-table/product-crud-p
 import { ReactiveFormsModule } from "@angular/forms";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { CrudService } from "../cruds/crud.service";
-import { PositiveNumberOnly } from "../../directives/PositiveNumber.directive";
 import { DateValidator } from "../../directives/DateValidator.directive";
+import { FileUploadModule } from "ng2-file-upload";
+import { SurveyService } from '../survey/survey.service';
+import { SharedModule } from '../../shared/shared.module';
+import { ProductCommonComponent } from './product-crud-common.component';
 
 
 @NgModule({
@@ -39,16 +45,21 @@ import { DateValidator } from "../../directives/DateValidator.directive";
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
+    MatMenuModule,
     MatAutocompleteModule,
+    FileUploadModule,
+    MatProgressBarModule,
+    SharedModule,
+    MatToolbarModule,
     RouterModule.forChild(ProductCrudRouts)
   ],
   declarations: [
     ProductFilterTableComponent,
     ProductCrudPopupComponent,
-    PositiveNumberOnly,
-    DateValidator
+    DateValidator,
+    ProductCommonComponent
   ],
-  providers: [ProductCrudService, CrudService],
+  providers: [ProductCrudService, CrudService, SurveyService],
   entryComponents: [ProductCrudPopupComponent]
 })
-export class ProductCrudModule {}
+export class ProductCrudModule { }

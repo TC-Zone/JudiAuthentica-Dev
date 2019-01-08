@@ -10,7 +10,7 @@
         <li *ngFor="let item of menuItems; let i = index;">
           <div *ngIf="item.type !== 'separator'" routerLinkActive="open">
             <a matRipple routerLink="/{{item.state}}" *ngIf="item.type === 'link'">
-              <mat-icon>{{item.icon}}</mat-icon> 
+              <mat-icon>{{item.icon}}</mat-icon>
               {{item.name | translate}}
             </a>
             <div *ngIf="item.type === 'dropDown'">
@@ -19,12 +19,12 @@
               <input type="checkbox" id="drop-{{i}}" />
               <ul>
                 <li *ngFor="let itemLvL2 of item.sub; let j = index;" routerLinkActive="open">
-                  <a matRipple routerLink="{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}" 
+                  <a matRipple routerLink="{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}"
                   *ngIf="itemLvL2.type !== 'dropDown'">
-                    <mat-icon *ngIf="itemLvL2.icon">{{itemLvL2.icon}}</mat-icon>  
+                    <mat-icon *ngIf="itemLvL2.icon">{{itemLvL2.icon}}</mat-icon>
                     {{itemLvL2.name | translate}}
                   </a>
-                  
+
                   <div *ngIf="itemLvL2.type === 'dropDown'">
                     <label matRipple for="drop-{{i}}{{j}}" class="toggle">{{itemLvL2.name | translate}}</label>
                     <a matRipple><mat-icon *ngIf="itemLvL2.icon">{{itemLvL2.icon}}</mat-icon>  {{itemLvL2.name | translate}}</a>
@@ -47,25 +47,25 @@
       </ul>
       <span fxFlex></span>
       <!-- End Navigation -->
-      
+
       <!-- Language Switcher -->
-      <mat-select 
+      <mat-select
       *ngIf="!layoutConf.isMobile"
       placeholder=""
       id="langToggle"
       [style.width]="'auto'"
       name="currentLang"
-      [(ngModel)]="currentLang" 
+      [(ngModel)]="currentLang"
       (selectionChange)="setLang()"
       class="topbar-button-right">
-        <mat-option 
-        *ngFor="let lang of availableLangs" 
+        <mat-option
+        *ngFor="let lang of availableLangs"
         [value]="lang.code" ngDefaultControl>{{ lang.name }}</mat-option>
       </mat-select>
       <!-- Theme Switcher -->
-      <button 
+      <button
       mat-icon-button
-      id="schemeToggle" 
+      id="schemeToggle"
       [style.overflow]="'visible'"
       matTooltip="Color Schemes"
       [matMenuTriggerFor]="themeMenu"
@@ -74,10 +74,10 @@
       </button>
       <mat-menu #themeMenu="matMenu">
         <mat-grid-list
-        class="theme-list" 
-        cols="2" 
+        class="theme-list"
+        cols="2"
         rowHeight="48px">
-          <mat-grid-tile 
+          <mat-grid-tile
           *ngFor="let theme of egretThemes"
           (click)="changeTheme(theme)">
             <div mat-menu-item [title]="theme.name">
@@ -88,21 +88,21 @@
         </mat-grid-list>
       </mat-menu>
       <!-- Notification toggle button -->
-      <button 
+      <button
       mat-icon-button
-      matTooltip="Notifications" 
+      matTooltip="Notifications"
       (click)="toggleNotific()"
-      [style.overflow]="'visible'" 
+      [style.overflow]="'visible'"
       class="topbar-button-right">
         <mat-icon>notifications</mat-icon>
         <span class="notification-number mat-bg-warn">3</span>
       </button>
       <!-- Top left user menu -->
       <button mat-icon-button [matMenuTriggerFor]="accountMenu" class="topbar-button-right mr-1 img-button">
-        <img src="assets/images/cp_user_1.jpg" alt="">
+        <img src="{{currentUser.image}}" alt="">
       </button>
       <mat-menu #accountMenu="matMenu">
-        <button mat-menu-item [routerLink]="['/profile/overview']">
+        <button mat-menu-item [routerLink]="['/profile/']">
           <mat-icon>account_box</mat-icon>
           <span>Profile</span>
         </button>
@@ -110,20 +110,20 @@
           <mat-icon>settings</mat-icon>
           <span>Account Settings</span>
         </button>
-        <button mat-menu-item>
+        <!-- <button mat-menu-item>
           <mat-icon>notifications_off</mat-icon>
           <span>Disable alerts</span>
-        </button>
-        <button mat-menu-item [routerLink]="['/sessions/signin']">
+        </button> -->
+        <button mat-menu-item (click)="signOut()" >
           <mat-icon>exit_to_app</mat-icon>
           <span>Sign out</span>
         </button>
       </mat-menu>
       <!-- Mobile screen menu toggle -->
-      <button 
-      mat-icon-button 
-      class="mr-1" 
-      (click)="toggleSidenav()" 
+      <button
+      mat-icon-button
+      class="mr-1"
+      (click)="toggleSidenav()"
       *ngIf="layoutConf.isMobile">
         <mat-icon>menu</mat-icon>
       </button>

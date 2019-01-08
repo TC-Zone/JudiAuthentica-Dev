@@ -1,11 +1,11 @@
 <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
   <mat-card-title>
-    <div class="card-title-text">Survey Settings</div>
+    <div class="card-title-text">Feedback Settings</div>
     <mat-divider></mat-divider>
   </mat-card-title>
   <mat-card-content class="p-0">
     <div class="text-muted mb-1 m-1 text-left">
-      you can configure your survey question answer with adding different options per answer. To setup your predefined answer template,
+      you can configure your Feedback question answer with adding different options per answer. To setup your predefined answer template,
       navigate to "Answser template section " by clicking "Create Answer template" button.
     </div>
     <div class="profile-actions text-right mb-1">
@@ -28,7 +28,7 @@
         </mat-expansion-panel-header>
 
         <ngx-datatable class="material bg-white" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
-          [limit]="5" [rows]="answerTemplates">
+          [limit]="5" [rows]="rows">
 
           <ngx-datatable-column name="Template Name" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
@@ -37,12 +37,15 @@
           </ngx-datatable-column>
           <ngx-datatable-column name="Answer type" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              {{row?.type}}
+              <mat-chip mat-sm-chip *ngIf='row?.answerTemplateType =="M"'   color="accent" [selected]="true" >Multiple Option</mat-chip>
+              <mat-chip mat-sm-chip *ngIf='row?.answerTemplateType =="S"'   color="primary" [selected]="true" >Single Option</mat-chip>
+              <mat-chip mat-sm-chip *ngIf='row?.answerTemplateType =="F"'   color="default" [selected]="true" >Free Text</mat-chip>
             </ng-template>
           </ngx-datatable-column>
           <ngx-datatable-column name="Action" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              <button mat-icon-button mat-sm-button color="primary" class="mr-1"><mat-icon>edit</mat-icon></button>
+              <button mat-icon-button mat-sm-button  [disabled]='row?.answerTemplateType =="F"'  (click)="getAnsTemplateById(row.id)" color="primary" class="mr-1"><mat-icon>edit</mat-icon></button>
+              <button mat-icon-button mat-sm-button  [disabled]='row?.answerTemplateType =="F"' (click)="deleteAnsTemplate(row)" color="warn"  class="mr-1" ><mat-icon>delete</mat-icon></button>
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>

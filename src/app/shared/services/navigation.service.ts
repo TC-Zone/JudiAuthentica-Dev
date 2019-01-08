@@ -408,20 +408,39 @@ export class NavigationService {
       state: "productCrud/show"
     },
     {
-      name: "Survey Service",
+      name: "Instant Feedback",
       type: "link",
-      tooltip: "Survey Management",
-      icon: "data_usage",
+      tooltip: "Feedback Management",
+      icon: "feedback",
       state: "surveys"
     },
     {
-      name: "Form",
+      name: "E-Vote",
       type: "link",
-      tooltip: "Form",
-      icon: "favorite",
-      state: "form/showForm"
-    }
+      tooltip: "E-Vote",
+      icon: "thumbs_up_down",
+      state: "evote/showEvote"
+    },
+    {
+      name: "Future Survey",
+      type: "dropDown",
+      tooltip: "Future Survey",
+      icon: "language",
+      state: "future-survey",
+      sub: [
+        { name: "Future Survey Catalog", state: "sList" }
+        //{ name: "Future Survey Designer", state: "sEditor" }
+      ]
+    },
+    // ,
     // {
+    //   name: "Interaction View",
+    //   type: "link",
+    //   tooltip: "E-Vote",
+    //   icon: "thumbs_up_down",
+    //   state: "interaction/viewInteraction"
+    // },
+    // ,{
     //   name: 'INBOX',
     //   type: 'link',
     //   tooltip: 'Inbox',
@@ -594,13 +613,13 @@ export class NavigationService {
     //     { name: 'Level Two', state: 'fake-5' }
     //   ]
     // },
-    // {
-    //   name: 'DOC',
-    //   type: 'extLink',
-    //   tooltip: 'Documentation',
-    //   icon: 'library_books',
-    //   state: 'http://egret-doc.mhrafi.com/'
-    // }
+    {
+      name: "DOC",
+      type: "extLink",
+      tooltip: "Documentation",
+      icon: "library_books",
+      state: "http://egret-doc.mhrafi.com/"
+    }
   ];
 
   // Icon menu TITLE at the very top of navigation.

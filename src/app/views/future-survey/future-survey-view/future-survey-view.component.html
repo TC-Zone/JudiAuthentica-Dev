@@ -1,0 +1,106 @@
+<!-- <div
+  fxLayout="column-reverse"
+  fxLayout.lt-sm="column"
+  fxLayoutWrap="wrap"
+></div>
+
+<div class="survey-container contentcontainer codecontainer">
+  <div id="surveyElement"></div>
+</div> -->
+
+<div fxLayout="row" fxLayoutWrap="wrap">
+  <div fxFlex="100" text-right class="pr-0">
+    <div class="profile-actions text-right mb-1">
+      <div class="m-333">
+        <button
+          mat-raised-button
+          class="mb-05"
+          (click)="navigateToSurveyEditor()"
+          color="accent"
+        >
+          Back To Catalog
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div fxFlex="100" fxLayoutAlign="center center" >
+
+  </div>
+</div>
+
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+  <mat-card class="container" >
+  <div class="survey-container contentcontainer codecontainer">
+
+    <div id="surveyElement" ></div>
+
+  </div>
+  </mat-card>
+</div>
+
+
+
+<!--
+  <mat-card class="profile-sidebar mb-1 pb-0">
+    <mat-card-title>
+
+        <div class="card-title-text">Clear Picture - Future Survey Viewer</div>
+
+        <div class="profile-actions text-right mb-1">
+          <div class="m-333">
+            <button  mat-raised-button class="mb-05" (click)="navigateToSurveyEditor()" color="accent">Back to Survey List</button>
+          </div>
+        </div>
+
+    </mat-card-title>
+  </mat-card>
+-->
+
+<!--
+  <form [formGroup]="surveyViewForm">
+    <div
+      fxLayout="row"
+      fxLayout.lt-sm="column"
+      fxLayoutWrap="wrap"
+
+    >
+      <div fxFlex="25" class="pr-1">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            [formControl]="surveyViewForm.controls['voter']"
+            required
+            name="voter"
+            positiveNumberAndLetterOnly
+            placeholder="Voter Name"
+          />
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="25" class="pr-1">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            [formControl]="surveyViewForm.controls['email']"
+            required
+            name="email"
+            letterOnly
+            placeholder="Voter Email"
+          />
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="25" class="pr-1"></div>
+
+      <div fxFlex="25" text-right class="pr-0">
+          <div class="profile-actions text-right mb-1">
+              <div class="m-333">
+                <button  mat-raised-button class="mb-05" (click)="navigateToSurveyEditor()" color="accent">Back to Survey List</button>
+              </div>
+            </div>
+
+      </div>
+    </div>
+  </form>
+-->

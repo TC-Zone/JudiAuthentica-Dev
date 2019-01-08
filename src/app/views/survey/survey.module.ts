@@ -22,8 +22,8 @@ import {
   MatSidenavModule,
   MatHorizontalStepper,
   MatStepperModule,
-  MatStepper
-
+  MatStepper,
+  MatToolbarModule
 } from "@angular/material";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { SurveyTableComponent } from "./survey-table/survey-table.component";
@@ -32,7 +32,16 @@ import { AnswerTemplatePopupComponent } from "./answer-template-popup/answer-tem
 import { SurveyCreationPopupComponent } from "./survey-creation-popup/survey-creation-popup.component";
 import { SurveyBuilderComponent } from "./survey-builder/survey-builder.component";
 import { LayoutService } from "../../shared/services/layout.service";
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from "../../shared/shared.module";
+import { SurveyService } from "./survey.service";
+
+import { ProductCrudService } from "../product-crud/product-crud.service";
+
+import { SurveyCommonComponent } from './survey-common.component';
+import { EvoteService } from '../evote/evote-service.service';
+import { ArrayFilter } from '../../shared/pipes/array-filter.pipe';
+import { SurveyInteractionComponent } from './survey-interaction/survey-interaction.component';
+
 
 @NgModule({
   imports: [
@@ -56,8 +65,10 @@ import { SharedModule } from '../../shared/shared.module';
     MatSidenavModule,
     RouterModule.forChild(SurveyRoute),
     SharedModule,
-    MatStepperModule
+    MatStepperModule,
+    MatToolbarModule,
 
+    MatDatepickerModule
   ],
   declarations: [
     SurveyComponent,
@@ -65,9 +76,11 @@ import { SharedModule } from '../../shared/shared.module';
     SurveySettingComponent,
     AnswerTemplatePopupComponent,
     SurveyCreationPopupComponent,
-    SurveyBuilderComponent
+    SurveyBuilderComponent,
+    SurveyCommonComponent,
+    SurveyInteractionComponent
   ],
   entryComponents: [AnswerTemplatePopupComponent, SurveyCreationPopupComponent],
-  providers: []
+  providers: [SurveyService, ProductCrudService, EvoteService]
 })
 export class SurveyModule {}

@@ -1,0 +1,20 @@
+{
+  "formValue": {
+    "client": "3277b87cda3e255192f9b7a74829d1d6",
+    "code": "TC1",
+    "name": "Foodie Goodies",
+    "description": "Food item related",
+    "batchNumber": 1,
+    "quantity": 1,
+    "expireDate": "2018-09-23",
+    "file": ""
+  },
+  "client": { "id": "3277b87cda3e255192f9b7a74829d1d6" },
+  "code": "TC1",
+  "name": "Foodie Goodies",
+  "description": "Food item related",
+  "batchNumber": 1,
+  "quantity": 1,
+  "expireDate": "2018-09-23",
+  "file": ""
+}

@@ -1,51 +1,44 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
+
 import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse
-} from "../../../../node_modules/@angular/common/http";
-import {
-  catchError,
-  map,
-  delay,
-  tap
-} from "../../../../node_modules/rxjs/operators";
+} from "@angular/common/http";
+import { catchError, map } from "rxjs/operators";
 import { environment } from "environments/environment.prod";
-import { _throw } from "rxjs/Observable/throw";
-
-import { of } from "../../../../node_modules/rxjs";
-
+import { throwError, Observable } from "rxjs";
 
 @Injectable()
 export class ProductCrudService {
-  productApiUrl: string = environment.baseApiURL + "products/";
-
+  productApiUrl: string = environment.productApiURL + "products/";
+  recentProduct: any;
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Headers': 'Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With'
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Headers":
+        "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
     })
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    console.log("URL : " + this.productApiUrl);
+  }
 
   updateProduct(id, item) {
     return this.http
-      .put<any>(this.productApiUrl + id, item, this.httpOptions)
+      .put<any>(this.productApiUrl + id, item)
       .pipe(catchError(this.handleError));
   }
 
   addProduct(productObj, items): Observable<any> {
-    return this.http
-      .post<any>(this.productApiUrl, productObj, this.httpOptions)
-      .pipe(
-        map(data => {
-          items.unshift(data.content);
-          return items.slice();
-        }),
-        catchError(this.handleError)
-      );
+    return this.http.post<any>(this.productApiUrl, productObj).pipe(
+      map(response => {
+        console.log(JSON.stringify(response.content.id));
+        return response.content.id;
+      }),
+      catchError(this.handleError)
+    );
   }
 
   getAllProducts(): Observable<any> {
@@ -53,18 +46,51 @@ export class ProductCrudService {
   }
 
   removeProduct(row, items): Observable<any> {
-    return this.http.delete(this.productApiUrl + row.id, this.httpOptions).pipe(
-      map(data => {
-        let i = items.indexOf(row);
-        return items.splice(i, 1);
-      }),
-      catchError(this.handleError)
-    );
+    return this.http
+      .delete(this.productApiUrl + row.id)
+      .pipe(catchError(this.handleError));
   }
-  
+
+  getAllProductSuggestions(): Observable<any> {
+    return this.http
+      .get(this.productApiUrl + "suggestions")
+      .pipe(catchError(this.handleError));
+  }
+
+  // --------- BH ----------
+  getPageProducts(pageNumber, pageSize): Observable<any> {
+    return this.http
+      .get(
+        this.productApiUrl +
+          "?pageNumber=" +
+          pageNumber +
+          "&pageSize=" +
+          pageSize
+      )
+      .pipe(catchError(this.handleError));
+  }
+  // --------- BH ----------
+
+  getProductById(proId): Observable<any> {
+    return this.http
+      .get<any>(this.productApiUrl + proId)
+      .pipe(catchError(this.handleError));
+  }
+
+  getProductDetails(proId): Observable<any> {
+    return this.http
+      .get<any>(environment.productApiURL + "productDetails/" + proId)
+      .pipe(catchError(this.handleError));
+  }
+
+  authenticate(request): Observable<any> {
+    return this.http
+      .post<any>(environment.productApiURL + "authenticate/customer/", request)
+      .pipe(catchError(this.handleError));
+  }
 
   private handleError(error: HttpErrorResponse | any) {
     //console.log(error)
-    return _throw(error);
+    return throwError(error);
   }
 }

@@ -13,111 +13,66 @@ var map = {
 		"common",
 		"views-app-calendar-app-calendar-module"
 	],
-	"./views/app-chats/app-chats.module": [
-		"./src/app/views/app-chats/app-chats.module.ts",
-		"views-app-chats-app-chats-module"
-	],
-	"./views/app-dialogs/app-dialogs.module": [
-		"./src/app/views/app-dialogs/app-dialogs.module.ts",
-		"views-app-dialogs-app-dialogs-module"
-	],
 	"./views/app-inbox/app-inbox.module": [
 		"./src/app/views/app-inbox/app-inbox.module.ts",
-		"views-app-inbox-app-inbox-module~views-forms-forms-module",
-		"common",
 		"views-app-inbox-app-inbox-module"
-	],
-	"./views/app-tour/app-tour.module": [
-		"./src/app/views/app-tour/app-tour.module.ts",
-		"views-app-tour-app-tour-module"
-	],
-	"./views/charts/charts.module": [
-		"./src/app/views/charts/charts.module.ts",
-		"views-charts-charts-module~views-others-others-module~views-product-crud-product-crud-module~views-p~cd7c7dbb",
-		"views-charts-charts-module~views-others-others-module~views-profile-profile-module",
-		"common",
-		"views-charts-charts-module"
 	],
 	"./views/cruds/cruds.module": [
 		"./src/app/views/cruds/cruds.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~503bb438",
 		"common",
 		"views-cruds-cruds-module"
 	],
-	"./views/dragndrop/dragndrop.module": [
-		"./src/app/views/dragndrop/dragndrop.module.ts",
-		"views-dragndrop-dragndrop-module"
-	],
-	"./views/forms/forms.module": [
-		"./src/app/views/forms/forms.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
-		"views-forms-forms-module~views-others-others-module~views-profile-profile-module",
-		"views-app-inbox-app-inbox-module~views-forms-forms-module",
-		"views-forms-forms-module~views-sessions-sessions-module",
+	"./views/evote/evote.module": [
+		"./src/app/views/evote/evote.module.ts",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~503bb438",
+		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module~views-s~9abe55a2",
+		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module",
+		"views-evote-evote-module~views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
-		"views-forms-forms-module"
+		"views-evote-evote-module"
 	],
-	"./views/map/map.module": [
-		"./src/app/views/map/map.module.ts",
+	"./views/future-survey/future-survey.module": [
+		"./src/app/views/future-survey/future-survey.module.ts",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~503bb438",
+		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module",
+		"common"
+	],
+	"./views/interaction-view/interaction-view.module": [
+		"./src/app/views/interaction-view/interaction-view.module.ts",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~503bb438",
+		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module",
 		"common",
-		"views-map-map-module"
-	],
-	"./views/mat-icons/mat-icons.module": [
-		"./src/app/views/mat-icons/mat-icons.module.ts",
-		"views-mat-icons-mat-icons-module"
-	],
-	"./views/material/app-material.module": [
-		"./src/app/views/material/app-material.module.ts",
-		"views-material-app-material-module"
-	],
-	"./views/others/others.module": [
-		"./src/app/views/others/others.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
-		"views-charts-charts-module~views-others-others-module~views-product-crud-product-crud-module~views-p~cd7c7dbb",
-		"views-charts-charts-module~views-others-others-module~views-profile-profile-module",
-		"views-forms-forms-module~views-others-others-module~views-profile-profile-module",
-		"common",
-		"views-others-others-module"
+		"views-interaction-view-interaction-view-module"
 	],
 	"./views/product-crud/product-crud.module": [
 		"./src/app/views/product-crud/product-crud.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
-		"views-charts-charts-module~views-others-others-module~views-product-crud-product-crud-module~views-p~cd7c7dbb",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~503bb438",
+		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module~views-s~9abe55a2",
+		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module",
+		"views-evote-evote-module~views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
 		"views-product-crud-product-crud-module"
 	],
 	"./views/profile/profile.module": [
 		"./src/app/views/profile/profile.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
-		"views-charts-charts-module~views-others-others-module~views-product-crud-product-crud-module~views-p~cd7c7dbb",
-		"views-charts-charts-module~views-others-others-module~views-profile-profile-module",
-		"views-forms-forms-module~views-others-others-module~views-profile-profile-module",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~503bb438",
+		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module~views-s~9abe55a2",
+		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module",
 		"common",
 		"views-profile-profile-module"
 	],
 	"./views/sessions/sessions.module": [
 		"./src/app/views/sessions/sessions.module.ts",
-		"views-forms-forms-module~views-sessions-sessions-module",
-		"common",
 		"views-sessions-sessions-module"
-	],
-	"./views/shop/shop.module": [
-		"./src/app/views/shop/shop.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
-		"common",
-		"views-shop-shop-module"
 	],
 	"./views/survey/survey.module": [
 		"./src/app/views/survey/survey.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~503bb438",
+		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module~views-s~9abe55a2",
+		"views-evote-evote-module~views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
 		"views-survey-survey-module"
-	],
-	"./views/tables/tables.module": [
-		"./src/app/views/tables/tables.module.ts",
-		"views-cruds-cruds-module~views-forms-forms-module~views-others-others-module~views-product-crud-prod~6a784c1b",
-		"common",
-		"views-tables-tables-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -203,8 +158,8 @@ var AppComponent = /** @class */ (function () {
         this.routePartsService = routePartsService;
         this.themeService = themeService;
         this.renderer = renderer;
-        this.appTitle = 'CP Authentica';
-        this.pageTitle = '';
+        this.appTitle = "CP Authentica";
+        this.pageTitle = "";
     }
     AppComponent.prototype.ngOnInit = function () {
         this.changePageTitle();
@@ -214,7 +169,9 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.changePageTitle = function () {
         var _this = this;
-        this.router.events.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["filter"])(function (event) { return event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"]; })).subscribe(function (routeChange) {
+        this.router.events
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["filter"])(function (event) { return event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"]; }))
+            .subscribe(function (routeChange) {
             var routeParts = _this.routePartsService.generateRouteParts(_this.activeRoute.snapshot);
             if (!routeParts.length)
                 return _this.title.setTitle(_this.appTitle);
@@ -222,14 +179,16 @@ var AppComponent = /** @class */ (function () {
             _this.pageTitle = routeParts
                 .reverse()
                 .map(function (part) { return part.title; })
-                .reduce(function (partA, partI) { return partA + " > " + partI; });
+                .reduce(function (partA, partI) {
+                return partA + " > " + partI;
+            });
             _this.pageTitle += " | " + _this.appTitle;
             _this.title.setTitle(_this.pageTitle);
         });
     };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-root',
+            selector: "app-root",
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
         }),
@@ -269,12 +228,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
 /* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ngx-translate/http-loader */ "./node_modules/@ngx-translate/http-loader/esm5/ngx-translate-http-loader.js");
+/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -309,10 +270,13 @@ var AppModule = /** @class */ (function () {
                 }),
                 _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(_app_routing__WEBPACK_IMPORTED_MODULE_5__["rootRouterConfig"], { useHash: false })
             ],
-            declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
+            declarations: [
+                _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
+            ],
             providers: [
                 // ANGULAR MATERIAL SLIDER FIX
-                { provide: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["HAMMER_GESTURE_CONFIG"], useClass: _angular_material__WEBPACK_IMPORTED_MODULE_4__["GestureConfig"] }
+                { provide: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["HAMMER_GESTURE_CONFIG"], useClass: _angular_material__WEBPACK_IMPORTED_MODULE_4__["GestureConfig"] },
+                _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_11__["UserService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         })
@@ -342,128 +306,260 @@ __webpack_require__.r(__webpack_exports__);
 
 var rootRouterConfig = [
     {
-        path: '',
-        redirectTo: 'cruds',
-        pathMatch: 'full'
+        path: "",
+        redirectTo: "sessions/signin",
+        pathMatch: "full"
     },
     {
-        path: '',
+        path: "",
         component: _shared_components_layouts_auth_layout_auth_layout_component__WEBPACK_IMPORTED_MODULE_1__["AuthLayoutComponent"],
         children: [
             {
-                path: 'sessions',
-                loadChildren: './views/sessions/sessions.module#SessionsModule',
-                data: { title: 'Session' }
+                path: "sessions",
+                loadChildren: "./views/sessions/sessions.module#SessionsModule",
+                data: { title: "Session" }
+            },
+            {
+                path: "interaction",
+                loadChildren: "./views/interaction-view/interaction-view.module#InteractionViewModule",
+                data: { title: "Interaction View" }
             }
         ]
     },
     {
-        path: '',
+        path: "",
         component: _shared_components_layouts_admin_layout_admin_layout_component__WEBPACK_IMPORTED_MODULE_0__["AdminLayoutComponent"],
         canActivate: [_shared_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_2__["AuthGuard"]],
         children: [
-            // {
-            //   path: 'dashboard',
-            //   loadChildren: './views/dashboard/dashboard.module#DashboardModule',
-            //   data: { title: 'Dashboard', breadcrumb: 'DASHBOARD' }
-            // },
             {
-                path: 'material',
-                loadChildren: './views/material/app-material.module#AppMaterialModule',
-                data: { title: 'Material', breadcrumb: 'MATERIAL' }
+                path: "profile",
+                loadChildren: "./views/profile/profile.module#ProfileModule",
+                data: { title: "Profile", breadcrumb: "PROFILE" }
             },
             {
-                path: 'dialogs',
-                loadChildren: './views/app-dialogs/app-dialogs.module#AppDialogsModule',
-                data: { title: 'Dialogs', breadcrumb: 'DIALOGS' }
+                path: "inbox",
+                loadChildren: "./views/app-inbox/app-inbox.module#AppInboxModule",
+                data: { title: "Inbox", breadcrumb: "INBOX" }
             },
             {
-                path: 'profile',
-                loadChildren: './views/profile/profile.module#ProfileModule',
-                data: { title: 'Profile', breadcrumb: 'PROFILE' }
+                path: "calendar",
+                loadChildren: "./views/app-calendar/app-calendar.module#AppCalendarModule",
+                data: { title: "Calendar", breadcrumb: "CALENDAR" }
             },
             {
-                path: 'others',
-                loadChildren: './views/others/others.module#OthersModule',
-                data: { title: 'Others', breadcrumb: 'OTHERS' }
+                path: "cruds",
+                loadChildren: "./views/cruds/cruds.module#CrudsModule",
+                data: { title: "Clients", breadcrumb: "Client" }
             },
             {
-                path: 'tables',
-                loadChildren: './views/tables/tables.module#TablesModule',
-                data: { title: 'Tables', breadcrumb: 'TABLES' }
+                path: "productCrud",
+                loadChildren: "./views/product-crud/product-crud.module#ProductCrudModule",
+                data: { title: "Product Catalogue", breadcrumb: "" }
             },
             {
-                path: 'tour',
-                loadChildren: './views/app-tour/app-tour.module#AppTourModule',
-                data: { title: 'Tour', breadcrumb: 'TOUR' }
+                path: "surveys",
+                loadChildren: "./views/survey/survey.module#SurveyModule",
+                data: { title: "Survey Service", breadcrumb: "" }
             },
             {
-                path: 'forms',
-                loadChildren: './views/forms/forms.module#AppFormsModule',
-                data: { title: 'Forms', breadcrumb: 'FORMS' }
+                path: "future-survey",
+                loadChildren: "./views/future-survey/future-survey.module#FutureSurveyModule",
+                data: { title: "Future Survey", breadcrumb: "Future Survey" }
             },
             {
-                path: 'charts',
-                loadChildren: './views/charts/charts.module#AppChartsModule',
-                data: { title: 'Charts', breadcrumb: 'CHARTS' }
-            },
-            {
-                path: 'map',
-                loadChildren: './views/map/map.module#AppMapModule',
-                data: { title: 'Map', breadcrumb: 'MAP' }
-            },
-            {
-                path: 'dragndrop',
-                loadChildren: './views/dragndrop/dragndrop.module#DragndropModule',
-                data: { title: 'Drag and Drop', breadcrumb: 'DND' }
-            },
-            {
-                path: 'inbox',
-                loadChildren: './views/app-inbox/app-inbox.module#AppInboxModule',
-                data: { title: 'Inbox', breadcrumb: 'INBOX' }
-            },
-            {
-                path: 'calendar',
-                loadChildren: './views/app-calendar/app-calendar.module#AppCalendarModule',
-                data: { title: 'Calendar', breadcrumb: 'CALENDAR' }
-            },
-            {
-                path: 'chat',
-                loadChildren: './views/app-chats/app-chats.module#AppChatsModule',
-                data: { title: 'Chat', breadcrumb: 'CHAT' }
-            },
-            {
-                path: 'cruds',
-                loadChildren: './views/cruds/cruds.module#CrudsModule',
-                data: { title: 'Clients', breadcrumb: 'Client' }
-            },
-            {
-                path: 'icons',
-                loadChildren: './views/mat-icons/mat-icons.module#MatIconsModule',
-                data: { title: 'Icons', breadcrumb: 'MATICONS' }
-            },
-            {
-                path: 'productCrud',
-                loadChildren: './views/product-crud/product-crud.module#ProductCrudModule',
-                data: { title: 'Product Catalogue', breadcrumb: '' }
-            },
-            {
-                path: 'surveys',
-                loadChildren: './views/survey/survey.module#SurveyModule',
-                data: { title: 'Survey Service', breadcrumb: '' }
-            },
-            {
-                path: 'shop',
-                loadChildren: './views/shop/shop.module#ShopModule',
-                data: { title: 'Shop', breadcrumb: 'SHOP' }
+                path: "evote",
+                loadChildren: "./views/evote/evote.module#EvoteModule",
+                data: { title: "E - Vote", breadcrumb: "E Vote" }
             }
         ]
     },
     {
-        path: '**',
-        redirectTo: 'sessions/404'
+        path: "**",
+        redirectTo: "sessions/404"
     }
 ];
+
+
+/***/ }),
+
+/***/ "./src/app/directives/Letter.directive.ts":
+/*!************************************************!*\
+  !*** ./src/app/directives/Letter.directive.ts ***!
+  \************************************************/
+/*! exports provided: LetterOnly */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LetterOnly", function() { return LetterOnly; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var LetterOnly = /** @class */ (function () {
+    function LetterOnly(el) {
+        this.el = el;
+        // Allow positive number greater than 0
+        // private regex: RegExp = new RegExp(/^[+]?([1-9]+(?:[0-9]*)?|\.[0-9]+)$/);
+        this.regex = new RegExp(/^(?:[A-Za-z]+)(?:[A-Za-z _]*)$/);
+        // Allow key codes for special events. Reflect :
+        // Backspace, tab, end, home
+        this.specialKeys = ["Backspace", "Tab", "End", "Home"];
+    }
+    LetterOnly.prototype.onKeyDown = function (event) {
+        // Allow Backspace, tab, end, and home keys
+        if (this.specialKeys.indexOf(event.key) !== -1) {
+            return;
+        }
+        var current = this.el.nativeElement.value;
+        var next = current.concat(event.key);
+        if (next && !String(next).match(this.regex)) {
+            event.preventDefault();
+        }
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])("keydown", ["$event"]),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [KeyboardEvent]),
+        __metadata("design:returntype", void 0)
+    ], LetterOnly.prototype, "onKeyDown", null);
+    LetterOnly = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"])({
+            selector: "[letterOnly]"
+        }),
+        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
+    ], LetterOnly);
+    return LetterOnly;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/directives/PositiveNumber.directive.ts":
+/*!********************************************************!*\
+  !*** ./src/app/directives/PositiveNumber.directive.ts ***!
+  \********************************************************/
+/*! exports provided: PositiveNumberOnly */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PositiveNumberOnly", function() { return PositiveNumberOnly; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var PositiveNumberOnly = /** @class */ (function () {
+    function PositiveNumberOnly(el) {
+        this.el = el;
+        // Allow positive number greater than 0
+        this.regex = new RegExp(/^[+]?([1-9]+(?:[0-9]*)?|\.[0-9]+)$/);
+        // Allow key codes for special events. Reflect :
+        // Backspace, tab, end, home
+        this.specialKeys = ["Backspace", "Tab", "End", "Home"];
+    }
+    PositiveNumberOnly.prototype.onKeyDown = function (event) {
+        // Allow Backspace, tab, end, and home keys
+        if (this.specialKeys.indexOf(event.key) !== -1) {
+            return;
+        }
+        var current = this.el.nativeElement.value;
+        var next = current.concat(event.key);
+        if (next && !String(next).match(this.regex)) {
+            event.preventDefault();
+        }
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])("keydown", ["$event"]),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [KeyboardEvent]),
+        __metadata("design:returntype", void 0)
+    ], PositiveNumberOnly.prototype, "onKeyDown", null);
+    PositiveNumberOnly = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"])({
+            selector: "[positiveNumberOnly]"
+        }),
+        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
+    ], PositiveNumberOnly);
+    return PositiveNumberOnly;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/directives/PositiveNumberAndLetter.directive.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/directives/PositiveNumberAndLetter.directive.ts ***!
+  \*****************************************************************/
+/*! exports provided: PositiveNumberAndLetterOnly */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PositiveNumberAndLetterOnly", function() { return PositiveNumberAndLetterOnly; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var PositiveNumberAndLetterOnly = /** @class */ (function () {
+    function PositiveNumberAndLetterOnly(el) {
+        this.el = el;
+        // Allow positive number greater than 0
+        this.regex = new RegExp(/^(?:[A-Za-z0-9]+)(?:[A-Za-z0-9 ._-]*)$/);
+        // private regex: RegExp = new RegExp(/^[a-zA-Z0-9._-]+$/);
+        // Allow key codes for special events. Reflect :
+        // Backspace, tab, end, home
+        this.specialKeys = ["Backspace", "Tab", "End", "Home"];
+    }
+    PositiveNumberAndLetterOnly.prototype.onKeyDown = function (event) {
+        // Allow Backspace, tab, end, and home keys
+        if (this.specialKeys.indexOf(event.key) !== -1) {
+            return;
+        }
+        var current = this.el.nativeElement.value;
+        var next = current.concat(event.key);
+        if (next && !String(next).match(this.regex)) {
+            event.preventDefault();
+        }
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["HostListener"])("keydown", ["$event"]),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [KeyboardEvent]),
+        __metadata("design:returntype", void 0)
+    ], PositiveNumberAndLetterOnly.prototype, "onKeyDown", null);
+    PositiveNumberAndLetterOnly = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"])({
+            selector: "[positiveNumberAndLetterOnly]"
+        }),
+        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
+    ], PositiveNumberAndLetterOnly);
+    return PositiveNumberAndLetterOnly;
+}());
+
 
 
 /***/ }),
@@ -697,6 +793,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_theme_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/theme.service */ "./src/app/shared/services/theme.service.ts");
 /* harmony import */ var _services_layout_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/layout.service */ "./src/app/shared/services/layout.service.ts");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
+/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _helpers_local_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../helpers/local-storage */ "./src/app/shared/helpers/local-storage.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -710,20 +819,28 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var HeaderSideComponent = /** @class */ (function () {
-    function HeaderSideComponent(themeService, layout, translate, renderer) {
-        this.themeService = themeService;
-        this.layout = layout;
-        this.translate = translate;
-        this.renderer = renderer;
-        this.currentLang = 'en';
-        this.availableLangs = [{
+
+
+
+var HeaderSideComponent = /** @class */ (function (_super) {
+    __extends(HeaderSideComponent, _super);
+    function HeaderSideComponent(themeService, layout, translate, renderer, userService, router) {
+        var _this = _super.call(this) || this;
+        _this.themeService = themeService;
+        _this.layout = layout;
+        _this.translate = translate;
+        _this.renderer = renderer;
+        _this.userService = userService;
+        _this.router = router;
+        _this.currentLang = 'en';
+        _this.availableLangs = [{
                 name: 'English',
                 code: 'en',
             }, {
                 name: 'Spanish',
                 code: 'es',
             }];
+        return _this;
     }
     HeaderSideComponent.prototype.ngOnInit = function () {
         this.egretThemes = this.themeService.egretThemes;
@@ -764,6 +881,14 @@ var HeaderSideComponent = /** @class */ (function () {
             sidebarStyle: 'compact'
         }, { transitionClass: true });
     };
+    HeaderSideComponent.prototype.signOut = function () {
+        console.log('sign out called HEADER SIDE');
+        this.userService.logout();
+        if (localStorage.getItem('currentUser')) {
+            console.log('NULL OI');
+        }
+        this.router.navigate(['/sessions/signin']);
+    };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Object)
@@ -776,10 +901,12 @@ var HeaderSideComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_services_theme_service__WEBPACK_IMPORTED_MODULE_1__["ThemeService"],
             _services_layout_service__WEBPACK_IMPORTED_MODULE_2__["LayoutService"],
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]])
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"],
+            _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_4__["UserService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
     ], HeaderSideComponent);
     return HeaderSideComponent;
-}());
+}(_helpers_local_storage__WEBPACK_IMPORTED_MODULE_6__["LocalStorageHandler"]));
 
 
 
@@ -792,7 +919,7 @@ var HeaderSideComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button -->\r\n  <button \r\n  *ngIf=\"layoutConf.sidebarStyle !== 'compact'\"\r\n  mat-icon-button\r\n  id=\"sidenavToggle\" \r\n  (click)=\"toggleSidenav()\"\r\n  matTooltip=\"Toggle Hide/Open\">\r\n  <mat-icon>menu</mat-icon>\r\n  </button>\r\n  <!-- Sidenav toggle collapse -->\r\n  <button \r\n  *ngIf=\"layoutConf.sidebarStyle !== 'closed'\"\r\n  mat-icon-button\r\n  id=\"collapseToggle\"\r\n  fxHide.lt-md=\"true\" \r\n  (click)=\"toggleCollapse()\"\r\n  matTooltip=\"Toggle Collapse\"\r\n  class=\"toggle-collapsed\">\r\n  <mat-icon>chevron_left</mat-icon>\r\n  </button>\r\n  <!-- Search form -->\r\n  <!-- <div \r\n  fxFlex\r\n  fxHide.lt-sm=\"true\" \r\n  class=\"search-bar\">\r\n    <form class=\"top-search-form\">\r\n      <mat-icon role=\"img\">search</mat-icon>\r\n      <input autofocus=\"true\" placeholder=\"Search\" type=\"text\">\r\n    </form>\r\n  </div> -->\r\n  <span fxFlex></span>\r\n  <!-- Language Switcher -->\r\n  <mat-select \r\n  placeholder=\"\"\r\n  id=\"langToggle\"\r\n  [style.width]=\"'auto'\"\r\n  name=\"currentLang\"\r\n  [(ngModel)]=\"currentLang\" \r\n  (selectionChange)=\"setLang($event)\">\r\n    <mat-option \r\n    *ngFor=\"let lang of availableLangs\" \r\n    [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n  </mat-select>\r\n  <!-- Theme Switcher -->\r\n  <button \r\n  mat-icon-button\r\n  id=\"schemeToggle\" \r\n  [style.overflow]=\"'visible'\"\r\n  matTooltip=\"Color Schemes\"\r\n  [matMenuTriggerFor]=\"themeMenu\"\r\n  class=\"topbar-button-right\">\r\n    <mat-icon>format_color_fill</mat-icon>\r\n  </button>\r\n  <mat-menu #themeMenu=\"matMenu\">\r\n    <mat-grid-list\r\n    class=\"theme-list\" \r\n    cols=\"2\" \r\n    rowHeight=\"48px\">\r\n      <mat-grid-tile \r\n      *ngFor=\"let theme of egretThemes\"\r\n      (click)=\"changeTheme(theme)\">\r\n        <div mat-menu-item [title]=\"theme.name\">\r\n          <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n          <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n        </div>\r\n      </mat-grid-tile>\r\n    </mat-grid-list>\r\n  </mat-menu>\r\n  <!-- Notification toggle button -->\r\n  <button \r\n  mat-icon-button\r\n  matTooltip=\"Notifications\" \r\n  (click)=\"toggleNotific()\"\r\n  [style.overflow]=\"'visible'\" \r\n  class=\"topbar-button-right\">\r\n    <mat-icon>notifications</mat-icon>\r\n    <span class=\"notification-number mat-bg-warn\">3</span>\r\n  </button>\r\n  <!-- Top left user menu -->\r\n  <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right img-button\">\r\n    <img src=\"assets/images/cp_user_1.jpg\" alt=\"\">\r\n  </button>\r\n  <mat-menu #accountMenu=\"matMenu\">\r\n    <button mat-menu-item [routerLink]=\"['/profile/overview']\">\r\n      <mat-icon>account_box</mat-icon>\r\n      <span>Profile</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/settings']\">\r\n      <mat-icon>settings</mat-icon>\r\n      <span>Account Settings</span>\r\n    </button>\r\n    <button mat-menu-item>\r\n      <mat-icon>notifications_off</mat-icon>\r\n      <span>Disable alerts</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/sessions/signin']\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </button>\r\n  </mat-menu>\r\n</mat-toolbar>"
+module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button -->\r\n  <button\r\n  *ngIf=\"layoutConf.sidebarStyle !== 'compact'\"\r\n  mat-icon-button\r\n  id=\"sidenavToggle\"\r\n  (click)=\"toggleSidenav()\"\r\n  matTooltip=\"Toggle Hide/Open\">\r\n  <mat-icon>menu</mat-icon>\r\n  </button>\r\n  <!-- Sidenav toggle collapse -->\r\n  <button\r\n  *ngIf=\"layoutConf.sidebarStyle !== 'closed'\"\r\n  mat-icon-button\r\n  id=\"collapseToggle\"\r\n  fxHide.lt-md=\"true\"\r\n  (click)=\"toggleCollapse()\"\r\n  matTooltip=\"Toggle Collapse\"\r\n  class=\"toggle-collapsed\">\r\n  <mat-icon>chevron_left</mat-icon>\r\n  </button>\r\n  <!-- Search form -->\r\n  <!-- <div\r\n  fxFlex\r\n  fxHide.lt-sm=\"true\"\r\n  class=\"search-bar\">\r\n    <form class=\"top-search-form\">\r\n      <mat-icon role=\"img\">search</mat-icon>\r\n      <input autofocus=\"true\" placeholder=\"Search\" type=\"text\">\r\n    </form>\r\n  </div> -->\r\n  <span fxFlex></span>\r\n  <!-- Language Switcher -->\r\n  <!-- <mat-select\r\n  placeholder=\"\"\r\n  id=\"langToggle\"\r\n  [style.width]=\"'auto'\"\r\n  name=\"currentLang\"\r\n  [(ngModel)]=\"currentLang\"\r\n  (selectionChange)=\"setLang($event)\">\r\n    <mat-option\r\n    *ngFor=\"let lang of availableLangs\"\r\n    [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n  </mat-select> -->\r\n  <!-- Theme Switcher -->\r\n  <button\r\n  mat-icon-button\r\n  id=\"schemeToggle\"\r\n  [style.overflow]=\"'visible'\"\r\n  matTooltip=\"Color Schemes\"\r\n  [matMenuTriggerFor]=\"themeMenu\"\r\n  class=\"topbar-button-right\">\r\n    <mat-icon>format_color_fill</mat-icon>\r\n  </button>\r\n  <mat-menu #themeMenu=\"matMenu\">\r\n    <mat-grid-list\r\n    class=\"theme-list\"\r\n    cols=\"2\"\r\n    rowHeight=\"48px\">\r\n      <mat-grid-tile\r\n      *ngFor=\"let theme of egretThemes\"\r\n      (click)=\"changeTheme(theme)\">\r\n        <div mat-menu-item [title]=\"theme.name\">\r\n          <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n          <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n        </div>\r\n      </mat-grid-tile>\r\n    </mat-grid-list>\r\n  </mat-menu>\r\n  <!-- Notification toggle button -->\r\n  <button\r\n  mat-icon-button\r\n  matTooltip=\"Notifications\"\r\n  (click)=\"toggleNotific()\"\r\n  [style.overflow]=\"'visible'\"\r\n  class=\"topbar-button-right\">\r\n    <mat-icon>notifications</mat-icon>\r\n    <span class=\"notification-number mat-bg-warn\">3</span>\r\n  </button>\r\n  <!-- Top left user menu -->\r\n  <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right img-button\">\r\n    <img src=\"{{currentUser.image}}\" alt=\"\">\r\n  </button>\r\n  <mat-menu #accountMenu=\"matMenu\">\r\n    <button mat-menu-item [routerLink]=\"['/profile/']\">\r\n      <mat-icon>account_box</mat-icon>\r\n      <span>Profile</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/settings']\">\r\n      <mat-icon>settings</mat-icon>\r\n      <span>Account Settings</span>\r\n    </button>\r\n    <!-- <button mat-menu-item>\r\n      <mat-icon>notifications_off</mat-icon>\r\n      <span>Disable alerts</span>\r\n    </button> -->\r\n    <button mat-menu-item (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </button>\r\n  </mat-menu>\r\n</mat-toolbar>\r\n"
 
 /***/ }),
 
@@ -803,7 +930,7 @@ module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header-topnav mat-elevation-z2\">\r\n  <div class=\"container\">\r\n    <div class=\"topnav\">\r\n      <!-- App Logo -->\r\n      <div class=\"topbar-branding\">\r\n        <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\">\r\n      </div>\r\n\r\n      <ul class=\"menu\" *ngIf=\"!layoutConf.isMobile\">\r\n        <li *ngFor=\"let item of menuItems; let i = index;\">\r\n          <div *ngIf=\"item.type !== 'separator'\" routerLinkActive=\"open\">\r\n            <a matRipple routerLink=\"/{{item.state}}\" *ngIf=\"item.type === 'link'\">\r\n              <mat-icon>{{item.icon}}</mat-icon> \r\n              {{item.name | translate}}\r\n            </a>\r\n            <div *ngIf=\"item.type === 'dropDown'\">\r\n              <label matRipple for=\"drop-{{i}}\" class=\"toggle\"><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</label>\r\n              <a matRipple><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</a>\r\n              <input type=\"checkbox\" id=\"drop-{{i}}\" />\r\n              <ul>\r\n                <li *ngFor=\"let itemLvL2 of item.sub; let j = index;\" routerLinkActive=\"open\">\r\n                  <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\" \r\n                  *ngIf=\"itemLvL2.type !== 'dropDown'\">\r\n                    <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>  \r\n                    {{itemLvL2.name | translate}}\r\n                  </a>\r\n                  \r\n                  <div *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n                    <label matRipple for=\"drop-{{i}}{{j}}\" class=\"toggle\">{{itemLvL2.name | translate}}</label>\r\n                    <a matRipple><mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>  {{itemLvL2.name | translate}}</a>\r\n                    <input type=\"checkbox\" id=\"drop-{{i}}{{j}}\" />\r\n                    <!-- Level 3 -->\r\n                    <ul>\r\n                      <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" routerLinkActive=\"open\">\r\n                        <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\">\r\n                          <mat-icon *ngIf=\"itemLvL3.icon\">{{itemLvL3.icon}}</mat-icon>\r\n                          {{itemLvL3.name | translate}}\r\n                        </a>\r\n                      </li>\r\n                    </ul>\r\n                  </div>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n      <span fxFlex></span>\r\n      <!-- End Navigation -->\r\n      \r\n      <!-- Language Switcher -->\r\n      <mat-select \r\n      *ngIf=\"!layoutConf.isMobile\"\r\n      placeholder=\"\"\r\n      id=\"langToggle\"\r\n      [style.width]=\"'auto'\"\r\n      name=\"currentLang\"\r\n      [(ngModel)]=\"currentLang\" \r\n      (selectionChange)=\"setLang()\"\r\n      class=\"topbar-button-right\">\r\n        <mat-option \r\n        *ngFor=\"let lang of availableLangs\" \r\n        [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n      </mat-select>\r\n      <!-- Theme Switcher -->\r\n      <button \r\n      mat-icon-button\r\n      id=\"schemeToggle\" \r\n      [style.overflow]=\"'visible'\"\r\n      matTooltip=\"Color Schemes\"\r\n      [matMenuTriggerFor]=\"themeMenu\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>format_color_fill</mat-icon>\r\n      </button>\r\n      <mat-menu #themeMenu=\"matMenu\">\r\n        <mat-grid-list\r\n        class=\"theme-list\" \r\n        cols=\"2\" \r\n        rowHeight=\"48px\">\r\n          <mat-grid-tile \r\n          *ngFor=\"let theme of egretThemes\"\r\n          (click)=\"changeTheme(theme)\">\r\n            <div mat-menu-item [title]=\"theme.name\">\r\n              <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n              <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </mat-menu>\r\n      <!-- Notification toggle button -->\r\n      <button \r\n      mat-icon-button\r\n      matTooltip=\"Notifications\" \r\n      (click)=\"toggleNotific()\"\r\n      [style.overflow]=\"'visible'\" \r\n      class=\"topbar-button-right\">\r\n        <mat-icon>notifications</mat-icon>\r\n        <span class=\"notification-number mat-bg-warn\">3</span>\r\n      </button>\r\n      <!-- Top left user menu -->\r\n      <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right mr-1 img-button\">\r\n        <img src=\"assets/images/cp_user_1.jpg\" alt=\"\">\r\n      </button>\r\n      <mat-menu #accountMenu=\"matMenu\">\r\n        <button mat-menu-item [routerLink]=\"['/profile/overview']\">\r\n          <mat-icon>account_box</mat-icon>\r\n          <span>Profile</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/settings']\">\r\n          <mat-icon>settings</mat-icon>\r\n          <span>Account Settings</span>\r\n        </button>\r\n        <button mat-menu-item>\r\n          <mat-icon>notifications_off</mat-icon>\r\n          <span>Disable alerts</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/sessions/signin']\">\r\n          <mat-icon>exit_to_app</mat-icon>\r\n          <span>Sign out</span>\r\n        </button>\r\n      </mat-menu>\r\n      <!-- Mobile screen menu toggle -->\r\n      <button \r\n      mat-icon-button \r\n      class=\"mr-1\" \r\n      (click)=\"toggleSidenav()\" \r\n      *ngIf=\"layoutConf.isMobile\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"header-topnav mat-elevation-z2\">\r\n  <div class=\"container\">\r\n    <div class=\"topnav\">\r\n      <!-- App Logo -->\r\n      <div class=\"topbar-branding\">\r\n        <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\">\r\n      </div>\r\n\r\n      <ul class=\"menu\" *ngIf=\"!layoutConf.isMobile\">\r\n        <li *ngFor=\"let item of menuItems; let i = index;\">\r\n          <div *ngIf=\"item.type !== 'separator'\" routerLinkActive=\"open\">\r\n            <a matRipple routerLink=\"/{{item.state}}\" *ngIf=\"item.type === 'link'\">\r\n              <mat-icon>{{item.icon}}</mat-icon>\r\n              {{item.name | translate}}\r\n            </a>\r\n            <div *ngIf=\"item.type === 'dropDown'\">\r\n              <label matRipple for=\"drop-{{i}}\" class=\"toggle\"><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</label>\r\n              <a matRipple><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</a>\r\n              <input type=\"checkbox\" id=\"drop-{{i}}\" />\r\n              <ul>\r\n                <li *ngFor=\"let itemLvL2 of item.sub; let j = index;\" routerLinkActive=\"open\">\r\n                  <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\"\r\n                  *ngIf=\"itemLvL2.type !== 'dropDown'\">\r\n                    <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>\r\n                    {{itemLvL2.name | translate}}\r\n                  </a>\r\n\r\n                  <div *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n                    <label matRipple for=\"drop-{{i}}{{j}}\" class=\"toggle\">{{itemLvL2.name | translate}}</label>\r\n                    <a matRipple><mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>  {{itemLvL2.name | translate}}</a>\r\n                    <input type=\"checkbox\" id=\"drop-{{i}}{{j}}\" />\r\n                    <!-- Level 3 -->\r\n                    <ul>\r\n                      <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" routerLinkActive=\"open\">\r\n                        <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\">\r\n                          <mat-icon *ngIf=\"itemLvL3.icon\">{{itemLvL3.icon}}</mat-icon>\r\n                          {{itemLvL3.name | translate}}\r\n                        </a>\r\n                      </li>\r\n                    </ul>\r\n                  </div>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n      <span fxFlex></span>\r\n      <!-- End Navigation -->\r\n\r\n      <!-- Language Switcher -->\r\n      <mat-select\r\n      *ngIf=\"!layoutConf.isMobile\"\r\n      placeholder=\"\"\r\n      id=\"langToggle\"\r\n      [style.width]=\"'auto'\"\r\n      name=\"currentLang\"\r\n      [(ngModel)]=\"currentLang\"\r\n      (selectionChange)=\"setLang()\"\r\n      class=\"topbar-button-right\">\r\n        <mat-option\r\n        *ngFor=\"let lang of availableLangs\"\r\n        [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n      </mat-select>\r\n      <!-- Theme Switcher -->\r\n      <button\r\n      mat-icon-button\r\n      id=\"schemeToggle\"\r\n      [style.overflow]=\"'visible'\"\r\n      matTooltip=\"Color Schemes\"\r\n      [matMenuTriggerFor]=\"themeMenu\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>format_color_fill</mat-icon>\r\n      </button>\r\n      <mat-menu #themeMenu=\"matMenu\">\r\n        <mat-grid-list\r\n        class=\"theme-list\"\r\n        cols=\"2\"\r\n        rowHeight=\"48px\">\r\n          <mat-grid-tile\r\n          *ngFor=\"let theme of egretThemes\"\r\n          (click)=\"changeTheme(theme)\">\r\n            <div mat-menu-item [title]=\"theme.name\">\r\n              <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n              <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </mat-menu>\r\n      <!-- Notification toggle button -->\r\n      <button\r\n      mat-icon-button\r\n      matTooltip=\"Notifications\"\r\n      (click)=\"toggleNotific()\"\r\n      [style.overflow]=\"'visible'\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>notifications</mat-icon>\r\n        <span class=\"notification-number mat-bg-warn\">3</span>\r\n      </button>\r\n      <!-- Top left user menu -->\r\n      <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right mr-1 img-button\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </button>\r\n      <mat-menu #accountMenu=\"matMenu\">\r\n        <button mat-menu-item [routerLink]=\"['/profile/']\">\r\n          <mat-icon>account_box</mat-icon>\r\n          <span>Profile</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/settings']\">\r\n          <mat-icon>settings</mat-icon>\r\n          <span>Account Settings</span>\r\n        </button>\r\n        <!-- <button mat-menu-item>\r\n          <mat-icon>notifications_off</mat-icon>\r\n          <span>Disable alerts</span>\r\n        </button> -->\r\n        <button mat-menu-item (click)=\"signOut()\" >\r\n          <mat-icon>exit_to_app</mat-icon>\r\n          <span>Sign out</span>\r\n        </button>\r\n      </mat-menu>\r\n      <!-- Mobile screen menu toggle -->\r\n      <button\r\n      mat-icon-button\r\n      class=\"mr-1\"\r\n      (click)=\"toggleSidenav()\"\r\n      *ngIf=\"layoutConf.isMobile\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -822,6 +949,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_theme_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../shared/services/theme.service */ "./src/app/shared/services/theme.service.ts");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
 /* harmony import */ var _services_layout_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/layout.service */ "./src/app/shared/services/layout.service.ts");
+/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _helpers_local_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../helpers/local-storage */ "./src/app/shared/helpers/local-storage.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -836,22 +976,30 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var HeaderTopComponent = /** @class */ (function () {
-    function HeaderTopComponent(layout, navService, themeService, translate, renderer) {
-        this.layout = layout;
-        this.navService = navService;
-        this.themeService = themeService;
-        this.translate = translate;
-        this.renderer = renderer;
-        this.egretThemes = [];
-        this.currentLang = 'en';
-        this.availableLangs = [{
+
+
+
+var HeaderTopComponent = /** @class */ (function (_super) {
+    __extends(HeaderTopComponent, _super);
+    function HeaderTopComponent(layout, navService, themeService, translate, renderer, userService, router) {
+        var _this = _super.call(this) || this;
+        _this.layout = layout;
+        _this.navService = navService;
+        _this.themeService = themeService;
+        _this.translate = translate;
+        _this.renderer = renderer;
+        _this.userService = userService;
+        _this.router = router;
+        _this.egretThemes = [];
+        _this.currentLang = 'en';
+        _this.availableLangs = [{
                 name: 'English',
                 code: 'en',
             }, {
                 name: 'Spanish',
                 code: 'es',
             }];
+        return _this;
     }
     HeaderTopComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -898,6 +1046,14 @@ var HeaderTopComponent = /** @class */ (function () {
             sidebarStyle: 'closed'
         });
     };
+    HeaderTopComponent.prototype.signOut = function () {
+        console.log('sign out called HEADER TOP');
+        this.userService.logout();
+        if (localStorage.getItem('currentUser')) {
+            console.log('NULL OI');
+        }
+        this.router.navigate(['/sessions/signin']);
+    };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Object)
@@ -911,10 +1067,12 @@ var HeaderTopComponent = /** @class */ (function () {
             _shared_services_navigation_service__WEBPACK_IMPORTED_MODULE_1__["NavigationService"],
             _shared_services_theme_service__WEBPACK_IMPORTED_MODULE_2__["ThemeService"],
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]])
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"],
+            _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__["UserService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]])
     ], HeaderTopComponent);
     return HeaderTopComponent;
-}());
+}(_helpers_local_storage__WEBPACK_IMPORTED_MODULE_7__["LocalStorageHandler"]));
 
 
 
@@ -965,10 +1123,14 @@ var AdminLayoutComponent = /** @class */ (function () {
         this.media = media;
         this.isModuleLoading = false;
         this.layoutConf = {};
-        // Close sidenav after route change in mobile
         this.routerEventSub = router.events.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["filter"])(function (event) { return event instanceof _angular_router__WEBPACK_IMPORTED_MODULE_1__["NavigationEnd"]; }))
             .subscribe(function (routeChange) {
-            _this.layout.adjustLayout({ route: routeChange.url });
+            // --------- Original Code -----------------
+            // Close sidenav after route change in mobile
+            // this.layout.adjustLayout({ route: routeChange.url });
+            // --------- Costomized Code -----------------
+            // costomized adjust full width routes layout
+            _this.layout.costomizedAdjustScreenOptions({ route: routeChange.url });
         });
         // Translator init
         var browserLang = translate.getBrowserLang();
@@ -976,6 +1138,7 @@ var AdminLayoutComponent = /** @class */ (function () {
     }
     AdminLayoutComponent.prototype.ngOnInit = function () {
         var _this = this;
+        localStorage.setItem("sideBarStatus", "full");
         this.layoutConf = this.layout.layoutConf;
         // this.layout.adjustLayout();
         // FOR MODULE LOADER FLAG
@@ -1223,7 +1386,7 @@ var NotificationsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sidebar-panel\">\r\n  <div id=\"scroll-area\" class=\"navigation-hold\" fxLayout=\"column\">\r\n    <!-- App Logo -->\r\n    <div class=\"branding default-bg\">\r\n      <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\">\r\n      <!-- Two different logos for dark and light themes -->\r\n      <img \r\n      src=\"assets/images/clear-picture-logo.png\" \r\n      alt=\"\" \r\n      class=\"app-logo-text\"\r\n      *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\">\r\n      <img \r\n      src=\"assets/images/cp_logo_text.png\" \r\n      alt=\"\" \r\n      class=\"app-logo-text\"\r\n      *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\">\r\n    </div>\r\n\r\n    <!-- Sidebar user -->\r\n    <div class=\"app-user\">\r\n      <div class=\"app-user-photo\">\r\n        <img src=\"assets/images/cp_user_1.jpg\" alt=\"\">\r\n      </div>\r\n      <span class=\"app-user-name mb-05\">\r\n        <mat-icon class=\"icon-xs text-muted\">lock</mat-icon> \r\n        Shalindra Weliwtia\r\n      </span>\r\n      <!-- Small buttons -->\r\n      <div class=\"app-user-controls\">\r\n        <button \r\n        class=\"text-muted\"\r\n        mat-icon-button \r\n        mat-xs-button\r\n        [matMenuTriggerFor]=\"appUserMenu\">\r\n          <mat-icon>settings</mat-icon>\r\n        </button>\r\n        <button \r\n        class=\"text-muted\"\r\n        mat-icon-button \r\n        mat-xs-button\r\n        matTooltip=\"Inbox\"\r\n        routerLink=\"/inbox\">\r\n          <mat-icon>email</mat-icon>\r\n        </button>\r\n        <button \r\n        class=\"text-muted\"\r\n        mat-icon-button \r\n        mat-xs-button\r\n        matTooltip=\"Sign Out\"\r\n        routerLink=\"/sessions/signin\">\r\n          <mat-icon>exit_to_app</mat-icon>\r\n        </button>\r\n        <mat-menu #appUserMenu=\"matMenu\">\r\n            <button mat-menu-item routerLink=\"/profile/overview\">\r\n              <mat-icon>account_box</mat-icon>\r\n              <span>Profile</span>\r\n            </button>\r\n            <button mat-menu-item routerLink=\"/profile/settings\">\r\n              <mat-icon>settings</mat-icon>\r\n              <span>Account Settings</span>\r\n            </button>\r\n            <button mat-menu-item routerLink=\"/calendar\">\r\n              <mat-icon>date_range</mat-icon>\r\n              <span>Calendar</span>\r\n            </button>\r\n            <button mat-menu-item routerLink=\"/sessions/signin\">\r\n              <mat-icon>exit_to_app</mat-icon>\r\n              <span>Sign out</span>\r\n            </button>\r\n          </mat-menu>\r\n      </div>\r\n    </div>\r\n    <!-- Navigation -->\r\n    <app-sidenav [items]=\"menuItems\" [hasIconMenu]=\"hasIconTypeMenuItem\" [iconMenuTitle]=\"iconTypeMenuTitle\"></app-sidenav>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"sidebar-panel\">\r\n  <div id=\"scroll-area\" class=\"navigation-hold\" fxLayout=\"column\">\r\n    <!-- App Logo -->\r\n    <div class=\"branding default-bg\">\r\n      <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\">\r\n      <!-- Two different logos for dark and light themes -->\r\n      <img src=\"assets/images/clear-picture-logo.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\">\r\n      <img src=\"assets/images/cp_logo_text.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\">\r\n    </div>\r\n\r\n    <!-- Sidebar user -->\r\n    <div class=\"app-user\">\r\n      <div class=\"app-user-photo\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </div>\r\n      <span class=\"app-user-name mb-05\">\r\n        <mat-icon class=\"icon-xs text-muted\">lock</mat-icon>\r\n        {{currentUser.profilename}}\r\n      </span>\r\n      <!-- Small buttons -->\r\n      <div class=\"app-user-controls\">\r\n        <button class=\"text-muted\" mat-icon-button mat-xs-button [matMenuTriggerFor]=\"appUserMenu\">\r\n          <mat-icon>settings</mat-icon>\r\n        </button>\r\n        <button class=\"text-muted\" mat-icon-button mat-xs-button matTooltip=\"Inbox\" routerLink=\"/inbox\">\r\n          <mat-icon>email</mat-icon>\r\n        </button>\r\n\r\n        <mat-menu #appUserMenu=\"matMenu\">\r\n          <!-- routerLink=\"/profile/overview\" -->\r\n          <button mat-menu-item routerLink=\"/profile/\">\r\n            <mat-icon>account_box</mat-icon>\r\n            <span>Profile</span>\r\n          </button>\r\n          <button mat-menu-item routerLink=\"/profile/settings\">\r\n            <mat-icon>settings</mat-icon>\r\n            <span>Account Settings</span>\r\n          </button>\r\n          <button mat-menu-item routerLink=\"/calendar\">\r\n            <mat-icon>date_range</mat-icon>\r\n            <span>Calendar</span>\r\n          </button>\r\n\r\n        </mat-menu>\r\n      </div>\r\n    </div>\r\n    <!-- Navigation -->\r\n    <app-sidenav [items]=\"menuItems\" [hasIconMenu]=\"hasIconTypeMenuItem\" [iconMenuTitle]=\"iconTypeMenuTitle\"></app-sidenav>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1241,6 +1404,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_navigation_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../shared/services/navigation.service */ "./src/app/shared/services/navigation.service.ts");
 /* harmony import */ var _services_theme_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/theme.service */ "./src/app/shared/services/theme.service.ts");
 /* harmony import */ var perfect_scrollbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! perfect-scrollbar */ "./node_modules/perfect-scrollbar/dist/perfect-scrollbar.esm.js");
+/* harmony import */ var _helpers_local_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/local-storage */ "./src/app/shared/helpers/local-storage.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1254,10 +1428,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var SidebarSideComponent = /** @class */ (function () {
+
+var SidebarSideComponent = /** @class */ (function (_super) {
+    __extends(SidebarSideComponent, _super);
     function SidebarSideComponent(navService, themeService) {
-        this.navService = navService;
-        this.themeService = themeService;
+        var _this = _super.call(this) || this;
+        _this.navService = navService;
+        _this.themeService = themeService;
+        return _this;
     }
     SidebarSideComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1293,7 +1471,7 @@ var SidebarSideComponent = /** @class */ (function () {
             _services_theme_service__WEBPACK_IMPORTED_MODULE_2__["ThemeService"]])
     ], SidebarSideComponent);
     return SidebarSideComponent;
-}());
+}(_helpers_local_storage__WEBPACK_IMPORTED_MODULE_4__["LocalStorageHandler"]));
 
 
 
@@ -1448,7 +1626,7 @@ var SidenavComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sidenav-hold\">\r\n  <div class=\"icon-menu\" *ngIf=\"hasIconTypeMenuItem\">\r\n    <!-- Icon menu separator -->\r\n    <div class=\"mt-1 mb-1 nav-item-sep\">\r\n      <mat-divider [ngStyle]=\"{margin: '0 -24px'}\"></mat-divider>\r\n      <span class=\"text-muted icon-menu-title\">{{iconTypeMenuTitle}}</span>\r\n    </div>\r\n    <!-- Icon menu items -->\r\n    <div class=\"icon-menu-item\" *ngFor=\"let item of menuItems\">\r\n      <button *ngIf=\"!item.disabled && item.type === 'icon'\" mat-raised-button [matTooltip]=\"item.tooltip\" routerLink=\"/{{item.state}}\"\r\n        routerLinkActive=\"mat-bg-primary\">\r\n        <mat-icon>{{item.icon}}</mat-icon>\r\n      </button>\r\n    </div>\r\n  </div>\r\n\r\n  <ul appDropdown class=\"sidenav\">\r\n    <li *ngFor=\"let item of menuItems\" appDropdownLink routerLinkActive=\"open\">\r\n      <div class=\"nav-item-sep\" *ngIf=\"item.type === 'separator'\">\r\n        <mat-divider></mat-divider>\r\n        <span class=\"text-muted\">{{item.name | translate}}</span>\r\n      </div>\r\n      <div *ngIf=\"!item.disabled && item.type !== 'separator' && item.type !== 'icon'\" class=\"lvl1\">\r\n        <a routerLink=\"/{{item.state}}\" appDropdownToggle matRipple *ngIf=\"item.type === 'link'\">\r\n          <mat-icon>{{item.icon}}</mat-icon>\r\n          <span class=\"item-name lvl1\">{{item.name | translate}}</span>\r\n          <span fxFlex></span>\r\n          <span class=\"menuitem-badge mat-bg-{{ badge.color }}\" [ngStyle]=\"{background: badge.color}\" *ngFor=\"let badge of item.badges\">{{ badge.value }}</span>\r\n        </a>\r\n        <a [href]=\"item.state\" appDropdownToggle matRipple *ngIf=\"item.type === 'extLink'\" target=\"_blank\">\r\n          <mat-icon>{{item.icon}}</mat-icon>\r\n          <span class=\"item-name lvl1\">{{item.name | translate}}</span>\r\n          <span fxFlex></span>\r\n          <span class=\"menuitem-badge mat-bg-{{ badge.color }}\" [ngStyle]=\"{background: badge.color}\" *ngFor=\"let badge of item.badges\">{{ badge.value }}</span>\r\n        </a>\r\n\r\n        <!-- DropDown -->\r\n        <a *ngIf=\"item.type === 'dropDown'\" appDropdownToggle matRipple>\r\n          <mat-icon>{{item.icon}}</mat-icon>\r\n          <span class=\"item-name lvl1\">{{item.name | translate}}</span>\r\n          <span fxFlex></span>\r\n          <span class=\"menuitem-badge mat-bg-{{ badge.color }}\" [ngStyle]=\"{background: badge.color}\" *ngFor=\"let badge of item.badges\">{{ badge.value }}</span>\r\n          <mat-icon class=\"menu-caret\">keyboard_arrow_right</mat-icon>\r\n        </a>\r\n        <!-- LEVEL 2 -->\r\n        <ul class=\"submenu lvl2\" appDropdown *ngIf=\"item.type === 'dropDown'\">\r\n          <li *ngFor=\"let itemLvL2 of item.sub\" appDropdownLink routerLinkActive=\"open\">\r\n\r\n            <a routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\" appDropdownToggle *ngIf=\"itemLvL2.type !== 'dropDown'\"\r\n              matRipple>\r\n              <span class=\"item-name lvl2\">{{itemLvL2.name | translate}}</span>\r\n              <span fxFlex></span>\r\n            </a>\r\n\r\n            <a *ngIf=\"itemLvL2.type === 'dropDown'\" appDropdownToggle matRipple>\r\n              <span class=\"item-name lvl2\">{{itemLvL2.name | translate}}</span>\r\n              <span fxFlex></span>\r\n              <mat-icon class=\"menu-caret\">keyboard_arrow_right</mat-icon>\r\n            </a>\r\n\r\n            <!-- LEVEL 3 -->\r\n            <ul class=\"submenu lvl3\" appDropdown *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n              <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" appDropdownLink routerLinkActive=\"open\">\r\n                <a routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\" appDropdownToggle\r\n                  matRipple>\r\n                  <span class=\"item-name lvl3\">{{itemLvL3.name | translate}}</span>\r\n                </a>\r\n              </li>\r\n            </ul>\r\n\r\n          </li>\r\n        </ul>\r\n      </div>\r\n    </li>\r\n  </ul>\r\n</div>"
+module.exports = "<div class=\"sidenav-hold\">\r\n  <div class=\"icon-menu\" *ngIf=\"hasIconTypeMenuItem\">\r\n    <!-- Icon menu separator -->\r\n    <div class=\"mt-1 mb-1 nav-item-sep\">\r\n      <mat-divider [ngStyle]=\"{margin: '0 -24px'}\"></mat-divider>\r\n      <span class=\"text-muted icon-menu-title\">{{iconTypeMenuTitle}}</span>\r\n    </div>\r\n    <!-- Icon menu items -->\r\n    <div class=\"icon-menu-item\" *ngFor=\"let item of menuItems\">\r\n      <button *ngIf=\"!item.disabled && item.type === 'icon'\" mat-raised-button [matTooltip]=\"item.tooltip\" routerLink=\"/{{item.state}}\"\r\n        routerLinkActive=\"mat-bg-primary\">\r\n        <mat-icon>{{item.icon}}</mat-icon>\r\n      </button>\r\n    </div>\r\n  </div>\r\n\r\n  <ul appDropdown class=\"sidenav\">\r\n    <li *ngFor=\"let item of menuItems\" appDropdownLink routerLinkActive=\"open\">\r\n      <div class=\"nav-item-sep\" *ngIf=\"item.type === 'separator'\">\r\n        <mat-divider></mat-divider>\r\n        <span class=\"text-muted\">{{item.name }}</span>\r\n      </div>\r\n      <div *ngIf=\"!item.disabled && item.type !== 'separator' && item.type !== 'icon'\" class=\"lvl1\">\r\n        <a routerLink=\"/{{item.state}}\" appDropdownToggle matRipple *ngIf=\"item.type === 'link'\">\r\n          <mat-icon>{{item.icon}}</mat-icon>\r\n          <span class=\"item-name lvl1\">{{item.name }}</span>\r\n          <span fxFlex></span>\r\n          <span class=\"menuitem-badge mat-bg-{{ badge.color }}\" [ngStyle]=\"{background: badge.color}\" *ngFor=\"let badge of item.badges\">{{ badge.value }}</span>\r\n        </a>\r\n        <!-- <a [href]=\"item.state\" appDropdownToggle matRipple *ngIf=\"item.type === 'extLink'\" target=\"_blank\">\r\n          <mat-icon>{{item.icon}}</mat-icon>\r\n          <span class=\"item-name lvl1\">{{item.name }}</span>\r\n          <span fxFlex></span>\r\n          <span class=\"menuitem-badge mat-bg-{{ badge.color }}\" [ngStyle]=\"{background: badge.color}\" *ngFor=\"let badge of item.badges\">{{ badge.value }}</span>\r\n        </a> -->\r\n\r\n        <!-- DropDown -->\r\n        <a *ngIf=\"item.type === 'dropDown'\" appDropdownToggle matRipple>\r\n          <mat-icon>{{item.icon}}</mat-icon>\r\n          <span class=\"item-name lvl1\">{{item.name }}</span>\r\n          <span fxFlex></span>\r\n          <span class=\"menuitem-badge mat-bg-{{ badge.color }}\" [ngStyle]=\"{background: badge.color}\" *ngFor=\"let badge of item.badges\">{{ badge.value }}</span>\r\n          <mat-icon class=\"menu-caret\">keyboard_arrow_right</mat-icon>\r\n        </a>\r\n        <!-- LEVEL 2 -->\r\n        <ul class=\"submenu lvl2\" appDropdown *ngIf=\"item.type === 'dropDown'\">\r\n          <li *ngFor=\"let itemLvL2 of item.sub\" appDropdownLink routerLinkActive=\"open\">\r\n\r\n            <a routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\" appDropdownToggle *ngIf=\"itemLvL2.type !== 'dropDown'\"\r\n              matRipple>\r\n              <span class=\"item-name lvl2\">{{itemLvL2.name }}</span>\r\n              <span fxFlex></span>\r\n            </a>\r\n\r\n            <a *ngIf=\"itemLvL2.type === 'dropDown'\" appDropdownToggle matRipple>\r\n              <span class=\"item-name lvl2\">{{itemLvL2.name }}</span>\r\n              <span fxFlex></span>\r\n              <mat-icon class=\"menu-caret\">keyboard_arrow_right</mat-icon>\r\n            </a>\r\n\r\n            <!-- LEVEL 3 -->\r\n            <ul class=\"submenu lvl3\" appDropdown *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n              <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" appDropdownLink routerLinkActive=\"open\">\r\n                <a routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\" appDropdownToggle\r\n                  matRipple>\r\n                  <span class=\"item-name lvl3\">{{itemLvL3.name }}</span>\r\n                </a>\r\n              </li>\r\n            </ul>\r\n\r\n          </li>\r\n        </ul>\r\n      </div>\r\n    </li>\r\n  </ul>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1883,6 +2061,146 @@ var ScrollToDirective = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/fake-db/cp-users.ts":
+/*!********************************************!*\
+  !*** ./src/app/shared/fake-db/cp-users.ts ***!
+  \********************************************/
+/*! exports provided: CpUsersDB */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CpUsersDB", function() { return CpUsersDB; });
+var CpUsersDB = /** @class */ (function () {
+    function CpUsersDB() {
+        this.users = [
+            {
+                id: "1",
+                user_name: "judec",
+                profile_name: "Jude Cedric",
+                password: "jude123",
+                image: "assets/images/cp_users/Jude-Weerasekara.jpg",
+                company: "Clear Picture - Canada",
+                position: "Product Owner"
+            },
+            {
+                id: "2",
+                user_name: "shalindraw",
+                profile_name: "Shalindra Weliwita",
+                password: "shalindra123",
+                image: "assets/images/cp_users/cp_user_1.jpg",
+                company: "Clear Picture - Sri Lanka",
+                position: "Project Manager"
+            },
+            {
+                id: "3",
+                user_name: "raveens",
+                profile_name: "Yasas Ravindu",
+                password: "raveen123",
+                image: "assets/images/cp_users/raveen sankalpa.jpg",
+                company: "Clear Picture - Sri Lanka",
+                position: "Senior Software Engineer"
+            },
+            {
+                id: "4",
+                user_name: "kushanp",
+                profile_name: "Kushan Pabasara",
+                password: "kushan123",
+                image: "assets/images/cp_users/kushan pabasara.jpg",
+                company: "Clear Picture - Sri Lanka",
+                position: "UI/UX Engineer"
+            },
+            {
+                id: "5",
+                user_name: "nuwanp",
+                profile_name: "Nuwan Prasanna",
+                password: "nuwan123",
+                image: "assets/images/cp_users/nuwan prasanna.jpg",
+                company: "Clear Picture - Sri Lanka",
+                position: "Tech Lead"
+            },
+            {
+                id: "6",
+                user_name: "amilaj",
+                profile_name: "Amila Jayanga",
+                password: "amila123",
+                image: "assets/images/cp_users/amila ayya.jpg",
+                company: "Clear Picture - Sri Lanka",
+                position: "Android Developer"
+            },
+            {
+                id: "7",
+                user_name: "buddhi",
+                profile_name: "Buddhi Hasanka",
+                password: "hbh123",
+                image: "assets/images/cp_users/buddhi_hasanka.jpg",
+                company: "Clear Picture - Sri Lanka",
+                position: "Software Engineer"
+            }, {
+                id: "8",
+                user_name: "scottm",
+                profile_name: "Scott Murray",
+                password: "scott123",
+                image: "assets/images/cp_users/scott.jpg",
+                company: "Clear Picture - Global",
+                position: "President & Chief Executive Officer"
+            }, {
+                id: "9",
+                user_name: "hasitham",
+                profile_name: "Hasitha De Mel",
+                password: "hasitha123",
+                image: "assets/images/cp_users/hasitha.jpg",
+                company: "Clear Picture - Sri Lanka",
+                position: "iOS Development"
+            }, {
+                id: "10",
+                user_name: "andrewf",
+                profile_name: "Andrew Fraser",
+                password: "andrew123",
+                image: "assets/images/cp_users/andrew_replace.png",
+                company: "Clear Picture - Global",
+                position: "Service Delivery"
+            }, {
+                id: "11",
+                user_name: "rashmid",
+                profile_name: "Rashmi Deldeniya",
+                password: "rashmi123",
+                image: "assets/images/cp_users/rashmi.jpg",
+                company: "Clear Picture - Sri Lanka",
+                position: "Quality Assurance"
+            }
+        ];
+    }
+    return CpUsersDB;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/helpers/local-storage.ts":
+/*!*************************************************!*\
+  !*** ./src/app/shared/helpers/local-storage.ts ***!
+  \*************************************************/
+/*! exports provided: LocalStorageHandler */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocalStorageHandler", function() { return LocalStorageHandler; });
+var LocalStorageHandler = /** @class */ (function () {
+    function LocalStorageHandler() {
+        this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        console.log("current user obj : ");
+        console.log(this.currentUser);
+    }
+    return LocalStorageHandler;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/helpers/url.helper.ts":
 /*!**********************************************!*\
   !*** ./src/app/shared/helpers/url.helper.ts ***!
@@ -1903,6 +2221,70 @@ function getQueryParam(prop) {
     });
     return (prop && prop in params) ? params[prop] : params;
 }
+
+
+/***/ }),
+
+/***/ "./src/app/shared/pipes/array-filter.pipe.ts":
+/*!***************************************************!*\
+  !*** ./src/app/shared/pipes/array-filter.pipe.ts ***!
+  \***************************************************/
+/*! exports provided: ArrayFilter */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ArrayFilter", function() { return ArrayFilter; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var ArrayFilter = /** @class */ (function () {
+    function ArrayFilter() {
+    }
+    ArrayFilter.prototype.transform = function (items, filterVal, arrType) {
+        var _this = this;
+        //console.log("filterVal : " + filterVal);
+        if (!items) {
+            //console.log("no items");
+            return items;
+        }
+        if (!filterVal) {
+            console.log("no filterValue");
+            return items;
+        }
+        // console.log(' here items : ');
+        // console.log('filterVal : '+filterVal);
+        // console.log(items);
+        return items.filter(function (item) { return _this.applyFilter(item, filterVal, arrType); });
+    };
+    ArrayFilter.prototype.applyFilter = function (item, filterVal, arrType) {
+        switch (arrType) {
+            case "answer_types":
+                return item.id.indexOf(filterVal) !== -1;
+            case "products":
+                return item.id.indexOf(filterVal) !== -1;
+            case "evotes":
+                return item.id.indexOf(filterVal) !== -1;
+            case "clients":
+                return item.id.indexOf(filterVal) !== -1;
+            default:
+                break;
+        }
+    };
+    ArrayFilter = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({
+            name: "arrayFilter",
+            pure: false
+        })
+    ], ArrayFilter);
+    return ArrayFilter;
+}());
+
 
 
 /***/ }),
@@ -2106,7 +2488,7 @@ var AppConfirmService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 matDialogTitle>{{ data.title}}</h1>\n<div mat-dialog-content>{{ data.message}}</div>\n<div mat-dialog-actions>\n\n  <span fxFlex></span>\n  <button type=\"button\" color=\"warn\" mat-raised-button (click)=\"dialogRef.close(false)\">OK</button>\n</div>"
+module.exports = "<h1 matDialogTitle>{{ data.title}}</h1>\r\n<div mat-dialog-content>{{ data.message}}</div>\r\n<div mat-dialog-actions>\r\n\r\n  <span fxFlex></span>\r\n  <button type=\"button\" color=\"warn\" mat-raised-button (click)=\"dialogRef.close(false)\">OK</button>\r\n</div>"
 
 /***/ }),
 
@@ -2210,8 +2592,11 @@ var AppErrorService = /** @class */ (function () {
         if (error.type == "http_error") {
             errorMsg = this.showHttpError(error);
         }
+        else if (error.type == "client_error") {
+            errorMsg = error.clientError;
+        }
         else {
-            errorMsg = "CP Authentica : Something went wrong ";
+            errorMsg = "CP Judi Authentica : Something went wrong ";
         }
         var dialogRef;
         dialogRef = this.dialog.open(_app_error_component__WEBPACK_IMPORTED_MODULE_2__["AppErrorComponent"], {
@@ -2378,10 +2763,11 @@ var AuthGuard = /** @class */ (function () {
         this.isAuthenticated = true; // Set this value dynamically
     }
     AuthGuard.prototype.canActivate = function (route, state) {
-        if (this.isAuthenticated) {
+        if (localStorage.getItem("currentUser")) {
+            // logged in so return true
             return true;
         }
-        this.router.navigate(['/sessions/signin']);
+        this.router.navigate(["/sessions/signin"]);
         return false;
     };
     AuthGuard = __decorate([
@@ -2435,6 +2821,77 @@ var AppDataConversionService = /** @class */ (function () {
             str += line + "\r\n";
         }
         return str;
+    };
+    AppDataConversionService.prototype.CSVToArray = function (strData, strDelimiter) {
+        // Check to see if the delimiter is defined. If not,
+        // then default to comma.
+        strDelimiter = strDelimiter || ",";
+        // Create a regular expression to parse the CSV values.
+        var objPattern = new RegExp(
+        // Delimiters.
+        "(\\" +
+            strDelimiter +
+            "|\\r?\\n|\\r|^)" +
+            // Quoted fields.
+            '(?:"([^"]*(?:""[^"]*)*)"|' +
+            // Standard fields.
+            '([^"\\' +
+            strDelimiter +
+            "\\r\\n]*))", "gi");
+        // Create an array to hold our data. Give the array
+        // a default empty first row.
+        var arrData = [[]];
+        // Create an array to hold our individual pattern
+        // matching groups.
+        var arrMatches = null;
+        // Keep looping over the regular expression matches
+        // until we can no longer find a match.
+        while ((arrMatches = objPattern.exec(strData))) {
+            // Get the delimiter that was found.
+            var strMatchedDelimiter = arrMatches[1];
+            // Check to see if the given delimiter has a length
+            // (is not the start of string) and if it matches
+            // field delimiter. If id does not, then we know
+            // that this delimiter is a row delimiter.
+            if (strMatchedDelimiter.length && strMatchedDelimiter != strDelimiter) {
+                // Since we have reached a new row of data,
+                // add an empty row to our data array.
+                arrData.push([]);
+            }
+            // Now that we have our delimiter out of the way,
+            // let's check to see which kind of value we
+            // captured (quoted or unquoted).
+            if (arrMatches[2]) {
+                // We found a quoted value. When we capture
+                // this value, unescape any double quotes.
+                var strMatchedValue = arrMatches[2].replace(new RegExp('""', "g"), '"');
+            }
+            else {
+                // We found a non-quoted value.
+                var strMatchedValue = arrMatches[3];
+            }
+            // Now that we have our value string, let's add
+            // it to the data array.
+            arrData[arrData.length - 1].push(strMatchedValue);
+        }
+        // Return the parsed data.
+        return arrData;
+    };
+    AppDataConversionService.prototype.CSV2JSON = function (csv) {
+        var array = this.CSVToArray(csv);
+        console.log('arrays');
+        console.log(array);
+        var objArray = [];
+        for (var i = 1; i < array.length; i++) {
+            objArray[i - 1] = {};
+            for (var k = 0; k < array[0].length && k < array[i].length; k++) {
+                var key = array[0][k];
+                objArray[i - 1][key] = array[i][k];
+            }
+        }
+        var json = JSON.stringify(objArray);
+        var str = json.replace(/},/g, "},\r\n");
+        return objArray;
     };
     AppDataConversionService = __decorate([
         Object(_node_modules_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])()
@@ -2539,7 +2996,8 @@ var LayoutService = /** @class */ (function () {
         this.router = router;
         this.layoutConfSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](this.layoutConf);
         this.layoutConf$ = this.layoutConfSubject.asObservable();
-        this.fullWidthRoutes = ['shop'];
+        this.fullWidthRoutes = ['future-survey/'];
+        this.compactRoutes = ['surveys'];
         this.setAppLayout();
     }
     LayoutService.prototype.setAppLayout = function () {
@@ -2587,6 +3045,7 @@ var LayoutService = /** @class */ (function () {
         sidebarStyle = this.isMobile ? 'closed' : 'full';
         if (this.currentRoute) {
             this.fullWidthRoutes.forEach(function (route) {
+                console.log(_this.currentRoute);
                 if (_this.currentRoute.indexOf(route) !== -1) {
                     sidebarStyle = 'closed';
                 }
@@ -2599,6 +3058,28 @@ var LayoutService = /** @class */ (function () {
     };
     LayoutService.prototype.isSm = function () {
         return window.matchMedia("(max-width: 959px)").matches;
+    };
+    // --------- Costomized Code -----------------
+    // adjust full width routes layout
+    LayoutService.prototype.costomizedAdjustScreenOptions = function (options) {
+        var _this = this;
+        if (options === void 0) { options = {}; }
+        if (this.isSm()) {
+            this.publishLayoutChange({ sidebarStyle: 'closed' });
+        }
+        this.currentRoute = options.route || this.currentRoute;
+        if (this.currentRoute) {
+            this.fullWidthRoutes.forEach(function (route) {
+                if (_this.currentRoute.indexOf(route) !== -1) {
+                    _this.publishLayoutChange({ sidebarStyle: 'closed' });
+                }
+            });
+            this.compactRoutes.forEach(function (route) {
+                if (_this.currentRoute.indexOf(route) !== -1) {
+                    _this.publishLayoutChange({ sidebarStyle: 'compact' });
+                }
+            });
+        }
     };
     LayoutService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
@@ -3002,27 +3483,53 @@ var NavigationService = /** @class */ (function () {
         // ]
         this.iconMenu = [
             {
-                name: 'Clients',
-                type: 'link',
-                tooltip: 'Client management',
-                icon: 'person',
-                state: 'cruds/ngx-table'
+                name: "Clients",
+                type: "link",
+                tooltip: "Client management",
+                icon: "person",
+                state: "cruds/ngx-table"
             },
             {
-                name: 'Product Catalogue',
-                type: 'link',
-                tooltip: 'Product management',
-                icon: 'assignment',
-                state: 'productCrud/show'
+                name: "Product Catalogue",
+                type: "link",
+                tooltip: "Product management",
+                icon: "assignment",
+                state: "productCrud/show"
             },
             {
-                name: 'Survey Service',
-                type: 'link',
-                tooltip: 'Survey Management',
-                icon: 'data_usage',
-                state: 'surveys'
-            }
+                name: "Instant Feedback",
+                type: "link",
+                tooltip: "Feedback Management",
+                icon: "feedback",
+                state: "surveys"
+            },
+            {
+                name: "E-Vote",
+                type: "link",
+                tooltip: "E-Vote",
+                icon: "thumbs_up_down",
+                state: "evote/showEvote"
+            },
+            {
+                name: "Future Survey",
+                type: "dropDown",
+                tooltip: "Future Survey",
+                icon: "language",
+                state: "future-survey",
+                sub: [
+                    { name: "Future Survey Catalog", state: "sList" }
+                    //{ name: "Future Survey Designer", state: "sEditor" }
+                ]
+            },
+            // ,
             // {
+            //   name: "Interaction View",
+            //   type: "link",
+            //   tooltip: "E-Vote",
+            //   icon: "thumbs_up_down",
+            //   state: "interaction/viewInteraction"
+            // },
+            // ,{
             //   name: 'INBOX',
             //   type: 'link',
             //   tooltip: 'Inbox',
@@ -3195,17 +3702,17 @@ var NavigationService = /** @class */ (function () {
             //     { name: 'Level Two', state: 'fake-5' }
             //   ]
             // },
-            // {
-            //   name: 'DOC',
-            //   type: 'extLink',
-            //   tooltip: 'Documentation',
-            //   icon: 'library_books',
-            //   state: 'http://egret-doc.mhrafi.com/'
-            // }
+            {
+                name: "DOC",
+                type: "extLink",
+                tooltip: "Documentation",
+                icon: "library_books",
+                state: "http://egret-doc.mhrafi.com/"
+            }
         ];
         // Icon menu TITLE at the very top of navigation.
         // This title will appear if any icon type item is present in menu.
-        this.iconTypeMenuTitle = 'Frequently Accessed';
+        this.iconTypeMenuTitle = "Frequently Accessed";
         // sets iconMenu as default;
         this.menuItems = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](this.iconMenu);
         // navigation component has subscribed to this Observable
@@ -3217,10 +3724,10 @@ var NavigationService = /** @class */ (function () {
     // different user type.
     NavigationService.prototype.publishNavigationChange = function (menuType) {
         switch (menuType) {
-            case 'separator-menu':
+            case "separator-menu":
                 //this.menuItems.next(this.separatorMenu);
                 break;
-            case 'icon-menu':
+            case "icon-menu":
                 this.menuItems.next(this.iconMenu);
                 break;
             default:
@@ -3434,19 +3941,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _directives_dropdown_anchor_directive__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./directives/dropdown-anchor.directive */ "./src/app/shared/directives/dropdown-anchor.directive.ts");
 /* harmony import */ var _directives_dropdown_link_directive__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./directives/dropdown-link.directive */ "./src/app/shared/directives/dropdown-link.directive.ts");
 /* harmony import */ var _directives_egret_side_nav_toggle_directive__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./directives/egret-side-nav-toggle.directive */ "./src/app/shared/directives/egret-side-nav-toggle.directive.ts");
-/* harmony import */ var _pipes_relative_time_pipe__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./pipes/relative-time.pipe */ "./src/app/shared/pipes/relative-time.pipe.ts");
-/* harmony import */ var _pipes_excerpt_pipe__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./pipes/excerpt.pipe */ "./src/app/shared/pipes/excerpt.pipe.ts");
-/* harmony import */ var _services_theme_service__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./services/theme.service */ "./src/app/shared/services/theme.service.ts");
-/* harmony import */ var _services_layout_service__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./services/layout.service */ "./src/app/shared/services/layout.service.ts");
-/* harmony import */ var _services_navigation_service__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./services/navigation.service */ "./src/app/shared/services/navigation.service.ts");
-/* harmony import */ var _services_route_parts_service__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./services/route-parts.service */ "./src/app/shared/services/route-parts.service.ts");
-/* harmony import */ var _services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./services/auth/auth.guard */ "./src/app/shared/services/auth/auth.guard.ts");
-/* harmony import */ var _services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./services/app-confirm/app-confirm.service */ "./src/app/shared/services/app-confirm/app-confirm.service.ts");
-/* harmony import */ var _services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
-/* harmony import */ var _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./services/app-error/app-error.component */ "./src/app/shared/services/app-error/app-error.component.ts");
-/* harmony import */ var _services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
-/* harmony import */ var _services_file_download_service__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./services/file-download.service */ "./src/app/shared/services/file-download.service.ts");
-/* harmony import */ var _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./services/data-conversion.service */ "./src/app/shared/services/data-conversion.service.ts");
+/* harmony import */ var _directives_PositiveNumber_directive__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../directives/PositiveNumber.directive */ "./src/app/directives/PositiveNumber.directive.ts");
+/* harmony import */ var _directives_PositiveNumberAndLetter_directive__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../directives/PositiveNumberAndLetter.directive */ "./src/app/directives/PositiveNumberAndLetter.directive.ts");
+/* harmony import */ var _directives_Letter_directive__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../directives/Letter.directive */ "./src/app/directives/Letter.directive.ts");
+/* harmony import */ var _pipes_relative_time_pipe__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pipes/relative-time.pipe */ "./src/app/shared/pipes/relative-time.pipe.ts");
+/* harmony import */ var _pipes_excerpt_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pipes/excerpt.pipe */ "./src/app/shared/pipes/excerpt.pipe.ts");
+/* harmony import */ var _services_theme_service__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./services/theme.service */ "./src/app/shared/services/theme.service.ts");
+/* harmony import */ var _services_layout_service__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./services/layout.service */ "./src/app/shared/services/layout.service.ts");
+/* harmony import */ var _services_navigation_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./services/navigation.service */ "./src/app/shared/services/navigation.service.ts");
+/* harmony import */ var _services_route_parts_service__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./services/route-parts.service */ "./src/app/shared/services/route-parts.service.ts");
+/* harmony import */ var _services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./services/auth/auth.guard */ "./src/app/shared/services/auth/auth.guard.ts");
+/* harmony import */ var _services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./services/app-confirm/app-confirm.service */ "./src/app/shared/services/app-confirm/app-confirm.service.ts");
+/* harmony import */ var _services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
+/* harmony import */ var _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./services/app-error/app-error.component */ "./src/app/shared/services/app-error/app-error.component.ts");
+/* harmony import */ var _services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
+/* harmony import */ var _services_file_download_service__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./services/file-download.service */ "./src/app/shared/services/file-download.service.ts");
+/* harmony import */ var _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./services/data-conversion.service */ "./src/app/shared/services/data-conversion.service.ts");
+/* harmony import */ var _pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./pipes/array-filter.pipe */ "./src/app/shared/pipes/array-filter.pipe.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3483,6 +3994,9 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
+
 // PIPES
 
 
@@ -3503,6 +4017,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 // import { LandingPageService } from '../shared/services/landing-page.service';
 
 
+
 var classesToInclude = [
     _components_header_top_header_top_component__WEBPACK_IMPORTED_MODULE_9__["HeaderTopComponent"],
     _components_sidebar_top_sidebar_top_component__WEBPACK_IMPORTED_MODULE_10__["SidebarTopComponent"],
@@ -3515,7 +4030,7 @@ var classesToInclude = [
     _components_breadcrumb_breadcrumb_component__WEBPACK_IMPORTED_MODULE_16__["BreadcrumbComponent"],
     _services_app_confirm_app_confirm_component__WEBPACK_IMPORTED_MODULE_17__["AppComfirmComponent"],
     _services_app_loader_app_loader_component__WEBPACK_IMPORTED_MODULE_18__["AppLoaderComponent"],
-    _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_34__["AppErrorComponent"],
+    _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_37__["AppErrorComponent"],
     _components_customizer_customizer_component__WEBPACK_IMPORTED_MODULE_11__["CustomizerComponent"],
     _directives_font_size_directive__WEBPACK_IMPORTED_MODULE_19__["FontSizeDirective"],
     _directives_scroll_to_directive__WEBPACK_IMPORTED_MODULE_20__["ScrollToDirective"],
@@ -3523,8 +4038,12 @@ var classesToInclude = [
     _directives_dropdown_anchor_directive__WEBPACK_IMPORTED_MODULE_22__["DropdownAnchorDirective"],
     _directives_dropdown_link_directive__WEBPACK_IMPORTED_MODULE_23__["DropdownLinkDirective"],
     _directives_egret_side_nav_toggle_directive__WEBPACK_IMPORTED_MODULE_24__["EgretSideNavToggleDirective"],
-    _pipes_relative_time_pipe__WEBPACK_IMPORTED_MODULE_25__["RelativeTimePipe"],
-    _pipes_excerpt_pipe__WEBPACK_IMPORTED_MODULE_26__["ExcerptPipe"]
+    _pipes_relative_time_pipe__WEBPACK_IMPORTED_MODULE_28__["RelativeTimePipe"],
+    _pipes_excerpt_pipe__WEBPACK_IMPORTED_MODULE_29__["ExcerptPipe"],
+    _pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_41__["ArrayFilter"],
+    _directives_PositiveNumber_directive__WEBPACK_IMPORTED_MODULE_25__["PositiveNumberOnly"],
+    _directives_PositiveNumberAndLetter_directive__WEBPACK_IMPORTED_MODULE_26__["PositiveNumberAndLetterOnly"],
+    _directives_Letter_directive__WEBPACK_IMPORTED_MODULE_27__["LetterOnly"],
 ];
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
@@ -3555,25 +4074,96 @@ var SharedModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatRippleModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialogModule"]
             ],
-            entryComponents: [_services_app_confirm_app_confirm_component__WEBPACK_IMPORTED_MODULE_17__["AppComfirmComponent"], _services_app_loader_app_loader_component__WEBPACK_IMPORTED_MODULE_18__["AppLoaderComponent"], _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_34__["AppErrorComponent"]],
+            entryComponents: [_services_app_confirm_app_confirm_component__WEBPACK_IMPORTED_MODULE_17__["AppComfirmComponent"], _services_app_loader_app_loader_component__WEBPACK_IMPORTED_MODULE_18__["AppLoaderComponent"], _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_37__["AppErrorComponent"]],
             providers: [
-                _services_theme_service__WEBPACK_IMPORTED_MODULE_27__["ThemeService"],
-                _services_layout_service__WEBPACK_IMPORTED_MODULE_28__["LayoutService"],
-                _services_navigation_service__WEBPACK_IMPORTED_MODULE_29__["NavigationService"],
-                _services_route_parts_service__WEBPACK_IMPORTED_MODULE_30__["RoutePartsService"],
-                _services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_31__["AuthGuard"],
-                _services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_32__["AppConfirmService"],
-                _services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_33__["AppLoaderService"],
-                _services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_35__["AppErrorService"],
-                _services_file_download_service__WEBPACK_IMPORTED_MODULE_36__["AppFileDownloadService"],
-                _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_37__["AppDataConversionService"]
-                // LandingPageService
+                _services_theme_service__WEBPACK_IMPORTED_MODULE_30__["ThemeService"],
+                _services_layout_service__WEBPACK_IMPORTED_MODULE_31__["LayoutService"],
+                _services_navigation_service__WEBPACK_IMPORTED_MODULE_32__["NavigationService"],
+                _services_route_parts_service__WEBPACK_IMPORTED_MODULE_33__["RoutePartsService"],
+                _services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_34__["AuthGuard"],
+                _services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_35__["AppConfirmService"],
+                _services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_36__["AppLoaderService"],
+                _services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_38__["AppErrorService"],
+                _services_file_download_service__WEBPACK_IMPORTED_MODULE_39__["AppFileDownloadService"],
+                _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_40__["AppDataConversionService"],
             ],
             declarations: classesToInclude,
             exports: classesToInclude
         })
     ], SharedModule);
     return SharedModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/views/sessions/UserService.service.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/views/sessions/UserService.service.ts ***!
+  \*******************************************************/
+/*! exports provided: UserService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return UserService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _shared_fake_db_cp_users__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/fake-db/cp-users */ "./src/app/shared/fake-db/cp-users.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var UserService = /** @class */ (function () {
+    function UserService(http) {
+        this.http = http;
+        var user = new _shared_fake_db_cp_users__WEBPACK_IMPORTED_MODULE_2__["CpUsersDB"]();
+        this.users = user.users;
+    }
+    UserService.prototype.login = function (signinFormData) {
+        console.log(this.users);
+        var currentUser = this.users.filter(function (user) {
+            return (user.user_name === signinFormData.username &&
+                user.password === signinFormData.password);
+        });
+        console.log("current log users" + currentUser);
+        if (currentUser.length > 0) {
+            console.log(currentUser);
+            var loggedUser = currentUser[0];
+            var userToken = {
+                id: loggedUser.id,
+                username: loggedUser.user_name,
+                profilename: loggedUser.profile_name,
+                image: loggedUser.image,
+                token: "fake-logged-user",
+                company: loggedUser.company,
+                position: loggedUser.position
+            };
+            localStorage.setItem("currentUser", JSON.stringify(userToken));
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+    UserService.prototype.logout = function () {
+        // remove user from local storage to log user out
+        localStorage.removeItem("currentUser");
+    };
+    UserService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], UserService);
+    return UserService;
 }());
 
 
@@ -3596,7 +4186,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 var environment = {
     production: true,
-    apiURL: 'developmentApi'
+    productApiURL: 'http://localhost:10001/api/',
+    surveyApiURL: 'http://localhost:10002/api/',
 };
 
 
@@ -3635,7 +4226,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\ClearPicture\CP Zone\cp_proauth_v1\CP_ProAuth_FRONTEND\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\ClearPicture\CP Zone\cp_authentica_dev\JudiAuthentica-Dev\src\main.ts */"./src/main.ts");
 
 
 /***/ })

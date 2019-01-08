@@ -1,5 +1,75 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-cruds-cruds-module"],{
 
+/***/ "./src/app/model/ClientModel.model.ts":
+/*!********************************************!*\
+  !*** ./src/app/model/ClientModel.model.ts ***!
+  \********************************************/
+/*! exports provided: Content */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Content", function() { return Content; });
+var Content = /** @class */ (function () {
+    function Content(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+    return Content;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/animations/egret-animations.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/shared/animations/egret-animations.ts ***!
+  \*******************************************************/
+/*! exports provided: egretAnimations */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "egretAnimations", function() { return egretAnimations; });
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
+
+var reusable = Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animation"])([
+    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({
+        opacity: '{{opacity}}',
+        transform: 'scale({{scale}}) translate3d({{x}}, {{y}}, {{z}})'
+    }),
+    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animate"])('{{duration}} {{delay}} cubic-bezier(0.0, 0.0, 0.2, 1)', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])('*'))
+], {
+    params: {
+        duration: '200ms',
+        delay: '0ms',
+        opacity: '0',
+        scale: '1',
+        x: '0',
+        y: '0',
+        z: '0'
+    }
+});
+var egretAnimations = [
+    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["trigger"])('animate', [Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["transition"])('void => *', [Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["useAnimation"])(reusable)])]),
+    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["trigger"])('fadeInOut', [
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["state"])('0', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({
+            opacity: 0,
+            display: 'none'
+        })),
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["state"])('1', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({
+            opacity: 1,
+            display: 'block'
+        })),
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["transition"])('0 => 1', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animate"])('300ms')),
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["transition"])('1 => 0', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animate"])('300ms'))
+    ]),
+];
+
+
+/***/ }),
+
 /***/ "./src/app/views/cruds/crud-ngx-table/crud-ngx-table.component.html":
 /*!**************************************************************************!*\
   !*** ./src/app/views/cruds/crud-ngx-table/crud-ngx-table.component.html ***!
@@ -7,7 +77,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"m-333\">\r\n  <!-- <span fxFlex></span> -->\r\n  <button mat-raised-button class=\"mb-05\" color=\"primary\" (click)=\"openPopUp({}, true)\">Add Client</button>\r\n</div>\r\n<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-content class=\"p-0\">\r\n    <ngx-datatable\r\n          class=\"material ml-0 mr-0\"\r\n          [rows]=\"items\"\r\n          [columnMode]=\"'flex'\"\r\n          [headerHeight]=\"50\"\r\n          [footerHeight]=\"50\"\r\n          [limit]=\"10\"\r\n          [rowHeight]=\"'auto'\">\r\n          <ngx-datatable-column name=\"Client Code\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              {{ row?.code }}\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n          <ngx-datatable-column name=\"Name\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              {{ row?.name }}\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n\r\n          <ngx-datatable-column name=\"Description\" [flexGrow]=\"2\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              {{ row?.description }}\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n\r\n\r\n          <ngx-datatable-column name=\"Actions\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              <button mat-icon-button mat-sm-button color=\"primary\" class=\"mr-1\" (click)=\"openPopUp(row)\"><mat-icon>edit</mat-icon></button>\r\n              <button mat-icon-button mat-sm-button color=\"warn\" (click)=\"deleteItem(row)\"><mat-icon>delete</mat-icon></button>\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n        </ngx-datatable>\r\n  </mat-card-content>\r\n</mat-card>\r\n"
+module.exports = "<div class=\"m-333\">\r\n  <!-- <span fxFlex></span> -->\r\n  <button mat-raised-button class=\"mb-05\" color=\"primary\" (click)=\"openPopUp({}, true)\">Add Client</button>\r\n\r\n</div>\r\n<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-content class=\"p-0\">\r\n    <ngx-datatable\r\n          class=\"material ml-0 mr-0\"\r\n          [rows]=\"items\"\r\n          [columnMode]=\"'flex'\"\r\n          [headerHeight]=\"50\"\r\n          [footerHeight]=\"50\"\r\n          [limit]=\"10\"\r\n          [rowHeight]=\"'auto'\">\r\n          <ngx-datatable-column name=\"Client Code\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              {{ row?.code }}\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n          <ngx-datatable-column name=\"Name\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              {{ row?.name }}\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n\r\n          <ngx-datatable-column name=\"Contacts\" [flexGrow]=\"2\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              {{ row?.description }}\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n\r\n\r\n          <ngx-datatable-column name=\"Actions\" [flexGrow]=\"1\">\r\n            <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n              <button mat-icon-button mat-sm-button color=\"primary\" class=\"mr-1\" (click)=\"openPopUp(row)\"><mat-icon>edit</mat-icon></button>\r\n              <button mat-icon-button mat-sm-button color=\"warn\" (click)=\"deleteItem(row)\"><mat-icon>delete</mat-icon></button>\r\n            </ng-template>\r\n          </ngx-datatable-column>\r\n        </ngx-datatable>\r\n  </mat-card-content>\r\n</mat-card>\r\n"
 
 /***/ }),
 
@@ -179,7 +249,7 @@ var CrudNgxTableComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 matDialogTitle>{{data.title}}</h1>\r\n<form [formGroup]=\"itemForm\" (ngSubmit)=\"submit()\">\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n\r\n    <div fxFlex=\"100\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput name=\"code\" [formControl]=\"itemForm.controls['code']\" placeholder=\"Client Code\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"100\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <input matInput name=\"clientName\" [formControl]=\"itemForm.controls['name']\" placeholder=\"Name\">\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"100\" class=\"pr-1\">\r\n      <mat-form-field class=\"full-width\">\r\n        <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"itemForm.controls['description']\"></textarea>\r\n      </mat-form-field>\r\n    </div>\r\n\r\n    <div fxFlex=\"100\" class=\"mt-1\">\r\n      <button mat-raised-button color=\"primary\" [disabled]=\"itemForm.invalid\">Save</button>\r\n      <span fxFlex></span>\r\n      <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n    </div>\r\n  </div>\r\n</form>\r\n"
+module.exports = "<form [formGroup]=\"itemForm\" (ngSubmit)=\"submit()\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"code\" [formControl]=\"itemForm.controls['code']\" \r\n          positiveNumberAndLetterOnly placeholder=\"Client Code\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"clientName\" [formControl]=\"itemForm.controls['name']\" \r\n          letterOnly placeholder=\"Name\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Contacts\" [formControl]=\"itemForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"100\" class=\"mt-1\">\r\n        <button mat-raised-button color=\"primary\" [disabled]=\"itemForm.invalid\">Save</button>\r\n        <span fxFlex></span>\r\n        <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n</form>"
 
 /***/ }),
 
@@ -242,6 +312,107 @@ var NgxTablePopupComponent = /** @class */ (function () {
             _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]])
     ], NgxTablePopupComponent);
     return NgxTablePopupComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/views/cruds/crud.service.ts":
+/*!*********************************************!*\
+  !*** ./src/app/views/cruds/crud.service.ts ***!
+  \*********************************************/
+/*! exports provided: CrudService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CrudService", function() { return CrudService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! environments/environment.prod */ "./src/environments/environment.prod.ts");
+/* harmony import */ var _model_ClientModel_model__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../model/ClientModel.model */ "./src/app/model/ClientModel.model.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var CrudService = /** @class */ (function () {
+    function CrudService(http) {
+        this.http = http;
+        this.clientApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].productApiURL + "clients/";
+        this.httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
+                "Content-Type": "application/json"
+            })
+        };
+    }
+    CrudService.prototype.getItems = function () {
+        return this.http.get(this.clientApiUrl).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    CrudService.prototype.getClientSuggestions = function () {
+        return this.http
+            .get(this.clientApiUrl + "suggestions")
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    CrudService.prototype.addItem = function (item, items) {
+        return this.http.post(this.clientApiUrl, item, this.httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
+            items.unshift(data.content);
+            return items.slice();
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    CrudService.prototype.updateItem = function (id, item) {
+        return this.http
+            .put(this.clientApiUrl + id, item, this.httpOptions)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    CrudService.prototype.removeItem = function (id) {
+        return this.http
+            .delete(this.clientApiUrl + id)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    CrudService.prototype.search = function (filter, page) {
+        if (filter === void 0) { filter = { name: "" }; }
+        if (page === void 0) { page = 1; }
+        return this.http.get(this.clientApiUrl + "suggestions").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["tap"])(function (response) {
+            response.content = response.content
+                .map(function (content) { return new _model_ClientModel_model__WEBPACK_IMPORTED_MODULE_5__["Content"](content.id, content.name); })
+                .filter(function (content) {
+                return content.name.toLocaleLowerCase().includes(filter.name);
+            });
+            return response;
+        }));
+    };
+    CrudService.prototype.getClientById = function (clientId) {
+        console.log("called get client by id");
+        return this.http
+            .get(this.clientApiUrl + clientId, this.httpOptions)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    CrudService.prototype.getImageById = function (url) {
+        return this.http.get(url, { responseType: 'blob' });
+    };
+    CrudService.prototype.handleError = function (error) {
+        console.log(error);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(error);
+    };
+    CrudService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], CrudService);
+    return CrudService;
 }());
 
 
@@ -311,6 +482,7 @@ var CrudsModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSnackBarModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSlideToggleModule"],
                 _shared_shared_module__WEBPACK_IMPORTED_MODULE_7__["SharedModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatToolbarModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(_cruds_routing__WEBPACK_IMPORTED_MODULE_9__["CrudsRoutes"])
             ],
             declarations: [_crud_ngx_table_crud_ngx_table_component__WEBPACK_IMPORTED_MODULE_8__["CrudNgxTableComponent"], _crud_ngx_table_ngx_table_popup_ngx_table_popup_component__WEBPACK_IMPORTED_MODULE_11__["NgxTablePopupComponent"]],
@@ -344,6 +516,40 @@ var CrudsRoutes = [
         data: { title: 'Client Section', breadcrumb: 'Client' }
     }
 ];
+
+
+/***/ }),
+
+/***/ "./src/environments/environment.prod.ts":
+/*!**********************************************!*\
+  !*** ./src/environments/environment.prod.ts ***!
+  \**********************************************/
+/*! exports provided: environment */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
+var environment = {
+    production: true,
+    apiURL: "productionApi",
+    // SAP NEW 64GB
+    productApiURL: 'https://authentican60aazs63l.ca1.hana.ondemand.com/product/api/',
+    surveyApiURL: 'https://authentican60aazs63l.ca1.hana.ondemand.com/survey/api/',
+    productimageUrl: "https://authentican60aazs63l.ca1.hana.ondemand.com/product/",
+    evoteimageUrl: "https://authentican60aazs63l.ca1.hana.ondemand.com/survey/",
+    // LOCALE
+    // productApiURL: "http://localhost:10001/api/",
+    // surveyApiURL: "http://localhost:10002/api/",
+    // productimageUrl: "http://localhost:10001/",
+    // evoteimageUrl: "http://localhost:10002/",
+    // SAP OLD
+    // productApiURL: "https://productzg4t4ks63a.hana.ondemand.com/product/api/",
+    // surveyApiURL: "https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/",
+    // productimageUrl: "https://productzg4t4ks63a.hana.ondemand.com/product/",
+    // evoteimageUrl : 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/'
+    frontEndBaseUrl: 'https://judedw.github.io/JudiAuthentica-Dev/',
+};
 
 
 /***/ })

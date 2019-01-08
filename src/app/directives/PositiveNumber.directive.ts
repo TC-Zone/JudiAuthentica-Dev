@@ -1,11 +1,11 @@
 import { Directive, ElementRef, HostListener } from "@angular/core";
 
 @Directive({
-  selector: "[postiveNumberOnly]"
+  selector: "[positiveNumberOnly]"
 })
 export class PositiveNumberOnly {
   // Allow positive number greater than 0
-  private regex: RegExp = new RegExp(/^[+]?([1-9]+(?:[1-9]*)?|\.[1-9]+)$/);
+  private regex: RegExp = new RegExp(/^[+]?([1-9]+(?:[0-9]*)?|\.[0-9]+)$/);
   // Allow key codes for special events. Reflect :
   // Backspace, tab, end, home
   private specialKeys: Array<string> = ["Backspace", "Tab", "End", "Home"];

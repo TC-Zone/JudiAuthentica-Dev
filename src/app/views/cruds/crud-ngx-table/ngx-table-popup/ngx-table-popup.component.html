@@ -1,29 +1,37 @@
-<h1 matDialogTitle>{{data.title}}</h1>
 <form [formGroup]="itemForm" (ngSubmit)="submit()">
-  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
-
-    <div fxFlex="100" class="pr-1">
-      <mat-form-field class="full-width">
-        <input matInput name="code" [formControl]="itemForm.controls['code']" placeholder="Client Code">
-      </mat-form-field>
+  <mat-toolbar matDialogTitle class="mat-primary m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">{{data.title}}</span>
     </div>
+  </mat-toolbar>
+  <mat-dialog-content class="mat-typography mt-1">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
 
-    <div fxFlex="100" class="pr-1">
-      <mat-form-field class="full-width">
-        <input matInput name="clientName" [formControl]="itemForm.controls['name']" placeholder="Name">
-      </mat-form-field>
-    </div>
+      <div fxFlex="100" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="code" [formControl]="itemForm.controls['code']" 
+          positiveNumberAndLetterOnly placeholder="Client Code">
+        </mat-form-field>
+      </div>
 
-    <div fxFlex="100" class="pr-1">
-      <mat-form-field class="full-width">
-        <textarea matInput name="description" placeholder="Description" [formControl]="itemForm.controls['description']"></textarea>
-      </mat-form-field>
-    </div>
+      <div fxFlex="100" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="clientName" [formControl]="itemForm.controls['name']" 
+          letterOnly placeholder="Name">
+        </mat-form-field>
+      </div>
 
-    <div fxFlex="100" class="mt-1">
-      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
-      <span fxFlex></span>
-      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+      <div fxFlex="100" class="pr-1">
+        <mat-form-field class="full-width">
+          <textarea matInput name="description" placeholder="Contacts" [formControl]="itemForm.controls['description']"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" class="mt-1">
+        <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+        <span fxFlex></span>
+        <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+      </div>
     </div>
-  </div>
+  </mat-dialog-content>
 </form>

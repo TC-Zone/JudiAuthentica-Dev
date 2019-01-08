@@ -1,11 +1,11 @@
-/* 
-* REQUIRED STYLES 
+/*
+* REQUIRED STYLES
 */
 @import "main/scaffolding";
 @import "main/typography";
 @import "main/layout";
 @import "main/header";
-@import "main/sidenav"; 
+@import "main/sidenav";
 
 /*
 * ALTERNATIVE STYLES
@@ -20,3 +20,14 @@
 @import "main/header-top"; // REQUIRED ONLY FOR TOP NAVIGATION LAYOUT
 
 
+/*
+* CUSTOMIZE STYLES
+*/
+@import "main/cp-common"; // CUSTOM COMMON SCSS
+@import "main/cp-popup"; // REQUIRED ONLY FOR POPUP, IMAGE PRIVIEW OF IMAGE UPLOADER
+@import "main/cp-table"; // REQUIRED ONLY FOR RESPONSIVE TABLE
+
+/*
+* THEME BOOSTRAP FOR SURVEYJS
+*/
+@import "main/theme_boostrap"; // REQUIRED ONLY FOR SURVEYJS BOOSTRAP THEME

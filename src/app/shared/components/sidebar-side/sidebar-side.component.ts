@@ -3,12 +3,13 @@ import { NavigationService } from "../../../shared/services/navigation.service";
 import { ThemeService } from '../../services/theme.service';
 import { Subscription } from "rxjs";
 import PerfectScrollbar from 'perfect-scrollbar';
+import { LocalStorageHandler } from '../../helpers/local-storage';
 
 @Component({
   selector: 'app-sidebar-side',
   templateUrl: './sidebar-side.component.html'
 })
-export class SidebarSideComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SidebarSideComponent extends LocalStorageHandler implements OnInit, OnDestroy, AfterViewInit {
   private sidebarPS: PerfectScrollbar;
   public menuItems: any[];
   public hasIconTypeMenuItem: boolean;
@@ -17,7 +18,7 @@ export class SidebarSideComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private navService: NavigationService,
     public themeService: ThemeService,
-  ) { }
+  ) {super(); }
 
   ngOnInit() {
     this.iconTypeMenuTitle = this.navService.iconTypeMenuTitle;
@@ -42,5 +43,7 @@ export class SidebarSideComponent implements OnInit, OnDestroy, AfterViewInit {
       this.menuItemsSub.unsubscribe()
     }
   }
+
+
 
 }

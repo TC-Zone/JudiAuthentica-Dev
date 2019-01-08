@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { getQueryParam } from '../helpers/url.helper';
 
+
 interface ILayoutConf {
   navigationPos?: string;   // side, top
   sidebarStyle?: string;    // full, compact, closed
@@ -17,21 +18,22 @@ interface ILayoutChangeOptions {
   duration?: number,
   transitionClass?: boolean
 }
+
 interface IAdjustScreenOptions {
   browserEvent?: any,
   route?: string
 }
 
-
 @Injectable()
 export class LayoutService {
+
   public layoutConf: ILayoutConf;
   layoutConfSubject = new BehaviorSubject<ILayoutConf>(this.layoutConf);
   layoutConf$ = this.layoutConfSubject.asObservable();
   public isMobile: boolean;
   public currentRoute: string;
-  public fullWidthRoutes = ['shop'];
-
+  public fullWidthRoutes = ['future-survey/'];
+  public compactRoutes = ['surveys'];
   constructor(
     private router: Router
   ) {
@@ -80,6 +82,7 @@ export class LayoutService {
 
 
   adjustLayout(options: IAdjustScreenOptions = {}) {
+
     let sidebarStyle: string;
     this.isMobile = this.isSm();
     this.currentRoute = options.route || this.currentRoute;
@@ -87,8 +90,9 @@ export class LayoutService {
 
     if (this.currentRoute) {
       this.fullWidthRoutes.forEach(route => {
-        if(this.currentRoute.indexOf(route) !== -1) {
-          sidebarStyle =  'closed';
+        console.log(this.currentRoute);
+        if (this.currentRoute.indexOf(route) !== -1) {
+          sidebarStyle = 'closed';
         }
       })
     }
@@ -98,7 +102,38 @@ export class LayoutService {
       sidebarStyle: sidebarStyle
     });
   }
+
   isSm() {
     return window.matchMedia(`(max-width: 959px)`).matches;
   }
+
+
+
+  // --------- Costomized Code -----------------
+  // adjust full width routes layout
+  costomizedAdjustScreenOptions(options: IAdjustScreenOptions = {}) {
+    if (this.isSm()) {
+      this.publishLayoutChange({ sidebarStyle: 'closed' });
+    }
+    this.currentRoute = options.route || this.currentRoute;
+    if (this.currentRoute) {
+      this.fullWidthRoutes.forEach(route => {
+        if (this.currentRoute.indexOf(route) !== -1) {
+          this.publishLayoutChange({ sidebarStyle: 'closed' });
+        }
+      })
+
+      this.compactRoutes.forEach(route => {
+        if (this.currentRoute.indexOf(route) !== -1) {
+          this.publishLayoutChange({ sidebarStyle: 'compact' });
+        }
+      });
+    }
+  }
+
+
+
+
+
+
 }

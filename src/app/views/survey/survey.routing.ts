@@ -3,6 +3,7 @@ import { SurveyComponent } from "./survey.component";
 import { SurveyTableComponent } from "./survey-table/survey-table.component";
 import { SurveySettingComponent } from "./survey-setting/survey-setting.component";
 import { SurveyBuilderComponent } from "./survey-builder/survey-builder.component";
+import { SurveyInteractionComponent } from './survey-interaction/survey-interaction.component';
 
 export const SurveyRoute: Routes = [
   {
@@ -23,6 +24,11 @@ export const SurveyRoute: Routes = [
         path: "builder_v1",
         component: SurveyBuilderComponent,
         data: { title: "Survey Builder", breadcrumb: "Builder" }
+      },
+      {
+        path: "demo",
+        component: SurveyInteractionComponent,
+        data: { title: "Authenticate Demo", breadcrumb: "Demo" }
       }
     ]
   }

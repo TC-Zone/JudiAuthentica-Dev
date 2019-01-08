@@ -1,6 +1,7 @@
 <div class="m-333">
   <!-- <span fxFlex></span> -->
   <button mat-raised-button class="mb-05" color="primary" (click)="openPopUp({}, true)">Add Client</button>
+
 </div>
 <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
   <mat-card-content class="p-0">
@@ -23,7 +24,7 @@
             </ng-template>
           </ngx-datatable-column>
 
-          <ngx-datatable-column name="Description" [flexGrow]="2">
+          <ngx-datatable-column name="Contacts" [flexGrow]="2">
             <ng-template let-row="row" ngx-datatable-cell-template>
               {{ row?.description }}
             </ng-template>

@@ -51,6 +51,9 @@ import { AppDropdownDirective } from "./directives/dropdown.directive";
 import { DropdownAnchorDirective } from "./directives/dropdown-anchor.directive";
 import { DropdownLinkDirective } from "./directives/dropdown-link.directive";
 import { EgretSideNavToggleDirective } from "./directives/egret-side-nav-toggle.directive";
+import { PositiveNumberOnly } from "../directives/PositiveNumber.directive";
+import { PositiveNumberAndLetterOnly } from "../directives/PositiveNumberAndLetter.directive";
+import { LetterOnly } from "../directives/Letter.directive";
 
 // PIPES
 import { RelativeTimePipe } from "./pipes/relative-time.pipe";
@@ -74,6 +77,8 @@ import { AppErrorService } from "./services/app-error/app-error.service";
 // import { LandingPageService } from '../shared/services/landing-page.service';
 import { AppFileDownloadService } from "./services/file-download.service";
 import { AppDataConversionService } from './services/data-conversion.service';
+import { ArrayFilter } from './pipes/array-filter.pipe';
+
 
 const classesToInclude = [
   HeaderTopComponent,
@@ -96,7 +101,11 @@ const classesToInclude = [
   DropdownLinkDirective,
   EgretSideNavToggleDirective,
   RelativeTimePipe,
-  ExcerptPipe
+  ExcerptPipe,
+  ArrayFilter,
+  PositiveNumberOnly,
+  PositiveNumberAndLetterOnly,
+  LetterOnly,
 ];
 
 @NgModule({
@@ -135,7 +144,7 @@ const classesToInclude = [
     AppLoaderService,
     AppErrorService,
     AppFileDownloadService,
-    AppDataConversionService
+    AppDataConversionService,
     // LandingPageService
   ],
   declarations: classesToInclude,

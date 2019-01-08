@@ -1,0 +1,110 @@
+<form [formGroup]="interactForm">
+  <div class="page-wrap height-100 background-survey-signin" *ngIf="showLogin">
+    <div class="session-form-hold">
+      <mat-card>
+        <mat-card-content>
+          <div class="text-center pb-1">
+            <img src="assets/images/signin/logo.jpg" alt="">
+            <p class="text-muted m-0">Sign in to your account</p>
+            <small *ngIf="!loginResult" class=" m-0 form-error-msg"> Invalid Access Code ! </small>
+          </div>
+
+          <mat-form-field class="full-width">
+            <input type="password" name="password" matInput placeholder="Access Code" value="" [formControl]="interactForm.controls['password']"
+              required name="password">
+          </mat-form-field>
+          <small *ngIf="interactForm.controls['password'].hasError('required') && interactForm.controls['password'].touched"
+            class="form-error-msg">
+            Access code is required </small>
+
+          <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()" [disabled]="interactForm.invalid">Login
+            to Survey</button>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</form>
+
+
+
+<!-- <div fxFlex="100" fxLayoutAlign="center center" id="survey-view-survey" class="background-survey-form">
+  <mat-toolbar fxLayoutAlign="center center" matDialogTitle class="mat-primary m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">{{ surveyTitle }}</span>
+    </div>
+  </mat-toolbar>
+
+
+  <div class="survey-page-wrap height-100" *ngIf="!showLogin">
+    <div class="survey-form-hold">
+      <mat-card>
+        <mat-card-content>
+          <div id="surveyElement"></div>
+          <div id="surveyResult"></div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+
+  <div id="survey-view-footer">
+    <div class="container custom-center">
+      <span>Powered by</span>
+      <img src="assets/images/cp_logo_text.png" alt="">
+    </div>
+  </div>
+
+</div> -->
+
+<div fxFlex="100" fxLayoutAlign="center center" id="survey-view-survey" class="background-survey-form">
+<header>
+  <mat-toolbar fxLayoutAlign="center center" matDialogTitle class="mat-primary m-0">
+      <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+        <div mat-card-avatar class="example-header-image"></div>
+      </div>
+      <!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
+      <span class="example-card-title hidden-xs">Clear Picture</span>
+      <span class="example-spacer"></span>
+      <span *ngIf="loggedInvitee" class="example-invite">Hi, {{loggedInvitee}}</span>
+  </mat-toolbar>
+</header>
+
+
+
+    <!-- <div class="col-md-2"> -->
+        <!-- <mat-card class="example-card"> -->
+            <!-- <mat-card-header> -->
+              <!-- <div mat-card-avatar class="example-header-image"> -->
+              <!-- </div> -->
+              <!-- <br> -->
+              <!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
+
+            <!-- </mat-card-header> -->
+        <!-- </mat-card> -->
+    <!-- </div> -->
+    <!-- <div class="col-md-10"> -->
+      <div class="survey-page-wrap height-100" *ngIf="!showLogin">
+          <div class="survey-form-hold">
+            <mat-card class="survey-mat-card">
+              <mat-card-content>
+                <div id="surveyElement"></div>
+                <div id="surveyResult"></div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+      </div>
+    <!-- </div> -->
+
+
+  <div id="survey-view-footer">
+    <div class="container custom-center">
+      <span>Powered by</span>
+      <img src="assets/images/cp_logo_text.png" alt="">
+    </div>
+
+  </div>
+</div>
+
+<script>
+  $.material.init();
+</script>
