@@ -51,4 +51,36 @@ export class AppErrorService {
     });
     return dialogRef.afterClosed();
   }
+  // show popup window for custom error message (by prasad kumara)
+  handleCustomError(error: ErrorData = {}): any {
+    console.log(errorMessages[error.type]['futureSurveyViewFutureSurveyNotExist']);
+    console.log(errorMessages.hasOwnProperty(error.type));
+    if (errorMessages.hasOwnProperty(error.type)) {
+      if (errorMessages[error.type].hasOwnProperty(this.getEnumKey(error.message))) {
+        let dialogRef: MatDialogRef<AppErrorComponent>;
+        dialogRef = this.dialog.open(AppErrorComponent, {
+          width: "380px",
+          disableClose: true,
+          data: { title: this.removeUnderscore(error.title), message: errorMessages[error.type][this.getEnumKey(error.message)]}
+        });
+        return dialogRef.afterClosed();
+      } else {
+        let dialogRef: MatDialogRef<AppErrorComponent>;
+        dialogRef = this.dialog.open(AppErrorComponent, {
+          width: "380px",
+          disableClose: true,
+          data: { title: this.removeUnderscore(error.title), message: error.message}
+        });
+        return dialogRef.afterClosed();
+      }
+    } else {
+      let dialogRef: MatDialogRef<AppErrorComponent>;
+      dialogRef = this.dialog.open(AppErrorComponent, {
+        width: "380px",
+        disableClose: true,
+        data: { title: this.removeUnderscore(error.title), message: error.message}
+      });
+      return dialogRef.afterClosed();
+    }
+  }
 }
