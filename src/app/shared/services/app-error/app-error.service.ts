@@ -120,4 +120,17 @@ export class AppErrorService {
       });
     }
   }
+  // convert error messages to camell case message (by prasad kumara)
+  getEnumKey(string: string): string {
+    const stringArray = string.split('.');
+    let enumkey = '';
+    for (let i = 0; i < stringArray.length; i++) {
+      if (i === 0) {
+        enumkey += stringArray[i].substring(0, 1).toLowerCase() + stringArray[i].substring(1);
+      } else {
+        enumkey += stringArray[i].substring(0, 1).toUpperCase() + stringArray[i].substring(1);
+      }
+    }
+    return enumkey;
+  }
 }
