@@ -83,4 +83,41 @@ export class AppErrorService {
       return dialogRef.afterClosed();
     }
   }
+  // handle custom error (by prasad kumara)
+  showErrorWithMessage(error: any) {
+    console.log('view survey error with message');
+    console.log(error);
+    if (error.error !== null) {
+      console.log('error.error !== null');
+      console.log(error.error);
+      if (error.error.hasOwnProperty('validationFailures')) {
+        this.handleCustomError({
+          title: error.error.status,
+          message: error.error.validationFailures[0].code,
+          type: error.error.validationFailures[0].field,
+          status: error.status,
+          clientError: ''
+        });
+      } else {
+        this.showHttpError({
+          title: 'Error',
+          message: '',
+          type: 'http_error',
+          status: error.status,
+          clientError: ''
+        });
+      }
+
+    } else {
+      console.log('error.error == null');
+      console.log(error);
+      this.showHttpError({
+        title: 'Error',
+        message: '',
+        type: 'http_error',
+        status: error.status,
+        clientError: ''
+      });
+    }
+  }
 }
