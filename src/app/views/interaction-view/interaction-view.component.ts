@@ -53,21 +53,6 @@ export class InteractionViewComponent implements OnInit {
     this.sub = this.route.queryParams.subscribe(params => {
       this.interactionId = params["interactionId"];
       this.surveyId = params["surveyId"];
-      this.preview = params["preview"];
-
-
-      // if (this.preview === undefined) {
-      //   console.log("-----------------------------------");
-      //   console.log("02");
-      //   console.log("-----------------------------------");
-      // }
-      // if (this.preview === "true") {
-      //   console.log("-----------------------------------");
-      //   console.log("03");
-      //   console.log("-----------------------------------");
-      // }
-
-
     });
 
     if (this.interactionId) {
@@ -77,30 +62,26 @@ export class InteractionViewComponent implements OnInit {
       console.log("SURVEY ID : " + this.surveyId);
       this.retrieveSurvey(this.surveyId);
     }
+
+    var elements1 = document.getElementById('divViewSummary');
+    elements1.style.display = 'none';
+    var elements2 = document.getElementById('divViewSurvey');
+    elements2.style.display = 'none';
+
   }
 
   viewInteraction(interactionId) {
     this.interactionViewService
       .getInteractionById(interactionId)
       .subscribe(response => {
+
         console.log("interaction response ");
         console.log(response);
         this.futureSurveyObj = response.content.futureSurvey;
         this.surveyTitle = this.futureSurveyObj.title;
         this.loggedInvitee = response.content.invitee.name;
-        console.log('LOGGED INSTANCE - '+ this.loggedInvitee);
-        if (this.preview === undefined) {
-          this.showLogin = true;
-          localStorage.setItem("futureSurveyid", "");
-          localStorage.setItem("surveyResult", "");
-        } else  {
-          if(localStorage.getItem("futureSurveyid") === ""){
-            window.location.href = window.location.href.split("&")[0];
-          } else {
-            this.retrieveSurvey(localStorage.getItem("futureSurveyid"));
-          }
-        }
-
+        console.log('LOGGED INSTANCE - ' + this.loggedInvitee);
+        this.showLogin = true;
 
         console.log("ID : " + this.futureSurveyObj.id);
         console.log("title : " + this.surveyTitle);
@@ -119,9 +100,11 @@ export class InteractionViewComponent implements OnInit {
         this.jsonContent = JSON.parse(this.futureSurveyObj.jsonContent);
         this.surveyTitle = this.futureSurveyObj.title;
         this.pageJson = JSON.parse(this.jsonContent).pages;
+
         // Set the private Survey Name to the local storage (by prasad kumara)
         localStorage.setItem('privateSurveyName', this.interactionId);
         this.viewSurvey();
+
         this.setuptheme();
       },
       error => {
@@ -136,49 +119,12 @@ export class InteractionViewComponent implements OnInit {
   }
 
   // ........... Survey Respond view should be re architecturing with following certin Angular techniquees .............
-  viewSurvey() {
+  viewSurvey(isEditable) {
+
     let pageArray: any[] = this.pageJson;
     let resultArray = [];
 
-    // let htmlValue =
-    //   "<h3>Thank you for completing the survey!</h3>" +
-    //   '<div class="panel-footer card-footer survey-page-footer">' +
-    //   "</div>" +
-    //   '<div class="sv_container">';
-
-    // if (pageArray.length != 0) {
-    //   pageArray.forEach(element => {
-    //     const elementArray: any[] = element.elements;
-    //     console.log(elementArray);
-    //     if (elementArray) {
-    //       elementArray.forEach(element => {
-    //         htmlValue +=
-    //           "<div class='sv_row'>" +
-    //           "<div class='sv_qstn'>" +
-    //           "<h5>" +
-    //           "<span class='survey-form-question'>Q :- " +
-    //           element.title +
-    //           "</span>" +
-    //           "</h5>" +
-    //           "<span class='survey-form-answer'>A :- {" +
-    //           element.name +
-    //           "} </span>" +
-    //           "</div>" +
-    //           "</div></br>";
-    //       });
-    //     }
-    //   });
-    // }
-
-    // htmlValue += "</div>";
-
-
     let jsonc = JSON.parse(this.jsonContent);
-    // jsonc.completedHtml = htmlValue;
-
-    if (this.preview) {
-      jsonc.title = "Summary of " + jsonc.title;
-    }
 
     const surveyModel = new Survey.Model(jsonc);
     // Call Answer Later Button (by prasad kumara)
@@ -206,25 +152,39 @@ export class InteractionViewComponent implements OnInit {
       }
 
       if (options.question.getType() === "radiogroup") {
-        classes.item = "radio sv-q-col-1";
+        classes.item = "sv-q-col-1";
       }
 
       if (options.question.getType() === "checkbox") {
-        classes.item = "checkbox sv-q-col-1";
+        classes.item = "sv-q-col-1";
       }
 
-      if(options.question.getType() === "matrix"){
-        classes.root = "table sv_q_matrix"; 
+      if (options.question.getType() === "matrix") {
+        classes.root = "table sv_q_matrix";
       }
+
+      if (options.question.getType() === "comment") {
+        classes.root = "form-control";
+      }
+
+      if (options.question.getType() === "dropdown") {
+        classes.control = "form-control";
+      }
+
     });
 
     Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 
-    
+    var elements1 = document.getElementById('divViewSummary');
+    elements1.style.display = 'none';
+    var elements2 = document.getElementById('divViewSurvey');
+    elements2.style.display = 'none';
+
     // .............. ON COMPLET START HERE ..........................
     surveyModel.onComplete.add(function (result) {
 
       localStorage.setItem("surveyResult", JSON.stringify(result.data));
+
 
       // Remove Temporary saved survey results and empty the survey data (by prasad kumara)
       if (localStorage.getItem('surveyType') !== 'private') {
@@ -238,10 +198,13 @@ export class InteractionViewComponent implements OnInit {
       document.getElementById("surveyResult").innerHTML = "<a class='btn sv_preview_btn' href='" + window.location.href + "&preview=true' >View Summary</a>";
 
 
+      var elements2 = document.getElementById('divViewSummary');
+      elements2.style.display = 'block';
+
+
       console.log("..............SURVEY ANSWER RESULR/.............");
       console.log(result);
 
-      // ------- new start --------
       pageArray.forEach(element => {
         // console.log(element.elements);
         element.elements.forEach(element => {
@@ -297,8 +260,6 @@ export class InteractionViewComponent implements OnInit {
         });
       });
 
-      // ------- new end --------
-
       console.log("...............ANSWER ARRAY.................");
       console.log(resultArray);
       console.log(JSON.stringify(resultArray));
@@ -313,25 +274,94 @@ export class InteractionViewComponent implements OnInit {
         error => {
           console.log("ERROR");
           console.log(error);
-          //alert("Something went wrong !");
         }
       );
+
+      let thankYouMsg =
+        '<div class="sv_main sv_bootstrap_css">' +
+        '<form>' +
+        '<div class="sv_container">' +
+        '<div data-bind="html: processedCompletedHtml, css: completedCss" class="sv_body sv_completed_page"><h3>Thank you for completing the survey!</h3></div>' +
+        '</div>' +
+        '</form>' +
+        '</div>';
+
+      document.getElementById("surveyElement").innerHTML = thankYouMsg;
+
     });
 
     // ................. ON COMPLETE END HERE .........
 
-    if (this.preview) {
+
+    if (isEditable) {
       surveyModel.data = JSON.parse(localStorage.getItem("surveyResult"))
+
       surveyModel.mode = 'display';
       // Hide the answer later button when view the summery of the survey (by prasad kumara)
       document
         .getElementById('answer-later')
         .style
         .display = 'none';
+
     }
+
+  }
+
+  viewSummary() {
+
+    var elements1 = document.getElementById('divViewSummary');
+    elements1.style.display = 'none';
+    var elements2 = document.getElementById('divViewSurvey');
+    elements2.style.display = 'block';
+
+    let jsonc = JSON.parse(this.jsonContent);
+
+    jsonc.title = "Summary of " + jsonc.title;
+
+    const surveyModel = new Survey.Model(jsonc);
+
+    Survey.StylesManager.applyTheme("bootstrap");
+
+    surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
+      var classes = options.cssClasses;
+
+
+      if (options.question.getType() === "rating") {
+        classes.root = "btn-group";
+        classes.item = "btn btn-default btn-secondary";
+      }
+
+      if (options.question.getType() === "radiogroup") {
+        classes.item = "sv-q-col-1";
+      }
+
+      if (options.question.getType() === "checkbox") {
+        classes.item = "sv-q-col-1";
+      }
+
+      if (options.question.getType() === "matrix") {
+        classes.root = "table sv_q_matrix";
+      }
+
+      if (options.question.getType() === "comment") {
+        classes.root = "form-control";
+      }
+
+      if (options.question.getType() === "dropdown") {
+        classes.control = "form-control";
+      }
+
+    });
+
+    surveyModel.data = JSON.parse(localStorage.getItem("surveyResult"))
+    surveyModel.mode = 'display';
+
+    Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 
 
   }
+
+
 
   setuptheme() {
     const mainColor = "#0684C0";
@@ -353,11 +383,6 @@ export class InteractionViewComponent implements OnInit {
     defaultThemeColorsSurvey[
       "$body-container-background-color"
     ] = bodyContainerBackgroundColor;
-
-    // console.log("--- theme color setting---");
-    // console.log(defaultThemeColorsSurvey);
-    // console.log(Survey.StylesManager.ThemeColors);
-    // console.log(Survey);
 
     Survey.StylesManager.applyTheme();
   }
