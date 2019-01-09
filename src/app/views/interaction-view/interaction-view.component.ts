@@ -103,13 +103,13 @@ export class InteractionViewComponent implements OnInit {
 
         // Set the private Survey Name to the local storage (by prasad kumara)
         localStorage.setItem('privateSurveyName', this.interactionId);
-        this.viewSurvey();
+        this.viewSurvey(false);
 
         this.setuptheme();
       },
-      error => {
-        this.errDialog.showErrorWithMessage(error);
-      });
+        error => {
+          this.errDialog.showErrorWithMessage(error);
+        });
   }
 
   buildInteractForm() {
@@ -173,7 +173,7 @@ export class InteractionViewComponent implements OnInit {
 
     });
 
-    Survey.SurveyNG.render("surveyElement", { model: surveyModel });
+    // Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 
     var elements1 = document.getElementById('divViewSummary');
     elements1.style.display = 'none';
@@ -195,7 +195,7 @@ export class InteractionViewComponent implements OnInit {
         surveyModel.data = '';
       }
 
-      document.getElementById("surveyResult").innerHTML = "<a class='btn sv_preview_btn' href='" + window.location.href + "&preview=true' >View Summary</a>";
+      // document.getElementById("surveyResult").innerHTML = "<a class='btn sv_preview_btn' href='" + window.location.href + "&preview=true' >View Summary</a>";
 
 
       var elements2 = document.getElementById('divViewSummary');
@@ -294,15 +294,18 @@ export class InteractionViewComponent implements OnInit {
 
 
     if (isEditable) {
+
       surveyModel.data = JSON.parse(localStorage.getItem("surveyResult"))
+      // surveyModel.mode = 'display';
 
-      surveyModel.mode = 'display';
+    }
+
+    Survey.SurveyNG.render("surveyElement", { model: surveyModel });
+    
+    if (isEditable) {
+
       // Hide the answer later button when view the summery of the survey (by prasad kumara)
-      document
-        .getElementById('answer-later')
-        .style
-        .display = 'none';
-
+      document.getElementById('answer-later').style.display = 'none';
     }
 
   }
@@ -442,7 +445,8 @@ export class InteractionViewComponent implements OnInit {
     // Set Survey result to the local storage with current page name (by prasad kumara)
     window.localStorage.setItem(storageName, JSON.stringify({
       pageName: pageName,
-      completedData: surveyResultArray}));
+      completedData: surveyResultArray
+    }));
   }
   // Get Survey result from local storage (by prasad kumara)
   loadSurveyFromLocalStorage(): any {
@@ -457,10 +461,10 @@ export class InteractionViewComponent implements OnInit {
       console.log(JSON.parse(storageSt));
       return JSON.parse(storageSt);
     } else {
-        res = {
-            currentPageNo: 0,
-            data: {}
-          };
+      res = {
+        currentPageNo: 0,
+        data: {}
+      };
       return res;
     }
   }
