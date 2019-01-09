@@ -25,19 +25,24 @@
   </div>
 </form>
 
+<div fxFlex="100" fxLayoutAlign="center center" id="survey-view-survey" class="background-survey-form">
+  <header>
+    <mat-toolbar fxLayoutAlign="center center" matDialogTitle class="mat-primary m-0">
+      <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+        <div mat-card-avatar class="example-header-image"></div>
+      </div>
+      <!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
+      <span class="example-card-title hidden-xs">Clear Picture</span>
+      <span class="example-spacer"></span>
+      <span *ngIf="loggedInvitee" class="example-invite">Hi, {{loggedInvitee}}</span>
+    </mat-toolbar>
+  </header>
 
 
-<!-- <div fxFlex="100" fxLayoutAlign="center center" id="survey-view-survey" class="background-survey-form">
-  <mat-toolbar fxLayoutAlign="center center" matDialogTitle class="mat-primary m-0">
-    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-      <span class="title dialog-title">{{ surveyTitle }}</span>
-    </div>
-  </mat-toolbar>
 
-
-  <div class="survey-page-wrap height-100" *ngIf="!showLogin">
+  <div class="survey-page-wrap" *ngIf="!showLogin">
     <div class="survey-form-hold">
-      <mat-card>
+      <mat-card class="survey-mat-card">
         <mat-card-content>
           <div id="surveyElement"></div>
           <div id="surveyResult"></div>
@@ -46,54 +51,8 @@
     </div>
   </div>
 
-
-  <div id="survey-view-footer">
-    <div class="container custom-center">
-      <span>Powered by</span>
-      <img src="assets/images/cp_logo_text.png" alt="">
-    </div>
-  </div>
-
-</div> -->
-
-<div fxFlex="100" fxLayoutAlign="center center" id="survey-view-survey" class="background-survey-form">
-<header>
-  <mat-toolbar fxLayoutAlign="center center" matDialogTitle class="mat-primary m-0">
-      <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-        <div mat-card-avatar class="example-header-image"></div>
-      </div>
-      <!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
-      <span class="example-card-title hidden-xs">Clear Picture</span>
-      <span class="example-spacer"></span>
-      <span *ngIf="loggedInvitee" class="example-invite">Hi, {{loggedInvitee}}</span>
-  </mat-toolbar>
-</header>
-
-
-
-    <!-- <div class="col-md-2"> -->
-        <!-- <mat-card class="example-card"> -->
-            <!-- <mat-card-header> -->
-              <!-- <div mat-card-avatar class="example-header-image"> -->
-              <!-- </div> -->
-              <!-- <br> -->
-              <!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
-
-            <!-- </mat-card-header> -->
-        <!-- </mat-card> -->
-    <!-- </div> -->
-    <!-- <div class="col-md-10"> -->
-      <div class="survey-page-wrap height-100" *ngIf="!showLogin">
-          <div class="survey-form-hold">
-            <mat-card class="survey-mat-card">
-              <mat-card-content>
-                <div id="surveyElement"></div>
-                <div id="surveyResult"></div>
-              </mat-card-content>
-            </mat-card>
-          </div>
-      </div>
-    <!-- </div> -->
+  <div id="divViewSummary"><a class='btn sv_preview_btn' (click)="viewSummary()" >View Summary</a></div>
+  <div id="divViewSurvey"><a class='btn sv_preview_btn' (click)="viewSurvey(true)" >Edit Survey</a></div>
 
 
   <div id="survey-view-footer">

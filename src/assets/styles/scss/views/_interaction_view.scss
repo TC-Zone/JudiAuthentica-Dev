@@ -103,6 +103,10 @@
   border-radius: 2px;
 }
 
+#divViewSummary, #divViewSurvey{
+  text-align: center;
+}
+
 .sv_preview_btn:hover {
   background-color: #339fd6;
   color: #fff;
@@ -110,4 +114,8 @@
 
 #surveyResult {
   text-align: center;
+}
+
+.sv-q-col-1 label span{
+  font-weight: 400 !important;
 }
