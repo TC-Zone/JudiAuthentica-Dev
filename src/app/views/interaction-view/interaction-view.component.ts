@@ -185,16 +185,6 @@ export class InteractionViewComponent implements OnInit {
 
       localStorage.setItem("surveyResult", JSON.stringify(result.data));
 
-
-      // Remove Temporary saved survey results and empty the survey data (by prasad kumara)
-      if (localStorage.getItem('surveyType') !== 'private') {
-        localStorage.removeItem(localStorage.getItem('publicSurveyName'));
-        surveyModel.data = '';
-      } else {
-        localStorage.removeItem(localStorage.getItem('privateSurveyName'));
-        surveyModel.data = '';
-      }
-
       // document.getElementById("surveyResult").innerHTML = "<a class='btn sv_preview_btn' href='" + window.location.href + "&preview=true' >View Summary</a>";
 
 
@@ -287,6 +277,12 @@ export class InteractionViewComponent implements OnInit {
         '</div>';
 
       document.getElementById("surveyElement").innerHTML = thankYouMsg;
+      // Remove Temporary saved survey results and empty the survey data (by prasad kumara)
+      if (localStorage.getItem('surveyType') !== 'private') {
+        localStorage.removeItem(localStorage.getItem('publicSurveyName'));
+      } else {
+        localStorage.removeItem(localStorage.getItem('privateSurveyName'));
+      }
 
     });
 
@@ -301,7 +297,7 @@ export class InteractionViewComponent implements OnInit {
     }
 
     Survey.SurveyNG.render("surveyElement", { model: surveyModel });
-    
+
     if (isEditable) {
 
       // Hide the answer later button when view the summery of the survey (by prasad kumara)
