@@ -191,13 +191,13 @@ export class InteractionViewComponent implements OnInit {
       }
 
       if(options.question.getType() === "matrix"){
-        classes.root = "table sv_q_matrix"; 
+        classes.root = "table sv_q_matrix";
       }
     });
 
     Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 
-    
+
     // .............. ON COMPLET START HERE ..........................
     surveyModel.onComplete.add(function (result) {
 
@@ -206,7 +206,7 @@ export class InteractionViewComponent implements OnInit {
       document.getElementById("surveyResult").innerHTML = "<a class='btn sv_preview_btn' href='" + window.location.href + "&preview=true' >View Summary</a>";
 
 
-      console.log("..............SURVEY ANSWER RESULR/.............");
+      console.log("..............SURVEY ANSWER RESULT/.............");
       console.log(result);
 
       // ------- new start --------

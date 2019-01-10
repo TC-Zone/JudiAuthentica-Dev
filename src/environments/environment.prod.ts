@@ -8,6 +8,14 @@ export const environment = {
   productimageUrl :"https://authentican60aazs63l.ca1.hana.ondemand.com/product/",
   evoteimageUrl: "https://authentican60aazs63l.ca1.hana.ondemand.com/survey/",
 
+  // SAP NEW 32GB -  DEV TEST
+  // productApiURL:'https://authenticak84f365ea.ca1.hana.ondemand.com/product/api/',
+  // surveyApiURL:'https://authenticak84f365ea.ca1.hana.ondemand.com/survey/api/',
+  // userApiUrl:'https://authenticak84f365ea.ca1.hana.ondemand.com/user',
+  // productimageUrl:'https://authenticak84f365ea.ca1.hana.ondemand.com/product',
+  // evoteimageUrl:'https://authenticak84f365ea.ca1.hana.ondemand.com/survey',
+
+
   // LOCALE
   // productApiURL: "http://localhost:10001/api/",
   // surveyApiURL: "http://localhost:10002/api/",
