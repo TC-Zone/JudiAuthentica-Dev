@@ -197,7 +197,7 @@ var InteractionViewComponent = /** @class */ (function () {
         surveyModel.onComplete.add(function (result) {
             localStorage.setItem("surveyResult", JSON.stringify(result.data));
             document.getElementById("surveyResult").innerHTML = "<a class='btn sv_preview_btn' href='" + window.location.href + "&preview=true' >View Summary</a>";
-            console.log("..............SURVEY ANSWER RESULR/.............");
+            console.log("..............SURVEY ANSWER RESULT/.............");
             console.log(result);
             // ------- new start --------
             pageArray.forEach(function (element) {
