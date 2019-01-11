@@ -423,14 +423,10 @@ export class NavigationService {
     },
     {
       name: "Future Survey",
-      type: "dropDown",
+      type: "link",
       tooltip: "Future Survey",
       icon: "language",
-      state: "future-survey",
-      sub: [
-        { name: "Future Survey Catalog", state: "sList" }
-        //{ name: "Future Survey Designer", state: "sEditor" }
-      ]
+      state: "future-survey"
     },
     // ,
     // {
