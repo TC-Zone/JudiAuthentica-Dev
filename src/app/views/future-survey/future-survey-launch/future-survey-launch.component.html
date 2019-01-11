@@ -87,13 +87,13 @@
         </mat-form-field>
       </div>
       <!-- Csv File Headers -->
-      <!-- <div *ngIf="!isPublic && csvFile !== true && !launchForm.controls['isPredefined'].value" id="csvHeaders" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1" >
-        <div  *ngFor="let header of csvHeadersArray; let i=index" fxFlex="60" class="pr-1">
-          <div [formGroupName]="i">
-            <mat-checkbox formControlName='value' class="full-width" [checked]="header.headerChecked" [disabled]="header.headerDisabled" value="header.headerValue">{{header.headerName}}</mat-checkbox>
-          </div>
+      <div *ngIf="!isPublic && csvFile !== true && !launchForm.controls['isPredefined'].value" id="csvHeaders" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1" >
+        <div  *ngFor="let header of csvHeadersArray; let i=index" fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input [disabled]="header.headerDisabled" matInput value="{{header.headerName}}" placeholder="{{header.headerName}}"/>
+          </mat-form-field>
         </div>
-      </div> -->
+      </div>
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">
