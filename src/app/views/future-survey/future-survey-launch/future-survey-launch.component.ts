@@ -53,8 +53,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
   public csvFile;
   public csvFileName;
   public csvHeadersArray: any[];
-  public requiredCsvHeaders = ['name', 'email', 'user_name', 'password'];
-  // ansTemplateArray: FormArray;
+  ansTemplateArray: FormArray;
   // email regex
   // tslint:disable-next-line:max-line-length
   public emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -127,10 +126,10 @@ export class FutureSurveyLaunchComponent implements OnInit {
       userNamePasswordType : [fieldItem.userNamePasswordType || ''],
       inviteeGroupName : [fieldItem.inviteeGroupName || '', Validators.required],
       uploadCsvFile : [fieldItem.uploadCsvFile, Validators.required],
-      sharebleLink : [fieldItem.sharebleLink || '']
-      // csvHeaders : this.fb.array([])
+      sharebleLink : [fieldItem.sharebleLink || ''],
+      csvHeaders : this.fb.array([])
     });
-    // this.patch(fieldItem.csvHeaders);
+    this.patch(fieldItem.csvHeaders);
   }
 
   launchFutureSurvey() {
@@ -141,24 +140,26 @@ export class FutureSurveyLaunchComponent implements OnInit {
     console.log(this.invitees);
   }
 
-  // patch(fields?) {
-  //   const control = <FormArray>this.launchForm.controls['csvHeaders'];
-  //   this.ansTemplateArray = control;
-  //   if (!fields) {
-  //     control.push(this.initAnswerTemplate());
-  //     return;
-  //   }
-  //   fields.forEach(x => {
-  //     control.push(this.initAnswerTemplate(x.value));
-  //   });
-  // }
+  patch(fields?) {
+    console.log('form controll----------------------');
+    console.log(fields);
+    const control = <FormArray>this.launchForm.controls['csvHeaders'];
+    this.ansTemplateArray = control;
+    if (!fields) {
+      control.push(this.initAnswerTemplate());
+      return;
+    }
+    fields.forEach(x => {
+      control.push(this.initAnswerTemplate(x.value));
+    });
+  }
 
-  // initAnswerTemplate(value?) {
-  //   console.log(' SET  : ' + value);
-  //   return this.fb.group({
-  //     value: [value || '']
-  //   });
-  // }
+  initAnswerTemplate(value?) {
+    console.log(' SET  : ' + value);
+    return this.fb.group({
+      value: [value || '']
+    });
+  }
 
   // check csv file format
   onFileChange(event) {
@@ -285,21 +286,29 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
   // Create CSV File Headers
   createCsvFileHeaders(headersArray) {
-    console.log('CSV HEADER BRFORE UPDATE');
-    console.log(this.csvHeadersArray);
     const tempArray = [];
     for (let i = 0; i < headersArray.length; i++) {
-      tempArray.push({
-        headerName : headersArray[i],
-        headerValue : headersArray[i],
-        headerChecked : true,
-        headerDisabled : false
-      });
-      console.log(tempArray);
+      if (headersArray[i] !== '') {
+        if (!this.getRequiredHeaders(headersArray[i])) {
+          tempArray.push({
+            headerName : headersArray[i],
+            headerValue : headersArray[i],
+            headerChecked : true,
+            headerDisabled : false
+          });
+        } /*else {
+          tempArray.push({
+            headerName : headersArray[i],
+            headerValue : headersArray[i],
+            headerChecked : true,
+            headerDisabled : false
+          });
+        }*/
+      }
     }
     this.csvHeadersArray = tempArray;
     console.log('CSV HEADER AFTER UPDATE');
-    console.log(tempArray);
+    console.log(this.csvHeadersArray);
   }
 
   // predefine invitee group validation
@@ -324,6 +333,21 @@ export class FutureSurveyLaunchComponent implements OnInit {
     inviteeGroup.updateValueAndValidity();
     uploadCsvFile.updateValueAndValidity();
     inviteeGroupName.updateValueAndValidity();
+  }
+
+  getRequiredHeaders(headerName) {
+    switch (headerName) {
+      case 'name':
+        return true;
+      case 'email':
+        return true;
+      case 'user_name':
+        return true;
+      case 'password':
+        return true;
+      default :
+        return false;
+    }
   }
 
 }
