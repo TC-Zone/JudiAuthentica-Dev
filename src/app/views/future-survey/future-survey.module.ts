@@ -17,7 +17,8 @@ import {
   MatDialogModule,
   MatRadioModule,
   MatExpansionModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatDatepickerModule
 } from "@angular/material";
 
 import { StarRatingModule } from "angular-star-rating";
@@ -63,7 +64,8 @@ export let InjectorInstance: Injector;
     FormsModule,
     MatCheckboxModule,
     RouterModule.forChild(FutureSurveyRoutes),
-    SharedModule
+    SharedModule,
+    MatDatepickerModule
   ],
   declarations: [
     FutureSurveyComponent,
