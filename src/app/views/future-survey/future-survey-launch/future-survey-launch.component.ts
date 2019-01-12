@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, Renderer2 } from "@angular/core";
-import { egretAnimations } from "../../../shared/animations/egret-animations";
+import { Component, OnInit, Inject, Renderer2 } from '@angular/core';
+import { egretAnimations } from '../../../shared/animations/egret-animations';
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
@@ -7,32 +7,32 @@ import {
   MAT_DATE_FORMATS,
   DateAdapter,
   MAT_DATE_LOCALE
-} from "@angular/material";
-import { FormBuilder, FormGroup, Validators, FormArray } from "@angular/forms";
-import { FutureSurveyService } from "../future-survey.service";
-import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
-import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
-import { DateValidator } from "../../../utility/dateValidator";
-import { MomentDateAdapter } from "@angular/material-moment-adapter";
-import { AppDataConversionService } from "app/shared/services/data-conversion.service";
-import { LoginRequest } from "../../interaction-view/interaction-view.component";
-import * as moment from "moment";
+} from '@angular/material';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FutureSurveyService } from '../future-survey.service';
+import { AppErrorService } from '../../../shared/services/app-error/app-error.service';
+import { AppLoaderService } from '../../../shared/services/app-loader/app-loader.service';
+import { DateValidator } from '../../../utility/dateValidator';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { AppDataConversionService } from 'app/shared/services/data-conversion.service';
+import { LoginRequest } from '../../interaction-view/interaction-view.component';
+import * as moment from 'moment';
 
 export const MY_FORMATS = {
   parse: {
-    dateInput: "YYYY-MM-DD"
+    dateInput: 'YYYY-MM-DD'
   },
   display: {
-    dateInput: "YYYY-MM-DD",
-    monthYearLabel: "MMM YYYY",
-    dateA11yLabel: "YYYY-MM-DD",
-    monthYearA11yLabel: "MMMM YYYY"
+    dateInput: 'YYYY-MM-DD',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'YYYY-MM-DD',
+    monthYearA11yLabel: 'MMMM YYYY'
   }
 };
 
 @Component({
-  selector: "app-future-survey-launch",
-  templateUrl: "./future-survey-launch.component.html",
+  selector: 'app-future-survey-launch',
+  templateUrl: './future-survey-launch.component.html',
   animations: egretAnimations,
   providers: [
     {
@@ -58,24 +58,24 @@ export class FutureSurveyLaunchComponent implements OnInit {
   ansTemplateArray: FormArray;
   // email regex
   // tslint:disable-next-line:max-line-length
-  public emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  public emailPattern = /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   public statusArray = [
-    { id: 0, status: "On Premise", style: "accent" },
-    { id: 1, status: "Launched", style: "primary" },
-    { id: 2, status: "Offline", style: "default" }
+    { id: 0, status: 'On Premise', style: 'accent' },
+    { id: 1, status: 'Launched', style: 'primary' },
+    { id: 2, status: 'Offline', style: 'default' }
   ];
 
   // csv validation message
-  private MISSING_NAME: string = "Essential Name field is missing!";
-  private MISSING_EMAIL: string = "Essential E mail field is missing!";
-  private MISSING_RECORD: string = "Could not find accurate invitee record!";
-  private EMAIL_FORMAT: string = "Incorrect format for E mail";
+  private MISSING_NAME: string = 'Essential Name field is missing!';
+  private MISSING_EMAIL: string = 'Essential E mail field is missing!';
+  private MISSING_RECORD: string = 'Could not find accurate invitee record!';
+  private EMAIL_FORMAT: string = 'Incorrect format for E mail';
 
   public currentStatus;
 
   // Invitation request related arrays
-  public requiredFields: any[] = ["name", "email", "username", "password"];
+  public requiredFields: any[] = ['name', 'email', 'username', 'password'];
   public customFields: any[] = [];
 
   constructor(
@@ -85,7 +85,8 @@ export class FutureSurveyLaunchComponent implements OnInit {
     public futureSurveyService: FutureSurveyService,
     private snack: MatSnackBar,
     private errDialog: AppErrorService,
-    private conversionService: AppDataConversionService
+    private conversionService: AppDataConversionService,
+    private loader: AppLoaderService
   ) {}
 
   ngOnInit() {
@@ -105,36 +106,42 @@ export class FutureSurveyLaunchComponent implements OnInit {
       return status.id === surveyStatus;
     });
 
-    console.log("current Status");
+    console.log('current Status');
     console.log(this.currentStatus[0]);
 
     if (this.isPublic) {
       // this.buildLaunchForm(this.data);
-      console.log("SURVEY ID : " + this.surveyObj.id);
+      console.log('SURVEY ID : ' + this.surveyObj.id);
       this.link = this.futureSurveyService.getPublicSurveyLink(
         this.surveyObj.id
       );
-      console.log("The link : " + this.link);
+      console.log('The link : ' + this.link);
     }
 
     // Manage validation when select predefine invitee group
     this.launchForm
-      .get("isPredefined")
+      .get('isPredefined')
       .valueChanges.subscribe(value =>
         this.predefineInviteeGroupValidation(value)
+      );
+    // validate expire Date
+    this.launchForm
+      .get('endDate')
+      .valueChanges.subscribe(value =>
+        this.validateExpireDate(value)
       );
   }
 
   buildLaunchForm(fieldItem) {
     this.launchForm = this.fb.group({
-      startDate: [fieldItem.startDate || "", Validators.required],
-      endDate: [fieldItem.endDate || "", Validators.required],
-      isPredefined: [fieldItem.isPredefined || ""],
-      inviteeGroup: [fieldItem.inviteeGroup || ""],
-      userNamePasswordType: [fieldItem.userNamePasswordType || ""],
-      inviteeGroupName: [fieldItem.inviteeGroupName || "", Validators.required],
+      startDate: [fieldItem.startDate || '', Validators.required],
+      endDate: [fieldItem.endDate || '', Validators.required],
+      isPredefined: [fieldItem.isPredefined || ''],
+      inviteeGroup: [fieldItem.inviteeGroup || ''],
+      userNamePasswordType: [fieldItem.userNamePasswordType || ''],
+      inviteeGroupName: [fieldItem.inviteeGroupName || '', Validators.required],
       uploadCsvFile: [fieldItem.uploadCsvFile, Validators.required],
-      sharebleLink: [fieldItem.sharebleLink || ""],
+      sharebleLink: [fieldItem.sharebleLink || ''],
       csvHeaders: this.fb.array([])
     });
     this.patch(fieldItem.csvHeaders);
@@ -142,16 +149,16 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
   launchFutureSurvey() {
     this.dialogRef.close();
-    let fsId = this.surveyObj.id;
-    let formValue = this.launchForm;
-    let startDate = moment(formValue.get("startDate").value).format(
-      "YYYY-MM-DD"
+    const fsId = this.surveyObj.id;
+    const formValue = this.launchForm;
+    const startDate = moment(formValue.get('startDate').value).format(
+      'YYYY-MM-DD'
     );
-    let endDate = moment(formValue.get("endDate").value).format("YYYY-MM-DD");
-    let inviteeGroupName = formValue.get("inviteeGroupName").value;
-    let loginStrategy = formValue.get("userNamePasswordType").value;
+    const endDate = moment(formValue.get('endDate').value).format('YYYY-MM-DD');
+    const inviteeGroupName = formValue.get('inviteeGroupName').value;
+    const loginStrategy = formValue.get('userNamePasswordType').value;
 
-    let sendReq: InviteRequest = new InviteRequest(
+    const sendReq: InviteRequest = new InviteRequest(
       fsId,
       startDate,
       endDate,
@@ -161,15 +168,15 @@ export class FutureSurveyLaunchComponent implements OnInit {
       this.invitees
     );
 
-    console.log("FINALE REQUEST......................");
+    console.log('FINALE REQUEST......................');
 
     console.log(sendReq);
   }
 
   patch(fields?) {
-    console.log("form controll----------------------");
+    console.log('form controll----------------------');
     console.log(fields);
-    const control = <FormArray>this.launchForm.controls["csvHeaders"];
+    const control = <FormArray>this.launchForm.controls['csvHeaders'];
     this.ansTemplateArray = control;
     if (!fields) {
       control.push(this.initAnswerTemplate());
@@ -181,24 +188,37 @@ export class FutureSurveyLaunchComponent implements OnInit {
   }
 
   initAnswerTemplate(value?) {
-    console.log(" SET  : " + value);
+    console.log(' SET  : ' + value);
     return this.fb.group({
-      value: [value || ""]
+      value: [value || '']
     });
   }
 
   // check csv file format
   onFileChange(event) {
+    // open loader
+    this.loader.open('File Uploading');
+    // empty arrays
+    if (Array.isArray(this.invitees)) {
+      this.invitees.length = 0;
+      this.invitees = [];
+    }
+    if (Array.isArray(this.customFields)) {
+      this.customFields.length = 0;
+      this.customFields = [];
+    }
+
     const files: FileList = event.target.files;
+
     if (files && files.length > 0) {
       // this.futureSurveyCommonConfigComponent.csvFileName = files.item(0).name;
       this.csvFileName = files.item(0).name;
       const ext = this.csvFileName
-        .substring(this.csvFileName.lastIndexOf(".") + 1)
+        .substring(this.csvFileName.lastIndexOf('.') + 1)
         .toLowerCase();
-      console.log("ext : " + ext);
+      console.log('ext : ' + ext);
 
-      if (ext === "csv") {
+      if (ext === 'csv') {
         // this.futureSurveyCommonConfigComponent.csvFile = files.item(0);
         this.csvFile = files.item(0);
         const reader: FileReader = new FileReader();
@@ -206,7 +226,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
         reader.onload = () => {
           const readerResult = reader.result;
-          const resultStr = readerResult + "";
+          const resultStr = readerResult + '';
 
           if (resultStr && resultStr.length > 0) {
             // const jsonCsv: any[] = this.conversionService.CSV2JSON(
@@ -215,18 +235,19 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
             const formattedCsvArr = this.customizeCsvContent(readerResult);
             const jsonCsv = this.conversionService.CSV2JSON(formattedCsvArr);
-            console.log("CSVJSON");
+            // console.log('CSVJSON');
 
-            console.log(jsonCsv);
+            // console.log(jsonCsv);
 
             const validationResult = this.validateCSVContent(jsonCsv);
             this.invitees = validationResult.correctSet;
             const fullJson = this.conversionService.CSVToArray(readerResult);
             this.createCsvFileHeaders(fullJson[0]);
           }
+          this.loader.close();
         };
       } else {
-        this.snack.open("Invalid File type! Please upload csv file!", "close", {
+        this.snack.open('Invalid File type! Please upload csv file!', 'close', {
           duration: 2000
         });
       }
@@ -234,9 +255,9 @@ export class FutureSurveyLaunchComponent implements OnInit {
   }
 
   customizeCsvContent(csvContent) {
-    let csvArr = this.conversionService.CSVToArray(csvContent);
-    console.log("ARRAY TO BE CUSTOMIZE");
-    console.log(csvArr);
+    const csvArr = this.conversionService.CSVToArray(csvContent);
+    // console.log('ARRAY TO BE CUSTOMIZE');
+    // console.log(csvArr);
 
     const headers: any = csvArr[0];
     let fieldIndex = 0;
@@ -244,7 +265,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
     headers.forEach(header => {
       if (!this.requiredFields.includes(header)) {
         fieldIndex++;
-        const fieldName = "customField" + fieldIndex;
+        const fieldName = 'customField' + fieldIndex;
         headers[headerIndex] = fieldName;
         const customField: CustomField = new CustomField(fieldName, header);
         this.customFields.push(customField);
@@ -253,15 +274,15 @@ export class FutureSurveyLaunchComponent implements OnInit {
       headerIndex++;
     });
 
-    // console.log("MANUPULATED HEADERS ..............");
+    // console.log('MANUPULATED HEADERS ..............');
     // console.log(headers);
 
-    // console.log(" this.customFields");
+    // console.log(' this.customFields');
     // console.log(this.customFields);
 
     // csvArr[0] = headers;
 
-    // console.log("NEW CSV ARRAY :.............");
+    // console.log('NEW CSV ARRAY :.............');
     // console.log(csvArr);
 
     return csvArr;
@@ -276,21 +297,21 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
     if (totalLength > 0) {
       jsonCsv.forEach(line => {
-        let name = line.name;
-        let email = line.email;
-        let username = line.username;
-        let password = line.password;
-        let customField1 = line.customField1;
-        let customField2 = line.customField2;
-        let customField3 = line.customField3;
+        const name = line.name;
+        const email = line.email;
+        const username = line.username;
+        const password = line.password;
+        const customField1 = line.customField1;
+        const customField2 = line.customField2;
+        const customField3 = line.customField3;
 
-        if (name) {
-          if (email) {
-            // let boolMail = this.emailPattern.test(email);
-            let boolMail = true;
-            console.log("EMAIL VALID : " + boolMail);
+        // if (name) {
+        //   if (email) {
+        //     // let boolMail = this.emailPattern.test(email);
+        //     let boolMail = true;
+        //     console.log('EMAIL VALID : ' + boolMail);
 
-            if (boolMail) {
+        //     if (boolMail) {
               let element: any[];
               if (correctSet.length > 0) {
                 element = correctSet.filter(item => {
@@ -327,15 +348,15 @@ export class FutureSurveyLaunchComponent implements OnInit {
                   )
                 );
               }
-            } else {
-              errorSet.push(this.EMAIL_FORMAT);
-            }
-          } else {
-            errorSet.push(this.MISSING_EMAIL);
-          }
-        } else {
-          errorSet.push(this.MISSING_NAME);
-        }
+        //     } else {
+        //       errorSet.push(this.EMAIL_FORMAT);
+        //     }
+        //   } else {
+        //     errorSet.push(this.MISSING_EMAIL);
+        //   }
+        // } else {
+        //   errorSet.push(this.MISSING_NAME);
+        // }
       });
     }
     const fineLength = correctSet.length;
@@ -344,25 +365,25 @@ export class FutureSurveyLaunchComponent implements OnInit {
     if (fineLength == 0) {
       this.resetFileInput();
       this.errDialog.showError({
-        title: "Error",
+        title: 'Error',
         clientError: this.MISSING_RECORD,
-        type: "client_error"
+        type: 'client_error'
       });
     } else {
       if (errorLength > 0) {
         this.snack.open(
-          "Successfully recognized " +
+          'Successfully recognized ' +
             fineLength +
-            " out of " +
+            ' out of ' +
             totalLength +
-            " records with warning !",
-          "close",
+            ' records with warning !',
+          'close',
           { duration: 2000 }
         );
       } else {
         this.snack.open(
-          "Successfully recognized all records : " + totalLength,
-          "close",
+          'Successfully recognized all records : ' + totalLength,
+          'close',
           { duration: 2000 }
         );
       }
@@ -374,17 +395,17 @@ export class FutureSurveyLaunchComponent implements OnInit {
   // reset the file input
   resetFileInput() {
     this.csvFile = undefined;
-    const fileControl = this.launchForm.get("userFile");
-    console.log("FI:E CONTRO ..............");
+    const fileControl = this.launchForm.get('userFile');
+    console.log('FI:E CONTRO ..............');
     console.log(fileControl);
-    fileControl.setValue("");
+    fileControl.setValue('');
   }
 
   // Create CSV File Headers
   createCsvFileHeaders(headersArray) {
     const tempArray = [];
     for (let i = 0; i < headersArray.length; i++) {
-      if (headersArray[i] !== "") {
+      if (headersArray[i] !== '') {
         if (!this.getRequiredHeaders(headersArray[i])) {
           tempArray.push({
             headerName: headersArray[i],
@@ -403,16 +424,16 @@ export class FutureSurveyLaunchComponent implements OnInit {
       }
     }
     this.csvHeadersArray = tempArray;
-    console.log("CSV HEADER AFTER UPDATE");
-    console.log(this.csvHeadersArray);
+    // console.log('CSV HEADER AFTER UPDATE');
+    // console.log(this.csvHeadersArray);
   }
 
   // predefine invitee group validation
   predefineInviteeGroupValidation(isPredefined) {
-    const userNamePasswordType = this.launchForm.get("userNamePasswordType");
-    const inviteeGroup = this.launchForm.get("inviteeGroup");
-    const uploadCsvFile = this.launchForm.get("uploadCsvFile");
-    const inviteeGroupName = this.launchForm.get("inviteeGroupName");
+    const userNamePasswordType = this.launchForm.get('userNamePasswordType');
+    const inviteeGroup = this.launchForm.get('inviteeGroup');
+    const uploadCsvFile = this.launchForm.get('uploadCsvFile');
+    const inviteeGroupName = this.launchForm.get('inviteeGroupName');
 
     if (isPredefined) {
       userNamePasswordType.setValidators(Validators.required);
@@ -433,16 +454,34 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
   getRequiredHeaders(headerName) {
     switch (headerName) {
-      case "name":
+      case 'name':
         return true;
-      case "email":
+      case 'email':
         return true;
-      case "username":
+      case 'username':
         return true;
-      case "password":
+      case 'password':
         return true;
       default:
         return false;
+    }
+  }
+
+  // validate expire date according to start date endDate
+  validateExpireDate(endDate) {
+    const startDate = this.launchForm.get('startDate').value;
+    const constEndDate = this.launchForm.controls['endDate'];
+    if (startDate >= endDate) {
+      constEndDate.setErrors({'incorrect': true});
+      this.snack.open(
+        'Expire Date should be Greater than Start Date',
+        'close',
+        { duration: 2000 }
+      );
+      // console.log('incorrect true');
+    } else {
+      constEndDate.setErrors(null);
+      // console.log('incorrect false');
     }
   }
 }
