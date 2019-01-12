@@ -229,16 +229,8 @@ export class FutureSurveyLaunchComponent implements OnInit {
           const resultStr = readerResult + '';
 
           if (resultStr && resultStr.length > 0) {
-            // const jsonCsv: any[] = this.conversionService.CSV2JSON(
-            //   readerResult
-            // );
-
             const formattedCsvArr = this.customizeCsvContent(readerResult);
             const jsonCsv = this.conversionService.CSV2JSON(formattedCsvArr);
-            // console.log('CSVJSON');
-
-            // console.log(jsonCsv);
-
             const validationResult = this.validateCSVContent(jsonCsv);
             this.invitees = validationResult.correctSet;
             const fullJson = this.conversionService.CSVToArray(readerResult);
@@ -256,8 +248,6 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
   customizeCsvContent(csvContent) {
     const csvArr = this.conversionService.CSVToArray(csvContent);
-    // console.log('ARRAY TO BE CUSTOMIZE');
-    // console.log(csvArr);
 
     const headers: any = csvArr[0];
     let fieldIndex = 0;
@@ -273,18 +263,6 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
       headerIndex++;
     });
-
-    // console.log('MANUPULATED HEADERS ..............');
-    // console.log(headers);
-
-    // console.log(' this.customFields');
-    // console.log(this.customFields);
-
-    // csvArr[0] = headers;
-
-    // console.log('NEW CSV ARRAY :.............');
-    // console.log(csvArr);
-
     return csvArr;
   }
 
@@ -305,64 +283,22 @@ export class FutureSurveyLaunchComponent implements OnInit {
         const customField2 = line.customField2;
         const customField3 = line.customField3;
 
-        // if (name) {
-        //   if (email) {
-        //     // let boolMail = this.emailPattern.test(email);
-        //     let boolMail = true;
-        //     console.log('EMAIL VALID : ' + boolMail);
-
-        //     if (boolMail) {
-              let element: any[];
-              if (correctSet.length > 0) {
-                element = correctSet.filter(item => {
-                  if (item.name === name && item.email === email) {
-                    return item;
-                  } else if (item.email === email) {
-                    return item;
-                  }
-                });
-
-                if (element.length === 0) {
-                  correctSet.push(
-                    new Invitee(
-                      name,
-                      email,
-                      username,
-                      password,
-                      customField1,
-                      customField2,
-                      customField3
-                    )
-                  );
-                }
-              } else {
-                correctSet.push(
-                  new Invitee(
-                    name,
-                    email,
-                    username,
-                    password,
-                    customField1,
-                    customField2,
-                    customField3
-                  )
-                );
-              }
-        //     } else {
-        //       errorSet.push(this.EMAIL_FORMAT);
-        //     }
-        //   } else {
-        //     errorSet.push(this.MISSING_EMAIL);
-        //   }
-        // } else {
-        //   errorSet.push(this.MISSING_NAME);
-        // }
+        correctSet.push(
+          new Invitee(
+            name,
+            email,
+            username,
+            password,
+            customField1,
+            customField2,
+            customField3
+          )
+        );
       });
     }
     const fineLength = correctSet.length;
-    const errorLength = errorSet.length;
 
-    if (fineLength == 0) {
+    if (fineLength === 0) {
       this.resetFileInput();
       this.errDialog.showError({
         title: 'Error',
@@ -370,23 +306,11 @@ export class FutureSurveyLaunchComponent implements OnInit {
         type: 'client_error'
       });
     } else {
-      if (errorLength > 0) {
-        this.snack.open(
-          'Successfully recognized ' +
-            fineLength +
-            ' out of ' +
-            totalLength +
-            ' records with warning !',
-          'close',
-          { duration: 2000 }
-        );
-      } else {
-        this.snack.open(
-          'Successfully recognized all records : ' + totalLength,
-          'close',
-          { duration: 2000 }
-        );
-      }
+      this.snack.open(
+        'Successfully recognized all records : ' + totalLength,
+        'close',
+        { duration: 2000 }
+      );
     }
 
     return new ValidateRequest(correctSet, errorSet);
@@ -424,8 +348,6 @@ export class FutureSurveyLaunchComponent implements OnInit {
       }
     }
     this.csvHeadersArray = tempArray;
-    // console.log('CSV HEADER AFTER UPDATE');
-    // console.log(this.csvHeadersArray);
   }
 
   // predefine invitee group validation
