@@ -116,18 +116,29 @@ export class FutureSurveyService {
       .pipe(catchError(this.handleError));
   }
 
-
-  createInvitationSetting(invitationReq):Observable<any>{
+  createInvitationSetting(invitationReq): Observable<any> {
     return this.http
-    .post<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInvitation", invitationReq)
-    .pipe(
-      map(data => {
-        console.log('INVITATION CREATE REPONSE');
-        console.log(data);
-        return data.content;
-      }),
-      catchError(this.handleError)
-    );
+      .post<any>(
+        this.surveyApiUrl + "surveys" + "/futureSurveyInvitation",
+        invitationReq
+      )
+      .pipe(
+        map(data => {
+          console.log("INVITATION CREATE REPONSE");
+          console.log(data);
+          return data.content;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  // fetch future survey invitation instance with invitee group details.
+  getInvitationBySurvey(surveyId): Observable<any> {
+    return this.http
+      .get<any>(
+        this.surveyApiUrl + "surveys" + "/futureSurveyInvitation/" + surveyId
+      )
+      .pipe(catchError(this.handleError));
   }
 
   // Fetch public survey link by using survey id
