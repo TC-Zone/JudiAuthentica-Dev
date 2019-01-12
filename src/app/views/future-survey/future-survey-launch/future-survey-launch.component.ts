@@ -430,6 +430,13 @@ export class FutureSurveyLaunchComponent implements OnInit {
       }
     );
   }
+
+  // copy private shareble link
+  copyInputMessage(inputElement){
+    inputElement.select();
+    document.execCommand('copy');
+    inputElement.setSelectionRange(0, 0);
+  }
 }
 
 export class Invitee {

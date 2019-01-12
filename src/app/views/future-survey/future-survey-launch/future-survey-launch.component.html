@@ -81,8 +81,8 @@
       <!-- Public Shareble Link -->
       <div *ngIf="isPublic" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
         <mat-form-field class="full-width">
-          <input [formControl]="launchForm.controls['sharebleLink']" matInput [(ngModel)]="link" placeholder="Get Shareble Link"/>
-          <a matSuffix title="Copy Link" type="btn"><mat-icon >link</mat-icon></a>
+          <input #sharebleLink [formControl]="launchForm.controls['sharebleLink']" matInput [(ngModel)]="link" placeholder="Get Shareble Link"/>
+          <a matSuffix title="Copy Link" type="btn" (click)="copyInputMessage(sharebleLink)"><mat-icon >link</mat-icon></a>
         </mat-form-field>
       </div>
       <!-- Csv File Headers -->
