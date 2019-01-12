@@ -140,7 +140,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
       isPredefined: [fieldItem.isPredefined || ''],
       inviteeGroup: [fieldItem.inviteeGroup || ''],
       userNamePasswordType: [fieldItem.userNamePasswordType || ''],
-      inviteeGroupName: [fieldItem.inviteeGroupName || '', Validators.required],
+      inviteeGroupName: [fieldItem.inviteeGroupName || ''],
       uploadCsvFile: [fieldItem.uploadCsvFile, Validators.required],
       sharebleLink: [fieldItem.sharebleLink || ''],
       csvHeaders: this.fb.array([])
