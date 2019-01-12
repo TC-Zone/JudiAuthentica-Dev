@@ -56,6 +56,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
   public csvFileName;
   public csvHeadersArray: any[];
   ansTemplateArray: FormArray;
+  public inviteeGroups: any;
   // email regex
   // tslint:disable-next-line:max-line-length
   public emailPattern = /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -409,6 +410,25 @@ export class FutureSurveyLaunchComponent implements OnInit {
       constEndDate.setErrors(null);
       // console.log('incorrect false');
     }
+  }
+
+  // fetch invitee group by client id
+  fetchGroupsByClient() {
+    this.futureSurveyService.fetchGroupsByClientId(this.surveyObj.clientId).subscribe(
+      response => {
+        console.log('.....INVITEE GROUP....');
+        this.inviteeGroups = response.content;
+        console.log(this.inviteeGroups);
+      },
+      error => {
+        // this.loader.close();
+        this.errDialog.showErrorWithMessage({
+          title: 'Error',
+          status: error.status,
+          type: 'http_error'
+        });
+      }
+    );
   }
 }
 

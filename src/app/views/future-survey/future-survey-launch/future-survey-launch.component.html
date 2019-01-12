@@ -33,17 +33,16 @@
       <!-- Select predefine Invitee group -->
       <div *ngIf="!isPublic" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
         <div fxFlex="60" class="pr-1">
-          <mat-checkbox [formControl]="launchForm.controls['isPredefined']" class="full-width" value="predefined">Select predefined invitee group</mat-checkbox>
+          <mat-checkbox (click)="fetchGroupsByClient()" [formControl]="launchForm.controls['isPredefined']" class="full-width" value="predefined">Select predefined invitee group</mat-checkbox>
         </div>
       </div>
       <!-- Load saved Invitee group list if check box selected -->
       <div *ngIf="launchForm.controls['isPredefined'].value && !isPublic" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
         <div fxFlex="60" class="pr-1">
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width" *ngFor="let item of inviteeGroups">
             <mat-select [formControl]="launchForm.controls['inviteeGroup']" placeholder="Select A Invitee Group">
-                <mat-option value="1">Group 1</mat-option>
-                <mat-option value="2">Group 2</mat-option>
-                <mat-option value="3">Group 3</mat-option>
+                <mat-option value="">Select A Invitee Group</mat-option>
+                <mat-option value="{{ item.id }}">{{ item.inviteeGroupName }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
