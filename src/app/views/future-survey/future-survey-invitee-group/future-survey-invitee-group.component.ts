@@ -14,4 +14,8 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
   ngOnInit() {
   }
 
+  testClick(){
+
+  }
+
 }
