@@ -397,7 +397,8 @@ export class FutureSurveyLaunchComponent implements OnInit {
   // validate expire date according to start date endDate
   validateExpireDate(endDate) {
     const startDate = this.launchForm.get('startDate').value;
-    const constEndDate = this.launchForm.controls['endDate'];
+    const constEndDate = this.launchForm.get('endDate');
+    const csvFile = this.launchForm.get('uploadCsvFile');
     if (startDate >= endDate) {
       constEndDate.setErrors({'incorrect': true});
       this.snack.open(
@@ -408,6 +409,9 @@ export class FutureSurveyLaunchComponent implements OnInit {
       // console.log('incorrect true');
     } else {
       constEndDate.setErrors(null);
+      if (this.isPublic) {
+        csvFile.setErrors(null);
+      }
       // console.log('incorrect false');
     }
   }
