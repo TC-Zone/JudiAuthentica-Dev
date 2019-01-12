@@ -15,6 +15,8 @@ import { AppLoaderService } from "../../../shared/services/app-loader/app-loader
 import { DateValidator } from "../../../utility/dateValidator";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import { AppDataConversionService } from "app/shared/services/data-conversion.service";
+import { LoginRequest } from "../../interaction-view/interaction-view.component";
+import * as moment from "moment";
 
 export const MY_FORMATS = {
   parse: {
@@ -72,6 +74,10 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
   public currentStatus;
 
+  // Invitation request related arrays
+  public requiredFields: any[] = ["name", "email", "username", "password"];
+  public customFields: any[] = [];
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<FutureSurveyLaunchComponent>,
@@ -122,7 +128,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
   buildLaunchForm(fieldItem) {
     this.launchForm = this.fb.group({
       startDate: [fieldItem.startDate || "", Validators.required],
-      expireDate: [fieldItem.expireDate || "", Validators.required],
+      endDate: [fieldItem.endDate || "", Validators.required],
       isPredefined: [fieldItem.isPredefined || ""],
       inviteeGroup: [fieldItem.inviteeGroup || ""],
       userNamePasswordType: [fieldItem.userNamePasswordType || ""],
@@ -136,10 +142,28 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
   launchFutureSurvey() {
     this.dialogRef.close();
-    console.log("launchForm.value-------------------");
-    console.log(this.launchForm.value);
-    console.log("correct Inviteee list--------");
-    console.log(this.invitees);
+    let fsId = this.surveyObj.id;
+    let formValue = this.launchForm;
+    let startDate = moment(formValue.get("startDate").value).format(
+      "YYYY-MM-DD"
+    );
+    let endDate = moment(formValue.get("endDate").value).format("YYYY-MM-DD");
+    let inviteeGroupName = formValue.get("inviteeGroupName").value;
+    let loginStrategy = formValue.get("userNamePasswordType").value;
+
+    let sendReq: InviteRequest = new InviteRequest(
+      fsId,
+      startDate,
+      endDate,
+      inviteeGroupName,
+      loginStrategy,
+      this.customFields,
+      this.invitees
+    );
+
+    console.log("FINALE REQUEST......................");
+
+    console.log(sendReq);
   }
 
   patch(fields?) {
@@ -185,9 +209,16 @@ export class FutureSurveyLaunchComponent implements OnInit {
           const resultStr = readerResult + "";
 
           if (resultStr && resultStr.length > 0) {
-            const jsonCsv: any[] = this.conversionService.CSV2JSON(
-              readerResult
-            );
+            // const jsonCsv: any[] = this.conversionService.CSV2JSON(
+            //   readerResult
+            // );
+
+            const formattedCsvArr = this.customizeCsvContent(readerResult);
+            const jsonCsv = this.conversionService.CSV2JSON(formattedCsvArr);
+            console.log("CSVJSON");
+
+            console.log(jsonCsv);
+
             const validationResult = this.validateCSVContent(jsonCsv);
             this.invitees = validationResult.correctSet;
             const fullJson = this.conversionService.CSVToArray(readerResult);
@@ -202,6 +233,40 @@ export class FutureSurveyLaunchComponent implements OnInit {
     }
   }
 
+  customizeCsvContent(csvContent) {
+    let csvArr = this.conversionService.CSVToArray(csvContent);
+    console.log("ARRAY TO BE CUSTOMIZE");
+    console.log(csvArr);
+
+    const headers: any = csvArr[0];
+    let fieldIndex = 0;
+    let headerIndex = 0;
+    headers.forEach(header => {
+      if (!this.requiredFields.includes(header)) {
+        fieldIndex++;
+        const fieldName = "customField" + fieldIndex;
+        headers[headerIndex] = fieldName;
+        const customField: CustomField = new CustomField(fieldName, header);
+        this.customFields.push(customField);
+      }
+
+      headerIndex++;
+    });
+
+    // console.log("MANUPULATED HEADERS ..............");
+    // console.log(headers);
+
+    // console.log(" this.customFields");
+    // console.log(this.customFields);
+
+    // csvArr[0] = headers;
+
+    // console.log("NEW CSV ARRAY :.............");
+    // console.log(csvArr);
+
+    return csvArr;
+  }
+
   // validate csv content
   validateCSVContent(jsonCsv: any[]): ValidateRequest {
     const correctSet: any[] = [];
@@ -213,12 +278,16 @@ export class FutureSurveyLaunchComponent implements OnInit {
       jsonCsv.forEach(line => {
         let name = line.name;
         let email = line.email;
-        let user_name = line.user_name;
+        let username = line.username;
         let password = line.password;
+        let customField1 = line.customField1;
+        let customField2 = line.customField2;
+        let customField3 = line.customField3;
 
         if (name) {
           if (email) {
-            let boolMail = this.emailPattern.test(email);
+            // let boolMail = this.emailPattern.test(email);
+            let boolMail = true;
             console.log("EMAIL VALID : " + boolMail);
 
             if (boolMail) {
@@ -234,11 +303,29 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
                 if (element.length === 0) {
                   correctSet.push(
-                    new Invitee(name, email, user_name, password)
+                    new Invitee(
+                      name,
+                      email,
+                      username,
+                      password,
+                      customField1,
+                      customField2,
+                      customField3
+                    )
                   );
                 }
               } else {
-                correctSet.push(new Invitee(name, email, user_name, password));
+                correctSet.push(
+                  new Invitee(
+                    name,
+                    email,
+                    username,
+                    password,
+                    customField1,
+                    customField2,
+                    customField3
+                  )
+                );
               }
             } else {
               errorSet.push(this.EMAIL_FORMAT);
@@ -288,7 +375,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
   resetFileInput() {
     this.csvFile = undefined;
     const fileControl = this.launchForm.get("userFile");
-    console.log('FI:E CONTRO ..............');
+    console.log("FI:E CONTRO ..............");
     console.log(fileControl);
     fileControl.setValue("");
   }
@@ -350,7 +437,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
         return true;
       case "email":
         return true;
-      case "user_name":
+      case "username":
         return true;
       case "password":
         return true;
@@ -364,11 +451,30 @@ export class Invitee {
   constructor(
     public name,
     public email: string,
-    public user_name: string,
-    public password: string
+    public username: string,
+    public password: string,
+    public customField1: string,
+    public customField2: string,
+    public customField3: string
   ) {}
 }
 
 export class ValidateRequest {
   constructor(public correctSet, public errorSet: any[]) {}
+}
+
+export class CustomField {
+  constructor(public fieldName, public displayName: string) {}
+}
+
+export class InviteRequest {
+  constructor(
+    public futureSurveyId: string,
+    public startEnd: string,
+    public endDate: string,
+    public inviteeGroupName: string,
+    public loginStrategy: string,
+    public customFields: any[],
+    public invitees: any[]
+  ) {}
 }

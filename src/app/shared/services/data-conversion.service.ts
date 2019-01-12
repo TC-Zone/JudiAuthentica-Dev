@@ -1,10 +1,8 @@
 import { Injectable } from "../../../../node_modules/@angular/core";
 
-
-
 @Injectable()
-export class AppDataConversionService{
-
+export class AppDataConversionService {
+  //public requiredFields = ["name", "email", "username", "password"];
 
   convertToCsv(dataArray): string {
     let arr = typeof dataArray != "object" ? JSON.parse(dataArray) : dataArray;
@@ -28,7 +26,6 @@ export class AppDataConversionService{
     }
     return str;
   }
-
 
   CSVToArray(strData, strDelimiter?) {
     // Check to see if the delimiter is defined. If not,
@@ -87,18 +84,13 @@ export class AppDataConversionService{
     return arrData;
   }
 
-  CSV2JSON(csv) {
-    var array = this.CSVToArray(csv);
-    console.log('arrays');
-    console.log(array);
-
-
+  CSV2JSON(csvArray) {
     var objArray = [];
-    for (var i = 1; i < array.length; i++) {
+    for (var i = 1; i < csvArray.length; i++) {
       objArray[i - 1] = {};
-      for (var k = 0; k < array[0].length && k < array[i].length; k++) {
-        var key = array[0][k];
-        objArray[i - 1][key] = array[i][k];
+      for (var k = 0; k < csvArray[0].length && k < csvArray[i].length; k++) {
+        var key = csvArray[0][k];
+        objArray[i - 1][key] = csvArray[i][k];
       }
     }
 
@@ -107,6 +99,4 @@ export class AppDataConversionService{
 
     return objArray;
   }
-
-
 }

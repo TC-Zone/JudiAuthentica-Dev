@@ -21,8 +21,8 @@
         <!-- Survey Expire Date -->
         <div fxFlex="50" class="pr-1">
           <mat-form-field class="full-width">
-            <input [formControl]="launchForm.controls['expireDate']" matInput name="expireDate" [min]="tomorrow" [matDatepicker]="expireDatePicker" [formControl]=""
-              required placeholder="Expire Date">
+            <input [formControl]="launchForm.controls['endDate']" matInput name="endDate" [min]="tomorrow" [matDatepicker]="expireDatePicker" [formControl]=""
+              required placeholder="End Date">
             <mat-datepicker-toggle matSuffix [for]="expireDatePicker">
               <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
             </mat-datepicker-toggle>
