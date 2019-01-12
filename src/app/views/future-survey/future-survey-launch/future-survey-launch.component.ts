@@ -148,11 +148,10 @@ export class FutureSurveyLaunchComponent implements OnInit {
   }
 
   launchFutureSurvey() {
-    this.dialogRef.close();
-    const fsId = this.surveyObj.id;
-    const formValue = this.launchForm;
-    const startDate = moment(formValue.get('startDate').value).format(
-      'YYYY-MM-DD'
+    let fsId = this.surveyObj.id;
+    let formValue = this.launchForm;
+    let startDate = moment(formValue.get("startDate").value).format(
+      "YYYY-MM-DD"
     );
     const endDate = moment(formValue.get('endDate').value).format('YYYY-MM-DD');
     const inviteeGroupName = formValue.get('inviteeGroupName').value;
@@ -167,10 +166,9 @@ export class FutureSurveyLaunchComponent implements OnInit {
       this.customFields,
       this.invitees
     );
-
     console.log('FINALE REQUEST......................');
-
     console.log(sendReq);
+    this.dialogRef.close(sendReq);
   }
 
   patch(fields?) {
@@ -216,7 +214,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
       const ext = this.csvFileName
         .substring(this.csvFileName.lastIndexOf('.') + 1)
         .toLowerCase();
-      console.log('ext : ' + ext);
+      //console.log("ext : " + ext);
 
       if (ext === 'csv') {
         // this.futureSurveyCommonConfigComponent.csvFile = files.item(0);
@@ -231,10 +229,14 @@ export class FutureSurveyLaunchComponent implements OnInit {
           if (resultStr && resultStr.length > 0) {
             const formattedCsvArr = this.customizeCsvContent(readerResult);
             const jsonCsv = this.conversionService.CSV2JSON(formattedCsvArr);
+            //console.log("CSVJSON");
+            //console.log(jsonCsv);
             const validationResult = this.validateCSVContent(jsonCsv);
             this.invitees = validationResult.correctSet;
             const fullJson = this.conversionService.CSVToArray(readerResult);
             this.createCsvFileHeaders(fullJson[0]);
+            //console.log('ERROR SET : ');
+            //console.log(validationResult);
           }
           this.loader.close();
         };
@@ -247,7 +249,9 @@ export class FutureSurveyLaunchComponent implements OnInit {
   }
 
   customizeCsvContent(csvContent) {
-    const csvArr = this.conversionService.CSVToArray(csvContent);
+    let csvArr = this.conversionService.CSVToArray(csvContent);
+    //console.log("ARRAY TO BE CUSTOMIZE");
+    //console.log(csvArr);
 
     const headers: any = csvArr[0];
     let fieldIndex = 0;
@@ -320,8 +324,6 @@ export class FutureSurveyLaunchComponent implements OnInit {
   resetFileInput() {
     this.csvFile = undefined;
     const fileControl = this.launchForm.get('userFile');
-    console.log('FI:E CONTRO ..............');
-    console.log(fileControl);
     fileControl.setValue('');
   }
 
@@ -335,7 +337,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
             headerName: headersArray[i],
             headerValue: headersArray[i],
             headerChecked: true,
-            headerDisabled: false
+            headerDisabled: true
           });
         } /*else {
           tempArray.push({
@@ -348,6 +350,8 @@ export class FutureSurveyLaunchComponent implements OnInit {
       }
     }
     this.csvHeadersArray = tempArray;
+    //console.log("CSV HEADER AFTER UPDATE");
+    //console.log(this.csvHeadersArray);
   }
 
   // predefine invitee group validation
@@ -431,7 +435,7 @@ export class CustomField {
 export class InviteRequest {
   constructor(
     public futureSurveyId: string,
-    public startEnd: string,
+    public startDate: string,
     public endDate: string,
     public inviteeGroupName: string,
     public loginStrategy: string,

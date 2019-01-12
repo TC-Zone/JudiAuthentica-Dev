@@ -116,6 +116,20 @@ export class FutureSurveyService {
       .pipe(catchError(this.handleError));
   }
 
+
+  createInvitationSetting(invitationReq):Observable<any>{
+    return this.http
+    .post<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInvitation", invitationReq)
+    .pipe(
+      map(data => {
+        console.log('INVITATION CREATE REPONSE');
+        console.log(data);
+        return data.content;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   // Fetch public survey link by using survey id
   getPublicSurveyLink(id) {
     let link =
