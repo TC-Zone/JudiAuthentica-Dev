@@ -10,7 +10,7 @@
         <!-- Survey Start Date -->
         <div fxFlex="50" class="pr-1">
           <mat-form-field class="full-width">
-            <input [formControl]="launchForm.controls['startDate']" matInput name="startDate" [min]="today" [matDatepicker]="startDatePicker" [formControl]=""
+            <input [formControl]="launchForm.controls['startDate']" matInput name="startDate" [min]="today" [matDatepicker]="startDatePicker"
               required placeholder="Start Date">
             <mat-datepicker-toggle matSuffix [for]="startDatePicker">
               <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -21,7 +21,7 @@
         <!-- Survey Expire Date -->
         <div fxFlex="50" class="pr-1">
           <mat-form-field class="full-width">
-            <input [formControl]="launchForm.controls['endDate']" matInput name="endDate" [min]="tomorrow" [matDatepicker]="expireDatePicker" [formControl]=""
+            <input [formControl]="launchForm.controls['endDate']" matInput name="endDate" [min]="tomorrow" [matDatepicker]="expireDatePicker"
               required placeholder="End Date">
             <mat-datepicker-toggle matSuffix [for]="expireDatePicker">
               <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
