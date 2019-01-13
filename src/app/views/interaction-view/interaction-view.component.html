@@ -6,7 +6,7 @@
           <div class="text-center pb-1">
             <img src="assets/images/signin/logo.jpg" alt="">
             <p class="text-muted m-0">Sign in to your account</p>
-            <small *ngIf="!loginResult" class=" m-0 form-error-msg"> Invalid Access Code ! </small>
+            <small *ngIf="loginError" class=" m-0 form-error-msg"> Invalid Access Code ! </small>
           </div>
 
           <mat-form-field class="full-width">
@@ -51,8 +51,22 @@
     </div>
   </div>
 
-  <div id="divViewSummary"><a class='btn sv_preview_btn' (click)="viewSummary()" >View Summary</a></div>
-  <div id="divViewSurvey"><a class='btn sv_preview_btn' (click)="viewSurvey(true)" >Edit Survey</a></div>
+
+  <!-- <div id="divViewSummary"><a class='btn sv_preview_btn' (click)="viewSummary()">View Summary</a></div>
+  <div id="divViewSurvey"><a class='btn sv_preview_btn' (click)="viewSurvey(true)">Edit Survey</a></div>
+  <div id="divSubmitSurvey"><a class='btn sv_preview_btn' (click)="viewSurvey(true)">Submit Survey</a></div> -->
+
+  <mat-card-content>
+
+    <div class="pb-1" style="text-align: center">
+      <a id="btnViewSummary" mat-raised-button class="mr-1" (click)="viewSummary()">View Summary</a>
+      <a id="btnViewSurvey" mat-raised-button class="mr-1" (click)="viewSurvey()">Edit Survey</a>
+      <a id="btnSubmitSurvey" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">Submit Survey</a>
+      <a id="btnAnswerLater" mat-raised-button color="primary" class="mr-1" (click)="answerLater()">Answer Later</a>
+    </div>
+
+
+  </mat-card-content>
 
 
   <div id="survey-view-footer">
