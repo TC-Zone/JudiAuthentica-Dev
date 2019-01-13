@@ -43,6 +43,7 @@ export class InteractionViewComponent implements OnInit {
   ngOnInit() {
     this.buildInteractForm();
     this.interactForm = this.fb.group({
+      username: ["", Validators.required],
       password: ["", Validators.required]
     });
 
@@ -52,7 +53,7 @@ export class InteractionViewComponent implements OnInit {
     });
 
     localStorage.setItem("surveyResultId", null);
-    localStorage.setItem("interactionSurveyResultArray", null);
+    localStorage.setItem("originalResultArray", null);
 
     if (this.interactionId) {
       this.getSurveyData(this.interactionId);
@@ -77,7 +78,7 @@ export class InteractionViewComponent implements OnInit {
       .subscribe(response => {
         if (response.content.id) {
           localStorage.setItem("surveyResultId", response.content.id);
-          localStorage.setItem("interactionSurveyResultArray", response.content.originalResultArray);
+          localStorage.setItem("originalResultArray", response.content.originalResultArray);
           this.surveyResultId = response.content.id;
         } else {
           console.log("------------------------------------------------------");
@@ -113,7 +114,7 @@ export class InteractionViewComponent implements OnInit {
     let username = this.interactForm.get("username").value;
 
     let fsPart: FSurveyPart = new FSurveyPart(this.futureSurveyObj.id);
-    let inviteePart : InviteePart = new InviteePart(username,password);
+    let inviteePart: InviteePart = new InviteePart(username, password);
 
     let loginReq: LoginRequest = new LoginRequest(
       this.interactionId,
@@ -127,19 +128,22 @@ export class InteractionViewComponent implements OnInit {
     this.interactionViewService
       .interactLoginPost(loginReq)
       .subscribe(response => {
+
         this.showLogin = false;
         this.loginError = false;
 
         const loggedInteraction = response;
         console.log("LOGGED INTERACTION RESPONSE");
-        console.log(loggedInteraction);
+        console.log(loggedInteraction.id);
 
-        if (loggedInteraction != null) {
+        if (loggedInteraction.id !== null) {
           this.showLogin = false;
           localStorage.setItem("interactionResponStatus", loggedInteraction.responStatus);
           this.retrieveSurvey(loggedInteraction.futureSurvey.id);
         } else {
           // could not find a record for password and interaction id
+          this.showLogin = true;
+          this.loginError = true;
         }
       }, error => {
         // this.errors = error;
@@ -170,10 +174,10 @@ export class InteractionViewComponent implements OnInit {
         }
         this.setuptheme();
       },
-      error => {
-        this.errDialog.showErrorWithMessage(error);
-      }
-    );
+        error => {
+          this.errDialog.showErrorWithMessage(error);
+        }
+      );
   }
 
 
@@ -240,8 +244,9 @@ export class InteractionViewComponent implements OnInit {
         localStorage.setItem("survey_currentPage_" + interactionId, lastPage);
       }
 
+      console.log("JSON.stringify(result.data) - " + JSON.stringify(result.data));
 
-      localStorage.setItem("interactionSurveyResultArray", JSON.stringify(result.data));
+      localStorage.setItem("originalResultArray", JSON.stringify(result.data));
 
       document.getElementById('btnViewSummary').style.display = 'inline-block';
       if (interactionId !== undefined) {
@@ -339,7 +344,7 @@ export class InteractionViewComponent implements OnInit {
           response => {
             console.log("SUCCESS");
             localStorage.setItem("surveyResultId", response.id);
-            localStorage.setItem("interactionSurveyResultArray", JSON.parse(response.originalResultArray));
+            localStorage.setItem("originalResultArray", JSON.parse(response.originalResultArray));
           },
           error => {
             console.log("ERROR");
@@ -355,8 +360,7 @@ export class InteractionViewComponent implements OnInit {
         "<form>" +
         '<div class="sv_container">' +
         '<div data-bind="html: processedCompletedHtml, css: completedCss" class="sv_body sv_completed_page">' +
-        '<h3>Thank You for Completing the Survey!</h3>' +
-        '<h6>~~ thankYouMsg ~~</h6>' +
+        '<h3>Thank You for Submitting the Survey!</h3>' +
         '</div>' +
         '</div>' +
         '</form>' +
@@ -369,7 +373,7 @@ export class InteractionViewComponent implements OnInit {
     // ................. ON COMPLETE END HERE .........
 
     if (localStorage.getItem("surveyResultId") !== "null") {
-      this.surveyModel.data = JSON.parse(localStorage.getItem("interactionSurveyResultArray"));
+      this.surveyModel.data = JSON.parse(localStorage.getItem("originalResultArray"));
     }
 
     Survey.SurveyNG.render("surveyElement", { model: this.surveyModel });
@@ -424,7 +428,7 @@ export class InteractionViewComponent implements OnInit {
       }
     });
 
-    this.surveyModel.data = JSON.parse(localStorage.getItem("interactionSurveyResultArray"))
+    this.surveyModel.data = JSON.parse(localStorage.getItem("originalResultArray"))
     this.surveyModel.mode = 'display';
 
     Survey.SurveyNG.render("surveyElement", { model: this.surveyModel });
@@ -444,8 +448,7 @@ export class InteractionViewComponent implements OnInit {
       '<form>' +
       '<div class="sv_container">' +
       '<div data-bind="html: processedCompletedHtml, css: completedCss" class="sv_body sv_completed_page">' +
-      '<h3>Thank You for Completing the Survey!</h3>' +
-      '<h6>~~ answerLaterMsg ~~</h6>' +
+      '<h3>You are Attempting to Answer Later to the Survey!</h3>' +
       '</div>' +
       '</div>' +
       '</form>' +
@@ -469,8 +472,7 @@ export class InteractionViewComponent implements OnInit {
           '<form>' +
           '<div class="sv_container">' +
           '<div data-bind="html: processedCompletedHtml, css: completedCss" class="sv_body sv_completed_page">' +
-          '<h3>Thank You for Completing the Survey!</h3>' +
-          '<h6>~~ submitMsg ~~</h6>' +
+          '<h3>The Survey is Previously Submitted!</h3>' +
           '</div>' +
           '</div>' +
           '</form>' +
@@ -514,23 +516,23 @@ export class InteractionViewComponent implements OnInit {
 }
 
 export class LoginRequest {
-  constructor(public id, public invitee, public futureSurvey: any) {}
+  constructor(public id, public invitee, public futureSurvey: any) { }
 }
 
 export class FSurveyPart {
-  constructor(public id) {}
+  constructor(public id) { }
 }
 
 export class InviteePart {
-  constructor(public username, public password: string) {}
+  constructor(public username, public password: string) { }
 }
 
 export class ValueTemplate {
-  constructor(public value: any) {}
+  constructor(public value: any) { }
 }
 
 export class MatrixBaseTemplate {
-  constructor(public rowValue, public columnValue: any) {}
+  constructor(public rowValue, public columnValue: any) { }
 }
 
 export class FSAnswer {
