@@ -11,6 +11,7 @@ import { AppErrorService } from "../../../shared/services/app-error/app-error.se
 import { MatDialog, MatDialogRef, MatSnackBar } from "@angular/material";
 import { FutureSurveyConfigPopupComponent } from "../future-survey-config-popup/future-survey-config-popup.component";
 import { FutureSurveyLaunchComponent } from "../future-survey-launch/future-survey-launch.component";
+import { FutureSurveyInvitationLaunchComponent } from "../future-survey-invitation-launch/future-survey-invitation-launch.component";
 
 @Component({
   selector: "app-future-survey-list",
@@ -45,6 +46,66 @@ export class FutureSurveyListComponent implements OnInit {
     if (this.getSurveysSub) {
       this.getSurveysSub.unsubscribe();
     }
+  }
+
+  openPopupValidator(data: any = {}, isLaunched?) {
+    const rowObject = data;
+    this.futureSurveyService
+      .getInvitationBySurvey(rowObject.id)
+      .subscribe(response => {
+        if (rowObject.channel == "2") {
+          const invitationId = response.content.id;
+          if (invitationId) {
+            this.openLauncherPopup(rowObject, isLaunched);
+          } else {
+            this.snack.open("Invitation Setting chould not found ! ", "close", {
+              duration: 4000
+            });
+          }
+        } else {
+          this.openLauncherPopup(rowObject, isLaunched);
+        }
+      });
+  }
+
+  openLauncherPopup(data: any = {}, isLaunched?) {
+    let title = isLaunched
+      ? "Future Survey Status Setting"
+      : "Future Survey Launch Pad";
+
+    let dialogRef: MatDialogRef<any> = this.dialog.open(
+      FutureSurveyInvitationLaunchComponent,
+      {
+        width: "720px",
+        disableClose: true,
+        data: { title: title, payload: data, isLaunched: isLaunched }
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (!res) {
+        // if user press cancel.
+        return;
+      }
+
+      this.loader.open("Launching in Progress....");
+      this.futureSurveyService.launchFutureSurvey(res.id).subscribe(
+        response => {
+          console.log("LAUNCH RESPONSE");
+          console.log(response);
+          this.loader.close();
+          this.getAllFutureSurveys();
+        },
+        error => {
+          this.loader.close();
+          this.errDialog.showError({
+            title: "Error",
+            status: error.status,
+            type: "http_error"
+          });
+        }
+      );
+    });
   }
 
   openInvitationPopup(data: any = {}, channel?, isNew?) {

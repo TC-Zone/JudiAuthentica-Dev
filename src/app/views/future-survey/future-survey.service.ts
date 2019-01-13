@@ -156,6 +156,12 @@ export class FutureSurveyService {
       .pipe(catchError(this.handleError));
   }
 
+  fetchAllInvitation(): Observable<any> {
+    return this.http
+      .get(this.surveyApiUrl + "surveys" + "/futureSurveyInvitation")
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);
   }

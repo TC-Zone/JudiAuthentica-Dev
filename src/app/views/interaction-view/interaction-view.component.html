@@ -9,13 +9,29 @@
             <small *ngIf="!loginResult" class=" m-0 form-error-msg"> Invalid Access Code ! </small>
           </div>
 
+
           <mat-form-field class="full-width">
-            <input type="password" name="password" matInput placeholder="Access Code" value="" [formControl]="interactForm.controls['password']"
+              <input type="text" name="username" matInput placeholder="Username" value="" [formControl]="interactForm.controls['username']"
+                required name="username">
+            </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <input type="password" name="password" matInput placeholder="Password" value="" [formControl]="interactForm.controls['password']"
               required name="password">
           </mat-form-field>
+
+
+
+          <small *ngIf="interactForm.controls['username'].hasError('required') && interactForm.controls['username'].touched"
+          class="form-error-msg">
+          Username is required </small>
+
+
           <small *ngIf="interactForm.controls['password'].hasError('required') && interactForm.controls['password'].touched"
             class="form-error-msg">
-            Access code is required </small>
+            Password is required </small>
+
+
 
           <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()" [disabled]="interactForm.invalid">Login
             to Survey</button>

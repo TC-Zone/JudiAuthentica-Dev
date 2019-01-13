@@ -44,23 +44,29 @@
             <ng-template let-row="row" ngx-datatable-cell-template>
 
 
-              <button mat-icon-button mat-sm-button (click)="navigateToSurveyEditor(row)" color="primary" class="mr-1">
+              <button mat-icon-button mat-sm-button (click)="navigateToSurveyEditor(row)" class="mr-1">
                 <mat-icon>view_headline</mat-icon>
               </button>
 
-              <button mat-icon-button mat-sm-button  (click)="navigateToSurveyView(row)" class="mr-1">
+              <button mat-icon-button mat-sm-button   (click)="navigateToSurveyView(row)" class="mr-1">
                 <mat-icon>laptop_windows</mat-icon>
               </button>
 
-              <button mat-icon-button mat-sm-button color="warn" (click)="deleteFutureSurvey(row)" class="mr-1">
-                <mat-icon>delete</mat-icon>
-              </button>
-              <button mat-icon-button mat-sm-button color="warn" (click)="openInvitationPopup(row,row.channel,true)" class="mr-1">
-                <mat-icon>airplanemode_active</mat-icon>
+              <button mat-icon-button mat-sm-button  (click)="openInvitationPopup(row,row.channel,true)" class="mr-1">
+                <mat-icon>perm_contact_calendar</mat-icon>
               </button>
 
-              <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openConfigPopup(row)">
+
+              <button mat-icon-button mat-sm-button   (click)="openPopupValidator(row,false)" class="mr-1">
+                  <mat-icon>flight_takeoff</mat-icon>
+                </button>
+
+              <button mat-icon-button mat-sm-button  class="mr-1" (click)="openConfigPopup(row)">
                 <mat-icon>edit</mat-icon>
+              </button>
+
+               <button mat-icon-button mat-sm-button color="warn" (click)="deleteFutureSurvey(row)" class="mr-1">
+                <mat-icon>delete</mat-icon>
               </button>
 
             </ng-template>
