@@ -6,9 +6,8 @@
           <div class="text-center pb-1">
             <img src="assets/images/signin/logo.jpg" alt="">
             <p class="text-muted m-0">Sign in to your account</p>
-            <small *ngIf="loginError" class=" m-0 form-error-msg"> Invalid Access Code ! </small>
+            <small *ngIf="loginError" class=" m-0 form-error-msg"> Invalid Credentials ! </small>
           </div>
-
 
           <mat-form-field class="full-width">
               <input type="text" name="username" matInput placeholder="Username" value="" [formControl]="interactForm.controls['username']"
@@ -19,19 +18,6 @@
             <input type="password" name="password" matInput placeholder="Password" value="" [formControl]="interactForm.controls['password']"
               required name="password">
           </mat-form-field>
-
-
-
-          <small *ngIf="interactForm.controls['username'].hasError('required') && interactForm.controls['username'].touched"
-          class="form-error-msg">
-          Username is required </small>
-
-
-          <small *ngIf="interactForm.controls['password'].hasError('required') && interactForm.controls['password'].touched"
-            class="form-error-msg">
-            Password is required </small>
-
-
 
           <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()" [disabled]="interactForm.invalid">Login
             to Survey</button>
