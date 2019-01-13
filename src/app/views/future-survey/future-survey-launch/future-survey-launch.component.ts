@@ -233,11 +233,17 @@ export class FutureSurveyLaunchComponent implements OnInit {
             const fullJson = this.conversionService.CSVToArray(readerResult);
             const headersJson = fullJson[0];
             if (headersJson.length <= 7) {
-              const validationResult = this.validateCSVContent(jsonCsv);
-              this.invitees = validationResult.correctSet;
-              this.createCsvFileHeaders(headersJson);
+              if (!this.checkRequiredHeaderExist(headersJson)) {
+                this.snack.open('Required field(s) missing!', 'close', {
+                  duration: 2000
+                });
+              } else {
+                const validationResult = this.validateCSVContent(jsonCsv);
+                this.invitees = validationResult.correctSet;
+                this.createCsvFileHeaders(headersJson);
+              }
             } else {
-              this.snack.open('Maximum Custom Field Count is Three!, Please Check and Upload again!', 'close', {
+              this.snack.open('Maximum Custom Field Count is 3! Upload again!', 'close', {
                 duration: 2000
               });
             }
@@ -419,6 +425,16 @@ export class FutureSurveyLaunchComponent implements OnInit {
       }
       // console.log('incorrect false');
     }
+  }
+
+  // check required headers exist in the csv file
+  checkRequiredHeaderExist(headersArray){
+    for (let i = 0; i < this.requiredFields.length; i++) {
+      if (!headersArray.includes(this.requiredFields[i])) {
+        return false;
+      }
+    }
+    return true;
   }
 
   // fetch invitee group by client id
