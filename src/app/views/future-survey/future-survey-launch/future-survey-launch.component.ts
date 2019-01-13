@@ -56,6 +56,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
   public csvFileName;
   public csvHeadersArray: any[];
   ansTemplateArray: FormArray;
+  public inviteeGroups: any;
   // email regex
   // tslint:disable-next-line:max-line-length
   public emailPattern = /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -229,12 +230,17 @@ export class FutureSurveyLaunchComponent implements OnInit {
             const jsonCsv = this.conversionService.CSV2JSON(formattedCsvArr);
             //console.log("CSVJSON");
             //console.log(jsonCsv);
-            const validationResult = this.validateCSVContent(jsonCsv);
-            this.invitees = validationResult.correctSet;
             const fullJson = this.conversionService.CSVToArray(readerResult);
-            this.createCsvFileHeaders(fullJson[0]);
-            //console.log('ERROR SET : ');
-            //console.log(validationResult);
+            const headersJson = fullJson[0];
+            if (headersJson.length <= 7) {
+              const validationResult = this.validateCSVContent(jsonCsv);
+              this.invitees = validationResult.correctSet;
+              this.createCsvFileHeaders(headersJson);
+            } else {
+              this.snack.open('Maximum Custom Field Count is Three!, Please Check and Upload again!', 'close', {
+                duration: 2000
+              });
+            }
           }
           this.loader.close();
         };
@@ -395,8 +401,9 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
   // validate expire date according to start date endDate
   validateExpireDate(endDate) {
-    const startDate = this.launchForm.get("startDate").value;
-    const constEndDate = this.launchForm.controls["endDate"];
+    const startDate = this.launchForm.get('startDate').value;
+    const constEndDate = this.launchForm.get('endDate');
+    const csvFile = this.launchForm.get('uploadCsvFile');
     if (startDate >= endDate) {
       constEndDate.setErrors({ incorrect: true });
       this.snack.open(
@@ -407,8 +414,37 @@ export class FutureSurveyLaunchComponent implements OnInit {
       // console.log('incorrect true');
     } else {
       constEndDate.setErrors(null);
+      if (this.isPublic) {
+        csvFile.setErrors(null);
+      }
       // console.log('incorrect false');
     }
+  }
+
+  // fetch invitee group by client id
+  fetchGroupsByClient() {
+    this.futureSurveyService.fetchGroupsByClientId(this.surveyObj.clientId).subscribe(
+      response => {
+        console.log('.....INVITEE GROUP....');
+        this.inviteeGroups = response.content;
+        console.log(this.inviteeGroups);
+      },
+      error => {
+        // this.loader.close();
+        this.errDialog.showErrorWithMessage({
+          title: 'Error',
+          status: error.status,
+          type: 'http_error'
+        });
+      }
+    );
+  }
+
+  // copy private shareble link
+  copyInputMessage(inputElement){
+    inputElement.select();
+    document.execCommand('copy');
+    inputElement.setSelectionRange(0, 0);
   }
 }
 
