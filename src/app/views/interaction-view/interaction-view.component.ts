@@ -99,7 +99,7 @@ export class InteractionViewComponent implements OnInit {
         this.futureSurveyObj = response.content.futureSurvey;
         this.surveyTitle = this.futureSurveyObj.title;
         this.loggedInvitee = response.content.invitee.name;
-        console.log('LOGGED INSTANCE - ' + this.loggedInvitee);
+        console.log("LOGGED INSTANCE - " + this.loggedInvitee);
         this.showLogin = true;
 
         console.log("ID : " + this.futureSurveyObj.id);
@@ -170,9 +170,10 @@ export class InteractionViewComponent implements OnInit {
         }
         this.setuptheme();
       },
-        error => {
-          this.errDialog.showErrorWithMessage(error);
-        });
+      error => {
+        this.errDialog.showErrorWithMessage(error);
+      }
+    );
   }
 
 
@@ -220,7 +221,6 @@ export class InteractionViewComponent implements OnInit {
       if (options.question.getType() === "dropdown") {
         classes.control = "form-control";
       }
-
     });
 
     document.getElementById('btnViewSummary').style.display = 'none';
@@ -352,7 +352,7 @@ export class InteractionViewComponent implements OnInit {
 
       let thankYouMsg =
         '<div class="sv_main sv_bootstrap_css">' +
-        '<form>' +
+        "<form>" +
         '<div class="sv_container">' +
         '<div data-bind="html: processedCompletedHtml, css: completedCss" class="sv_body sv_completed_page">' +
         '<h3>Thank You for Completing the Survey!</h3>' +
@@ -398,7 +398,6 @@ export class InteractionViewComponent implements OnInit {
     this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
       var classes = options.cssClasses;
 
-
       if (options.question.getType() === "rating") {
         classes.root = "btn-group";
         classes.item = "btn btn-default btn-secondary";
@@ -423,7 +422,6 @@ export class InteractionViewComponent implements OnInit {
       if (options.question.getType() === "dropdown") {
         classes.control = "form-control";
       }
-
     });
 
     this.surveyModel.data = JSON.parse(localStorage.getItem("interactionSurveyResultArray"))
@@ -516,19 +514,23 @@ export class InteractionViewComponent implements OnInit {
 }
 
 export class LoginRequest {
-  constructor(public id, public password, public futureSurvey: any) { }
+  constructor(public id, public invitee, public futureSurvey: any) {}
 }
 
 export class FSurveyPart {
-  constructor(public id) { }
+  constructor(public id) {}
+}
+
+export class InviteePart {
+  constructor(public username, public password: string) {}
 }
 
 export class ValueTemplate {
-  constructor(public value: any) { }
+  constructor(public value: any) {}
 }
 
 export class MatrixBaseTemplate {
-  constructor(public rowValue, public columnValue: any) { }
+  constructor(public rowValue, public columnValue: any) {}
 }
 
 export class FSAnswer {

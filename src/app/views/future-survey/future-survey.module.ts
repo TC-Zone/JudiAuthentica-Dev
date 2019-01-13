@@ -17,7 +17,8 @@ import {
   MatDialogModule,
   MatRadioModule,
   MatExpansionModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatDatepickerModule
 } from "@angular/material";
 
 import { StarRatingModule } from "angular-star-rating";
@@ -36,6 +37,9 @@ import { FutureSurveyConfigPopupComponent } from "./future-survey-config-popup/f
 import { FutureSurveyCommonConfigComponent } from "./future-survey-config-popup/future-survey-common-config.component";
 import { AppDataConversionService } from "../../shared/services/data-conversion.service";
 import { FutureSurveyLaunchComponent } from "./future-survey-launch/future-survey-launch.component";
+import { FutureSurveyBaseComponent } from "./future-survey-base.component";
+import { FutureSurveyInviteeGroupComponent } from "./future-survey-invitee-group/future-survey-invitee-group.component";
+import { FutureSurveyInvitationLaunchComponent } from "./future-survey-invitation-launch/future-survey-invitation-launch.component";
 
 export let InjectorInstance: Injector;
 
@@ -63,7 +67,8 @@ export let InjectorInstance: Injector;
     FormsModule,
     MatCheckboxModule,
     RouterModule.forChild(FutureSurveyRoutes),
-    SharedModule
+    SharedModule,
+    MatDatepickerModule
   ],
   declarations: [
     FutureSurveyComponent,
@@ -71,12 +76,16 @@ export let InjectorInstance: Injector;
     FutureSurveyListComponent,
     FutureSurveyConfigPopupComponent,
     FutureSurveyCommonConfigComponent,
-    FutureSurveyLaunchComponent
+    FutureSurveyLaunchComponent,
+    FutureSurveyBaseComponent,
+    FutureSurveyInviteeGroupComponent,
+    FutureSurveyInvitationLaunchComponent
   ],
   providers: [CrudService, FutureSurveyService, AppDataConversionService],
   entryComponents: [
     FutureSurveyConfigPopupComponent,
-    FutureSurveyLaunchComponent
+    FutureSurveyLaunchComponent,
+    FutureSurveyInvitationLaunchComponent
   ]
 })
 export class FutureSurveyModule {

@@ -116,6 +116,31 @@ export class FutureSurveyService {
       .pipe(catchError(this.handleError));
   }
 
+  createInvitationSetting(invitationReq): Observable<any> {
+    return this.http
+      .post<any>(
+        this.surveyApiUrl + "surveys" + "/futureSurveyInvitation",
+        invitationReq
+      )
+      .pipe(
+        map(data => {
+          console.log("INVITATION CREATE REPONSE");
+          console.log(data);
+          return data.content;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  // fetch future survey invitation instance with invitee group details.
+  getInvitationBySurvey(surveyId): Observable<any> {
+    return this.http
+      .get<any>(
+        this.surveyApiUrl + "surveys" + "/futureSurveyInvitation/" + surveyId
+      )
+      .pipe(catchError(this.handleError));
+  }
+
   // Fetch public survey link by using survey id
   getPublicSurveyLink(id) {
     let link =
@@ -128,6 +153,12 @@ export class FutureSurveyService {
   fetchGroupsByClientId(clientId) {
     return this.http
       .get<any>(this.surveyApiUrl + "surveys" + "/inviteeGroup/" + clientId)
+      .pipe(catchError(this.handleError));
+  }
+
+  fetchAllInvitation(): Observable<any> {
+    return this.http
+      .get(this.surveyApiUrl + "surveys" + "/futureSurveyInvitation")
       .pipe(catchError(this.handleError));
   }
 

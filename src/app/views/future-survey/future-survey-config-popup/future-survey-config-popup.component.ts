@@ -7,19 +7,14 @@ import {
   Validators,
   FormControl
 } from "@angular/forms";
-import { Subscription } from "rxjs";
+
 import { CrudService } from "../../cruds/crud.service";
 import { FutureSurveyCommonConfigComponent } from "./future-survey-common-config.component";
-import {
-  FSurveyConfigRequest,
-  PrivatePart
-} from "../../../model/FSurveyConfigRequest.model";
 
-import { PublicPart } from "../../../model/FSurveyConfigRequest.model";
-import { AppDataConversionService } from "../../../shared/services/data-conversion.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { FutureSurveyService } from "../future-survey.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
+import { FSCreateRequest } from "../../../model/FSurveyConfigRequest.model";
 
 @Component({
   selector: "app-future-survey-config-popup",
@@ -51,7 +46,6 @@ export class FutureSurveyConfigPopupComponent
     public fb: FormBuilder,
     public clientService: CrudService,
     public snackBar: MatSnackBar,
-    private conversionService: AppDataConversionService,
     public errDialog: AppErrorService,
     public futureSurveyService: FutureSurveyService,
     public loader: AppLoaderService
@@ -62,49 +56,6 @@ export class FutureSurveyConfigPopupComponent
   ngOnInit() {
     this.getClientSuggestions();
     this.buildConfigForm(this.data.payload);
-    this.setGroupCheckBox(this.data.payload, this.data.isNew);
-    // Manage validation when select private channel
-    this.configForm
-      .get("channel")
-      .valueChanges.subscribe(value => this.setPrivateChannelValidation(value));
-
-    // Manage validation when checked predefined invitee groups.
-    this.configForm.get("isPreDefined").valueChanges.subscribe(value => {
-      this.setInviteeValidations(value);
-    });
-  }
-
-  // ............. set settings of predefined gorup checkbox ................
-  setGroupCheckBox(payLoad, isNew) {
-    let clientId = this.configForm.get("client").value;
-    console.log("CLIENT LOG WHEN OPUP " + clientId);
-
-    if (isNew) {
-      this.checkBoxModel = false;
-    } else {
-      this.checkBoxModel = true;
-      console.log("...............CLIENT ID.." + payLoad.clientId);
-
-      this.fetchGroupsByClient(payLoad.clientId);
-    }
-    console.log("............CHANNEL" + payLoad.channel);
-
-    if (!isNew && payLoad.channel == "2") {
-      this.channel = "2";
-    }
-  }
-
-  // ..........  fetch groups by client once after checked predefined groups ..........
-  loadGroupsByClientid(event) {
-    console.log("event");
-    console.log(event);
-    console.log(this.configForm.get("isPreDefined").value);
-    let isDefined: boolean = this.configForm.get("isPreDefined").value;
-    let client = this.configForm.get("client").value;
-    if (!isDefined && client && this.data.isNew) {
-      console.log(!isDefined);
-      this.fetchGroupsByClient(client);
-    }
   }
 
   ngOnDestroy() {
@@ -117,104 +68,93 @@ export class FutureSurveyConfigPopupComponent
     this.configForm = this.fb.group({
       client: [fieldItem.clientId || "", Validators.required],
       title: [fieldItem.title || "", Validators.required],
-      channel: [fieldItem.channel || "1"],
-      inviteeGroupId: [fieldItem.inviteeGroupId || ""],
-      isPreDefined: [fieldItem.isPredefined],
-      inviteeGroupName: [fieldItem.inviteeGroupName || ""],
-      userFile: [fieldItem.userFile]
+      channel: [fieldItem.channel || "1"]
     });
   }
 
-  onFileChange(event) {
-    let files: FileList = event.target.files;
-    if (files && files.length > 0) {
-      this.csvFileName = files.item(0).name;
-      let ext = this.csvFileName
-        .substring(this.csvFileName.lastIndexOf(".") + 1)
-        .toLowerCase();
-      console.log("ext : " + ext);
-
-      if (ext === "csv") {
-        this.csvFile = files.item(0);
-        let reader: FileReader = new FileReader();
-
-        reader.readAsText(this.csvFile);
-
-        reader.onload = e => {
-          let readerResult = reader.result;
-          let resultStr = readerResult + "";
-
-          if (resultStr && resultStr.length > 0) {
-            let jsonCsv: any[] = this.conversionService.CSV2JSON(readerResult);
-            let validationResult = this.validateCSVContent(jsonCsv);
-            this.invitees = validationResult.correctSet;
-          }
-        };
-      } else {
-        this.snackBar.open(
-          "Invalid File type! Please upload csv file!",
-          "close",
-          { duration: 2000 }
-        );
-      }
-    }
-  }
-
-  submit(isNew) {
+  submitNew(isNew) {
     let title = this.configForm.get("title").value;
     let client = this.configForm.get("client").value;
-    let sendingReq: any;
+    let channel = this.configForm.get("channel").value;
 
     let jsonContent: JsonContentPart = new JsonContentPart(
       title,
       client,
       this.pageItem
     );
-    let jsonString = JSON.stringify(jsonContent);
+    const jsonString = JSON.stringify(JSON.stringify(jsonContent));
 
-    let stringfiedJson = JSON.stringify(jsonString);
-
-    let commonRoot: FSurveyConfigRequest;
-
-    commonRoot = new FSurveyConfigRequest(
-      this.configForm.value,
-      stringfiedJson,
-      this.invitees
+    const fsCreateReq: FSCreateRequest = new FSCreateRequest(
+      title,
+      client,
+      channel,
+      this.pageItem,
+      jsonString
     );
 
-    let publicRequest: PublicPart;
-    let privateRequest: PrivatePart;
-    if (commonRoot.channel === "1") {
-      publicRequest = new PublicPart(
-        commonRoot.title,
-        commonRoot.clientId,
-        commonRoot.channel,
-        commonRoot.jsonContent,
-        this.pageItem
-      );
-      sendingReq = publicRequest;
-    }
-    if (commonRoot.channel === "2") {
-      privateRequest = new PrivatePart(
-        commonRoot.title,
-        commonRoot.clientId,
-        commonRoot.channel,
-        commonRoot.jsonContent,
-        this.pageItem,
-        commonRoot.isPreDefined,
-        commonRoot.inviteeGroupId,
-        commonRoot.inviteeGroupName,
-        commonRoot.invitees
-      );
-      sendingReq = privateRequest;
-    }
+    console.log("FInale REQUEST :");
+    console.log(fsCreateReq);
 
-    console.log(sendingReq);
-
-    this.dialogRef.close(sendingReq);
+    this.dialogRef.close(fsCreateReq);
   }
 }
 
 export class JsonContentPart {
   constructor(public title, public clientId, public pages: any) {}
 }
+
+//  Removing invite configuration section from future survey config popup - YS - The Flash Sprint
+
+// submit(isNew) {
+//   let title = this.configForm.get("title").value;
+//   let client = this.configForm.get("client").value;
+//   let sendingReq: any;
+
+//   let jsonContent: JsonContentPart = new JsonContentPart(
+//     title,
+//     client,
+//     this.pageItem
+//   );
+//   let jsonString = JSON.stringify(jsonContent);
+
+//   let stringfiedJson = JSON.stringify(jsonString);
+
+//   let commonRoot: FSurveyConfigRequest;
+
+//   commonRoot = new FSurveyConfigRequest(
+//     this.configForm.value,
+//     stringfiedJson,
+//     this.invitees
+//   );
+
+//   let publicRequest: PublicPart;
+//   let privateRequest: PrivatePart;
+//   if (commonRoot.channel === "1") {
+//     publicRequest = new PublicPart(
+//       commonRoot.title,
+//       commonRoot.clientId,
+//       commonRoot.channel,
+//       commonRoot.jsonContent,
+//       this.pageItem
+//     );
+//     sendingReq = publicRequest;
+//   }
+//   if (commonRoot.channel === "2") {
+//     privateRequest = new PrivatePart(
+//       commonRoot.title,
+//       commonRoot.clientId,
+//       commonRoot.channel,
+//       commonRoot.jsonContent,
+//       this.pageItem,
+//       commonRoot.isPreDefined,
+//       commonRoot.inviteeGroupId,
+//       commonRoot.inviteeGroupName,
+//       commonRoot.invitees
+//     );
+//     sendingReq = privateRequest;
+//   }
+
+//   console.log(sendingReq);
+
+//   this.dialogRef.close(sendingReq);
+// }

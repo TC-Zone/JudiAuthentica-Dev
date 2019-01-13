@@ -23,51 +23,7 @@
   </mat-card-title>
   <mat-card-content class="p-0">
 
-    <!-- <ngx-datatable class="material fullscreen bg-white" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
-      [rowHeight]="'auto'" [limit]="5" [rows]="rows">
-      <ngx-datatable-column name="Survey Topic" [minWidth]="250" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{row?.topic}}
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="Survey Type" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          <mat-chip mat-sm-chip color="primary" [selected]="true">{{row?.type =='P' ? 'Product' : 'E Vote'}}</mat-chip>
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="Start Date" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{row?.startDate}}
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="End Date" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{row?.endDate}}
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="Action" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
 
-          <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
-            <div fxFlex.sm="33">
-              <button mat-icon-button mat-sm-button (click)='navigateSurveyBuilder(row)' color="primary" class="">
-                <mat-icon>view_headline</mat-icon>
-              </button>
-            </div>
-            <div fxFlex.sm="33">
-              <button mat-icon-button mat-sm-button (click)='openSurveyPopup(row,false)' color="primary" class="">
-                <mat-icon>edit</mat-icon>
-              </button>
-            </div>
-            <div flex="33">
-              <button mat-icon-button mat-sm-button (click)="deleteSurvey(row)" color="warn" class="">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
-          </div>
-        </ng-template>
-      </ngx-datatable-column>
-    </ngx-datatable> -->
 
     <table class="table table-hover">
       <thead>

@@ -32,7 +32,7 @@ export class LayoutService {
   layoutConf$ = this.layoutConfSubject.asObservable();
   public isMobile: boolean;
   public currentRoute: string;
-  public fullWidthRoutes = ['future-survey/'];
+  public fullWidthRoutes = ['future-survey'];
   public compactRoutes = ['surveys'];
   constructor(
     private router: Router
