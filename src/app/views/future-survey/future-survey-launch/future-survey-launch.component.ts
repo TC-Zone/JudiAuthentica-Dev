@@ -232,12 +232,17 @@ export class FutureSurveyLaunchComponent implements OnInit {
             const jsonCsv = this.conversionService.CSV2JSON(formattedCsvArr);
             //console.log("CSVJSON");
             //console.log(jsonCsv);
-            const validationResult = this.validateCSVContent(jsonCsv);
-            this.invitees = validationResult.correctSet;
             const fullJson = this.conversionService.CSVToArray(readerResult);
-            this.createCsvFileHeaders(fullJson[0]);
-            //console.log('ERROR SET : ');
-            //console.log(validationResult);
+            const headersJson = fullJson[0];
+            if (headersJson.length <= 7) {
+              const validationResult = this.validateCSVContent(jsonCsv);
+              this.invitees = validationResult.correctSet;
+              this.createCsvFileHeaders(headersJson);
+            } else {
+              this.snack.open('Maximum Custom Field Count is Three!, Please Check and Upload again!', 'close', {
+                duration: 2000
+              });
+            }
           }
           this.loader.close();
         };
