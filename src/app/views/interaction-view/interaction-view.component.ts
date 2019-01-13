@@ -114,7 +114,7 @@ export class InteractionViewComponent implements OnInit {
 
     let fsPart: FSurveyPart = new FSurveyPart(this.futureSurveyObj.id);
     let inviteePart : InviteePart = new InviteePart(username,password);
-    
+
     let loginReq: LoginRequest = new LoginRequest(
       this.interactionId,
       inviteePart,
@@ -311,7 +311,7 @@ export class InteractionViewComponent implements OnInit {
       });
 
 
-      // wrapping up the interaction id and survey answers together 
+      // wrapping up the interaction id and survey answers together
       let submitRequest: FSAnswer = new FSAnswer(interactionId, resultArray, JSON.stringify(result.data));
 
       console.log("...............ANSWER ARRAY.................");
