@@ -7,7 +7,6 @@ import { MatCardModule, MatToolbarModule, MatFormFieldModule, MatInputModule, Ma
 import { InteractionViewService } from "./interaction-view.service";
 import { FutureSurveyService } from '../future-survey/future-survey.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
 
 export let InjectorInstance2: Injector;
 
@@ -23,7 +22,7 @@ export let InjectorInstance2: Injector;
     MatButtonModule,
     RouterModule.forChild(InteractionViewRoute)
   ],
-  providers: [InteractionViewService, FutureSurveyService, CookieService]
+  providers: [InteractionViewService, FutureSurveyService]
 })
 export class InteractionViewModule {
   constructor(private injector: Injector) {

@@ -5,7 +5,6 @@ import { InteractionViewService } from "./interaction-view.service";
 import * as Survey from "survey-angular";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AppErrorService } from '../../shared/services/app-error/app-error.service';
-import { CookieService } from "ngx-cookie-service";
 
 @Component({
   selector: "app-interaction-view",
@@ -38,8 +37,7 @@ export class InteractionViewComponent implements OnInit {
     private router: Router,
     private interactionViewService: InteractionViewService,
     private fb: FormBuilder,
-    private errDialog: AppErrorService,
-    private cookieService: CookieService
+    private errDialog: AppErrorService
   ) { }
 
   ngOnInit() {
@@ -112,12 +110,14 @@ export class InteractionViewComponent implements OnInit {
     console.log("CALLED METHOD");
 
     let password = this.interactForm.get("password").value;
+    let username = this.interactForm.get("username").value;
 
     let fsPart: FSurveyPart = new FSurveyPart(this.futureSurveyObj.id);
-
+    let inviteePart : InviteePart = new InviteePart(username,password);
+    
     let loginReq: LoginRequest = new LoginRequest(
       this.interactionId,
-      password,
+      inviteePart,
       fsPart
     );
 
