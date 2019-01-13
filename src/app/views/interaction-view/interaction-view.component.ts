@@ -135,6 +135,7 @@ export class InteractionViewComponent implements OnInit {
         const loggedInteraction = response;
         console.log("LOGGED INTERACTION RESPONSE");
         console.log(loggedInteraction.id);
+        console.log(loggedInteraction.responStatus);
 
         if (loggedInteraction.id !== null) {
           this.showLogin = false;
@@ -153,6 +154,7 @@ export class InteractionViewComponent implements OnInit {
 
   retrieveSurvey(surveyId) {
     console.log(" retrieveSurvey SURVEY ID : " + surveyId);
+    
 
     this.interactionViewService
       .getFutureSurveyById(surveyId)
@@ -243,8 +245,6 @@ export class InteractionViewComponent implements OnInit {
       if (interactionId !== undefined && localStorage.getItem("onCompleteStatus") === "onComplete") {
         localStorage.setItem("survey_currentPage_" + interactionId, lastPage);
       }
-
-      console.log("JSON.stringify(result.data) - " + JSON.stringify(result.data));
 
       localStorage.setItem("originalResultArray", JSON.stringify(result.data));
 
@@ -344,7 +344,7 @@ export class InteractionViewComponent implements OnInit {
           response => {
             console.log("SUCCESS");
             localStorage.setItem("surveyResultId", response.id);
-            localStorage.setItem("originalResultArray", JSON.parse(response.originalResultArray));
+            localStorage.setItem("originalResultArray", response.originalResultArray);
           },
           error => {
             console.log("ERROR");
@@ -360,7 +360,7 @@ export class InteractionViewComponent implements OnInit {
         "<form>" +
         '<div class="sv_container">' +
         '<div data-bind="html: processedCompletedHtml, css: completedCss" class="sv_body sv_completed_page">' +
-        '<h3>Thank You for Submitting the Survey!</h3>' +
+        '<h3>The Survey is Previously Submitted!</h3>' +
         '</div>' +
         '</div>' +
         '</form>' +
@@ -428,7 +428,7 @@ export class InteractionViewComponent implements OnInit {
       }
     });
 
-    this.surveyModel.data = JSON.parse(localStorage.getItem("originalResultArray"))
+    this.surveyModel.data = JSON.parse(localStorage.getItem("originalResultArray"));
     this.surveyModel.mode = 'display';
 
     Survey.SurveyNG.render("surveyElement", { model: this.surveyModel });
@@ -472,7 +472,7 @@ export class InteractionViewComponent implements OnInit {
           '<form>' +
           '<div class="sv_container">' +
           '<div data-bind="html: processedCompletedHtml, css: completedCss" class="sv_body sv_completed_page">' +
-          '<h3>The Survey is Previously Submitted!</h3>' +
+          '<h3>Thank You for Submitting the Survey!</h3>' +
           '</div>' +
           '</div>' +
           '</form>' +
@@ -481,6 +481,8 @@ export class InteractionViewComponent implements OnInit {
         document.getElementById("surveyElement").innerHTML = submitMsg;
 
         document.getElementById('btnSubmitSurvey').style.display = 'none';
+        document.getElementById('btnViewSummary').style.display = 'inline-block';
+        document.getElementById('btnViewSurvey').style.display = 'none';
       },
       error => {
         console.log("ERROR");
