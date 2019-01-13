@@ -316,7 +316,7 @@ export class InteractionViewComponent implements OnInit {
       });
 
 
-      // wrapping up the interaction id and survey answers together 
+      // wrapping up the interaction id and survey answers together
       let submitRequest: FSAnswer = new FSAnswer(interactionId, resultArray, JSON.stringify(result.data));
 
       console.log("...............ANSWER ARRAY.................");
