@@ -103,9 +103,16 @@
   border-radius: 2px;
 }
 
-// #divViewSummary, #divViewSurvey, #divSubmitSurvey{
-//   text-align: center;
-// }
+#finishedSurveyMsg{
+  text-align: center;
+  margin-bottom: 18px;
+  padding: 10px;
+  display: none;
+  h5{
+    // color: #337ab7;
+    color: #000;
+  }
+}
 
 .sv_preview_btn:hover {
   background-color: #339fd6;

@@ -134,7 +134,7 @@ export class InteractionViewComponent implements OnInit {
 
         const loggedInteraction = response;
         console.log("LOGGED INTERACTION RESPONSE");
-        console.log(loggedInteraction.id);
+        console.log(loggedInteraction);
         console.log(loggedInteraction.responStatus);
 
         if (loggedInteraction.id !== null) {
@@ -154,7 +154,7 @@ export class InteractionViewComponent implements OnInit {
 
   retrieveSurvey(surveyId) {
     console.log(" retrieveSurvey SURVEY ID : " + surveyId);
-    
+
 
     this.interactionViewService
       .getFutureSurveyById(surveyId)
@@ -389,7 +389,8 @@ export class InteractionViewComponent implements OnInit {
     document.getElementById('btnViewSummary').style.display = 'none';
     if (localStorage.getItem("interactionResponStatus") === '0' && this.interactionId !== undefined) {
       document.getElementById('btnViewSurvey').style.display = 'inline-block';
-    } else {
+    } else if (localStorage.getItem("interactionResponStatus") === '1') {
+      document.getElementById('finishedSurveyMsg').style.display = 'block';
       document.getElementById('btnViewSurvey').style.display = 'none';
       // document.getElementById('btnAnswerLater').style.display = 'none';
       // document.getElementById('btnSubmitSurvey').style.display = 'none';
@@ -430,7 +431,7 @@ export class InteractionViewComponent implements OnInit {
       if (options.question.getType() === "dropdown") {
         classes.control = "form-control";
       }
-      
+
       if (options.question.getType() === "text") {
         classes.root = "form-control";
       }
@@ -480,8 +481,9 @@ export class InteractionViewComponent implements OnInit {
           '<form>' +
           '<div class="sv_container">' +
           '<div data-bind="html: processedCompletedHtml, css: completedCss" class="sv_body sv_completed_page">' +
-          '<h3>Thank You for Submitting the Survey!</h3>' +
-          '</div>' +
+          '<h3>Thank You</h3>' +
+          '<h3> You have finished the Survey</h3>'
+        '</div>' +
           '</div>' +
           '</form>' +
           '</div>';

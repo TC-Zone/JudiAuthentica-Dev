@@ -6,13 +6,13 @@
           <div class="text-center pb-1">
             <img src="assets/images/signin/logo.jpg" alt="">
             <p class="text-muted m-0">Sign in to your account</p>
-            <small *ngIf="loginError" class=" m-0 form-error-msg"> Invalid Credentials ! </small>
+            <h6 *ngIf="loginError" class="m-1 form-error-msg"> Invalid Credentials ! </h6>
           </div>
 
           <mat-form-field class="full-width">
-              <input type="text" name="username" matInput placeholder="Username" value="" [formControl]="interactForm.controls['username']"
-                required name="username">
-            </mat-form-field>
+            <input type="text" name="username" matInput placeholder="Username" value="" [formControl]="interactForm.controls['username']"
+              required name="username">
+          </mat-form-field>
 
           <mat-form-field class="full-width">
             <input type="password" name="password" matInput placeholder="Password" value="" [formControl]="interactForm.controls['password']"
@@ -44,6 +44,12 @@
 
   <div class="survey-page-wrap" *ngIf="!showLogin">
     <div class="survey-form-hold">
+      <mat-card id="finishedSurveyMsg" class="survey-mat-card">
+        <mat-card-content>
+          <h5>The Survey is Previously Submitted </h5>
+          <h6>Summary is provided bellow</h6>
+        </mat-card-content>
+      </mat-card>
       <mat-card class="survey-mat-card">
         <mat-card-content>
           <div id="surveyElement"></div>
