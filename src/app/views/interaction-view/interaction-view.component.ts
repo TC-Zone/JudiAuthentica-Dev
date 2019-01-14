@@ -227,6 +227,10 @@ export class InteractionViewComponent implements OnInit {
       if (options.question.getType() === "dropdown") {
         classes.control = "form-control";
       }
+
+      if (options.question.getType() === "text") {
+        classes.root = "form-control";
+      }
     });
 
     document.getElementById('btnViewSummary').style.display = 'none';
@@ -360,7 +364,7 @@ export class InteractionViewComponent implements OnInit {
         "<form>" +
         '<div class="sv_container">' +
         '<div data-bind="html: processedCompletedHtml, css: completedCss" class="sv_body sv_completed_page">' +
-        '<h3>The Survey is Previously Submitted!</h3>' +
+        '<h3>The Survey is Completed, Click Submit Survey to Finish!</h3>' +
         '</div>' +
         '</div>' +
         '</form>' +
@@ -425,6 +429,10 @@ export class InteractionViewComponent implements OnInit {
 
       if (options.question.getType() === "dropdown") {
         classes.control = "form-control";
+      }
+      
+      if (options.question.getType() === "text") {
+        classes.root = "form-control";
       }
     });
 
