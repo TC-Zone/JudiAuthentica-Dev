@@ -55,7 +55,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     localStorage.setItem("surveyResultId", null);
     localStorage.setItem("originalResultArray", null);
 
-    console.log("---------- Method-End : ngOnInit()");
+    // console.log("---------- Method-End : ngOnInit()");
   }
 
   buildInteractForm() {
@@ -66,37 +66,37 @@ export class InviteeInteractionViewComponent implements OnInit {
 
 
   doLog() {
-    console.log("---------- Method-Start : doLog()");
+    // console.log("---------- Method-Start : doLog()");
 
     let username = this.interactForm.get("username").value;
     let password = this.interactForm.get("password").value;
 
     let inviteePart: InviteePart = new InviteePart(username, password);
 
-    console.log("---------- ---------- Method : doLog() / Parameter-username: " + username);
-    console.log("---------- ---------- Method : doLog() / Parameter-password: " + password);
+    // console.log("---------- ---------- Method : doLog() / Parameter-username: " + username);
+    // console.log("---------- ---------- Method : doLog() / Parameter-password: " + password);
 
     this.inviteeInteractionViewService
       .interactLoginPost(inviteePart)
       .subscribe(response => {
 
         const loggedInteraction = response;
-        console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction : response (Json)");
-        console.log(loggedInteraction);
+        // console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction : response (Json)");
+        // console.log(loggedInteraction);
 
-        console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction : response (String)");
-        console.log(JSON.stringify(loggedInteraction));
+        // console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction : response (String)");
+        // console.log(JSON.stringify(loggedInteraction));
 
         if (loggedInteraction.id !== null) {
-          console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Login Valid");
-          console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction.id : " + loggedInteraction.id);
+          // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Login Valid");
+          // console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction.id : " + loggedInteraction.id);
 
           if (loggedInteraction.surveyStatus === 0) {
-            console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - ON_PREMISE");
+            // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - ON_PREMISE");
             this.setSurveyStatusErrorMsg("ON_PREMISE");
             // ON_PREMISE MSG
           } else if (loggedInteraction.surveyStatus === 1) {
-            console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - LAUNCHED");
+            // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - LAUNCHED");
 
             this.showLogin = false;
             this.loginError = false;
@@ -116,19 +116,19 @@ export class InviteeInteractionViewComponent implements OnInit {
             this.retrieveSurvey(this.surveyId);
 
           } else if (loggedInteraction.surveyStatus === 2) {
-            console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - FULFILLED");
+            // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - FULFILLED");
           } else if (loggedInteraction.surveyStatus === 3) {
-            console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - EXPIRED");
+            // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - EXPIRED");
             this.setSurveyStatusErrorMsg("EXPIRED");
           } else if (loggedInteraction.surveyStatus === 4) {
-            console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - OFFLINE");
+            // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - OFFLINE");
             this.setSurveyStatusErrorMsg("OFFLINE");
           }
 
 
 
         } else {
-          console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Login Invalid");
+          // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Login Invalid");
           this.setSurveyStatusErrorMsg("INVALID");
         }
 
@@ -136,22 +136,22 @@ export class InviteeInteractionViewComponent implements OnInit {
         this.setSurveyStatusErrorMsg("INVALID");
       });
 
-    console.log("---------- Method-End : doLog()");
+    // console.log("---------- Method-End : doLog()");
   }
 
   getSurveyData(interactionId) {
-    console.log("---------- Method-Start : getSurveyData()");
+    // console.log("---------- Method-Start : getSurveyData()");
 
     this.inviteeInteractionViewService
       .getFutureSurveyResultById(interactionId)
       .subscribe(response => {
-        console.log("---------- ---------- Method : getSurveyData() / getFutureSurveyResultById / Parameter-response : response (String)");
-        console.log(JSON.stringify(response));
+        // console.log("---------- ---------- Method : getSurveyData() / getFutureSurveyResultById / Parameter-response : response (String)");
+        // console.log(JSON.stringify(response));
 
         if (response.content.id) {
-          console.log("---------- ---------- Method : getSurveyData() / getFutureSurveyResultById / Parameter-surveyResultId : " + response.surveyResultId);
+          // console.log("---------- ---------- Method : getSurveyData() / getFutureSurveyResultById / Parameter-surveyResultId : " + response.surveyResultId);
           localStorage.setItem("surveyResultId", response.content.id);
-          console.log("---------- ---------- Method : getSurveyData() / getFutureSurveyResultById / Parameter-originalResultArray : " + response.content.originalResultArray);
+          // console.log("---------- ---------- Method : getSurveyData() / getFutureSurveyResultById / Parameter-originalResultArray : " + response.content.originalResultArray);
           localStorage.setItem("originalResultArray", response.content.originalResultArray);
         } else {
           // console.log("------------------------------------------------------");
@@ -162,15 +162,15 @@ export class InviteeInteractionViewComponent implements OnInit {
         error => { this.errDialog.showErrorWithMessage(error); }
       );
 
-    console.log("---------- Method-End : getSurveyData()");
+    // console.log("---------- Method-End : getSurveyData()");
   }
 
   retrieveSurvey(surveyId) {
-    console.log("---------- Method-Start : retrieveSurvey()");
+    // console.log("---------- Method-Start : retrieveSurvey()");
 
     this.inviteeInteractionViewService.getFutureSurveyById(surveyId).subscribe(response => {
-      console.log("---------- ---------- Method : getSurveyData() / getFutureSurveyById / Parameter-response : response (String)");
-      console.log(JSON.stringify(response));
+      // console.log("---------- ---------- Method : getSurveyData() / getFutureSurveyById / Parameter-response : response (String)");
+      // console.log(JSON.stringify(response));
 
       this.futureSurveyObj = response.content;
       this.surveyTitle = this.futureSurveyObj.title;
@@ -192,7 +192,7 @@ export class InviteeInteractionViewComponent implements OnInit {
       error => { this.errDialog.showErrorWithMessage(error); }
     );
 
-    console.log("---------- Method-End : retrieveSurvey()");
+    // console.log("---------- Method-End : retrieveSurvey()");
   }
 
 
