@@ -159,14 +159,14 @@ export class FutureSurveyLaunchComponent implements OnInit {
     );
     const endDate = moment(formValue.get("endDate").value).format("YYYY-MM-DD");
     const inviteeGroupName = formValue.get("inviteeGroupName").value;
-    const loginStrategy = formValue.get("userNamePasswordType").value;
+    const passwordStrategy = formValue.get("userNamePasswordType").value;
 
     const sendReq: InviteRequest = new InviteRequest(
       fsId,
       startDate,
       endDate,
       inviteeGroupName,
-      loginStrategy,
+      passwordStrategy,
       this.customFields,
       this.invitees
     );
@@ -260,7 +260,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
                 this.snack.open(errorMsg, 'close', {
                   duration: 2000
                 });
-                
+
               } else {
                 const validationResult = this.validateCSVContent(jsonCsv);
                 this.invitees = validationResult.correctSet;
@@ -499,7 +499,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
     inputElement.setSelectionRange(0, 0);
   }
 
-  //update requiredFields array according to userNamePasswordType
+  // update requiredFields array according to userNamePasswordType
   onChangeUNPT() {
     if (this.uNPT === 1) {
       this.requiredFields = ["name", "email", "username"];
@@ -538,7 +538,7 @@ export class InviteRequest {
     public startDate: string,
     public endDate: string,
     public inviteeGroupName: string,
-    public loginStrategy: string,
+    public passwordStrategy: string,
     public customFields: any[],
     public invitees: any[]
   ) { }
