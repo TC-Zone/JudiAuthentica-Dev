@@ -27,6 +27,7 @@ export class InviteeInteractionViewComponent implements OnInit {
   public jsonContent: any;
   public pageJson;
   public interactionId;
+  public origin;
 
   public surveyModel;
 
@@ -101,6 +102,12 @@ export class InviteeInteractionViewComponent implements OnInit {
             this.loggedInviteeName = "";
             this.interactionId = loggedInteraction.id;
             this.interactionResponStatus = loggedInteraction.responStatus;
+
+            if (loggedInteraction.futureSurvey.origin === "1") {
+              this.origin = "Survey";
+            } else if (loggedInteraction.futureSurvey.origin === "2") {
+              this.origin = "E-Vote";
+            }
 
             this.getSurveyData(this.interactionId);
             this.retrieveSurvey(this.surveyId);
@@ -199,6 +206,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     let interactionId = this.interactionId;
     let lastPage = String(this.surveyModel.pages.length - 1);
     localStorage.setItem("onCompleteStatus", "onComplete");
+    let thankYouMsg = this.setThankYouMsg("DEFAULT_MSG");
 
 
 
@@ -358,18 +366,6 @@ export class InviteeInteractionViewComponent implements OnInit {
 
       }
 
-      this.setThankYouMsg("");
-      let thankYouMsg =
-        '<div class="sv_main sv_bootstrap_css">' +
-        "<form>" +
-        '<div class="sv_container">' +
-        '<div class="sv_body sv_completed_page">' +
-        '<h3>The Survey is Completed, Click Submit Survey to Finish!</h3>' +
-        '</div>' +
-        '</div>' +
-        '</form>' +
-        '</div>';
-
       document.getElementById("surveyElement").innerHTML = thankYouMsg;
 
     });
@@ -453,8 +449,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     localStorage.setItem("survey_currentPage_" + this.interactionId, this.surveyModel.currentPageNo);
     this.surveyModel.doComplete();
 
-    this.setThankYouMsg("ANSWER_LATER_MSG");
-
+    document.getElementById("surveyElement").innerHTML = this.setThankYouMsg("ANSWER_LATER_MSG");
   }
 
   submitSurvey() {
@@ -468,19 +463,7 @@ export class InviteeInteractionViewComponent implements OnInit {
         // localStorage.setItem("interactionResponStatus", response.content.responStatus);
         this.interactionResponStatus = response.content.responStatus;
 
-        this.setThankYouMsg("SUBMIT_MSG");
-        let submitMsg =
-          '<div class="sv_main sv_bootstrap_css">' +
-          '<form>' +
-          '<div class="sv_container">' +
-          '<div class="sv_body sv_completed_page">' +
-          '<h3></h3>' +
-          '</div>' +
-          '</div>' +
-          '</form>' +
-          '</div>';
-
-        document.getElementById("surveyElement").innerHTML = submitMsg;
+        document.getElementById("surveyElement").innerHTML = this.setThankYouMsg("SUBMIT_MSG");
 
         document.getElementById('btnSubmitSurvey').style.display = 'none';
         document.getElementById('btnViewSummary').style.display = 'inline-block';
@@ -495,36 +478,17 @@ export class InviteeInteractionViewComponent implements OnInit {
   }
 
   setThankYouMsg(msgType) {
-    let MSG_VALUE = "";
+    let MSG_PART_1 = '<div class="sv_main sv_bootstrap_css"><form><div class="sv_container"><div class="sv_body sv_completed_page"><h3>';
+    let MSG_PART_2 = '</h3></div></div></form></div>';
 
     switch (msgType) {
       case "ANSWER_LATER_MSG":
-        this.loginErrorMsg = "You are Attempting to Answer Later to the Survey!";
-        break;
+        return MSG_PART_1 + "You are Attempting to Answer Later to the " + this.origin + "!" + MSG_PART_2;
       case "SUBMIT_MSG":
-        this.loginErrorMsg = "Thank You </br> You have finished the Survey";
-        break;
-      case "EXPIRED":
-        this.loginErrorMsg = "Sorry.. Survey/E-Vote is expired.!";
-        break;
-      case "OFFLINE":
-        this.loginErrorMsg = "Survey/E-Vote is currently unavailable!";
-        break;
+        return this.loginErrorMsg = MSG_PART_1 + "Thank You </br> You have finished the " + this.origin + "!" + MSG_PART_2;
       default:
-        break;
+        return this.loginErrorMsg = MSG_PART_1 + "The " + this.origin + " is Completed, Click Submit " + this.origin + " to Finish!" + MSG_PART_2;
     }
-
-    let answerLaterMsg =
-      '<div class="sv_main sv_bootstrap_css">' +
-      '<form>' +
-      '<div class="sv_container">' +
-      '<div class="sv_body sv_completed_page">' +
-      '<h3>' + MSG_VALUE + '</h3>' +
-      '</div>' +
-      '</div>' +
-      '</form>' +
-      '</div>';
-    document.getElementById("surveyElement").innerHTML = answerLaterMsg;
   }
 
   setSurveyStatusErrorMsg(status) {

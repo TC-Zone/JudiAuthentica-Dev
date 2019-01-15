@@ -82,6 +82,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
   // Invitation request related arrays
   public requiredFields: any[] = ["name", "email", "username", "password"];
+  public requiredFields2: any[] = ["name", "email", "username", "password"];
   public customFields: any[] = [];
 
   constructor(
@@ -457,10 +458,10 @@ export class FutureSurveyLaunchComponent implements OnInit {
     this.missingRequiredFields = [];
     const csvFile = this.launchForm.get('uploadCsvFile')
 
-    for (let i = 0; i < this.requiredFields.length; i++) {
-      console.log("requiredFields - " + this.requiredFields[i]);
-      if (!headersArray.includes(this.requiredFields[i])) {
-        this.missingRequiredFields.push(this.requiredFields[i]);
+    for (let i = 0; i < this.requiredFields2.length; i++) {
+      console.log("requiredFields - " + this.requiredFields2[i]);
+      if (!headersArray.includes(this.requiredFields2[i])) {
+        this.missingRequiredFields.push(this.requiredFields2[i]);
       }
     }
     if (this.missingRequiredFields.length > 0) {
@@ -502,9 +503,9 @@ export class FutureSurveyLaunchComponent implements OnInit {
   // update requiredFields array according to userNamePasswordType
   onChangeUNPT() {
     if (this.uNPT === 1) {
-      this.requiredFields = ["name", "email", "username"];
+      this.requiredFields2 = ["name", "email", "username"];
     } else if (this.uNPT === 2) {
-      this.requiredFields = ["name", "email", "username", "password"];
+      this.requiredFields2 = ["name", "email", "username", "password"];
     }
   }
 

@@ -46,7 +46,7 @@
     <div class="survey-form-hold">
       <mat-card id="finishedSurveyMsg" class="survey-mat-card">
         <mat-card-content>
-          <h5>The Survey is Previously Submitted </h5>
+          <h5>The {{origin}} is Previously Submitted </h5>
           <h6>Summary is provided bellow</h6>
         </mat-card-content>
       </mat-card>
@@ -63,8 +63,8 @@
 
     <div class="pb-1" style="text-align: center">
       <a id="btnViewSummary" mat-raised-button class="mr-1" (click)="viewSummary()">View Summary</a>
-      <a id="btnViewSurvey" mat-raised-button class="mr-1" (click)="viewSurvey()">Edit Survey</a>
-      <a id="btnSubmitSurvey" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">Submit Survey</a>
+      <a id="btnViewSurvey" mat-raised-button class="mr-1" (click)="viewSurvey()">Edit {{orgin}}</a>
+      <a id="btnSubmitSurvey" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">Submit {{origin}}</a>
       <a id="btnAnswerLater" mat-raised-button color="primary" class="mr-1" (click)="answerLater()">Answer Later</a>
     </div>
 
