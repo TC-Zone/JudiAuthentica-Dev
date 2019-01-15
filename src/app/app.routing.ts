@@ -23,6 +23,11 @@ export const rootRouterConfig: Routes = [
         path: "interaction",
         loadChildren: "./views/interaction-view/interaction-view.module#InteractionViewModule",
         data: { title: "Interaction View" }
+      },
+      {
+        path: "eVote",
+        loadChildren: "./views/invitee-interaction-view/invitee-interaction-view.module#InviteeInteractionViewModule",
+        data: { title: "Invitee Interaction View" }
       }
     ]
   },

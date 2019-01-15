@@ -8,7 +8,7 @@ import {
   DateAdapter,
   MAT_DATE_LOCALE
 } from "@angular/material";
-import { FormBuilder, FormGroup, Validators, FormArray } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from "@angular/forms";
 import { FutureSurveyService } from "../future-survey.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
@@ -75,6 +75,11 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
   public currentStatus;
 
+  //userNamePasswordType array default value
+  public uNPT;
+  //missing requiredFields array
+  public missingRequiredFields: any[] = [];
+
   // Invitation request related arrays
   public requiredFields: any[] = ["name", "email", "username", "password"];
   public customFields: any[] = [];
@@ -88,7 +93,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
     private errDialog: AppErrorService,
     private conversionService: AppDataConversionService,
     private loader: AppLoaderService
-  ) {}
+  ) { }
 
   ngOnInit() {
     console.log(this.data);
@@ -103,7 +108,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
     this.isPublic = this.surveyObj.channel == 1 ? true : false;
     this.title = this.surveyObj.title;
     const surveyStatus = this.surveyObj.status;
-    this.currentStatus = this.statusArray.filter(function(status) {
+    this.currentStatus = this.statusArray.filter(function (status) {
       return status.id === surveyStatus;
     });
 
@@ -120,11 +125,11 @@ export class FutureSurveyLaunchComponent implements OnInit {
     }
 
     // Manage validation when select predefine invitee group
-    this.launchForm
-      .get("isPredefined")
-      .valueChanges.subscribe(value =>
-        this.predefineInviteeGroupValidation(value)
-      );
+    // this.launchForm
+    //   .get("isPredefined")
+    //   .valueChanges.subscribe(value =>
+    //     this.predefineInviteeGroupValidation(value)
+    //   );
     // validate expire Date
     this.launchForm
       .get("endDate")
@@ -135,8 +140,8 @@ export class FutureSurveyLaunchComponent implements OnInit {
     this.launchForm = this.fb.group({
       startDate: [fieldItem.startDate || "", Validators.required],
       endDate: [fieldItem.endDate || "", Validators.required],
-      isPredefined: [fieldItem.isPredefined || ""],
-      inviteeGroup: [fieldItem.inviteeGroup || ""],
+      // isPredefined: [fieldItem.isPredefined || ""],
+      // inviteeGroup: [fieldItem.inviteeGroup || ""],
       userNamePasswordType: [fieldItem.userNamePasswordType || ""],
       inviteeGroupName: [fieldItem.inviteeGroupName || "", Validators.required],
       uploadCsvFile: [fieldItem.uploadCsvFile, Validators.required],
@@ -154,14 +159,14 @@ export class FutureSurveyLaunchComponent implements OnInit {
     );
     const endDate = moment(formValue.get("endDate").value).format("YYYY-MM-DD");
     const inviteeGroupName = formValue.get("inviteeGroupName").value;
-    const passwordStrategy = formValue.get("userNamePasswordType").value;
+    const loginStrategy = formValue.get("userNamePasswordType").value;
 
     const sendReq: InviteRequest = new InviteRequest(
       fsId,
       startDate,
       endDate,
       inviteeGroupName,
-      passwordStrategy,
+      loginStrategy,
       this.customFields,
       this.invitees
     );
@@ -200,6 +205,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
       this.invitees.length = 0;
       this.invitees = [];
     }
+
     if (Array.isArray(this.customFields)) {
       this.customFields.length = 0;
       this.customFields = [];
@@ -233,11 +239,35 @@ export class FutureSurveyLaunchComponent implements OnInit {
             const fullJson = this.conversionService.CSVToArray(readerResult);
             const headersJson = fullJson[0];
             if (headersJson.length <= 7) {
-              const validationResult = this.validateCSVContent(jsonCsv);
-              this.invitees = validationResult.correctSet;
-              this.createCsvFileHeaders(headersJson);
+              if (!this.checkRequiredHeaderExist(headersJson)) {
+
+                let errorMsg = ""
+                let arrayLength = this.missingRequiredFields.length;
+                for (let i = 0; i < arrayLength; i++) {
+                  if (i === 0) {
+                    errorMsg += this.missingRequiredFields[i];
+                  } else if (i === (arrayLength - 1)) {
+                    errorMsg += " & " + this.missingRequiredFields[i];
+                  } else {
+                    errorMsg += ", " + this.missingRequiredFields[i];
+                  }
+                }
+                if (arrayLength > 1) {
+                  errorMsg += " fields are  missing!";
+                } else {
+                  errorMsg += " field is missing!";
+                }
+                this.snack.open(errorMsg, 'close', {
+                  duration: 2000
+                });
+                
+              } else {
+                const validationResult = this.validateCSVContent(jsonCsv);
+                this.invitees = validationResult.correctSet;
+                this.createCsvFileHeaders(headersJson);
+              }
             } else {
-              this.snack.open('Maximum Custom Field Count is Three!, Please Check and Upload again!', 'close', {
+              this.snack.open('Maximum Custom Field Count is 3! Upload again!', 'close', {
                 duration: 2000
               });
             }
@@ -421,6 +451,28 @@ export class FutureSurveyLaunchComponent implements OnInit {
     }
   }
 
+  // check required headers exist in the csv file
+  checkRequiredHeaderExist(headersArray) {
+
+    this.missingRequiredFields = [];
+    const csvFile = this.launchForm.get('uploadCsvFile')
+
+    for (let i = 0; i < this.requiredFields.length; i++) {
+      console.log("requiredFields - " + this.requiredFields[i]);
+      if (!headersArray.includes(this.requiredFields[i])) {
+        this.missingRequiredFields.push(this.requiredFields[i]);
+      }
+    }
+    if (this.missingRequiredFields.length > 0) {
+      csvFile.setErrors({ incorrect: true });
+      return false;
+    } else {
+      csvFile.setErrors(null);
+      return true;
+    }
+
+  }
+
   // fetch invitee group by client id
   fetchGroupsByClient() {
     this.futureSurveyService.fetchGroupsByClientId(this.surveyObj.clientId).subscribe(
@@ -441,12 +493,24 @@ export class FutureSurveyLaunchComponent implements OnInit {
   }
 
   // copy private shareble link
-  copyInputMessage(inputElement){
+  copyInputMessage(inputElement) {
     inputElement.select();
     document.execCommand('copy');
     inputElement.setSelectionRange(0, 0);
   }
+
+  //update requiredFields array according to userNamePasswordType
+  onChangeUNPT() {
+    if (this.uNPT === 1) {
+      this.requiredFields = ["name", "email", "username"];
+    } else if (this.uNPT === 2) {
+      this.requiredFields = ["name", "email", "username", "password"];
+    }
+  }
+
+
 }
+
 
 export class Invitee {
   constructor(
@@ -457,15 +521,15 @@ export class Invitee {
     public customField1: string,
     public customField2: string,
     public customField3: string
-  ) {}
+  ) { }
 }
 
 export class ValidateRequest {
-  constructor(public correctSet, public errorSet: any[]) {}
+  constructor(public correctSet, public errorSet: any[]) { }
 }
 
 export class CustomField {
-  constructor(public fieldName, public displayName: string) {}
+  constructor(public fieldName, public displayName: string) { }
 }
 
 export class InviteRequest {
@@ -474,8 +538,8 @@ export class InviteRequest {
     public startDate: string,
     public endDate: string,
     public inviteeGroupName: string,
-    public passwordStrategy: string,
+    public loginStrategy: string,
     public customFields: any[],
     public invitees: any[]
-  ) {}
+  ) { }
 }

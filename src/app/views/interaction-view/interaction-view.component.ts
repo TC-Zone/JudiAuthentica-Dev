@@ -363,7 +363,7 @@ export class InteractionViewComponent implements OnInit {
         '<div class="sv_main sv_bootstrap_css">' +
         "<form>" +
         '<div class="sv_container">' +
-        '<div data-bind="html: processedCompletedHtml, css: completedCss" class="sv_body sv_completed_page">' +
+        '<div class="sv_body sv_completed_page">' +
         '<h3>The Survey is Completed, Click Submit Survey to Finish!</h3>' +
         '</div>' +
         '</div>' +
@@ -444,19 +444,17 @@ export class InteractionViewComponent implements OnInit {
 
   }
 
+  // Save current answers to DB. Also current page number save to "localStorage" with current "interactionId".
   answerLater() {
-
     localStorage.setItem("onCompleteStatus", "answerLater");
     localStorage.setItem("survey_currentPage_" + this.interactionId, this.surveyModel.currentPageNo);
     this.surveyModel.doComplete();
-
-
 
     let answerLaterMsg =
       '<div class="sv_main sv_bootstrap_css">' +
       '<form>' +
       '<div class="sv_container">' +
-      '<div data-bind="html: processedCompletedHtml, css: completedCss" class="sv_body sv_completed_page">' +
+      '<div class="sv_body sv_completed_page">' +
       '<h3>You are Attempting to Answer Later to the Survey!</h3>' +
       '</div>' +
       '</div>' +
@@ -480,10 +478,9 @@ export class InteractionViewComponent implements OnInit {
           '<div class="sv_main sv_bootstrap_css">' +
           '<form>' +
           '<div class="sv_container">' +
-          '<div data-bind="html: processedCompletedHtml, css: completedCss" class="sv_body sv_completed_page">' +
-          '<h3>Thank You</h3>' +
-          '<h3> You have finished the Survey</h3>'
-        '</div>' +
+          '<div class="sv_body sv_completed_page">' +
+          '<h3>Thank You </br> You have finished the Survey</h3>' +
+          '</div>' +
           '</div>' +
           '</form>' +
           '</div>';

@@ -6,7 +6,7 @@
           <div class="text-center pb-1">
             <img src="assets/images/signin/logo.jpg" alt="">
             <p class="text-muted m-0">Sign in to your account</p>
-            <h6 *ngIf="loginError" class="m-1 form-error-msg"> Invalid Credentials ! </h6>
+            <h6 *ngIf="loginError" class="m-1 form-error-msg"> {{loginErrorMsg}} </h6>
           </div>
 
           <mat-form-field class="full-width">
