@@ -154,14 +154,14 @@ export class FutureSurveyLaunchComponent implements OnInit {
     );
     const endDate = moment(formValue.get("endDate").value).format("YYYY-MM-DD");
     const inviteeGroupName = formValue.get("inviteeGroupName").value;
-    const loginStrategy = formValue.get("userNamePasswordType").value;
+    const passwordStrategy = formValue.get("userNamePasswordType").value;
 
     const sendReq: InviteRequest = new InviteRequest(
       fsId,
       startDate,
       endDate,
       inviteeGroupName,
-      loginStrategy,
+      passwordStrategy,
       this.customFields,
       this.invitees
     );
@@ -474,7 +474,7 @@ export class InviteRequest {
     public startDate: string,
     public endDate: string,
     public inviteeGroupName: string,
-    public loginStrategy: string,
+    public passwordStrategy: string,
     public customFields: any[],
     public invitees: any[]
   ) {}
