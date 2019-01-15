@@ -68,6 +68,7 @@ export class FutureSurveyConfigPopupComponent
     this.configForm = this.fb.group({
       client: [fieldItem.clientId || "", Validators.required],
       title: [fieldItem.title || "", Validators.required],
+      origin: [fieldItem.origin || "", Validators.required],
       channel: [fieldItem.channel || "1"]
     });
   }
@@ -75,6 +76,7 @@ export class FutureSurveyConfigPopupComponent
   submitNew(isNew) {
     let title = this.configForm.get("title").value;
     let client = this.configForm.get("client").value;
+    let origin = this.configForm.get("origin").value;
     let channel = this.configForm.get("channel").value;
 
     let jsonContent: JsonContentPart = new JsonContentPart(
@@ -87,6 +89,7 @@ export class FutureSurveyConfigPopupComponent
     const fsCreateReq: FSCreateRequest = new FSCreateRequest(
       title,
       client,
+      origin,
       channel,
       this.pageItem,
       jsonString

@@ -40,6 +40,24 @@
         </mat-form-field>
       </div>
 
+      <div fxFlex="50" class="pr-1">
+        <p>Choose the Origin for future survey</p>
+        <mat-form-field class="full-width">
+          <mat-select
+            [formControl]="configForm.controls['origin']"
+            required
+            placeholder="Select A Origin"
+          >
+            <mat-option>none</mat-option>
+            <mat-option
+              *ngFor="let origin of surveyOriginArr"
+              [value]="origin.id"
+              >{{ origin.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+
       <div fxFlex="100" class="pr-1">
         <p>Choose the channel for future survey</p>
         <mat-radio-group
@@ -57,8 +75,6 @@
         </mat-radio-group>
       </div>
     </div>
-
-
 
     <div
       fxLayout="row"

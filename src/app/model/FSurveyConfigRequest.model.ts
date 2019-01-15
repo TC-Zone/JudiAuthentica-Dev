@@ -24,12 +24,12 @@
 //   }
 // }
 
-
 // New Request Wrapper from The Flash Sprint - YS
 export class FSCreateRequest {
   constructor(
     public title: string,
     public clientId: string,
+    public origin: string,
     public channel: string,
     public pages: any[],
     public jsonContent: string

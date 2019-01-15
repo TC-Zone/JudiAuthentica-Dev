@@ -26,6 +26,11 @@ export class FutureSurveyCommonConfigComponent implements OnInit {
   // store all the clients to assign client for survey - YRS
   public clients: any[];
 
+  public surveyOriginArr = [
+    { id: 2, name: "E-Vote" },
+    { id: 1, name: "Survey" }
+  ];
+
   // csv validation message
   private MISSING_NAME: string = "Essential Name field is missing!";
   private MISSING_EMAIL: string = "Essential E mail field is missing!";
