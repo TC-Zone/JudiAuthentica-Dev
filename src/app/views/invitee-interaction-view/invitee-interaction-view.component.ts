@@ -115,12 +115,12 @@ export class InviteeInteractionViewComponent implements OnInit {
             this.getSurveyData(this.interactionId);
             this.retrieveSurvey(this.surveyId);
 
-          } else if (loggedInteraction.futureSurvey.status === 2) {
+          } else if (loggedInteraction.surveyStatus === 2) {
             console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - FULFILLED");
-          } else if (loggedInteraction.futureSurvey.status === 3) {
+          } else if (loggedInteraction.surveyStatus === 3) {
             console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - EXPIRED");
             this.setSurveyStatusErrorMsg("EXPIRED");
-          } else if (loggedInteraction.futureSurvey.status === 4) {
+          } else if (loggedInteraction.surveyStatus === 4) {
             console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - OFFLINE");
             this.setSurveyStatusErrorMsg("OFFLINE");
           }
