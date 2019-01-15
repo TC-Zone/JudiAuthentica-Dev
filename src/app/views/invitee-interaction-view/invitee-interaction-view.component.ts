@@ -81,6 +81,9 @@ export class InviteeInteractionViewComponent implements OnInit {
       .subscribe(response => {
 
         const loggedInteraction = response;
+        console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction : response (Json)");
+        console.log(loggedInteraction);
+
         console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction : response (String)");
         console.log(JSON.stringify(loggedInteraction));
 
@@ -99,7 +102,7 @@ export class InviteeInteractionViewComponent implements OnInit {
             this.loginError = false;
 
             this.surveyId = loggedInteraction.futureSurvey.id;
-            this.loggedInviteeName = "";
+            this.loggedInviteeName = loggedInteraction.invitee.name;
             this.interactionId = loggedInteraction.id;
             this.interactionResponStatus = loggedInteraction.responStatus;
 
@@ -552,57 +555,3 @@ export class MatrixBaseTemplate {
 export class FSAnswer {
   constructor(public interactionId: any, public futureSurveyAnswers: any, public originalResultArray: any) { }
 }
-
-
-
-
-
-  // getSurveyData
-  // ---------------------------------------------------------------------------------------
-  // {
-  //    content: {
-  //       id: "ec21ff12b34a21bece175e48a059ec7f"
-  //       interactionId: "21"
-  //       ipAddress: null
-  //       originalResultArray: "{\"question1\":\"AAA\",\"question2\":\"BBB\",\"question3\":3}"
-  //    }
-  //    status: "OK"
-  //    statusCode: 200
-  // }
-
-  // viewInteraction
-  // ---------------------------------------------------------------------------------------
-  // {
-  //    content: {
-  //       futureSurvey: {
-  //           channel: 2
-  //           clientId: 3
-  //           id: "ec21ff12b34a21bece175e48a059ec7f"
-  //           title: "Graduated B.Sc Software Engineer"
-  //       }
-  //       id: "c25ded5b8a8fe415462864d0d2d8d0e7"
-  //       invitee: {
-  //           id: "75698237462752b01f5d5fffbc4ec508"
-  //           name: "Buddhi Hasanaka"
-  //       }
-  //    ​​
-  //    }
-  //    status: "OK"
-  //    statusCode: 200
-  // }
-
-
-
-  // {
-  //    content: {
-  //        channel: "2"
-  //        clientId: "ec21ff12b34a21bece175e48a059ec7f"
-  //        id: "ec21ff12b34a21bece175e48a059ec7f"
-  //        inviteeGroupId: null
-  //        jsonContent: "\"{\\n \\\"title\\\": \\\"Graduated B.Sc Software Engineer\\\",\\n \\\"pages\\\": [\\n  {\\n   \\\"name\\\": \\\"page1\\\",\\n   \\\"elements\\\": [\\n    {\\n     \\\"type\\\": \\\"text\\\",\\n     \\\"name\\\": \\\"question1\\\",\\n     \\\"qcode\\\": \\\"39py83btjo\\\"\\n    }\\n   ]\\n  },\\n  {\\n   \\\"name\\\": \\\"page2\\\",\\n   \\\"elements\\\": [\\n    {\\n     \\\"type\\\": \\\"comment\\\",\\n     \\\"name\\\": \\\"question2\\\",\\n     \\\"qcode\\\": \\\"lo10gummng\\\"\\n    }\\n   ]\\n  },\\n  {\\n   \\\"name\\\": \\\"page3\\\",\\n   \\\"elements\\\": [\\n    {\\n     \\\"type\\\": \\\"rating\\\",\\n     \\\"name\\\": \\\"question3\\\",\\n     \\\"qcode\\\": \\\"5azy9023he\\\"\\n    }\\n   ]\\n  }\\n ],\\n \\\"clientId\\\": \\\"ec21ff12b34a21bece175e48a059ec7f\\\"\\n}\""
-  //        status: 1
-  //        title: "Graduated B.Sc Software Engineer"
-  //    }
-  //    status: "OK"
-  //    statusCode: 200
-  // }
