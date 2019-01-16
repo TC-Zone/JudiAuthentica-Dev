@@ -488,9 +488,9 @@ export class InviteeInteractionViewComponent implements OnInit {
       case "ANSWER_LATER_MSG":
         return MSG_PART_1 + "You are Attempting to Answer Later to the " + this.origin + "!" + MSG_PART_2;
       case "SUBMIT_MSG":
-        return this.loginErrorMsg = MSG_PART_1 + "Thank You </br> You have finished the " + this.origin + "!" + MSG_PART_2;
+        return MSG_PART_1 + "Thank You </br> You have finished the " + this.origin + "!" + MSG_PART_2;
       default:
-        return this.loginErrorMsg = MSG_PART_1 + "The " + this.origin + " is Completed, Click Submit " + this.origin + " to Finish!" + MSG_PART_2;
+        return MSG_PART_1 + "The " + this.origin + " is Completed, Click Submit " + this.origin + " to Finish!" + MSG_PART_2;
     }
   }
 
