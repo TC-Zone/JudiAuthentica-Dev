@@ -38,82 +38,61 @@ export class InviteeInteractionViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("---------- Method-Start : ngOnInit()");
 
-    this.buildInteractForm();
     this.interactForm = this.fb.group({
       username: ["", Validators.required],
       password: ["", Validators.required]
     });
-
     this.showLogin = true;
 
-
-
-
-    //  ---------------------------------------------------------------------------------
-    localStorage.setItem("surveyResultId", null);
-    localStorage.setItem("originalResultArray", null);
-
-    // console.log("---------- Method-End : ngOnInit()");
   }
-
-  buildInteractForm() {
-    this.interactForm = this.fb.group({
-      password: ["", Validators.required]
-    });
-  }
-
 
   doLog() {
-    // console.log("---------- Method-Start : doLog()");
 
     let username = this.interactForm.get("username").value;
     let password = this.interactForm.get("password").value;
 
     let inviteePart: InviteePart = new InviteePart(username, password);
 
-    // console.log("---------- ---------- Method : doLog() / Parameter-username: " + username);
-    // console.log("---------- ---------- Method : doLog() / Parameter-password: " + password);
-
     this.inviteeInteractionViewService
       .interactLoginPost(inviteePart)
       .subscribe(response => {
 
         const loggedInteraction = response;
-        // console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction : response (Json)");
-        // console.log(loggedInteraction);
+        console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction : response (Json)");
+        console.log(loggedInteraction);
 
-        // console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction : response (String)");
-        // console.log(JSON.stringify(loggedInteraction));
+        console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction : response (String)");
+        console.log(JSON.stringify(loggedInteraction));
 
         if (loggedInteraction.id !== null) {
-          // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Login Valid");
-          // console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction.id : " + loggedInteraction.id);
 
           if (loggedInteraction.surveyStatus === 0) {
             // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - ON_PREMISE");
             this.setSurveyStatusErrorMsg("ON_PREMISE");
-            // ON_PREMISE MSG
           } else if (loggedInteraction.surveyStatus === 1) {
-            // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - LAUNCHED");
 
             this.showLogin = false;
             this.loginError = false;
 
-            this.surveyId = loggedInteraction.futureSurvey.id;
-            this.loggedInviteeName = loggedInteraction.invitee.name;
             this.interactionId = loggedInteraction.id;
             this.interactionResponStatus = loggedInteraction.responStatus;
+            this.surveyId = loggedInteraction.futureSurvey.id;
+            this.surveyTitle = loggedInteraction.futureSurvey.title;
+            this.loggedInviteeName = loggedInteraction.invitee.name;
+            this.jsonContent = JSON.parse(loggedInteraction.futureSurvey.jsonContent);
+            this.pageJson = JSON.parse(this.jsonContent).pages;
 
             if (loggedInteraction.futureSurvey.origin === "1") {
               this.origin = "Survey";
+              // window.history.replaceState({}, '', '/Survey');
             } else if (loggedInteraction.futureSurvey.origin === "2") {
               this.origin = "E-Vote";
+              // window.history.replaceState({}, '', '/eVote');
             }
 
             this.getSurveyData(this.interactionId);
-            this.retrieveSurvey(this.surveyId);
+            // this.retrieveSurvey(this.surveyId);
 
           } else if (loggedInteraction.surveyStatus === 2) {
             // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - FULFILLED");
@@ -125,10 +104,7 @@ export class InviteeInteractionViewComponent implements OnInit {
             this.setSurveyStatusErrorMsg("OFFLINE");
           }
 
-
-
         } else {
-          // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Login Invalid");
           this.setSurveyStatusErrorMsg("INVALID");
         }
 
@@ -136,66 +112,38 @@ export class InviteeInteractionViewComponent implements OnInit {
         this.setSurveyStatusErrorMsg("INVALID");
       });
 
-    // console.log("---------- Method-End : doLog()");
   }
 
   getSurveyData(interactionId) {
-    // console.log("---------- Method-Start : getSurveyData()");
 
     this.inviteeInteractionViewService
       .getFutureSurveyResultById(interactionId)
       .subscribe(response => {
-        // console.log("---------- ---------- Method : getSurveyData() / getFutureSurveyResultById / Parameter-response : response (String)");
-        // console.log(JSON.stringify(response));
 
         if (response.content.id) {
-          // console.log("---------- ---------- Method : getSurveyData() / getFutureSurveyResultById / Parameter-surveyResultId : " + response.surveyResultId);
           localStorage.setItem("surveyResultId", response.content.id);
-          // console.log("---------- ---------- Method : getSurveyData() / getFutureSurveyResultById / Parameter-originalResultArray : " + response.content.originalResultArray);
           localStorage.setItem("originalResultArray", response.content.originalResultArray);
         } else {
-          // console.log("------------------------------------------------------");
-          // console.log("First Time");
-          // console.log("------------------------------------------------------");
+          localStorage.setItem("surveyResultId", null);
+          localStorage.setItem("originalResultArray", null);
         }
+
+        if (this.interactionResponStatus === 1) {
+          document.getElementById('btnViewSummary').style.display = 'none';
+          document.getElementById('btnViewSurvey').style.display = 'none';
+          document.getElementById('btnSubmitSurvey').style.display = 'none';
+          document.getElementById('btnAnswerLater').style.display = 'none';
+          this.viewSummary();
+        } else {
+          this.viewSurvey();
+        }
+        this.setuptheme();
+
       },
         error => { this.errDialog.showErrorWithMessage(error); }
       );
 
-    // console.log("---------- Method-End : getSurveyData()");
   }
-
-  retrieveSurvey(surveyId) {
-    // console.log("---------- Method-Start : retrieveSurvey()");
-
-    this.inviteeInteractionViewService.getFutureSurveyById(surveyId).subscribe(response => {
-      // console.log("---------- ---------- Method : getSurveyData() / getFutureSurveyById / Parameter-response : response (String)");
-      // console.log(JSON.stringify(response));
-
-      this.futureSurveyObj = response.content;
-      this.surveyTitle = this.futureSurveyObj.title;
-      this.jsonContent = JSON.parse(this.futureSurveyObj.jsonContent);
-      this.pageJson = JSON.parse(this.jsonContent).pages;
-
-      if (this.interactionResponStatus === 1) {
-        document.getElementById('btnViewSummary').style.display = 'none';
-        document.getElementById('btnViewSurvey').style.display = 'none';
-        document.getElementById('btnSubmitSurvey').style.display = 'none';
-        document.getElementById('btnAnswerLater').style.display = 'none';
-        this.viewSummary();
-      } else {
-        this.viewSurvey();
-      }
-      this.setuptheme();
-
-    },
-      error => { this.errDialog.showErrorWithMessage(error); }
-    );
-
-    // console.log("---------- Method-End : retrieveSurvey()");
-  }
-
-
 
   viewSurvey() {
 
@@ -330,13 +278,7 @@ export class InviteeInteractionViewComponent implements OnInit {
         });
       });
 
-
-      // wrapping up the interaction id and survey answers together
       let submitRequest: FSAnswer = new FSAnswer(interactionId, resultArray, JSON.stringify(result.data));
-
-      // console.log("...............ANSWER ARRAY.................");
-      // console.log(resultArray);
-      // console.log(JSON.stringify(resultArray));
 
       const interactService: InviteeInteractionViewService = new InviteeInteractionViewService();
 
@@ -451,8 +393,8 @@ export class InviteeInteractionViewComponent implements OnInit {
     localStorage.setItem("onCompleteStatus", "answerLater");
     localStorage.setItem("survey_currentPage_" + this.interactionId, this.surveyModel.currentPageNo);
     this.surveyModel.doComplete();
-
     document.getElementById("surveyElement").innerHTML = this.setThankYouMsg("ANSWER_LATER_MSG");
+
   }
 
   submitSurvey() {
@@ -481,6 +423,7 @@ export class InviteeInteractionViewComponent implements OnInit {
   }
 
   setThankYouMsg(msgType) {
+
     let MSG_PART_1 = '<div class="sv_main sv_bootstrap_css"><form><div class="sv_container"><div class="sv_body sv_completed_page"><h3>';
     let MSG_PART_2 = '</h3></div></div></form></div>';
 
@@ -492,9 +435,12 @@ export class InviteeInteractionViewComponent implements OnInit {
       default:
         return MSG_PART_1 + "The " + this.origin + " is Completed, Click Submit " + this.origin + " to Finish!" + MSG_PART_2;
     }
+
   }
 
+
   setSurveyStatusErrorMsg(status) {
+
     this.loginError = true;
     switch (status) {
       case "INVALID":
@@ -513,6 +459,7 @@ export class InviteeInteractionViewComponent implements OnInit {
         this.loginError = false;
         break;
     }
+
   }
 
   setuptheme() {

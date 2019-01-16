@@ -28,6 +28,11 @@ export const rootRouterConfig: Routes = [
         path: "eVote",
         loadChildren: "./views/invitee-interaction-view/invitee-interaction-view.module#InviteeInteractionViewModule",
         data: { title: "Invitee Interaction View" }
+      },
+      {
+        path: "Survey",
+        loadChildren: "./views/invitee-interaction-view/invitee-interaction-view.module#InviteeInteractionViewModule",
+        data: { title: "Invitee Interaction View" }
       }
     ]
   },

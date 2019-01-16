@@ -508,8 +508,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
       this.requiredFields2 = ["name", "email", "username", "password"];
     }
   }
-
-
+  
 }
 
 
