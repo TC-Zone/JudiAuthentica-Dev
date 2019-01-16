@@ -85,10 +85,10 @@ export class InviteeInteractionViewComponent implements OnInit {
 
             if (loggedInteraction.futureSurvey.origin === "1") {
               this.origin = "Survey";
-              // window.history.replaceState({}, '', '/Survey');
+              window.history.replaceState({}, '', '/Survey');
             } else if (loggedInteraction.futureSurvey.origin === "2") {
               this.origin = "E-Vote";
-              // window.history.replaceState({}, '', '/eVote');
+              window.history.replaceState({}, '', '/eVote');
             }
 
             this.getSurveyData(this.interactionId);
