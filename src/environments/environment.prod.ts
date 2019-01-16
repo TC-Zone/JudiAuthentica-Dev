@@ -30,5 +30,5 @@ export const environment = {
 
   //  frontEndBaseUrl :'https://judedw.github.io/JudiAuthentica-Dev/',
   //  frontEndBaseUrl: "http://localhost:4200/",
-   frontEndBaseUrl: "https://www.clearpicturevote.com/"
+    frontEndBaseUrl: "https://www.clearpicturevote.com/"
 };
