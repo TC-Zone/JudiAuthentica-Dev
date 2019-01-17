@@ -103,6 +103,17 @@
   border-radius: 2px;
 }
 
+#finishedSurveyMsg{
+  text-align: center;
+  margin-bottom: 18px;
+  padding: 10px;
+  display: none;
+  h5{
+    // color: #337ab7;
+    color: #000;
+  }
+}
+
 .sv_preview_btn:hover {
   background-color: #339fd6;
   color: #fff;
@@ -110,4 +121,8 @@
 
 #surveyResult {
   text-align: center;
+}
+
+.sv-q-col-1 label span{
+  font-weight: 400 !important;
 }

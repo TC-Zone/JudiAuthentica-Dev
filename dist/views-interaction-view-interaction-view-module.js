@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"interactForm\">\r\n  <div class=\"page-wrap height-100 background-survey-signin\" *ngIf=\"showLogin\">\r\n    <div class=\"session-form-hold\">\r\n      <mat-card>\r\n        <mat-card-content>\r\n          <div class=\"text-center pb-1\">\r\n            <img src=\"assets/images/signin/logo.jpg\" alt=\"\">\r\n            <p class=\"text-muted m-0\">Sign in to your account</p>\r\n            <small *ngIf=\"!loginResult\" class=\" m-0 form-error-msg\"> Invalid Access Code ! </small>\r\n          </div>\r\n\r\n          <mat-form-field class=\"full-width\">\r\n            <input type=\"password\" name=\"password\" matInput placeholder=\"Access Code\" value=\"\" [formControl]=\"interactForm.controls['password']\"\r\n              required name=\"password\">\r\n          </mat-form-field>\r\n          <small *ngIf=\"interactForm.controls['password'].hasError('required') && interactForm.controls['password'].touched\"\r\n            class=\"form-error-msg\">\r\n            Access code is required </small>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"doLog()\" [disabled]=\"interactForm.invalid\">Login\r\n            to Survey</button>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>\r\n\r\n\r\n\r\n<!-- <div fxFlex=\"100\" fxLayoutAlign=\"center center\" id=\"survey-view-survey\" class=\"background-survey-form\">\r\n  <mat-toolbar fxLayoutAlign=\"center center\" matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{ surveyTitle }}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n\r\n\r\n  <div class=\"survey-page-wrap height-100\" *ngIf=\"!showLogin\">\r\n    <div class=\"survey-form-hold\">\r\n      <mat-card>\r\n        <mat-card-content>\r\n          <div id=\"surveyElement\"></div>\r\n          <div id=\"surveyResult\"></div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n\r\n\r\n  <div id=\"survey-view-footer\">\r\n    <div class=\"container custom-center\">\r\n      <span>Powered by</span>\r\n      <img src=\"assets/images/cp_logo_text.png\" alt=\"\">\r\n    </div>\r\n  </div>\r\n\r\n</div> -->\r\n\r\n<div fxFlex=\"100\" fxLayoutAlign=\"center center\" id=\"survey-view-survey\" class=\"background-survey-form\">\r\n<header>\r\n  <mat-toolbar fxLayoutAlign=\"center center\" matDialogTitle class=\"mat-primary m-0\">\r\n      <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <div mat-card-avatar class=\"example-header-image\"></div>\r\n      </div>\r\n      <!-- <mat-card-title class=\"example-card-title\">Nova Scotia Engineers</mat-card-title> -->\r\n      <span class=\"example-card-title hidden-xs\">Clear Picture</span>\r\n      <span class=\"example-spacer\"></span>\r\n      <span *ngIf=\"loggedInvitee\" class=\"example-invite\">Hi, {{loggedInvitee}}</span>\r\n  </mat-toolbar>\r\n</header>\r\n\r\n\r\n\r\n    <!-- <div class=\"col-md-2\"> -->\r\n        <!-- <mat-card class=\"example-card\"> -->\r\n            <!-- <mat-card-header> -->\r\n              <!-- <div mat-card-avatar class=\"example-header-image\"> -->\r\n              <!-- </div> -->\r\n              <!-- <br> -->\r\n              <!-- <mat-card-title class=\"example-card-title\">Nova Scotia Engineers</mat-card-title> -->\r\n\r\n            <!-- </mat-card-header> -->\r\n        <!-- </mat-card> -->\r\n    <!-- </div> -->\r\n    <!-- <div class=\"col-md-10\"> -->\r\n      <div class=\"survey-page-wrap height-100\" *ngIf=\"!showLogin\">\r\n          <div class=\"survey-form-hold\">\r\n            <mat-card class=\"survey-mat-card\">\r\n              <mat-card-content>\r\n                <div id=\"surveyElement\"></div>\r\n                <div id=\"surveyResult\"></div>\r\n              </mat-card-content>\r\n            </mat-card>\r\n          </div>\r\n      </div>\r\n    <!-- </div> -->\r\n\r\n\r\n  <div id=\"survey-view-footer\">\r\n    <div class=\"container custom-center\">\r\n      <span>Powered by</span>\r\n      <img src=\"assets/images/cp_logo_text.png\" alt=\"\">\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n\r\n<script>\r\n  $.material.init();\r\n</script>\r\n"
+module.exports = "<form [formGroup]=\"interactForm\">\r\n  <div class=\"page-wrap height-100 background-survey-signin\" *ngIf=\"showLogin\">\r\n    <div class=\"session-form-hold\">\r\n      <mat-card>\r\n        <mat-card-content>\r\n          <div class=\"text-center pb-1\">\r\n            <img src=\"assets/images/signin/logo.jpg\" alt=\"\">\r\n            <p class=\"text-muted m-0\">Sign in to your account</p>\r\n            <h6 *ngIf=\"loginError\" class=\"m-1 form-error-msg\"> Invalid Credentials ! </h6>\r\n          </div>\r\n\r\n          <mat-form-field class=\"full-width\">\r\n            <input type=\"text\" name=\"username\" matInput placeholder=\"Username\" value=\"\" [formControl]=\"interactForm.controls['username']\"\r\n              required name=\"username\">\r\n          </mat-form-field>\r\n\r\n          <mat-form-field class=\"full-width\">\r\n            <input type=\"password\" name=\"password\" matInput placeholder=\"Password\" value=\"\" [formControl]=\"interactForm.controls['password']\"\r\n              required name=\"password\">\r\n          </mat-form-field>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"doLog()\" [disabled]=\"interactForm.invalid\">Login\r\n            to Survey</button>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>\r\n\r\n<div fxFlex=\"100\" fxLayoutAlign=\"center center\" id=\"survey-view-survey\" class=\"background-survey-form\">\r\n  <header>\r\n    <mat-toolbar fxLayoutAlign=\"center center\" matDialogTitle class=\"mat-primary m-0\">\r\n      <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <div mat-card-avatar class=\"example-header-image\"></div>\r\n      </div>\r\n      <!-- <mat-card-title class=\"example-card-title\">Nova Scotia Engineers</mat-card-title> -->\r\n      <span class=\"example-card-title hidden-xs\">Clear Picture</span>\r\n      <span class=\"example-spacer\"></span>\r\n      <span *ngIf=\"loggedInvitee\" class=\"example-invite\">Hi, {{loggedInvitee}}</span>\r\n    </mat-toolbar>\r\n  </header>\r\n\r\n\r\n\r\n  <div class=\"survey-page-wrap\" *ngIf=\"!showLogin\">\r\n    <div class=\"survey-form-hold\">\r\n      <mat-card id=\"finishedSurveyMsg\" class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <h5>The Survey is Previously Submitted </h5>\r\n          <h6>Summary is provided bellow</h6>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <mat-card class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <div id=\"surveyElement\"></div>\r\n          <div id=\"surveyResult\"></div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n\r\n  <mat-card-content>\r\n\r\n    <div class=\"pb-1\" style=\"text-align: center\">\r\n      <a id=\"btnViewSummary\" mat-raised-button class=\"mr-1\" (click)=\"viewSummary()\">View Summary</a>\r\n      <a id=\"btnViewSurvey\" mat-raised-button class=\"mr-1\" (click)=\"viewSurvey()\">Edit Survey</a>\r\n      <a id=\"btnSubmitSurvey\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"submitSurvey()\">Submit Survey</a>\r\n      <a id=\"btnAnswerLater\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"answerLater()\">Answer Later</a>\r\n    </div>\r\n\r\n\r\n  </mat-card-content>\r\n\r\n\r\n  <div id=\"survey-view-footer\">\r\n    <div class=\"container custom-center\">\r\n      <span>Powered by</span>\r\n      <img src=\"assets/images/cp_logo_text.png\" alt=\"\">\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n\r\n<script>\r\n  $.material.init();\r\n</script>"
 
 /***/ }),
 
@@ -15,7 +15,7 @@ module.exports = "<form [formGroup]=\"interactForm\">\r\n  <div class=\"page-wra
 /*!**********************************************************************!*\
   !*** ./src/app/views/interaction-view/interaction-view.component.ts ***!
   \**********************************************************************/
-/*! exports provided: InteractionViewComponent, LoginRequest, FSurveyPart, ValueTemplate, MatrixBaseTemplate */
+/*! exports provided: InteractionViewComponent, LoginRequest, FSurveyPart, InviteePart, ValueTemplate, MatrixBaseTemplate, FSAnswer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23,8 +23,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InteractionViewComponent", function() { return InteractionViewComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginRequest", function() { return LoginRequest; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FSurveyPart", function() { return FSurveyPart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InviteePart", function() { return InviteePart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ValueTemplate", function() { return ValueTemplate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatrixBaseTemplate", function() { return MatrixBaseTemplate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FSAnswer", function() { return FSAnswer; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/animations/egret-animations */ "./src/app/shared/animations/egret-animations.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
@@ -32,6 +34,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var survey_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! survey-angular */ "./node_modules/survey-angular/survey.angular.js");
 /* harmony import */ var survey_angular__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(survey_angular__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../shared/services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -47,72 +50,112 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var InteractionViewComponent = /** @class */ (function () {
-    function InteractionViewComponent(route, router, interactionViewService, fb) {
+    function InteractionViewComponent(route, router, interactionViewService, fb, errDialog) {
         this.route = route;
         this.router = router;
         this.interactionViewService = interactionViewService;
         this.fb = fb;
+        this.errDialog = errDialog;
         this.showLogin = false;
-        this.loginResult = true;
+        this.loginError = false;
+        this.isEditable = false;
     }
     InteractionViewComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.buildInteractForm();
         this.interactForm = this.fb.group({
+            username: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required],
             password: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]
         });
-        console.log("NG ON INIT CALLED");
         this.sub = this.route.queryParams.subscribe(function (params) {
             _this.interactionId = params["interactionId"];
             _this.surveyId = params["surveyId"];
-            _this.preview = params["preview"];
-            // if (this.preview === undefined) {
-            //   console.log("-----------------------------------");
-            //   console.log("02");
-            //   console.log("-----------------------------------");
-            // }
-            // if (this.preview === "true") {
-            //   console.log("-----------------------------------");
-            //   console.log("03");
-            //   console.log("-----------------------------------");
-            // }
         });
+        localStorage.setItem("surveyResultId", null);
+        localStorage.setItem("originalResultArray", null);
         if (this.interactionId) {
+            this.getSurveyData(this.interactionId);
             this.viewInteraction(this.interactionId);
         }
         if (this.surveyId) {
             console.log("SURVEY ID : " + this.surveyId);
             this.retrieveSurvey(this.surveyId);
         }
+        console.log("NG ON INIT CALLED");
+    };
+    InteractionViewComponent.prototype.buildInteractForm = function () {
+        this.interactForm = this.fb.group({
+            password: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]
+        });
+    };
+    InteractionViewComponent.prototype.getSurveyData = function (interactionId) {
+        var _this = this;
+        this.interactionViewService
+            .getFutureSurveyResultById(interactionId)
+            .subscribe(function (response) {
+            if (response.content.id) {
+                localStorage.setItem("surveyResultId", response.content.id);
+                localStorage.setItem("originalResultArray", response.content.originalResultArray);
+                _this.surveyResultId = response.content.id;
+            }
+            else {
+                console.log("------------------------------------------------------");
+                console.log("First Time");
+                console.log("------------------------------------------------------");
+            }
+        }, function (error) {
+            _this.errDialog.showErrorWithMessage(error);
+        });
     };
     InteractionViewComponent.prototype.viewInteraction = function (interactionId) {
         var _this = this;
         this.interactionViewService
             .getInteractionById(interactionId)
             .subscribe(function (response) {
-            console.log("interaction response ");
-            console.log(response);
             _this.futureSurveyObj = response.content.futureSurvey;
             _this.surveyTitle = _this.futureSurveyObj.title;
             _this.loggedInvitee = response.content.invitee.name;
-            console.log('LOGGED INSTANCE - ' + _this.loggedInvitee);
-            if (_this.preview === undefined) {
-                _this.showLogin = true;
-                localStorage.setItem("futureSurveyid", "");
-                localStorage.setItem("surveyResult", "");
-            }
-            else {
-                if (localStorage.getItem("futureSurveyid") === "") {
-                    window.location.href = window.location.href.split("&")[0];
-                }
-                else {
-                    _this.retrieveSurvey(localStorage.getItem("futureSurveyid"));
-                }
-            }
+            console.log("LOGGED INSTANCE - " + _this.loggedInvitee);
+            _this.showLogin = true;
             console.log("ID : " + _this.futureSurveyObj.id);
             console.log("title : " + _this.surveyTitle);
             console.log("FUTURE SURVEY OBJ");
+        });
+    };
+    InteractionViewComponent.prototype.doLog = function () {
+        var _this = this;
+        console.log("CALLED METHOD");
+        var password = this.interactForm.get("password").value;
+        var username = this.interactForm.get("username").value;
+        var fsPart = new FSurveyPart(this.futureSurveyObj.id);
+        var inviteePart = new InviteePart(username, password);
+        var loginReq = new LoginRequest(this.interactionId, inviteePart, fsPart);
+        console.log("Login REQUEST ");
+        console.log(loginReq);
+        this.interactionViewService
+            .interactLoginPost(loginReq)
+            .subscribe(function (response) {
+            _this.showLogin = false;
+            _this.loginError = false;
+            var loggedInteraction = response;
+            console.log("LOGGED INTERACTION RESPONSE");
+            console.log(loggedInteraction);
+            console.log(loggedInteraction.responStatus);
+            if (loggedInteraction.id !== null) {
+                _this.showLogin = false;
+                localStorage.setItem("interactionResponStatus", loggedInteraction.responStatus);
+                _this.retrieveSurvey(loggedInteraction.futureSurvey.id);
+            }
+            else {
+                // could not find a record for password and interaction id
+                _this.showLogin = true;
+                _this.loginError = true;
+            }
+        }, function (error) {
+            // this.errors = error;
+            _this.loginError = true;
         });
     };
     InteractionViewComponent.prototype.retrieveSurvey = function (surveyId) {
@@ -122,84 +165,88 @@ var InteractionViewComponent = /** @class */ (function () {
             .getFutureSurveyById(surveyId)
             .subscribe(function (response) {
             _this.showLogin = false;
-            // this.showSurvey = true;
             _this.futureSurveyObj = response.content;
             _this.jsonContent = JSON.parse(_this.futureSurveyObj.jsonContent);
             _this.surveyTitle = _this.futureSurveyObj.title;
             _this.pageJson = JSON.parse(_this.jsonContent).pages;
-            _this.viewSurvey();
+            if (localStorage.getItem("interactionResponStatus") === '1') {
+                document.getElementById('btnViewSummary').style.display = 'none';
+                document.getElementById('btnViewSurvey').style.display = 'none';
+                document.getElementById('btnSubmitSurvey').style.display = 'none';
+                document.getElementById('btnAnswerLater').style.display = 'none';
+                _this.viewSummary();
+            }
+            else {
+                _this.viewSurvey();
+            }
             _this.setuptheme();
-        });
-    };
-    InteractionViewComponent.prototype.buildInteractForm = function () {
-        this.interactForm = this.fb.group({
-            password: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required]
+        }, function (error) {
+            _this.errDialog.showErrorWithMessage(error);
         });
     };
     // ........... Survey Respond view should be re architecturing with following certin Angular techniquees .............
     InteractionViewComponent.prototype.viewSurvey = function () {
         var pageArray = this.pageJson;
         var resultArray = [];
-        // let htmlValue =
-        //   "<h3>Thank you for completing the survey!</h3>" +
-        //   '<div class="panel-footer card-footer survey-page-footer">' +
-        //   "</div>" +
-        //   '<div class="sv_container">';
-        // if (pageArray.length != 0) {
-        //   pageArray.forEach(element => {
-        //     const elementArray: any[] = element.elements;
-        //     console.log(elementArray);
-        //     if (elementArray) {
-        //       elementArray.forEach(element => {
-        //         htmlValue +=
-        //           "<div class='sv_row'>" +
-        //           "<div class='sv_qstn'>" +
-        //           "<h5>" +
-        //           "<span class='survey-form-question'>Q :- " +
-        //           element.title +
-        //           "</span>" +
-        //           "</h5>" +
-        //           "<span class='survey-form-answer'>A :- {" +
-        //           element.name +
-        //           "} </span>" +
-        //           "</div>" +
-        //           "</div></br>";
-        //       });
-        //     }
-        //   });
-        // }
-        // htmlValue += "</div>";
+        var interactionId = this.interactionId;
+        var surveyResultId;
         var jsonc = JSON.parse(this.jsonContent);
-        // jsonc.completedHtml = htmlValue;
-        if (this.preview) {
-            jsonc.title = "Summary of " + jsonc.title;
-        }
-        var surveyModel = new survey_angular__WEBPACK_IMPORTED_MODULE_4__["Model"](jsonc);
+        this.surveyModel = new survey_angular__WEBPACK_IMPORTED_MODULE_4__["Model"](jsonc);
+        var lastPage = String(this.surveyModel.pages.length - 1);
+        localStorage.setItem("onCompleteStatus", "onComplete");
         survey_angular__WEBPACK_IMPORTED_MODULE_4__["StylesManager"].applyTheme("bootstrap");
-        surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
+        this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
             var classes = options.cssClasses;
             if (options.question.getType() === "rating") {
                 classes.root = "btn-group";
                 classes.item = "btn btn-default btn-secondary";
             }
             if (options.question.getType() === "radiogroup") {
-                classes.item = "radio sv-q-col-1";
+                classes.item = "sv-q-col-1";
             }
             if (options.question.getType() === "checkbox") {
-                classes.item = "checkbox sv-q-col-1";
+                classes.item = "sv-q-col-1";
             }
             if (options.question.getType() === "matrix") {
                 classes.root = "table sv_q_matrix";
             }
+            if (options.question.getType() === "comment") {
+                classes.root = "form-control";
+            }
+            if (options.question.getType() === "dropdown") {
+                classes.control = "form-control";
+            }
+            if (options.question.getType() === "text") {
+                classes.root = "form-control";
+            }
         });
-        survey_angular__WEBPACK_IMPORTED_MODULE_4__["SurveyNG"].render("surveyElement", { model: surveyModel });
+        document.getElementById('btnViewSummary').style.display = 'none';
+        document.getElementById('btnViewSurvey').style.display = 'none';
+        document.getElementById('btnSubmitSurvey').style.display = 'none';
+        if (interactionId !== undefined) {
+            document.getElementById('btnAnswerLater').style.display = 'inline-block';
+            this.surveyModel.currentPage = this.surveyModel.pages[localStorage.getItem("survey_currentPage_" + interactionId)];
+        }
+        else {
+            document.getElementById('btnAnswerLater').style.display = 'none';
+        }
         // .............. ON COMPLET START HERE ..........................
-        surveyModel.onComplete.add(function (result) {
-            localStorage.setItem("surveyResult", JSON.stringify(result.data));
-            document.getElementById("surveyResult").innerHTML = "<a class='btn sv_preview_btn' href='" + window.location.href + "&preview=true' >View Summary</a>";
+        this.surveyModel.onComplete.add(function (result) {
+            if (interactionId !== undefined && localStorage.getItem("onCompleteStatus") === "onComplete") {
+                localStorage.setItem("survey_currentPage_" + interactionId, lastPage);
+            }
+            localStorage.setItem("originalResultArray", JSON.stringify(result.data));
+            document.getElementById('btnViewSummary').style.display = 'inline-block';
+            if (interactionId !== undefined) {
+                document.getElementById('btnSubmitSurvey').style.display = 'inline-block';
+            }
+            else {
+                document.getElementById('btnSubmitSurvey').style.display = 'none';
+            }
+            document.getElementById('btnViewSurvey').style.display = 'none';
+            document.getElementById('btnAnswerLater').style.display = 'none';
             console.log("..............SURVEY ANSWER RESULR/.............");
             console.log(result);
-            // ------- new start --------
             pageArray.forEach(function (element) {
                 // console.log(element.elements);
                 element.elements.forEach(function (element) {
@@ -252,25 +299,131 @@ var InteractionViewComponent = /** @class */ (function () {
                     }
                 });
             });
-            // ------- new end --------
+            // wrapping up the interaction id and survey answers together
+            var submitRequest = new FSAnswer(interactionId, resultArray, JSON.stringify(result.data));
             console.log("...............ANSWER ARRAY.................");
             console.log(resultArray);
             console.log(JSON.stringify(resultArray));
             var interactService = new _interaction_view_service__WEBPACK_IMPORTED_MODULE_3__["InteractionViewService"]();
-            interactService.submitAnswers(resultArray).subscribe(function (response) {
-                console.log("SUCCESS");
-                console.log(response);
-            }, function (error) {
-                console.log("ERROR");
-                console.log(error);
-                //alert("Something went wrong !");
-            });
+            if (localStorage.getItem("surveyResultId") !== "null") {
+                interactService.updateAnswers(submitRequest, localStorage.getItem('surveyResultId')).subscribe(function (response) {
+                    console.log("SUCCESS");
+                    console.log(response);
+                }, function (error) {
+                    console.log("ERROR");
+                    console.log(error);
+                });
+            }
+            else {
+                interactService.submitAnswers(submitRequest).subscribe(function (response) {
+                    console.log("SUCCESS");
+                    localStorage.setItem("surveyResultId", response.id);
+                    localStorage.setItem("originalResultArray", response.originalResultArray);
+                }, function (error) {
+                    console.log("ERROR");
+                    console.log(error);
+                });
+            }
+            var thankYouMsg = '<div class="sv_main sv_bootstrap_css">' +
+                "<form>" +
+                '<div class="sv_container">' +
+                '<div class="sv_body sv_completed_page">' +
+                '<h3>The Survey is Completed, Click Submit Survey to Finish!</h3>' +
+                '</div>' +
+                '</div>' +
+                '</form>' +
+                '</div>';
+            document.getElementById("surveyElement").innerHTML = thankYouMsg;
         });
         // ................. ON COMPLETE END HERE .........
-        if (this.preview) {
-            surveyModel.data = JSON.parse(localStorage.getItem("surveyResult"));
-            surveyModel.mode = 'display';
+        if (localStorage.getItem("surveyResultId") !== "null") {
+            this.surveyModel.data = JSON.parse(localStorage.getItem("originalResultArray"));
         }
+        survey_angular__WEBPACK_IMPORTED_MODULE_4__["SurveyNG"].render("surveyElement", { model: this.surveyModel });
+    };
+    InteractionViewComponent.prototype.viewSummary = function () {
+        document.getElementById('btnViewSummary').style.display = 'none';
+        if (localStorage.getItem("interactionResponStatus") === '0' && this.interactionId !== undefined) {
+            document.getElementById('btnViewSurvey').style.display = 'inline-block';
+        }
+        else if (localStorage.getItem("interactionResponStatus") === '1') {
+            document.getElementById('finishedSurveyMsg').style.display = 'block';
+            document.getElementById('btnViewSurvey').style.display = 'none';
+            // document.getElementById('btnAnswerLater').style.display = 'none';
+            // document.getElementById('btnSubmitSurvey').style.display = 'none';
+        }
+        var jsonc = JSON.parse(this.jsonContent);
+        jsonc.title = "Summary of " + jsonc.title;
+        this.surveyModel = new survey_angular__WEBPACK_IMPORTED_MODULE_4__["Model"](jsonc);
+        survey_angular__WEBPACK_IMPORTED_MODULE_4__["StylesManager"].applyTheme("bootstrap");
+        this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
+            var classes = options.cssClasses;
+            if (options.question.getType() === "rating") {
+                classes.root = "btn-group";
+                classes.item = "btn btn-default btn-secondary";
+            }
+            if (options.question.getType() === "radiogroup") {
+                classes.item = "sv-q-col-1";
+            }
+            if (options.question.getType() === "checkbox") {
+                classes.item = "sv-q-col-1";
+            }
+            if (options.question.getType() === "matrix") {
+                classes.root = "table sv_q_matrix";
+            }
+            if (options.question.getType() === "comment") {
+                classes.root = "form-control";
+            }
+            if (options.question.getType() === "dropdown") {
+                classes.control = "form-control";
+            }
+            if (options.question.getType() === "text") {
+                classes.root = "form-control";
+            }
+        });
+        this.surveyModel.data = JSON.parse(localStorage.getItem("originalResultArray"));
+        this.surveyModel.mode = 'display';
+        survey_angular__WEBPACK_IMPORTED_MODULE_4__["SurveyNG"].render("surveyElement", { model: this.surveyModel });
+    };
+    // Save current answers to DB. Also current page number save to "localStorage" with current "interactionId".
+    InteractionViewComponent.prototype.answerLater = function () {
+        localStorage.setItem("onCompleteStatus", "answerLater");
+        localStorage.setItem("survey_currentPage_" + this.interactionId, this.surveyModel.currentPageNo);
+        this.surveyModel.doComplete();
+        var answerLaterMsg = '<div class="sv_main sv_bootstrap_css">' +
+            '<form>' +
+            '<div class="sv_container">' +
+            '<div class="sv_body sv_completed_page">' +
+            '<h3>You are Attempting to Answer Later to the Survey!</h3>' +
+            '</div>' +
+            '</div>' +
+            '</form>' +
+            '</div>';
+        document.getElementById("surveyElement").innerHTML = answerLaterMsg;
+    };
+    InteractionViewComponent.prototype.submitSurvey = function () {
+        var interactService = new _interaction_view_service__WEBPACK_IMPORTED_MODULE_3__["InteractionViewService"]();
+        interactService.submitSurvey(this.interactionId).subscribe(function (response) {
+            console.log("SUCCESS");
+            console.log(response);
+            localStorage.setItem("interactionResponStatus", response.content.responStatus);
+            var submitMsg = '<div class="sv_main sv_bootstrap_css">' +
+                '<form>' +
+                '<div class="sv_container">' +
+                '<div class="sv_body sv_completed_page">' +
+                '<h3>Thank You </br> You have finished the Survey</h3>' +
+                '</div>' +
+                '</div>' +
+                '</form>' +
+                '</div>';
+            document.getElementById("surveyElement").innerHTML = submitMsg;
+            document.getElementById('btnSubmitSurvey').style.display = 'none';
+            document.getElementById('btnViewSummary').style.display = 'inline-block';
+            document.getElementById('btnViewSurvey').style.display = 'none';
+        }, function (error) {
+            console.log("ERROR");
+            console.log(error);
+        });
     };
     InteractionViewComponent.prototype.setuptheme = function () {
         var mainColor = "#0684C0";
@@ -286,45 +439,7 @@ var InteractionViewComponent = /** @class */ (function () {
         defaultThemeColorsSurvey["$header-color"] = headerColor;
         defaultThemeColorsSurvey["$header-background-color"] = headerBackgroundColor;
         defaultThemeColorsSurvey["$body-container-background-color"] = bodyContainerBackgroundColor;
-        // console.log("--- theme color setting---");
-        // console.log(defaultThemeColorsSurvey);
-        // console.log(Survey.StylesManager.ThemeColors);
-        // console.log(Survey);
         survey_angular__WEBPACK_IMPORTED_MODULE_4__["StylesManager"].applyTheme();
-    };
-    InteractionViewComponent.prototype.doLog = function () {
-        var _this = this;
-        console.log("CALLED METHOD");
-        var password = this.interactForm.get("password").value;
-        var fsPart = new FSurveyPart(this.futureSurveyObj.id);
-        var loginReq = new LoginRequest(this.interactionId, password, fsPart);
-        console.log("Login REQUEST ");
-        console.log(loginReq);
-        this.interactionViewService
-            .interactLoginPost(loginReq)
-            .subscribe(function (response) {
-            _this.showLogin = false;
-            _this.loginResult = true;
-            var loggedInteraction = response;
-            console.log("LOGGED INTERACTION RESPONSE");
-            console.log(loggedInteraction);
-            if (loggedInteraction != null) {
-                if (loggedInteraction.responStatus == 1) {
-                    // Situation all ready responded to survey
-                }
-                else {
-                    _this.showLogin = false;
-                    localStorage.setItem("futureSurveyid", loggedInteraction.futureSurvey.id);
-                    _this.retrieveSurvey(loggedInteraction.futureSurvey.id);
-                }
-            }
-            else {
-                // could not find a record for password and interaction id
-            }
-        }, function (error) {
-            // this.errors = error;
-            _this.loginResult = false;
-        });
     };
     InteractionViewComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -335,15 +450,16 @@ var InteractionViewComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             _interaction_view_service__WEBPACK_IMPORTED_MODULE_3__["InteractionViewService"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"]])
+            _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"],
+            _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_6__["AppErrorService"]])
     ], InteractionViewComponent);
     return InteractionViewComponent;
 }());
 
 var LoginRequest = /** @class */ (function () {
-    function LoginRequest(id, password, futureSurvey) {
+    function LoginRequest(id, invitee, futureSurvey) {
         this.id = id;
-        this.password = password;
+        this.invitee = invitee;
         this.futureSurvey = futureSurvey;
     }
     return LoginRequest;
@@ -354,6 +470,14 @@ var FSurveyPart = /** @class */ (function () {
         this.id = id;
     }
     return FSurveyPart;
+}());
+
+var InviteePart = /** @class */ (function () {
+    function InviteePart(username, password) {
+        this.username = username;
+        this.password = password;
+    }
+    return InviteePart;
 }());
 
 var ValueTemplate = /** @class */ (function () {
@@ -369,6 +493,15 @@ var MatrixBaseTemplate = /** @class */ (function () {
         this.columnValue = columnValue;
     }
     return MatrixBaseTemplate;
+}());
+
+var FSAnswer = /** @class */ (function () {
+    function FSAnswer(interactionId, futureSurveyAnswers, originalResultArray) {
+        this.interactionId = interactionId;
+        this.futureSurveyAnswers = futureSurveyAnswers;
+        this.originalResultArray = originalResultArray;
+    }
+    return FSAnswer;
 }());
 
 
@@ -519,15 +652,42 @@ var InteractionViewService = /** @class */ (function () {
             .get(this.surveyApiUrl + "surveys" + "/futureSurvey/" + surveyId)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
     };
+    InteractionViewService.prototype.getFutureSurveyResultById = function (interactionId) {
+        return this.http
+            .get(this.surveyApiUrl + "surveys" + "/futureSurveyAnswer/" + interactionId)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+    };
     InteractionViewService.prototype.handleError = function (error) {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(error);
     };
-    InteractionViewService.prototype.submitAnswers = function (answers) {
+    InteractionViewService.prototype.submitAnswers = function (requestBody) {
         return this.http
-            .post(this.surveyApiUrl + "surveys" + "/futureSurveyAnswer", answers)
+            .post(this.surveyApiUrl + "surveys" + "/futureSurveyAnswer", requestBody)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) {
             console.log(data);
             return data.content;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+    };
+    InteractionViewService.prototype.updateAnswers = function (requestBody, id) {
+        console.log("-----------------------------------------------------");
+        console.log(id);
+        console.log("-----------------------------------------------------");
+        return this.http
+            .put(this.surveyApiUrl + "surveys" + "/futureSurveyAnswer/" + id, requestBody)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) {
+            console.log(data);
+            return data.content;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+    };
+    InteractionViewService.prototype.submitSurvey = function (id) {
+        console.log("-----------------------------------------------------");
+        console.log(id);
+        console.log("-----------------------------------------------------");
+        return this.http
+            .put(this.surveyApiUrl + "surveys" + "/futureSurveyInteractionStatusChange/" + id, "Completed")
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) {
+            console.log(data);
+            return data;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
     };
     InteractionViewService.prototype.interactLogin = function (loginReq) {
