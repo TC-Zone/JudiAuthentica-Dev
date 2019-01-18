@@ -19,45 +19,58 @@ var map = {
 	],
 	"./views/cruds/cruds.module": [
 		"./src/app/views/cruds/cruds.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~503bb438",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
 		"common",
 		"views-cruds-cruds-module"
 	],
 	"./views/evote/evote.module": [
 		"./src/app/views/evote/evote.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~503bb438",
-		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module~views-s~9abe55a2",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
+		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
 		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module",
-		"views-evote-evote-module~views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
 		"views-evote-evote-module"
 	],
 	"./views/future-survey/future-survey.module": [
 		"./src/app/views/future-survey/future-survey.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~503bb438",
-		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
+		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
+		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
 		"common"
 	],
 	"./views/interaction-view/interaction-view.module": [
 		"./src/app/views/interaction-view/interaction-view.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~503bb438",
-		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
+		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
+		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
 		"common",
 		"views-interaction-view-interaction-view-module"
 	],
+	"./views/invitee-interaction-view/invitee-interaction-view.module": [
+		"./src/app/views/invitee-interaction-view/invitee-interaction-view.module.ts",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
+		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
+		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
+		"common",
+		"views-invitee-interaction-view-invitee-interaction-view-module"
+	],
 	"./views/product-crud/product-crud.module": [
 		"./src/app/views/product-crud/product-crud.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~503bb438",
-		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module~views-s~9abe55a2",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
+		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
 		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module",
-		"views-evote-evote-module~views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
 		"views-product-crud-product-crud-module"
 	],
 	"./views/profile/profile.module": [
 		"./src/app/views/profile/profile.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~503bb438",
-		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module~views-s~9abe55a2",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
 		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module",
 		"common",
 		"views-profile-profile-module"
@@ -68,9 +81,9 @@ var map = {
 	],
 	"./views/survey/survey.module": [
 		"./src/app/views/survey/survey.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~503bb438",
-		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module~views-s~9abe55a2",
-		"views-evote-evote-module~views-product-crud-product-crud-module~views-survey-survey-module",
+		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
+		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
 		"common",
 		"views-survey-survey-module"
 	]
@@ -323,6 +336,16 @@ var rootRouterConfig = [
                 path: "interaction",
                 loadChildren: "./views/interaction-view/interaction-view.module#InteractionViewModule",
                 data: { title: "Interaction View" }
+            },
+            {
+                path: "eVote",
+                loadChildren: "./views/invitee-interaction-view/invitee-interaction-view.module#InviteeInteractionViewModule",
+                data: { title: "Invitee Interaction View" }
+            },
+            {
+                path: "Survey",
+                loadChildren: "./views/invitee-interaction-view/invitee-interaction-view.module#InviteeInteractionViewModule",
+                data: { title: "Invitee Interaction View" }
             }
         ]
     },
@@ -2553,6 +2576,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _node_modules_angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../node_modules/@angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _app_error_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app-error.component */ "./src/app/shared/services/app-error/app-error.component.ts");
+/* harmony import */ var _error_messages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./error.messages */ "./src/app/shared/services/app-error/error.messages.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2562,6 +2586,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -2606,6 +2631,84 @@ var AppErrorService = /** @class */ (function () {
         });
         return dialogRef.afterClosed();
     };
+    // show popup window for custom error message (by prasad kumara)
+    AppErrorService.prototype.handleCustomError = function (error) {
+        if (error === void 0) { error = {}; }
+        var errorTitle = this.removeUnderscore(error.title);
+        if (_error_messages__WEBPACK_IMPORTED_MODULE_3__["errorMessages"].hasOwnProperty(error.type)) {
+            var jsonArrayKey = this.getEnumKey(error.message);
+            if (_error_messages__WEBPACK_IMPORTED_MODULE_3__["errorMessages"][error.type].hasOwnProperty(jsonArrayKey)) {
+                this.openPopUpWindow(errorTitle, _error_messages__WEBPACK_IMPORTED_MODULE_3__["errorMessages"][error.type][jsonArrayKey]);
+            }
+            else {
+                this.openPopUpWindow(errorTitle, error.message);
+            }
+        }
+        else {
+            this.openPopUpWindow(errorTitle, error.message);
+        }
+    };
+    // handle custom error (by prasad kumara)
+    AppErrorService.prototype.showErrorWithMessage = function (error) {
+        console.log('view survey error with message');
+        console.log(error);
+        if (error.error !== null) {
+            if (error.error.hasOwnProperty('validationFailures')) {
+                this.handleCustomError({
+                    title: error.error.status,
+                    message: error.error.validationFailures[0].code,
+                    type: error.error.validationFailures[0].field,
+                    status: error.status,
+                    clientError: ''
+                });
+            }
+            else {
+                this.openPopUpWindow(this.removeUnderscore(error.error.status), 'CP Judi Authentica : Something went wrong');
+            }
+        }
+        else {
+            this.showHttpError({
+                title: 'Error',
+                message: '',
+                type: 'http_error',
+                status: error.status,
+                clientError: ''
+            });
+        }
+    };
+    // convert error messages to camell case message (by prasad kumara)
+    AppErrorService.prototype.getEnumKey = function (string) {
+        var stringArray = string.split('.');
+        var enumkey = '';
+        for (var i = 0; i < stringArray.length; i++) {
+            if (i === 0) {
+                enumkey += stringArray[i].substring(0, 1).toLowerCase() + stringArray[i].substring(1);
+            }
+            else {
+                enumkey += stringArray[i].substring(0, 1).toUpperCase() + stringArray[i].substring(1);
+            }
+        }
+        return enumkey;
+    };
+    // Remove _ from Error Title
+    AppErrorService.prototype.removeUnderscore = function (string) {
+        var stringArray = string.split('_');
+        var errorTitle = '';
+        for (var i = 0; i < stringArray.length; i++) {
+            errorTitle += stringArray[i].substring(0, 1).toUpperCase() + stringArray[i].substring(1).toLowerCase() + ' ';
+        }
+        return errorTitle;
+    };
+    // open pop up window
+    AppErrorService.prototype.openPopUpWindow = function (title, message) {
+        var dialogRef;
+        dialogRef = this.dialog.open(_app_error_component__WEBPACK_IMPORTED_MODULE_2__["AppErrorComponent"], {
+            width: '380px',
+            disableClose: true,
+            data: { title: title, message: message }
+        });
+        return dialogRef.afterClosed();
+    };
     AppErrorService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
         __metadata("design:paramtypes", [_node_modules_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"]])
@@ -2613,6 +2716,104 @@ var AppErrorService = /** @class */ (function () {
     return AppErrorService;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/app/shared/services/app-error/error.messages.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/shared/services/app-error/error.messages.ts ***!
+  \*************************************************************/
+/*! exports provided: errorMessages */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errorMessages", function() { return errorMessages; });
+var errorMessages = {
+    name: {
+        answerTemplateCreateRequestNameDuplicate: 'Answer Name is Duplicated.'
+    },
+    answerTemplate: {
+        answerTemplateUpdateRequestAnswerTemplateNotExist: 'Answer Template is not Found.',
+        answerTemplateDeleteRequestAnswerTemplateNotExist: 'Answer Template is not Found.'
+    },
+    votersZero: {
+        eVoteCreateRequestEVoteVotersNotExists: 'Evote Voters are not Found.'
+    },
+    eVote: {
+        eVoteViewRequestEVoteNotExist: 'Evote is not Found.',
+        eVoteUpdateRequestEVoteNotExist: 'Evote is not Found.',
+        eVoteDeleteRequestEVoteNotExist: 'Evote is not Found.',
+        eVoteCreateRequestCanNotStoreFile: 'Canot Store File.',
+        eVoteUpdateRequestCanNotStoreFile: 'Canot Store File.'
+    },
+    evote_image: {
+        evoteImageRetrieveEvoteImageNotExists: 'Image is not Found.'
+    },
+    imageName: {
+        ProductCreateRequestImageNameAlreadyExist: 'Image Name All Ready Exist.'
+    },
+    element: {
+        futureSurveyAnswerRequestQuestionElementDoesNotExists: 'Question Element is not Found.'
+    },
+    futureSurvey: {
+        updateConfigErrorConfigUpdate: 'Error Configure Update.',
+        futureSurveytUpdateRequestFutureSurveyNotExist: 'Survey is not Exist.',
+        futureSurveyDeleteRequestFutureSurveyNotExist: 'Survey is not Exist.',
+        futureSurveyViewFutureSurveyNotExist: 'Survey is not Exist.',
+        futureSurveyViewInvalidId: 'Invalid Survey Id.'
+    },
+    futureSurveyInteraction: {
+        interactionViewInteractionDoesNotExists: 'Interaction is not Found.',
+        updateErrorWhenUpdate: 'Can not Update at this Time.',
+        interactLoginCouldNotFindrecord: 'Record is not Found.',
+        interactLoginPostCouldNotFindRecord: 'Record is not Found.',
+        deleteInteractionBySurvey: 'Can not Delete at this Time.'
+    },
+    interaction: {
+        fetchAllInteractionsInteractionsNotExists: 'Interaction is not Exist.',
+        fetchGroupByClientIdGroupsNotExists: 'Groups are not Exists.',
+        getAssignedInviteesGroupDetailsDoesNotExists: 'Group Details are not Exist.'
+    },
+    inviteeGroup: {
+        findGroupByIdInviteeGroupNotExist: 'Invitee Group is not Exist.'
+    },
+    question: {
+        questionViewRequestQuestionNotExist: 'Question is not Exist.',
+        questionUpdateRequestQuestionNotExist: 'Question is not Exist.',
+        questionDeleteRequestQuestionNotExist: 'Question is not Exist.'
+    },
+    survey: {
+        surveyUpdateRequestSurveyNotExist: 'Survey is not Exist.',
+        EVoteCreateRequestSurveyInvalid: 'Invalid Survey.',
+        surveyViewRequestSurveyNotExist: 'Survey is not Exist.'
+    },
+    client: {
+        EVoteCreateRequestClientEmpty: 'Invalid Client.',
+        EVoteCreateRequestClientInvalid: 'Invalid Client.',
+        EVoteRequestClientEmpty: 'Invalid Client.',
+        EVoteUpdateRequestClientEmpty: 'Invalid Client.',
+        productsCreateRequestClientInvalid: 'Invalid Client.',
+        clientViewRequestClientNotExist: 'Client is not Exist.',
+        clientUpdateRequestClientNotExist: 'Client is not Exist.',
+        clientDeleteRequestClientNotExist: 'Client is not Exist.',
+        productCreateRequestClientNotExist: 'Client is not Exist.'
+    },
+    answer: {
+        platformAnswerSubmitRequestAnswerAlreadyExpired: 'Answers Expired.'
+    },
+    surveyId: {
+        productsCreateRequestSurveyIdInvalid: 'Invalid Survey.'
+    },
+    product: {
+        productViewRequestProductNotExist: 'Product is not Exist.',
+        productUpdateRequestProductNotExist: ''
+    },
+    product_image: {
+        productImageRetrieveProducImageNotExists: 'Product Image is not Exist.'
+    }
+};
 
 
 /***/ }),
@@ -2802,6 +3003,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var AppDataConversionService = /** @class */ (function () {
     function AppDataConversionService() {
     }
+    //public requiredFields = ["name", "email", "username", "password"];
     AppDataConversionService.prototype.convertToCsv = function (dataArray) {
         var arr = typeof dataArray != "object" ? JSON.parse(dataArray) : dataArray;
         var str = "";
@@ -2877,16 +3079,13 @@ var AppDataConversionService = /** @class */ (function () {
         // Return the parsed data.
         return arrData;
     };
-    AppDataConversionService.prototype.CSV2JSON = function (csv) {
-        var array = this.CSVToArray(csv);
-        console.log('arrays');
-        console.log(array);
+    AppDataConversionService.prototype.CSV2JSON = function (csvArray) {
         var objArray = [];
-        for (var i = 1; i < array.length; i++) {
+        for (var i = 1; i < csvArray.length; i++) {
             objArray[i - 1] = {};
-            for (var k = 0; k < array[0].length && k < array[i].length; k++) {
-                var key = array[0][k];
-                objArray[i - 1][key] = array[i][k];
+            for (var k = 0; k < csvArray[0].length && k < csvArray[i].length; k++) {
+                var key = csvArray[0][k];
+                objArray[i - 1][key] = csvArray[i][k];
             }
         }
         var json = JSON.stringify(objArray);
@@ -2996,7 +3195,7 @@ var LayoutService = /** @class */ (function () {
         this.router = router;
         this.layoutConfSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](this.layoutConf);
         this.layoutConf$ = this.layoutConfSubject.asObservable();
-        this.fullWidthRoutes = ['future-survey/'];
+        this.fullWidthRoutes = ['future-survey'];
         this.compactRoutes = ['surveys'];
         this.setAppLayout();
     }
@@ -3512,14 +3711,10 @@ var NavigationService = /** @class */ (function () {
             },
             {
                 name: "Future Survey",
-                type: "dropDown",
+                type: "link",
                 tooltip: "Future Survey",
                 icon: "language",
-                state: "future-survey",
-                sub: [
-                    { name: "Future Survey Catalog", state: "sList" }
-                    //{ name: "Future Survey Designer", state: "sEditor" }
-                ]
+                state: "future-survey"
             },
             // ,
             // {
@@ -4226,7 +4421,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\ClearPicture\CP Zone\cp_authentica_dev\JudiAuthentica-Dev\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\ClearPicture\CP Zone\cp_authentica_dev\Dev-JudiAuthentica-Dev\JudiAuthentica-Dev\src\main.ts */"./src/main.ts");
 
 
 /***/ })

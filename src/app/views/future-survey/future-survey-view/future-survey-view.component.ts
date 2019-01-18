@@ -90,29 +90,41 @@ export class FutureSurveyViewComponent implements OnInit {
 
     Survey.StylesManager.applyTheme("bootstrap");
 
-    
+
     surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
-      var classes = options.cssClasses;
+      const classes = options.cssClasses;
 
-      if (options.question.getType() === "rating") {
-        classes.root = "btn-group";
-        classes.item = "btn btn-default btn-secondary";
+      if (options.question.getType() === 'rating') {
+        classes.root = 'btn-group';
+        classes.item = 'btn btn-default btn-secondary';
       }
 
-      if (options.question.getType() === "radiogroup") {
-        classes.item = "radio sv-q-col-1";
+      if (options.question.getType() === 'radiogroup') {
+        classes.item = 'sv-q-col-1';
       }
 
-      if (options.question.getType() === "checkbox") {
-        classes.item = "checkbox sv-q-col-1";
+      if (options.question.getType() === 'checkbox') {
+        classes.item = 'sv-q-col-1';
       }
 
-      if(options.question.getType() === "matrix"){
-        classes.root = "table sv_q_matrix"; 
+      if (options.question.getType() === 'matrix') {
+        classes.root = 'table sv_q_matrix';
+      }
+
+      if (options.question.getType() === "comment") {
+        classes.root = 'form-control';
+      }
+
+      if (options.question.getType() === 'dropdown') {
+        classes.control = 'form-control';
+      }
+
+      if (options.question.getType() === 'text') {
+        classes.root = 'form-control';
       }
     });
 
-    
+
     //Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
     // console.log('.....bootstrap');
     // console.log(Survey.defaultBootstrapCss);

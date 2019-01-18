@@ -7,8 +7,7 @@
 <div class="survey-container contentcontainer codecontainer">
   <div id="surveyElement"></div>
 </div> -->
-
-<div fxLayout="row" fxLayoutWrap="wrap">
+<div fxLayout="row" fxLayoutWrap="wrap" class="background-future-survey-view">
   <div fxFlex="100" text-right class="pr-0">
     <div class="profile-actions text-right mb-1">
       <div class="m-333">
@@ -24,12 +23,26 @@
     </div>
   </div>
 
-  <div fxFlex="100" fxLayoutAlign="center center" >
-
+  <div fxFlex="100" fxLayoutAlign="center center">
+    <div class="survey-form-hold">
+      <mat-card class="survey-mat-card">
+        <!-- <div class="survey-container contentcontainer codecontainer"> -->
+        <mat-card-content>
+          <div id="surveyElement" ></div>
+        </mat-card-content>
+        <!-- </div> -->
+      </mat-card>
+      <div id="survey-view-footer">
+        <div class="container custom-center">
+          <span>Powered by</span>
+          <img src="assets/images/cp_logo_text.png" alt="">
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+<!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
   <mat-card class="container" >
   <div class="survey-container contentcontainer codecontainer">
 
@@ -37,7 +50,7 @@
 
   </div>
   </mat-card>
-</div>
+</div> -->
 
 
 
