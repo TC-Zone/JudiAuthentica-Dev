@@ -167,14 +167,19 @@ export class InviteeInteractionViewComponent implements OnInit {
       if (options.question.getType() === "rating") {
         classes.root = "btn-group";
         classes.item = "btn btn-default btn-secondary";
+        classes.other = "sv_q_rating_other form-control";
       }
 
       if (options.question.getType() === "radiogroup") {
         classes.item = "sv-q-col-1";
+        classes.other = "sv_q_radiogroup_other form-control";
+        // classes.root = "sv_qcbc";
       }
 
       if (options.question.getType() === "checkbox") {
         classes.item = "sv-q-col-1";
+        classes.other = "sv_q_checkbox_other form-control";
+        classes.root = "sv_qcbc";
       }
 
       if (options.question.getType() === "matrix") {
@@ -187,6 +192,7 @@ export class InviteeInteractionViewComponent implements OnInit {
 
       if (options.question.getType() === "dropdown") {
         classes.control = "form-control";
+        classes.other = "sv_q_dropdown_other form-control";
       }
 
       if (options.question.getType() === "text") {
@@ -348,19 +354,24 @@ export class InviteeInteractionViewComponent implements OnInit {
     Survey.StylesManager.applyTheme("bootstrap");
 
     this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
+
+
       var classes = options.cssClasses;
 
       if (options.question.getType() === "rating") {
         classes.root = "btn-group";
         classes.item = "btn btn-default btn-secondary";
+        classes.other = "sv_q_rating_other form-control height-auto";
       }
 
       if (options.question.getType() === "radiogroup") {
         classes.item = "sv-q-col-1";
+        classes.other = "sv_q_radiogroup_other form-control height-auto";
       }
 
       if (options.question.getType() === "checkbox") {
         classes.item = "sv-q-col-1";
+        classes.other = "sv_q_checkbox_other form-control height-auto";
       }
 
       if (options.question.getType() === "matrix") {
@@ -373,11 +384,14 @@ export class InviteeInteractionViewComponent implements OnInit {
 
       if (options.question.getType() === "dropdown") {
         classes.control = "form-control";
+        classes.other = "sv_q_dropdown_other form-control height-auto";
       }
 
       if (options.question.getType() === "text") {
         classes.root = "form-control";
       }
+
+
     });
 
     this.surveyModel.data = JSON.parse(localStorage.getItem("originalResultArray"));

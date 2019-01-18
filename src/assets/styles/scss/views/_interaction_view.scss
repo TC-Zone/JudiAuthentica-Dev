@@ -127,6 +127,12 @@
   font-weight: 400 !important;
 }
 
+// for fix hasComment height issue : BUDDHI HASANKA - The flash sprint
+.height-auto {
+  min-height: 34px;
+  height: auto;
+}
+
 // this css style added for manage to matrix table header column width : PRASAD KUMARA - the flash sprint
 .sv_q_matrix th {
   width: 10em;
