@@ -126,3 +126,9 @@
 .sv-q-col-1 label span{
   font-weight: 400 !important;
 }
+
+// for fix hasComment height issue : BUDDHI HASANKA - The flash sprint
+.height-auto {
+  min-height: 34px;
+  height: auto;
+}

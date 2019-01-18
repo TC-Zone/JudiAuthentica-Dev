@@ -42,7 +42,6 @@ export const rootRouterConfig: Routes = [
     canActivate: [AuthGuard],
     children: [
 
-
       {
         path: "profile",
         loadChildren: "./views/profile/profile.module#ProfileModule",
@@ -86,6 +85,7 @@ export const rootRouterConfig: Routes = [
         loadChildren: "./views/evote/evote.module#EvoteModule",
         data: { title: "E - Vote", breadcrumb: "E Vote" }
       }
+      
     ]
   },
   {
