@@ -28,7 +28,7 @@ export const environment = {
   // productimageUrl: "https://productzg4t4ks63a.hana.ondemand.com/product/",
   // evoteimageUrl : 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/'
 
-    frontEndBaseUrl :'https://judedw.github.io/JudiAuthentica-Dev/',
+   frontEndBaseUrl :'https://judedw.github.io/JudiAuthentica-Dev/',
   //  frontEndBaseUrl: "http://localhost:4200/",
   //  frontEndBaseUrl: "https://www.clearpicturevote.com/"
 };
