@@ -48,6 +48,43 @@
         </div>
       </mat-card-content></mat-card
     >
+
+    <!-- OFFLINE SETTING -->
+
+    <mat-card
+      *ngIf="this.currentStatus[0].id == 1"
+      fxFlex="100"
+      class="pr-1"
+      _ngcontent-c100=""
+      class="default mat-card"
+    ><mat-card-title _ngcontent-c28="" class="mat-card-title"
+    >{{ title }} - Maintainance </mat-card-title
+  >
+      <mat-card-content _ngcontent-c28="" class="p-0 mat-card-content"
+        ><div _ngcontent-c28="" class="list-tasktype">
+          <div
+            _ngcontent-c28=""
+            class="tasktype-item ng-star-inserted"
+            style="flex-direction: row; box-sizing: border-box; display: flex;"
+          >
+            <span _ngcontent-c28=""
+              >Offline the {{ origin }} for maintainance - Invitation URLs will be temporarily unavailable!</span
+            ><span
+              _ngcontent-c28=""
+              fxflex=""
+              style="flex: 1 1 0%; box-sizing: border-box;"
+            ></span
+            ><button
+              mat-raised-button
+              (click)="putOffline(surveyId)"
+              color="accent"
+            >
+              OFFLINE
+            </button>
+          </div>
+        </div>
+      </mat-card-content></mat-card
+    >
   </div>
 </mat-dialog-content>
 

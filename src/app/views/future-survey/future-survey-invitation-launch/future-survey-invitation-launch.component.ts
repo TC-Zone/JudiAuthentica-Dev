@@ -6,6 +6,8 @@ import { FutureSurveyService } from "../future-survey.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { AppDataConversionService } from "../../../shared/services/data-conversion.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
+import { AppConfirmService } from "../../../shared/services/app-confirm/app-confirm.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-future-survey-invitation-launch",
@@ -18,11 +20,15 @@ export class FutureSurveyInvitationLaunchComponent implements OnInit {
   public currentStatus: any;
   public isPublic: boolean;
   public link;
+  public origin: string;
+  public surveyId: any;
+
+  public futureSurveys: any[] = [];
 
   public statusArray = [
     { id: 0, status: "On Premise", style: "accent" },
     { id: 1, status: "Launched", style: "primary" },
-    { id: 2, status: "Offline", style: "default" }
+    { id: 4, status: "Offline", style: "default" }
   ];
 
   constructor(
@@ -33,13 +39,16 @@ export class FutureSurveyInvitationLaunchComponent implements OnInit {
     private snack: MatSnackBar,
     private errDialog: AppErrorService,
     private conversionService: AppDataConversionService,
-    private loader: AppLoaderService
+    private loader: AppLoaderService,
+    private confirmService: AppConfirmService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.surveyObject = this.data.payload;
     this.title = this.surveyObject.title;
-    const surveyId = this.surveyObject.id;
+    this.surveyId = this.surveyObject.id;
+    this.origin = this.surveyObject.origin == "2" ? "E Vote" : "Survey";
 
     let surveyStatus = this.surveyObject.status;
     this.currentStatus = this.statusArray.filter(function(status) {
@@ -51,7 +60,7 @@ export class FutureSurveyInvitationLaunchComponent implements OnInit {
 
     this.isPublic = this.surveyObject.channel == 1 ? true : false;
     if (this.isPublic) {
-      this.link = this.futureSurveyService.getPublicSurveyLink(surveyId);
+      this.link = this.futureSurveyService.getPublicSurveyLink(this.surveyId);
     }
   }
 
@@ -60,5 +69,32 @@ export class FutureSurveyInvitationLaunchComponent implements OnInit {
     console.log(this.data.payload);
 
     this.dialogRef.close(this.data.payload);
+  }
+
+  putOffline(surveyId) {
+    console.log("DO OOFLINE " + surveyId);
+    this.confirmService
+      .confirm({
+        message: "You are about to Offline the broadcast! Are you Sure ?"
+      })
+      .subscribe(res => {
+        if (res) {
+          this.futureSurveyService.changeSurveyStatus(surveyId, 4).subscribe(
+            data => {
+              console.log("...........OFFLINE RESPONSE/..........");
+              console.log(data);
+              this.dialogRef.close();
+            },
+            error => {
+              this.loader.close();
+              this.errDialog.showError({
+                title: "Error",
+                status: error.status,
+                type: "http_error"
+              });
+            }
+          );
+        }
+      });
   }
 }
