@@ -30,6 +30,16 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
 
   testClick() {}
 
+  getFailedInteraction(surveyId) {
+    console.log('ID : '+surveyId);
+
+    this.futureSurveyService
+      .getFailedInteractions(surveyId)
+      .subscribe(response => {
+        console.log(response);
+      });
+  }
+
   getAllInvitation() {
     this.futureSurveyService.fetchAllInvitation().subscribe(
       reponse => {

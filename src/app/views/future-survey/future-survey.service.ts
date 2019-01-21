@@ -162,6 +162,18 @@ export class FutureSurveyService {
       .pipe(catchError(this.handleError));
   }
 
+  getFailedInteractions(surveyId) {
+    return this.http
+      .get<any>(this.surveyApiUrl + "emails/" + surveyId)
+      .pipe(catchError(this.handleError));
+  }
+
+  resendSingleInvitation(interactionId) {
+    return this.http
+      .get<any>(this.surveyApiUrl + "emails/resend/" + interactionId)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);
   }
