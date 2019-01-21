@@ -4,6 +4,7 @@ import { InviteeInteractionViewService } from "./invitee-interaction-view.servic
 import * as Survey from "survey-angular";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AppErrorService } from '../../shared/services/app-error/app-error.service';
+import { element } from "protractor";
 
 @Component({
   selector: "app-invitee-interaction-view",
@@ -30,6 +31,9 @@ export class InviteeInteractionViewComponent implements OnInit {
   public origin;
 
   public surveyModel;
+  public customField;
+  public customFields;
+  public invitee;
 
   constructor(
     private inviteeInteractionViewService: InviteeInteractionViewService,
@@ -80,8 +84,16 @@ export class InviteeInteractionViewComponent implements OnInit {
             this.surveyId = loggedInteraction.futureSurvey.id;
             this.surveyTitle = loggedInteraction.futureSurvey.title;
             this.loggedInviteeName = loggedInteraction.invitee.name;
+            this.customFields = loggedInteraction.futureSurvey.invitation.inviteeGroup.customFields;
+            this.invitee = loggedInteraction.invitee;
             this.jsonContent = JSON.parse(loggedInteraction.futureSurvey.jsonContent);
             this.pageJson = JSON.parse(this.jsonContent).pages;
+
+
+            this.customField = {};
+            this.customFields.forEach(header => {
+              this.customField[header.displayName] = this.invitee[header.fieldName];
+            });
 
             if (loggedInteraction.futureSurvey.origin === "1") {
               this.origin = "Survey";
@@ -149,6 +161,25 @@ export class InviteeInteractionViewComponent implements OnInit {
 
     let jsonContent = this.jsonContent;
     let pageJson: any[] = this.pageJson;
+    console.log("------------------------------");
+
+    // pageJson.forEach(element => {
+    //   element.elements.forEach(element => {
+    //     if (element.customVisibleName !== 'null') {
+    //       let header = element.customVisibleName;
+
+    //       if (this.customField[header] === element.customVisibleValue) {
+    //         element.visible = true;
+    //       } else {
+    //         element.visible = false;
+    //       }
+
+    //     }
+
+    //   });
+    // });
+
+    console.log("------------------------------");
 
     this.surveyModel = new Survey.Model(jsonContent);
     Survey.StylesManager.applyTheme("bootstrap");
@@ -177,9 +208,9 @@ export class InviteeInteractionViewComponent implements OnInit {
       }
 
       if (options.question.getType() === "checkbox") {
+        classes.root = "sv_qcbc";
         classes.item = "sv-q-col-1";
         classes.other = "sv_q_checkbox_other form-control";
-        classes.root = "sv_qcbc";
       }
 
       if (options.question.getType() === "matrix") {

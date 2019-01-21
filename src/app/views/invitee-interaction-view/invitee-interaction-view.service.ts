@@ -44,7 +44,7 @@ export class InviteeInteractionViewService {
       .get<any>(this.surveyApiUrl + "surveys" + "/futureSurveyAnswer/" + interactionId)
       .pipe(catchError(this.handleError));
   }
-  
+
   submitAnswers(requestBody): Observable<any> {
     return this.http
       .post<any>(this.surveyApiUrl + "surveys" + "/futureSurveyAnswer", requestBody)
@@ -67,7 +67,7 @@ export class InviteeInteractionViewService {
         }),
         catchError(this.handleError));
   }
-  
+
   submitSurvey(id): Observable<any> {
     return this.http
       .put<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInteractionStatusChange/" + id, "Completed")

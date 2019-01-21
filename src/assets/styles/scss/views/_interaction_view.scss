@@ -14,7 +14,11 @@
 }
 
 .background-survey-form {
-  background-image: url("assets/images/survey_signin/test_bg12.png") !important;
+  // background-image: url("assets/images/survey_background/Survey-Background-01_1.jpg") !important;
+  // background-image: url("assets/images/survey_background/Survey-Background-01_2.jpg") !important;
+  background-image: url("assets/images/survey_background/Survey-Background-01_3.jpg") !important;
+  // background-image: url("assets/images/survey_background/Survey-Background-02.jpg") !important;
+  // background-image: url("assets/images/survey_background/Survey-Background-03.jpg") !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
 }
@@ -137,3 +141,13 @@
 .sv_q_matrix th {
   width: 10em;
 }
+
+// Survey Background Color
+// .sv_main, .white_bg{
+//   background-color: #fff;
+// }
+
+// // Survey Header Color
+// .sv_custom_header{
+//   background-color: #e7e7e7;
+// }
