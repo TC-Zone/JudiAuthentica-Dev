@@ -174,6 +174,18 @@ export class FutureSurveyService {
       .pipe(catchError(this.handleError));
   }
 
+  updateInvitation(requestBody): Observable<any> {
+    return this.http
+      .post<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInteraction/inviteeLogin", requestBody)
+      .pipe(
+        map(data => {
+          console.log(data);
+          return data.content;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);
   }

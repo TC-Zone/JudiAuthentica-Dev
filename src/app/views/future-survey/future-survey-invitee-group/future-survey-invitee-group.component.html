@@ -4,7 +4,7 @@
 
     <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
       <mat-card-title>
-        <div class="card-title-text">Invitee Groups Setting</div>
+        <div class="card-title-text">Invitation Setting</div>
         <mat-divider></mat-divider>
 
         <div class="profile-actions text-right mb-1">
@@ -19,7 +19,7 @@
       </mat-card-title>
       <mat-card-content class="p-0">
 
-        <table class="table table-hover">
+        <!-- <table class="table table-hover">
           <thead>
             <tr>
               <th class="pl-1">Group Name</th>
@@ -30,7 +30,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let row of rows;">
-              <!-- <td class="pt-1 pb-1 pl-1">{{row?.inviteeGroup.inviteeGroupName}}</td>
+              <td class="pt-1 pb-1 pl-1">{{row?.inviteeGroup.inviteeGroupName}}</td>
               <td class="pt-1 pb-1">{{ row?.endDate }}</td>
               <td class="pt-1 pb-1">{{ }}</td>
               <td class="pt-1 pb-1 pr-1">
@@ -50,13 +50,11 @@
                       <mat-icon>edit</mat-icon>
                     </button>
                   </div>
-
-
                 </div>
-              </td> -->
+              </td>
             </tr>
           </tbody>
-          <!-- <tfoot>
+          <tfoot>
             <tr>
               <td class="pt-1 pb-1 pl-1">
                 <div class="pagination">{{totalRecords}} Total</div>
@@ -85,8 +83,8 @@
                 </nav>
               </td>
             </tr>
-          </tfoot> -->
-        </table>
+          </tfoot>
+        </table> -->
 
 
 
@@ -121,28 +119,32 @@
               {{ row?.endDate}}
             </ng-template>
           </ngx-datatable-column>
+          <ngx-datatable-column name="Custom Fields" [minWidth]="250" [flexGrow]="1">
+            <ng-template let-row="row" ngx-datatable-cell-template>
+              
+              <div *ngFor="let header of this.customHeader;">
+                <mat-chip mat-sm-chip color="primary" selected class="mr-1">{{header}}</mat-chip>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
 
 
           <ngx-datatable-column name="Action" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
 
-                  <button mat-icon-button mat-sm-button (click)="testClick()"  class="mr-1">
-                    <mat-icon>view_headline</mat-icon>
-                  </button>
-                  <!-- <button mat-icon-button mat-sm-button color="warn" (click)="testClick()" class="mr-1">
-                    <mat-icon>delete</mat-icon>
-                  </button> -->
-                  <button mat-icon-button mat-sm-button class="mr-1" (click)="testClick()">
-                    <mat-icon>edit</mat-icon>
-                  </button>
+              <button mat-icon-button mat-sm-button (click)="navigateInviteeGroupView(row?.id)" color="primary" class="mr-1">
+                <mat-icon>view_headline</mat-icon>
+              </button>
+              <button mat-icon-button mat-sm-button color="warn" (click)="testClick()" class="mr-1">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="testClick()">
+                <mat-icon>edit</mat-icon>
+              </button>
 
-                  <button mat-icon-button mat-sm-button  class="mr-1" (click)="getFailedInteraction(row.futureSurvey.id)">
-                    <mat-icon>recent_actors</mat-icon>
-                  </button>
-
-                </ng-template>
-              </ngx-datatable-column>
-            </ngx-datatable>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
 
 
       </mat-card-content>

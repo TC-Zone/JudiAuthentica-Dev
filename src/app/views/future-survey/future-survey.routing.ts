@@ -4,6 +4,7 @@ import { FutureSurveyViewComponent } from "./future-survey-view/future-survey-vi
 import { FutureSurveyListComponent } from "./future-survey-list/future-survey-list.component";
 import { FutureSurveyBaseComponent } from "./future-survey-base.component";
 import { FutureSurveyInviteeGroupComponent } from './future-survey-invitee-group/future-survey-invitee-group.component';
+import { FutureSurveyInviteeGroupTestComponent } from "./future-survey-invitee-group-test/future-survey-invitee-group-test.component";
 
 export const FutureSurveyRoutes: Routes = [
   {
@@ -19,7 +20,12 @@ export const FutureSurveyRoutes: Routes = [
         path: "inviteeGroups",
         component: FutureSurveyInviteeGroupComponent,
         data: { title: "Invitee Group Settings", breadcrumb: "Invitee Group Settings" }
-      }
+      },
+      {
+        path: "inviteeGroupsTest",
+        component: FutureSurveyInviteeGroupTestComponent,
+        data: { title: "Survey Builder", breadcrumb: "Builder" }
+      },
     ]
   },
   {

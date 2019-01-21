@@ -49,6 +49,14 @@ export class FutureSurveyListComponent implements OnInit {
   }
 
   openPopupValidator(data: any = {}, isLaunched?) {
+
+    console.log(data);
+    console.log(isLaunched);
+    
+    
+
+
+
     const rowObject = data;
     this.futureSurveyService
       .getInvitationBySurvey(rowObject.id)
