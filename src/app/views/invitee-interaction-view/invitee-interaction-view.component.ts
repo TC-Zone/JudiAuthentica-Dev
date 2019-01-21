@@ -171,9 +171,9 @@ export class InviteeInteractionViewComponent implements OnInit {
       }
 
       if (options.question.getType() === "radiogroup") {
+        classes.root = "sv_qcbc";
         classes.item = "sv-q-col-1";
         classes.other = "sv_q_radiogroup_other form-control";
-        // classes.root = "sv_qcbc";
       }
 
       if (options.question.getType() === "checkbox") {
