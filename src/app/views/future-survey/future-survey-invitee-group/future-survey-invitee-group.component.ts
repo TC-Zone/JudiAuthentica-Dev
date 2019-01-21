@@ -13,6 +13,10 @@ import { AppErrorService } from "../../../shared/services/app-error/app-error.se
 export class FutureSurveyInviteeGroupComponent implements OnInit {
   public allInvitations: any[];
 
+  rows: any[];
+  columns = [];
+  temp = [];
+
   constructor(
     private futureSurveyService: FutureSurveyService,
     private conversionService: AppDataConversionService,
@@ -30,6 +34,10 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
     this.futureSurveyService.fetchAllInvitation().subscribe(
       reponse => {
         this.allInvitations = reponse.content;
+        console.log(this.allInvitations);
+        
+        // this.rows = this.allInvitations;
+        
       },
       error => {
         this.errDialog.showError({

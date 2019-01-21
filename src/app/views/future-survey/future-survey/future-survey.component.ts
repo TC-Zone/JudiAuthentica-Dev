@@ -27,14 +27,14 @@ widgets.autocomplete(SurveyKo);
 widgets.bootstrapslider(SurveyKo);
 
 var CkEditor_ModalEditor = {
-  afterRender: function(modalEditor, htmlElement) {
+  afterRender: function (modalEditor, htmlElement) {
     var editor = window["CKEDITOR"].replace(htmlElement);
-    editor.on("change", function() {
+    editor.on("change", function () {
       modalEditor.editingValue = editor.getData();
     });
     editor.setData(modalEditor.editingValue);
   },
-  destroy: function(modalEditor, htmlElement) {
+  destroy: function (modalEditor, htmlElement) {
     var instance = window["CKEDITOR"].instances[htmlElement.id];
     if (instance) {
       instance.removeAllListeners();
@@ -69,7 +69,7 @@ export class FutureSurveyComponent implements OnInit {
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
     private snack: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loader.open();
@@ -134,6 +134,8 @@ export class FutureSurveyComponent implements OnInit {
       "questionbase",
       "qcode"
     ).readOnly = true;
+    SurveyKo.JsonObject.metaData.addProperty("question", { name: "customVisibleName" });
+    SurveyKo.JsonObject.metaData.addProperty("question", { name: "customVisibleValue" });
 
     //SurveyEditor.StylesManager.applyTheme("winterstone");
   }
@@ -179,7 +181,7 @@ export class FutureSurveyComponent implements OnInit {
     // Set the name property different from the default value
     // and set the tag property to a generated GUID value.
 
-    this.editor.onQuestionAdded.add(function(sender, options) {
+    this.editor.onQuestionAdded.add(function (sender, options) {
       let q = options.question;
 
       let text = "";
@@ -421,7 +423,7 @@ export class FutureSurveyRequest {
     public title: string,
     public clientId: string,
     public pages: any[]
-  ) {}
+  ) { }
 }
 
 enum ChoiceTypeEnum {
