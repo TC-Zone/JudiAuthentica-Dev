@@ -48,37 +48,37 @@ export class FutureSurveyListComponent implements OnInit {
     }
   }
 
-  openPopupValidator(data: any = {}, isLaunched?) {
+  openPopupValidator(data: any = {}) {
     const rowObject = data;
+    const status = rowObject.status;
     this.futureSurveyService
       .getInvitationBySurvey(rowObject.id)
       .subscribe(response => {
         if (rowObject.channel == "2") {
           const invitationId = response.content.id;
           if (invitationId) {
-            this.openLauncherPopup(rowObject, isLaunched);
+            this.openLauncherPopup(rowObject, status);
           } else {
             this.snack.open("Invitation Setting chould not found ! ", "close", {
               duration: 4000
             });
           }
         } else {
-          this.openLauncherPopup(rowObject, isLaunched);
+          this.openLauncherPopup(rowObject, status);
         }
       });
   }
 
-  openLauncherPopup(data: any = {}, isLaunched?) {
-    let title = isLaunched
-      ? "Future Survey Status Setting"
-      : "Future Survey Launch Pad";
+  openLauncherPopup(data: any = {}, status?) {
+    let title =
+      status != 0 ? "Future Survey Status Setting" : "Future Survey Launch Pad";
 
     let dialogRef: MatDialogRef<any> = this.dialog.open(
       FutureSurveyInvitationLaunchComponent,
       {
         width: "720px",
         disableClose: true,
-        data: { title: title, payload: data, isLaunched: isLaunched }
+        data: { title: title, payload: data }
       }
     );
 
@@ -88,12 +88,19 @@ export class FutureSurveyListComponent implements OnInit {
         return;
       }
 
-      this.loader.open("Launching in Progress....");
+      // this.loader.open("Launching in Progress....");
+
+      this.snack.open(
+        "Invitation Launching progress is triggering in background...!",
+        "close",
+        { duration: 5000 }
+      );
+
       this.futureSurveyService.launchFutureSurvey(res.id).subscribe(
         response => {
           console.log("LAUNCH RESPONSE");
           console.log(response);
-          this.loader.close();
+          // this.loader.close();
           this.getAllFutureSurveys();
         },
         error => {

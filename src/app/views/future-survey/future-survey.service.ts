@@ -11,6 +11,7 @@ import { InjectorInstance } from "./future-survey.module";
 
 import { environment } from "environments/environment.prod";
 
+
 @Injectable()
 export class FutureSurveyService {
   surveyApiUrl: string = environment.surveyApiURL;
@@ -172,6 +173,29 @@ export class FutureSurveyService {
     return this.http
       .get<any>(this.surveyApiUrl + "emails/resend/" + interactionId)
       .pipe(catchError(this.handleError));
+  }
+
+  resendAllInvitations(surveyId) {
+    return this.http
+      .get<any>(this.surveyApiUrl + "emails/resendAll/" + surveyId)
+      .pipe(catchError(this.handleError));
+  }
+
+  changeSurveyStatus(surveyId, status){
+    return this.http
+    .get<any>(this.surveyApiUrl + "surveys" + "/futureSurveyStatus/" + surveyId + "/" + status)
+    .pipe(catchError(this.handleError));
+  }
+
+  updateInvitee(inviteeId, InviteeObj){
+    return this.http
+      .put<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInvitee/" + inviteeId, InviteeObj)
+      .pipe(
+        map(data => {
+          return data.content;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   private handleError(error: HttpErrorResponse | any) {
