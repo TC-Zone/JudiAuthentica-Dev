@@ -35,7 +35,7 @@ export class FutureSurveyListComponent implements OnInit {
     private errDialog: AppErrorService,
     private dialog: MatDialog,
     private snack: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getAllFutureSurveys();
@@ -52,8 +52,8 @@ export class FutureSurveyListComponent implements OnInit {
 
     console.log(data);
     console.log(isLaunched);
-    
-    
+
+
 
 
 
@@ -94,6 +94,9 @@ export class FutureSurveyListComponent implements OnInit {
       if (!res) {
         // if user press cancel.
         return;
+      } else if (res === "OFFLINE") {
+        this.getAllFutureSurveys();
+        return;
       }
 
       // this.loader.open("Launching in Progress....");
@@ -124,6 +127,7 @@ export class FutureSurveyListComponent implements OnInit {
   }
 
   openInvitationPopup(data: any = {}, channel?, isNew?) {
+    
     let isPublic = channel == 1 ? true : false;
     let title = isPublic
       ? "Public Future Survey - Invitee Settings"

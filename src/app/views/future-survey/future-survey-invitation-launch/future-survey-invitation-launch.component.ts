@@ -83,7 +83,7 @@ export class FutureSurveyInvitationLaunchComponent implements OnInit {
             data => {
               console.log("...........OFFLINE RESPONSE/..........");
               console.log(data);
-              this.dialogRef.close();
+              this.dialogRef.close("OFFLINE");
             },
             error => {
               this.loader.close();

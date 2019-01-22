@@ -67,6 +67,6 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
       }
     };
 
-    this.router.navigate(["future-survey/inviteeGroupsTest"], extraParam);
+    this.router.navigate(["future-survey/invitationDashboard"], extraParam);
   }
 }

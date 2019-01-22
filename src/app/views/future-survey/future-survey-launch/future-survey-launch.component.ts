@@ -110,11 +110,13 @@ export class FutureSurveyLaunchComponent implements OnInit {
     this.title = this.surveyObj.title;
     const surveyStatus = this.surveyObj.status;
     this.currentStatus = this.statusArray.filter(function (status) {
+      console.log(status);
       return status.id === surveyStatus;
     });
 
     console.log("current Status");
-    console.log(this.currentStatus[0]);
+    console.log(this.surveyObj.status);
+    // console.log(this.currentStatus[0]);
 
     if (this.isPublic) {
       // this.buildLaunchForm(this.data);

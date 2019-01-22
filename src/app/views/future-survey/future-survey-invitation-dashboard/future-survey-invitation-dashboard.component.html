@@ -9,8 +9,7 @@
 
         <div class="profile-actions text-right mb-1">
           <div class="m-333">
-            <button mat-raised-button class="mb-05 mr-1" (click)="resendAllEmails()"
-            color="primary">Resnd All E-Mails</button>
+            <button mat-raised-button class="mb-05 mr-1" (click)="resendAllEmails()" color="primary" [disabled]="resendBtnStatus" >Resnd All E-Mails</button>
             <button mat-raised-button class="mb-05" routerLink="/future-survey/inviteeGroups" routerLinkActive="router-link-active"
               color="accent">Back</button>
           </div>

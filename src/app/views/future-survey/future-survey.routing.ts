@@ -22,9 +22,9 @@ export const FutureSurveyRoutes: Routes = [
         data: { title: "Invitee Group Settings", breadcrumb: "Invitee Group Settings" }
       },
       {
-        path: "inviteeGroupsTest",
+        path: "invitationDashboard",
         component: FutureSurveyInvitationDashboardComponent,
-        data: { title: "Survey Builder", breadcrumb: "Builder" }
+        data: { title: "Invitation Dashboard", breadcrumb: "Invitation Dashboard" }
       },
     ]
   },

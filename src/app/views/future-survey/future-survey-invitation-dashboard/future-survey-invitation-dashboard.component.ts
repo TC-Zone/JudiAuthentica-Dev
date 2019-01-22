@@ -1,10 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
 import { FutureSurveyService } from "../future-survey.service";
-import { AppDataConversionService } from "../../../shared/services/data-conversion.service";
-import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
-import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
-import { NavigationExtras, Router, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { MatDialogRef, MatDialog } from "@angular/material";
 import { EditMailPopupComponent } from "../edit-mail-popup/edit-mail-popup.component";
 
@@ -19,14 +16,11 @@ export class FutureSurveyInvitationDashboardComponent implements OnInit {
   public allFailedInteraction: any[];
   public inviteeId;
   public surveyId;
+  public resendBtnStatus = false;
 
 
   constructor(
     private futureSurveyService: FutureSurveyService,
-    private conversionService: AppDataConversionService,
-    private errDialog: AppErrorService,
-    private loader: AppLoaderService,
-    private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog
   ) { }
@@ -44,7 +38,12 @@ export class FutureSurveyInvitationDashboardComponent implements OnInit {
     this.futureSurveyService
       .getFailedInteractions(surveyId)
       .subscribe(reponse => {
-        console.log(reponse);
+        console.log(reponse.content.length);
+        if (reponse.content.length === 0) {
+          this.resendBtnStatus = true;
+        } else {
+          this.resendBtnStatus = false;
+        }
         this.allFailedInteraction = reponse.content;
       });
   }
@@ -105,10 +104,12 @@ export class FutureSurveyInvitationDashboardComponent implements OnInit {
   }
 
   resendAllEmails() {
+    this.resendBtnStatus = true;
     this.futureSurveyService.resendAllInvitations(this.surveyId).subscribe(
       response => {
         console.log("SUCCESS");
         console.log(response);
+        this.getFailedInteraction(this.surveyId);
       },
       error => {
         console.log("ERROR");
