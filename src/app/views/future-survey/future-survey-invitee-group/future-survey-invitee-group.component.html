@@ -7,13 +7,12 @@
         <div class="card-title-text">Invitation Setting</div>
         <mat-divider></mat-divider>
 
-        <div class="profile-actions text-right mb-1">
+        <!-- <div class="profile-actions text-right mb-1">
           <div class="m-333">
-            <!-- <button mat-raised-button class="mb-05" (click)="navigateToSurveyEditor()" routerLinkActive="router-link-active"  color="accent">Create New Survey</button> -->
-            <button mat-raised-button class="mb-05" (click)="testClick()" routerLinkActive="router-link-active" color="accent">Create
+            <button mat-raised-button class="mb-05"  routerLinkActive="router-link-active" color="accent">Create
               New Invitee Group</button>
           </div>
-        </div>
+        </div> -->
 
 
       </mat-card-title>
@@ -121,7 +120,7 @@
           </ngx-datatable-column>
           <ngx-datatable-column name="Custom Fields" [minWidth]="250" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-              
+
               <div *ngFor="let header of this.customHeader;">
                 <mat-chip mat-sm-chip color="primary" selected class="mr-1">{{header}}</mat-chip>
               </div>
@@ -135,10 +134,10 @@
               <button mat-icon-button mat-sm-button (click)="navigateInviteeGroupView(row?.futureSurvey.id, row?.id)" color="primary" class="mr-1">
                 <mat-icon>view_headline</mat-icon>
               </button>
-              <button mat-icon-button mat-sm-button color="warn" (click)="testClick()" class="mr-1">
+              <!-- <button mat-icon-button mat-sm-button color="warn" (click)="testClick()" class="mr-1">
                 <mat-icon>delete</mat-icon>
-              </button>
-              <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="testClick()">
+              </button> -->
+              <button mat-icon-button mat-sm-button color="primary" class="mr-1" >
                 <mat-icon>edit</mat-icon>
               </button>
 
