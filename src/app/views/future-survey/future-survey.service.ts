@@ -200,6 +200,18 @@ export class FutureSurveyService {
       );
   }
 
+  updateInvitation(invitationId , invitationObj){
+    return this.http
+      .put<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInvitationUpdate/" + invitationId, invitationObj)
+      .pipe(
+        map(data => {
+          console.log(data);
+          return data.content;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);
   }
