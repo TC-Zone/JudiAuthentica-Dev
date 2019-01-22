@@ -192,6 +192,8 @@ export class FutureSurveyService {
       .put<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInvitee/" + inviteeId, InviteeObj)
       .pipe(
         map(data => {
+          console.log(data);
+          
           return data.content;
         }),
         catchError(this.handleError)

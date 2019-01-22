@@ -40,8 +40,10 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
 
   getAllInvitation() {
     this.futureSurveyService.fetchAllInvitation().subscribe(
-      reponse => {
-        this.allInvitations = reponse.content;
+      response => {
+        console.log(response);
+        
+        this.allInvitations = response.content;
         this.allInvitations[0].inviteeGroup.customFields.forEach(element => {
           this.customHeader.push(element.displayName);
         });
@@ -58,10 +60,10 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
   }
 
 
-  navigateInviteeGroupView(id) {
+  navigateInviteeGroupView(surveyId) {
     let extraParam: NavigationExtras = {
       queryParams: {
-        id: id
+        surveyId: surveyId
       }
     };
 

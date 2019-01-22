@@ -10,15 +10,15 @@ import { EditMailPopupComponent } from "../edit-mail-popup/edit-mail-popup.compo
 
 
 @Component({
-  selector: "app-future-survey-invitee-group-test",
-  templateUrl: "./future-survey-invitee-group-test.component.html",
+  selector: "app-future-invitation-dashboard",
+  templateUrl: "./future-survey-invitation-dashboard.component.html",
   animations: egretAnimations
 })
-export class FutureSurveyInviteeGroupTestComponent implements OnInit {
+export class FutureSurveyInvitationDashboardComponent implements OnInit {
   sub: any;
   public allFailedInteraction: any[];
-
-  public id;
+  public inviteeId;
+  public surveyId;
 
 
   constructor(
@@ -33,8 +33,8 @@ export class FutureSurveyInviteeGroupTestComponent implements OnInit {
 
   ngOnInit() {
     this.sub = this.route.queryParams.subscribe(params => {
-      let id = params["id"];
-      this.getFailedInteraction(id);
+      this.surveyId = params["surveyId"];
+      this.getFailedInteraction(this.surveyId);
     });
   }
 
@@ -49,9 +49,9 @@ export class FutureSurveyInviteeGroupTestComponent implements OnInit {
       });
   }
 
-  openPopupEditmail(id, name, username, email) {
+  openPopupEditmail(inviteeId, name, username, email) {
     let item = {}
-    item["id"] = id;
+    item["id"] = inviteeId;
     item["name"] = name;
     item["username"] = username;
     item["email"] = email;
@@ -69,29 +69,43 @@ export class FutureSurveyInviteeGroupTestComponent implements OnInit {
         return;
       } else {
         console.log(res);
-        this.id = id;
-        // this.updateInvitationDetails(id, res.name, res.username, res.email);
+        this.inviteeId = inviteeId;
+        this.updateInvitationDetails(inviteeId, res.name, res.username, res.email);
       }
       // this.loader.open();
     });
   }
 
-  // updateInvitationDetails(id, name, username, email) {
-  //   let submitRequest: InvitationTemplate = new InvitationTemplate(id, name, username, email);
-  //   this.futureSurveyService.updateInvitation(submitRequest).subscribe(
-  //     response => {
-  //       console.log("SUCCESS");
-  //       console.log(response);
-  //     },
-  //     error => {
-  //       console.log("ERROR");
-  //       console.log(error);
-  //     }
-  //   );
-  // }
+  updateInvitationDetails(inviteeId, name, username, email) {
+    let submitRequest: InvitationTemplate = new InvitationTemplate(name, username, email);
+    this.futureSurveyService.updateInvitee(inviteeId, submitRequest).subscribe(
+      response => {
+        console.log("SUCCESS");
+        console.log(response);
+      },
+      error => {
+        console.log("ERROR");
+        console.log(error);
+      }
+    );
+  }
 
-  resendEmail() {
-    this.futureSurveyService.resendSingleInvitation(this.id).subscribe(
+  resendEmail(interactionId) {
+    this.futureSurveyService.resendSingleInvitation(interactionId).subscribe(
+      response => {
+        console.log("SUCCESS");
+        console.log(response);
+        this.getFailedInteraction(this.surveyId);
+      },
+      error => {
+        console.log("ERROR");
+        console.log(error);
+      }
+    );
+  }
+
+  resendAllEmails() {
+    this.futureSurveyService.resendAllInvitations(this.surveyId).subscribe(
       response => {
         console.log("SUCCESS");
         console.log(response);
@@ -110,5 +124,5 @@ export class FutureSurveyInviteeGroupTestComponent implements OnInit {
 
 
 export class InvitationTemplate {
-  constructor(public id, public name, public username, public email) { }
+  constructor(public name, public username, public email) { }
 }

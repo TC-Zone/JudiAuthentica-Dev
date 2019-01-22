@@ -4,7 +4,7 @@ import { FutureSurveyViewComponent } from "./future-survey-view/future-survey-vi
 import { FutureSurveyListComponent } from "./future-survey-list/future-survey-list.component";
 import { FutureSurveyBaseComponent } from "./future-survey-base.component";
 import { FutureSurveyInviteeGroupComponent } from './future-survey-invitee-group/future-survey-invitee-group.component';
-import { FutureSurveyInviteeGroupTestComponent } from "./future-survey-invitee-group-test/future-survey-invitee-group-test.component";
+import { FutureSurveyInvitationDashboardComponent } from "./future-survey-invitation-dashboard/future-survey-invitation-dashboard.component";
 
 export const FutureSurveyRoutes: Routes = [
   {
@@ -23,7 +23,7 @@ export const FutureSurveyRoutes: Routes = [
       },
       {
         path: "inviteeGroupsTest",
-        component: FutureSurveyInviteeGroupTestComponent,
+        component: FutureSurveyInvitationDashboardComponent,
         data: { title: "Survey Builder", breadcrumb: "Builder" }
       },
     ]
