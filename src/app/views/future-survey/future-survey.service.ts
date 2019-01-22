@@ -193,7 +193,7 @@ export class FutureSurveyService {
       .pipe(
         map(data => {
           console.log(data);
-          
+
           return data.content;
         }),
         catchError(this.handleError)
