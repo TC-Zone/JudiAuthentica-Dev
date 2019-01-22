@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
 import { FutureSurveyService } from "../future-survey.service";
 import { ActivatedRoute } from "@angular/router";
-import { MatDialogRef, MatDialog } from "@angular/material";
+import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
 import { EditMailPopupComponent } from "../edit-mail-popup/edit-mail-popup.component";
 
 
@@ -22,7 +22,8 @@ export class FutureSurveyInvitationDashboardComponent implements OnInit {
   constructor(
     private futureSurveyService: FutureSurveyService,
     private route: ActivatedRoute,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -81,6 +82,7 @@ export class FutureSurveyInvitationDashboardComponent implements OnInit {
       response => {
         console.log("SUCCESS");
         console.log(response);
+        this.getFailedInteraction(this.surveyId);
       },
       error => {
         console.log("ERROR");
@@ -94,6 +96,12 @@ export class FutureSurveyInvitationDashboardComponent implements OnInit {
       response => {
         console.log("SUCCESS");
         console.log(response);
+
+        if (response.content.status) {
+          this.snackBar.open('Email Successfully Sent!', 'close', { duration: 2000 });
+        } else {
+          this.snackBar.open('Email Failed to Sent!', 'close', { duration: 2000 });
+        }
         this.getFailedInteraction(this.surveyId);
       },
       error => {
@@ -109,6 +117,15 @@ export class FutureSurveyInvitationDashboardComponent implements OnInit {
       response => {
         console.log("SUCCESS");
         console.log(response);
+
+        if (response.content.length === 0 ) {
+          this.snackBar.open('All Emails Successfully Sent!', 'close', { duration: 2000 });
+        } else if (response.content.length === 1) {
+          this.snackBar.open('A Email Failed to Sent!', 'close', { duration: 2000 });
+        } else {
+          this.snackBar.open(response.content.length +' Emails Failed to Sent!', 'close', { duration: 2000 });
+        }
+
         this.getFailedInteraction(this.surveyId);
       },
       error => {
