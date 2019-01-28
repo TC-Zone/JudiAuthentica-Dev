@@ -42,11 +42,16 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
     this.futureSurveyService.fetchAllInvitation().subscribe(
       response => {
         console.log(response);
-        
+
         this.allInvitations = response.content;
-        this.allInvitations[0].inviteeGroup.customFields.forEach(element => {
-          this.customHeader.push(element.displayName);
-        });
+        console.log(this.allInvitations);
+
+        if(this.allInvitations && this.allInvitations.length != 0){
+          this.allInvitations[0].inviteeGroup.customFields.forEach(element => {
+            this.customHeader.push(element.displayName);
+          });
+        }
+
 
       },
       error => {
