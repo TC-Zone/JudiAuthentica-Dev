@@ -12,6 +12,9 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { MatSnackBar } from "@angular/material";
+//
+import {localizationService} from "../../../shared/services/localization.service";
+
 
 widgets.icheck(SurveyKo);
 widgets.select2(SurveyKo);
@@ -68,7 +71,8 @@ export class FutureSurveyComponent implements OnInit {
     private route: ActivatedRoute,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private loc: localizationService
   ) { }
 
   ngOnInit() {
@@ -94,6 +98,9 @@ export class FutureSurveyComponent implements OnInit {
         this.setClients();
       }
     });
+    //add new localization
+     this.loc.addlocalization();
+    
   }
 
   setClients() {
@@ -136,8 +143,6 @@ export class FutureSurveyComponent implements OnInit {
     ).readOnly = true;
     SurveyKo.JsonObject.metaData.addProperty("question", { name: "customVisibleName" });
     SurveyKo.JsonObject.metaData.addProperty("question", { name: "customVisibleValue" });
-
-    //SurveyEditor.StylesManager.applyTheme("winterstone");
   }
 
   loadSurveyEditor() {
