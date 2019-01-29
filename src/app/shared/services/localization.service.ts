@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from "@angular/core";
 import { Localization} from "../../utility/localization/localization";
-import * as SurveyEditor from "surveyjs-editor";
 import * as SurveyKo from "survey-knockout";
+import * as Survey from "survey-angular";
 
 @Injectable()
 export class localizationService implements OnInit{
@@ -25,6 +25,8 @@ export class localizationService implements OnInit{
             // console.log(this.myloc[element[1]]);
             // console.log("--------------------------------------");
             SurveyKo.surveyLocalization.locales[element[0]] = this.loc[element[1]];
+            Survey.surveyLocalization.locales[element[0]] = this.loc[element[1]];
+            
             
           });
     }
