@@ -4,7 +4,7 @@ import * as SurveyKo from "survey-knockout";
 import * as Survey from "survey-angular";
 
 @Injectable()
-export class localizationService implements OnInit{
+export class LocalizationService implements OnInit{
     //add your language like this 
     //first index what is the name of you added
     //second index is name of object that you added Localization class

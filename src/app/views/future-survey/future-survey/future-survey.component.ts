@@ -13,7 +13,7 @@ import { AppLoaderService } from "../../../shared/services/app-loader/app-loader
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { MatSnackBar } from "@angular/material";
 //
-import {localizationService} from "../../../shared/services/localization.service";
+import {LocalizationService} from "../../../shared/services/localization.service";
 
 
 widgets.icheck(SurveyKo);
@@ -72,7 +72,7 @@ export class FutureSurveyComponent implements OnInit {
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
     private snack: MatSnackBar,
-    private loc: localizationService
+    private loc: LocalizationService
   ) { }
 
   ngOnInit() {
