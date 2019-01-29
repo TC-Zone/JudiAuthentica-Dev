@@ -3291,6 +3291,67 @@ var LayoutService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/services/localization.service.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/shared/services/localization.service.ts ***!
+  \*********************************************************/
+/*! exports provided: LocalizationService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LocalizationService", function() { return LocalizationService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _utility_localization_localization__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utility/localization/localization */ "./src/app/utility/localization/localization.ts");
+/* harmony import */ var survey_knockout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! survey-knockout */ "./node_modules/survey-knockout/survey.ko.js");
+/* harmony import */ var survey_knockout__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(survey_knockout__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var survey_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! survey-angular */ "./node_modules/survey-angular/survey.angular.js");
+/* harmony import */ var survey_angular__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(survey_angular__WEBPACK_IMPORTED_MODULE_3__);
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var LocalizationService = /** @class */ (function () {
+    function LocalizationService() {
+        //add your language like this 
+        //first index what is the name of you added
+        //second index is name of object that you added Localization class
+        this.locArray = [["sinhala", "sinhalaStrings"], ["hindi", "hindiStrings"]];
+        var loc = new _utility_localization_localization__WEBPACK_IMPORTED_MODULE_1__["Localization"]();
+        this.loc = loc.Object;
+    }
+    LocalizationService.prototype.ngOnInit = function () { };
+    LocalizationService.prototype.addlocalization = function () {
+        var _this = this;
+        this.locArray.forEach(function (element) {
+            // console.log("--------------------------------------");
+            // console.log(element[0]);
+            // console.log(this.myloc[element[1]]);
+            // console.log("--------------------------------------");
+            survey_knockout__WEBPACK_IMPORTED_MODULE_2__["surveyLocalization"].locales[element[0]] = _this.loc[element[1]];
+            survey_angular__WEBPACK_IMPORTED_MODULE_3__["surveyLocalization"].locales[element[0]] = _this.loc[element[1]];
+        });
+    };
+    LocalizationService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [])
+    ], LocalizationService);
+    return LocalizationService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/services/navigation.service.ts":
 /*!*******************************************************!*\
   !*** ./src/app/shared/services/navigation.service.ts ***!
@@ -4153,6 +4214,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_file_download_service__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./services/file-download.service */ "./src/app/shared/services/file-download.service.ts");
 /* harmony import */ var _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./services/data-conversion.service */ "./src/app/shared/services/data-conversion.service.ts");
 /* harmony import */ var _pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./pipes/array-filter.pipe */ "./src/app/shared/pipes/array-filter.pipe.ts");
+/* harmony import */ var _services_localization_service__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./services/localization.service */ "./src/app/shared/services/localization.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4210,6 +4272,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
   (https://themeforest.net/item/angular-landing-material-design-angular-app-landing-page/21198258)
 */
 // import { LandingPageService } from '../shared/services/landing-page.service';
+
 
 
 
@@ -4281,12 +4344,164 @@ var SharedModule = /** @class */ (function () {
                 _services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_38__["AppErrorService"],
                 _services_file_download_service__WEBPACK_IMPORTED_MODULE_39__["AppFileDownloadService"],
                 _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_40__["AppDataConversionService"],
+                // LandingPageService
+                _services_localization_service__WEBPACK_IMPORTED_MODULE_42__["LocalizationService"],
             ],
             declarations: classesToInclude,
             exports: classesToInclude
         })
     ], SharedModule);
     return SharedModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/utility/localization/localization.ts":
+/*!******************************************************!*\
+  !*** ./src/app/utility/localization/localization.ts ***!
+  \******************************************************/
+/*! exports provided: Localization */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Localization", function() { return Localization; });
+//Uncomment this line on creating a translation file
+//import { surveyLocalization } from "../surveyStrings";
+var Localization = /** @class */ (function () {
+    function Localization() {
+        this.Object = {
+            sinhalaStrings: {
+                pagePrevText: "පෙර",
+                pageNextText: "ඊළඟ",
+                completeText: "සම්පූර්ණයි",
+                startSurveyText: "ආරම්භ කරන්න",
+                otherItemText: "වෙනත් (විස්තර කරන්න)",
+                noneItemText: "නැත",
+                selectAllItemText: "සියල්ල තෝරන්න",
+                progressText: "පිටුව {0} , {1}",
+                emptySurvey: "සමීක්ෂණය තුළ දෘශ්යමාන පිටුවක් හෝ ප්රශ්නයක් නොමැත.",
+                completingSurvey: "සමීක්ෂණය සම්පූර්ණ කිරීම සඳහා ස්තූතියි!",
+                completingSurveyBefore: "අපගේ වාර්තා දැනටමත් ඔබ මෙම සමීක්ෂණය සම්පූර්ණ කර ඇති බව පෙන්වයි.",
+                loadingSurvey: "සමීක්ෂණ ප්රවේශනය...",
+                optionsCaption: "තෝරන්න...",
+                value: "අගය",
+                requiredError: "කරුණාකර ප්රශ්නයට පිලිතුරු දෙන්න.",
+                requiredErrorInPanel: "අවම වශයෙන් එක් ප්රශ්නයක් හෝ පිළිතුරු දෙන්න.",
+                requiredInAllRowsError: "කරුණාකර සියළු පේළි වල පිළිතුරු ලබා ගන්න.",
+                numericError: "එහි වටිනාකම සංඛ්යාත්මක විය යුතුය.",
+                textMinLength: "කරුණාකර අවම වශයෙන් {0} අක්ෂර ඇතුළත් කරන්න.",
+                textMaxLength: "කරුණාකර {0} ට අඩු අකුරු ඇතුලත් කරන්න.",
+                textMinMaxLength: "කරුණාකර {0} හා {1} වඩා අඩු අකුරු ගණනකට වඩා ඇතුළත් කරන්න.",
+                minRowCountError: "කරුණාකර අවම වශයෙන් {0} පේළි පුරවන්න..",
+                minSelectError: "කරුණාකර අවම වශයෙන් {0} තෝරාගන්න.",
+                maxSelectError: "කරුණාකර {0} වඩා වෙනස් කරන්න එපා.",
+                numericMinMax: "'{0}' {1} ට සමාන හෝ ඊට වඩා වැඩි විය යුතු අතර {2} ට සමාන හෝ ඊට වඩා අඩු විය යුතුය.",
+                numericMin: "'{0}' සමාන හෝ වැඩි ගණනක් {1}",
+                numericMax: "'{0}' {1} ට සමාන හෝ ඊට වඩා අඩු විය යුතුය.",
+                invalidEmail: "කරණාකර වලංගු ඊතැපැල් ලිපිනයක් ඇතුළු කරන්න.",
+                invalidExpression: "ප්රකාශය: {0} නැවත සත්ය කළ යුතුය.",
+                urlRequestError: "ඉල්ලීම ආපසු පැමිණියේ '{0}'. {1}",
+                urlGetChoicesError: "The request returned empty data or the 'path' property is incorrect",
+                exceedMaxSize: "ගොනු විශාලත්වය {0} ඉක්මවිය යුතුය.",
+                otherRequiredError: "කරුණාකර වෙනත් අගය ඇතුලත් කරන්න.",
+                uploadingFile: "ඔබගේ ගොනුව උඩුගත වේ. තත්පර කිහිපයක් රැඳී නැවත උත්සාහ කරන්න.",
+                loadingFile: "Loading...",
+                chooseFile: "ගොනුව තෝරන්න...",
+                confirmDelete: "ඔබට වාර්තාව මැකීමට අවශ්යද?",
+                keyDuplicationError: "මෙම අගය අද්විතීය විය යුතුය.",
+                addColumn: "තීරුව එකතු කරන්න",
+                addRow: "පේළි එකතු කරන්න",
+                removeRow: "ඉවත් කරන්න",
+                addPanel: "අලුතින් එකතු කරන්න",
+                removePanel: "ඉවත් කරන්න",
+                choices_Item: "අයිතමය",
+                matrix_column: "තීරුව",
+                matrix_row: "පේළි",
+                savingData: "ප්රතිඵල සේවාදායකයේ ඉතිරි කර ඇත...",
+                savingDataError: "දෝෂයක් හටගෙන ඇති අතර ප්රතිඵල සුරැකීමට නොහැකි විය.",
+                savingDataSuccess: "ප්රතිඵල සාර්ථකව සුරකින ලදි!",
+                saveAgainButton: "නැවත උත්සහා කරන්න",
+                timerMin: "මිනිත්තු",
+                timerSec: "තත්පර",
+                timerSpentAll: "ඔබ මෙම පිටුවෙහි {0} සහ {1} සම්පූර්ණ වශයෙන් වැය කර ඇත.",
+                timerSpentPage: "ඔබ මෙම පිටුවෙහි {0} වැය කර ඇත.",
+                timerSpentSurvey: "ඔබ සම්පූර්ණ වශයෙන් {0} වැය කර ඇත.",
+                timerLimitAll: "ඔබ මෙම පිටුවෙහි {0} සහ {2} සම්පූර්ණ {3} {3} වැය කර ඇත.",
+                timerLimitPage: "ඔබ මෙම පිටුවෙහි {0} {1} වැය කර ඇත.",
+                timerLimitSurvey: "ඔබ {0} සම්පූර්ණ {1} වැය කර ඇත.",
+                cleanCaption: "පිරිසිදු කරන්න",
+                clearCaption: "පැහැදිලිව",
+                removeFileCaption: "මෙම ගොනුව ඉවත් කරන්න"
+            },
+            hindiStrings: {
+                pagePrevText: "से पहले",
+                pageNextText: "अगला",
+                completeText: "पूरा",
+                startSurveyText: "प्रारंभ",
+                otherItemText: "अन्य (वर्णन)",
+                noneItemText: "None",
+                selectAllItemText: "Select All",
+                progressText: "Page {0} of {1}",
+                emptySurvey: "There is no visible page or question in the survey.",
+                completingSurvey: "Thank you for completing the survey!",
+                completingSurveyBefore: "Our records show that you have already completed this survey.",
+                loadingSurvey: "Loading Survey...",
+                optionsCaption: "Choose...",
+                value: "value",
+                requiredError: "Please answer the question.",
+                requiredErrorInPanel: "Please answer at least one question.",
+                requiredInAllRowsError: "Please answer questions in all rows.",
+                numericError: "The value should be numeric.",
+                textMinLength: "Please enter at least {0} characters.",
+                textMaxLength: "Please enter less than {0} characters.",
+                textMinMaxLength: "Please enter more than {0} and less than {1} characters.",
+                minRowCountError: "Please fill in at least {0} rows.",
+                minSelectError: "Please select at least {0} variants.",
+                maxSelectError: "Please select no more than {0} variants.",
+                numericMinMax: "The '{0}' should be equal or more than {1} and equal or less than {2}",
+                numericMin: "The '{0}' should be equal or more than {1}",
+                numericMax: "The '{0}' should be equal or less than {1}",
+                invalidEmail: "Please enter a valid e-mail address.",
+                invalidExpression: "The expression: {0} should return 'true'.",
+                urlRequestError: "The request returned error '{0}'. {1}",
+                urlGetChoicesError: "The request returned empty data or the 'path' property is incorrect",
+                exceedMaxSize: "The file size should not exceed {0}.",
+                otherRequiredError: "Please enter the other value.",
+                uploadingFile: "Your file is uploading. Please wait several seconds and try again.",
+                loadingFile: "Loading...",
+                chooseFile: "Choose file(s)...",
+                confirmDelete: "Do you want to delete the record?",
+                keyDuplicationError: "This value should be unique.",
+                addColumn: "Add column",
+                addRow: "Add row",
+                removeRow: "Remove",
+                addPanel: "Add new",
+                removePanel: "Remove",
+                choices_Item: "item",
+                matrix_column: "Column",
+                matrix_row: "Row",
+                savingData: "The results are saving on the server...",
+                savingDataError: "An error occurred and we could not save the results.",
+                savingDataSuccess: "The results were saved successfully!",
+                saveAgainButton: "Try again",
+                timerMin: "min",
+                timerSec: "sec",
+                timerSpentAll: "You have spent {0} on this page and {1} in total.",
+                timerSpentPage: "You have spent {0} on this page.",
+                timerSpentSurvey: "You have spent {0} in total.",
+                timerLimitAll: "You have spent {0} of {1} on this page and {2} of {3} in total.",
+                timerLimitPage: "You have spent {0} of {1} on this page.",
+                timerLimitSurvey: "You have spent {0} of {1} in total.",
+                cleanCaption: "Clean",
+                clearCaption: "Clear",
+                removeFileCaption: "Remove this file"
+            }
+        };
+    }
+    return Localization;
 }());
 
 
