@@ -78,6 +78,7 @@ import { AppErrorService } from "./services/app-error/app-error.service";
 import { AppFileDownloadService } from "./services/file-download.service";
 import { AppDataConversionService } from './services/data-conversion.service';
 import { ArrayFilter } from './pipes/array-filter.pipe';
+import { LocalizationService} from './services/localization.service';
 
 
 const classesToInclude = [
@@ -146,6 +147,7 @@ const classesToInclude = [
     AppFileDownloadService,
     AppDataConversionService,
     // LandingPageService
+    LocalizationService,
   ],
   declarations: classesToInclude,
   exports: classesToInclude

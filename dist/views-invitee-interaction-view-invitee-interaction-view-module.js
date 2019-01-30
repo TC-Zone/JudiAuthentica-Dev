@@ -88,8 +88,14 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
                     _this.surveyId = loggedInteraction.futureSurvey.id;
                     _this.surveyTitle = loggedInteraction.futureSurvey.title;
                     _this.loggedInviteeName = loggedInteraction.invitee.name;
+                    _this.customFields = loggedInteraction.futureSurvey.invitation.inviteeGroup.customFields;
+                    _this.invitee = loggedInteraction.invitee;
                     _this.jsonContent = JSON.parse(loggedInteraction.futureSurvey.jsonContent);
                     _this.pageJson = JSON.parse(_this.jsonContent).pages;
+                    _this.customField = {};
+                    _this.customFields.forEach(function (header) {
+                        _this.customField[header.displayName] = _this.invitee[header.fieldName];
+                    });
                     if (loggedInteraction.futureSurvey.origin === "1") {
                         _this.origin = "Survey";
                         window.history.replaceState({}, '', '/Survey');
@@ -149,6 +155,20 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
     InviteeInteractionViewComponent.prototype.viewSurvey = function () {
         var jsonContent = this.jsonContent;
         var pageJson = this.pageJson;
+        console.log("------------------------------");
+        // pageJson.forEach(element => {
+        //   element.elements.forEach(element => {
+        //     if (element.customVisibleName !== 'null') {
+        //       let header = element.customVisibleName;
+        //       if (this.customField[header] === element.customVisibleValue) {
+        //         element.visible = true;
+        //       } else {
+        //         element.visible = false;
+        //       }
+        //     }
+        //   });
+        // });
+        console.log("------------------------------");
         this.surveyModel = new survey_angular__WEBPACK_IMPORTED_MODULE_3__["Model"](jsonContent);
         survey_angular__WEBPACK_IMPORTED_MODULE_3__["StylesManager"].applyTheme("bootstrap");
         var resultArray = [];
@@ -164,14 +184,14 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
                 classes.other = "sv_q_rating_other form-control";
             }
             if (options.question.getType() === "radiogroup") {
+                classes.root = "sv_qcbc";
                 classes.item = "sv-q-col-1";
                 classes.other = "sv_q_radiogroup_other form-control";
-                // classes.root = "sv_qcbc";
             }
             if (options.question.getType() === "checkbox") {
+                classes.root = "sv_qcbc";
                 classes.item = "sv-q-col-1";
                 classes.other = "sv_q_checkbox_other form-control";
-                classes.root = "sv_qcbc";
             }
             if (options.question.getType() === "matrix") {
                 classes.root = "table sv_q_matrix";

@@ -12,6 +12,8 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { MatSnackBar } from "@angular/material";
+//
+import { LocalizationService } from "../../../shared/services/localization.service";
 
 widgets.icheck(SurveyKo);
 widgets.select2(SurveyKo);
@@ -27,14 +29,14 @@ widgets.autocomplete(SurveyKo);
 widgets.bootstrapslider(SurveyKo);
 
 var CkEditor_ModalEditor = {
-  afterRender: function (modalEditor, htmlElement) {
+  afterRender: function(modalEditor, htmlElement) {
     var editor = window["CKEDITOR"].replace(htmlElement);
-    editor.on("change", function () {
+    editor.on("change", function() {
       modalEditor.editingValue = editor.getData();
     });
     editor.setData(modalEditor.editingValue);
   },
-  destroy: function (modalEditor, htmlElement) {
+  destroy: function(modalEditor, htmlElement) {
     var instance = window["CKEDITOR"].instances[htmlElement.id];
     if (instance) {
       instance.removeAllListeners();
@@ -68,8 +70,9 @@ export class FutureSurveyComponent implements OnInit {
     private route: ActivatedRoute,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
-    private snack: MatSnackBar
-  ) { }
+    private snack: MatSnackBar,
+    private loc: LocalizationService
+  ) {}
 
   ngOnInit() {
     this.loader.open();
@@ -94,6 +97,8 @@ export class FutureSurveyComponent implements OnInit {
         this.setClients();
       }
     });
+    //add new localization
+    this.loc.addlocalization();
   }
 
   setClients() {
@@ -134,10 +139,12 @@ export class FutureSurveyComponent implements OnInit {
       "questionbase",
       "qcode"
     ).readOnly = true;
-    SurveyKo.JsonObject.metaData.addProperty("question", { name: "customVisibleName" });
-    SurveyKo.JsonObject.metaData.addProperty("question", { name: "customVisibleValue" });
-
-    //SurveyEditor.StylesManager.applyTheme("winterstone");
+    SurveyKo.JsonObject.metaData.addProperty("question", {
+      name: "customVisibleName"
+    });
+    SurveyKo.JsonObject.metaData.addProperty("question", {
+      name: "customVisibleValue"
+    });
   }
 
   loadSurveyEditor() {
@@ -181,7 +188,7 @@ export class FutureSurveyComponent implements OnInit {
     // Set the name property different from the default value
     // and set the tag property to a generated GUID value.
 
-    this.editor.onQuestionAdded.add(function (sender, options) {
+    this.editor.onQuestionAdded.add(function(sender, options) {
       let q = options.question;
 
       let text = "";
@@ -250,6 +257,8 @@ export class FutureSurveyComponent implements OnInit {
     if (this.validateFutureSurveyRequest(jsonObject)) {
       return;
     }
+
+
 
     const request: FutureSurveyRequest = new FutureSurveyRequest(
       jsonText,
@@ -333,6 +342,16 @@ export class FutureSurveyComponent implements OnInit {
     // -------  Page Element Validations of JsonRequest --------
     pages.forEach(page => {
       const elements = page.elements;
+      let lang = null;
+
+      console.log('local 0'+jsonRequest.locale);
+
+      if (jsonRequest.locale) {
+        lang = jsonRequest.locale;
+      }
+
+      console.log('lang :......'+lang);
+
 
       if (!elements) {
         clientError = "Survey should have atleast one question!";
@@ -345,6 +364,9 @@ export class FutureSurveyComponent implements OnInit {
               choices.forEach(choice => {
                 let value = choice.value;
                 let text = choice.text;
+                console.log("....................TEXT.....................");
+                console.log(text);
+
                 if (!value || value == null) {
                   clientError =
                     "Please add a value for the choice item of " + element.name;
@@ -352,6 +374,12 @@ export class FutureSurveyComponent implements OnInit {
                 if (!text || text == null) {
                   clientError =
                     "Please add a text for the choice item of " + element.name;
+                }
+
+                if (lang && text.hasOwnProperty(lang)) {
+                  text = text[lang];
+                  console.log("IN IF LANG");
+                  console.log(text);
                 }
               });
             } else {
@@ -403,6 +431,10 @@ export class FutureSurveyComponent implements OnInit {
       }
     });
 
+    console.log('.......................AFTER VALIDATION........................');
+    console.log(jsonRequest);
+
+
     if (clientError) {
       this.errDialog.showError({
         title: "Error",
@@ -423,7 +455,7 @@ export class FutureSurveyRequest {
     public title: string,
     public clientId: string,
     public pages: any[]
-  ) { }
+  ) {}
 }
 
 enum ChoiceTypeEnum {
