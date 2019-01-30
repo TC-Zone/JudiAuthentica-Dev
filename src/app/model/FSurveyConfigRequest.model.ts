@@ -35,6 +35,13 @@ export class FSCreateRequest {
     public jsonContent: string
   ) {}
 }
+export class FSUpdateRequest {
+  constructor(
+    public title: string,
+    public origin: string,
+    public channel: string
+  ) {}
+}
 
 export class PublicPart {
   constructor(

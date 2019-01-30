@@ -56,6 +56,21 @@
                         <p>If you require assistance, contact the ClearPicture Help Desk at peo@clearpicture.com or 1-844-818-1774.</p>
                     </td>
                 </tr>
+                <tr>
+        <td class="container">
+
+            <!-- Message start -->
+            <table>
+                <tr>
+                    <td class="content footer" align="center">
+                        <p>Sent by <a href="#">Company Name</a>, 1234 Yellow Brick Road, OZ, 99999</p>
+                        <p><a href="mailto:">hello@company.com</a> | <a href="#">Unsubscribe</a></p>
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
             </table>
         </td>
     </tr>

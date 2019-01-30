@@ -1,0 +1,40 @@
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <mat-toolbar matDialogTitle class="mat-primary m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">Update Invitation</span>
+    </div>
+  </mat-toolbar>
+  <mat-dialog-content class="mat-typography mt-1">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+
+      <div fxFlex="100" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="name" [formControl]="itemForm.controls['groupName']" type="text" placeholder="Group Name">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="username" [formControl]="itemForm.controls['customField']" type="text" placeholder="Custom Field">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" class="pr-1">
+        <mat-form-field class="full-width">
+          <input [formControl]="itemForm.controls['endDate']" matInput name="endDate" [min]="today"
+            [matDatepicker]="expireDatePicker" required placeholder="End Date">
+          <mat-datepicker-toggle matSuffix [for]="expireDatePicker">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #expireDatePicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="100" class="mt-1">
+        <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+        <span fxFlex></span>
+        <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+      </div>
+    </div>
+  </mat-dialog-content>
+</form>

@@ -26,7 +26,8 @@ export class InviteeInteractionViewComponent implements OnInit {
   public surveyTitle;
   public futureSurveyObj: any;
   public jsonContent: any;
-  public pageJson;
+  public jsonContentJSON;
+  // public pageJson;
   public interactionId;
   public origin;
 
@@ -87,13 +88,13 @@ export class InviteeInteractionViewComponent implements OnInit {
             this.customFields = loggedInteraction.futureSurvey.invitation.inviteeGroup.customFields;
             this.invitee = loggedInteraction.invitee;
             this.jsonContent = JSON.parse(loggedInteraction.futureSurvey.jsonContent);
-            this.pageJson = JSON.parse(this.jsonContent).pages;
-
 
             this.customField = {};
             this.customFields.forEach(header => {
               this.customField[header.displayName] = this.invitee[header.fieldName];
             });
+            console.log(this.customFields);
+            console.log(this.customField);
 
             if (loggedInteraction.futureSurvey.origin === "1") {
               this.origin = "Survey";
@@ -159,27 +160,28 @@ export class InviteeInteractionViewComponent implements OnInit {
 
   viewSurvey() {
 
-    let jsonContent = this.jsonContent;
-    let pageJson: any[] = this.pageJson;
-    console.log("------------------------------");
+    this.jsonContentJSON = JSON.parse(this.jsonContent);
+    
+    console.log("-------------  Before - jsonContentJSON.pages -----------------");
+    console.log(this.jsonContentJSON.pages);
 
-    // pageJson.forEach(element => {
-    //   element.elements.forEach(element => {
-    //     if (element.customVisibleName !== 'null') {
-    //       let header = element.customVisibleName;
+    this.jsonContentJSON.pages.forEach(element => {
+      element.elements.forEach(element => {
+        if (element.customVisibleName !== 'null') {
+          let header = element.customVisibleName;
+          if (this.customField[header] === element.customVisibleValue) {
+            element.visible = true;
+          } else {
+            element.visible = false;
+          }
+        }
+      });
+    });
 
-    //       if (this.customField[header] === element.customVisibleValue) {
-    //         element.visible = true;
-    //       } else {
-    //         element.visible = false;
-    //       }
+    console.log("------------- After - jsonContentJSON.pages -----------------");
+    console.log(this.jsonContentJSON.pages);
 
-    //     }
-
-    //   });
-    // });
-
-    console.log("------------------------------");
+    let jsonContent = this.jsonContentJSON;
 
     this.surveyModel = new Survey.Model(jsonContent);
     Survey.StylesManager.applyTheme("bootstrap");
@@ -253,7 +255,7 @@ export class InviteeInteractionViewComponent implements OnInit {
       document.getElementById('btnViewSurvey').style.display = 'none';
       document.getElementById('btnAnswerLater').style.display = 'none';
 
-      pageJson.forEach(element => {
+      jsonContent.pages.forEach(element => {
         element.elements.forEach(element => {
 
           const elementArray = {};
@@ -376,7 +378,7 @@ export class InviteeInteractionViewComponent implements OnInit {
       document.getElementById('btnViewSurvey').style.display = 'none';
     }
 
-    let jsonContent = JSON.parse(this.jsonContent);
+    let jsonContent = this.jsonContentJSON;
 
     jsonContent.title = "Summary of " + jsonContent.title;
 

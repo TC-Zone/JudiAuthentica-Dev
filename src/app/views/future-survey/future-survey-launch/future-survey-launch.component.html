@@ -6,6 +6,9 @@
   </mat-toolbar>
 
   <mat-dialog-content class="mat-typography mt-1" style="overflow: unset; max-height: unset;">
+
+    <span *ngIf="isDisabled" class="on-premise-error-msg">Sorry this survey has already Launched!</span>
+
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <!-- Survey Start Date -->
       <div fxFlex="50" class="pr-1">

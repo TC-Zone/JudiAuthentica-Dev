@@ -14,7 +14,7 @@ import { FutureSurveyCommonConfigComponent } from "./future-survey-common-config
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { FutureSurveyService } from "../future-survey.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
-import { FSCreateRequest } from "../../../model/FSurveyConfigRequest.model";
+import { FSCreateRequest, FSUpdateRequest } from "../../../model/FSurveyConfigRequest.model";
 
 @Component({
   selector: "app-future-survey-config-popup",
@@ -37,8 +37,9 @@ export class FutureSurveyConfigPopupComponent
   // check box module
   public checkBoxModel = false;
 
-  // radio button check/unchecked setting
-  public channel = "1";
+  // survey status error msg status
+  public statusError;
+
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -65,12 +66,29 @@ export class FutureSurveyConfigPopupComponent
   }
 
   buildConfigForm(fieldItem) {
+
+    let isDisabled1; let isDisabled2;
+    this.statusError = false;
+
+    if (this.data.isNew) {
+      isDisabled1 = false;
+      isDisabled2 = false;
+    } else if (fieldItem.status === 0 || fieldItem.status === 4) {
+      isDisabled1 = true;
+      isDisabled2 = false;
+    } else if (fieldItem.status === 1) {
+      this.statusError = true;
+      isDisabled1 = true;
+      isDisabled2 = true;
+    }
+
     this.configForm = this.fb.group({
-      client: [fieldItem.clientId || "", Validators.required],
-      title: [fieldItem.title || "", Validators.required],
-      origin: [fieldItem.origin || "", Validators.required],
-      channel: [fieldItem.channel || "1"]
+      client: new FormControl({ value: fieldItem.clientId || '', disabled: isDisabled1 }, Validators.required),
+      title: new FormControl({ value: fieldItem.title || '', disabled: isDisabled2 }, Validators.required),
+      origin: new FormControl({ value: +fieldItem.origin, disabled: isDisabled2 }, Validators.required),
+      channel: new FormControl({ value: fieldItem.channel, disabled: isDisabled1 }),
     });
+
   }
 
   submitNew(isNew) {
@@ -86,24 +104,34 @@ export class FutureSurveyConfigPopupComponent
     );
     const jsonString = JSON.stringify(JSON.stringify(jsonContent));
 
-    const fsCreateReq: FSCreateRequest = new FSCreateRequest(
-      title,
-      client,
-      origin,
-      channel,
-      this.pageItem,
-      jsonString
-    );
+    let fsReq;
+    if (isNew) {
+      fsReq = new FSCreateRequest(
+        title,
+        client,
+        origin,
+        channel,
+        this.pageItem,
+        jsonString
+      );
+    } else {
+      fsReq = new FSUpdateRequest(
+        title,
+        origin,
+        channel
+      );
+    }
+
 
     console.log("FInale REQUEST :");
-    console.log(fsCreateReq);
+    console.log(fsReq);
 
-    this.dialogRef.close(fsCreateReq);
+    this.dialogRef.close(fsReq);
   }
 }
 
 export class JsonContentPart {
-  constructor(public title, public clientId, public pages: any) {}
+  constructor(public title, public clientId, public pages: any) { }
 }
 
 //  Removing invite configuration section from future survey config popup - YS - The Flash Sprint

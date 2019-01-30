@@ -6,82 +6,46 @@
   </mat-toolbar>
 
   <mat-dialog-content class="mat-typography mt-1">
-    <div
-      fxLayout="row"
-      fxLayout.lt-sm="column"
-      fxLayoutWrap="wrap"
-      class="mt-1"
-    >
+
+    <span *ngIf="statusError" class="on-premise-error-msg">Sorry this survey has already Launched! <br>If You wanna change Survey Title or Origin, put the survey to Offline mode.</span>
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input
-            matInput
-            [formControl]="configForm.controls['title']"
-            required
-            name="title"
-            positiveNumberAndLetterOnly
-            placeholder="Survey Title"
-          />
+          <input matInput [formControl]="configForm.controls['title']" required name="title"
+            positiveNumberAndLetterOnly placeholder="Survey Title" />
         </mat-form-field>
       </div>
 
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <mat-select
-            [formControl]="configForm.controls['client']"
-            required
-            placeholder="Select A Client"
-          >
+          <mat-select [formControl]="configForm.controls['client']" required placeholder="Select A Client">
             <mat-option>none</mat-option>
-            <mat-option *ngFor="let client of clients" [value]="client.id">{{
-              client.name
-            }}</mat-option>
+            <mat-option *ngFor="let client of clients" [value]="client.id">{{ client.name }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-
+      <!-- [(ngModel)]="selectedOrigin" -->
       <div fxFlex="50" class="pr-1">
         <p>Choose the Origin for future survey</p>
         <mat-form-field class="full-width">
-          <mat-select
-            [formControl]="configForm.controls['origin']"
-            required
-            placeholder="Select A Origin"
-          >
+          <mat-select [formControl]="configForm.controls['origin']" required placeholder="Select A Origin">
             <mat-option>none</mat-option>
-            <mat-option
-              *ngFor="let origin of surveyOriginArr"
-              [value]="origin.id"
-              >{{ origin.name }}</mat-option
-            >
+            <mat-option *ngFor="let origin of surveyOriginArr" [value]="origin.id">{{ origin.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
 
       <div fxFlex="100" class="pr-1">
         <p>Choose the channel for future survey</p>
-        <mat-radio-group
-          ng-click
-          [formControl]="configForm.controls['channel']"
-          fxLayout="row"
-          fxLayoutGap="100px"
-        >
-          <mat-radio-button [checked]="channel === '1'" value="1"
-            >Public
-          </mat-radio-button>
-          <mat-radio-button [checked]="channel === '2'" value="2"
-            >Private</mat-radio-button
-          >
+        <mat-radio-group ng-click [formControl]="configForm.controls['channel']" fxLayout="row" fxLayoutGap="100px">
+          <mat-radio-button value="1">Public</mat-radio-button>
+          <mat-radio-button value="2">Private</mat-radio-button>
         </mat-radio-group>
       </div>
     </div>
 
-    <div
-      fxLayout="row"
-      fxLayout.lt-sm="column"
-      fxLayoutWrap="wrap"
-      class="mt-1"
-    ></div>
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1"></div>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
@@ -89,12 +53,7 @@
       Save
     </button>
     <span fxFlex></span>
-    <button
-      mat-button
-      color="warn"
-      type="button"
-      (click)="dialogRef.close(false)"
-    >
+    <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">
       Cancel
     </button>
   </mat-dialog-actions>

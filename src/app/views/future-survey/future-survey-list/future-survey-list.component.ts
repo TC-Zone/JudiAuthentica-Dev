@@ -26,6 +26,12 @@ export class FutureSurveyListComponent implements OnInit {
   public clients: any[];
   public response: ResponseModel;
 
+  public statusArray = {
+    0: { id: 0, status: "On Premise", style: "accent" },
+    1: { id: 1, status: "Launched", style: "primary" },
+    4: { id: 4, status: "Offline", style: "default" }
+  };
+
   constructor(
     private futureSurveyService: FutureSurveyService,
     private clientService: CrudService,
@@ -49,13 +55,8 @@ export class FutureSurveyListComponent implements OnInit {
   }
 
   openPopupValidator(data: any = {}, isLaunched?) {
-
     console.log(data);
     console.log(isLaunched);
-
-
-
-
 
     const rowObject = data;
     const status = rowObject.status;
@@ -126,7 +127,9 @@ export class FutureSurveyListComponent implements OnInit {
     });
   }
 
-  openInvitationPopup(data: any = {}, channel?, isNew?) {
+  openInvitationPopup(data, channel?, isNew?) {
+
+    console.log(isNew);
     
     let isPublic = channel == 1 ? true : false;
     let title = isPublic
@@ -155,7 +158,7 @@ export class FutureSurveyListComponent implements OnInit {
         launchText = " Uploading Invitee Records....";
       }
 
-      this.loader.open(launchText);
+      // this.loader.open(launchText);
 
       if (isNew) {
         console.log("create NEW INVITE SETTING!");

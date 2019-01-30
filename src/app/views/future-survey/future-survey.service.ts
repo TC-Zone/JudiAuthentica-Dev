@@ -202,7 +202,7 @@ export class FutureSurveyService {
 
   updateInvitation(invitationId , invitationObj){
     return this.http
-      .put<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInvitationUpdate/" + invitationId, invitationObj)
+      .put<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInvitation/" + invitationId, invitationObj)
       .pipe(
         map(data => {
           console.log(data);

@@ -42,6 +42,7 @@ import { FutureSurveyInviteeGroupComponent } from "./future-survey-invitee-group
 import { FutureSurveyInvitationLaunchComponent } from "./future-survey-invitation-launch/future-survey-invitation-launch.component";
 import { FutureSurveyInvitationDashboardComponent } from "./future-survey-invitation-dashboard/future-survey-invitation-dashboard.component";
 import { EditMailPopupComponent } from "./edit-mail-popup/edit-mail-popup.component";
+import { EditInvitationSettingPopupComponent } from "./edit-invitation-setting-popup/edit-invitation-setting-popup.component";
 
 
 export let InjectorInstance: Injector;
@@ -84,7 +85,8 @@ export let InjectorInstance: Injector;
     FutureSurveyInviteeGroupComponent,
     FutureSurveyInvitationLaunchComponent,
     FutureSurveyInvitationDashboardComponent,
-    EditMailPopupComponent
+    EditMailPopupComponent,
+    EditInvitationSettingPopupComponent
 
   ],
   providers: [CrudService, FutureSurveyService, AppDataConversionService],
@@ -92,7 +94,8 @@ export let InjectorInstance: Injector;
     FutureSurveyConfigPopupComponent,
     FutureSurveyLaunchComponent,
     FutureSurveyInvitationLaunchComponent,
-    EditMailPopupComponent
+    EditMailPopupComponent,
+    EditInvitationSettingPopupComponent
   ]
 })
 export class FutureSurveyModule {

@@ -57,6 +57,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
   public csvHeadersArray: any[];
   ansTemplateArray: FormArray;
   public inviteeGroups: any;
+  public isDisabled = false;
   // email regex
   // tslint:disable-next-line:max-line-length
   public emailPattern = /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -64,7 +65,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
   public statusArray = [
     { id: 0, status: "On Premise", style: "accent" },
     { id: 1, status: "Launched", style: "primary" },
-    { id: 2, status: "Offline", style: "default" }
+    { id: 4, status: "Offline", style: "default" }
   ];
 
   // csv validation message
@@ -97,9 +98,16 @@ export class FutureSurveyLaunchComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.data);
     // build form group
-    this.buildLaunchForm(this.data.payload);
+    let data; 
+    let inviteeGroup;
+    if(this.data.payload.invitation !== null){
+      data = this.data.payload.invitation;
+      inviteeGroup = data.inviteeGroup;
+    } else {
+      data = {};
+      inviteeGroup = {};
+    }
     // validate back dates
     this.tomorrow = DateValidator.getTomorrow();
     this.today = DateValidator.getToday();
@@ -109,17 +117,24 @@ export class FutureSurveyLaunchComponent implements OnInit {
     this.isPublic = this.surveyObj.channel == 1 ? true : false;
     this.title = this.surveyObj.title;
     const surveyStatus = this.surveyObj.status;
+
+    // set which status can edit details
+    if(surveyStatus !== 0){
+      this.isDisabled = true;
+    }
+    
+    this.buildLaunchForm(data,inviteeGroup);
+    
     this.currentStatus = this.statusArray.filter(function (status) {
       console.log(status);
       return status.id === surveyStatus;
     });
 
     console.log("current Status");
-    console.log(this.surveyObj.status);
-    // console.log(this.currentStatus[0]);
+    console.log(this.currentStatus[0]);
 
     if (this.isPublic) {
-      // this.buildLaunchForm(this.data);
+      this.buildLaunchForm(data,inviteeGroup);
       console.log("SURVEY ID : " + this.surveyObj.id);
       this.link = this.futureSurveyService.getPublicSurveyLink(
         this.surveyObj.id
@@ -139,14 +154,12 @@ export class FutureSurveyLaunchComponent implements OnInit {
       .valueChanges.subscribe(value => this.validateExpireDate(value));
   }
 
-  buildLaunchForm(fieldItem) {
+  buildLaunchForm(fieldItem,inviteeGroup) {
     this.launchForm = this.fb.group({
-      startDate: [fieldItem.startDate || "", Validators.required],
-      endDate: [fieldItem.endDate || "", Validators.required],
-      // isPredefined: [fieldItem.isPredefined || ""],
-      // inviteeGroup: [fieldItem.inviteeGroup || ""],
-      userNamePasswordType: [fieldItem.userNamePasswordType || ""],
-      inviteeGroupName: [fieldItem.inviteeGroupName || "", Validators.required],
+      startDate: new FormControl({value: fieldItem.startDate || '', disabled: this.isDisabled}, Validators.required),
+      endDate: new FormControl({value: fieldItem.endDate || '', disabled: this.isDisabled}, Validators.required),
+      userNamePasswordType: new FormControl({value: '', disabled: this.isDisabled}),
+      inviteeGroupName: new FormControl({value: inviteeGroup.inviteeGroupName || '', disabled: this.isDisabled}, Validators.required),
       uploadCsvFile: [fieldItem.uploadCsvFile, Validators.required],
       sharebleLink: [fieldItem.sharebleLink || ""],
       csvHeaders: this.fb.array([])
@@ -179,8 +192,6 @@ export class FutureSurveyLaunchComponent implements OnInit {
   }
 
   patch(fields?) {
-    console.log("form controll----------------------");
-    console.log(fields);
     const control = <FormArray>this.launchForm.controls["csvHeaders"];
     this.ansTemplateArray = control;
     if (!fields) {

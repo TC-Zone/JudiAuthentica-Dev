@@ -4,6 +4,7 @@ import { FutureSurveyService } from "../future-survey.service";
 import { ActivatedRoute } from "@angular/router";
 import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
 import { EditMailPopupComponent } from "../edit-mail-popup/edit-mail-popup.component";
+import { AppLoaderService } from "app/shared/services/app-loader/app-loader.service";
 
 
 @Component({
@@ -23,7 +24,8 @@ export class FutureSurveyInvitationDashboardComponent implements OnInit {
     private futureSurveyService: FutureSurveyService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private loader: AppLoaderService,
   ) { }
 
   ngOnInit() {
@@ -92,10 +94,12 @@ export class FutureSurveyInvitationDashboardComponent implements OnInit {
   }
 
   resendEmail(interactionId) {
+    this.loader.open();
     this.futureSurveyService.resendSingleInvitation(interactionId).subscribe(
       response => {
         console.log("SUCCESS");
         console.log(response);
+        this.loader.close();
 
         if (response.content.status) {
           this.snackBar.open('Email Successfully Sent!', 'close', { duration: 2000 });

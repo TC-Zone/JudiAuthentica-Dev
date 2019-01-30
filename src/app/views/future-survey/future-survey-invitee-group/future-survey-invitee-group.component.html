@@ -7,14 +7,6 @@
         <div class="card-title-text">Invitation Setting</div>
         <mat-divider></mat-divider>
 
-        <!-- <div class="profile-actions text-right mb-1">
-          <div class="m-333">
-            <button mat-raised-button class="mb-05"  routerLinkActive="router-link-active" color="accent">Create
-              New Invitee Group</button>
-          </div>
-        </div> -->
-
-
       </mat-card-title>
       <mat-card-content class="p-0">
 
@@ -99,31 +91,16 @@
             </ng-template>
           </ngx-datatable-column>
 
-
-
-          <!-- <ngx-datatable-column name="Future Survey" [flexGrow]="1">
-                <ng-template let-row="row" ngx-datatable-cell-template>
-
-                </ng-template>
-              </ngx-datatable-column> -->
-
-          <!-- <ngx-datatable-column name="Invitee Count" [flexGrow]="1">
-                <ng-template let-row="row" ngx-datatable-cell-template>
-
-                </ng-template>
-              </ngx-datatable-column> -->
-
           <ngx-datatable-column name="Expire Date" [minWidth]="250" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
               {{ row?.endDate}}
             </ng-template>
           </ngx-datatable-column>
+          
           <ngx-datatable-column name="Custom Fields" [minWidth]="250" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
-
-              <div *ngFor="let header of this.customHeader;">
-                <mat-chip mat-sm-chip color="primary" selected class="mr-1">{{header}}</mat-chip>
-              </div>
+              <mat-chip *ngFor="let customField of row?.inviteeGroup.customFields;" mat-sm-chip color="primary"
+                selected class="mr-1">{{customField.displayName}}</mat-chip>
             </ng-template>
           </ngx-datatable-column>
 
@@ -131,13 +108,11 @@
           <ngx-datatable-column name="Action" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
 
-              <button mat-icon-button mat-sm-button (click)="navigateInviteeGroupView(row?.futureSurvey.id, row?.id)" color="primary" class="mr-1">
+              <button mat-icon-button mat-sm-button (click)="navigateInviteeGroupView(row?.futureSurvey.id)" color="primary"
+                class="mr-1">
                 <mat-icon>view_headline</mat-icon>
               </button>
-              <!-- <button mat-icon-button mat-sm-button color="warn" (click)="testClick()" class="mr-1">
-                <mat-icon>delete</mat-icon>
-              </button> -->
-              <button mat-icon-button mat-sm-button color="primary" class="mr-1" >
+              <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopupEditInvitationSetting(row?.id, row?.inviteeGroup.inviteeGroupName, row?.inviteeGroup.customFields, row?.endDate)">
                 <mat-icon>edit</mat-icon>
               </button>
 
