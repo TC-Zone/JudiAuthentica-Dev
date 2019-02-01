@@ -80,4 +80,35 @@
 
     <router-outlet></router-outlet>
   </div>
+  <div id="survey-launched-float-button" *ngIf="this.hasLaunchedSurvey">
+    <div class="handle" *ngIf="!isLaunchedPannelOpen">
+      <button
+      mat-fab
+      color="accent"
+      (click)="isLaunchedPannelOpen = true">
+        <mat-icon>sync</mat-icon>
+      </button>
+    </div>
+    <mat-card class="p-0" *ngIf="isLaunchedPannelOpen">
+      <mat-card-title class="mat-bg-primary">
+        <div class="card-title-text">
+          <span>Launched Survey Progress</span>
+          <span fxFlex></span>
+          <button class="card-control" mat-icon-button (click)="isLaunchedPannelOpen = false">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </mat-card-title>
+      <mat-card-content>
+        <div fxLayout="row" fxLayoutWrap="wrap">
+          <div fxFlex="100" *ngFor="let item of this.launchedSurveyList">
+            <h5>{{item.surveyName}}</h5>
+            <small>{{item.percentage}}%</small>
+            <mat-progress-bar mode="buffer" value="{{item.percentage}}"></mat-progress-bar>
+            <br>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
