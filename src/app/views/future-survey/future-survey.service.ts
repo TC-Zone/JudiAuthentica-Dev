@@ -212,6 +212,46 @@ export class FutureSurveyService {
       );
   }
 
+  // get launched survey data (by prasad kumara)
+  getLaunchedSurveyData(userId) {
+    return this.http
+      .get<any>(this.surveyApiUrl + 'surveys/launchedSurvey/' + userId)
+      .pipe(
+        map(
+          data => {
+            return data.content;
+          }
+        ),
+        catchError(this.handleError)
+      );
+  }
+
+  futureSurveyLaunch(surveyId) {
+    return this.http
+      .get<any>(this.surveyApiUrl + 'surveys/launchFutureSurvey/' + surveyId)
+      .pipe(
+        map(
+          data => {
+            return data;
+          }
+        ),
+        catchError(this.handleError)
+      );
+  }
+
+  sendEmailUsingGmail(surveyId) {
+    return this.http
+      .get<any>(this.surveyApiUrl + 'surveys/sendEmailUsingGmail/' + surveyId)
+      .pipe(
+        map(
+          data => {
+            return data;
+          }
+        ),
+        catchError(this.handleError)
+      );
+  }
+
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);
   }
