@@ -18,8 +18,11 @@ import {
   MatRadioModule,
   MatExpansionModule,
   MatCheckboxModule,
-  MatDatepickerModule
+  MatDatepickerModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule
 } from "@angular/material";
+import {NgcFloatButtonModule} from 'ngc-float-button';
 
 import { StarRatingModule } from "angular-star-rating";
 
@@ -71,7 +74,10 @@ export let InjectorInstance: Injector;
     MatCheckboxModule,
     RouterModule.forChild(FutureSurveyRoutes),
     SharedModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    NgcFloatButtonModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     FutureSurveyComponent,
