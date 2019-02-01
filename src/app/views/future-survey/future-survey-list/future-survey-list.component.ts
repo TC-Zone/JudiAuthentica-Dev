@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
 import { FutureSurveyService } from "../future-survey.service";
-import { Subscription } from "rxjs";
+import { Subscription, timer } from "rxjs";
 import { CrudService } from "app/views/cruds/crud.service";
 import { ResponseModel } from "../../../model/ResponseModel.model";
 import { Router, NavigationExtras } from "@angular/router";
@@ -25,6 +25,16 @@ export class FutureSurveyListComponent implements OnInit {
 
   public clients: any[];
   public response: ResponseModel;
+  /*
+    timer takes a second argument, how often to emit subsequent values
+    in this case we will emit first value after 1 second and subsequent
+    values every 1 seconds after
+  */
+  public source = timer(1000, 5000);
+  public timetEvent: any;
+  public isLaunchedPannelOpen = false;
+  public hasLaunchedSurvey = false;
+  public launchedSurveyList: any;
 
   constructor(
     private futureSurveyService: FutureSurveyService,
@@ -40,11 +50,16 @@ export class FutureSurveyListComponent implements OnInit {
   ngOnInit() {
     this.getAllFutureSurveys();
     this.getAllClients();
+    this.getLaunchedSurveyData(0);
+    this.timeLoop();
   }
 
   ngOnDestroy() {
     if (this.getSurveysSub) {
       this.getSurveysSub.unsubscribe();
+    }
+    if (this.timetEvent) {
+      this.timetEvent.unsubscribe();
     }
   }
 
@@ -107,27 +122,42 @@ export class FutureSurveyListComponent implements OnInit {
         { duration: 5000 }
       );
 
-      this.futureSurveyService.launchFutureSurvey(res.id).subscribe(
+      // show email send progress (by prasad kumara)
+      this.timeLoop();
+      this.futureSurveyService.futureSurveyLaunch(res.id).subscribe(
         response => {
-          console.log("LAUNCH RESPONSE");
-          console.log(response);
-          // this.loader.close();
-          this.getAllFutureSurveys();
-        },
-        error => {
-          this.loader.close();
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
+          // console.log('--------------------- survey launch function -----------------');
+          // console.log(response);
+          if (response === true) {
+            this.getAllFutureSurveys();
+            this.getLaunchedSurveyData(0);
+            this.sendEmaiUsingGmail(res.id);
+          }
         }
       );
+
+
+      // this.futureSurveyService.launchFutureSurvey(res.id).subscribe(
+      //   response => {
+      //     console.log("LAUNCH RESPONSE");
+      //     console.log(response);
+      //     // this.loader.close();
+      //     this.getAllFutureSurveys();
+      //   },
+      //   error => {
+      //     this.loader.close();
+      //     this.errDialog.showError({
+      //       title: "Error",
+      //       status: error.status,
+      //       type: "http_error"
+      //     });
+      //   }
+      // );
     });
   }
 
   openInvitationPopup(data: any = {}, channel?, isNew?) {
-    
+
     let isPublic = channel == 1 ? true : false;
     let title = isPublic
       ? "Public Future Survey - Invitee Settings"
@@ -309,5 +339,76 @@ export class FutureSurveyListComponent implements OnInit {
           );
         }
       });
+  }
+
+  getLaunchedSurveyData(clientId) {
+    this.futureSurveyService.getLaunchedSurveyData(clientId)
+    .subscribe(
+      response => {
+        this.launchedSurveyList = response;
+        if (this.launchedSurveyList && this.launchedSurveyList.length !== 0) {
+          this.hasLaunchedSurvey = true;
+          this.timeLoop();
+        }
+        if (!this.launchedSurveyList || this.launchedSurveyList.length === 0) {
+          this.hasLaunchedSurvey = false;
+          if (this.timetEvent) {
+            this.timetEvent.unsubscribe();
+          }
+        }
+      }
+    );
+  }
+
+  sendEmaiUsingGmail(surveyId) {
+    // console.log('---------------- send email using gmail function started ---------------------');
+    this.futureSurveyService.sendEmailUsingGmail(surveyId).subscribe(
+      res => {
+        // console.log('---------------- send email using gmail ---------------------');
+        // console.log(res);
+      }
+    );
+  }
+
+  timeLoop() {
+    if (!this.launchedSurveyList || this.launchedSurveyList.length === 0) {
+      if (this.timetEvent) {
+        this.timetEvent.unsubscribe();
+      }
+      this.hasLaunchedSurvey = false;
+    }
+    if (this.hasLaunchedSurvey) {
+      this.timetEvent = this.source.subscribe(val => {
+        this.futureSurveyService.getLaunchedSurveyData(val)
+        .subscribe(
+          response => {
+            // console.log('----------------------launched survey data in time loop function---------------------------');
+            // console.log(response);
+            if (response.length === 0) {
+              this.timetEvent.unsubscribe();
+              this.hasLaunchedSurvey = false;
+            }
+            const responseArray = response;
+            const surveyListLength = this.launchedSurveyList.length;
+            const responseLength = response.length;
+            if (surveyListLength === responseLength) {
+              this.launchedSurveyList.forEach(launchSurvey => {
+                responseArray.forEach(res => {
+                  if (launchSurvey.surveyName === res.surveyName) {
+                    launchSurvey.percentage = res.percentage;
+                  }
+                });
+              });
+            } else if (responseLength > surveyListLength) {
+              for (let i = 0; i < (responseLength - surveyListLength); i++) {
+                this.launchedSurveyList.add(response[i]);
+              }
+            } else if (responseLength < surveyListLength) {
+              this.launchedSurveyList = response;
+            }
+          }
+        );
+      });
+    }
   }
 }
