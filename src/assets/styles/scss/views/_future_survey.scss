@@ -5,3 +5,17 @@
   background-repeat: no-repeat !important;
   background-attachment: fixed;
 }
+
+// survey launched float button
+#survey-launched-float-button {
+  position: fixed;
+  z-index: 100;
+  bottom: 16px;
+  right: 90px;
+  .handle {
+    float: right;
+  }
+  .mat-card-content  {
+    padding: 1rem 1.5rem 2rem;
+  }
+}
