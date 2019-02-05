@@ -123,7 +123,7 @@ export class FutureSurveyListComponent implements OnInit {
       );
 
       // show email send progress (by prasad kumara)
-      this.timeLoop();
+      // this.timeLoop();
       this.futureSurveyService.futureSurveyLaunch(res.id).subscribe(
         response => {
           // console.log('--------------------- survey launch function -----------------');
