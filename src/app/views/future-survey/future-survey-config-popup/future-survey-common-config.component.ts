@@ -61,14 +61,13 @@ export class FutureSurveyCommonConfigComponent implements OnInit {
   }
 }
 
-export class Invitee {
-  constructor(public name, public email: string) {}
-}
+// export class Invitee {
+//   constructor(public name, public email: string) { }
+// }
 
-export class ValidateRequest {
-  constructor(public correctSet, public errorSet: any[]) {}
-}
-
+// export class ValidateRequest {
+//   constructor(public correctSet, public errorSet: any[]) { }
+// }
 // Removing invite configuration section from future survey config popup - YS - The Flash Sprint
 
 // setPrivateChannelValidation(value) {

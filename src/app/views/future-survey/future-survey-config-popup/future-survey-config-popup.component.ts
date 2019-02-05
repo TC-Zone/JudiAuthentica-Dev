@@ -15,6 +15,7 @@ import { AppErrorService } from "../../../shared/services/app-error/app-error.se
 import { FutureSurveyService } from "../future-survey.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 import { FSCreateRequest, FSUpdateRequest } from "../../../model/FSurveyConfigRequest.model";
+import { JsonContentPart } from "../../../model/FutureSurvey.model";
 
 @Component({
   selector: "app-future-survey-config-popup",
@@ -130,9 +131,6 @@ export class FutureSurveyConfigPopupComponent
   }
 }
 
-export class JsonContentPart {
-  constructor(public title, public clientId, public pages: any) { }
-}
 
 //  Removing invite configuration section from future survey config popup - YS - The Flash Sprint
 

@@ -17,6 +17,12 @@ import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import { AppDataConversionService } from "app/shared/services/data-conversion.service";
 import { LoginRequest } from "../../interaction-view/interaction-view.component";
 import * as moment from "moment";
+import {
+  Invitee,
+  ValidateRequest,
+  CustomField,
+  InviteRequest
+} from "../../../model/FutureSurvey.model";
 
 export const MY_FORMATS = {
   parse: {
@@ -524,35 +530,3 @@ export class FutureSurveyLaunchComponent implements OnInit {
   
 }
 
-
-export class Invitee {
-  constructor(
-    public name,
-    public email: string,
-    public username: string,
-    public password: string,
-    public customField1: string,
-    public customField2: string,
-    public customField3: string
-  ) { }
-}
-
-export class ValidateRequest {
-  constructor(public correctSet, public errorSet: any[]) { }
-}
-
-export class CustomField {
-  constructor(public fieldName, public displayName: string) { }
-}
-
-export class InviteRequest {
-  constructor(
-    public futureSurveyId: string,
-    public startDate: string,
-    public endDate: string,
-    public inviteeGroupName: string,
-    public passwordStrategy: string,
-    public customFields: any[],
-    public invitees: any[]
-  ) { }
-}

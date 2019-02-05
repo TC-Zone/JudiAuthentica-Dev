@@ -10,11 +10,13 @@ import {
   MatDialog,
   MAT_DATE_FORMATS,
   DateAdapter,
-  MAT_DATE_LOCALE
+  MAT_DATE_LOCALE,
+  MatSnackBar
 } from "@angular/material";
 import { EditInvitationSettingPopupComponent } from "../edit-invitation-setting-popup/edit-invitation-setting-popup.component";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import * as moment from "moment";
+import { InvitationRequest} from "../../../model/FutureSurvey.model";
 
 
 export const MY_FORMATS = {
@@ -53,7 +55,8 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
     private errDialog: AppErrorService,
     private loader: AppLoaderService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    public snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -76,14 +79,13 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
         console.log(response);
 
         this.allInvitations = response.content;
-        console.log(this.allInvitations);
 
-        if(this.allInvitations && this.allInvitations.length != 0){
-          this.allInvitations[0].inviteeGroup.customFields.forEach(element => {
-            this.customHeader.push(element.displayName);
-          });
-        }
-
+        // console.log(this.allInvitations);
+        // if(this.allInvitations && this.allInvitations.length != 0){
+        //   this.allInvitations[0].inviteeGroup.customFields.forEach(element => {
+        //     this.customHeader.push(element.displayName);
+        //   });
+        // }
 
       },
       error => {
@@ -150,8 +152,4 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
 
     this.router.navigate(["future-survey/invitationDashboard"], extraParam);
   }
-}
-
-export class InvitationRequest {
-  constructor(public groupName, public customField: any[], public endDate: String) { }
 }

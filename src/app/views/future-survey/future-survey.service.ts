@@ -43,9 +43,7 @@ export class FutureSurveyService {
   updateFutureSurveyConfig(setting, id) {
     return this.http
       .put<any>(
-        this.surveyApiUrl + "surveys" + "/futureSurveyConfigUpdate/" + id,
-        setting
-      )
+        this.surveyApiUrl + "surveys" + "/futureSurveyConfigUpdate/" + id, setting)
       .pipe(
         map(data => {
           return data.content;
@@ -181,13 +179,13 @@ export class FutureSurveyService {
       .pipe(catchError(this.handleError));
   }
 
-  changeSurveyStatus(surveyId, status){
+  changeSurveyStatus(surveyId, status) {
     return this.http
-    .get<any>(this.surveyApiUrl + "surveys" + "/futureSurveyStatus/" + surveyId + "/" + status)
-    .pipe(catchError(this.handleError));
+      .get<any>(this.surveyApiUrl + "surveys" + "/futureSurveyStatus/" + surveyId + "/" + status)
+      .pipe(catchError(this.handleError));
   }
 
-  updateInvitee(inviteeId, InviteeObj){
+  updateInvitee(inviteeId, InviteeObj) {
     return this.http
       .put<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInvitee/" + inviteeId, InviteeObj)
       .pipe(
@@ -200,7 +198,7 @@ export class FutureSurveyService {
       );
   }
 
-  updateInvitation(invitationId , invitationObj){
+  updateInvitation(invitationId, invitationObj) {
     return this.http
       .put<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInvitation/" + invitationId, invitationObj)
       .pipe(

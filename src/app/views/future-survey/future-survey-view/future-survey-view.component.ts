@@ -8,6 +8,10 @@ import { FutureSurveyService } from "../future-survey.service";
 import { FormGroup, FormBuilder } from "@angular/forms";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { HttpClient } from "@angular/common/http";
+import {
+  ValueTemplate,
+  MatrixBaseTemplate
+} from "../../../model/FutureSurvey.model";
 
 widgets.icheck(Survey);
 widgets.select2(Survey);
@@ -244,12 +248,4 @@ export class FutureSurveyViewComponent implements OnInit {
 
     Survey.StylesManager.applyTheme();
   }
-}
-
-export class ValueTemplate {
-  constructor(public value: any) {}
-}
-
-export class MatrixBaseTemplate {
-  constructor(public rowValue, public columnValue: any) {}
 }

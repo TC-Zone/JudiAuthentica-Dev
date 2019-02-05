@@ -12,8 +12,14 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { MatSnackBar } from "@angular/material";
-//
+
 import { LocalizationService } from "../../../shared/services/localization.service";
+import { FutureSurveyOperationalService } from "../future-survey-operational.service";
+import {
+  FutureSurveyRequest,
+  ChoiceTypeEnum,
+  MatrixTypeEnum
+} from "../../../model/FutureSurvey.model";
 
 widgets.icheck(SurveyKo);
 widgets.select2(SurveyKo);
@@ -29,14 +35,14 @@ widgets.autocomplete(SurveyKo);
 widgets.bootstrapslider(SurveyKo);
 
 var CkEditor_ModalEditor = {
-  afterRender: function(modalEditor, htmlElement) {
+  afterRender: function (modalEditor, htmlElement) {
     var editor = window["CKEDITOR"].replace(htmlElement);
-    editor.on("change", function() {
+    editor.on("change", function () {
       modalEditor.editingValue = editor.getData();
     });
     editor.setData(modalEditor.editingValue);
   },
-  destroy: function(modalEditor, htmlElement) {
+  destroy: function (modalEditor, htmlElement) {
     var instance = window["CKEDITOR"].instances[htmlElement.id];
     if (instance) {
       instance.removeAllListeners();
@@ -71,8 +77,9 @@ export class FutureSurveyComponent implements OnInit {
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
     private snack: MatSnackBar,
-    private loc: LocalizationService
-  ) {}
+    private loc: LocalizationService,
+    private FSOperationalService: FutureSurveyOperationalService
+  ) { }
 
   ngOnInit() {
     this.loader.open();
@@ -85,6 +92,8 @@ export class FutureSurveyComponent implements OnInit {
           .getFutureSurveyById(this.surveyId)
           .subscribe(response => {
             this.jsonContent = JSON.parse(response.content.jsonContent);
+            console.log(this.jsonContent);
+
             let title = response.content.title;
             this.snack.open("New " + title + " survey is loaded !", "OK", {
               duration: 4000
@@ -188,7 +197,7 @@ export class FutureSurveyComponent implements OnInit {
     // Set the name property different from the default value
     // and set the tag property to a generated GUID value.
 
-    this.editor.onQuestionAdded.add(function(sender, options) {
+    this.editor.onQuestionAdded.add(function (sender, options) {
       let q = options.question;
 
       let text = "";
@@ -248,17 +257,27 @@ export class FutureSurveyComponent implements OnInit {
     console.log("...........plain text............");
     console.log(this.editor.text);
 
-    const jsonText = JSON.stringify(this.editor.text);
-    const jsonObject = JSON.parse(this.editor.text);
+    let jsonText = JSON.stringify(this.editor.text);
+    let jsonObject = JSON.parse(this.editor.text);
 
     console.log("...........after json strigfy text............");
     console.log(jsonText);
 
+
+    // --------------------------------------------------------------------------------- HBH ------------------
+    // if anywhere in the survey has been used another language, set selected language value to text directly instead of whole value array.
+    // ex: if selected language is italiano, change text values as shown below.
+    // "text": "articolo1 A" instead of "text": { "default": "item1 A", "it": "articolo1 A" }.
+    // --------------------------------------------------------------------------------------------------------
+
+    jsonObject = this.FSOperationalService.validateLocalizeSurveyRequest(jsonObject);
+
+    // --------------------------------------------------------------------------------------------------------
+
+
     if (this.validateFutureSurveyRequest(jsonObject)) {
       return;
     }
-
-
 
     const request: FutureSurveyRequest = new FutureSurveyRequest(
       jsonText,
@@ -344,13 +363,13 @@ export class FutureSurveyComponent implements OnInit {
       const elements = page.elements;
       let lang = null;
 
-      console.log('local 0'+jsonRequest.locale);
+      console.log('local 0' + jsonRequest.locale);
 
       if (jsonRequest.locale) {
         lang = jsonRequest.locale;
       }
 
-      console.log('lang :......'+lang);
+      console.log('lang :......' + lang);
 
 
       if (!elements) {
@@ -371,12 +390,10 @@ export class FutureSurveyComponent implements OnInit {
                   clientError =
                     "Please add a value for the choice item of " + element.name;
                 }
-                if (!text || text == null) {
+                if (!text || text == null || text === undefined) {
                   clientError =
                     "Please add a text for the choice item of " + element.name;
-                }
-
-                if (lang && text.hasOwnProperty(lang)) {
+                } else if (lang && text.hasOwnProperty(lang)) {
                   text = text[lang];
                   console.log("IN IF LANG");
                   console.log(text);
@@ -446,27 +463,4 @@ export class FutureSurveyComponent implements OnInit {
       return false;
     }
   }
-}
-
-// DTO class for FutureSurvey Creation and Update Request
-export class FutureSurveyRequest {
-  constructor(
-    public jsonContent: String,
-    public title: string,
-    public clientId: string,
-    public pages: any[]
-  ) {}
-}
-
-enum ChoiceTypeEnum {
-  DROP_DOWN = "dropdown",
-  RADIO_GROUP = "radiogroup",
-  IMAGE_PICKER = "imagepicker",
-  CHECKBOX = "checkbox"
-}
-
-enum MatrixTypeEnum {
-  MATRIX = "matrix",
-  MATRIX_DROPDOWN = "matrixdropdown",
-  MATRIX_DYNAMIC = "matrixdynamic"
 }

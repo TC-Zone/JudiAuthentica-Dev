@@ -5,7 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
 import { EditMailPopupComponent } from "../edit-mail-popup/edit-mail-popup.component";
 import { AppLoaderService } from "app/shared/services/app-loader/app-loader.service";
-
+import { InvitationTemplate } from "../../../model/FutureSurvey.model";
 
 @Component({
   selector: "app-future-invitation-dashboard",
@@ -144,7 +144,3 @@ export class FutureSurveyInvitationDashboardComponent implements OnInit {
 }
 
 
-
-export class InvitationTemplate {
-  constructor(public name, public username, public email) { }
-}
