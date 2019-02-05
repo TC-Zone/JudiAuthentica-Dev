@@ -7,7 +7,8 @@
 }
 
 .background-survey-signin {
-  background-image: url("assets/images/survey_signin/test_bg2.jpg") !important;
+  background-image: url("assets/images/survey_signin/Survey-User-Login-Background.jpg") !important;
+  // background-image: url("assets/images/survey_signin/test_bg2.jpg") !important;
   // background-image: url("assets/images/signin/signinimg.jpg") !important;
   background-size: cover !important;
   background-repeat: no-repeat !important;
@@ -142,12 +143,9 @@
   width: 10em;
 }
 
-// Survey Background Color
-// .sv_main, .white_bg{
-//   background-color: #fff;
-// }
-
-// // Survey Header Color
-// .sv_custom_header{
-//   background-color: #e7e7e7;
-// }
+// override to set invitee ininteraction login postion to left
+.session-form-hold.set-form-left{
+  // width: 100%;
+  // max-width: 400px;
+  margin-left: 13%;
+}

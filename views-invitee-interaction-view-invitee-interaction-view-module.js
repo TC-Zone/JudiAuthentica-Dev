@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"interactForm\">\r\n  <div class=\"page-wrap height-100 background-survey-signin\" *ngIf=\"showLogin\">\r\n    <div class=\"session-form-hold\">\r\n      <mat-card>\r\n        <mat-card-content>\r\n          <div class=\"text-center pb-1\">\r\n            <img src=\"assets/images/signin/logo.jpg\" alt=\"\">\r\n            <p class=\"text-muted m-0\">Sign in to your account</p>\r\n            <h6 *ngIf=\"loginError\" class=\"m-1 form-error-msg\"> {{loginErrorMsg}} </h6>\r\n          </div>\r\n\r\n          <mat-form-field class=\"full-width\">\r\n            <input type=\"text\" name=\"username\" matInput placeholder=\"Username\" value=\"\" [formControl]=\"interactForm.controls['username']\"\r\n              required name=\"username\">\r\n          </mat-form-field>\r\n\r\n          <mat-form-field class=\"full-width\">\r\n            <input type=\"password\" name=\"password\" matInput placeholder=\"Password\" value=\"\" [formControl]=\"interactForm.controls['password']\"\r\n              required name=\"password\">\r\n          </mat-form-field>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"doLog()\" [disabled]=\"interactForm.invalid\">Login\r\n            to Survey</button>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>\r\n\r\n<div fxFlex=\"100\" fxLayoutAlign=\"center center\" id=\"survey-view-survey\" class=\"background-survey-form\">\r\n  <header>\r\n    <mat-toolbar fxLayoutAlign=\"center center\" matDialogTitle class=\"mat-primary m-0\">\r\n      <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <div mat-card-avatar class=\"example-header-image\"></div>\r\n      </div>\r\n      <!-- <mat-card-title class=\"example-card-title\">Nova Scotia Engineers</mat-card-title> -->\r\n      <span class=\"example-card-title hidden-xs\">Clear Picture</span>\r\n      <span class=\"example-spacer\"></span>\r\n      <span *ngIf=\"loggedInviteeName\" class=\"example-invite\">Hi, {{loggedInviteeName}}</span>\r\n    </mat-toolbar>\r\n  </header>\r\n\r\n\r\n\r\n  <div class=\"survey-page-wrap\" *ngIf=\"!showLogin\">\r\n    <div class=\"survey-form-hold\">\r\n      <mat-card id=\"finishedSurveyMsg\" class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <h5>The {{origin}} is Previously Submitted </h5>\r\n          <h6>Summary is provided bellow</h6>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <mat-card class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <div id=\"surveyElement\"></div>\r\n          <div id=\"surveyResult\"></div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n\r\n  <mat-card-content>\r\n\r\n    <div class=\"pb-1\" style=\"text-align: center\">\r\n      <a id=\"btnViewSummary\" mat-raised-button class=\"mr-1\" (click)=\"viewSummary()\">View Summary</a>\r\n      <a id=\"btnViewSurvey\" mat-raised-button class=\"mr-1\" (click)=\"viewSurvey()\">Edit {{origin}}</a>\r\n      <a id=\"btnSubmitSurvey\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"submitSurvey()\">Submit {{origin}}</a>\r\n      <a id=\"btnAnswerLater\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"answerLater()\">Answer Later</a>\r\n    </div>\r\n\r\n\r\n  </mat-card-content>\r\n\r\n\r\n  <div id=\"survey-view-footer\">\r\n    <div class=\"container custom-center\">\r\n      <span>Powered by</span>\r\n      <img src=\"assets/images/cp_logo_text.png\" alt=\"\">\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n\r\n<script>\r\n  $.material.init();\r\n</script>"
+module.exports = "<form [formGroup]=\"interactForm\">\r\n  <div class=\"page-wrap height-100 background-survey-signin\" *ngIf=\"showLogin\">\r\n    <div class=\"session-form-hold set-form-left\">\r\n      <mat-card>\r\n        <mat-card-content>\r\n          <div class=\"text-center pb-1\">\r\n            <img src=\"assets/images/truverus/Tru-Verus-Logo.png\" alt=\"\">\r\n            <p class=\"text-muted m-0\">Sign in to your account</p>\r\n            <h6 *ngIf=\"loginError\" class=\"m-1 form-error-msg\"> {{loginErrorMsg}} </h6>\r\n          </div>\r\n\r\n          <mat-form-field class=\"full-width\">\r\n            <input type=\"text\" name=\"username\" matInput placeholder=\"Username\" value=\"\" [formControl]=\"interactForm.controls['username']\"\r\n              required name=\"username\">\r\n          </mat-form-field>\r\n\r\n          <mat-form-field class=\"full-width\">\r\n            <input type=\"password\" name=\"password\" matInput placeholder=\"Password\" value=\"\" [formControl]=\"interactForm.controls['password']\"\r\n              required name=\"password\">\r\n          </mat-form-field>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"doLog()\" [disabled]=\"interactForm.invalid\">Login\r\n            to Survey</button>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>\r\n\r\n<div fxFlex=\"100\" fxLayoutAlign=\"center center\" id=\"survey-view-survey\" class=\"background-survey-form\">\r\n  <header>\r\n    <mat-toolbar fxLayoutAlign=\"center center\" matDialogTitle class=\"mat-primary m-0\">\r\n      <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <div mat-card-avatar class=\"example-header-image\"></div>\r\n      </div>\r\n      <!-- <mat-card-title class=\"example-card-title\">Nova Scotia Engineers</mat-card-title> -->\r\n      <span class=\"example-card-title hidden-xs\">Clear Picture</span>\r\n      <span class=\"example-spacer\"></span>\r\n      <span *ngIf=\"loggedInviteeName\" class=\"example-invite\">Hi, {{loggedInviteeName}}</span>\r\n    </mat-toolbar>\r\n  </header>\r\n\r\n\r\n\r\n  <div class=\"survey-page-wrap\" *ngIf=\"!showLogin\">\r\n    <div class=\"survey-form-hold\">\r\n      <mat-card id=\"finishedSurveyMsg\" class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <h5>The {{origin}} is Previously Submitted </h5>\r\n          <h6>Summary is provided bellow</h6>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <mat-card class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <div id=\"surveyElement\"></div>\r\n          <div id=\"surveyResult\"></div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n\r\n  <mat-card-content>\r\n\r\n    <div class=\"pb-1\" style=\"text-align: center\">\r\n      <a id=\"btnViewSummary\" mat-raised-button class=\"mr-1\" (click)=\"viewSummary()\">View Summary</a>\r\n      <a id=\"btnViewSurvey\" mat-raised-button class=\"mr-1\" (click)=\"viewSurvey()\">Edit {{origin}}</a>\r\n      <a id=\"btnSubmitSurvey\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"submitSurvey()\">Submit {{origin}}</a>\r\n      <a id=\"btnAnswerLater\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"answerLater()\">Answer Later</a>\r\n    </div>\r\n\r\n\r\n  </mat-card-content>\r\n\r\n\r\n  <div id=\"survey-view-footer\">\r\n    <div class=\"container custom-center\">\r\n      <span>Powered by</span>\r\n      <img src=\"assets/images/cp_logo_text.png\" alt=\"\">\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n\r\n<script>\r\n  $.material.init();\r\n</script>"
 
 /***/ }),
 
@@ -91,11 +91,12 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
                     _this.customFields = loggedInteraction.futureSurvey.invitation.inviteeGroup.customFields;
                     _this.invitee = loggedInteraction.invitee;
                     _this.jsonContent = JSON.parse(loggedInteraction.futureSurvey.jsonContent);
-                    _this.pageJson = JSON.parse(_this.jsonContent).pages;
                     _this.customField = {};
                     _this.customFields.forEach(function (header) {
                         _this.customField[header.displayName] = _this.invitee[header.fieldName];
                     });
+                    console.log(_this.customFields);
+                    console.log(_this.customField);
                     if (loggedInteraction.futureSurvey.origin === "1") {
                         _this.origin = "Survey";
                         window.history.replaceState({}, '', '/Survey');
@@ -153,22 +154,26 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         }, function (error) { _this.errDialog.showErrorWithMessage(error); });
     };
     InviteeInteractionViewComponent.prototype.viewSurvey = function () {
-        var jsonContent = this.jsonContent;
-        var pageJson = this.pageJson;
-        console.log("------------------------------");
-        // pageJson.forEach(element => {
-        //   element.elements.forEach(element => {
-        //     if (element.customVisibleName !== 'null') {
-        //       let header = element.customVisibleName;
-        //       if (this.customField[header] === element.customVisibleValue) {
-        //         element.visible = true;
-        //       } else {
-        //         element.visible = false;
-        //       }
-        //     }
-        //   });
-        // });
-        console.log("------------------------------");
+        var _this = this;
+        this.jsonContentJSON = JSON.parse(this.jsonContent);
+        console.log("-------------  Before - jsonContentJSON.pages -----------------");
+        console.log(this.jsonContentJSON.pages);
+        this.jsonContentJSON.pages.forEach(function (element) {
+            element.elements.forEach(function (element) {
+                if (element.customVisibleName !== 'null') {
+                    var header = element.customVisibleName;
+                    if (_this.customField[header] === element.customVisibleValue) {
+                        element.visible = true;
+                    }
+                    else {
+                        element.visible = false;
+                    }
+                }
+            });
+        });
+        console.log("------------- After - jsonContentJSON.pages -----------------");
+        console.log(this.jsonContentJSON.pages);
+        var jsonContent = this.jsonContentJSON;
         this.surveyModel = new survey_angular__WEBPACK_IMPORTED_MODULE_3__["Model"](jsonContent);
         survey_angular__WEBPACK_IMPORTED_MODULE_3__["StylesManager"].applyTheme("bootstrap");
         var resultArray = [];
@@ -222,7 +227,7 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
             document.getElementById('btnSubmitSurvey').style.display = 'inline-block';
             document.getElementById('btnViewSurvey').style.display = 'none';
             document.getElementById('btnAnswerLater').style.display = 'none';
-            pageJson.forEach(function (element) {
+            jsonContent.pages.forEach(function (element) {
                 element.elements.forEach(function (element) {
                     var elementArray = {};
                     var eleType = element.type;
@@ -308,7 +313,7 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
             document.getElementById('finishedSurveyMsg').style.display = 'block';
             document.getElementById('btnViewSurvey').style.display = 'none';
         }
-        var jsonContent = JSON.parse(this.jsonContent);
+        var jsonContent = this.jsonContentJSON;
         jsonContent.title = "Summary of " + jsonContent.title;
         this.surveyModel = new survey_angular__WEBPACK_IMPORTED_MODULE_3__["Model"](jsonContent);
         survey_angular__WEBPACK_IMPORTED_MODULE_3__["StylesManager"].applyTheme("bootstrap");
