@@ -488,7 +488,7 @@ var ProductCrudPopupComponent = /** @class */ (function (_super) {
         }
         this.getAllSurvey();
         this.getClientSuggestions();
-        this.buildProductForm(this.data.payload);
+        this.buildProductForm(this.data.payload, this.data.isNew);
         this.filteredClient = this.productForm.get("client").valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["debounceTime"])(200), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["switchMap"])(function (value) { return _this.clientService.search({ name: value }, 1); }));
     };
     ProductCrudPopupComponent.prototype.surveyOnChange = function () {
@@ -548,9 +548,17 @@ var ProductCrudPopupComponent = /** @class */ (function (_super) {
             _this.clients = _this.response.content;
         });
     };
-    ProductCrudPopupComponent.prototype.buildProductForm = function (fieldItem) {
+    ProductCrudPopupComponent.prototype.buildProductForm = function (fieldItem, isNew) {
         var client = fieldItem.client;
         var clientId = client ? client.id : null;
+        var videoUrl = fieldItem.videoUrl;
+        var youtubeUrl = null;
+        if (videoUrl) {
+            youtubeUrl = isNew
+                ? videoUrl
+                : "https://www.youtube.com/watch?v=" + videoUrl;
+            console.log(youtubeUrl);
+        }
         this.productForm = this.fb.group({
             client: [clientId || ""],
             code: [fieldItem.code || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
@@ -560,7 +568,7 @@ var ProductCrudPopupComponent = /** @class */ (function (_super) {
             quantity: [fieldItem.quantity || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             expireDate: [fieldItem.expireDate || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             surveyId: [fieldItem.surveyId || null],
-            videoUrl: [fieldItem.videoUrl, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern(this.youTubeIdRegex)],
+            videoUrl: [youtubeUrl, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern(this.youTubeIdRegex)],
             file: [fieldItem.file || ""]
         });
     };
