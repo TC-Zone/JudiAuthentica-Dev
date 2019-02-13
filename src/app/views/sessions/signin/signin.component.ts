@@ -35,20 +35,42 @@ export class SigninComponent implements OnInit {
     const signinData = this.signinForm.value;
     console.log(signinData);
 
-    console.log("LOCAL STORAGE");
-    console.log(localStorage.getItem("currentUser"));
-
-    this.submitButton.disabled = true;
-    this.progressBar.mode = "indeterminate";
-    this.result = this.userService.login(signinData);
-    console.log(this.result);
-    console.log(JSON.parse(localStorage.getItem("currentUser")));
-    if (this.result) {
-      this.router.navigate([this.successUrl]);
-    } else {
-      this.progressBar.mode = "determinate";
-      this.signinForm.reset();
-      this.router.navigate([this.signInUrl]);
+    const userObj = localStorage.getItem("user_jwt_token");
+    if (userObj) {
+      console.log("LOCAL STORAGE");
+      console.log(userObj);
     }
+    console.log(userObj);
+
+    // this.submitButton.disabled = true;
+    // this.progressBar.mode = 'indeterminate';
+    // this.result = this.userService.login(signinData);
+    this.userService.login(signinData).subscribe(
+      response => {
+        console.log('_---------------------------- Sign in Function ------------------');
+
+        console.log(response);
+      },
+      error => {
+        console.log('_---------------------------- Sign in Function error ------------------');
+        console.log(error);
+        if (error.status === 401 || error.status === 403) {
+          this.router.navigate([this.successUrl]);
+        } else {
+          // this.progressBar.mode = 'determinate';
+          // this.signinForm.reset();
+          // this.router.navigate([this.signInUrl]);
+        }
+      }
+    );
+    // console.log(this.result);
+    // console.log(JSON.parse(localStorage.getItem("currentUser")));
+    // if (this.result) {
+    //   this.router.navigate([this.successUrl]);
+    // } else {
+    // this.progressBar.mode = "determinate";
+    // this.signinForm.reset();
+    // this.router.navigate([this.signInUrl]);
+    // }
   }
 }

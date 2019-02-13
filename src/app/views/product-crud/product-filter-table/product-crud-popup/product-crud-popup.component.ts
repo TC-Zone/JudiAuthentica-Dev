@@ -116,7 +116,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
 
     this.getAllSurvey();
     this.getClientSuggestions();
-    this.buildProductForm(this.data.payload);
+    this.buildProductForm(this.data.payload, this.data.isNew);
     this.filteredClient = this.productForm.get("client").valueChanges.pipe(
       debounceTime(200),
       switchMap(value => this.clientService.search({ name: value }, 1))
@@ -187,9 +187,18 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
     });
   }
 
-  buildProductForm(fieldItem) {
+  buildProductForm(fieldItem, isNew) {
     const client = fieldItem.client;
     const clientId = client ? client.id : null;
+
+    const videoUrl = fieldItem.videoUrl;
+    let youtubeUrl = null;
+    if (videoUrl) {
+      youtubeUrl = isNew
+        ? videoUrl
+        : "https://www.youtube.com/watch?v=" + videoUrl;
+      console.log(youtubeUrl);
+    }
 
     this.productForm = this.fb.group({
       client: new FormControl(clientId || ""),

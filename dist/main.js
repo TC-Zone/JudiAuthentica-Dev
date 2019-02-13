@@ -3322,9 +3322,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var LocalizationService = /** @class */ (function () {
     function LocalizationService() {
-        //add your language like this 
-        //first index what is the name of you added
-        //second index is name of object that you added Localization class
+        // add your language like this
+        // first index what is the name of you added
+        // second index is name of object that you added Localization class
         this.locArray = [["sinhala", "sinhalaStrings"], ["hindi", "hindiStrings"]];
         var loc = new _utility_localization_localization__WEBPACK_IMPORTED_MODULE_1__["Localization"]();
         this.loc = loc.Object;
