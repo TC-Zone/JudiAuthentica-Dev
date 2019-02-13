@@ -4,107 +4,55 @@
   </div>
 </mat-toolbar>
 
-<mat-dialog-content
-  class="mat-typography mt-1"
-  style="overflow: unset; max-height: unset;"
->
+<mat-dialog-content class="mat-typography mt-1" style="overflow: unset; max-height: unset;">
   <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
     <!-- Public Shareble Link -->
     <div *ngIf="isPublic" fxFlex="100" class="pr-1">
       <mat-form-field class="full-width">
-        <input
-          matInput
-          [(ngModel)]="link"
-          name="shareLink"
-          placeholder="Get Shareble Link"
-        />
+        <input matInput [(ngModel)]="link" name="shareLink" placeholder="Get Shareble Link" />
       </mat-form-field>
     </div>
 
-    <mat-card
-      fxFlex="100"
-      class="pr-1"
-      _ngcontent-c100=""
-      class="default mat-card"
-      ><mat-card-title _ngcontent-c28="" class="mat-card-title"
-        >{{ title }} - Status</mat-card-title
-      ><mat-card-content _ngcontent-c28="" class="p-0 mat-card-content"
-        ><div _ngcontent-c28="" class="list-tasktype">
-          <div
-            _ngcontent-c28=""
-            class="tasktype-item ng-star-inserted"
-            style="flex-direction: row; box-sizing: border-box; display: flex;"
-          >
-            <span _ngcontent-c28="">Current Status of Survey</span
-            ><span
-              _ngcontent-c28=""
-              fxflex=""
-              style="flex: 1 1 0%; box-sizing: border-box;"
-            ></span
-            ><mat-chip mat-sm-chip color="currentStatus[0].style">{{
+    <mat-card fxFlex="100" class="pr-1" _ngcontent-c100="" class="default mat-card">
+      <mat-card-title _ngcontent-c28="" class="mat-card-title">{{ title }} - Status</mat-card-title>
+      <mat-card-content _ngcontent-c28="" class="p-0 mat-card-content">
+        <div _ngcontent-c28="" class="list-tasktype">
+          <div _ngcontent-c28="" class="tasktype-item ng-star-inserted" style="flex-direction: row; box-sizing: border-box; display: flex;">
+            <span _ngcontent-c28="">Current Status of Survey</span><span _ngcontent-c28="" fxflex="" style="flex: 1 1 0%; box-sizing: border-box;"></span>
+            <mat-chip mat-sm-chip color="currentStatus[0].style">{{
               currentStatus[0].status
-            }}</mat-chip>
+              }}</mat-chip>
           </div>
         </div>
-      </mat-card-content></mat-card
-    >
+      </mat-card-content>
+    </mat-card>
 
     <!-- OFFLINE SETTING -->
 
-    <mat-card
-      *ngIf="this.currentStatus[0].id == 1"
-      fxFlex="100"
-      class="pr-1"
-      _ngcontent-c100=""
-      class="default mat-card"
-    ><mat-card-title _ngcontent-c28="" class="mat-card-title"
-    >{{ title }} - Maintainance </mat-card-title
-  >
-      <mat-card-content _ngcontent-c28="" class="p-0 mat-card-content"
-        ><div _ngcontent-c28="" class="list-tasktype">
-          <div
-            _ngcontent-c28=""
-            class="tasktype-item ng-star-inserted"
-            style="flex-direction: row; box-sizing: border-box; display: flex;"
-          >
-            <span _ngcontent-c28=""
-              >Offline the {{ origin }} for maintainance - Invitation URLs will be temporarily unavailable!</span
-            ><span
-              _ngcontent-c28=""
-              fxflex=""
-              style="flex: 1 1 0%; box-sizing: border-box;"
-            ></span
-            ><button
-              mat-raised-button
-              (click)="putOffline(surveyId)"
-              color="accent"
-            >
+    <mat-card *ngIf="this.currentStatus[0].id == 1" fxFlex="100" class="pr-1" _ngcontent-c100="" class="default mat-card">
+      <mat-card-title _ngcontent-c28="" class="mat-card-title">{{ title }} - Maintainance </mat-card-title>
+      <mat-card-content _ngcontent-c28="" class="p-0 mat-card-content">
+        <div _ngcontent-c28="" class="list-tasktype">
+          <div _ngcontent-c28="" class="tasktype-item ng-star-inserted" style="flex-direction: row; box-sizing: border-box; display: flex;">
+            <span _ngcontent-c28="">Offline the {{ origin }} for maintainance - Invitation URLs will be temporarily
+              unavailable!</span><span _ngcontent-c28="" fxflex="" style="flex: 1 1 0%; box-sizing: border-box;"></span><button
+              mat-raised-button (click)="putOffline(surveyId)" color="accent">
               OFFLINE
             </button>
           </div>
         </div>
-      </mat-card-content></mat-card
-    >
+      </mat-card-content>
+    </mat-card>
   </div>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button
-    [disabled]="currentStatus[0].id == 1"
-    mat-raised-button
-    (click)="launchSurvey()"
-    color="accent"
-  >
+  <button [disabled]="currentStatus[0].id == 1" mat-raised-button (click)="launchSurvey()" color="accent">
     Launch
   </button>
 
   <span fxFlex></span>
-  <button
-    mat-button
-    color="warn"
-    type="button"
-    (click)="dialogRef.close(false)"
-  >
+  <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">
     Cancel
   </button>
 </mat-dialog-actions>

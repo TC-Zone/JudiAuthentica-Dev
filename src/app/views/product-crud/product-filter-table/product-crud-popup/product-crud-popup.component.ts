@@ -10,7 +10,7 @@ import {
 import { CrudService } from "../../../cruds/crud.service";
 import { Subscription, Observable } from "rxjs";
 import { ResponseModel } from "../../../../model/ResponseModel.model";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from "@angular/forms";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import {
   debounceTime,
@@ -192,18 +192,37 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
     const clientId = client ? client.id : null;
 
     this.productForm = this.fb.group({
-      client: [clientId || ""],
-      code: [fieldItem.code || "", Validators.required],
-      name: [fieldItem.name || "", Validators.required],
-      description: [fieldItem.description || "", Validators.required],
-      batchNumber: [fieldItem.batchNumber || "", Validators.required],
-      quantity: [fieldItem.quantity || "", Validators.required],
-      expireDate: [fieldItem.expireDate || "", Validators.required],
-      surveyId: [fieldItem.surveyId || null],
-      videoUrl: [fieldItem.videoUrl, Validators.pattern(this.youTubeIdRegex)],
-      file: [fieldItem.file || ""]
+      client: new FormControl(clientId || ""),
+      code: new FormControl(fieldItem.code || "", Validators.required),
+      name: new FormControl(fieldItem.name || "", Validators.required),
+      description: new FormControl(fieldItem.description || "", Validators.required),
+      batchNumber: new FormControl(fieldItem.batchNumber || "", Validators.required),
+      quantity: new FormControl(fieldItem.quantity || "", Validators.required),
+      expireDate: new FormControl(fieldItem.expireDate || "", Validators.required),
+      surveyId: new FormControl(fieldItem.surveyId || "", Validators.required),
+      videoUrl: new FormControl(fieldItem.videoUrl || "", Validators.required),
+      file: new FormControl(fieldItem.file || "", Validators.required)
+      // client: [clientId || ""],
+      // code: [fieldItem.code || "", Validators.required],
+      // name: [fieldItem.name || "", Validators.required],
+      // description: [fieldItem.description || "", Validators.required],
+      // batchNumber: [fieldItem.batchNumber || "", Validators.required],
+      // quantity: [fieldItem.quantity || "", Validators.required],
+      // expireDate: [fieldItem.expireDate || "", Validators.required],
+      // surveyId: [fieldItem.surveyId || null],
+      // videoUrl: [fieldItem.videoUrl, Validators.pattern(this.youTubeIdRegex)],
+      // file: [fieldItem.file || ""]
     });
+
+
+    // if(DateValidator.getTomorrow()>fieldItem.expireDate){
+    //   const expireDate = this.productForm.get('expireDate');
+    //   expireDate.setErrors({ incorrect: true });
+    // }
   }
+
+
+
 
   submit() {
     let productRequest: ProductCreationRequest = new ProductCreationRequest(
@@ -228,7 +247,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
         this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1
           ? true
           : this.currentTotalImageCount + filesAmount <=
-            this.maxUploadableFileCount
+          this.maxUploadableFileCount
       ) {
         for (let i = 0; i < filesAmount; i++) {
           var reader = new FileReader();
@@ -331,5 +350,5 @@ export class ProductCreationRequest {
 }
 
 class ClientSub {
-  constructor(public id: string) {}
+  constructor(public id: string) { }
 }

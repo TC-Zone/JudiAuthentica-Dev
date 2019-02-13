@@ -4,16 +4,16 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-ngx-table-popup',
-  templateUrl: './ngx-table-popup.component.html'
+  selector: 'app-role-table-popup',
+  templateUrl: './role-table-popup.component.html'
 })
-export class NgxTablePopupComponent implements OnInit {
+export class RoleTablePopupComponent implements OnInit {
   public itemForm: FormGroup;
   //Raveen : need to implement a custom directive for the pattern validation
   //public codeRegex = '/^-?[0-9]+(\.[0-9]*){0,1}$/g';
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<NgxTablePopupComponent>,
+    public dialogRef: MatDialogRef<RoleTablePopupComponent>,
     private fb: FormBuilder,
   ) { }
 
@@ -24,14 +24,8 @@ export class NgxTablePopupComponent implements OnInit {
 
     this.itemForm = this.fb.group({
       name: [item.name || '', Validators.required],
-      role: [],
       description: [item.description || '', Validators.required],
-      code: [item.code || '', Validators.required],
-      // company: [item.company || ''],
-      // phone: [item.phone || ''],
-      // address: [item.address || ''],
-      // balance: [item.balance || ''],
-      // isActive: [item.isActive || false]
+      code: [item.code || '', Validators.required]
     })
   }
 

@@ -33,7 +33,7 @@ export class LayoutService {
   public isMobile: boolean;
   public currentRoute: string;
   public fullWidthRoutes = ['future-survey'];
-  public compactRoutes = ['surveys'];
+  public compactRoutes = ['surveys', 'clients'];
   constructor(
     private router: Router
   ) {

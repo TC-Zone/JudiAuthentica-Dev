@@ -20,7 +20,7 @@ export class EvoteService {
         "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
     })
   };
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAllEvotesSuggestions(): Observable<any> {
     return this.http
@@ -32,9 +32,9 @@ export class EvoteService {
     return this.http.get(this.surveyApiUrl).pipe(catchError(this.handleError));
   }
 
-   // --------- BH ----------
-   getPageEvotes(pageNumber,pageSize): Observable<any> {
-    return this.http.get(this.surveyApiUrl+"?pageNumber="+pageNumber+"&pageSize="+pageSize).pipe(catchError(this.handleError));
+  // --------- BH ----------
+  getPageEvotes(pageNumber, pageSize): Observable<any> {
+    return this.http.get(this.surveyApiUrl + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize).pipe(catchError(this.handleError));
   }
   // --------- BH ----------
 
@@ -80,10 +80,10 @@ export class EvoteService {
       .pipe(catchError(this.handleError));
   }
 
-  getEvoteDetails(evoteId){
+  getEvoteDetails(evoteId) {
     return this.http
-    .get<any>(environment.surveyApiURL+ "eVoterDetails/"+evoteId)
-    .pipe(catchError(this.handleError));
+      .get<any>(environment.surveyApiURL + "eVoterDetails/" + evoteId)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse | any) {

@@ -1,26 +1,27 @@
-<form [formGroup]="interactForm">
+<form [formGroup]="interactForm" id="invitee-interaction-view">
   <div class="page-wrap height-100 background-survey-signin" *ngIf="showLogin">
     <div class="session-form-hold set-form-left">
-      <mat-card>
+      <mat-card id="login-card">
         <mat-card-content>
-          <div class="text-center pb-1">
-            <img src="assets/images/truverus/Tru-Verus-Logo.png" alt="">
-            <p class="text-muted m-0">Sign in to your account</p>
-            <h6 *ngIf="loginError" class="m-1 form-error-msg"> {{loginErrorMsg}} </h6>
+          <div id="login-form">
+            <div class="text-center pb-1" id="login-form-logo">
+              <img src="assets/images/truverus/Tru-Verus-Logo.png" alt="">
+              <p class="text-muted m-0">Welcome, Please Signin to your Account.</p>
+              <h6 *ngIf="loginError" class="m-1 form-error-msg"> {{loginErrorMsg}} </h6>
+            </div>
+            <mat-form-field class="full-width">
+              <input type="text" name="username" matInput placeholder="Username" value="" [formControl]="interactForm.controls['username']"
+                required name="username">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input type="password" name="password" matInput placeholder="Password" value="" [formControl]="interactForm.controls['password']"
+                required name="password">
+            </mat-form-field>
+
+            <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()" [disabled]="interactForm.invalid">Login
+              to Survey</button>
           </div>
-
-          <mat-form-field class="full-width">
-            <input type="text" name="username" matInput placeholder="Username" value="" [formControl]="interactForm.controls['username']"
-              required name="username">
-          </mat-form-field>
-
-          <mat-form-field class="full-width">
-            <input type="password" name="password" matInput placeholder="Password" value="" [formControl]="interactForm.controls['password']"
-              required name="password">
-          </mat-form-field>
-
-          <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()" [disabled]="interactForm.invalid">Login
-            to Survey</button>
         </mat-card-content>
       </mat-card>
     </div>
@@ -28,6 +29,7 @@
 </form>
 
 <div fxFlex="100" fxLayoutAlign="center center" id="survey-view-survey" class="background-survey-form">
+
   <header>
     <mat-toolbar fxLayoutAlign="center center" matDialogTitle class="mat-primary m-0">
       <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
@@ -39,8 +41,6 @@
       <span *ngIf="loggedInviteeName" class="example-invite">Hi, {{loggedInviteeName}}</span>
     </mat-toolbar>
   </header>
-
-
 
   <div class="survey-page-wrap" *ngIf="!showLogin">
     <div class="survey-form-hold">
@@ -64,10 +64,10 @@
     <div class="pb-1" style="text-align: center">
       <a id="btnViewSummary" mat-raised-button class="mr-1" (click)="viewSummary()">View Summary</a>
       <a id="btnViewSurvey" mat-raised-button class="mr-1" (click)="viewSurvey()">Edit {{origin}}</a>
-      <a id="btnSubmitSurvey" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">Submit {{origin}}</a>
+      <a id="btnSubmitSurvey" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">Submit
+        {{origin}}</a>
       <a id="btnAnswerLater" mat-raised-button color="primary" class="mr-1" (click)="answerLater()">Answer Later</a>
     </div>
-
 
   </mat-card-content>
 
@@ -77,8 +77,8 @@
       <span>Powered by</span>
       <img src="assets/images/cp_logo_text.png" alt="">
     </div>
-
   </div>
+
 </div>
 
 <script>

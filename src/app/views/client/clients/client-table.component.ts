@@ -1,34 +1,40 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { CrudService } from "../crud.service";
+import { ClientService } from "../client.service";
 import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
 import { AppConfirmService } from "../../../shared/services/app-confirm/app-confirm.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
-import { NgxTablePopupComponent } from "./ngx-table-popup/ngx-table-popup.component";
+import { ClientTablePopupComponent } from "./client-table-popup/client-table-popup.component";
 import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
-import { Client } from "../user.model";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
+import { NavigationExtras, Router } from "@angular/router";
 
 @Component({
-  selector: "app-crud-ngx-table",
-  templateUrl: "./crud-ngx-table.component.html",
+  selector: "app-client-table",
+  templateUrl: "./client-table.component.html",
   animations: egretAnimations
 })
-export class CrudNgxTableComponent implements OnInit, OnDestroy {
-  public items: any[];
+export class ClientTableComponent implements OnInit, OnDestroy {
+  public clients: any[];
+  public statusArray = {
+    'Active': "primary",
+    'Deactive': "accent"
+  };
+  public pageSize = 10;
 
   public getItemSub: Subscription;
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    private crudService: CrudService,
+    private clientService: ClientService,
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
-    private errDialog: AppErrorService
-  ) {}
+    private errDialog: AppErrorService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-    this.getItems();
+    this.getClients();
   }
 
   ngOnDestroy() {
@@ -36,12 +42,12 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
       this.getItemSub.unsubscribe();
     }
   }
-  
-  getItems() {
-    this.getItemSub = this.crudService.getItems().subscribe(
-      successResp => {
-        this.items = successResp.content;
-      },
+
+  getClients() {
+    this.getItemSub = this.clientService.getClients().subscribe(successResp => {
+      console.log(successResp);
+      this.clients = successResp.content;
+    },
       error => {
         this.errDialog.showError({
           title: "Error",
@@ -52,10 +58,48 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
     );
   }
 
+  // addClient() {
+  //   this.clientService.addClient(clients).subscribe(
+  //     response => {
+  //       this.clients = response;
+  //       this.loader.close();
+  //       this.snack.open("New client added !", "OK", { duration: 4000 });
+  //     },
+  //     error => {
+  //       this.loader.close();
+  //       this.errDialog.showError({
+  //         title: "Error",
+  //         status: error.status,
+  //         type: "http_error"
+  //       });
+  //     }
+  //   );
+  // }
+
+
+
+
+
+  getFakeClient() {
+    this.clients = this.clientService.getAllFakeClients();
+  }
+
+  navigateUserTable(res: any) {
+    let extraParam: NavigationExtras = {
+      queryParams: {
+        id: res.id,
+        code: res.code,
+        name: res.name
+      }
+    };
+    this.router.navigate(["clients/user-table"], extraParam);
+  }
+
   openPopUp(data: any = {}, isNew?) {
+
     let title = isNew ? "Add new client" : "Update client";
     let dialogRef: MatDialogRef<any> = this.dialog.open(
-      NgxTablePopupComponent,
+      ClientTablePopupComponent,
       {
         width: "720px",
         disableClose: true,
@@ -63,20 +107,16 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
       }
     );
     dialogRef.afterClosed().subscribe(res => {
-
-      console.log(res);
-      
-
-
       if (!res) {
         // If user press cancel
         return;
       }
+
       this.loader.open();
       if (isNew) {
-        this.crudService.addItem(res, this.items).subscribe(
+        this.clientService.addClient(res).subscribe(
           response => {
-            this.items = response;
+            this.clients = response;
             this.loader.close();
             this.snack.open("New client added !", "OK", { duration: 4000 });
           },
@@ -90,9 +130,9 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
           }
         );
       } else {
-        this.crudService.updateItem(data.id, res).subscribe(
+        this.clientService.updateItem(data.id, res).subscribe(
           response => {
-            this.items = this.items.map(i => {
+            this.clients = this.clients.map(i => {
               if (i.id === data.id) {
                 return Object.assign({}, i, response.content);
               }
@@ -100,7 +140,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
             });
             this.loader.close();
             this.snack.open("Client Updated!", "OK", { duration: 4000 });
-            return this.items.slice();
+            return this.clients.slice();
           },
           error => {
             this.loader.close();
@@ -120,15 +160,15 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         if (res) {
           this.loader.open();
-          this.crudService.removeItem(row.id).subscribe(
+          this.clientService.removeItem(row.id).subscribe(
             data => {
               console.log(row);
-              console.log(this.items[0]);
-              let i = this.items.indexOf(row);
-              this.items.splice(i, 1);
+              console.log(this.clients[0]);
+              let i = this.clients.indexOf(row);
+              this.clients.splice(i, 1);
               this.loader.close();
               this.snack.open("Client deleted!", "OK", { duration: 4000 });
-              return this.items.slice();
+              return this.clients.slice();
             },
             error => {
               this.loader.close();
@@ -143,3 +183,20 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
       });
   }
 }
+
+
+export class ClientRequest {
+  constructor(
+    public name: string,
+    public description: string,
+    public users
+  ) { }
+}
+
+export class UserData {
+  constructor(
+    public userName: string,
+    public email: string
+  ) { }
+}
+

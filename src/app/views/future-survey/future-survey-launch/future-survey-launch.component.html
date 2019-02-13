@@ -4,10 +4,10 @@
       <span class="title dialog-title">{{ data.title }}</span>
     </div>
   </mat-toolbar>
-
+  <!-- [selected]="true" -->
   <mat-dialog-content class="mat-typography mt-1" style="overflow: unset; max-height: unset;">
 
-    <span *ngIf="isDisabled" class="on-premise-error-msg">Sorry this survey has already Launched!</span>
+    <mat-chip class="popup_alert_full_width" *ngIf="isDisabled" mat-chip color="accent" [selected]="true">Sorry this survey has already Launched!</mat-chip>
 
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <!-- Survey Start Date -->

@@ -26,7 +26,7 @@ interface IBadge {
 
 @Injectable()
 export class NavigationService {
-  constructor() {}
+  constructor() { }
 
   // defaultMenu: IMenuItem[] = [
   //   {
@@ -399,6 +399,13 @@ export class NavigationService {
       tooltip: "Client management",
       icon: "person",
       state: "cruds/ngx-table"
+    },
+    {
+      name: "Clients II",
+      type: "link",
+      tooltip: "Client Management",
+      icon: "person",
+      state: "clients/client-table"
     },
     {
       name: "Product Catalogue",
