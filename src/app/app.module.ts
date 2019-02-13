@@ -9,10 +9,11 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 
 
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { UserService } from './views/sessions/UserService.service';
+import { AddHeaderInterceptor } from './shared/services/auth/add-header-interceptor';
 
 
 
@@ -44,6 +45,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   providers: [
     // ANGULAR MATERIAL SLIDER FIX
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
+    // { provide: HTTP_INTERCEPTORS, useClass: AddHeaderInterceptor, multi: true },
     UserService
   ],
   bootstrap: [AppComponent]
