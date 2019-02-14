@@ -7,9 +7,9 @@ import {
 import { CpUsersDB } from "../../shared/fake-db/cp-users";
 import * as jwt_decode from "jwt-decode";
 import { map, catchError } from "rxjs/operators";
-import { throwError } from "rxjs";
+import { throwError, Observable } from 'rxjs';
 import { environment } from "environments/environment.prod";
-import { authProperties } from './../../shared/services/auth/auth-properties';
+import { authProperties } from "./../../shared/services/auth/auth-properties";
 
 @Injectable()
 export class UserService {
@@ -24,41 +24,39 @@ export class UserService {
   }
 
   /*
-  * User Login function
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
+   * User Login function
+   * Created by Prasad Kumara
+   * 14/02/2019
+   */
   login(signinFormData) {
     const payload = new FormData();
     payload.append("grant_type", "password");
     payload.append("username", signinFormData.username);
     payload.append("password", signinFormData.password);
 
-    return this.http
-      .post<any>(this.baseAuthUrl + "oauth/token", payload)
-      .pipe(
-        map(data => {
-          return data;
-        }),
-        catchError(this.handleError)
-      );
+    return this.http.post<any>(this.baseAuthUrl + "oauth/token", payload).pipe(
+      map(data => {
+        return data;
+      }),
+      catchError(this.handleError)
+    );
   }
 
   /*
-  * User Log out function
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
+   * User Log out function
+   * Created by Prasad Kumara
+   * 14/02/2019
+   */
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem("currentUser");
   }
 
   /*
-  * Get Jwt token Expire date
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
+   * Get Jwt token Expire date
+   * Created by Prasad Kumara
+   * 14/02/2019
+   */
   getTokenExpirationDate(token: string): Date {
     const decoded = jwt_decode(token);
 
@@ -72,10 +70,10 @@ export class UserService {
   }
 
   /*
-  * Get Jwt token Expire or not
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
+   * Get Jwt token Expire or not
+   * Created by Prasad Kumara
+   * 14/02/2019
+   */
   isTokenExpired(token?: string): boolean {
     if (!token) {
       token = "";
@@ -91,20 +89,32 @@ export class UserService {
     return !(date.valueOf() > new Date().valueOf());
   }
 
-  /*
-  * Get User data using user id
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
-  getUserData(userId): any {
+  activateUser(code, password): Observable<any> {
     return this.http
-      .get(this.userApiUrl + 'platform-users/' + userId)
+      .post<any>(
+        this.userApiUrl + "platform-users/activations/" + code,
+        password
+      )
       .pipe(
         map(data => {
-          return data;
+          // console.log(data);
         }),
         catchError(this.handleError)
       );
+  }
+
+  /*
+   * Get User data using user id
+   * Created by Prasad Kumara
+   * 14/02/2019
+   */
+  getUserData(userId): any {
+    return this.http.get(this.userApiUrl + "platform-users/" + userId).pipe(
+      map(data => {
+        return data;
+      }),
+      catchError(this.handleError)
+    );
   }
 
   getUserRefreshToken(refreshToken) {
@@ -112,14 +122,12 @@ export class UserService {
     payload.append("grant_type", "refresh_token");
     payload.append("refresh_token", refreshToken);
 
-    return this.http
-      .post<any>(this.baseAuthUrl + "oauth/token", payload)
-      .pipe(
-        map(data => {
-          return data;
-        }),
-        catchError(this.handleError)
-      );
+    return this.http.post<any>(this.baseAuthUrl + "oauth/token", payload).pipe(
+      map(data => {
+        return data;
+      }),
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: HttpErrorResponse | any) {
