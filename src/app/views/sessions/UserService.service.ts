@@ -9,59 +9,24 @@ import * as jwt_decode from "jwt-decode";
 import { map, catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { environment } from "environments/environment.prod";
-
-const gloable_user = "CPAP";
-const gloable_secret = "Cp43&$^fdgd*+!!@#Agdo4Ged";
-const storage_name = "";
+import { authProperties } from './../../shared/services/auth/auth-properties';
 
 @Injectable()
 export class UserService {
   users: any[];
   private baseAuthUrl: String = environment.authTokenUrl;
-
-  httpOptions = {
-    headers: new HttpHeaders({
-      Authorization: "Basic Q1BBUDpDcDQzJiReZmRnZCorISFAI0FnZG80R2Vk"
-    })
-  };
+  private storage_name = authProperties.storage_name;
 
   constructor(private http: HttpClient) {
     const user: CpUsersDB = new CpUsersDB();
     this.users = user.users;
   }
 
-  // login(signinFormData): boolean {
-  //   console.log(this.users);
-  //   let currentUser = this.users.filter(user => {
-  //     return (
-  //       user.user_name === signinFormData.username &&
-  //       user.password === signinFormData.password
-  //     );
-  //   });
-  //   console.log("current log users" + currentUser);
-  //   if (currentUser.length > 0) {
-  //     console.log(currentUser);
-
-  //     let loggedUser = currentUser[0];
-
-  //     let userToken = {
-  //       id: loggedUser.id,
-  //       username: loggedUser.user_name,
-  //       profilename: loggedUser.profile_name,
-  //       image: loggedUser.image,
-  //       token: "fake-logged-user",
-  //       company: loggedUser.company,
-  //       position: loggedUser.position
-  //     };
-
-  //     localStorage.setItem("currentUser", JSON.stringify(userToken));
-
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
+  /*
+  * User Login function
+  * Created by Prasad Kumara
+  * 14/02/2019
+  */
   login(signinFormData) {
     const payload = new FormData();
     payload.append("grant_type", "password");
@@ -70,7 +35,7 @@ export class UserService {
     console.log(payload);
 
     return this.http
-      .post<any>(this.baseAuthUrl + "oauth/token", payload, this.httpOptions)
+      .post<any>(this.baseAuthUrl + "oauth/token", payload)
       .pipe(
         map(data => {
           return data;
@@ -79,12 +44,21 @@ export class UserService {
       );
   }
 
+  /*
+  * User Log out function
+  * Created by Prasad Kumara
+  * 14/02/2019
+  */
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem("currentUser");
   }
 
-  // get jwt token expire date time
+  /*
+  * Get Jwt token Expire date
+  * Created by Prasad Kumara
+  * 14/02/2019
+  */
   getTokenExpirationDate(token: string): Date {
     const decoded = jwt_decode(token);
 
@@ -101,7 +75,11 @@ export class UserService {
     return date;
   }
 
-  // check token is expire or not
+  /*
+  * Get Jwt token Expire or not
+  * Created by Prasad Kumara
+  * 14/02/2019
+  */
   isTokenExpired(token?: string): boolean {
     if (!token) {
       token = "";
@@ -115,6 +93,30 @@ export class UserService {
       return false;
     }
     return !(date.valueOf() > new Date().valueOf());
+  }
+
+  /*
+  * Get User data using user id
+  * Created by Prasad Kumara
+  * 14/02/2019
+  */
+  getUserData(userId) {
+    return null;
+  }
+
+  getUserRefreshToken(refreshToken) {
+    const payload = new FormData();
+    payload.append("grant_type", "refresh_token");
+    payload.append("refresh_token", refreshToken);
+
+    return this.http
+      .post<any>(this.baseAuthUrl + "oauth/token", payload)
+      .pipe(
+        map(data => {
+          return data;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   private handleError(error: HttpErrorResponse | any) {
