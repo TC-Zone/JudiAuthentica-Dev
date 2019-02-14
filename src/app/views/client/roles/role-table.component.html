@@ -18,33 +18,30 @@
 
     <ngx-datatable class="material ml-0 mr-0" [rows]="items" [columnMode]="'flex'" [headerHeight]="50"
       [footerHeight]="50" [limit]="10" [rowHeight]="'auto'">
-      <ngx-datatable-column name="Client Code" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.code }}
-        </ng-template>
-      </ngx-datatable-column>
-      <ngx-datatable-column name="Name" [flexGrow]="1">
+      <ngx-datatable-column name="Role Name" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{ row?.name }}
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Contacts" [flexGrow]="2">
+      <ngx-datatable-column name="Role Description" [flexGrow]="2">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{ row?.description }}
         </ng-template>
       </ngx-datatable-column>
 
+      <ngx-datatable-column name="Last Modified Date" [flexGrow]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.lastModifiedDate }}
+        </ng-template>
+      </ngx-datatable-column>
 
       <ngx-datatable-column name="Actions" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="navigateUserTable(row)">
-            <mat-icon>list</mat-icon>
-          </button>
-          <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)">
+          <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="editRole(row)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
+          <button mat-icon-button mat-sm-button color="warn" (click)="deleteRole(row)">
             <mat-icon>delete</mat-icon>
           </button>
         </ng-template>
