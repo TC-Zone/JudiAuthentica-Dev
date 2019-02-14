@@ -101,6 +101,7 @@ export class SigninComponent implements OnInit {
           tempUser.refreshToken = response.refresh_token;
           tempUser.expires_in = response.expires_in;
           localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
+          this.getRefreshToken(response.expires_in * 1000);
         });
     }, refreshTime);
   }

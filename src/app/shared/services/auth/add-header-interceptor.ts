@@ -32,13 +32,6 @@ export class AddHeaderInterceptor implements HttpInterceptor {
         request = request.clone({
           headers: request.headers.set('Authorization', 'Basic ' + btoa(this.gloable_user + ':' + this.gloable_secret))
         });
-        this.userService.getUserRefreshToken(userObj.refreshToken)
-          .subscribe(response => {
-            userObj.token = response.access_token;
-            userObj.refreshToken = response.refresh_token;
-            userObj.expires_in = response.expires_in;
-            localStorage.setItem(this.storage_name, JSON.stringify(userObj));
-          });
       } else {
         request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
         if (!request.headers.has('Content-Type')) {
