@@ -18,11 +18,6 @@
 
     <ngx-datatable class="material ml-0 mr-0" [rows]="clients" [columnMode]="'force'" [headerHeight]="50"
       [footerHeight]="50" [limit]="10" [rowHeight]="'auto'">
-      <ngx-datatable-column name="Client Code" [flexGrow]="1" [maxWidth]="150">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.code }}
-        </ng-template>
-      </ngx-datatable-column>
       <ngx-datatable-column name="Name" [flexGrow]="1" [maxWidth]="150">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{ row?.name }}
@@ -37,7 +32,7 @@
 
       <ngx-datatable-column name="Status" [flexGrow]="1" [maxWidth]="150">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <mat-chip mat-sm-chip color="{{statusArray[row?.status]}}" [selected]="true">{{row?.status}}</mat-chip>
+          <mat-chip mat-sm-chip color="{{statusArray[row?.status].style}}" [selected]="true">{{statusArray[row?.status].status}}</mat-chip>
         </ng-template>
       </ngx-datatable-column>
 

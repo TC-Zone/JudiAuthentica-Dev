@@ -13,7 +13,7 @@ const storage_name = '';
 @Injectable()
 export class UserService {
   users: any[];
-  private clientApiURL: String = environment.clientApiURL;
+  private clientApiURL: String = environment.userApiUrl;
 
   httpOptions = {
     headers: new HttpHeaders({
