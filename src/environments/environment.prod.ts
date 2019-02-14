@@ -16,6 +16,7 @@ export const environment = {
   // evoteimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey",
 
   // LOCALE
+  authTokenUrl:"http://localhost:10000/",
   userApiUrl: "http://localhost:10000/api/",
   productApiURL: "http://localhost:10001/api/",
   surveyApiURL: "http://localhost:10002/api/",

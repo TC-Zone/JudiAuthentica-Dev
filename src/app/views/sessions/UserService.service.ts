@@ -17,7 +17,7 @@ const storage_name = "";
 @Injectable()
 export class UserService {
   users: any[];
-  private clientApiURL: String = environment.userApiUrl;
+  private baseAuthUrl: String = environment.authTokenUrl;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -70,7 +70,7 @@ export class UserService {
     console.log(payload);
 
     return this.http
-      .post<any>(this.clientApiURL + "oauth/token", payload, this.httpOptions)
+      .post<any>(this.baseAuthUrl + "oauth/token", payload, this.httpOptions)
       .pipe(
         map(data => {
           return data;
