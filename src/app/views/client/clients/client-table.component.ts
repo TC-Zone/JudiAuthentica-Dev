@@ -17,9 +17,11 @@ import { NavigationExtras, Router } from "@angular/router";
 export class ClientTableComponent implements OnInit, OnDestroy {
   public clients: any[];
   public statusArray = {
-    'Active': "primary",
+    'A': {status: "Active", style: "primary"},
+    'I': {status: "Inactive", style: "accent"},
     'Deactive': "accent"
   };
+
   public pageSize = 10;
 
   public getItemSub: Subscription;
@@ -58,43 +60,6 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     );
   }
 
-  // addClient() {
-  //   this.clientService.addClient(clients).subscribe(
-  //     response => {
-  //       this.clients = response;
-  //       this.loader.close();
-  //       this.snack.open("New client added !", "OK", { duration: 4000 });
-  //     },
-  //     error => {
-  //       this.loader.close();
-  //       this.errDialog.showError({
-  //         title: "Error",
-  //         status: error.status,
-  //         type: "http_error"
-  //       });
-  //     }
-  //   );
-  // }
-
-
-
-
-
-  getFakeClient() {
-    this.clients = this.clientService.getAllFakeClients();
-  }
-
-  navigateUserTable(res: any) {
-    let extraParam: NavigationExtras = {
-      queryParams: {
-        id: res.id,
-        code: res.code,
-        name: res.name
-      }
-    };
-    this.router.navigate(["clients/user-table"], extraParam);
-  }
-
   openPopUp(data: any = {}, isNew?) {
 
     let title = isNew ? "Add new client" : "Update client";
@@ -106,6 +71,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
         data: { title: title, payload: data }
       }
     );
+
     dialogRef.afterClosed().subscribe(res => {
       if (!res) {
         // If user press cancel
@@ -114,8 +80,14 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
       this.loader.open();
       if (isNew) {
-        this.clientService.addClient(res).subscribe(
+        
+      let users: UserData[] = [];
+      users.push(new UserData(res.username, res.email));
+      const req: ClientCreateReq = new ClientCreateReq(res.name, res.description, users);
+
+        this.clientService.addClient(req).subscribe(
           response => {
+            this.getClients();
             this.clients = response;
             this.loader.close();
             this.snack.open("New client added !", "OK", { duration: 4000 });
@@ -130,14 +102,12 @@ export class ClientTableComponent implements OnInit, OnDestroy {
           }
         );
       } else {
-        this.clientService.updateItem(data.id, res).subscribe(
+
+        const req: ClientUpdateReq= new ClientUpdateReq(res.name, res.description);
+
+        this.clientService.updateClient(data.id, req).subscribe(
           response => {
-            this.clients = this.clients.map(i => {
-              if (i.id === data.id) {
-                return Object.assign({}, i, response.content);
-              }
-              return i;
-            });
+            this.getClients();
             this.loader.close();
             this.snack.open("Client Updated!", "OK", { duration: 4000 });
             return this.clients.slice();
@@ -154,42 +124,33 @@ export class ClientTableComponent implements OnInit, OnDestroy {
       }
     });
   }
-  deleteItem(row) {
-    this.confirmService
-      .confirm({ message: `Delete ${row.name}?` })
-      .subscribe(res => {
-        if (res) {
-          this.loader.open();
-          this.clientService.removeItem(row.id).subscribe(
-            data => {
-              console.log(row);
-              console.log(this.clients[0]);
-              let i = this.clients.indexOf(row);
-              this.clients.splice(i, 1);
-              this.loader.close();
-              this.snack.open("Client deleted!", "OK", { duration: 4000 });
-              return this.clients.slice();
-            },
-            error => {
-              this.loader.close();
-              this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-              });
-            }
-          );
-        }
-      });
+
+  navigateUserTable(res: any) {
+    let extraParam: NavigationExtras = {
+      queryParams: {
+        id: res.id,
+        name: res.name
+      }
+    };
+    this.router.navigate(["clients/user-table"], extraParam);
   }
+
+  
 }
 
 
-export class ClientRequest {
+export class ClientCreateReq {
   constructor(
     public name: string,
     public description: string,
-    public users
+    public users: any[]
+  ) { }
+}
+
+export class ClientUpdateReq {
+  constructor(
+    public name: string,
+    public description: string
   ) { }
 }
 

@@ -17,8 +17,9 @@ import { NavigationExtras, Router, ActivatedRoute } from "@angular/router";
 })
 export class UserTableComponent implements OnInit {
 
+  public clientId;
   public users: any[];
-  public roles = ['Super Admin','Admin','Manager','Human Resources','Employee'];
+  public roles: any[];
   public statusArray = {
     'Active': "primary",
     'Deactive': "accent"
@@ -41,15 +42,15 @@ export class UserTableComponent implements OnInit {
   ngOnInit() {
 
     this.activeRoute.queryParams.subscribe(params => {
-      let id = params["id"];
-      let code = params["code"];
+      this.clientId = params["id"];
       let name = params["name"];
       this.name = name;
-      console.log(id + ' - ' + code + ' - ' + name);
+      // console.log(id + ' - ' + name);
 
     });
 
-    this.getFakeUser();
+    this.getUsers();
+    this.getUserRoles();
   }
   ngOnDestroy() {
     if (this.getItemSub) {
@@ -57,10 +58,105 @@ export class UserTableComponent implements OnInit {
     }
   }
 
-  getFakeUser() {
-    this.users = this.clientService.getAllFakeUsers();
+  getUsers() {
+    this.getItemSub = this.clientService.getUsers(this.clientId).subscribe(successResp => {
+      console.log(successResp);
+      this.users = successResp.content.users;
+    },
+      error => {
+        this.errDialog.showError({
+          title: "Error",
+          status: error.status,
+          type: "http_error"
+        });
+      }
+    );
   }
 
+  getUserRoles() {
+    this.getItemSub = this.clientService.getRoles().subscribe(successResp => {
+      this.roles = successResp.content;
+      // const index = this.roles.findIndex(x => x.name === auth_key);
+      // dataArray.removeAt(index);
+      // this.roles = successResp.content.splice(2);
+      // delete successResp.content[]
+      
+      console.log(this.roles);
+    },
+      error => {
+        this.errDialog.showError({
+          title: "Error",
+          status: error.status,
+          type: "http_error"
+        });
+      }
+    );
+  }
+
+  openPopUp(data: any = {}, isNew?) {
+
+    let title = isNew ? "Add new User" : "Update User";
+    let dialogRef: MatDialogRef<any> = this.dialog.open(
+      UserTablePopupComponent,
+      {
+        width: "720px",
+        disableClose: true,
+        data: { title: title, payload: data, roles: this.roles }
+      }
+    );
+    dialogRef.afterClosed().subscribe(res => {
+      if (!res) {
+        // If user press cancel
+        return;
+      }
+
+
+      console.log(res);
+      
+
+      let roles: UserRole[] = [];
+      roles.push(new UserRole(res.role));
+      const client: ClientData = new ClientData(this.clientId);
+      const req: UserCreateReq = new UserCreateReq(res.username, res.password, res.email, roles, client);
+
+      this.loader.open();
+      if (isNew) {
+
+        this.clientService.addUser(req).subscribe(
+          response => {
+            this.getUsers();
+            this.loader.close();
+            this.snack.open("New client added !", "OK", { duration: 4000 });
+          },
+          error => {
+            this.loader.close();
+            this.errDialog.showError({
+              title: "Error",
+              status: error.status,
+              type: "http_error"
+            });
+          }
+        );
+      } else {
+        this.clientService.updateUser(data.id, req).subscribe(
+          response => {
+            this.getUsers();
+            this.loader.close();
+            this.snack.open("Client Updated!", "OK", { duration: 4000 });
+            return this.users.slice();
+          },
+          error => {
+            this.loader.close();
+            this.errDialog.showError({
+              title: "Error",
+              status: error.status,
+              type: "http_error"
+            });
+          }
+        );
+      }
+    });
+  }
 
 
   // getItems() {
@@ -95,63 +191,7 @@ export class UserTableComponent implements OnInit {
     this.router.navigate(["clients/user-table"]);
   }
 
-  openPopUp(data: any = {}, isNew?) {
-    let title = isNew ? "Add new User" : "Update User";
-    let dialogRef: MatDialogRef<any> = this.dialog.open(
-      UserTablePopupComponent,
-      {
-        width: "720px",
-        disableClose: true,
-        data: { title: title, payload: data }
-      }
-    );
-    dialogRef.afterClosed().subscribe(res => {
-      if (!res) {
-        // If user press cancel
-        return;
-      }
-      this.loader.open();
-      if (isNew) {
-        this.clientService.addItem(res, this.users).subscribe(
-          response => {
-            this.users = response;
-            this.loader.close();
-            this.snack.open("New client added !", "OK", { duration: 4000 });
-          },
-          error => {
-            this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
-          }
-        );
-      } else {
-        this.clientService.updateItem(data.id, res).subscribe(
-          response => {
-            this.users = this.users.map(i => {
-              if (i.id === data.id) {
-                return Object.assign({}, i, response.content);
-              }
-              return i;
-            });
-            this.loader.close();
-            this.snack.open("Client Updated!", "OK", { duration: 4000 });
-            return this.users.slice();
-          },
-          error => {
-            this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
-          }
-        );
-      }
-    });
-  }
+
 
   deleteItem(row) {
     // this.confirmService
@@ -181,4 +221,28 @@ export class UserTableComponent implements OnInit {
     //     }
     //   });
   }
+}
+
+
+
+export class UserCreateReq {
+  constructor(
+    public userName: string,
+    public password: string,
+    public email: string,
+    public roles: any[],
+    public client: ClientData,
+  ) { }
+}
+
+export class ClientData {
+  constructor(
+    public id: string
+  ) { }
+}
+
+export class UserRole {
+  constructor(
+    public id: string
+  ) { }
 }

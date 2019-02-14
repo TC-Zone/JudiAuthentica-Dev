@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { UserDB } from "../../shared/fake-db/users";
 import { Observable, throwError } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
 import {
@@ -14,8 +13,11 @@ import { Clients, Content } from "../../model/ClientModel.model";
 @Injectable()
 export class ClientService {
 
-  clientApiUrl: string = environment.userApiUrl + "clients";
-  Authorization = 'bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiU1MiLCJRUyIsIlBTIiwiQVVTIl0sInVzZXJfdHlwZSI6IkFVIiwidXNlcl9pZCI6ImQzNmVlZWJkOGIxZjBjZGUxNjIxMDMzOWU5N2I5NDA4IiwidXNlcl9uYW1lIjoiYmhhc2Fua2FAY2xlYXJwaWN0dXJlLmNvbSIsInNjb3BlIjpbIkFQIl0sImV4cCI6MTU1MDA1MzAyNSwiYXV0aG9yaXRpZXMiOlsicHVyLWMiLCJwdXItZCIsInBjLXYiLCJwdS1kIiwib3Bhc3MtYyIsInBjLXMiLCJwdS1hIiwicGMtdSIsInB1LWMiLCJwdXItcyIsInB1ci11IiwicHUtdSIsInB1LXYiLCJvcHJvZi11IiwicGMtYyIsIm9wcm9mLXYiLCJwdS1zIl0sImp0aSI6IjU4MDU1ODk5LTk0MjctNDhhNy05ZGI0LTI0MTU1YmVhMmExMCIsImNsaWVudF9pZCI6IkNQQVAifQ.hswpypm0kauWrF8NbuCwhqy6-VOFQw2N-KoZWXdEzyV76ez-IMHDAqp8A7yrLYxNbyil-FFtlsQhY4ZKITPFxqa9W7tfI8qAWRFAar1hfHjGaOWSXuzr_nvrPa-nVfOi8c1Q3IkDM6ihV3uKDPEUVDg_w7Te6LVDsB6C--cZF2Jh3t7Txta9MySrKzm4lJmJpxnA0oRvZTg8oUlcvK-_X8S5tKWiDo8nT5apPCj467iRDhYo8ZxSZM8clQcGIKn8ywZzry5MHIVYQawcNgUCnWXWMZWkiSzadITtWqcuHdvARwIUaLSyzqA4-lzFohIuVC6mM0-whk22iVl9dTL1Uw';
+  clientUrl: string = environment.userApiUrl + "clients";
+  userUrl: string = environment.userApiUrl + "platform-users";
+  roleUrl: string = environment.userApiUrl + "platform-user-roles";
+
+  Authorization = 'bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiU1MiLCJRUyIsIlBTIiwiQVVTIl0sInVzZXJfdHlwZSI6IkFVIiwidXNlcl9pZCI6ImQzNmVlZWJkOGIxZjBjZGUxNjIxMDMzOWU5N2I5NDA4IiwidXNlcl9uYW1lIjoiYnVkZGhpQGdtYWlsLmNvbSIsInNjb3BlIjpbIkFQIl0sImV4cCI6MTU1MDE1NTMzMywiYXV0aG9yaXRpZXMiOlsicHVyLWMiLCJwdXItZCIsInBjLXYiLCJwdS1kIiwib3Bhc3MtYyIsInBjLXMiLCJwdS1hIiwicGMtdSIsInB1LWMiLCJwdXItcyIsInB1ci11IiwicHUtdSIsInB1LXYiLCJvcHJvZi11Iiwib3Byb2YtdiIsInBjLWMiLCJwdS1zIl0sImp0aSI6IjE0NjlkZmVjLTk0ZDQtNDYzNC05MTdhLWQ3OWJlMjM0NGRhYiIsImNsaWVudF9pZCI6IkNQQVAifQ.Xtdhn7Jq_0PkfL9WSImHnuChFNpIqD8bQaLVaJFpg2myxyge5P-87qh-PKLZMzdOJka-piq5jFjxNjxEyxlMvPJ7vFjn7OQRtn6yjbCkT9e3D002GbBi8VzM8XHVyTLHBLBdjAMBLhNMcIPExiVS7ov_oaM9vCtSy73dxhGVS0ZnxWJo52hrCQxldg-JFuWEVeoxJHO2DMf7vVKCCgiKHqexl-uMkbjFjJdRfed5RIF_csQ7hPrtOnBLlOShqDAp-GQ7MdFax_DqhxNUCvwiaqJG00SGLuY704XQnhNzhFbIc3zjyhdfMAddY8HJN-MebnbQ4PVKSTRs3ACZDyhImQ';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -29,12 +31,21 @@ export class ClientService {
   constructor(private http: HttpClient) { }
 
   getClients(): Observable<any> {
-    return this.http.get(this.clientApiUrl, this.httpOptions).pipe(catchError(this.handleError));
+    return this.http.get(this.clientUrl, this.httpOptions).pipe(catchError(this.handleError));
+  }
+
+  getUsers(id): Observable<any> {
+    return this.http.get(this.clientUrl+"/"+id, this.httpOptions).pipe(catchError(this.handleError));
+  }
+
+  getRoles(): Observable<any> {
+    return this.http.get(this.roleUrl + "/suggestions", this.httpOptions).pipe(catchError(this.handleError));
   }
 
 
+
   addClient(item): Observable<any> {
-    return this.http.post<any>(this.clientApiUrl, item, this.httpOptions).pipe(
+    return this.http.post<any>(this.clientUrl, item, this.httpOptions).pipe(
       map(data => {
         console.log(data);
       }),
@@ -42,21 +53,60 @@ export class ClientService {
     );
   }
 
+  updateClient(id, item): Observable<any> {
+    return this.http
+      .put<any>(this.clientUrl +"/"+ id, item, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  addUser(item): Observable<any> {
+    return this.http.post<any>(this.userUrl, item, this.httpOptions).pipe(
+      map(data => {
+        console.log(data);
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  updateUser(id, item): Observable<any> {
+    return this.http
+      .put<any>(this.userUrl +"/"+ id, item, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
   getItems(): Observable<any> {
-    return this.http.get(this.clientApiUrl).pipe(catchError(this.handleError));
+    return this.http.get(this.clientUrl).pipe(catchError(this.handleError));
   }
 
   getClientSuggestions(): Observable<any> {
     return this.http
-      .get<string>(this.clientApiUrl + "suggestions")
+      .get<string>(this.clientUrl + "suggestions")
       .pipe(catchError(this.handleError));
   }
 
   addItem(item, items: any[]): Observable<any> {
-    return this.http.post<any>(this.clientApiUrl, item, this.httpOptions).pipe(
+    return this.http.post<any>(this.clientUrl, item, this.httpOptions).pipe(
       map(data => {
         items.unshift(data.content);
         return items.slice();
@@ -67,13 +117,13 @@ export class ClientService {
 
   updateItem(id, item): Observable<any> {
     return this.http
-      .put<any>(this.clientApiUrl + id, item, this.httpOptions)
+      .put<any>(this.clientUrl + id, item, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 
   removeItem(id): Observable<any> {
     return this.http
-      .delete(this.clientApiUrl + id)
+      .delete(this.clientUrl + id)
       .pipe(catchError(this.handleError));
   }
 
@@ -81,7 +131,7 @@ export class ClientService {
     filter: { name: string } = { name: "" },
     page = 1
   ): Observable<Clients> {
-    return this.http.get<Clients>(this.clientApiUrl + "suggestions").pipe(
+    return this.http.get<Clients>(this.clientUrl + "suggestions").pipe(
       tap((response: Clients) => {
         response.content = response.content
           .map(content => new Content(content.id, content.name))
@@ -98,7 +148,7 @@ export class ClientService {
   getClientById(clientId): Observable<any> {
     console.log("called get client by id");
     return this.http
-      .get<any>(this.clientApiUrl + clientId, this.httpOptions)
+      .get<any>(this.clientUrl + clientId, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
 
