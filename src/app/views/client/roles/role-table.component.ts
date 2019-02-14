@@ -1,44 +1,44 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { CrudService } from "../crud.service";
+import { ClientService } from "../client.service";
 import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
 import { AppConfirmService } from "../../../shared/services/app-confirm/app-confirm.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
-import { NgxTablePopupComponent } from "./ngx-table-popup/ngx-table-popup.component";
+import { RoleTablePopupComponent } from "./role-table-popup/role-table-popup.component";
 import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
-import { Client } from "../user.model";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
+import { NavigationExtras, Router } from "@angular/router";
 
 @Component({
-  selector: "app-crud-ngx-table",
-  templateUrl: "./crud-ngx-table.component.html",
+  selector: "app-role-table",
+  templateUrl: "./role-table.component.html",
   animations: egretAnimations
 })
-export class CrudNgxTableComponent implements OnInit, OnDestroy {
+export class RoleTableComponent implements OnInit, OnDestroy {
   public items: any[];
+  public pageSize = 10;
 
   public getItemSub: Subscription;
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    private crudService: CrudService,
+    private clientService: ClientService,
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
-    private errDialog: AppErrorService
-  ) {}
+    private errDialog: AppErrorService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.getItems();
   }
-
   ngOnDestroy() {
     if (this.getItemSub) {
       this.getItemSub.unsubscribe();
     }
   }
-  
   getItems() {
-    this.getItemSub = this.crudService.getItems().subscribe(
+    this.getItemSub = this.clientService.getItems().subscribe(
       successResp => {
         this.items = successResp.content;
       },
@@ -52,10 +52,21 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
     );
   }
 
+  navigateUserTable(res: any) {
+    let extraParam: NavigationExtras = {
+      queryParams: {
+        id: res.id,
+        code: res.code,
+        name: res.name
+      }
+    };
+    this.router.navigate(["clients/user-table"], extraParam);
+  }
+
   openPopUp(data: any = {}, isNew?) {
     let title = isNew ? "Add new client" : "Update client";
     let dialogRef: MatDialogRef<any> = this.dialog.open(
-      NgxTablePopupComponent,
+      RoleTablePopupComponent,
       {
         width: "720px",
         disableClose: true,
@@ -63,18 +74,13 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
       }
     );
     dialogRef.afterClosed().subscribe(res => {
-
-      console.log(res);
-      
-
-
       if (!res) {
         // If user press cancel
         return;
       }
       this.loader.open();
       if (isNew) {
-        this.crudService.addItem(res, this.items).subscribe(
+        this.clientService.addItem(res, this.items).subscribe(
           response => {
             this.items = response;
             this.loader.close();
@@ -90,7 +96,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
           }
         );
       } else {
-        this.crudService.updateItem(data.id, res).subscribe(
+        this.clientService.updateItem(data.id, res).subscribe(
           response => {
             this.items = this.items.map(i => {
               if (i.id === data.id) {
@@ -120,7 +126,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         if (res) {
           this.loader.open();
-          this.crudService.removeItem(row.id).subscribe(
+          this.clientService.removeItem(row.id).subscribe(
             data => {
               console.log(row);
               console.log(this.items[0]);

@@ -7,7 +7,8 @@
 
   <mat-dialog-content class="mat-typography mt-1">
 
-    <span *ngIf="statusError" class="on-premise-error-msg">Sorry this survey has already Launched! <br>If You wanna change Survey Title or Origin, put the survey to Offline mode.</span>
+    <mat-chip class="popup_alert_full_width" *ngIf="statusError" mat-chip color="accent" [selected]="true">If You
+      want to change Survey Title or Origin, put the survey to Offline mode.</mat-chip>
 
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <div fxFlex="50" class="pr-1">

@@ -1,34 +1,42 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { CrudService } from "../crud.service";
+import { ClientService } from "../client.service";
 import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
 import { AppConfirmService } from "../../../shared/services/app-confirm/app-confirm.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
-import { NgxTablePopupComponent } from "./ngx-table-popup/ngx-table-popup.component";
+import { ClientTablePopupComponent } from "./client-table-popup/client-table-popup.component";
 import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
-import { Client } from "../user.model";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
+import { NavigationExtras, Router } from "@angular/router";
 
 @Component({
-  selector: "app-crud-ngx-table",
-  templateUrl: "./crud-ngx-table.component.html",
+  selector: "app-client-table",
+  templateUrl: "./client-table.component.html",
   animations: egretAnimations
 })
-export class CrudNgxTableComponent implements OnInit, OnDestroy {
-  public items: any[];
+export class ClientTableComponent implements OnInit, OnDestroy {
+  public clients: any[];
+  public statusArray = {
+    'A': {status: "Active", style: "primary"},
+    'I': {status: "Inactive", style: "accent"},
+    'Deactive': "accent"
+  };
+
+  public pageSize = 10;
 
   public getItemSub: Subscription;
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    private crudService: CrudService,
+    private clientService: ClientService,
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
-    private errDialog: AppErrorService
-  ) {}
+    private errDialog: AppErrorService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-    this.getItems();
+    this.getClients();
   }
 
   ngOnDestroy() {
@@ -36,12 +44,12 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
       this.getItemSub.unsubscribe();
     }
   }
-  
-  getItems() {
-    this.getItemSub = this.crudService.getItems().subscribe(
-      successResp => {
-        this.items = successResp.content;
-      },
+
+  getClients() {
+    this.getItemSub = this.clientService.getClients().subscribe(successResp => {
+      console.log(successResp);
+      this.clients = successResp.content;
+    },
       error => {
         this.errDialog.showError({
           title: "Error",
@@ -53,30 +61,34 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
   }
 
   openPopUp(data: any = {}, isNew?) {
+
     let title = isNew ? "Add new client" : "Update client";
     let dialogRef: MatDialogRef<any> = this.dialog.open(
-      NgxTablePopupComponent,
+      ClientTablePopupComponent,
       {
         width: "720px",
         disableClose: true,
         data: { title: title, payload: data }
       }
     );
+
     dialogRef.afterClosed().subscribe(res => {
-
-      console.log(res);
-      
-
-
       if (!res) {
         // If user press cancel
         return;
       }
+
       this.loader.open();
       if (isNew) {
-        this.crudService.addItem(res, this.items).subscribe(
+        
+      let users: UserData[] = [];
+      users.push(new UserData(res.username, res.email));
+      const req: ClientCreateReq = new ClientCreateReq(res.name, res.description, users);
+
+        this.clientService.addClient(req).subscribe(
           response => {
-            this.items = response;
+            this.getClients();
+            this.clients = response;
             this.loader.close();
             this.snack.open("New client added !", "OK", { duration: 4000 });
           },
@@ -90,17 +102,15 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
           }
         );
       } else {
-        this.crudService.updateItem(data.id, res).subscribe(
+
+        const req: ClientUpdateReq= new ClientUpdateReq(res.name, res.description);
+
+        this.clientService.updateClient(data.id, req).subscribe(
           response => {
-            this.items = this.items.map(i => {
-              if (i.id === data.id) {
-                return Object.assign({}, i, response.content);
-              }
-              return i;
-            });
+            this.getClients();
             this.loader.close();
             this.snack.open("Client Updated!", "OK", { duration: 4000 });
-            return this.items.slice();
+            return this.clients.slice();
           },
           error => {
             this.loader.close();
@@ -114,32 +124,40 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
       }
     });
   }
-  deleteItem(row) {
-    this.confirmService
-      .confirm({ message: `Delete ${row.name}?` })
-      .subscribe(res => {
-        if (res) {
-          this.loader.open();
-          this.crudService.removeItem(row.id).subscribe(
-            data => {
-              console.log(row);
-              console.log(this.items[0]);
-              let i = this.items.indexOf(row);
-              this.items.splice(i, 1);
-              this.loader.close();
-              this.snack.open("Client deleted!", "OK", { duration: 4000 });
-              return this.items.slice();
-            },
-            error => {
-              this.loader.close();
-              this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-              });
-            }
-          );
-        }
-      });
+
+  navigateUserTable(res: any) {
+    let extraParam: NavigationExtras = {
+      queryParams: {
+        id: res.id,
+        name: res.name
+      }
+    };
+    this.router.navigate(["clients/user-table"], extraParam);
   }
+
+  
 }
+
+
+export class ClientCreateReq {
+  constructor(
+    public name: string,
+    public description: string,
+    public users: any[]
+  ) { }
+}
+
+export class ClientUpdateReq {
+  constructor(
+    public name: string,
+    public description: string
+  ) { }
+}
+
+export class UserData {
+  constructor(
+    public userName: string,
+    public email: string
+  ) { }
+}
+

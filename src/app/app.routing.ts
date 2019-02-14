@@ -64,6 +64,11 @@ export const rootRouterConfig: Routes = [
         data: { title: "Clients", breadcrumb: "Client" }
       },
       {
+        path: "clients",
+        loadChildren: "./views/client/client.module#ClientModule",
+        data: { title: "Clients", breadcrumb: "Client" }
+      },
+      {
         path: "productCrud",
         loadChildren:
           "./views/product-crud/product-crud.module#ProductCrudModule",

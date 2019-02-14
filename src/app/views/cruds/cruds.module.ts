@@ -14,7 +14,8 @@ import {
   MatDialogModule,
   MatSnackBarModule,
   MatSlideToggleModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatSelectModule
  } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -44,6 +45,7 @@ import { NgxTablePopupComponent } from './crud-ngx-table/ngx-table-popup/ngx-tab
     MatSlideToggleModule,
     SharedModule,
     MatToolbarModule,
+    MatSelectModule,
     RouterModule.forChild(CrudsRoutes)
   ],
   declarations: [CrudNgxTableComponent, NgxTablePopupComponent],
