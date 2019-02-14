@@ -4,7 +4,7 @@ import { ClientTableComponent } from "./clients/client-table.component";
 import { UserTableComponent } from "./clients/user-table/user-table.component";
 import { RoleTableComponent } from "./roles/role-table.component";
 
-export const SurveyRoute: Routes = [
+export const ClientRoute: Routes = [
   {
     path: "",
     component: ClientComponent,
@@ -23,12 +23,7 @@ export const SurveyRoute: Routes = [
         path: "role-table",
         component: RoleTableComponent,
         data: { title: "Roles", breadcrumb: "Roles" }
-      },
-      // {
-      //   path: "demo",
-      //   component: SurveyInteractionComponent,
-      //   data: { title: "Authenticate Demo", breadcrumb: "Demo" }
-      // }
+      }
     ]
   }
 ];

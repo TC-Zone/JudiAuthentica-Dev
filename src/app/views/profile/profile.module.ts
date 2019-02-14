@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { 
   MatListModule,
   MatIconModule,
@@ -28,10 +29,12 @@ import { ProfileOverviewComponent } from './profile-overview/profile-overview.co
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 import { ProfileBlankComponent } from './profile-blank/profile-blank.component';
 import { ProfileRoutes } from "./profile.routing";
+import { ProfileService } from "./profile.service";
 
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     FormsModule,
     MatListModule,
     MatIconModule,
@@ -53,6 +56,7 @@ import { ProfileRoutes } from "./profile.routing";
     SharedModule,
     RouterModule.forChild(ProfileRoutes)
   ],
+  providers: [ProfileService],
   declarations: [ProfileComponent, ProfileOverviewComponent, ProfileSettingsComponent, ProfileBlankComponent]
 })
 export class ProfileModule { }

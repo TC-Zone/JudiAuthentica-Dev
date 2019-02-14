@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { ClientComponent } from "./client.component";
 import { RouterModule } from "@angular/router";
-import { SurveyRoute } from "./client.routing";
+import { ClientRoute } from "./client.routing";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ReactiveFormsModule } from "@angular/forms";
 import {
@@ -20,9 +20,7 @@ import {
   MatExpansionModule,
   MatButtonToggleModule,
   MatSidenavModule,
-  MatHorizontalStepper,
   MatStepperModule,
-  MatStepper,
   MatToolbarModule,
   MatOptionModule,
   MatCheckboxModule,
@@ -59,7 +57,7 @@ import { RoleTablePopupComponent } from './roles/role-table-popup/role-table-pop
     MatExpansionModule,
     MatButtonToggleModule,
     MatSidenavModule,
-    RouterModule.forChild(SurveyRoute),
+    RouterModule.forChild(ClientRoute),
     SharedModule,
     MatStepperModule,
     MatToolbarModule,
@@ -84,4 +82,4 @@ import { RoleTablePopupComponent } from './roles/role-table-popup/role-table-pop
   ],
   providers: [ClientService]
 })
-export class ClientModule {}
+export class ClientModule { }

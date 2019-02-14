@@ -59,9 +59,9 @@ export const rootRouterConfig: Routes = [
         data: { title: "Calendar", breadcrumb: "CALENDAR" }
       },
       {
-        path: "cruds",
-        loadChildren: "./views/cruds/cruds.module#CrudsModule",
-        data: { title: "Clients", breadcrumb: "Client" }
+        path: "users",
+        loadChildren: "./views/user/user.module#UserModule",
+        data: { title: "Users", breadcrumb: "Users" }
       },
       {
         path: "clients",
