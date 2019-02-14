@@ -1,9 +1,13 @@
 .sub_table_header{
-    background-color: #0884c0; 
-    color: #fff; 
+    background-color: #0884c0;
+    color: #fff;
     text-align: center;
     margin-bottom: 20px;
     font-size: 20px;
     padding: 10px;
     font-weight: bold;
+}
+
+.mat-tab-body-content {
+  overflow: hidden !important;
 }

@@ -45,7 +45,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   providers: [
     // ANGULAR MATERIAL SLIDER FIX
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
-    // { provide: HTTP_INTERCEPTORS, useClass: AddHeaderInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AddHeaderInterceptor, multi: true },
     UserService
   ],
   bootstrap: [AppComponent]
