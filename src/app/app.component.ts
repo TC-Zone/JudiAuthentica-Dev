@@ -12,6 +12,7 @@ import { ThemeService } from "./shared/services/theme.service";
 
 import { filter } from "rxjs/operators";
 import { UserService } from "./views/sessions/UserService.service";
+import { authProperties } from './shared/services/auth/auth-properties';
 
 @Component({
   selector: "app-root",
@@ -29,12 +30,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     private activeRoute: ActivatedRoute,
     private routePartsService: RoutePartsService,
     private themeService: ThemeService,
-    private renderer: Renderer2
-
+    private renderer: Renderer2,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
     this.changePageTitle();
+    this.checkLoginUser();
+    this.setComponetDisable();
   }
 
   ngAfterViewInit() {
@@ -60,6 +63,24 @@ export class AppComponent implements OnInit, AfterViewInit {
       });
   }
 
+  setComponetDisable() {
+    const userObj = JSON.parse(localStorage.getItem(authProperties.storage_name));
+    console.log(userObj);
+  }
 
+  checkLoginUser() {
+    const userObj = JSON.parse(localStorage.getItem(authProperties.storage_name));
+    if (userObj) {
+      const isTokenExired = this.userService.isTokenExpired(userObj.token);
+      if (!isTokenExired) {
+        this.router.navigate(['profile']);
+      } else {
+        localStorage.removeItem(authProperties.storage_name);
+        this.router.navigate(['sessions/signin']);
+      }
+    } else {
+      this.router.navigate(['sessions/signin']);
+    }
+  }
 
 }

@@ -17,6 +17,7 @@ interface IChildItem {
   state?: string; // Router state
   icon?: string;
   sub?: IChildItem[];
+  disabled?: boolean; // If true, item will not be appeared in sidenav.
 }
 
 interface IBadge {
@@ -398,42 +399,48 @@ export class NavigationService {
       type: "link",
       tooltip: "Client management",
       icon: "person",
-      state: "users/user-table"
+      state: "users/user-table",
+      disabled: false
     },
     {
       name: "Client Management",
       type: "link",
       tooltip: "Client Management",
       icon: "person",
-      state: "clients/client-table"
+      state: "clients/client-table",
+      disabled: false
     },
     {
       name: "Product Catalogue",
       type: "link",
       tooltip: "Product management",
       icon: "assignment",
-      state: "productCrud/show"
+      state: "productCrud/show",
+      disabled: false
     },
     {
       name: "Instant Feedback",
       type: "link",
       tooltip: "Feedback Management",
       icon: "feedback",
-      state: "surveys"
+      state: "surveys",
+      disabled: false
     },
     {
       name: "E-Vote",
       type: "link",
       tooltip: "E-Vote",
       icon: "thumbs_up_down",
-      state: "evote/showEvote"
+      state: "evote/showEvote",
+      disabled: false
     },
     {
       name: "Future Survey",
       type: "link",
       tooltip: "Future Survey",
       icon: "language",
-      state: "future-survey"
+      state: "future-survey",
+      disabled: false
     },
     // ,
     // {

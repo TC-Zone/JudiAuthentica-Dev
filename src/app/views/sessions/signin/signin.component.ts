@@ -39,8 +39,8 @@ export class SigninComponent implements OnInit {
 
     this.submitButton.disabled = true;
     this.progressBar.mode = 'indeterminate';
-    this.userService.login(signinData).subscribe(
-      response => {
+    this.userService.login(signinData)
+      .subscribe(response => {
         const tempUser = {
           id: response.user_id,
           username: 'contactpkumara@gmail.com',
@@ -50,7 +50,8 @@ export class SigninComponent implements OnInit {
           refreshToken: response.refresh_token,
           company: 'Kushan Pabasara',
           position: 'UI/UX Engineer',
-          expires_in: response.expires_in
+          expires_in: response.expires_in,
+          userData: ''
         };
         localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
         this.getRefreshToken(response.expires_in * 1000);
@@ -59,6 +60,7 @@ export class SigninComponent implements OnInit {
             tempUser.username = res.content.userName;
             tempUser.profilename = res.content.userName;
             tempUser.company = res.content.client;
+            tempUser.userData = res.content;
             localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
             this.progressBar.mode = 'determinate';
             this.router.navigate([this.successUrl]);
