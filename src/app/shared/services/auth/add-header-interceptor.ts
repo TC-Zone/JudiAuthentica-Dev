@@ -49,7 +49,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
         map((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
-                console.log('event--->>>', event);
+                // console.log('event--->>>', event);
                 // this.errorDialogService.openDialog(event);
             }
             return event;

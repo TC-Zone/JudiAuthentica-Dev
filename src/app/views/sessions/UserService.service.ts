@@ -33,7 +33,6 @@ export class UserService {
     payload.append("grant_type", "password");
     payload.append("username", signinFormData.username);
     payload.append("password", signinFormData.password);
-    console.log(payload);
 
     return this.http
       .post<any>(this.baseAuthUrl + "oauth/token", payload)
@@ -69,10 +68,6 @@ export class UserService {
 
     const date = new Date(0);
     date.setUTCSeconds(decoded.exp);
-    console.log(
-      "---------------- jwt token expire date time -----------------"
-    );
-    console.log(date);
     return date;
   }
 

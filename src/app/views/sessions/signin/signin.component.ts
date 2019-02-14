@@ -36,14 +36,11 @@ export class SigninComponent implements OnInit {
 
   signin() {
     const signinData = this.signinForm.value;
-    console.log(signinData);
 
     this.submitButton.disabled = true;
     this.progressBar.mode = 'indeterminate';
     this.userService.login(signinData).subscribe(
       response => {
-        console.log('---------------------------- Sign in Function ------------------');
-        console.log(response);
         const tempUser = {
           id: response.user_id,
           username: 'contactpkumara@gmail.com',
@@ -59,8 +56,6 @@ export class SigninComponent implements OnInit {
         this.getRefreshToken(response.expires_in * 1000);
         this.userService.getUserData(response.user_id)
           .subscribe(res => {
-            console.log('-------------- user data --------------');
-            console.log(res);
             tempUser.username = res.content.userName;
             tempUser.profilename = res.content.userName;
             tempUser.company = res.content.client;
@@ -76,8 +71,6 @@ export class SigninComponent implements OnInit {
         );
       },
       error => {
-        console.log('_---------------------------- Sign in Function error ------------------');
-        console.log(error);
         if (error.status === 401 || error.status === 403) {
           this.progressBar.mode = 'determinate';
           this.signinForm.reset();
@@ -92,8 +85,6 @@ export class SigninComponent implements OnInit {
   }
 
   getRefreshToken(refreshTime) {
-    console.log('------------ set time out function ------------');
-    console.log(refreshTime);
     setTimeout(() => {
       const tempUser = JSON.parse(localStorage.getItem(this.storage_name));
       this.userService.getUserRefreshToken(tempUser.refreshToken)

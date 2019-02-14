@@ -34,7 +34,7 @@ export class ClientService {
   addClient(item): Observable<any> {
     return this.http.post<any>(this.clientUrl, item).pipe(
       map(data => {
-        console.log(data);
+        // console.log(data);
       }),
       catchError(this.handleError)
     );
@@ -49,7 +49,7 @@ export class ClientService {
   addUser(item): Observable<any> {
     return this.http.post<any>(this.userUrl, item).pipe(
       map(data => {
-        console.log(data);
+        // console.log(data);
       }),
       catchError(this.handleError)
     );
@@ -138,7 +138,7 @@ export class ClientService {
   }
 
   private handleError(error: HttpErrorResponse | any) {
-    console.log(error);
+    // console.log(error);
     return throwError(error);
   }
 
