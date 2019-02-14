@@ -35,6 +35,10 @@ export class SigninComponent implements OnInit {
   }
 
   signin() {
+    const userObj = JSON.parse(localStorage.getItem(this.storage_name));
+    if (userObj) {
+      localStorage.removeItem(this.storage_name);
+    }
     const signinData = this.signinForm.value;
 
     this.submitButton.disabled = true;
@@ -68,6 +72,7 @@ export class SigninComponent implements OnInit {
           error => {
             this.progressBar.mode = 'determinate';
             this.signinForm.reset();
+            localStorage.removeItem(this.storage_name);
             this.router.navigate([this.signInUrl]);
           }
         );
