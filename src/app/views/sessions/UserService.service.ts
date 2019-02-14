@@ -16,6 +16,7 @@ export class UserService {
   users: any[];
   private baseAuthUrl: String = environment.authTokenUrl;
   private storage_name = authProperties.storage_name;
+  private userApiUrl = environment.userApiUrl;
 
   constructor(private http: HttpClient) {
     const user: CpUsersDB = new CpUsersDB();
@@ -100,8 +101,15 @@ export class UserService {
   * Created by Prasad Kumara
   * 14/02/2019
   */
-  getUserData(userId) {
-    return null;
+  getUserData(userId): any {
+    return this.http
+      .get(this.userApiUrl + 'platform-users/' + userId)
+      .pipe(
+        map(data => {
+          return data;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   getUserRefreshToken(refreshToken) {

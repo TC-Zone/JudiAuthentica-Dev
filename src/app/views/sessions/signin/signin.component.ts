@@ -44,7 +44,6 @@ export class SigninComponent implements OnInit {
       response => {
         console.log('---------------------------- Sign in Function ------------------');
         console.log(response);
-        // this.userService.getUserData(response.user_id);
         const tempUser = {
           id: response.user_id,
           username: 'contactpkumara@gmail.com',
@@ -56,10 +55,24 @@ export class SigninComponent implements OnInit {
           position: 'UI/UX Engineer',
           expires_in: response.expires_in
         };
-        this.getRefreshToken(response.expires_in * 1000);
         localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
-        this.progressBar.mode = 'determinate';
-        this.router.navigate([this.successUrl]);
+        this.getRefreshToken(response.expires_in * 1000);
+        this.userService.getUserData(response.user_id)
+          .subscribe(res => {
+            console.log('-------------- user data --------------');
+            console.log(res);
+            tempUser.username = res.content.userName;
+            tempUser.profilename = res.content.userName;
+            tempUser.company = res.content.client;
+            this.progressBar.mode = 'determinate';
+            this.router.navigate([this.successUrl]);
+          },
+          error => {
+            this.progressBar.mode = 'determinate';
+            this.signinForm.reset();
+            this.router.navigate([this.signInUrl]);
+          }
+        );
       },
       error => {
         console.log('_---------------------------- Sign in Function error ------------------');
