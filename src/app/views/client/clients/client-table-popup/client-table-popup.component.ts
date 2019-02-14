@@ -10,8 +10,6 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 export class ClientTablePopupComponent implements OnInit {
   public itemForm: FormGroup;
   public formStatus = false;
-  //Raveen : need to implement a custom directive for the pattern validation
-  //public codeRegex = '/^-?[0-9]+(\.[0-9]*){0,1}$/g';
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ClientTablePopupComponent>,
@@ -23,19 +21,24 @@ export class ClientTablePopupComponent implements OnInit {
   }
   buildItemForm(item) {
 
-    if(item.name === undefined){
-      this.formStatus = true;
-    }
-    
+
     this.itemForm = this.fb.group({
       name: [item.name || '', Validators.required],
       description: [item.description || '', Validators.required],
-      username: [''],
-      email: ['']
-      // username: ['', Validators.required],
-      // email: ['', Validators.required]
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
     })
-    
+
+    if (item.name === undefined) {
+      this.formStatus = true;
+    } else {
+      this.itemForm.get('username').clearValidators();
+      this.itemForm.get('username').updateValueAndValidity();
+      this.itemForm.get('email').clearValidators();
+      this.itemForm.get('email').updateValueAndValidity();
+    }
+
+
   }
 
   submit() {

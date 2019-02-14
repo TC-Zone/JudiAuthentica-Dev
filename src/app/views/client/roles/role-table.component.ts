@@ -50,8 +50,8 @@ export class RoleTableComponent implements OnInit, OnDestroy {
   getItems() {
     this.getItemSub = this.clientService.getAllUserRoles().subscribe(
       response => {
-        console.log('-------------- get all roles response--------------');
-        console.log(response);
+        // console.log('-------------- get all roles response--------------');
+        // console.log(response);
         this.items = response.content;
       },
       error => {
@@ -87,24 +87,24 @@ export class RoleTableComponent implements OnInit, OnDestroy {
       }
       this.loader.open();
       if (isNew) {
-        console.log('------------ create user role object ---------------');
-        console.log(res);
+        // console.log('------------ create user role object ---------------');
+        // console.log(res);
         this.clientService.createNewRole(res).subscribe(response => {
-          console.log('--------------- create user role response ----------------');
-          console.log(response);
+          // console.log('--------------- create user role response ----------------');
+          // console.log(response);
           this.snack.open('User Role Created', 'close', {
             duration: 2000
           });
           this.getItems();
         });
       } else {
-        console.log('------------ update user role object ---------------');
+        // console.log('------------ update user role object ---------------');
         res['localizedName'] = '';
-        console.log(res);
+        // console.log(res);
         this.clientService.updateRloe(this.editRoleId, res)
           .subscribe(response => {
-            console.log('--------------- create user role response ----------------');
-            console.log(response);
+            // console.log('--------------- create user role response ----------------');
+            // console.log(response);
             this.snack.open('User Role Updated', 'close', {
               duration: 2000
             });
@@ -121,12 +121,12 @@ export class RoleTableComponent implements OnInit, OnDestroy {
   * 14/02/2019
   */
   editRole(role) {
-    console.log('------------- edit role ----------------');
-    console.log(role);
+    // console.log('------------- edit role ----------------');
+    // console.log(role);
     this.editRoleId = role.id;
     this.clientService.getOneRoleAuthorities(role.id)
       .subscribe(response => {
-        console.log(response.content);
+        // console.log(response.content);
         const roleData = {
           name: response.content.name,
           description: response.content.description,

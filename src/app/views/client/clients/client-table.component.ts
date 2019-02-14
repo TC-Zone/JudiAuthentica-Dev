@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ClientService } from "../client.service";
 import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
-import { AppConfirmService } from "../../../shared/services/app-confirm/app-confirm.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 import { ClientTablePopupComponent } from "./client-table-popup/client-table-popup.component";
 import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { NavigationExtras, Router } from "@angular/router";
+import { ClientCreateReq, UserData, ClientUpdateReq } from "app/model/ClientModel.model";
 
 @Component({
   selector: "app-client-table",
@@ -15,11 +15,11 @@ import { NavigationExtras, Router } from "@angular/router";
   animations: egretAnimations
 })
 export class ClientTableComponent implements OnInit, OnDestroy {
+
   public clients: any[];
   public statusArray = {
     'A': {status: "Active", style: "primary"},
-    'I': {status: "Inactive", style: "accent"},
-    'Deactive': "accent"
+    'I': {status: "Inactive", style: "accent"}
   };
 
   public pageSize = 10;
@@ -29,7 +29,6 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private snack: MatSnackBar,
     private clientService: ClientService,
-    private confirmService: AppConfirmService,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
     private router: Router
@@ -47,7 +46,6 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
   getClients() {
     this.getItemSub = this.clientService.getClients().subscribe(successResp => {
-      console.log(successResp);
       this.clients = successResp.content;
     },
       error => {
@@ -90,7 +88,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
             this.getClients();
             this.clients = response;
             this.loader.close();
-            this.snack.open("New client added !", "OK", { duration: 4000 });
+            this.snack.open("New Client added !", "OK", { duration: 4000 });
           },
           error => {
             this.loader.close();
@@ -136,28 +134,5 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   }
 
   
-}
-
-
-export class ClientCreateReq {
-  constructor(
-    public name: string,
-    public description: string,
-    public users: any[]
-  ) { }
-}
-
-export class ClientUpdateReq {
-  constructor(
-    public name: string,
-    public description: string
-  ) { }
-}
-
-export class UserData {
-  constructor(
-    public userName: string,
-    public email: string
-  ) { }
 }
 

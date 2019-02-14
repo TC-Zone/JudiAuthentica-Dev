@@ -1,27 +1,26 @@
-import { Component, OnInit} from '@angular/core';
-import { ClientService } from "../../client.service";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { UserService } from "../user.service";
 import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
-import { AppLoaderService } from "../../../../shared/services/app-loader/app-loader.service";
-import { UserTablePopupComponent } from "../user-table/user-table-popup/user-table-popup.component";
+import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
+import { UserTablePopupComponent } from "./user-table-popup/user-table-popup.component";
 import { Subscription } from "rxjs";
-import { egretAnimations } from "../../../../shared/animations/egret-animations";
-import { AppErrorService } from "../../../../shared/services/app-error/app-error.service";
-import { ActivatedRoute } from '@angular/router';
-import { UserCreateReq, ClientData, UserRole } from 'app/model/ClientModel.model';
+import { egretAnimations } from "../../../shared/animations/egret-animations";
+import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
+import { UserCreateReq, ClientData, UserRole } from "app/model/ClientModel.model";
 
 @Component({
-  selector: 'app-user-table',
-  templateUrl: './user-table.component.html',
+  selector: "app-user-table",
+  templateUrl: "./user-table.component.html",
   animations: egretAnimations
 })
-export class UserTableComponent implements OnInit {
-
+export class UserTableComponent implements OnInit, OnDestroy {
+  
   public clientId;
   public users: any[];
   public roles: any[];
   public statusArray = {
     'Active': "primary",
-    'Inactive': "accent"
+    'Deactive': "accent"
   };
   public pageSize = 10;
   public name;
@@ -30,18 +29,14 @@ export class UserTableComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    private clientService: ClientService,
+    private userService: UserService,
     private loader: AppLoaderService,
-    private errDialog: AppErrorService,
-    private activeRoute: ActivatedRoute,
+    private errDialog: AppErrorService
   ) { }
 
   ngOnInit() {
-
-    this.activeRoute.queryParams.subscribe(params => {
-      this.clientId = params["id"];
-      this.name = params["name"];
-    });
+    this.clientId = "faa6643aca8c5318a9583178795542cf";
+    this.name = 'Adida';
 
     this.getUsers();
     this.getUserRoles();
@@ -55,9 +50,13 @@ export class UserTableComponent implements OnInit {
   }
 
   getUsers() {
-    this.getItemSub = this.clientService.getUsers(this.clientId).subscribe(successResp => {
-      console.log(successResp.content);
-      
+    this.getItemSub = this.userService.getUsers(this.clientId).subscribe(successResp => {
+
+      successResp.content.users.forEach((user, index) => {
+        user.roles.forEach((role) => {
+          if (role.name === "Admin") successResp.content.users.splice(index, 1);
+        });
+      });
       this.users = successResp.content.users;
 
     },
@@ -72,10 +71,10 @@ export class UserTableComponent implements OnInit {
   }
 
   getUserRoles() {
-    this.getItemSub = this.clientService.getRoles().subscribe(successResp => {
+    this.getItemSub = this.userService.getRoles().subscribe(successResp => {
 
       successResp.content.forEach((item, index) => {
-        if (item.name === "Super Administrator") successResp.content.splice(index, 1);
+        if (item.name === "Super Administrator" || item.name === "Admin") successResp.content.splice(index, 1);
       });
       this.roles = successResp.content;
     },
@@ -115,7 +114,7 @@ export class UserTableComponent implements OnInit {
       this.loader.open();
       if (isNew) {
 
-        this.clientService.addUser(req).subscribe(
+        this.userService.addUser(req).subscribe(
           response => {
             this.getUsers();
             this.loader.close();
@@ -131,7 +130,7 @@ export class UserTableComponent implements OnInit {
           }
         );
       } else {
-        this.clientService.updateUser(data.id, req).subscribe(
+        this.userService.updateUser(data.id, req).subscribe(
           response => {
             this.getUsers();
             this.loader.close();
@@ -150,8 +149,4 @@ export class UserTableComponent implements OnInit {
       }
     });
   }
-
 }
-
-
-
