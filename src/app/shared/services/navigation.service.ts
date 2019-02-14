@@ -394,14 +394,14 @@ export class NavigationService {
   // ]
   iconMenu: IMenuItem[] = [
     {
-      name: "Clients",
+      name: "User Management",
       type: "link",
       tooltip: "Client management",
       icon: "person",
-      state: "cruds/ngx-table"
+      state: "users/user-table"
     },
     {
-      name: "Clients II",
+      name: "Client Management",
       type: "link",
       tooltip: "Client Management",
       icon: "person",

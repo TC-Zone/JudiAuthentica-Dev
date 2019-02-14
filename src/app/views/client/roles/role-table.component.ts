@@ -18,6 +18,9 @@ export class RoleTableComponent implements OnInit, OnDestroy {
   public items: any[];
   public pageSize = 10;
 
+  public componentList = [];
+  public editRoleId: String;
+
   public getItemSub: Subscription;
   constructor(
     private dialog: MatDialog,
@@ -32,15 +35,24 @@ export class RoleTableComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getItems();
   }
+
   ngOnDestroy() {
     if (this.getItemSub) {
       this.getItemSub.unsubscribe();
     }
   }
+
+  /*
+  * Get All Roles And Create to the Ngx table
+  * Created by Prasad Kumara
+  * 14/02/2019
+  */
   getItems() {
-    this.getItemSub = this.clientService.getItems().subscribe(
-      successResp => {
-        this.items = successResp.content;
+    this.getItemSub = this.clientService.getAllUserRoles().subscribe(
+      response => {
+        console.log('-------------- get all roles response--------------');
+        console.log(response);
+        this.items = response.content;
       },
       error => {
         this.errDialog.showError({
@@ -52,23 +64,18 @@ export class RoleTableComponent implements OnInit, OnDestroy {
     );
   }
 
-  navigateUserTable(res: any) {
-    let extraParam: NavigationExtras = {
-      queryParams: {
-        id: res.id,
-        code: res.code,
-        name: res.name
-      }
-    };
-    this.router.navigate(["clients/user-table"], extraParam);
-  }
-
+  /*
+  * Open Create and Update Role popup window
+  * Created by Prasad Kumara
+  * 14/02/2019
+  */
   openPopUp(data: any = {}, isNew?) {
-    let title = isNew ? "Add new client" : "Update client";
+    let title = isNew ? "Create New User Role" : "Update User Role";
+    data['isNew'] = isNew;
     let dialogRef: MatDialogRef<any> = this.dialog.open(
       RoleTablePopupComponent,
       {
-        width: "720px",
+        width: "900px",
         disableClose: true,
         data: { title: title, payload: data }
       }
@@ -80,72 +87,69 @@ export class RoleTableComponent implements OnInit, OnDestroy {
       }
       this.loader.open();
       if (isNew) {
-        this.clientService.addItem(res, this.items).subscribe(
-          response => {
-            this.items = response;
-            this.loader.close();
-            this.snack.open("New client added !", "OK", { duration: 4000 });
-          },
-          error => {
-            this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
-          }
-        );
+        console.log('------------ create user role object ---------------');
+        console.log(res);
+        this.clientService.createNewRole(res).subscribe(response => {
+          console.log('--------------- create user role response ----------------');
+          console.log(response);
+          this.snack.open('User Role Created', 'close', {
+            duration: 2000
+          });
+          this.getItems();
+        });
       } else {
-        this.clientService.updateItem(data.id, res).subscribe(
-          response => {
-            this.items = this.items.map(i => {
-              if (i.id === data.id) {
-                return Object.assign({}, i, response.content);
-              }
-              return i;
+        console.log('------------ update user role object ---------------');
+        res['localizedName'] = '';
+        console.log(res);
+        this.clientService.updateRloe(this.editRoleId, res)
+          .subscribe(response => {
+            console.log('--------------- create user role response ----------------');
+            console.log(response);
+            this.snack.open('User Role Updated', 'close', {
+              duration: 2000
             });
-            this.loader.close();
-            this.snack.open("Client Updated!", "OK", { duration: 4000 });
-            return this.items.slice();
-          },
-          error => {
-            this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
-          }
-        );
+            this.getItems();
+          });
       }
+      this.loader.close();
     });
   }
-  deleteItem(row) {
+
+  /*
+  * Edit User Role
+  * Created by Prasad Kumara
+  * 14/02/2019
+  */
+  editRole(role) {
+    console.log('------------- edit role ----------------');
+    console.log(role);
+    this.editRoleId = role.id;
+    this.clientService.getOneRoleAuthorities(role.id)
+      .subscribe(response => {
+        console.log(response.content);
+        const roleData = {
+          name: response.content.name,
+          description: response.content.description,
+          authorities: response.content.authorities
+        };
+        this.openPopUp(roleData, false);
+      });
+  }
+
+  /*
+  * Delete User Role
+  * Created by Prasad Kumara
+  * 14/02/2019
+  */
+  deleteRole(row) {
     this.confirmService
       .confirm({ message: `Delete ${row.name}?` })
       .subscribe(res => {
         if (res) {
-          this.loader.open();
-          this.clientService.removeItem(row.id).subscribe(
-            data => {
-              console.log(row);
-              console.log(this.items[0]);
-              let i = this.items.indexOf(row);
-              this.items.splice(i, 1);
-              this.loader.close();
-              this.snack.open("Client deleted!", "OK", { duration: 4000 });
-              return this.items.slice();
-            },
-            error => {
-              this.loader.close();
-              this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-              });
-            }
-          );
+          // this.loader.open();
+          this.getItems();
         }
       });
   }
+
 }

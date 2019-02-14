@@ -1,79 +1,48 @@
-<form [formGroup]="itemForm" (ngSubmit)="submit()">
-  <mat-toolbar matDialogTitle class="mat-primary m-0">
-    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-      <span class="title dialog-title">{{data.title}}</span>
-    </div>
-  </mat-toolbar>
-  <mat-dialog-content class="mat-typography mt-1">
-    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
-
-      <div fxFlex="100" class="pr-1">
-        <mat-form-field class="full-width">
-          <input matInput name="code" [formControl]="itemForm.controls['code']" positiveNumberAndLetterOnly
-            placeholder="Client Code">
-        </mat-form-field>
-      </div>
-
-      <div fxFlex="100" class="pr-1">
-        <mat-form-field class="full-width">
-          <input matInput name="clientName" [formControl]="itemForm.controls['name']" letterOnly placeholder="Name">
-        </mat-form-field>
-      </div>
-
-      <div fxFlex="100" class="pr-1">
-        <mat-form-field class="full-width">
-          <textarea matInput name="description" placeholder="Description"
-            [formControl]="itemForm.controls['description']"></textarea>
-        </mat-form-field>
-      </div>
-
+<mat-toolbar matDialogTitle class="mat-primary m-0">
+  <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+    <span class="title dialog-title">{{data.title}}</span>
+  </div>
+</mat-toolbar>
+<mat-dialog-content class="mat-typography mt-1" style="overflow: unset; max-height: unset;">
+  <form [formGroup]="roleFormGroup">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="address_line_1" [formControl]="itemForm.controls['address_line_1']"
-            positiveNumberAndLetterOnly placeholder="Address Line 1">
+          <input matInput required formControlName="name" placeholder="Role Name">
         </mat-form-field>
       </div>
-
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="address_line_2" [formControl]="itemForm.controls['address_line_2']"
-            positiveNumberAndLetterOnly placeholder="Address Line 2">
+          <input matInput required formControlName="description" placeholder="Description">
         </mat-form-field>
-      </div>
-
-      <div fxFlex="50" class="pr-1">
-        <mat-form-field class="full-width">
-          <input matInput name="city" [formControl]="itemForm.controls['city']"
-            positiveNumberAndLetterOnly placeholder="City">
-        </mat-form-field>
-      </div>
-
-      <div fxFlex="50" class="pr-1">
-        <mat-form-field class="full-width">
-          <input matInput name="state" [formControl]="itemForm.controls['state']"
-            positiveNumberAndLetterOnly placeholder="State">
-        </mat-form-field>
-      </div>
-
-      <div fxFlex="50" class="pr-1">
-        <mat-form-field class="full-width">
-          <input matInput name="zipcode" [formControl]="itemForm.controls['zipcode']"
-            positiveNumberAndLetterOnly placeholder="Zip Code">
-        </mat-form-field>
-      </div>
-
-      <div fxFlex="50" class="pr-1">
-        <mat-form-field class="full-width">
-          <input matInput name="country" [formControl]="itemForm.controls['country']"
-            positiveNumberAndLetterOnly placeholder="Country">
-        </mat-form-field>
-      </div>
-
-      <div fxFlex="100" class="mt-1">
-        <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
-        <span fxFlex></span>
-        <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
       </div>
     </div>
-  </mat-dialog-content>
-</form>
+  </form>
+
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+    <div fxFlex="100" class="pr-1">
+      <span>Select Role Authorities</span>
+    </div>
+    <div fxFlex="100" class="pr-1">
+      <mat-tab-group>
+        <div *ngFor="let module of this.componentList; let i = index">
+          <mat-tab label="{{module.moduleName}}">
+            <form [formGroup]="authoritiesFormGroup">
+              <div fxLayout="row" fxLayout.lt-sm="column" style="padding-top: 5px;" fxLayoutWrap="wrap">
+                <div fxFlex="50" class="pr-1" style="padding-top: 5px;" *ngFor="let item of module.data">
+                  <mat-checkbox [checked]="item.checked" (change)="onChange(item.id, module.moduleName, item.key, $event.checked)" class="full-width" value="{{item.key}}">{{item.name}}</mat-checkbox>
+                </div>
+              </div>
+            </form>
+          </mat-tab>
+        </div>
+      </mat-tab-group>
+    </div>
+  </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="accent" [disabled]="this.selectedAuthorities.length == 0 || roleFormGroup.invalid" (click)="submit()">Save</button>
+  <span fxFlex></span>
+  <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+</mat-dialog-actions>
