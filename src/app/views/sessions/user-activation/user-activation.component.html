@@ -1,0 +1,29 @@
+<div class="page-wrap height-100 mat-bg-primary background-signin">
+  <div class="session-form-hold">
+    <mat-progress-bar mode="determinate" class="session-progress"></mat-progress-bar>
+    <mat-card>
+      <mat-card-content>
+        <div class="text-center pb-1">
+          <img src="assets/images/signin/logo.jpg" alt="">
+          <p class="text-muted m-0">Truverus User Activation</p>
+          <small *ngIf="!result" class=" m-0 form-error-msg"> Invalid Login Credentials ! </small>
+        </div>
+        <form [formGroup]="activationForm" (ngSubmit)="activateUser()">
+
+
+          <div class="">
+            <mat-form-field class="full-width">
+              <input type="password" name="password" matInput [formControl]="activationForm.controls['password']" placeholder="Password" value="">
+            </mat-form-field>
+            <small *ngIf="activationForm.controls['password'].hasError('required') && activationForm.controls['password'].touched" class="form-error-msg">
+            Password is required </small>
+          </div>
+
+
+          <button mat-raised-button class="mat-primary full-width mb-1" [disabled]="activationForm.invalid">Activate</button>
+
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

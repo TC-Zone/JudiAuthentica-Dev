@@ -9,6 +9,7 @@ import * as jwt_decode from "jwt-decode";
 import { map, catchError } from "rxjs/operators";
 import { throwError } from "rxjs";
 import { environment } from "environments/environment.prod";
+import { Observable } from "rxjs/Observable";
 
 const gloable_user = "CPAP";
 const gloable_secret = "Cp43&$^fdgd*+!!@#Agdo4Ged";
@@ -18,6 +19,7 @@ const storage_name = "";
 export class UserService {
   users: any[];
   private baseAuthUrl: String = environment.authTokenUrl;
+  private userApiUrl: string = environment.userApiUrl;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -115,6 +117,20 @@ export class UserService {
       return false;
     }
     return !(date.valueOf() > new Date().valueOf());
+  }
+
+  activateUser(code, password): Observable<any> {
+    return this.http
+      .post<any>(
+        this.userApiUrl + "platform-users/activations/" + code,
+        password
+      )
+      .pipe(
+        map(data => {
+          return data.content;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   private handleError(error: HttpErrorResponse | any) {

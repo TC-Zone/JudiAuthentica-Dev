@@ -21,6 +21,7 @@ import { SessionsRoutes } from "./sessions.routing";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { ErrorComponent } from "./error/error.component";
 import { UserService } from "./UserService.service";
+import { UserActivationComponent } from './user-activation/user-activation.component';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { UserService } from "./UserService.service";
     SigninComponent,
     SignupComponent,
     NotFoundComponent,
-    ErrorComponent
+    ErrorComponent,
+    UserActivationComponent
   ],
   providers: [UserService]
 })

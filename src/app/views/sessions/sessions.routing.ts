@@ -6,6 +6,7 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ErrorComponent } from './error/error.component';
+import { UserActivationComponent } from './user-activation/user-activation.component';
 
 export const SessionsRoutes: Routes = [
   {
@@ -34,6 +35,10 @@ export const SessionsRoutes: Routes = [
       path: 'error',
       component: ErrorComponent,
       data: { title: 'Error' }
+    },{
+      path: 'activation/:code',
+      component: UserActivationComponent,
+      data: { title: 'Activation' }
     }]
   }
 ];
