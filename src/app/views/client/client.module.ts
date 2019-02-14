@@ -24,7 +24,9 @@ import {
   MatStepperModule,
   MatStepper,
   MatToolbarModule,
-  MatOptionModule
+  MatOptionModule,
+  MatCheckboxModule,
+  MatTabsModule
 } from "@angular/material";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { SharedModule } from "../../shared/shared.module";
@@ -61,7 +63,9 @@ import { RoleTablePopupComponent } from './roles/role-table-popup/role-table-pop
     SharedModule,
     MatStepperModule,
     MatToolbarModule,
-    MatOptionModule
+    MatOptionModule,
+    MatCheckboxModule,
+    MatTabsModule
   ],
   declarations: [
     ClientComponent,
