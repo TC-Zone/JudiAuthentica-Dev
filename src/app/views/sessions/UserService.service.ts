@@ -7,7 +7,7 @@ import {
 import { CpUsersDB } from "../../shared/fake-db/cp-users";
 import * as jwt_decode from "jwt-decode";
 import { map, catchError } from "rxjs/operators";
-import { throwError, Observable } from "rxjs";
+import { throwError, Observable } from 'rxjs';
 import { environment } from "environments/environment.prod";
 import { authProperties } from "./../../shared/services/auth/auth-properties";
 
@@ -16,6 +16,7 @@ export class UserService {
   users: any[];
   private baseAuthUrl: String = environment.authTokenUrl;
   private storage_name = authProperties.storage_name;
+  private componentList = authProperties.componentList;
   private userApiUrl = environment.userApiUrl;
 
   constructor(private http: HttpClient) {
@@ -49,7 +50,8 @@ export class UserService {
    */
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem("currentUser");
+    localStorage.removeItem(this.storage_name);
+    localStorage.removeItem(this.componentList);
   }
 
   /*
@@ -132,6 +134,44 @@ export class UserService {
       }),
       catchError(this.handleError)
     );
+  }
+
+  setComponetDisable() {
+    const userObj = JSON.parse(localStorage.getItem(this.storage_name));
+    const componentList = JSON.parse(localStorage.getItem(this.componentList));
+    if (componentList) {
+      localStorage.removeItem(this.componentList);
+    }
+    const arrayList = {
+      user_management: false,
+      client_management: false,
+      product_catalogue: false,
+      instant_feedback: false,
+      e_vote: false,
+      future_survey: false
+    };
+    if (userObj) {
+      console.log('--------------- setComponetDisable ----------------');
+      console.log(userObj.userData.roles[0].name);
+      const roleName = userObj.userData.roles[0].name;
+      if (roleName === 'Super Administrator') {
+        arrayList.client_management = false;
+        arrayList.e_vote = false;
+        arrayList.future_survey = false;
+        arrayList.instant_feedback = false;
+        arrayList.product_catalogue = false;
+        arrayList.user_management = true;
+        localStorage.setItem(this.componentList, JSON.stringify(arrayList));
+      } else if (roleName === 'Admin') {
+        arrayList.client_management = true;
+        arrayList.e_vote = false;
+        arrayList.future_survey = false;
+        arrayList.instant_feedback = false;
+        arrayList.product_catalogue = false;
+        arrayList.user_management = false;
+        localStorage.setItem(this.componentList, JSON.stringify(arrayList));
+      }
+    }
   }
 
   private handleError(error: HttpErrorResponse | any) {
