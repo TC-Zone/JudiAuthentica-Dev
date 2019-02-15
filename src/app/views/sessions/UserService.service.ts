@@ -123,6 +123,11 @@ export class UserService {
     );
   }
 
+  /*
+   * Get Jwt refrsh token Expire or not
+   * Created by Prasad Kumara
+   * 15/02/2019
+   */
   getUserRefreshToken(refreshToken) {
     const payload = new FormData();
     payload.append("grant_type", "refresh_token");
@@ -136,6 +141,12 @@ export class UserService {
     );
   }
 
+  /*
+   * Get Jwt refrsh token Expire or not
+   * Created by Prasad Kumara
+   * 15/02/2019
+   * Not working properly. Still lokking for solution
+   */
   setComponetDisable() {
     const userObj = JSON.parse(localStorage.getItem(this.storage_name));
     const componentList = JSON.parse(localStorage.getItem(this.componentList));
