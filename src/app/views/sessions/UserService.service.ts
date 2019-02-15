@@ -7,7 +7,7 @@ import {
 import { CpUsersDB } from "../../shared/fake-db/cp-users";
 import * as jwt_decode from "jwt-decode";
 import { map, catchError } from "rxjs/operators";
-import { throwError, Observable } from 'rxjs';
+import { throwError, Observable } from "rxjs";
 import { environment } from "environments/environment.prod";
 import { authProperties } from "./../../shared/services/auth/auth-properties";
 
@@ -90,6 +90,9 @@ export class UserService {
   }
 
   activateUser(code, password): Observable<any> {
+    console.log("CALLED  service" + code);
+    console.log(password);
+
     return this.http
       .post<any>(
         this.userApiUrl + "platform-users/activations/" + code,
@@ -97,7 +100,8 @@ export class UserService {
       )
       .pipe(
         map(data => {
-          // console.log(data);
+          console.log("SUCESS");
+          console.log(data);
         }),
         catchError(this.handleError)
       );

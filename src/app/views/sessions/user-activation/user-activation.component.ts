@@ -34,6 +34,8 @@ export class UserActivationComponent implements OnInit {
   }
 
   activateUser() {
+    console.log('CALLED activate');
+
     this.userService
       .activateUser(this.activationCode, this.activationForm.value)
       .subscribe(
