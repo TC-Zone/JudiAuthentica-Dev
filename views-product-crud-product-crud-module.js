@@ -50,28 +50,6 @@ var DateValidator = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/model/ClientModel.model.ts":
-/*!********************************************!*\
-  !*** ./src/app/model/ClientModel.model.ts ***!
-  \********************************************/
-/*! exports provided: Content */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Content", function() { return Content; });
-var Content = /** @class */ (function () {
-    function Content(id, name) {
-        this.id = id;
-        this.name = name;
-    }
-    return Content;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/views/cruds/crud.service.ts":
 /*!*********************************************!*\
   !*** ./src/app/views/cruds/crud.service.ts ***!
@@ -560,17 +538,31 @@ var ProductCrudPopupComponent = /** @class */ (function (_super) {
             console.log(youtubeUrl);
         }
         this.productForm = this.fb.group({
-            client: [clientId || ""],
-            code: [fieldItem.code || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            name: [fieldItem.name || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            description: [fieldItem.description || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            batchNumber: [fieldItem.batchNumber || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            quantity: [fieldItem.quantity || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            expireDate: [fieldItem.expireDate || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            surveyId: [fieldItem.surveyId || null],
-            videoUrl: [youtubeUrl, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].pattern(this.youTubeIdRegex)],
-            file: [fieldItem.file || ""]
+            client: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](clientId || ""),
+            code: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](fieldItem.code || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
+            name: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](fieldItem.name || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
+            description: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](fieldItem.description || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
+            batchNumber: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](fieldItem.batchNumber || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
+            quantity: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](fieldItem.quantity || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
+            expireDate: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](fieldItem.expireDate || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
+            surveyId: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](fieldItem.surveyId || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
+            videoUrl: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](fieldItem.videoUrl || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required),
+            file: new _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormControl"](fieldItem.file || "", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required)
+            // client: [clientId || ""],
+            // code: [fieldItem.code || "", Validators.required],
+            // name: [fieldItem.name || "", Validators.required],
+            // description: [fieldItem.description || "", Validators.required],
+            // batchNumber: [fieldItem.batchNumber || "", Validators.required],
+            // quantity: [fieldItem.quantity || "", Validators.required],
+            // expireDate: [fieldItem.expireDate || "", Validators.required],
+            // surveyId: [fieldItem.surveyId || null],
+            // videoUrl: [fieldItem.videoUrl, Validators.pattern(this.youTubeIdRegex)],
+            // file: [fieldItem.file || ""]
         });
+        // if(DateValidator.getTomorrow()>fieldItem.expireDate){
+        //   const expireDate = this.productForm.get('expireDate');
+        //   expireDate.setErrors({ incorrect: true });
+        // }
     };
     ProductCrudPopupComponent.prototype.submit = function () {
         var productRequest = new ProductCreationRequest(this.productForm.value);

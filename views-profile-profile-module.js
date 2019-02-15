@@ -15617,7 +15617,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"p-0\">\r\n  <mat-tab-group>\r\n    <mat-tab label=\"Account Settings\">\r\n      <mat-card-content class=\"mt-1\">\r\n          <form>\r\n            <mat-form-field class=\"full-width\">\r\n              <input\r\n              matInput\r\n              name=\"name\"\r\n              placeholder=\"Name\"\r\n              value=\"\">\r\n            </mat-form-field>\r\n            <mat-form-field class=\"full-width\">\r\n                <input\r\n                matInput\r\n                name=\"title\"\r\n                placeholder=\"Title\"\r\n                value=\"\">\r\n              </mat-form-field>\r\n            <mat-form-field class=\"full-width\">\r\n              <input\r\n              matInput\r\n              name=\"email\"\r\n              placeholder=\"Email\"\r\n              value=\"\">\r\n            </mat-form-field>\r\n            <mat-form-field class=\"full-width\">\r\n              <input\r\n              matInput\r\n              name=\"phone\"\r\n              placeholder=\"Phone\"\r\n              value=\"\">\r\n            </mat-form-field>\r\n            <mat-form-field class=\"full-width\">\r\n              <input\r\n              matInput\r\n              name=\"address\"\r\n              placeholder=\"Adresss\"\r\n              value=\"\">\r\n            </mat-form-field>\r\n            <mat-form-field class=\"full-width\">\r\n              <input\r\n              matInput\r\n              name=\"website\"\r\n              placeholder=\"Website\"\r\n              value=\"\">\r\n            </mat-form-field>\r\n            <button mat-raised-button color=\"primary\">Save</button>\r\n          </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n    <mat-tab label=\"Profile Picture\">\r\n      <mat-card-content>\r\n        <div class=\"mb-1 mt-1\">\r\n          <p>Upload a profile picture</p>\r\n          <input type=\"file\" ng2FileSelect [uploader]=\"uploader\" />\r\n        </div>\r\n\r\n        <div class=\"mb-1\">\r\n          <div ng2FileDrop\r\n          [ngClass]=\"{'dz-file-over': hasBaseDropZoneOver}\"\r\n          [uploader]=\"uploader\"\r\n          (fileOver)=\"fileOverBase($event)\"\r\n          class=\"fileupload-drop-zone\">\r\n          Drop png/jpeg file here\r\n          </div>\r\n        </div>\r\n        <table class=\"default-table mat-box-shadow\" style=\"width: 100%\">\r\n          <thead>\r\n            <tr>\r\n                <th width=\"30%\">Name</th>\r\n                <th>Size</th>\r\n                <th>Progress</th>\r\n                <th>Status</th>\r\n                <th>Actions</th>\r\n            </tr>\r\n            </thead>\r\n            <tbody *ngIf=\"uploader.queue.length; else tableNoData\">\r\n            <tr *ngFor=\"let item of uploader.queue\">\r\n                <td>{{ item?.file?.name }}</td>\r\n                <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>\r\n                <td>\r\n                    <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                        <div class=\"progress-bar\" role=\"progressbar\" [ngStyle]=\"{ 'width': item.progress + '%' }\"></div>\r\n                        <mat-progress-bar\r\n                          class=\"\"\r\n                          color=\"primary\"\r\n                          mode=\"determinate\"\r\n                          [value]=\"item.progress\">\r\n                        </mat-progress-bar>\r\n                    </div>\r\n                </td>\r\n                <td class=\"\">\r\n                    <mat-icon *ngIf=\"item.isSuccess\">check</mat-icon>\r\n                    <mat-icon *ngIf=\"item.isCancel\" color=\"accent\">cancel</mat-icon>\r\n                    <mat-icon *ngIf=\"item.isError\" color=\"warn\">error</mat-icon>\r\n                </td>\r\n                <td nowrap>\r\n                    <button \r\n                    mat-raised-button\r\n                    class=\"mat-primary\"\r\n                    (click)=\"item.upload()\"\r\n                    [disabled]=\"item.isReady || item.isUploading || item.isSuccess\">Upload</button>\r\n                    <button \r\n                    mat-raised-button\r\n                    class=\"mat-accent\"\r\n                    (click)=\"item.cancel()\"\r\n                    [disabled]=\"!item.isUploading\">Cancel</button>\r\n\r\n                    <button \r\n                    mat-raised-button\r\n                    class=\"mat-warn\"\r\n                    (click)=\"item.remove()\">Remove</button>\r\n                </td>\r\n            </tr>\r\n            </tbody>\r\n            <ng-template #tableNoData>\r\n              <p [ngStyle]=\"{padding: '0 1.2rem'}\">Queue is empty</p>\r\n            </ng-template>\r\n        </table>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n    <mat-tab label=\"Privacy Settings\">\r\n      <mat-card-content>\r\n        <div class=\"mb-1 mt-1\">\r\n          <mat-checkbox> Get weekly news in your email.</mat-checkbox>\r\n        </div>\r\n        <div class=\"mb-1\">\r\n          <mat-checkbox> Get notification when someone follows you.</mat-checkbox>\r\n        </div>\r\n        <div class=\"mb-1\">\r\n          <mat-checkbox> Get email when someone follows you.</mat-checkbox>\r\n        </div>\r\n        <div class=\"mb-1\">\r\n            <p>Choose your admin panel color schemes.</p>\r\n            <mat-radio-group fxLayout=\"column\" fxLayoutGap=\"4px\">\r\n              <mat-radio-button value=\"indigo\">Indigo</mat-radio-button>\r\n              <mat-radio-button value=\"blue\">Blue</mat-radio-button>\r\n              <mat-radio-button value=\"pink\">Pink</mat-radio-button>\r\n              <mat-radio-button value=\"purple\">Purple</mat-radio-button>\r\n            </mat-radio-group>\r\n        </div>\r\n        <button mat-raised-button color=\"primary\">Save</button>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n  </mat-tab-group>\r\n</mat-card>"
+module.exports = "<mat-card class=\"p-0\">\r\n  <mat-tab-group>\r\n    <mat-tab label=\"Account Settings\">\r\n      <mat-card-content class=\"mt-1\">\r\n        <form [formGroup]=\"itemForm\" (ngSubmit)=\"submit()\">\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"username\" [formControl]=\"itemForm.controls['username']\"\r\n                  positiveNumberAndLetterOnly placeholder=\"User Name\">\r\n              </mat-form-field>\r\n            </div>\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"password\" type=\"password\" [formControl]=\"itemForm.controls['password']\"\r\n                  positiveNumberAndLetterOnly placeholder=\"Password\">\r\n              </mat-form-field>\r\n            </div>\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"email\" [formControl]=\"itemForm.controls['email']\" placeholder=\"Email\">\r\n              </mat-form-field>\r\n            </div>\r\n          </div>\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"itemForm.invalid\">Save</button>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n    <mat-tab label=\"Profile Picture\">\r\n      <mat-card-content>\r\n        <div class=\"mb-1 mt-1\">\r\n          <p>Upload a profile picture</p>\r\n          <input type=\"file\" ng2FileSelect [uploader]=\"uploader\" />\r\n        </div>\r\n\r\n        <div class=\"mb-1\">\r\n          <div ng2FileDrop [ngClass]=\"{'dz-file-over': hasBaseDropZoneOver}\" [uploader]=\"uploader\"\r\n            (fileOver)=\"fileOverBase($event)\" class=\"fileupload-drop-zone\">\r\n            Drop png/jpeg file here\r\n          </div>\r\n        </div>\r\n        <table class=\"default-table mat-box-shadow\" style=\"width: 100%\">\r\n          <thead>\r\n            <tr>\r\n              <th width=\"30%\">Name</th>\r\n              <th>Size</th>\r\n              <th>Progress</th>\r\n              <th>Status</th>\r\n              <th>Actions</th>\r\n            </tr>\r\n          </thead>\r\n          <tbody *ngIf=\"uploader.queue.length; else tableNoData\">\r\n            <tr *ngFor=\"let item of uploader.queue\">\r\n              <td>{{ item?.file?.name }}</td>\r\n              <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>\r\n              <td>\r\n                <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                  <div class=\"progress-bar\" role=\"progressbar\" [ngStyle]=\"{ 'width': item.progress + '%' }\"></div>\r\n                  <mat-progress-bar class=\"\" color=\"primary\" mode=\"determinate\" [value]=\"item.progress\">\r\n                  </mat-progress-bar>\r\n                </div>\r\n              </td>\r\n              <td class=\"\">\r\n                <mat-icon *ngIf=\"item.isSuccess\">check</mat-icon>\r\n                <mat-icon *ngIf=\"item.isCancel\" color=\"accent\">cancel</mat-icon>\r\n                <mat-icon *ngIf=\"item.isError\" color=\"warn\">error</mat-icon>\r\n              </td>\r\n              <td nowrap>\r\n                <button mat-raised-button class=\"mat-primary\" (click)=\"item.upload()\"\r\n                  [disabled]=\"item.isReady || item.isUploading || item.isSuccess\">Upload</button>\r\n                <button mat-raised-button class=\"mat-accent\" (click)=\"item.cancel()\"\r\n                  [disabled]=\"!item.isUploading\">Cancel</button>\r\n\r\n                <button mat-raised-button class=\"mat-warn\" (click)=\"item.remove()\">Remove</button>\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n          <ng-template #tableNoData>\r\n            <p [ngStyle]=\"{padding: '0 1.2rem'}\">Queue is empty</p>\r\n          </ng-template>\r\n        </table>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n    <mat-tab label=\"Privacy Settings\">\r\n      <mat-card-content>\r\n        <div class=\"mb-1 mt-1\">\r\n          <mat-checkbox> Get weekly news in your email.</mat-checkbox>\r\n        </div>\r\n        <div class=\"mb-1\">\r\n          <mat-checkbox> Get notification when someone follows you.</mat-checkbox>\r\n        </div>\r\n        <div class=\"mb-1\">\r\n          <mat-checkbox> Get email when someone follows you.</mat-checkbox>\r\n        </div>\r\n        <div class=\"mb-1\">\r\n          <p>Choose your admin panel color schemes.</p>\r\n          <mat-radio-group fxLayout=\"column\" fxLayoutGap=\"4px\">\r\n            <mat-radio-button value=\"indigo\">Indigo</mat-radio-button>\r\n            <mat-radio-button value=\"blue\">Blue</mat-radio-button>\r\n            <mat-radio-button value=\"pink\">Pink</mat-radio-button>\r\n            <mat-radio-button value=\"purple\">Purple</mat-radio-button>\r\n          </mat-radio-group>\r\n        </div>\r\n        <button mat-raised-button color=\"primary\">Save</button>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n  </mat-tab-group>\r\n</mat-card>"
 
 /***/ }),
 
@@ -15634,6 +15634,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
 /* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(ng2_file_upload__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _profile_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../profile.service */ "./src/app/views/profile/profile.service.ts");
+/* harmony import */ var app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/model/ClientModel.model */ "./src/app/model/ClientModel.model.ts");
+/* harmony import */ var app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
+/* harmony import */ var app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/shared/services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15645,15 +15651,57 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
+
+
+
+
 var ProfileSettingsComponent = /** @class */ (function () {
-    function ProfileSettingsComponent() {
+    function ProfileSettingsComponent(fb, profileService, loader, snack, errDialog) {
+        this.fb = fb;
+        this.profileService = profileService;
+        this.loader = loader;
+        this.snack = snack;
+        this.errDialog = errDialog;
         this.uploader = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_1__["FileUploader"]({ url: 'upload_url' });
         this.hasBaseDropZoneOver = false;
     }
     ProfileSettingsComponent.prototype.ngOnInit = function () {
+        var currentuser = JSON.parse(localStorage.getItem('currentUser'));
+        this.userId = currentuser.userData.id;
+        this.userName = currentuser.userData.userName;
+        this.email = currentuser.userData.email;
+        this.buildItemForm(currentuser.userData);
     };
     ProfileSettingsComponent.prototype.fileOverBase = function (e) {
         this.hasBaseDropZoneOver = e;
+    };
+    ProfileSettingsComponent.prototype.buildItemForm = function (data) {
+        this.itemForm = this.fb.group({
+            username: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](data.userName || '', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+            email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](data.email || '', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email]),
+            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
+        });
+    };
+    ProfileSettingsComponent.prototype.updateProfile = function () {
+        var _this = this;
+        var itemForm = this.itemForm.value;
+        var client = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["ClientData"](this.clientId);
+        var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["profileUpdateReq"](itemForm.username, itemForm.password, itemForm.email);
+        this.profileService.updateUser(this.userId, req).subscribe(function (response) {
+            // this.getUsers();
+            _this.loader.close();
+            _this.snack.open("Profile Updated!", "OK", { duration: 4000 });
+            // return this.users.slice();
+        }, function (error) {
+            _this.loader.close();
+            _this.errDialog.showError({
+                title: "Error",
+                status: error.status,
+                type: "http_error"
+            });
+        });
     };
     ProfileSettingsComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -15661,7 +15709,11 @@ var ProfileSettingsComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./profile-settings.component.html */ "./src/app/views/profile/profile-settings/profile-settings.component.html"),
             styles: [__webpack_require__(/*! ./profile-settings.component.css */ "./src/app/views/profile/profile-settings/profile-settings.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            _profile_service__WEBPACK_IMPORTED_MODULE_3__["ProfileService"],
+            app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_5__["AppLoaderService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSnackBar"],
+            app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_6__["AppErrorService"]])
     ], ProfileSettingsComponent);
     return ProfileSettingsComponent;
 }());
@@ -15799,12 +15851,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./profile-settings/profile-settings.component */ "./src/app/views/profile/profile-settings/profile-settings.component.ts");
 /* harmony import */ var _profile_blank_profile_blank_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./profile-blank/profile-blank.component */ "./src/app/views/profile/profile-blank/profile-blank.component.ts");
 /* harmony import */ var _profile_routing__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./profile.routing */ "./src/app/views/profile/profile.routing.ts");
+/* harmony import */ var _profile_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./profile.service */ "./src/app/views/profile/profile.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -15827,6 +15882,7 @@ var ProfileModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatListModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatIconModule"],
@@ -15848,6 +15904,7 @@ var ProfileModule = /** @class */ (function () {
                 _shared_shared_module__WEBPACK_IMPORTED_MODULE_9__["SharedModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(_profile_routing__WEBPACK_IMPORTED_MODULE_14__["ProfileRoutes"])
             ],
+            providers: [_profile_service__WEBPACK_IMPORTED_MODULE_15__["ProfileService"]],
             declarations: [_profile_component__WEBPACK_IMPORTED_MODULE_10__["ProfileComponent"], _profile_overview_profile_overview_component__WEBPACK_IMPORTED_MODULE_11__["ProfileOverviewComponent"], _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_12__["ProfileSettingsComponent"], _profile_blank_profile_blank_component__WEBPACK_IMPORTED_MODULE_13__["ProfileBlankComponent"]]
         })
     ], ProfileModule);
@@ -15897,6 +15954,60 @@ var ProfileRoutes = [
             }]
     }
 ];
+
+
+/***/ }),
+
+/***/ "./src/app/views/profile/profile.service.ts":
+/*!**************************************************!*\
+  !*** ./src/app/views/profile/profile.service.ts ***!
+  \**************************************************/
+/*! exports provided: ProfileService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileService", function() { return ProfileService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! environments/environment.prod */ "./src/environments/environment.prod.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var ProfileService = /** @class */ (function () {
+    function ProfileService(http) {
+        this.http = http;
+        this.userUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "platform-users";
+    }
+    ProfileService.prototype.updateUser = function (id, item) {
+        return this.http
+            .put(this.userUrl + "/" + id, item)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ProfileService.prototype.handleError = function (error) {
+        console.log(error);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(error);
+    };
+    ProfileService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], ProfileService);
+    return ProfileService;
+}());
+
 
 
 /***/ })

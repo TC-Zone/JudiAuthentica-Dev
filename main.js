@@ -17,15 +17,15 @@ var map = {
 		"./src/app/views/app-inbox/app-inbox.module.ts",
 		"views-app-inbox-app-inbox-module"
 	],
-	"./views/cruds/cruds.module": [
-		"./src/app/views/cruds/cruds.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+	"./views/client/client.module": [
+		"./src/app/views/client/client.module.ts",
+		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
 		"common",
-		"views-cruds-cruds-module"
+		"views-client-client-module"
 	],
 	"./views/evote/evote.module": [
 		"./src/app/views/evote/evote.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
 		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
 		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
 		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module",
@@ -34,7 +34,7 @@ var map = {
 	],
 	"./views/future-survey/future-survey.module": [
 		"./src/app/views/future-survey/future-survey.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
 		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
 		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
 		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
@@ -42,7 +42,7 @@ var map = {
 	],
 	"./views/interaction-view/interaction-view.module": [
 		"./src/app/views/interaction-view/interaction-view.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
 		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
 		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
 		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
@@ -51,7 +51,7 @@ var map = {
 	],
 	"./views/invitee-interaction-view/invitee-interaction-view.module": [
 		"./src/app/views/invitee-interaction-view/invitee-interaction-view.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
 		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
 		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
 		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
@@ -60,7 +60,7 @@ var map = {
 	],
 	"./views/product-crud/product-crud.module": [
 		"./src/app/views/product-crud/product-crud.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
 		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
 		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
 		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module",
@@ -69,7 +69,7 @@ var map = {
 	],
 	"./views/profile/profile.module": [
 		"./src/app/views/profile/profile.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
 		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
 		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module",
 		"common",
@@ -81,11 +81,17 @@ var map = {
 	],
 	"./views/survey/survey.module": [
 		"./src/app/views/survey/survey.module.ts",
-		"views-cruds-cruds-module~views-evote-evote-module~views-future-survey-future-survey-module~views-int~9aa890ac",
+		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
 		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
 		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
 		"common",
 		"views-survey-survey-module"
+	],
+	"./views/user/user.module": [
+		"./src/app/views/user/user.module.ts",
+		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
+		"common",
+		"views-user-user-module"
 	]
 };
 function webpackAsyncContext(req) {
@@ -148,6 +154,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_route_parts_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shared/services/route-parts.service */ "./src/app/shared/services/route-parts.service.ts");
 /* harmony import */ var _shared_services_theme_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./shared/services/theme.service */ "./src/app/shared/services/theme.service.ts");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./shared/services/auth/auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -157,6 +166,12 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
 
 
 
@@ -164,18 +179,21 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(title, router, activeRoute, routePartsService, themeService, renderer) {
+    function AppComponent(title, router, activeRoute, routePartsService, themeService, renderer, userService, document) {
         this.title = title;
         this.router = router;
         this.activeRoute = activeRoute;
         this.routePartsService = routePartsService;
         this.themeService = themeService;
         this.renderer = renderer;
+        this.userService = userService;
+        this.document = document;
         this.appTitle = "CP Authentica";
         this.pageTitle = "";
     }
     AppComponent.prototype.ngOnInit = function () {
         this.changePageTitle();
+        this.checkLoginUser();
     };
     AppComponent.prototype.ngAfterViewInit = function () {
         this.themeService.applyMatTheme(this.renderer);
@@ -199,18 +217,51 @@ var AppComponent = /** @class */ (function () {
             _this.title.setTitle(_this.pageTitle);
         });
     };
+    AppComponent.prototype.checkLoginUser = function () {
+        var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__["authProperties"].storage_name));
+        var currentPath = this.document.location.href;
+        var origin = this.document.location.origin;
+        var navigationPath = currentPath.replace(origin + '/', '');
+        if (userObj) {
+            var isTokenExired = this.userService.isTokenExpired(userObj.token);
+            if (isTokenExired) {
+                // this.router.navigate([navigationPath]);
+                this.removeLocalStorageElement();
+                this.router.navigate(['sessions/signin']);
+            } //else {
+            //this.removeLocalStorageElement();
+            //this.router.navigate(['sessions/signin']);
+            //}
+        }
+        else {
+            this.removeLocalStorageElement();
+            if (navigationPath === 'sessions/signin') {
+                this.router.navigate(['sessions/signin']);
+            }
+            else {
+                this.router.navigate([navigationPath]);
+            }
+        }
+    };
+    AppComponent.prototype.removeLocalStorageElement = function () {
+        localStorage.removeItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__["authProperties"].storage_name);
+        localStorage.removeItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__["authProperties"].componentList);
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: "app-root",
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
         }),
+        __param(7, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_common__WEBPACK_IMPORTED_MODULE_8__["DOCUMENT"])),
         __metadata("design:paramtypes", [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["Title"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
             _shared_services_route_parts_service__WEBPACK_IMPORTED_MODULE_3__["RoutePartsService"],
             _shared_services_theme_service__WEBPACK_IMPORTED_MODULE_4__["ThemeService"],
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"]])
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"],
+            _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_6__["UserService"],
+            Document])
     ], AppComponent);
     return AppComponent;
 }());
@@ -242,12 +293,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
 /* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ngx-translate/http-loader */ "./node_modules/@ngx-translate/http-loader/esm5/ngx-translate-http-loader.js");
 /* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _shared_services_auth_add_header_interceptor__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./shared/services/auth/add-header-interceptor */ "./src/app/shared/services/auth/add-header-interceptor.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -289,6 +342,7 @@ var AppModule = /** @class */ (function () {
             providers: [
                 // ANGULAR MATERIAL SLIDER FIX
                 { provide: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["HAMMER_GESTURE_CONFIG"], useClass: _angular_material__WEBPACK_IMPORTED_MODULE_4__["GestureConfig"] },
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HTTP_INTERCEPTORS"], useClass: _shared_services_auth_add_header_interceptor__WEBPACK_IMPORTED_MODULE_12__["AddHeaderInterceptor"], multi: true },
                 _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_11__["UserService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
@@ -370,8 +424,13 @@ var rootRouterConfig = [
                 data: { title: "Calendar", breadcrumb: "CALENDAR" }
             },
             {
-                path: "cruds",
-                loadChildren: "./views/cruds/cruds.module#CrudsModule",
+                path: "users",
+                loadChildren: "./views/user/user.module#UserModule",
+                data: { title: "Users", breadcrumb: "Users" }
+            },
+            {
+                path: "clients",
+                loadChildren: "./views/client/client.module#ClientModule",
                 data: { title: "Clients", breadcrumb: "Client" }
             },
             {
@@ -1428,6 +1487,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_theme_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/theme.service */ "./src/app/shared/services/theme.service.ts");
 /* harmony import */ var perfect_scrollbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! perfect-scrollbar */ "./node_modules/perfect-scrollbar/dist/perfect-scrollbar.esm.js");
 /* harmony import */ var _helpers_local_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/local-storage */ "./src/app/shared/helpers/local-storage.ts");
+/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1452,12 +1512,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SidebarSideComponent = /** @class */ (function (_super) {
     __extends(SidebarSideComponent, _super);
-    function SidebarSideComponent(navService, themeService) {
+    function SidebarSideComponent(navService, themeService, userService) {
         var _this = _super.call(this) || this;
         _this.navService = navService;
         _this.themeService = themeService;
+        _this.userService = userService;
         return _this;
     }
     SidebarSideComponent.prototype.ngOnInit = function () {
@@ -1465,6 +1527,15 @@ var SidebarSideComponent = /** @class */ (function (_super) {
         this.iconTypeMenuTitle = this.navService.iconTypeMenuTitle;
         this.menuItemsSub = this.navService.menuItems$.subscribe(function (menuItem) {
             _this.menuItems = menuItem;
+            var removeItemList = _this.userService.setComponetDisable();
+            removeItemList.forEach(function (element) {
+                var index = _this.menuItems.findIndex(function (x) { return x.name === element; });
+                if (index >= 0) {
+                    _this.menuItems[index].disabled = true;
+                }
+            });
+            console.log('=====================================');
+            console.log(_this.menuItems);
             //Checks item list has any icon type.
             _this.hasIconTypeMenuItem = !!_this.menuItems.filter(function (item) { return item.type === 'icon'; }).length;
         });
@@ -1491,7 +1562,8 @@ var SidebarSideComponent = /** @class */ (function (_super) {
             template: __webpack_require__(/*! ./sidebar-side.component.html */ "./src/app/shared/components/sidebar-side/sidebar-side.component.html")
         }),
         __metadata("design:paramtypes", [_shared_services_navigation_service__WEBPACK_IMPORTED_MODULE_1__["NavigationService"],
-            _services_theme_service__WEBPACK_IMPORTED_MODULE_2__["ThemeService"]])
+            _services_theme_service__WEBPACK_IMPORTED_MODULE_2__["ThemeService"],
+            _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
     ], SidebarSideComponent);
     return SidebarSideComponent;
 }(_helpers_local_storage__WEBPACK_IMPORTED_MODULE_4__["LocalStorageHandler"]));
@@ -2935,6 +3007,164 @@ var AppLoaderService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/services/auth/add-header-interceptor.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/shared/services/auth/add-header-interceptor.ts ***!
+  \****************************************************************/
+/*! exports provided: AddHeaderInterceptor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddHeaderInterceptor", function() { return AddHeaderInterceptor; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _auth_properties__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
+/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../../../environments/environment.prod */ "./src/environments/environment.prod.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var AddHeaderInterceptor = /** @class */ (function () {
+    function AddHeaderInterceptor(userService) {
+        this.userService = userService;
+        this.gloable_user = _auth_properties__WEBPACK_IMPORTED_MODULE_4__["authProperties"].gloable_user;
+        this.gloable_secret = _auth_properties__WEBPACK_IMPORTED_MODULE_4__["authProperties"].gloable_secret;
+        this.storage_name = _auth_properties__WEBPACK_IMPORTED_MODULE_4__["authProperties"].storage_name;
+        this.blackListUrls = [
+            'Url which is not need to set Bearer token'
+        ];
+    }
+    AddHeaderInterceptor.prototype.intercept = function (request, next) {
+        var userObj = JSON.parse(localStorage.getItem(this.storage_name));
+        var authTokenUrlValidation = this.outhTokenUrlValidate(request.url);
+        if (userObj) {
+            var token = userObj.token;
+            var tokenExpireState = this.userService.isTokenExpired(token);
+            var blaklistStatus = this.getBlackListUrl(request.url);
+            console.log(request.url);
+            console.log(blaklistStatus);
+            if (!blaklistStatus) {
+                if (tokenExpireState) {
+                    if (authTokenUrlValidation) {
+                        request = request.clone({
+                            headers: request.headers.set('Authorization', 'Basic ' + btoa(this.gloable_user + ':' + this.gloable_secret))
+                        });
+                    }
+                }
+                else {
+                    request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
+                    if (!request.headers.has('Content-Type')) {
+                        request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+                    }
+                    request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+                }
+            }
+        }
+        else {
+            console.log('IN LOG CONTTX............................');
+            if (authTokenUrlValidation) {
+                request = request.clone({
+                    headers: request.headers.set('Authorization', 'Basic ' + btoa(this.gloable_user + ':' + this.gloable_secret))
+                });
+            }
+        }
+        return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (event) {
+            if (event instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpResponse"]) {
+                // console.log('event--->>>', event);
+                // this.errorDialogService.openDialog(event);
+            }
+            return event;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (error) {
+            var data = {};
+            data = {
+                reason: error && error.error.reason ? error.error.reason : '',
+                status: error.status
+            };
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(error);
+        }));
+    };
+    AddHeaderInterceptor.prototype.getBlackListUrl = function (url) {
+        var status = false;
+        if (url.match(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].userApiUrl)) {
+            var subUrl = url.replace(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].userApiUrl, '');
+            for (var i = 0; i < this.blackListUrls.length; i++) {
+                if (this.blackListUrls[i] === subUrl) {
+                    console.log(subUrl);
+                    status = true;
+                    break;
+                }
+            }
+        }
+        if (url.match(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].surveyApiURL)) {
+            status = true;
+        }
+        if (url.match(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].productApiURL)) {
+            status = true;
+        }
+        if (url.match(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].productimageUrl)) {
+            status = true;
+        }
+        if (url.match(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].evoteimageUrl)) {
+            status = true;
+        }
+        return status;
+    };
+    AddHeaderInterceptor.prototype.outhTokenUrlValidate = function (url) {
+        var authTokenUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].authTokenUrl + 'oauth/token';
+        if (authTokenUrl === url) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
+    AddHeaderInterceptor = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
+    ], AddHeaderInterceptor);
+    return AddHeaderInterceptor;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/services/auth/auth-properties.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/shared/services/auth/auth-properties.ts ***!
+  \*********************************************************/
+/*! exports provided: authProperties */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "authProperties", function() { return authProperties; });
+var authProperties = {
+    gloable_user: 'CPAP',
+    gloable_secret: 'Cp43&$^fdgd*+!!@#Agdo4Ged',
+    storage_name: 'currentUser',
+    componentList: 'componentList'
+};
+
+
+/***/ }),
+
 /***/ "./src/app/shared/services/auth/auth.guard.ts":
 /*!****************************************************!*\
   !*** ./src/app/shared/services/auth/auth.guard.ts ***!
@@ -3196,7 +3426,7 @@ var LayoutService = /** @class */ (function () {
         this.layoutConfSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](this.layoutConf);
         this.layoutConf$ = this.layoutConfSubject.asObservable();
         this.fullWidthRoutes = ['future-survey'];
-        this.compactRoutes = ['surveys'];
+        this.compactRoutes = ['surveys', 'clients'];
         this.setAppLayout();
     }
     LayoutService.prototype.setAppLayout = function () {
@@ -3743,39 +3973,52 @@ var NavigationService = /** @class */ (function () {
         // ]
         this.iconMenu = [
             {
-                name: "Clients",
+                name: "User Management",
                 type: "link",
                 tooltip: "Client management",
                 icon: "person",
-                state: "cruds/ngx-table"
+                state: "users/user-table",
+                disabled: false
+            },
+            {
+                name: "Client Management",
+                type: "link",
+                tooltip: "Client Management",
+                icon: "person",
+                state: "clients/client-table",
+                disabled: false
             },
             {
                 name: "Product Catalogue",
                 type: "link",
                 tooltip: "Product management",
                 icon: "assignment",
-                state: "productCrud/show"
+                state: "productCrud/show",
+                disabled: false
             },
             {
                 name: "Instant Feedback",
                 type: "link",
                 tooltip: "Feedback Management",
                 icon: "feedback",
-                state: "surveys"
+                state: "surveys",
+                disabled: false
             },
             {
                 name: "E-Vote",
                 type: "link",
                 tooltip: "E-Vote",
                 icon: "thumbs_up_down",
-                state: "evote/showEvote"
+                state: "evote/showEvote",
+                disabled: false
             },
             {
                 name: "Future Survey",
                 type: "link",
                 tooltip: "Future Survey",
                 icon: "language",
-                state: "future-survey"
+                state: "future-survey",
+                disabled: false
             },
             // ,
             // {
@@ -4521,6 +4764,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _shared_fake_db_cp_users__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/fake-db/cp-users */ "./src/app/shared/fake-db/cp-users.ts");
+/* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jwt-decode */ "./node_modules/jwt-decode/lib/index.js");
+/* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jwt_decode__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! environments/environment.prod */ "./src/environments/environment.prod.ts");
+/* harmony import */ var _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../shared/services/auth/auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4533,41 +4782,140 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
+
+
 var UserService = /** @class */ (function () {
     function UserService(http) {
         this.http = http;
+        this.baseAuthUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].authTokenUrl;
+        this.storage_name = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__["authProperties"].storage_name;
+        this.componentList = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__["authProperties"].componentList;
+        this.userApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].userApiUrl;
         var user = new _shared_fake_db_cp_users__WEBPACK_IMPORTED_MODULE_2__["CpUsersDB"]();
         this.users = user.users;
     }
+    /*
+     * User Login function
+     * Created by Prasad Kumara
+     * 14/02/2019
+     */
     UserService.prototype.login = function (signinFormData) {
-        console.log(this.users);
-        var currentUser = this.users.filter(function (user) {
-            return (user.user_name === signinFormData.username &&
-                user.password === signinFormData.password);
-        });
-        console.log("current log users" + currentUser);
-        if (currentUser.length > 0) {
-            console.log(currentUser);
-            var loggedUser = currentUser[0];
-            var userToken = {
-                id: loggedUser.id,
-                username: loggedUser.user_name,
-                profilename: loggedUser.profile_name,
-                image: loggedUser.image,
-                token: "fake-logged-user",
-                company: loggedUser.company,
-                position: loggedUser.position
-            };
-            localStorage.setItem("currentUser", JSON.stringify(userToken));
-            return true;
-        }
-        else {
-            return false;
-        }
+        var payload = new FormData();
+        payload.append("grant_type", "password");
+        payload.append("username", signinFormData.username);
+        payload.append("password", signinFormData.password);
+        return this.http.post(this.baseAuthUrl + "oauth/token", payload).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) {
+            return data;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
     };
+    /*
+     * User Log out function
+     * Created by Prasad Kumara
+     * 14/02/2019
+     */
     UserService.prototype.logout = function () {
         // remove user from local storage to log user out
-        localStorage.removeItem("currentUser");
+        localStorage.removeItem(this.storage_name);
+        localStorage.removeItem(this.componentList);
+    };
+    /*
+     * Get Jwt token Expire date
+     * Created by Prasad Kumara
+     * 14/02/2019
+     */
+    UserService.prototype.getTokenExpirationDate = function (token) {
+        var decoded = jwt_decode__WEBPACK_IMPORTED_MODULE_3__(token);
+        if (decoded.exp === undefined) {
+            return null;
+        }
+        var date = new Date(0);
+        date.setUTCSeconds(decoded.exp);
+        return date;
+    };
+    /*
+     * Get Jwt token Expire or not
+     * Created by Prasad Kumara
+     * 14/02/2019
+     */
+    UserService.prototype.isTokenExpired = function (token) {
+        if (!token) {
+            token = "";
+        }
+        if (!token) {
+            return true;
+        }
+        var date = this.getTokenExpirationDate(token);
+        if (date === undefined || date === null) {
+            return false;
+        }
+        return !(date.valueOf() > new Date().valueOf());
+    };
+    UserService.prototype.activateUser = function (code, password) {
+        console.log("CALLED  service" + code);
+        console.log(password);
+        return this.http
+            .post(this.userApiUrl + "platform-users/activations/" + code, password)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) {
+            console.log("SUCESS");
+            console.log(data);
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+    };
+    /*
+     * Get User data using user id
+     * Created by Prasad Kumara
+     * 14/02/2019
+     */
+    UserService.prototype.getUserData = function (userId) {
+        return this.http.get(this.userApiUrl + "platform-users/" + userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) {
+            return data;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+    };
+    /*
+     * Get Jwt refrsh token Expire or not
+     * Created by Prasad Kumara
+     * 15/02/2019
+     */
+    UserService.prototype.getUserRefreshToken = function (refreshToken) {
+        var payload = new FormData();
+        payload.append("grant_type", "refresh_token");
+        payload.append("refresh_token", refreshToken);
+        return this.http.post(this.baseAuthUrl + "oauth/token", payload).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) {
+            return data;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+    };
+    /*
+     * Get Jwt refrsh token Expire or not
+     * Created by Prasad Kumara
+     * 15/02/2019
+     * Not working properly. Still lokking for solution
+     */
+    UserService.prototype.setComponetDisable = function () {
+        var userObj = JSON.parse(localStorage.getItem(this.storage_name));
+        var arrayList = [];
+        if (userObj) {
+            console.log('--------------- setComponetDisable ----------------');
+            console.log(userObj.userData.roles[0].name);
+            var roleName = userObj.userData.roles[0].name;
+            if (roleName === 'Super Administrator') {
+                arrayList = [
+                    'User Management'
+                ];
+                return arrayList;
+            }
+            else if (roleName === 'Admin') {
+                arrayList = [
+                    'Client Management',
+                    'User Management'
+                ];
+                return arrayList;
+            }
+        }
+    };
+    UserService.prototype.handleError = function (error) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["throwError"])(error);
     };
     UserService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
@@ -4576,6 +4924,50 @@ var UserService = /** @class */ (function () {
     return UserService;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/environments/environment.prod.ts":
+/*!**********************************************!*\
+  !*** ./src/environments/environment.prod.ts ***!
+  \**********************************************/
+/*! exports provided: environment */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
+var environment = {
+    production: true,
+    apiURL: "productionApi",
+    // SAP NEW 64GB
+    // productApiURL:'https://authentican60aazs63l.ca1.hana.ondemand.com/product/api/',
+    // surveyApiURL : 'https://authentican60aazs63l.ca1.hana.ondemand.com/survey/api/',
+    // productimageUrl :"https://authentican60aazs63l.ca1.hana.ondemand.com/product/",
+    // evoteimageUrl: "https://authentican60aazs63l.ca1.hana.ondemand.com/survey/",
+    // SAP NEW 32GB -  DEV TEST
+    productApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/product/api/",
+    surveyApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey/api/",
+    // userApiUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user",
+    productimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/product",
+    evoteimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey",
+    // LOCALE
+    // authTokenUrl:"http://localhost:10000/",
+    // userApiUrl: "http://localhost:10000/api/",
+    // productApiURL: "http://localhost:10001/api/",
+    // surveyApiURL: "http://localhost:10002/api/",
+    // productimageUrl: "http://localhost:10001/",
+    // evoteimageUrl: "http://localhost:10002/",
+    authTokenUrl: "https://userk84f365ea.ca1.hana.ondemand.com/user/",
+    userApiUrl: "https://userk84f365ea.ca1.hana.ondemand.com/user/api/",
+    // SAP OLD
+    // productApiURL: "https://productzg4t4ks63a.hana.ondemand.com/product/api/",
+    // surveyApiURL: "https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/",
+    // productimageUrl: "https://productzg4t4ks63a.hana.ondemand.com/product/",
+    // evoteimageUrl : 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/'
+    frontEndBaseUrl: 'https://judedw.github.io/JudiAuthentica-Dev/',
+};
 
 
 /***/ }),
