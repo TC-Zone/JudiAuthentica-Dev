@@ -16,6 +16,7 @@ export class UserService {
   users: any[];
   private baseAuthUrl: String = environment.authTokenUrl;
   private storage_name = authProperties.storage_name;
+  private componentList = authProperties.componentList;
   private userApiUrl = environment.userApiUrl;
 
   constructor(private http: HttpClient) {
@@ -49,7 +50,8 @@ export class UserService {
    */
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem("currentUser");
+    localStorage.removeItem(this.storage_name);
+    localStorage.removeItem(this.componentList);
   }
 
   /*
@@ -90,6 +92,9 @@ export class UserService {
   }
 
   activateUser(code, password): Observable<any> {
+    console.log("CALLED  service" + code);
+    console.log(password);
+
     return this.http
       .post<any>(
         this.userApiUrl + "platform-users/activations/" + code,
@@ -97,7 +102,8 @@ export class UserService {
       )
       .pipe(
         map(data => {
-          // console.log(data);
+          console.log("SUCESS");
+          console.log(data);
         }),
         catchError(this.handleError)
       );
@@ -117,6 +123,11 @@ export class UserService {
     );
   }
 
+  /*
+   * Get Jwt refrsh token Expire or not
+   * Created by Prasad Kumara
+   * 15/02/2019
+   */
   getUserRefreshToken(refreshToken) {
     const payload = new FormData();
     payload.append("grant_type", "refresh_token");
@@ -128,6 +139,50 @@ export class UserService {
       }),
       catchError(this.handleError)
     );
+  }
+
+  /*
+   * Get Jwt refrsh token Expire or not
+   * Created by Prasad Kumara
+   * 15/02/2019
+   * Not working properly. Still lokking for solution
+   */
+  setComponetDisable() {
+    const userObj = JSON.parse(localStorage.getItem(this.storage_name));
+    const componentList = JSON.parse(localStorage.getItem(this.componentList));
+    if (componentList) {
+      localStorage.removeItem(this.componentList);
+    }
+    const arrayList = {
+      user_management: false,
+      client_management: false,
+      product_catalogue: false,
+      instant_feedback: false,
+      e_vote: false,
+      future_survey: false
+    };
+    if (userObj) {
+      console.log('--------------- setComponetDisable ----------------');
+      console.log(userObj.userData.roles[0].name);
+      const roleName = userObj.userData.roles[0].name;
+      if (roleName === 'Super Administrator') {
+        arrayList.client_management = false;
+        arrayList.e_vote = false;
+        arrayList.future_survey = false;
+        arrayList.instant_feedback = false;
+        arrayList.product_catalogue = false;
+        arrayList.user_management = true;
+        localStorage.setItem(this.componentList, JSON.stringify(arrayList));
+      } else if (roleName === 'Admin') {
+        arrayList.client_management = true;
+        arrayList.e_vote = false;
+        arrayList.future_survey = false;
+        arrayList.instant_feedback = false;
+        arrayList.product_catalogue = false;
+        arrayList.user_management = false;
+        localStorage.setItem(this.componentList, JSON.stringify(arrayList));
+      }
+    }
   }
 
   private handleError(error: HttpErrorResponse | any) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Renderer2 } from "@angular/core";
+import { Component, OnInit, AfterViewInit, Renderer2, Inject } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import {
   Router,
@@ -13,6 +13,7 @@ import { ThemeService } from "./shared/services/theme.service";
 import { filter } from "rxjs/operators";
 import { UserService } from "./views/sessions/UserService.service";
 import { authProperties } from './shared/services/auth/auth-properties';
+import { DOCUMENT } from "@angular/common";
 
 @Component({
   selector: "app-root",
@@ -31,13 +32,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     private routePartsService: RoutePartsService,
     private themeService: ThemeService,
     private renderer: Renderer2,
-    private userService: UserService
+    private userService: UserService,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit() {
     this.changePageTitle();
     this.checkLoginUser();
-    this.setComponetDisable();
+    this.userService.setComponetDisable();
   }
 
   ngAfterViewInit() {
@@ -63,17 +65,15 @@ export class AppComponent implements OnInit, AfterViewInit {
       });
   }
 
-  setComponetDisable() {
-    const userObj = JSON.parse(localStorage.getItem(authProperties.storage_name));
-    console.log(userObj);
-  }
-
   checkLoginUser() {
     const userObj = JSON.parse(localStorage.getItem(authProperties.storage_name));
     if (userObj) {
       const isTokenExired = this.userService.isTokenExpired(userObj.token);
       if (!isTokenExired) {
-        this.router.navigate(['profile']);
+        const currentPath = this.document.location.href;
+        const origin = this.document.location.origin;
+        const navigationPath = currentPath.replace(origin + '/', '');
+        this.router.navigate([navigationPath]);
       } else {
         localStorage.removeItem(authProperties.storage_name);
         this.router.navigate(['sessions/signin']);
