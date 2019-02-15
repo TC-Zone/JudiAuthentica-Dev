@@ -24,7 +24,11 @@ export class SigninComponent implements OnInit {
   result: boolean = true;
   private storage_name = authProperties.storage_name;
 
-  constructor(private userService: UserService, private router: Router) {}
+
+  // test
+  public userId
+
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.signinForm = new FormGroup({
@@ -69,27 +73,30 @@ export class SigninComponent implements OnInit {
             this.progressBar.mode = 'determinate';
             this.router.navigate([this.successUrl]);
           },
-          error => {
+            error => {
+              this.progressBar.mode = 'determinate';
+              this.signinForm.reset();
+              localStorage.removeItem(this.storage_name);
+              this.router.navigate([this.signInUrl]);
+            }
+          );
+      },
+        error => {
+          if (error.status === 401 || error.status === 403) {
             this.progressBar.mode = 'determinate';
             this.signinForm.reset();
-            localStorage.removeItem(this.storage_name);
+            this.router.navigate([this.signInUrl]);
+          } else {
+            this.progressBar.mode = 'determinate';
+            this.signinForm.reset();
             this.router.navigate([this.signInUrl]);
           }
-        );
-      },
-      error => {
-        if (error.status === 401 || error.status === 403) {
-          this.progressBar.mode = 'determinate';
-          this.signinForm.reset();
-          this.router.navigate([this.signInUrl]);
-        } else {
-          this.progressBar.mode = 'determinate';
-          this.signinForm.reset();
-          this.router.navigate([this.signInUrl]);
         }
-      }
-    );
+      );
   }
+
+
+  
 
   getRefreshToken(refreshTime) {
     setTimeout(() => {
