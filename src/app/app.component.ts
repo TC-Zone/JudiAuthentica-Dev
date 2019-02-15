@@ -39,7 +39,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.changePageTitle();
     this.checkLoginUser();
-    this.userService.setComponetDisable();
   }
 
   ngAfterViewInit() {

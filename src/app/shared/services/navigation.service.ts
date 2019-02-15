@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { authProperties } from './../services/auth/auth-properties';
 
 interface IMenuItem {
   type: string; // Possible values: link/dropDown/icon/separator/extLink

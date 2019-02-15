@@ -4,6 +4,7 @@ import { ThemeService } from '../../services/theme.service';
 import { Subscription } from "rxjs";
 import PerfectScrollbar from 'perfect-scrollbar';
 import { LocalStorageHandler } from '../../helpers/local-storage';
+import { UserService } from './../../../views/sessions/UserService.service';
 
 @Component({
   selector: 'app-sidebar-side',
@@ -18,12 +19,22 @@ export class SidebarSideComponent extends LocalStorageHandler implements OnInit,
   constructor(
     private navService: NavigationService,
     public themeService: ThemeService,
+    public userService: UserService
   ) {super(); }
 
   ngOnInit() {
     this.iconTypeMenuTitle = this.navService.iconTypeMenuTitle;
     this.menuItemsSub = this.navService.menuItems$.subscribe(menuItem => {
       this.menuItems = menuItem;
+      const removeItemList = this.userService.setComponetDisable();
+      removeItemList.forEach(element => {
+        const index = this.menuItems.findIndex(x => x.name === element);
+        if (index >= 0) {
+          this.menuItems[index].disabled = true;
+        }
+      });
+      console.log('=====================================');
+      console.log(this.menuItems);
       //Checks item list has any icon type.
       this.hasIconTypeMenuItem = !!this.menuItems.filter(item => item.type === 'icon').length;
     });

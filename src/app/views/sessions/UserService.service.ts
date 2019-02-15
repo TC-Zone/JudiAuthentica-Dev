@@ -149,38 +149,22 @@ export class UserService {
    */
   setComponetDisable() {
     const userObj = JSON.parse(localStorage.getItem(this.storage_name));
-    const componentList = JSON.parse(localStorage.getItem(this.componentList));
-    if (componentList) {
-      localStorage.removeItem(this.componentList);
-    }
-    const arrayList = {
-      user_management: false,
-      client_management: false,
-      product_catalogue: false,
-      instant_feedback: false,
-      e_vote: false,
-      future_survey: false
-    };
+    let arrayList = [];
     if (userObj) {
       console.log('--------------- setComponetDisable ----------------');
       console.log(userObj.userData.roles[0].name);
       const roleName = userObj.userData.roles[0].name;
       if (roleName === 'Super Administrator') {
-        arrayList.client_management = false;
-        arrayList.e_vote = false;
-        arrayList.future_survey = false;
-        arrayList.instant_feedback = false;
-        arrayList.product_catalogue = false;
-        arrayList.user_management = true;
-        localStorage.setItem(this.componentList, JSON.stringify(arrayList));
+        arrayList = [
+          'User Management'
+        ];
+        return arrayList;
       } else if (roleName === 'Admin') {
-        arrayList.client_management = true;
-        arrayList.e_vote = false;
-        arrayList.future_survey = false;
-        arrayList.instant_feedback = false;
-        arrayList.product_catalogue = false;
-        arrayList.user_management = false;
-        localStorage.setItem(this.componentList, JSON.stringify(arrayList));
+        arrayList = [
+          'Client Management',
+          'User Management'
+        ];
+        return arrayList;
       }
     }
   }
