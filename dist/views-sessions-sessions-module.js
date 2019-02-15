@@ -6965,6 +6965,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./not-found/not-found.component */ "./src/app/views/sessions/not-found/not-found.component.ts");
 /* harmony import */ var _error_error_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./error/error.component */ "./src/app/views/sessions/error/error.component.ts");
 /* harmony import */ var _UserService_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _user_activation_user_activation_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./user-activation/user-activation.component */ "./src/app/views/sessions/user-activation/user-activation.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6978,6 +6979,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 // import { CommonDirectivesModule } from './sdirectives/common/common-directives.module';
+
 
 
 
@@ -7010,7 +7012,8 @@ var SessionsModule = /** @class */ (function () {
                 _signin_signin_component__WEBPACK_IMPORTED_MODULE_8__["SigninComponent"],
                 _signup_signup_component__WEBPACK_IMPORTED_MODULE_9__["SignupComponent"],
                 _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_11__["NotFoundComponent"],
-                _error_error_component__WEBPACK_IMPORTED_MODULE_12__["ErrorComponent"]
+                _error_error_component__WEBPACK_IMPORTED_MODULE_12__["ErrorComponent"],
+                _user_activation_user_activation_component__WEBPACK_IMPORTED_MODULE_14__["UserActivationComponent"]
             ],
             providers: [_UserService_service__WEBPACK_IMPORTED_MODULE_13__["UserService"]]
         })
@@ -7038,6 +7041,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _signup_signup_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./signup/signup.component */ "./src/app/views/sessions/signup/signup.component.ts");
 /* harmony import */ var _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./not-found/not-found.component */ "./src/app/views/sessions/not-found/not-found.component.ts");
 /* harmony import */ var _error_error_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./error/error.component */ "./src/app/views/sessions/error/error.component.ts");
+/* harmony import */ var _user_activation_user_activation_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user-activation/user-activation.component */ "./src/app/views/sessions/user-activation/user-activation.component.ts");
+
 
 
 
@@ -7071,6 +7076,10 @@ var SessionsRoutes = [
                 path: 'error',
                 component: _error_error_component__WEBPACK_IMPORTED_MODULE_5__["ErrorComponent"],
                 data: { title: 'Error' }
+            }, {
+                path: 'activation/:code',
+                component: _user_activation_user_activation_component__WEBPACK_IMPORTED_MODULE_6__["UserActivationComponent"],
+                data: { title: 'Activation' }
             }]
     }
 ];
@@ -7115,6 +7124,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _UserService_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../UserService.service */ "./src/app/views/sessions/UserService.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../shared/services/auth/auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7129,6 +7139,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SigninComponent = /** @class */ (function () {
     function SigninComponent(userService, router) {
         this.userService = userService;
@@ -7136,6 +7147,7 @@ var SigninComponent = /** @class */ (function () {
         this.successUrl = "profile";
         this.signInUrl = "sessions/signin";
         this.result = true;
+        this.storage_name = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__["authProperties"].storage_name;
     }
     SigninComponent.prototype.ngOnInit = function () {
         this.signinForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
@@ -7145,23 +7157,71 @@ var SigninComponent = /** @class */ (function () {
         });
     };
     SigninComponent.prototype.signin = function () {
+        var _this = this;
+        var userObj = JSON.parse(localStorage.getItem(this.storage_name));
+        if (userObj) {
+            localStorage.removeItem(this.storage_name);
+        }
         var signinData = this.signinForm.value;
-        console.log(signinData);
-        console.log("LOCAL STORAGE");
-        console.log(localStorage.getItem("currentUser"));
         this.submitButton.disabled = true;
-        this.progressBar.mode = "indeterminate";
-        this.result = this.userService.login(signinData);
-        console.log(this.result);
-        console.log(JSON.parse(localStorage.getItem("currentUser")));
-        if (this.result) {
-            this.router.navigate([this.successUrl]);
-        }
-        else {
-            this.progressBar.mode = "determinate";
-            this.signinForm.reset();
-            this.router.navigate([this.signInUrl]);
-        }
+        this.progressBar.mode = 'indeterminate';
+        this.userService.login(signinData)
+            .subscribe(function (response) {
+            var tempUser = {
+                id: response.user_id,
+                username: 'contactpkumara@gmail.com',
+                profilename: 'Kushan Pabasara',
+                image: 'assets/images/cp_users/placeholder-user.png',
+                token: response.access_token,
+                refreshToken: response.refresh_token,
+                company: 'Kushan Pabasara',
+                position: 'UI/UX Engineer',
+                expires_in: response.expires_in,
+                userData: ''
+            };
+            localStorage.setItem(_this.storage_name, JSON.stringify(tempUser));
+            _this.getRefreshToken(response.expires_in * 1000);
+            _this.userService.getUserData(response.user_id)
+                .subscribe(function (res) {
+                tempUser.username = res.content.userName;
+                tempUser.profilename = res.content.userName;
+                tempUser.company = res.content.client;
+                tempUser.userData = res.content;
+                localStorage.setItem(_this.storage_name, JSON.stringify(tempUser));
+                _this.progressBar.mode = 'determinate';
+                _this.router.navigate([_this.successUrl]);
+            }, function (error) {
+                _this.progressBar.mode = 'determinate';
+                _this.signinForm.reset();
+                localStorage.removeItem(_this.storage_name);
+                _this.router.navigate([_this.signInUrl]);
+            });
+        }, function (error) {
+            if (error.status === 401 || error.status === 403) {
+                _this.progressBar.mode = 'determinate';
+                _this.signinForm.reset();
+                _this.router.navigate([_this.signInUrl]);
+            }
+            else {
+                _this.progressBar.mode = 'determinate';
+                _this.signinForm.reset();
+                _this.router.navigate([_this.signInUrl]);
+            }
+        });
+    };
+    SigninComponent.prototype.getRefreshToken = function (refreshTime) {
+        var _this = this;
+        setTimeout(function () {
+            var tempUser = JSON.parse(localStorage.getItem(_this.storage_name));
+            _this.userService.getUserRefreshToken(tempUser.refreshToken)
+                .subscribe(function (response) {
+                tempUser.token = response.access_token;
+                tempUser.refreshToken = response.refresh_token;
+                tempUser.expires_in = response.expires_in;
+                localStorage.setItem(_this.storage_name, JSON.stringify(tempUser));
+                _this.getRefreshToken(response.expires_in * 1000);
+            });
+        }, refreshTime);
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatProgressBar"]),
@@ -7278,6 +7338,112 @@ var SignupComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], SignupComponent);
     return SignupComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/views/sessions/user-activation/user-activation.component.html":
+/*!*******************************************************************************!*\
+  !*** ./src/app/views/sessions/user-activation/user-activation.component.html ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"page-wrap height-100 mat-bg-primary background-signin\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-progress-bar mode=\"determinate\" class=\"session-progress\"></mat-progress-bar>\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <img src=\"assets/images/signin/logo.jpg\" alt=\"\">\r\n          <p class=\"text-muted m-0\">Truverus User Activation</p>\r\n          <small *ngIf=\"result\" class=\" m-0 form-error-msg\"> {{errorMsg}} </small>\r\n        </div>\r\n        <form [formGroup]=\"activationForm\" (ngSubmit)=\"activateUser()\">\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"password\" name=\"password\" matInput [formControl]=\"activationForm.controls['password']\"\r\n                placeholder=\"Password\" value=\"\">\r\n            </mat-form-field>\r\n            <small\r\n              *ngIf=\"activationForm.controls['password'].hasError('required') && activationForm.controls['password'].touched\"\r\n              class=\"form-error-msg\">\r\n              Password is required </small>\r\n          </div>\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\"\r\n            [disabled]=\"activationForm.invalid\">Activate</button>\r\n        </form>\r\n\r\n\r\n\r\n\r\n        <!-- <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"activateUser()\">Activate</button> -->\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/views/sessions/user-activation/user-activation.component.ts":
+/*!*****************************************************************************!*\
+  !*** ./src/app/views/sessions/user-activation/user-activation.component.ts ***!
+  \*****************************************************************************/
+/*! exports provided: UserActivationComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserActivationComponent", function() { return UserActivationComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _UserService_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var UserActivationComponent = /** @class */ (function () {
+    function UserActivationComponent(route, userService, snack, router) {
+        this.route = route;
+        this.userService = userService;
+        this.snack = snack;
+        this.router = router;
+        this.result = false;
+        this.errorMsg = "The password must contain at least 6 characters !";
+    }
+    UserActivationComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            console.log(params["code"]);
+            _this.activationCode = params["code"];
+        });
+        this.buildActivationForm();
+    };
+    UserActivationComponent.prototype.buildActivationForm = function () {
+        this.activationForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
+        });
+    };
+    UserActivationComponent.prototype.activateUser = function () {
+        var _this = this;
+        console.log('CALLED activate');
+        if (100 > this.activationForm.value.password.length && this.activationForm.value.password.length > 6) {
+            this.userService
+                .activateUser(this.activationCode, this.activationForm.value)
+                .subscribe(function (response) {
+                console.log("SUCCESS ACTIVATION");
+                _this.result = false;
+                _this.snack.open("User Activated !", "OK", { duration: 3000 });
+                _this.router.navigate(['sessions/signin']);
+            }, function (error) {
+                if (error.error.validationFailures[0].code === "userActivationRequest.alreadyActivated") {
+                    _this.errorMsg = "User Already Activated !";
+                    _this.result = true;
+                }
+            });
+        }
+        else {
+            this.errorMsg = "The password must contain at least 6 characters !";
+            this.result = true;
+        }
+    };
+    UserActivationComponent.prototype.submit = function () {
+        console.log('CALLED activate');
+    };
+    UserActivationComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: "app-user-activation",
+            template: __webpack_require__(/*! ./user-activation.component.html */ "./src/app/views/sessions/user-activation/user-activation.component.html")
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
+            _UserService_service__WEBPACK_IMPORTED_MODULE_3__["UserService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSnackBar"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    ], UserActivationComponent);
+    return UserActivationComponent;
 }());
 
 

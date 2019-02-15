@@ -53,7 +53,7 @@ export class SigninComponent implements OnInit {
           id: response.user_id,
           username: 'contactpkumara@gmail.com',
           profilename: 'Kushan Pabasara',
-          image: 'assets/images/cp_users/kushan pabasara.jpg',
+          image: 'assets/images/cp_users/placeholder-user.png',
           token: response.access_token,
           refreshToken: response.refresh_token,
           company: 'Kushan Pabasara',
@@ -96,7 +96,7 @@ export class SigninComponent implements OnInit {
   }
 
 
-  
+
 
   getRefreshToken(refreshTime) {
     setTimeout(() => {

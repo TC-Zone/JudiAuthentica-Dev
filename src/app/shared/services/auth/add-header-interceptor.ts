@@ -15,6 +15,7 @@ import { UserService } from './../../../views/sessions/UserService.service';
 import { st } from '@angular/core/src/render3';
 import { environment } from './../../../../environments/environment.prod';
 
+
 @Injectable()
 export class AddHeaderInterceptor implements HttpInterceptor {
 
@@ -52,6 +53,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
         }
       }
     } else {
+      console.log('IN LOG CONTTX............................')
       if (authTokenUrlValidation) {
         request = request.clone({
           headers: request.headers.set('Authorization', 'Basic ' + btoa(this.gloable_user + ':' + this.gloable_secret))
@@ -105,7 +107,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
   }
 
   private outhTokenUrlValidate(url): boolean {
-    const authTokenUrl = 'http://localhost:10000/oauth/token';
+    const authTokenUrl = environment.authTokenUrl + 'oauth/token';
     if (authTokenUrl === url) {
       return true;
     } else {

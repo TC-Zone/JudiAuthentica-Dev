@@ -1,27 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-evote-evote-module"],{
 
-/***/ "./src/app/model/ClientModel.model.ts":
-/*!********************************************!*\
-  !*** ./src/app/model/ClientModel.model.ts ***!
-  \********************************************/
-/*! exports provided: Content */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Content", function() { return Content; });
-var Content = /** @class */ (function () {
-    function Content(id, name) {
-        this.id = id;
-        this.name = name;
-    }
-    return Content;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/views/cruds/crud.service.ts":
 /*!*********************************************!*\
   !*** ./src/app/views/cruds/crud.service.ts ***!

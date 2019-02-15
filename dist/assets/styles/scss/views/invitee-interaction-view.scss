@@ -1,0 +1,53 @@
+.page-wrap {
+  display: flex;
+  padding: 0px;
+}
+
+// override to set invitee ininteraction login postion to left
+.session-form-hold.set-form-left{
+  margin-left: 0px;
+  max-width: 100%;
+  // width: 100%;
+}
+
+#invitee-interaction-view{
+
+  .background-survey-signin {
+    background-image: url("assets/images/survey_signin/Survey-User-Login-Background.jpg") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+  }
+
+  .background-survey-form {
+    background-image: url("assets/images/survey_background/Survey-Background-01_3.jpg") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+  }
+  
+  #login-card{
+    height: 100vh;
+    width: 33.3%;
+    opacity: 0.8;
+
+    #login-form{
+      padding: 0px 90px 0px;
+      margin: 0;
+      position: absolute;
+      top: 20%;
+
+      #login-form-logo{
+        padding: 30px 0px 50px !important;
+        max-width: 80%;
+        margin: auto;
+      }
+
+    }
+    
+  }
+  
+  .mat-card{
+    padding: 0px;
+  }
+
+}
+

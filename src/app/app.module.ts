@@ -19,6 +19,7 @@ import { AddHeaderInterceptor } from './shared/services/auth/add-header-intercep
 
 
 
+
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
