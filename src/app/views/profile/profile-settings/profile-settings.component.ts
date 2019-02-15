@@ -18,7 +18,8 @@ export class ProfileSettingsComponent implements OnInit {
   public itemForm: FormGroup;
   public clientId;
   public userId;
-  public name;
+  public userName;
+  public email;
   constructor(
     private fb: FormBuilder,
     private profileService: ProfileService,
@@ -29,21 +30,25 @@ export class ProfileSettingsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.buildItemForm();
-    this.clientId = "faa6643aca8c5318a9583178795542cf";
-    this.userId = "d36eeebd8b1f0cde16210339e97b9408";
-    this.name = 'Adida';
+    
+    let currentuser = JSON.parse(localStorage.getItem('currentUser'));
+
+    this.userId = currentuser.userData.id;
+    this.userName = currentuser.userData.userName;
+    this.email = currentuser.userData.email;
+    this.buildItemForm(currentuser.userData);
+
   }
   public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
 
-  buildItemForm() {
+  buildItemForm(data) {
 
     this.itemForm = this.fb.group({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email])
+      username: new FormControl(data.userName || '', Validators.required),
+      email: new FormControl(data.email || '', [Validators.required, Validators.email]),
+      password: new FormControl('', Validators.required)
     })
 
   }
@@ -58,7 +63,7 @@ export class ProfileSettingsComponent implements OnInit {
       response => {
         // this.getUsers();
         this.loader.close();
-        this.snack.open("Client Updated!", "OK", { duration: 4000 });
+        this.snack.open("Profile Updated!", "OK", { duration: 4000 });
         // return this.users.slice();
       },
       error => {

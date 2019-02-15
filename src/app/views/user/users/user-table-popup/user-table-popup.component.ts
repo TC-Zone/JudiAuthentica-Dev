@@ -34,17 +34,15 @@ export class UserTablePopupComponent implements OnInit {
     } else {
       role = item.roles[0].id;
     }
-
-
+    
     this.itemForm = this.fb.group({
       username: new FormControl(item.userName || '', Validators.required),
-      password: new FormControl(item.password || '', Validators.required),
       email: new FormControl(item.email || '', [Validators.required, Validators.email]),
+      password: new FormControl(item.password || '', Validators.required),
       role: new FormControl(role, Validators.required)
     })
 
     if (item.id !== undefined) {
-      role = item.roles[0].id;
       this.itemForm.get('password').clearValidators();
       this.itemForm.get('password').updateValueAndValidity();
     }
