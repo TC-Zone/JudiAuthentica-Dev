@@ -34,6 +34,8 @@ export class AddHeaderInterceptor implements HttpInterceptor {
       const token = userObj.token;
       const tokenExpireState = this.userService.isTokenExpired(token);
       const blaklistStatus = this.getBlackListUrl(request.url);
+      console.log(request.url);
+      console.log(blaklistStatus);
       if (!blaklistStatus) {
         if (tokenExpireState) {
           if (authTokenUrlValidation) {
@@ -81,55 +83,23 @@ export class AddHeaderInterceptor implements HttpInterceptor {
       const subUrl = url.replace(environment.userApiUrl, '');
       for (let i = 0; i < this.blackListUrls.length; i++) {
         if (this.blackListUrls[i] === subUrl) {
+          console.log(subUrl);
           status = true;
           break;
         }
       }
     }
     if (url.match(environment.surveyApiURL)) {
-      const subUrl = url.replace(environment.surveyApiURL, '');
-      for (let i = 0; i < this.blackListUrls.length; i++) {
-        if (this.blackListUrls[i] === subUrl) {
-          status = true;
-          break;
-        }
-      }
-    }
-    if (url.match(environment.authTokenUrl)) {
-      const subUrl = url.replace(environment.authTokenUrl, '');
-      for (let i = 0; i < this.blackListUrls.length; i++) {
-        if (this.blackListUrls[i] === subUrl) {
-          status = true;
-          break;
-        }
-      }
+      status = true;
     }
     if (url.match(environment.productApiURL)) {
-      const subUrl = url.replace(environment.productApiURL, '');
-      for (let i = 0; i < this.blackListUrls.length; i++) {
-        if (this.blackListUrls[i] === subUrl) {
-          status = true;
-          break;
-        }
-      }
+      status = true;
     }
     if (url.match(environment.productimageUrl)) {
-      const subUrl = url.replace(environment.productimageUrl, '');
-      for (let i = 0; i < this.blackListUrls.length; i++) {
-        if (this.blackListUrls[i] === subUrl) {
-          status = true;
-          break;
-        }
-      }
+      status = true;
     }
     if (url.match(environment.evoteimageUrl)) {
-      const subUrl = url.replace(environment.evoteimageUrl, '');
-      for (let i = 0; i < this.blackListUrls.length; i++) {
-        if (this.blackListUrls[i] === subUrl) {
-          status = true;
-          break;
-        }
-      }
+      status = true;
     }
     return status;
   }
