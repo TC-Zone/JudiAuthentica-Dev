@@ -67,20 +67,30 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   checkLoginUser() {
     const userObj = JSON.parse(localStorage.getItem(authProperties.storage_name));
+    const currentPath = this.document.location.href;
+    const origin = this.document.location.origin;
+    const navigationPath = currentPath.replace(origin + '/', '');
     if (userObj) {
       const isTokenExired = this.userService.isTokenExpired(userObj.token);
       if (!isTokenExired) {
-        const currentPath = this.document.location.href;
-        const origin = this.document.location.origin;
-        const navigationPath = currentPath.replace(origin + '/', '');
         this.router.navigate([navigationPath]);
       } else {
-        localStorage.removeItem(authProperties.storage_name);
+        this.removeLocalStorageElement();
         this.router.navigate(['sessions/signin']);
       }
     } else {
-      this.router.navigate(['sessions/signin']);
+      this.removeLocalStorageElement();
+      if (navigationPath === 'sessions/signin') {
+        this.router.navigate(['sessions/signin']);
+      } else {
+        this.router.navigate([navigationPath]);
+      }
     }
+  }
+
+  removeLocalStorageElement() {
+    localStorage.removeItem(authProperties.storage_name);
+    localStorage.removeItem(authProperties.componentList);
   }
 
 }
