@@ -72,12 +72,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     const navigationPath = currentPath.replace(origin + '/', '');
     if (userObj) {
       const isTokenExired = this.userService.isTokenExpired(userObj.token);
-      if (!isTokenExired) {
-        this.router.navigate([navigationPath]);
-      } else {
+      if (isTokenExired) {
+        // this.router.navigate([navigationPath]);
         this.removeLocalStorageElement();
         this.router.navigate(['sessions/signin']);
-      }
+      } //else {
+        //this.removeLocalStorageElement();
+        //this.router.navigate(['sessions/signin']);
+      //}
     } else {
       this.removeLocalStorageElement();
       if (navigationPath === 'sessions/signin') {

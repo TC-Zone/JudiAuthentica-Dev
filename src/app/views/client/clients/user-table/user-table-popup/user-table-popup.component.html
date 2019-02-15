@@ -8,8 +8,7 @@
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="username" [formControl]="itemForm.controls['username']" positiveNumberAndLetterOnly
-            placeholder="User Name">
+          <input matInput name="username" [formControl]="itemForm.controls['username']" placeholder="User Name">
         </mat-form-field>
       </div>
       <div fxFlex="50" class="pr-1"  *ngIf="formStatus">
