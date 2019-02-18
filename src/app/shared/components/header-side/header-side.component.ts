@@ -80,7 +80,6 @@ export class HeaderSideComponent extends LocalStorageHandler implements OnInit {
     if(localStorage.getItem('currentUser')){
       console.log('NULL OI');
     }
-
-    this.router.navigate(['/sessions/signin']);
+    // this.router.navigate(['/sessions/signin']);
   }
 }
