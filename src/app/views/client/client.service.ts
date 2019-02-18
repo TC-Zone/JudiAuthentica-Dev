@@ -139,7 +139,9 @@ export class ClientService {
 
   private handleError(error: HttpErrorResponse | any) {
     // console.log(error);
-    return throwError(error);
+    if (error.status !== 401) {
+      return throwError(error);
+    }
   }
 
 }

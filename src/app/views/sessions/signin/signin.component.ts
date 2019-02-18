@@ -62,7 +62,7 @@ export class SigninComponent implements OnInit {
           userData: ''
         };
         localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
-        this.getRefreshToken(response.expires_in * 1000);
+        // this.getRefreshToken(response.expires_in * 1000);
         this.userService.getUserData(response.user_id)
           .subscribe(res => {
             tempUser.username = res.content.userName;

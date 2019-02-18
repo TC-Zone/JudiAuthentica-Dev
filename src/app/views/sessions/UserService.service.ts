@@ -6,7 +6,7 @@ import {
 } from "@angular/common/http";
 import { CpUsersDB } from "../../shared/fake-db/cp-users";
 import * as jwt_decode from "jwt-decode";
-import { map, catchError } from "rxjs/operators";
+import { map, catchError, share } from "rxjs/operators";
 import { throwError, Observable } from 'rxjs';
 import { environment } from "environments/environment.prod";
 import { authProperties } from "./../../shared/services/auth/auth-properties";
@@ -67,7 +67,7 @@ export class UserService {
     }
 
     const date = new Date(0);
-    date.setUTCSeconds(decoded.exp);
+    date.setUTCSeconds(1550476560);
     return date;
   }
 
@@ -134,6 +134,7 @@ export class UserService {
     payload.append("refresh_token", refreshToken);
 
     return this.http.post<any>(this.baseAuthUrl + "oauth/token", payload).pipe(
+      share(),
       map(data => {
         return data;
       }),
@@ -166,6 +167,15 @@ export class UserService {
         ];
         return arrayList;
       }
+    }
+  }
+
+  getAuthToken(): any {
+    const userObj: any = JSON.parse(localStorage.getItem(this.storage_name));
+    if (userObj) {
+      return userObj.token;
+    } else {
+      return false;
     }
   }
 
