@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { MatProgressBar, MatButton } from "@angular/material";
+import { MatProgressBar, MatButton, MatSnackBar } from "@angular/material";
 import { Validators, FormGroup, FormControl } from "@angular/forms";
 import { UserService } from "../UserService.service";
 import { Router } from "@angular/router";
@@ -28,7 +28,11 @@ export class SigninComponent implements OnInit {
   // test
   public userId
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private snack: MatSnackBar
+    ) { }
 
   ngOnInit() {
     this.signinForm = new FormGroup({
@@ -63,6 +67,7 @@ export class SigninComponent implements OnInit {
         };
         localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
         // this.getRefreshToken(response.expires_in * 1000);
+
         this.userService.getUserData(response.user_id)
           .subscribe(res => {
             tempUser.username = res.content.userName;
@@ -75,17 +80,19 @@ export class SigninComponent implements OnInit {
           },
             error => {
               this.progressBar.mode = 'determinate';
-              this.signinForm.reset();
               localStorage.removeItem(this.storage_name);
-              this.router.navigate([this.signInUrl]);
+              this.snack.open('Invalid Credential', 'close', {
+                duration: 2000
+              });
             }
           );
       },
         error => {
-          if (error.status === 401 || error.status === 403) {
+          if (error.status === 400) {
             this.progressBar.mode = 'determinate';
-            this.signinForm.reset();
-            this.router.navigate([this.signInUrl]);
+            this.snack.open('Invalid Credential', 'close', {
+              duration: 2000
+            });
           } else {
             this.progressBar.mode = 'determinate';
             this.signinForm.reset();
