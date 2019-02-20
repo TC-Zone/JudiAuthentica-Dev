@@ -36,7 +36,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    
+
     this.clientId = currentUser.userData.client.id;
     this.name = currentUser.userData.client.name;
 
@@ -120,7 +120,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
           response => {
             this.getUsers();
             this.loader.close();
-            this.snack.open("New client added !", "OK", { duration: 4000 });
+            this.snack.open("New User added !", "OK", { duration: 4000 });
           },
           error => {
             this.loader.close();
@@ -136,7 +136,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
           response => {
             this.getUsers();
             this.loader.close();
-            this.snack.open("Client Updated!", "OK", { duration: 4000 });
+            this.snack.open("User Updated!", "OK", { duration: 4000 });
             // return this.users.slice();
           },
           error => {
