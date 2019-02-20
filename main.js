@@ -3028,6 +3028,9 @@ var AddHeaderInterceptor = /** @class */ (function () {
         this.whiteListUrls = [
             _environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].userApiUrl
         ];
+        this.userServiceblackListUrls = [
+            'platform-users/activations/'
+        ];
     }
     AddHeaderInterceptor.prototype.intercept = function (request, next) {
         var _this = this;
@@ -3095,15 +3098,19 @@ var AddHeaderInterceptor = /** @class */ (function () {
         }));
     };
     AddHeaderInterceptor.prototype.getWhiteListUrl = function (url) {
-        var status = false;
         for (var i = 0; i < this.whiteListUrls.length; i++) {
             var isMatched = url.match(this.whiteListUrls[i]);
             if (isMatched) {
-                status = true;
-                break;
+                for (var j = 0; j < this.userServiceblackListUrls.length; j++) {
+                    var blacklistMatched = url.match(this.userServiceblackListUrls[j]);
+                    if (blacklistMatched) {
+                        return false;
+                    }
+                }
+                return true;
             }
         }
-        return status;
+        return false;
     };
     AddHeaderInterceptor.prototype.oauthTokenUrlValidate = function (url) {
         var authTokenUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].authTokenUrl + 'oauth/token';
