@@ -7141,9 +7141,10 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var SigninComponent = /** @class */ (function () {
-    function SigninComponent(userService, router) {
+    function SigninComponent(userService, router, snack) {
         this.userService = userService;
         this.router = router;
+        this.snack = snack;
         this.successUrl = "profile";
         this.signInUrl = "sessions/signin";
         this.result = true;
@@ -7180,7 +7181,7 @@ var SigninComponent = /** @class */ (function () {
                 userData: ''
             };
             localStorage.setItem(_this.storage_name, JSON.stringify(tempUser));
-            _this.getRefreshToken(response.expires_in * 1000);
+            // this.getRefreshToken(response.expires_in * 1000);
             _this.userService.getUserData(response.user_id)
                 .subscribe(function (res) {
                 tempUser.username = res.content.userName;
@@ -7192,15 +7193,18 @@ var SigninComponent = /** @class */ (function () {
                 _this.router.navigate([_this.successUrl]);
             }, function (error) {
                 _this.progressBar.mode = 'determinate';
-                _this.signinForm.reset();
                 localStorage.removeItem(_this.storage_name);
-                _this.router.navigate([_this.signInUrl]);
+                _this.snack.open('Invalid Credential', 'close', {
+                    duration: 2000
+                });
             });
         }, function (error) {
-            if (error.status === 401 || error.status === 403) {
+            if (error.status === 400) {
                 _this.progressBar.mode = 'determinate';
+                _this.snack.open('Invalid Credential', 'close', {
+                    duration: 2000
+                });
                 _this.signinForm.reset();
-                _this.router.navigate([_this.signInUrl]);
             }
             else {
                 _this.progressBar.mode = 'determinate';
@@ -7237,7 +7241,9 @@ var SigninComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./signin.component.html */ "./src/app/views/sessions/signin/signin.component.html"),
             styles: [__webpack_require__(/*! ./signin.component.css */ "./src/app/views/sessions/signin/signin.component.css")]
         }),
-        __metadata("design:paramtypes", [_UserService_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+        __metadata("design:paramtypes", [_UserService_service__WEBPACK_IMPORTED_MODULE_3__["UserService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSnackBar"]])
     ], SigninComponent);
     return SigninComponent;
 }());

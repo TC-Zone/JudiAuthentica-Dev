@@ -465,7 +465,9 @@ var ClientService = /** @class */ (function () {
     };
     ClientService.prototype.handleError = function (error) {
         // console.log(error);
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(error);
+        if (error.status !== 401) {
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(error);
+        }
     };
     ClientService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
@@ -773,8 +775,6 @@ var UserTablePopupComponent = /** @class */ (function () {
     }
     UserTablePopupComponent.prototype.ngOnInit = function () {
         this.buildItemForm(this.data.payload);
-        console.log(this.data.payload);
-        console.log(this.data.roles);
         this.roles = this.data.roles;
     };
     UserTablePopupComponent.prototype.buildItemForm = function (item) {
@@ -944,7 +944,7 @@ var UserTableComponent = /** @class */ (function () {
                 _this.clientService.addUser(req).subscribe(function (response) {
                     _this.getUsers();
                     _this.loader.close();
-                    _this.snack.open("New client added !", "OK", { duration: 4000 });
+                    _this.snack.open("New User added !", "OK", { duration: 4000 });
                 }, function (error) {
                     _this.loader.close();
                     _this.errDialog.showError({
@@ -958,7 +958,7 @@ var UserTableComponent = /** @class */ (function () {
                 _this.clientService.updateUser(data.id, req).subscribe(function (response) {
                     _this.getUsers();
                     _this.loader.close();
-                    _this.snack.open("Client Updated!", "OK", { duration: 4000 });
+                    _this.snack.open("User Updated!", "OK", { duration: 4000 });
                     // return this.users.slice();
                 }, function (error) {
                     _this.loader.close();
