@@ -156,15 +156,13 @@ export class UserService {
       console.log(userObj.userData.roles[0].name);
       const roleName = userObj.userData.roles[0].name;
       if (roleName === 'Super Administrator') {
-        arrayList = [
-          'User Management'
-        ];
+        arrayList = ['User Management'];
         return arrayList;
       } else if (roleName === 'Admin') {
-        arrayList = [
-          'Client Management',
-          // 'User Management'
-        ];
+        arrayList = ['Client Management'];
+        return arrayList;
+      } else {
+        arrayList = ['Client Management', 'User Management'];
         return arrayList;
       }
     }
