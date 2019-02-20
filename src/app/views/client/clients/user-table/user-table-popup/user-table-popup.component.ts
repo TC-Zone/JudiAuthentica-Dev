@@ -19,8 +19,6 @@ export class UserTablePopupComponent implements OnInit {
 
   ngOnInit() {
     this.buildItemForm(this.data.payload);
-    console.log(this.data.payload);
-    console.log(this.data.roles);
 
     this.roles = this.data.roles;
 

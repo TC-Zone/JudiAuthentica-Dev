@@ -35,8 +35,10 @@ export class UserTableComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.clientId = "faa6643aca8c5318a9583178795542cf";
-    this.name = 'Adida';
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    
+    this.clientId = currentUser.userData.client.id;
+    this.name = currentUser.userData.client.name;
 
     this.getUsers();
     this.getUserRoles();

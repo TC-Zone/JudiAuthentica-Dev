@@ -163,7 +163,7 @@ export class UserService {
       } else if (roleName === 'Admin') {
         arrayList = [
           'Client Management',
-          'User Management'
+          // 'User Management'
         ];
         return arrayList;
       }
