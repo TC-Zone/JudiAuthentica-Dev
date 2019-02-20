@@ -26,11 +26,18 @@ export class UserTablePopupComponent implements OnInit {
 
   buildItemForm(item) {
 
+    console.log(item);
+    
+
     let role = null;
+    let userStatus = 0;
     if (item.id === undefined) {
       this.formStatus = true;
     } else {
       role = item.roles[0].id;
+      if(item.status==="ACTIVE"){
+        userStatus = 1;
+      }
     }
 
 
@@ -38,7 +45,8 @@ export class UserTablePopupComponent implements OnInit {
       username: new FormControl(item.userName || '', Validators.required),
       password: new FormControl(item.password || '', Validators.required),
       email: new FormControl(item.email || '', [Validators.required, Validators.email]),
-      role: new FormControl(role, Validators.required)
+      role: new FormControl(role, Validators.required),
+      // isActive: new FormControl(userStatus)
     })
 
     if (item.id !== undefined) {
