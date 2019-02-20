@@ -27,6 +27,9 @@ export class AddHeaderInterceptor implements HttpInterceptor {
   private whiteListUrls = [
     environment.userApiUrl
   ];
+  private userServiceblackListUrls = [
+    'platform-users/activations/'
+  ];
 
   constructor(
     private userService: UserService,
@@ -105,15 +108,19 @@ export class AddHeaderInterceptor implements HttpInterceptor {
   }
 
   private getWhiteListUrl(url): boolean {
-    let status = false;
     for (let i = 0; i < this.whiteListUrls.length; i++) {
       const isMatched = url.match(this.whiteListUrls[i]);
       if (isMatched) {
-        status = true;
-        break;
+        for (let j = 0; j < this.userServiceblackListUrls.length; j++) {
+          const blacklistMatched = url.match(this.userServiceblackListUrls[j]);
+          if (blacklistMatched) {
+            return false;
+          }
+        }
+        return true;
       }
     }
-    return status;
+    return false;
   }
 
   private oauthTokenUrlValidate(url): boolean {
