@@ -193,7 +193,6 @@ var AppComponent = /** @class */ (function () {
     }
     AppComponent.prototype.ngOnInit = function () {
         this.changePageTitle();
-        this.checkLoginUser();
     };
     AppComponent.prototype.ngAfterViewInit = function () {
         this.themeService.applyMatTheme(this.renderer);
@@ -216,32 +215,6 @@ var AppComponent = /** @class */ (function () {
             _this.pageTitle += " | " + _this.appTitle;
             _this.title.setTitle(_this.pageTitle);
         });
-    };
-    AppComponent.prototype.checkLoginUser = function () {
-        var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__["authProperties"].storage_name));
-        var currentPath = this.document.location.href;
-        var origin = this.document.location.origin;
-        var navigationPath = currentPath.replace(origin + '/', '');
-        if (userObj) {
-            var isTokenExired = this.userService.isTokenExpired(userObj.token);
-            if (isTokenExired) {
-                // this.router.navigate([navigationPath]);
-                this.removeLocalStorageElement();
-                this.router.navigate(['sessions/signin']);
-            } //else {
-            //this.removeLocalStorageElement();
-            //this.router.navigate(['sessions/signin']);
-            //}
-        }
-        else {
-            this.removeLocalStorageElement();
-            if (navigationPath === 'sessions/signin') {
-                this.router.navigate(['sessions/signin']);
-            }
-            else {
-                this.router.navigate([navigationPath]);
-            }
-        }
     };
     AppComponent.prototype.removeLocalStorageElement = function () {
         localStorage.removeItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__["authProperties"].storage_name);
@@ -969,7 +942,7 @@ var HeaderSideComponent = /** @class */ (function (_super) {
         if (localStorage.getItem('currentUser')) {
             console.log('NULL OI');
         }
-        this.router.navigate(['/sessions/signin']);
+        // this.router.navigate(['/sessions/signin']);
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -1001,7 +974,7 @@ var HeaderSideComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button -->\r\n  <button\r\n  *ngIf=\"layoutConf.sidebarStyle !== 'compact'\"\r\n  mat-icon-button\r\n  id=\"sidenavToggle\"\r\n  (click)=\"toggleSidenav()\"\r\n  matTooltip=\"Toggle Hide/Open\">\r\n  <mat-icon>menu</mat-icon>\r\n  </button>\r\n  <!-- Sidenav toggle collapse -->\r\n  <button\r\n  *ngIf=\"layoutConf.sidebarStyle !== 'closed'\"\r\n  mat-icon-button\r\n  id=\"collapseToggle\"\r\n  fxHide.lt-md=\"true\"\r\n  (click)=\"toggleCollapse()\"\r\n  matTooltip=\"Toggle Collapse\"\r\n  class=\"toggle-collapsed\">\r\n  <mat-icon>chevron_left</mat-icon>\r\n  </button>\r\n  <!-- Search form -->\r\n  <!-- <div\r\n  fxFlex\r\n  fxHide.lt-sm=\"true\"\r\n  class=\"search-bar\">\r\n    <form class=\"top-search-form\">\r\n      <mat-icon role=\"img\">search</mat-icon>\r\n      <input autofocus=\"true\" placeholder=\"Search\" type=\"text\">\r\n    </form>\r\n  </div> -->\r\n  <span fxFlex></span>\r\n  <!-- Language Switcher -->\r\n  <!-- <mat-select\r\n  placeholder=\"\"\r\n  id=\"langToggle\"\r\n  [style.width]=\"'auto'\"\r\n  name=\"currentLang\"\r\n  [(ngModel)]=\"currentLang\"\r\n  (selectionChange)=\"setLang($event)\">\r\n    <mat-option\r\n    *ngFor=\"let lang of availableLangs\"\r\n    [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n  </mat-select> -->\r\n  <!-- Theme Switcher -->\r\n  <button\r\n  mat-icon-button\r\n  id=\"schemeToggle\"\r\n  [style.overflow]=\"'visible'\"\r\n  matTooltip=\"Color Schemes\"\r\n  [matMenuTriggerFor]=\"themeMenu\"\r\n  class=\"topbar-button-right\">\r\n    <mat-icon>format_color_fill</mat-icon>\r\n  </button>\r\n  <mat-menu #themeMenu=\"matMenu\">\r\n    <mat-grid-list\r\n    class=\"theme-list\"\r\n    cols=\"2\"\r\n    rowHeight=\"48px\">\r\n      <mat-grid-tile\r\n      *ngFor=\"let theme of egretThemes\"\r\n      (click)=\"changeTheme(theme)\">\r\n        <div mat-menu-item [title]=\"theme.name\">\r\n          <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n          <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n        </div>\r\n      </mat-grid-tile>\r\n    </mat-grid-list>\r\n  </mat-menu>\r\n  <!-- Notification toggle button -->\r\n  <button\r\n  mat-icon-button\r\n  matTooltip=\"Notifications\"\r\n  (click)=\"toggleNotific()\"\r\n  [style.overflow]=\"'visible'\"\r\n  class=\"topbar-button-right\">\r\n    <mat-icon>notifications</mat-icon>\r\n    <span class=\"notification-number mat-bg-warn\">3</span>\r\n  </button>\r\n  <!-- Top left user menu -->\r\n  <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right img-button\">\r\n    <img src=\"{{currentUser.image}}\" alt=\"\">\r\n  </button>\r\n  <mat-menu #accountMenu=\"matMenu\">\r\n    <button mat-menu-item [routerLink]=\"['/profile/']\">\r\n      <mat-icon>account_box</mat-icon>\r\n      <span>Profile</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/settings']\">\r\n      <mat-icon>settings</mat-icon>\r\n      <span>Account Settings</span>\r\n    </button>\r\n    <!-- <button mat-menu-item>\r\n      <mat-icon>notifications_off</mat-icon>\r\n      <span>Disable alerts</span>\r\n    </button> -->\r\n    <button mat-menu-item (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </button>\r\n  </mat-menu>\r\n</mat-toolbar>\r\n"
+module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'compact'\" mat-icon-button id=\"sidenavToggle\" (click)=\"toggleSidenav()\"\r\n    matTooltip=\"Toggle Hide/Open\">\r\n    <mat-icon>menu</mat-icon>\r\n  </button>\r\n  <!-- Sidenav toggle collapse -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'closed'\" mat-icon-button id=\"collapseToggle\" fxHide.lt-md=\"true\"\r\n    (click)=\"toggleCollapse()\" matTooltip=\"Toggle Collapse\" class=\"toggle-collapsed\">\r\n    <mat-icon>chevron_left</mat-icon>\r\n  </button>\r\n  <!-- Search form -->\r\n  <!-- <div\r\n  fxFlex\r\n  fxHide.lt-sm=\"true\"\r\n  class=\"search-bar\">\r\n    <form class=\"top-search-form\">\r\n      <mat-icon role=\"img\">search</mat-icon>\r\n      <input autofocus=\"true\" placeholder=\"Search\" type=\"text\">\r\n    </form>\r\n  </div> -->\r\n  <span fxFlex></span>\r\n  <!-- Language Switcher -->\r\n  <!-- <mat-select\r\n  placeholder=\"\"\r\n  id=\"langToggle\"\r\n  [style.width]=\"'auto'\"\r\n  name=\"currentLang\"\r\n  [(ngModel)]=\"currentLang\"\r\n  (selectionChange)=\"setLang($event)\">\r\n    <mat-option\r\n    *ngFor=\"let lang of availableLangs\"\r\n    [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n  </mat-select> -->\r\n  <!-- Theme Switcher -->\r\n  <button mat-icon-button id=\"schemeToggle\" [style.overflow]=\"'visible'\" matTooltip=\"Color Schemes\"\r\n    [matMenuTriggerFor]=\"themeMenu\" class=\"topbar-button-right\">\r\n    <mat-icon>format_color_fill</mat-icon>\r\n  </button>\r\n  <mat-menu #themeMenu=\"matMenu\">\r\n    <mat-grid-list class=\"theme-list\" cols=\"2\" rowHeight=\"48px\">\r\n      <mat-grid-tile *ngFor=\"let theme of egretThemes\" (click)=\"changeTheme(theme)\">\r\n        <div mat-menu-item [title]=\"theme.name\">\r\n          <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n          <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n        </div>\r\n      </mat-grid-tile>\r\n    </mat-grid-list>\r\n  </mat-menu>\r\n  <!-- Notification toggle button -->\r\n  <button mat-icon-button matTooltip=\"Notifications\" (click)=\"toggleNotific()\" [style.overflow]=\"'visible'\"\r\n    class=\"topbar-button-right\">\r\n    <mat-icon>notifications</mat-icon>\r\n    <span class=\"notification-number mat-bg-warn\">3</span>\r\n  </button>\r\n  <!-- Top left user menu -->\r\n  <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right img-button\">\r\n    <img src=\"{{currentUser.image}}\" alt=\"\">\r\n  </button>\r\n  <mat-menu #accountMenu=\"matMenu\">\r\n    <button mat-menu-item [routerLink]=\"['/profile/']\">\r\n      <mat-icon>account_box</mat-icon>\r\n      <span>Profile</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/settings']\">\r\n      <mat-icon>settings</mat-icon>\r\n      <span>Account Settings</span>\r\n    </button>\r\n    <!-- <button mat-menu-item>\r\n      <mat-icon>notifications_off</mat-icon>\r\n      <span>Disable alerts</span>\r\n    </button> -->\r\n    <a mat-menu-item href=\"sessions/signin\" (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </a>\r\n    <!-- <button mat-menu-item (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </button> -->\r\n  </mat-menu>\r\n</mat-toolbar>"
 
 /***/ }),
 
@@ -3024,6 +2997,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth_properties__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
 /* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
 /* harmony import */ var _environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../../../environments/environment.prod */ "./src/environments/environment.prod.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3040,45 +3015,41 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var AddHeaderInterceptor = /** @class */ (function () {
-    function AddHeaderInterceptor(userService) {
+    function AddHeaderInterceptor(userService, router, loader) {
         this.userService = userService;
+        this.router = router;
+        this.loader = loader;
         this.gloable_user = _auth_properties__WEBPACK_IMPORTED_MODULE_4__["authProperties"].gloable_user;
         this.gloable_secret = _auth_properties__WEBPACK_IMPORTED_MODULE_4__["authProperties"].gloable_secret;
         this.storage_name = _auth_properties__WEBPACK_IMPORTED_MODULE_4__["authProperties"].storage_name;
-        this.blackListUrls = [
-            'Url which is not need to set Bearer token'
+        this.whiteListUrls = [
+            _environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].userApiUrl
         ];
     }
     AddHeaderInterceptor.prototype.intercept = function (request, next) {
-        var userObj = JSON.parse(localStorage.getItem(this.storage_name));
-        var authTokenUrlValidation = this.outhTokenUrlValidate(request.url);
-        if (userObj) {
-            var token = userObj.token;
-            var tokenExpireState = this.userService.isTokenExpired(token);
-            var blaklistStatus = this.getBlackListUrl(request.url);
-            console.log(request.url);
-            console.log(blaklistStatus);
-            if (!blaklistStatus) {
-                if (tokenExpireState) {
-                    if (authTokenUrlValidation) {
-                        request = request.clone({
-                            headers: request.headers.set('Authorization', 'Basic ' + btoa(this.gloable_user + ':' + this.gloable_secret))
-                        });
-                    }
-                }
-                else {
-                    request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
-                    if (!request.headers.has('Content-Type')) {
-                        request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
-                    }
-                    request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+        var _this = this;
+        var token = this.userService.getAuthToken();
+        var isAuthToken = this.oauthTokenUrlValidate(request.url);
+        if (token !== false) {
+            if (isAuthToken) {
+                request = request.clone({
+                    headers: request.headers.set('Authorization', 'Basic ' + btoa(this.gloable_user + ':' + this.gloable_secret))
+                });
+            }
+            else {
+                var isTokenRequired = this.getWhiteListUrl(request.url);
+                if (isTokenRequired) {
+                    request = request.clone({
+                        headers: request.headers.set('Authorization', 'bearer ' + token)
+                    });
                 }
             }
         }
         else {
-            console.log('IN LOG CONTTX............................');
-            if (authTokenUrlValidation) {
+            if (isAuthToken) {
                 request = request.clone({
                     headers: request.headers.set('Authorization', 'Basic ' + btoa(this.gloable_user + ':' + this.gloable_secret))
                 });
@@ -3091,41 +3062,50 @@ var AddHeaderInterceptor = /** @class */ (function () {
             }
             return event;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (error) {
-            var data = {};
-            data = {
-                reason: error && error.error.reason ? error.error.reason : '',
-                status: error.status
-            };
+            console.log('---------------------- response error code ---------------------');
+            if (error.status === 401) {
+                var isFromRefreshTokenEndpoint = !!error.headers.get('unableToRefreshToken');
+                if (isFromRefreshTokenEndpoint) {
+                    localStorage.clear();
+                    _this.router.navigate(['sessions/signin']);
+                    return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(error);
+                }
+                var userObj_1 = JSON.parse(localStorage.getItem(_this.storage_name));
+                _this.loader.open();
+                _this.userService.getUserRefreshToken(userObj_1.refreshToken)
+                    .subscribe(function (response) {
+                    userObj_1.refreshToken = response.refresh_token;
+                    userObj_1.token = response.access_token;
+                    userObj_1.expires_in = response.expires_in;
+                    localStorage.setItem(_this.storage_name, JSON.stringify(userObj_1));
+                    var reRequest = request.clone({
+                        headers: request.headers.set('Authorization', 'bearer ' + response.access_token)
+                    });
+                    _this.loader.close();
+                    window.location.reload();
+                    return next.handle(reRequest);
+                }, function (err) {
+                    localStorage.clear();
+                    _this.router.navigate(['sessions/signin']);
+                    return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(err);
+                });
+                _this.loader.close();
+            }
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(error);
         }));
     };
-    AddHeaderInterceptor.prototype.getBlackListUrl = function (url) {
+    AddHeaderInterceptor.prototype.getWhiteListUrl = function (url) {
         var status = false;
-        if (url.match(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].userApiUrl)) {
-            var subUrl = url.replace(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].userApiUrl, '');
-            for (var i = 0; i < this.blackListUrls.length; i++) {
-                if (this.blackListUrls[i] === subUrl) {
-                    console.log(subUrl);
-                    status = true;
-                    break;
-                }
+        for (var i = 0; i < this.whiteListUrls.length; i++) {
+            var isMatched = url.match(this.whiteListUrls[i]);
+            if (isMatched) {
+                status = true;
+                break;
             }
-        }
-        if (url.match(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].surveyApiURL)) {
-            status = true;
-        }
-        if (url.match(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].productApiURL)) {
-            status = true;
-        }
-        if (url.match(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].productimageUrl)) {
-            status = true;
-        }
-        if (url.match(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].evoteimageUrl)) {
-            status = true;
         }
         return status;
     };
-    AddHeaderInterceptor.prototype.outhTokenUrlValidate = function (url) {
+    AddHeaderInterceptor.prototype.oauthTokenUrlValidate = function (url) {
         var authTokenUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].authTokenUrl + 'oauth/token';
         if (authTokenUrl === url) {
             return true;
@@ -3136,7 +3116,9 @@ var AddHeaderInterceptor = /** @class */ (function () {
     };
     AddHeaderInterceptor = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
+        __metadata("design:paramtypes", [_views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__["UserService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"],
+            _app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_8__["AppLoaderService"]])
     ], AddHeaderInterceptor);
     return AddHeaderInterceptor;
 }());
@@ -4832,7 +4814,7 @@ var UserService = /** @class */ (function () {
             return null;
         }
         var date = new Date(0);
-        date.setUTCSeconds(decoded.exp);
+        date.setUTCSeconds(1550476560);
         return date;
     };
     /*
@@ -4882,7 +4864,7 @@ var UserService = /** @class */ (function () {
         var payload = new FormData();
         payload.append("grant_type", "refresh_token");
         payload.append("refresh_token", refreshToken);
-        return this.http.post(this.baseAuthUrl + "oauth/token", payload).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) {
+        return this.http.post(this.baseAuthUrl + "oauth/token", payload).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["share"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) {
             return data;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
     };
@@ -4900,18 +4882,26 @@ var UserService = /** @class */ (function () {
             console.log(userObj.userData.roles[0].name);
             var roleName = userObj.userData.roles[0].name;
             if (roleName === 'Super Administrator') {
-                arrayList = [
-                    'User Management'
-                ];
+                arrayList = ['User Management'];
                 return arrayList;
             }
             else if (roleName === 'Admin') {
-                arrayList = [
-                    'Client Management',
-                    'User Management'
-                ];
+                arrayList = ['Client Management'];
                 return arrayList;
             }
+            else {
+                arrayList = ['Client Management', 'User Management'];
+                return arrayList;
+            }
+        }
+    };
+    UserService.prototype.getAuthToken = function () {
+        var userObj = JSON.parse(localStorage.getItem(this.storage_name));
+        if (userObj) {
+            return userObj.token;
+        }
+        else {
+            return false;
         }
     };
     UserService.prototype.handleError = function (error) {

@@ -455,8 +455,9 @@ var UserTableComponent = /** @class */ (function () {
         this.pageSize = 10;
     }
     UserTableComponent.prototype.ngOnInit = function () {
-        this.clientId = "faa6643aca8c5318a9583178795542cf";
-        this.name = 'Adida';
+        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.clientId = currentUser.userData.client.id;
+        this.name = currentUser.userData.client.name;
         this.getUsers();
         this.getUserRoles();
     };
@@ -522,7 +523,7 @@ var UserTableComponent = /** @class */ (function () {
                 _this.userService.addUser(req).subscribe(function (response) {
                     _this.getUsers();
                     _this.loader.close();
-                    _this.snack.open("New client added !", "OK", { duration: 4000 });
+                    _this.snack.open("New User added !", "OK", { duration: 4000 });
                 }, function (error) {
                     _this.loader.close();
                     _this.errDialog.showError({
@@ -536,7 +537,7 @@ var UserTableComponent = /** @class */ (function () {
                 _this.userService.updateUser(data.id, req).subscribe(function (response) {
                     _this.getUsers();
                     _this.loader.close();
-                    _this.snack.open("Client Updated!", "OK", { duration: 4000 });
+                    _this.snack.open("User Updated!", "OK", { duration: 4000 });
                     // return this.users.slice();
                 }, function (error) {
                     _this.loader.close();
