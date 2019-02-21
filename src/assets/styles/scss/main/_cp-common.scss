@@ -20,3 +20,14 @@
     top: 0; /* Sets the sticky toolbar to be on top */
     z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
 }
+
+.comman-background{
+    /* background-image: url("../../../../assets/images/signin/signinimg.jpg") !important; */
+    background-image: url("assets/images/truverus/Truverus-Background.jpg") !important;
+    background-size:     cover !important;                      
+    background-repeat:   no-repeat !important;  
+    
+} 
+.session-form-hold{
+    margin-top: 40px;
+}
