@@ -5,6 +5,7 @@ import { Subscription } from "rxjs";
 import PerfectScrollbar from 'perfect-scrollbar';
 import { LocalStorageHandler } from '../../helpers/local-storage';
 import { UserService } from './../../../views/sessions/UserService.service';
+import { LayoutService } from '../../services/layout.service';
 
 @Component({
   selector: 'app-sidebar-side',
@@ -16,13 +17,16 @@ export class SidebarSideComponent extends LocalStorageHandler implements OnInit,
   public hasIconTypeMenuItem: boolean;
   public iconTypeMenuTitle: string;
   private menuItemsSub: Subscription;
+  public layoutConf:any;
   constructor(
     private navService: NavigationService,
     public themeService: ThemeService,
-    public userService: UserService
+    public userService: UserService,
+    private layout: LayoutService,
   ) {super(); }
 
   ngOnInit() {
+    this.layoutConf = this.layout.layoutConf;
     this.iconTypeMenuTitle = this.navService.iconTypeMenuTitle;
     this.menuItemsSub = this.navService.menuItems$.subscribe(menuItem => {
       this.menuItems = menuItem;

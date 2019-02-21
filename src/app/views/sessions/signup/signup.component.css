@@ -1,5 +1,6 @@
 .background-signup{
     background-image: url("../../../../assets/images/signup/signupimg.jpg") !important;
+    /* background-image: url("../../../../assets/images/signin/TruverusSignImg.jpg") !important; */
     background-size:     cover !important;                      
     background-repeat:   no-repeat !important;  
     

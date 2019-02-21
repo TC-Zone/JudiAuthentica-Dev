@@ -40,7 +40,7 @@ export class AppErrorService {
     } else if (error.type == "client_error") {
       errorMsg = error.clientError;
     } else {
-      errorMsg = "CP Judi Authentica : Something went wrong ";
+      errorMsg = "Truverus - ClearPicture : Something went wrong ";
     }
 
     let dialogRef: MatDialogRef<AppErrorComponent>;
@@ -79,7 +79,7 @@ export class AppErrorService {
           clientError: ''
         });
       } else {
-        this.openPopUpWindow(this.removeUnderscore(error.error.status), 'CP Judi Authentica : Something went wrong');
+        this.openPopUpWindow(this.removeUnderscore(error.error.status), 'Truverus - ClearPicture : Something went wrong');
       }
 
     } else {

@@ -2,10 +2,17 @@
   <div id="scroll-area" class="navigation-hold" fxLayout="column">
     <!-- App Logo -->
     <div class="branding default-bg">
-      <img src="assets/images/cp_logo.png" alt="" class="app-logo">
+      <!-- <img src="assets/images/cp_logo.png" alt="" class="app-logo"> -->
       <!-- Two different logos for dark and light themes -->
-      <img src="assets/images/clear-picture-logo.png" alt="" class="app-logo-text" *ngIf="themeService.activatedTheme?.name?.indexOf('dark') !== -1">
-      <img src="assets/images/cp_logo_text.png" alt="" class="app-logo-text" *ngIf="themeService.activatedTheme?.name?.indexOf('dark') === -1">
+      <!-- <img src="assets/images/clear-picture-logo.png" alt="" class="app-logo-text"
+        *ngIf="themeService.activatedTheme?.name?.indexOf('dark') !== -1"> -->
+      <!-- <img src="assets/images/cp_logo_text.png" alt="" class="app-logo-text"
+          *ngIf="themeService.activatedTheme?.name?.indexOf('dark') === -1"> -->
+      <img *ngIf="layoutConf.sidebarStyle === 'compact'" src="assets/images/truverus/TrueVerus_Logo_short.png" alt="" class="app-logo">
+      <img src="assets/images/truverus/TrueVerus_Logo_small.png" alt="" class="app-logo-text"
+        *ngIf="themeService.activatedTheme?.name?.indexOf('dark') !== -1">
+      <img src="assets/images/truverus/TrueVerus_Logo_small.png" alt="" class="app-logo-text"
+        *ngIf="themeService.activatedTheme?.name?.indexOf('dark') === -1">
     </div>
 
     <!-- Sidebar user -->
@@ -45,6 +52,7 @@
       </div>
     </div>
     <!-- Navigation -->
-    <app-sidenav [items]="menuItems" [hasIconMenu]="hasIconTypeMenuItem" [iconMenuTitle]="iconTypeMenuTitle"></app-sidenav>
+    <app-sidenav [items]="menuItems" [hasIconMenu]="hasIconTypeMenuItem" [iconMenuTitle]="iconTypeMenuTitle">
+    </app-sidenav>
   </div>
 </div>

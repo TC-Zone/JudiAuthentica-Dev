@@ -51,7 +51,6 @@ export class UserActivationComponent implements OnInit {
             this.router.navigate(['sessions/signin']);
           },
           error => {
-            console.log(error);
             if (error.status === 500) {
               console.log("SUCCESS ACTIVATION With 500 Error");
               this.result = false;
