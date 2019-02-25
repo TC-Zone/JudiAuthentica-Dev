@@ -443,6 +443,14 @@ export class NavigationService {
       state: "future-survey",
       disabled: false
     },
+    {
+      name: "Comunity",
+      type: "link",
+      tooltip: "Comunity",
+      icon: "group",
+      state: "comunity/showComunity",
+      disabled: false
+    },
     // ,
     // {
     //   name: "Interaction View",
