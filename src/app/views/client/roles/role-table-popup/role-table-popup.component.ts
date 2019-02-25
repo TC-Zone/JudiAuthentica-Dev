@@ -86,13 +86,14 @@ export class RoleTablePopupComponent implements OnInit {
     } else {
       const index = dataArray.controls.findIndex(x => x.value === auth_key);
       dataArray.removeAt(index);
-      for (let i = 0; i < this.selectedAuthorities.length; i++) {
-        if (this.selectedAuthorities[i].id === id) {
+      // for (let i = 0; i < this.selectedAuthorities.length; i++) {
+      //   if (this.selectedAuthorities[i].id === id) {
+          const i = this.selectedAuthorities.findIndex(y => y.id === id);
           console.log(id, auth_key, i);
           this.selectedAuthorities.splice(i, 1);
-          break;
-        }
-      }
+          // break;
+      //   }
+      // }
     }
   }
 
