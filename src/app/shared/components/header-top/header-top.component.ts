@@ -88,6 +88,6 @@ export class HeaderTopComponent extends LocalStorageHandler implements OnInit, O
       console.log('NULL OI');
     }
 
-    this.router.navigate(['/sessions/signin']);
+    // this.router.navigate(['/sessions/signin']);
   }
 }

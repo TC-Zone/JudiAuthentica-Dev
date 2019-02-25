@@ -15,7 +15,7 @@ export class UserActivationComponent implements OnInit {
   activationCode: string;
   errorObj: any;
   public result = false;
-  public errorMsg = "The password must contain at least 6 characters !";
+  public errorMsg = "The password must have more than 6 characters !";
 
   constructor(
     private route: ActivatedRoute,
@@ -51,14 +51,21 @@ export class UserActivationComponent implements OnInit {
             this.router.navigate(['sessions/signin']);
           },
           error => {
-            if (error.error.validationFailures[0].code === "userActivationRequest.alreadyActivated") {
-              this.errorMsg = "User Already Activated !";
-              this.result = true;
+            if (error.status === 500) {
+              console.log("SUCCESS ACTIVATION With 500 Error");
+              this.result = false;
+              this.snack.open("User Activated !", "OK", { duration: 3000 });
+              this.router.navigate(['sessions/signin']);
+            } else {
+              if (error.error.validationFailures[0].code === "userActivationRequest.alreadyActivated") {
+                this.errorMsg = "User Already Activated !";
+                this.result = true;
+              }
             }
           }
         );
     } else {
-      this.errorMsg = "The password must contain at least 6 characters !";
+      this.errorMsg = "The password must have more than 6 characters !";
       this.result = true;
     }
   }

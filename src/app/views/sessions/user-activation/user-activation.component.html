@@ -1,10 +1,10 @@
-<div class="page-wrap height-100 mat-bg-primary background-signin">
+<div class="page-wrap height-100 comman-background">
   <div class="session-form-hold">
     <mat-progress-bar mode="determinate" class="session-progress"></mat-progress-bar>
     <mat-card>
       <mat-card-content>
         <div class="text-center pb-1">
-          <img src="assets/images/signin/logo.jpg" alt="">
+          <img src="assets/images/truverus/Tru-Verus-Logo.png" alt="">
           <p class="text-muted m-0">Truverus User Activation</p>
           <small *ngIf="result" class=" m-0 form-error-msg"> {{errorMsg}} </small>
         </div>
@@ -22,10 +22,6 @@
           <button mat-raised-button class="mat-primary full-width mb-1"
             [disabled]="activationForm.invalid">Activate</button>
         </form>
-
-
-
-
         <!-- <button mat-raised-button class="mat-primary full-width mb-1" (click)="activateUser()">Activate</button> -->
       </mat-card-content>
     </mat-card>

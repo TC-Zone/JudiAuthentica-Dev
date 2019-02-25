@@ -11,10 +11,10 @@
           <input matInput name="username" [formControl]="itemForm.controls['username']" placeholder="User Name">
         </mat-form-field>
       </div>
-      <div fxFlex="50" class="pr-1"  *ngIf="formStatus">
+      <div fxFlex="50" class="pr-1" *ngIf="formStatus">
         <mat-form-field class="full-width">
-          <input matInput name="password" type="password" [formControl]="itemForm.controls['password']" positiveNumberAndLetterOnly
-            placeholder="Password">
+          <input matInput name="password" type="password" [formControl]="itemForm.controls['password']"
+            positiveNumberAndLetterOnly placeholder="Password">
         </mat-form-field>
       </div>
       <div fxFlex="50" class="pr-1">
@@ -30,6 +30,9 @@
           </mat-select>
         </mat-form-field>
       </div>
+      <!-- <div fxFlex="50" class="pt-1 pr-1">
+        <mat-slide-toggle [formControl]="itemForm.controls['isActive']">Active User</mat-slide-toggle>
+      </div> -->
       <div fxFlex="100" class="mt-1">
         <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
         <span fxFlex></span>

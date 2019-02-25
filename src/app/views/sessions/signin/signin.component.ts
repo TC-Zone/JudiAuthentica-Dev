@@ -8,12 +8,11 @@ import { interval } from 'rxjs';
 
 @Component({
   selector: "app-signin",
-  templateUrl: "./signin.component.html",
-  styleUrls: ["./signin.component.css"]
+  templateUrl: "./signin.component.html"
 })
 export class SigninComponent implements OnInit {
   @ViewChild(MatProgressBar)
-  progressBar: MatProgressBar;
+  // progressBar: MatProgressBar;
   @ViewChild(MatButton)
   submitButton: MatButton;
 
@@ -50,7 +49,7 @@ export class SigninComponent implements OnInit {
     const signinData = this.signinForm.value;
 
     this.submitButton.disabled = true;
-    this.progressBar.mode = 'indeterminate';
+    // this.progressBar.mode = 'indeterminate';
     this.userService.login(signinData)
       .subscribe(response => {
         const tempUser = {
@@ -75,27 +74,23 @@ export class SigninComponent implements OnInit {
             tempUser.company = viewData.client.name;
             tempUser.userData = res.content;
             localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
-            this.progressBar.mode = 'determinate';
+            // this.progressBar.mode = 'determinate';
             this.router.navigate([this.successUrl]);
           },
             error => {
-              this.progressBar.mode = 'determinate';
+              this.result = false;
+              // this.progressBar.mode = 'determinate';
               localStorage.removeItem(this.storage_name);
-              this.snack.open('Invalid Credential', 'close', {
-                duration: 2000
-              });
             }
           );
       },
         error => {
+          this.result = false;
           if (error.status === 400) {
-            this.progressBar.mode = 'determinate';
-            this.snack.open('Invalid Credential', 'close', {
-              duration: 2000
-            });
+            // this.progressBar.mode = 'determinate';
             this.signinForm.reset();
           } else {
-            this.progressBar.mode = 'determinate';
+            // this.progressBar.mode = 'determinate';
             this.signinForm.reset();
             this.router.navigate([this.signInUrl]);
           }

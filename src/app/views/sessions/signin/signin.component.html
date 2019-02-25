@@ -1,10 +1,9 @@
-<div class="page-wrap height-100 mat-bg-primary background-signin">
+<!-- <div class="page-wrap height-100 comman-background">
   <div class="session-form-hold">
-    <mat-progress-bar mode="determinate" class="session-progress"></mat-progress-bar>
     <mat-card>
       <mat-card-content>
         <div class="text-center pb-1">
-          <img src="assets/images/signin/logo.jpg" alt="">
+          <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="" style="width: 300px;">
           <p class="text-muted m-0">Sign in to your account</p>
           <small *ngIf="!result" class=" m-0 form-error-msg"> Invalid Login Credentials ! </small>
         </div>
@@ -34,10 +33,56 @@
           <div class="text-center">
             <a [routerLink]="'/sessions/forgot-password'" class="mat-primary text-center full-width">Forgot password</a>
             <span fxFlex></span>
-            <a [routerLink]="'/sessions/signup'" class="mat-primary text-center full-width">Create a new account</a>
           </div>
         </form>
       </mat-card-content>
     </mat-card>
   </div>
-</div>
+</div> -->
+
+<form [formGroup]="signinForm" id="user-login-view"  (ngSubmit)="signin()">
+  <div class="page-wrap height-100 signin-background">
+    <div class="session-form-hold set-form-left">
+      <mat-card id="login-card">
+        <mat-card-content>
+          <div id="login-form">
+            <div class="text-center pb-1" id="login-form-logo">
+              <img src="assets/images/truverus/Tru-Verus-Logo.png" alt="">
+              <p class="text-muted m-0">Welcome, Please Signin to your Account.</p>
+              <small *ngIf="!result" class=" m-0 form-error-msg"> Invalid Login Credentials ! </small>
+            </div>
+            <mat-form-field class="full-width">
+              <input matInput name="username" [formControl]="signinForm.controls['username']" placeholder="Username"
+                value="">
+            </mat-form-field>
+            <small
+              *ngIf="signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched"
+              class="form-error-msg">
+              Username is required </small>
+
+            <mat-form-field class="full-width">
+              <input type="password" name="password" matInput [formControl]="signinForm.controls['password']"
+                placeholder="Password" value="">
+            </mat-form-field>
+            <small
+              *ngIf="signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched"
+              class="form-error-msg"> Password is required </small>
+
+            <div class="pb-1">
+              <mat-checkbox name="rememberMe" [formControl]="signinForm.controls['rememberMe']" class="pb-1">Remember
+                this computer</mat-checkbox>
+            </div>
+
+            <button mat-raised-button class="mat-primary full-width mb-1" [disabled]="signinForm.invalid">Sign
+              in</button>
+            <div class="text-center">
+              <a [routerLink]="'/sessions/forgot-password'" class="mat-primary text-center full-width">Forgot
+                password</a>
+              <span fxFlex></span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</form>
