@@ -8,6 +8,8 @@ import { egretAnimations } from "../../../shared/animations/egret-animations";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { NavigationExtras, Router } from "@angular/router";
 import { ClientCreateReq, UserData, ClientUpdateReq } from "app/model/ClientModel.model";
+import { authProperties } from './../../../shared/services/auth/auth-properties';
+import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: "app-client-table",
@@ -21,6 +23,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     'A': {status: "Active", style: "primary"},
     'I': {status: "Inactive", style: "accent"}
   };
+  public authArray: any;
 
   public pageSize = 10;
 
@@ -36,6 +39,9 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getClients();
+    this.authArray = this.setAuthorities();
+    console.log('------------------ auth array ----------------------');
+    console.log(this.authArray);
   }
 
   ngOnDestroy() {
@@ -78,7 +84,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
       this.loader.open();
       if (isNew) {
-        
+
       let users: UserData[] = [];
       users.push(new UserData(res.username, res.email));
       const req: ClientCreateReq = new ClientCreateReq(res.name, res.description, users);
@@ -133,6 +139,35 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     this.router.navigate(["clients/user-table"], extraParam);
   }
 
-  
+  setAuthorities(): any {
+    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+    const authArray = {
+      create: false,
+      search: false,
+      update: false,
+      delete: false,
+      view: false,
+    };
+    if (userObj) {
+      const decodedToken = jwt_decode(userObj.token);
+      const authorities = decodedToken.authorities;
+      authorities.forEach(element => {
+        if (element === 'pc-u') {
+          authArray.update = true;
+        }
+        if (element === 'pc-c') {
+          authArray.create = true;
+        }
+        if (element === 'pc-d') {
+          authArray.delete = true;
+        }
+        if (element === 'pc-v') {
+          authArray.view = true;
+        }
+      });
+    }
+    return authArray;
+  }
+
 }
 

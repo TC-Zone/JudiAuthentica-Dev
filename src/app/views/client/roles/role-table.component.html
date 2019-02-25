@@ -1,13 +1,13 @@
-<mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+<mat-card *ngIf="authArray.view" class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
   <mat-card-title>
     <div class="card-title-text">Roles</div>
     <mat-divider></mat-divider>
 
     <div class="m-333">
-      <button mat-raised-button class="mb-05 ml-05" color="primary" (click)="openPopUp({}, true)">Add Role</button>
+      <button mat-raised-button class="mb-05 ml-05" color="primary" *ngIf="authArray.create" (click)="openPopUp({}, true)">Add Role</button>
       <span fxFlex></span>
-      <p class="mat-select-lable"> Page Size: </p>
-      <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()">
+      <p *ngIf="authArray.search" class="mat-select-lable"> Page Size: </p>
+      <mat-select *ngIf="authArray.search" class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()">
         <mat-option [value]="10">10</mat-option>
         <mat-option [value]="20">20</mat-option>
       </mat-select>
@@ -38,12 +38,19 @@
 
       <ngx-datatable-column name="Actions" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="editRole(row)">
+          <!-- <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="editRole(row)">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button mat-sm-button color="warn" (click)="deleteRole(row)">
             <mat-icon>delete</mat-icon>
+          </button> -->
+          <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
           </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="authArray.update" (click)="editRole(row)"><mat-icon>edit</mat-icon>Edit</button>
+            <button mat-menu-item *ngIf="authArray.delete" (click)="deleteRole(row)"><mat-icon>delete</mat-icon>Delete</button>
+          </mat-menu>
         </ng-template>
       </ngx-datatable-column>
 
