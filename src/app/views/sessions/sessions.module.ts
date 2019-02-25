@@ -22,6 +22,7 @@ import { NotFoundComponent } from "./not-found/not-found.component";
 import { ErrorComponent } from "./error/error.component";
 import { UserService } from "./UserService.service";
 import { UserActivationComponent } from './user-activation/user-activation.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { UserActivationComponent } from './user-activation/user-activation.compo
     SignupComponent,
     NotFoundComponent,
     ErrorComponent,
-    UserActivationComponent
+    UserActivationComponent,
+    UnauthorizedComponent
   ],
   providers: [UserService]
 })
