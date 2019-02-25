@@ -170,6 +170,8 @@ export class UserTableComponent implements OnInit, OnDestroy {
     if (userObj) {
       const decodedToken = jwt_decode(userObj.token);
       const authorities = decodedToken.authorities;
+      console.log('---------------- authorities ----------------');
+      console.log(authorities);
       authorities.forEach(element => {
         if (element === 'pu-u') {
           authArray.update = true;

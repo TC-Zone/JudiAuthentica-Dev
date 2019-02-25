@@ -6,7 +6,7 @@
       <mat-divider></mat-divider>
 
       <div class="m-333">
-        <button mat-raised-button class="mb-05 ml-05" color="primary" (click)="openPopUp({}, true)">Add User</button>
+        <button *ngIf="authArray.create" mat-raised-button class="mb-05 ml-05" color="primary" (click)="openPopUp({}, true)">Add User</button>
         <span fxFlex></span>
         <p *ngIf="authArray.search" class="mat-select-lable"> Page Size: </p>
         <mat-select *ngIf="authArray.search" class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()">
@@ -46,7 +46,7 @@
         </ngx-datatable-column>
 
 
-        <ngx-datatable-column name="Actions" [flexGrow]="1" [maxWidth]="200">
+        <ngx-datatable-column *ngIf="authArray.update" name="Actions" [flexGrow]="1" [maxWidth]="200">
           <ng-template let-row="row" ngx-datatable-cell-template>
             <!-- <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)">
               <mat-icon>edit</mat-icon>

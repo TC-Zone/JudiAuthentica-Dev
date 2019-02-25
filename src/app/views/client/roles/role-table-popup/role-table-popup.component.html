@@ -30,7 +30,7 @@
             <form [formGroup]="authoritiesFormGroup">
               <div fxLayout="row" fxLayout.lt-sm="column" style="padding-top: 5px;" fxLayoutWrap="wrap">
                 <div fxFlex="50" class="pr-1" style="padding-top: 5px;" *ngFor="let item of module.data">
-                  <mat-checkbox [checked]="item.checked" (change)="onChange(item.id, module.moduleName, item.key, $event.checked)" class="full-width" value="{{item.key}}">{{item.name}}</mat-checkbox>
+                  <mat-checkbox [checked]="item.checked" (change)="onChange(item.id, module.moduleName, item.code, $event.checked)" class="full-width" value="{{item.code}}">{{item.name}}</mat-checkbox>
                 </div>
               </div>
             </form>
