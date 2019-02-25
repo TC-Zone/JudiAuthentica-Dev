@@ -56,12 +56,11 @@ export class SigninComponent implements OnInit {
         const tempUser = {
           id: response.user_id,
           username: 'contactpkumara@gmail.com',
-          profilename: 'Kushan Pabasara',
+          accountName: 'Kushan Pabasara',
           image: 'assets/images/cp_users/placeholder-user.png',
           token: response.access_token,
           refreshToken: response.refresh_token,
           company: 'Kushan Pabasara',
-          position: 'UI/UX Engineer',
           expires_in: response.expires_in,
           userData: ''
         };
@@ -70,9 +69,10 @@ export class SigninComponent implements OnInit {
 
         this.userService.getUserData(response.user_id)
           .subscribe(res => {
-            tempUser.username = res.content.userName;
-            tempUser.profilename = res.content.userName;
-            tempUser.company = res.content.client;
+            const viewData =  res.content;
+            tempUser.username = viewData.userName;
+            tempUser.accountName = viewData.accountName;
+            tempUser.company = viewData.client.name;
             tempUser.userData = res.content;
             localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
             this.progressBar.mode = 'determinate';
