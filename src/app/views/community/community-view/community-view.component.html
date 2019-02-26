@@ -1,0 +1,48 @@
+<mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+  <mat-card-title>
+    <div class="card-title-text">Communities</div>
+    <mat-divider></mat-divider>
+    <div class="m-333">
+      <button mat-raised-button class="mb-05 ml-05" color="primary" (click)="openPopUp({}, true)">Add Community</button>
+      <span fxFlex></span>
+      <p class="mat-select-lable"> Page Size: </p>
+      <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()">
+        <mat-option [value]="10">10</mat-option>
+        <mat-option [value]="20">20</mat-option>
+      </mat-select>
+    </div>
+  </mat-card-title>
+  <mat-card-content class="p-0">
+    <ngx-datatable [rows]="communityArray" class="material ml-0 mr-0" [columnMode]="'force'" [headerHeight]="50"
+      [footerHeight]="50" [limit]="10" [rowHeight]="'auto'">
+      <ngx-datatable-column name="Name" [flexGrow]="1" [minWidth]="150">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.name }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Description" [flexGrow]="1" [minWidth]="150">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          {{ row?.description }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Status" [flexGrow]="1" [minWidth]="150">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <mat-chip *ngIf="row.status" mat-sm-chip color="primary" [selected]="true">Active</mat-chip>
+          <mat-chip *ngIf="!row.status" mat-sm-chip color="accent" [selected]="true">Inactive</mat-chip>
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Actions" [flexGrow]="1" [minWidth]="150">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="navigateCommunity(row)"><mat-icon>list</mat-icon>View</button>
+            <button mat-menu-item (click)="openPopUp(row, false)"><mat-icon>edit</mat-icon>Edit</button>
+            <button mat-menu-item (click)="deleteCommunity(row)"><mat-icon>delete</mat-icon>Delete</button>
+          </mat-menu>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </mat-card-content>
+</mat-card>

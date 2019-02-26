@@ -444,11 +444,11 @@ export class NavigationService {
       disabled: false
     },
     {
-      name: "Comunity",
+      name: "Community",
       type: "link",
-      tooltip: "Comunity",
+      tooltip: "Community",
       icon: "group",
-      state: "comunity/showComunity",
+      state: "community/community-view",
       disabled: false
     },
     // ,

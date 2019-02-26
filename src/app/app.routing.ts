@@ -91,8 +91,8 @@ export const rootRouterConfig: Routes = [
         data: { title: "E - Vote", breadcrumb: "E Vote" }
       },
       {
-        path: "comunity",
-        loadChildren: "./views/comunity/comunity.module#ComunityModule",
+        path: "community",
+        loadChildren: "./views/community/community.module#CommunityModule",
         data: { title: "Comunity", breadcrumb: "Comunity" }
       }
 

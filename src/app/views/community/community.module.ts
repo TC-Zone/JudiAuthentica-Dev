@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserComunityComponent } from './user-comunity/user-comunity.component';
 import {
   MatCardModule,
   MatInputModule,
@@ -13,7 +12,10 @@ import {
   MatAutocompleteModule,
   MatToolbarModule,
   MatSlideToggleModule,
-  MatTabsModule
+  MatTabsModule,
+  MatDividerModule,
+  MatChipsModule,
+  MatMenuModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -21,10 +23,12 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedModule } from 'app/shared/shared.module';
 import { FileUploadModule } from 'ng2-file-upload';
 import { RouterModule } from '@angular/router';
-import { ComunityRouts } from './comunity.routing';
+import { CommunityRouts } from './community.routing';
+import { CommunityViewComponent } from './community-view/community-view.component';
+import { CommunityViewPopupComponent } from './community-view/community-view-popup/community-view-popup.component';
+import { UserCommunityComponent } from './user-community/user-community.component';
 
 @NgModule({
-  declarations: [UserComunityComponent],
   imports: [
     MatCardModule,
     CommonModule,
@@ -45,7 +49,18 @@ import { ComunityRouts } from './comunity.routing';
     MatToolbarModule,
     MatSlideToggleModule,
     MatTabsModule,
-    RouterModule.forChild(ComunityRouts)
+    MatDividerModule,
+    MatChipsModule,
+    MatMenuModule,
+    RouterModule.forChild(CommunityRouts)
+  ],
+  declarations: [
+    CommunityViewComponent,
+    CommunityViewPopupComponent,
+    UserCommunityComponent
+  ],
+  entryComponents: [
+    CommunityViewPopupComponent
   ]
 })
-export class ComunityModule { }
+export class CommunityModule { }
