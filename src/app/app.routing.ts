@@ -89,8 +89,13 @@ export const rootRouterConfig: Routes = [
         path: "evote",
         loadChildren: "./views/evote/evote.module#EvoteModule",
         data: { title: "E - Vote", breadcrumb: "E Vote" }
+      },
+      {
+        path: "community",
+        loadChildren: "./views/community/community.module#CommunityModule",
+        data: { title: "Comunity", breadcrumb: "Comunity" }
       }
-      
+
     ]
   },
   {

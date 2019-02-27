@@ -8,6 +8,8 @@ import { egretAnimations } from "../../../../shared/animations/egret-animations"
 import { AppErrorService } from "../../../../shared/services/app-error/app-error.service";
 import { ActivatedRoute } from '@angular/router';
 import { UserCreateReq, ClientData, UserRole } from 'app/model/ClientModel.model';
+import { authProperties } from './../../../../shared/services/auth/auth-properties';
+import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-user-table',
@@ -25,6 +27,7 @@ export class UserTableComponent implements OnInit {
   };
   public pageSize = 10;
   public name;
+  public authArray: any;
 
   public getItemSub: Subscription;
   constructor(
@@ -45,6 +48,9 @@ export class UserTableComponent implements OnInit {
 
     this.getUsers();
     this.getUserRoles();
+    this.authArray = this.setAuthorities();
+    console.log('------------------ auth array ----------------------');
+    console.log(this.authArray);
 
   }
 
@@ -57,7 +63,7 @@ export class UserTableComponent implements OnInit {
   getUsers() {
     this.getItemSub = this.clientService.getUsers(this.clientId).subscribe(successResp => {
       console.log(successResp.content);
-      
+
       this.users = successResp.content.users;
 
     },
@@ -87,7 +93,7 @@ export class UserTableComponent implements OnInit {
         });
       }
     );
-    
+
   }
 
   openPopUp(data: any = {}, isNew?) {
@@ -149,6 +155,36 @@ export class UserTableComponent implements OnInit {
         );
       }
     });
+  }
+
+  setAuthorities(): any {
+    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+    const authArray = {
+      create: false,
+      search: false,
+      update: false,
+      delete: false,
+      view: false,
+    };
+    if (userObj) {
+      const decodedToken = jwt_decode(userObj.token);
+      const authorities = decodedToken.authorities;
+      authorities.forEach(element => {
+        if (element === 'pu-u') {
+          authArray.update = true;
+        }
+        if (element === 'pu-c') {
+          authArray.create = true;
+        }
+        if (element === 'pu-d') {
+          authArray.delete = true;
+        }
+        if (element === 'pu-v') {
+          authArray.view = true;
+        }
+      });
+    }
+    return authArray;
   }
 
 }

@@ -1,0 +1,73 @@
+<mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+  <mat-card-title>
+    <div class="m-333">
+      <span class="card-title-text">{{ comunityName }}</span>
+      <span fxFlex></span>
+      <button mat-raised-button class="mb-05 ml-05" color="accent" (click)="backToComunityView()">Back</button>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content class="p-0">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+      <div fxFlex="100" class="pr-1">
+        <mat-tab-group>
+          <mat-tab label="Instant Feedback">
+            <p style="padding-left:10px;">Instant Feedback Page</p>
+          </mat-tab>
+          <mat-tab label="Events">
+            <ng-template matTabContent>
+              <div class="messages-wrap">
+                <mat-toolbar color="primary" class="inbox-toolbar">
+                  <!-- multiple events select and control -->
+                  <mat-checkbox (change)="selectToggleAll()" class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
+                  <button mat-icon-button matTooltip="Create event" (click)="eventPopUp({}, true)"><mat-icon>event</mat-icon></button>
+                  <button mat-icon-button matTooltip="Move to trash"><mat-icon>delete</mat-icon></button>
+                  <button mat-icon-button matTooltip="Mark as active" class=""><mat-icon>folder_special</mat-icon></button>
+                </mat-toolbar>
+                <mat-accordion>
+                  <mat-expansion-panel *ngFor="let eventObj of events" expanded="false" hideToggle="true">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <mat-checkbox (click)="stopProp($event)" class="mail-checkbox hide-on-open"></mat-checkbox>
+                        <button (click)="stopProp($event)" *ngIf="eventObj.status" mat-icon-button matTooltip="Active" class="hide-on-open mr-1 white-icon">
+                          <mat-icon color="accent">star</mat-icon>
+                        </button>
+                        <button (click)="stopProp($event)" *ngIf="!eventObj.status" mat-icon-button matTooltip="Not Active" class="hide-on-open mr-1 white-icon">
+                          <mat-icon>star_border</mat-icon>
+                        </button>
+                        <span class="hide-on-open">{{ eventObj.name }}</span>
+                        <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start center" class="show-on-open">
+                          <img [src]="eventObj.file" alt="" class="inbox-face mr-1">
+                          <div fxLayout="column">
+                            <span class="m-0" >{{ eventObj.name }}</span>
+                            <small class="text-muted m-0">Start Date : {{eventObj.startDate | date}}, End Date : {{eventObj.endDate | date}}</small>
+                          </div>
+                        </div>
+                      </mat-panel-title>
+                      <mat-panel-description>
+                        <span class="mail-subject text-sm mat-color-default">Event Subject</span>
+                        <span fxFlex></span>
+                        <span class="text-sm" fxHide.lt-sm="true">{{eventObj.startDate | relativeTime}}</span>
+                        <button mat-icon-button [matMenuTriggerFor]="msgMenu" (click)="stopProp($event)" class="hidden-on-open">
+                          <mat-icon class="text-muted">more_vert</mat-icon>
+                        </button>
+                        <mat-menu #msgMenu="matMenu">
+                          <button mat-menu-item (click)="eventPopUp(eventObj, false)"><mat-icon>edit</mat-icon> Edit</button>
+                          <button mat-menu-item><mat-icon>delete</mat-icon> Delete</button>
+                        </mat-menu>
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <div class="message-text" [innerHTML]="eventObj.description"></div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </ng-template>
+          </mat-tab>
+          <mat-tab label="Offers">
+            <p style="padding-left:10px;">Offers Page</p>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

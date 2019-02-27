@@ -1,0 +1,75 @@
+<form [formGroup]="eventForm">
+  <mat-toolbar matDialogTitle class="mat-primary m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">{{data.title}}</span>
+    </div>
+  </mat-toolbar>
+  <mat-dialog-content class="mat-typography mt-1">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+      <div fxFlex="100" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="name" [formControl]="eventForm.controls['name']" letterOnly placeholder="Event Name">
+        </mat-form-field>
+      </div>
+      <div fxFlex="100" class="pr-1">
+        <mat-form-field class="full-width">
+          <textarea matInput name="description" placeholder="Description" [formControl]="eventForm.controls['description']"></textarea>
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="startDate" [min]="startDateMin" [max]="startDateMax" (dateChange)="validateDatePickerMinMax()" [matDatepicker]="picker1" [formControl]="eventForm.controls['startDate']" required placeholder="Start Date">
+          <mat-datepicker-toggle matSuffix [for]="picker1">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="endDate" [min]="endDateMin" [max]="endDateMax" (dateChange)="validateDatePickerMinMax()"  [matDatepicker]="picker2" [formControl]="eventForm.controls['endDate']" required placeholder="End Date">
+          <mat-datepicker-toggle matSuffix [for]="picker2">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-1">
+        <mat-slide-toggle [formControl]="eventForm.controls['status']">Activate Event</mat-slide-toggle>
+      </div>
+      <div fxFlex="50" class="pr-1">
+        <!-- --------- hidden file input --------- -->
+        <input (change)="onSelectFile($event)" #eventImgs type="file" [formControl]="eventForm.controls['file']"
+        multiple style="display: none" />
+        <!-- --------- file input click button --------- -->
+        <div layout-margin layout-padding>
+          <button mat-raised-button class="mr-1" (click)="eventImgs.click()"
+          [disabled]="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
+          (false) :
+          (this.currentTotalImageCount === this.maxUploadableFileCount)"
+            type="button">
+            Browse Images
+            <span *ngIf="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
+            (false) :
+            (this.currentTotalImageCount > 0)"> ({{this.currentTotalImageCount}} / {{this.maxUploadableFileCount}})</span>
+          </button>
+        </div>
+      </div>
+      <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngFor='let url of urls; let i = index' fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" style="display: flex;">
+        <mat-card class="p-0">
+          <button type="button" class="close" aria-label="Close" (click)="removeSelectedImg(i)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <img [src]="url">
+        </mat-card>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+        <div fxFlex="100" class="mt-1">
+          <button mat-raised-button color="primary" (click)="eventFormSubmit()" [disabled]="eventForm.invalid">Save</button>
+          <span fxFlex></span>
+          <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+        </div>
+      </div>
+  </mat-dialog-content>
+</form>

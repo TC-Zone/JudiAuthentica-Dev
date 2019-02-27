@@ -8,6 +8,9 @@ import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { NavigationExtras, Router } from "@angular/router";
+import { UserService } from './../../sessions/UserService.service';
+import { authProperties } from './../../../shared/services/auth/auth-properties';
+import * as jwt_decode from "jwt-decode";
 
 @Component({
   selector: "app-role-table",
@@ -20,6 +23,7 @@ export class RoleTableComponent implements OnInit, OnDestroy {
 
   public componentList = [];
   public editRoleId: String;
+  public authArray: any;
 
   public getItemSub: Subscription;
   constructor(
@@ -29,11 +33,15 @@ export class RoleTableComponent implements OnInit, OnDestroy {
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
     this.getItems();
+    this.authArray = this.setAuthorities();
+    console.log('------------------ auth array ----------------------');
+    console.log(this.authArray);
   }
 
   ngOnDestroy() {
@@ -150,6 +158,36 @@ export class RoleTableComponent implements OnInit, OnDestroy {
           this.getItems();
         }
       });
+  }
+
+  setAuthorities(): any {
+    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+    const authArray = {
+      create: false,
+      search: false,
+      update: false,
+      delete: false,
+      view: false,
+    };
+    if (userObj) {
+      const decodedToken = jwt_decode(userObj.token);
+      const authorities = decodedToken.authorities;
+      authorities.forEach(element => {
+        if (element === 'pur-u') {
+          authArray.update = true;
+        }
+        if (element === 'pur-c') {
+          authArray.create = true;
+        }
+        if (element === 'pur-d') {
+          authArray.delete = true;
+        }
+        if (element === 'pur-v') {
+          authArray.view = true;
+        }
+      });
+    }
+    return authArray;
   }
 
 }
