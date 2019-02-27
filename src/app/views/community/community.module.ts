@@ -15,7 +15,12 @@ import {
   MatTabsModule,
   MatDividerModule,
   MatChipsModule,
-  MatMenuModule
+  MatMenuModule,
+  MatSidenavModule,
+  MatListModule,
+  MatCheckboxModule,
+  MatTooltipModule,
+  MatExpansionModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -27,6 +32,7 @@ import { CommunityRouts } from './community.routing';
 import { CommunityViewComponent } from './community-view/community-view.component';
 import { CommunityViewPopupComponent } from './community-view/community-view-popup/community-view-popup.component';
 import { UserCommunityComponent } from './user-community/user-community.component';
+import { CreateEventPopupComponent } from './user-community/create-event-popup/create-event-popup.component';
 
 @NgModule({
   imports: [
@@ -52,15 +58,22 @@ import { UserCommunityComponent } from './user-community/user-community.componen
     MatDividerModule,
     MatChipsModule,
     MatMenuModule,
+    MatSidenavModule,
+    MatListModule,
+    MatCheckboxModule,
+    MatTooltipModule,
+    MatExpansionModule,
     RouterModule.forChild(CommunityRouts)
   ],
   declarations: [
     CommunityViewComponent,
     CommunityViewPopupComponent,
-    UserCommunityComponent
+    UserCommunityComponent,
+    CreateEventPopupComponent
   ],
   entryComponents: [
-    CommunityViewPopupComponent
+    CommunityViewPopupComponent,
+    CreateEventPopupComponent
   ]
 })
 export class CommunityModule { }

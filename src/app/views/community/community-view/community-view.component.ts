@@ -11,7 +11,7 @@ import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.s
   animations: egretAnimations
 })
 export class CommunityViewComponent implements OnInit {
-  public communityArray = [
+  public rows = [
     {
       id: 'comunity_id_01',
       name: 'Community Name 01',
@@ -25,7 +25,13 @@ export class CommunityViewComponent implements OnInit {
       status: true
     }
   ];
-  public pageSize: any = 10;
+
+  public columns = [];
+  public temp = [];
+  public pageNumber = 1;
+  public pageSize = 10;
+  public totalPages = [];
+  public totalRecords = 0;
 
   constructor(
     private dialog: MatDialog,
@@ -35,8 +41,15 @@ export class CommunityViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.temp = this.rows;
+    this.totalRecords = this.rows.length;
   }
 
+  /*
+  * Create new community and update community popup window open function
+  * 27-02-2019
+  * Prasad Kumara
+  */
   openPopUp(data: any = {}, isNew?) {
     const title = isNew ? 'Add New Community' : 'Update Community';
     const dialogRef: MatDialogRef<any> = this.dialog.open(
@@ -68,6 +81,11 @@ export class CommunityViewComponent implements OnInit {
     });
   }
 
+  /*
+  * Navigate to the selected comunity details page
+  * 27-02-2019
+  * Prasad Kumara
+  */
   navigateCommunity(row) {
     const extraParam: NavigationExtras = {
       queryParams: {
@@ -78,6 +96,11 @@ export class CommunityViewComponent implements OnInit {
     this.router.navigate(['community/user-community'], extraParam);
   }
 
+  /*
+  * Delete community
+  * 27-02-2019
+  * Prasad Kumara
+  */
   deleteCommunity(row) {
     this.confirmService
       .confirm({ message: `Delete ${row.name}?` })
@@ -90,8 +113,57 @@ export class CommunityViewComponent implements OnInit {
       });
   }
 
+  /*
+  * According to the page size get the table records from data base
+  * 27-02-2019
+  * Prasad Kumara
+  */
   changeValue() {
     console.log('pagination page size', this.pageSize);
+    this.pageNumber = 1;
+    this.getPageCommunity(this.pageNumber);
+  }
+
+  /*
+  * Table search function according to the typing words
+  * 27-02-2019
+  * Prasad Kumara
+  */
+  updateFilter(event) {
+    const val = event.target.value.toLowerCase();
+    const columns = Object.keys(this.temp[0]);
+    columns.splice(columns.length - 1);
+
+    if (!columns.length) {
+      return;
+    }
+
+    const rows = this.temp.filter(function(data) {
+      for (let i = 0; i <= columns.length; i++) {
+        const column = columns[i];
+        if (
+          data[column] &&
+          data[column]
+            .toString()
+            .toLowerCase()
+            .indexOf(val) > -1
+        ) {
+          return true;
+        }
+      }
+    });
+    this.rows = rows;
+  }
+
+  /*
+  * Get Community According to the page number
+  * 27-02-2019
+  * Prasad Kumara
+  */
+  getPageCommunity(pageNumber) {
+    if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
+      this.pageNumber = pageNumber;
+    }
   }
 
 }
