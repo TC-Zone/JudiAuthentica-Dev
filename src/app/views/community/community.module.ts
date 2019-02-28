@@ -33,6 +33,7 @@ import { CommunityViewComponent } from './community-view/community-view.componen
 import { CommunityViewPopupComponent } from './community-view/community-view-popup/community-view-popup.component';
 import { UserCommunityComponent } from './user-community/user-community.component';
 import { CreateEventPopupComponent } from './user-community/create-event-popup/create-event-popup.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   imports: [
@@ -48,6 +49,8 @@ import { CreateEventPopupComponent } from './user-community/create-event-popup/c
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     MatIconModule,
     MatAutocompleteModule,
     SharedModule,
