@@ -20,24 +20,17 @@
                 <mat-toolbar color="primary" class="inbox-toolbar">
                   <!-- multiple events select and control -->
                   <mat-checkbox (change)="selectToggleAll()" class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
-                  <button mat-icon-button matTooltip="Create event" (click)="eventPopUp({}, true)"><mat-icon>event</mat-icon></button>
+                  <button mat-icon-button matTooltip="Add event" (click)="eventPopUp({}, true)"><mat-icon>add_box</mat-icon></button>
                   <button mat-icon-button matTooltip="Move to trash"><mat-icon>delete</mat-icon></button>
-                  <button mat-icon-button matTooltip="Mark as active" class=""><mat-icon>folder_special</mat-icon></button>
                 </mat-toolbar>
                 <mat-accordion>
                   <mat-expansion-panel *ngFor="let eventObj of events" expanded="false" hideToggle="true">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
                         <mat-checkbox (click)="stopProp($event)" class="mail-checkbox hide-on-open"></mat-checkbox>
-                        <button (click)="stopProp($event)" *ngIf="eventObj.status" mat-icon-button matTooltip="Active" class="hide-on-open mr-1 white-icon">
-                          <mat-icon color="accent">star</mat-icon>
-                        </button>
-                        <button (click)="stopProp($event)" *ngIf="!eventObj.status" mat-icon-button matTooltip="Not Active" class="hide-on-open mr-1 white-icon">
-                          <mat-icon>star_border</mat-icon>
-                        </button>
                         <span class="hide-on-open">{{ eventObj.name }}</span>
                         <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start center" class="show-on-open">
-                          <img [src]="eventObj.file" alt="" class="inbox-face mr-1">
+                          <!-- <img [src]="eventObj.file" alt="" class="inbox-face mr-1"> -->
                           <div fxLayout="column">
                             <span class="m-0" >{{ eventObj.name }}</span>
                             <small class="text-muted m-0">Start Date : {{eventObj.startDate | date}}, End Date : {{eventObj.endDate | date}}</small>
@@ -45,7 +38,10 @@
                         </div>
                       </mat-panel-title>
                       <mat-panel-description>
-                        <span class="mail-subject text-sm mat-color-default">Event Subject</span>
+                        <span class="mail-subject text-sm mat-color-default">
+                          <mat-chip *ngIf="eventObj.status" mat-sm-chip color="primary" [selected]="true">Active</mat-chip>
+                          <mat-chip *ngIf="!eventObj.status" mat-sm-chip color="accent" [selected]="true">Inactive</mat-chip>
+                        </span>
                         <span fxFlex></span>
                         <span class="text-sm" fxHide.lt-sm="true">{{eventObj.startDate | relativeTime}}</span>
                         <button mat-icon-button [matMenuTriggerFor]="msgMenu" (click)="stopProp($event)" class="hidden-on-open">
@@ -57,7 +53,28 @@
                         </mat-menu>
                       </mat-panel-description>
                     </mat-expansion-panel-header>
-                    <div class="message-text" [innerHTML]="eventObj.description"></div>
+                    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+                      <span fxFlex></span>
+                      <div fxFlex="60" class="pr-1">
+                        <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+                          <img style="padding: 10px;" mat-card-image [src]="eventObj.file" alt="Photo of a Shiba Inu">
+                          <mat-card-content>
+                            <p class="text-justify">{{ eventObj.description }}</p>
+                            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+                              <div fxFlex="50" class="pr-1">
+                                <h6 [ngStyle]="{'font-weight': 'bold'}">Start</h6>
+                                <h6 [ngStyle]="{'font-weight': 'bold'}">{{ eventObj.startDate | date:'MMM d, y, h:mm a' }}</h6>
+                              </div>
+                              <div fxFlex="50" class="pr-1">
+                                <h6 [ngStyle]="{'font-weight': 'bold'}">End</h6>
+                                <h6 [ngStyle]="{'font-weight': 'bold'}">{{ eventObj.endDate | date:'MMM d, y, h:mm a' }}</h6>
+                              </div>
+                            </div>
+                          </mat-card-content>
+                        </mat-card>
+                      </div>
+                      <span fxFlex></span>
+                    </div>
                   </mat-expansion-panel>
                 </mat-accordion>
               </div>
