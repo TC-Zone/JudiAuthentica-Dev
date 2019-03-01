@@ -23,7 +23,9 @@
             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
           </mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker> -->
-          <input matInput name="startDate" [min]="startDateMin" [max]="startDateMax" [owlDateTime]="picker1" [owlDateTimeTrigger]="picker1" [formControl]="eventForm.controls['startDate']" required placeholder="Start Date">
+          <input matInput name="startDate" [min]="startDateMin" (ngModelChange)="validateDatePickerMinMax()"
+            [max]="startDateMax" [owlDateTime]="picker1" [owlDateTimeTrigger]="picker1"
+            [formControl]="eventForm.controls['startDate']" required placeholder="Start Date">
           <button [owlDateTimeTrigger]="picker1" mat-icon-button matSuffix>
             <mat-icon>keyboard_arrow_down</mat-icon>
           </button>
@@ -37,7 +39,9 @@
             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
           </mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker> -->
-          <input matInput name="startDate" [min]="endDateMin" [max]="endDateMax" [owlDateTime]="picker2" [owlDateTimeTrigger]="picker2" [formControl]="eventForm.controls['endDate']" required placeholder="End Date">
+          <input matInput name="endDate" [min]="endDateMin" (ngModelChange)="validateDatePickerMinMax()"
+            [max]="endDateMax" [owlDateTime]="picker2" [owlDateTimeTrigger]="picker2"
+            [formControl]="eventForm.controls['endDate']" required placeholder="End Date">
           <button [owlDateTimeTrigger]="picker2" mat-icon-button matSuffix>
             <mat-icon>keyboard_arrow_down</mat-icon>
           </button>

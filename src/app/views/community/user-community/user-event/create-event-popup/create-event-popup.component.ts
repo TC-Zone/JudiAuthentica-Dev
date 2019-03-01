@@ -41,19 +41,19 @@ export const MY_FORMATS = {
 export class CreateEventPopupComponent implements OnInit {
 
   public eventForm: FormGroup;
-  public startDateMin = DateValidator.getToday();
+  public startDateMin;
   public startDateMax;
   public endDateMin;
   public endDateMax;
   public currentTotalImageCount = 0;
-  public maxUploadableFileCount = 2;
+  public maxUploadableFileCount = 1;
   public newlySelectedFileList = [];
   public urls = [];
   public remainImagesID = [];
   public comunityName: string;
   public comunityId: string;
-  public height = 180;
-  public width = 260;
+  public minHeight = 240;
+  public minWidth = 320;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -69,6 +69,8 @@ export class CreateEventPopupComponent implements OnInit {
       this.comunityId = params['id'];
       this.comunityName = params['name'];
     });
+    this.setStartDateMin();
+    this.createImgUrls();
   }
 
   buildEventForm(eventformdata) {
@@ -83,6 +85,18 @@ export class CreateEventPopupComponent implements OnInit {
     });
   }
 
+  setStartDateMin() {
+    const payload = this.data.payload;
+    const today = DateValidator.getToday();
+    if (payload) {
+      if (payload.startDate < today) {
+        this.startDateMin = payload.startDate;
+      } else {
+        this.startDateMin = today;
+      }
+    }
+  }
+
   validateDatePickerMinMax() {
     const startDateValue = this.eventForm.get('startDate').value;
     const endDateValue = this.eventForm.get('endDate').value;
@@ -92,12 +106,10 @@ export class CreateEventPopupComponent implements OnInit {
       this.endDateMin = DateValidator.getToday();
     } else {
       if (startDateValue != null) {
-        const sd: Date = startDateValue._d;
-        this.endDateMin = sd;
+        this.endDateMin = startDateValue;
       }
       if (endDateValue != null) {
-        const ed: Date = endDateValue._d;
-        this.startDateMax = ed;
+        this.startDateMax = endDateValue;
       }
     }
   }
@@ -119,9 +131,20 @@ export class CreateEventPopupComponent implements OnInit {
             reader.onload = (ev: any) => {
               const img = new Image();
               img.src = ev.target.result;
-              if (img.width !== this.width || img.height !== this.height) {
+              const widthReminder = img.width % 4;
+              const heightReminder = img.height % 3;
+              if (img.width < this.minWidth && img.height < this.minHeight) {
                 this.snackBar.open(
-                  'Please upload 260 X 180 size image files only',
+                  'Please upload' + this.minWidth + ' X ' + this.minHeight + ' size image files only',
+                  'close',
+                  { duration: 3000 }
+                );
+                this.currentTotalImageCount--;
+                return;
+              }
+              if (widthReminder !== 0 || heightReminder !== 0) {
+                this.snackBar.open(
+                  'Please upload' + this.minWidth + ' X ' + this.minHeight + ' size image files only',
                   'close',
                   { duration: 3000 }
                 );
@@ -153,24 +176,6 @@ export class CreateEventPopupComponent implements OnInit {
         );
       }
     }
-  }
-
-  validateImageSize(file): any {
-    const reader = new FileReader();
-    let status = true;
-    reader.onload = (ev: any) => {
-      const img = new Image();
-      img.src = ev.target.result;
-      console.log(img.width);
-      console.log(img.height);
-      if (img.width !== this.width || img.height !== this.height) {
-        status = false;
-      }
-      this.urls.push(ev.target.result);
-    };
-    reader.readAsDataURL(file);
-    this.newlySelectedFileList.push(file);
-    return status;
   }
 
   removeSelectedImg(index: number) {
@@ -206,6 +211,14 @@ export class CreateEventPopupComponent implements OnInit {
   eventFormSubmit() {
     const eventFormData = this.prepareEventFormData(this.eventForm.value);
     this.dialogRef.close(eventFormData);
+  }
+
+  createImgUrls() {
+    const payload = this.data.payload;
+    if (payload) {
+      this.urls.push(payload.file);
+      this.currentTotalImageCount = 1;
+    }
   }
 
 }
