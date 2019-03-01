@@ -3,7 +3,7 @@
     <!-- multiple events select and control -->
     <mat-checkbox (change)="selectToggleAll($event)" [indeterminate]="indeterminateState" [checked]="selectAll" class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
     <button mat-icon-button matTooltip="Add event" (click)="eventPopUp({}, true)"><mat-icon>add_box</mat-icon></button>
-    <button mat-icon-button matTooltip="Move to trash" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedEvent()"><mat-icon>delete</mat-icon></button>
+    <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedEvent()"><mat-icon>delete</mat-icon></button>
   </mat-toolbar>
   <mat-accordion>
     <mat-expansion-panel *ngFor="let eventObj of events" expanded="false" hideToggle="true">

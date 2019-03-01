@@ -1,3 +1,101 @@
-<p>
-  user-offer works!
-</p>
+<div class="messages-wrap">
+  <mat-toolbar color="primary" class="inbox-toolbar">
+    <!-- multiple promotions select and control -->
+    <mat-checkbox (change)="selectToggleAll($event)" [indeterminate]="indeterminateState" [checked]="selectAll" class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
+    <button mat-icon-button matTooltip="Add event" (click)="eventPopUp({}, true)"><mat-icon>add_box</mat-icon></button>
+    <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedEvent()"><mat-icon>delete</mat-icon></button>
+  </mat-toolbar>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let promoObj of promotions" expanded="false" hideToggle="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-checkbox (change)="selectToggleOne($event, promoObj)" [checked]="promoObj.selected" (click)="stopProp($event)" class="mail-checkbox hide-on-open"></mat-checkbox>
+          <span class="hide-on-open">{{ promoObj.name }}</span>
+          <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start center" class="show-on-open">
+            <!-- <img [src]="promoObj.file" alt="" class="inbox-face mr-1"> -->
+            <div fxLayout="column">
+              <span class="m-0">{{ promoObj.name }}</span>
+              <small class="text-muted m-0">Start Date : {{promoObj.startDate | date}}, End Date :
+                {{promoObj.endDate | date}}</small>
+            </div>
+          </div>
+        </mat-panel-title>
+        <mat-panel-description>
+          <span class="mail-subject text-sm mat-color-default">
+            <mat-chip *ngIf="promoObj.status" mat-sm-chip color="primary" [selected]="true">Active</mat-chip>
+            <mat-chip *ngIf="!promoObj.status" mat-sm-chip color="accent" [selected]="true">Inactive</mat-chip>
+          </span>
+          <span fxFlex></span>
+          <span class="text-sm" fxHide.lt-sm="true">{{promoObj.startDate | relativeTime}}</span>
+          <button mat-icon-button [matMenuTriggerFor]="msgMenu" (click)="stopProp($event)" class="hidden-on-open">
+            <mat-icon class="text-muted">more_vert</mat-icon>
+          </button>
+          <mat-menu #msgMenu="matMenu">
+            <button mat-menu-item (click)="eventPopUp(promoObj, false)">
+              <mat-icon>edit</mat-icon> Edit
+            </button>
+            <button mat-menu-item (click)="deleteEvent(promoObj)">
+              <mat-icon>delete</mat-icon> Delete
+            </button>
+          </mat-menu>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div fxLayout="row" fxLayoutWrap="wrap" class="mt-1">
+        <!-- <span fxFlex></span> -->
+        <div fxFlex="40" class="pr-1">
+          <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+            <img style="padding: 10px;" mat-card-image [src]="promoObj.file" alt="Photo of a Shiba Inu">
+          </mat-card>
+        </div>
+        <div fxFlex="60" class="pr-1">
+          <div fxLayout="row" fxLayoutWrap="wrap" class="mt-1">
+            <div fxFlex="100">
+              <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+                <mat-card-content>
+                  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+                    <small class="text-muted">Event Description</small>
+                  </div>
+                  <p style="padding-top: 10px;" class="md-body-1">{{ promoObj.description }}</p>
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div fxFlex="70">
+              <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+                <mat-card-content>
+                  <div fxLayout="row" fxLayoutWrap="wrap">
+                    <div fxFlex="50">
+                      <div fxLayout="row" fxLayoutWrap="wrap">
+                        <div fxFlex="100">
+                          <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+                            <p class="text-muted icon-mr" style="margin-top: 2px;">Start Date & Time</p>
+                            <!-- <span fxFlex></span> -->
+                            <mat-icon color="primary">play_arrow</mat-icon>
+                          </div>
+                          <h6 class="m-0 font-normal">{{ promoObj.startDate | date:'MMM d, y, h:mm a'}}</h6>
+                        </div>
+                        <div fxFlex="100">
+                          <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+                            <p class="text-muted icon-mr" style="margin-top: 2px;">End Date & Time</p>
+                            <!-- <span fxFlex></span> -->
+                            <mat-icon color="warn">stop</mat-icon>
+                          </div>
+                          <h6 class="m-0 font-normal">{{ promoObj.endDate | date:'MMM d, y, h:mm a'}}</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div fxFlex="50" style="text-align: center;">
+                        <!-- <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1"> -->
+                          <h5 class="text-muted icon-mr discount-mt">DISCOUNT</h5>
+                        <!-- </div> -->
+                        <h4 class="m-0 discount-font">{{ promoObj.percentage }} %</h4>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
