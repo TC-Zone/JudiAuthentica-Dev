@@ -52,7 +52,18 @@ export class ComunityService {
 
   updateCommunityById(communityId, communityData) {
     return this.http.
-      put(this.userApiUrl + 'communities/' + 'faa6643aca8c5318a9583178795542cf', communityData)
+      put(this.userApiUrl + 'communities/' + communityId, communityData)
+      .pipe(
+        map(data => {
+          return data;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  deleteCommunityById(communityId) {
+    return this.http.
+      delete(this.userApiUrl + 'communities/' + communityId)
       .pipe(
         map(data => {
           return data;

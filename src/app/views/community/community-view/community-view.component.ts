@@ -179,9 +179,24 @@ export class CommunityViewComponent implements OnInit {
       .confirm({ message: `Delete ${row.name}?` })
       .subscribe(res => {
         if (res) {
-          this.snack.open(`${row.name} Deleted`, 'close', {
-            duration: 2000
-          });
+          this.loader.open();
+          this.comunityService.deleteCommunityById(row.id)
+            .subscribe(
+              response => {
+                this.fetchAllCommunities();
+                this.loader.close();
+                this.snack.open(`${row.name} Deleted`, 'close', {
+                  duration: 2000
+                });
+              },
+            error => {
+              this.errDialog.showError({
+                title: 'Error',
+                status: error.status,
+                type: 'http_error'
+              });
+            }
+            );
         }
       });
   }
