@@ -132,11 +132,11 @@ export class UserOfferComponent implements OnInit {
 
   deleteSelectedEvent() {
     this.confirmService
-      .confirm({ message: 'Do You want to Delete Selected Events?' })
+      .confirm({ message: 'Do You want to Delete Selected Offers?' })
       .subscribe(res => {
         if (res) {
           const selectedEvents = this.getSelectedEvents();
-          console.log('--------- Selected Events For Delete ---------');
+          console.log('--------- Selected Offers For Delete ---------');
           console.log(selectedEvents);
         }
     });
