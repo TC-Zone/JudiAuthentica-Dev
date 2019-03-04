@@ -4,6 +4,10 @@ import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
 import { CommunityViewPopupComponent } from './community-view-popup/community-view-popup.component';
 import { NavigationExtras, Router } from '@angular/router';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
+import { ComunityService } from './../community.service';
+import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
+import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
+import { authProperties } from './../../../shared/services/auth/auth-properties';
 
 @Component({
   selector: 'app-community-view',
@@ -11,21 +15,8 @@ import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.s
   animations: egretAnimations
 })
 export class CommunityViewComponent implements OnInit {
-  public rows = [
-    {
-      id: 'comunity_id_01',
-      name: 'Community Name 01',
-      description: 'Community Description 01',
-      status: false
-    },
-    {
-      id: 'comunity_id_02',
-      name: 'Community Name 02',
-      description: 'Community Description 02',
-      status: true
-    }
-  ];
 
+  public rows: any;
   public columns = [];
   public temp = [];
   public pageNumber = 1;
@@ -37,12 +28,14 @@ export class CommunityViewComponent implements OnInit {
     private dialog: MatDialog,
     private snack: MatSnackBar,
     private router: Router,
-    private confirmService: AppConfirmService
+    private confirmService: AppConfirmService,
+    private loader: AppLoaderService,
+    private errDialog: AppErrorService,
+    private comunityService: ComunityService
   ) { }
 
   ngOnInit() {
-    this.temp = this.rows;
-    this.totalRecords = this.rows.length;
+    this.fetchAllCommunities();
   }
 
   /*
@@ -57,28 +50,108 @@ export class CommunityViewComponent implements OnInit {
       {
         width: '720px',
         disableClose: true,
-        data: { title: title, payload: data }
+        data: { title: title, payload: data, isNew: isNew }
       }
     );
     dialogRef.afterClosed().subscribe(res => {
       if (!res) {
         return;
       } else {
-        if (isNew) {
-          console.log('------------ Create new Community ------------');
-          console.log(res);
-          this.snack.open('New Community Created', 'close', {
-            duration: 2000
-          });
-        } else {
-          console.log('------------ Update Community ------------');
-          console.log(res);
-          this.snack.open('Community Updated', 'close', {
-            duration: 2000
-          });
+        const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+        if (userObj) {
+          this.loader.open();
+          if (isNew) {
+            res['createdUserId'] = userObj.id;
+            res['client'] = {
+              'id': userObj.userData.client.id
+            };
+            res['users'] = [
+              {
+                'id': userObj.id
+              }
+            ];
+            // console.log('------------ Create new Community ------------');
+            // console.log(res);
+            this.comunityService.createCommunity(res)
+              .subscribe(
+                response => {
+                  console.log('------------ Create new Community ------------');
+                  console.log(response);
+                  this.fetchAllCommunities();
+                  this.loader.close();
+                  this.snack.open('New Community Created', 'close', {
+                    duration: 2000
+                  });
+                },
+                error => {
+                  this.loader.close();
+                  this.errDialog.showError({
+                    title: 'Error',
+                    status: error.status,
+                    type: 'http_error'
+                  });
+                }
+              );
+          } else {
+            res['lastModifiedUserId'] = userObj.id;
+            res['communityStatus'] = this.getCommunityStatus(res.communityStatus);
+            console.log('------------ Update Community ------------');
+            console.log(res);
+            this.comunityService.updateCommunityById(data.id, res)
+              .subscribe(
+                response => {
+                  console.log('------------ Update Community ------------');
+                  console.log(response);
+                  this.fetchAllCommunities();
+                  this.loader.close();
+                  this.snack.open('Community Updated', 'close', {
+                    duration: 2000
+                  });
+                },
+                error => {
+                  this.loader.close();
+                  this.errDialog.showError({
+                    title: 'Error',
+                    status: error.status,
+                    type: 'http_error'
+                  });
+                }
+              );
+          }
         }
       }
     });
+  }
+
+  fetchAllCommunities() {
+    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+    if (userObj) {
+      this.comunityService.fetchAllComunities(userObj.userData.client.id)
+        .subscribe(
+          response => {
+            // console.log('--------- fetch all communities ------');
+            // console.log(response);
+            this.rows = response;
+            this.temp = this.rows;
+            this.totalRecords = this.rows.length;
+          },
+          error => {
+            this.errDialog.showError({
+              title: 'Error',
+              status: error.status,
+              type: 'http_error'
+            });
+          }
+        );
+    }
+  }
+
+  getCommunityStatus(communityStatus): string {
+    if (communityStatus) {
+      return 'A';
+    } else {
+      return 'I';
+    }
   }
 
   /*
