@@ -37,6 +37,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { UserEventComponent } from './user-community/user-event/user-event.component';
 import { UserFeedbackComponent } from './user-community/user-feedback/user-feedback.component';
 import { UserOfferComponent } from './user-community/user-offer/user-offer.component';
+import { CreateOfferPopupComponent } from './user-community/user-offer/create-offer-popup/create-offer-popup.component';
 
 @NgModule({
   imports: [
@@ -78,11 +79,13 @@ import { UserOfferComponent } from './user-community/user-offer/user-offer.compo
     CreateEventPopupComponent,
     UserEventComponent,
     UserFeedbackComponent,
-    UserOfferComponent
+    UserOfferComponent,
+    CreateOfferPopupComponent
   ],
   entryComponents: [
     CommunityViewPopupComponent,
-    CreateEventPopupComponent
+    CreateEventPopupComponent,
+    CreateOfferPopupComponent
   ]
 })
 export class CommunityModule { }

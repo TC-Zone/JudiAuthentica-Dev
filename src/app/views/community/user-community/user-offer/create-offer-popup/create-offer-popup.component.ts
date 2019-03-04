@@ -1,46 +1,18 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { egretAnimations } from 'app/shared/animations/egret-animations';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-  DateAdapter,
-  MAT_DATE_LOCALE,
-  MAT_DATE_FORMATS,
-  MatSnackBar,
-} from '@angular/material';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DateValidator } from 'app/utility/dateValidator';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'YYYY-MM-DD'
-  },
-  display: {
-    dateInput: 'YYYY-MM-DD',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'YYYY-MM-DD',
-    monthYearA11yLabel: 'MMMM YYYY'
-  }
-};
+import { DateValidator } from 'app/utility/dateValidator';
 
 @Component({
-  selector: 'app-create-event-popup',
-  templateUrl: './create-event-popup.component.html',
-  animations: egretAnimations,
-  providers: [
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE]
-    },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
-  ]
+  selector: 'app-create-offer-popup',
+  templateUrl: './create-offer-popup.component.html',
+  animations: egretAnimations
 })
-export class CreateEventPopupComponent implements OnInit {
+export class CreateOfferPopupComponent implements OnInit {
 
-  public eventForm: FormGroup;
+  public offerForm: FormGroup;
   public startDateMin;
   public startDateMax;
   public endDateMin;
@@ -57,14 +29,14 @@ export class CreateEventPopupComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<CreateEventPopupComponent>,
+    public dialogRef: MatDialogRef<CreateOfferPopupComponent>,
     private fb: FormBuilder,
     public snackBar: MatSnackBar,
     private activeRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.buildEventForm(this.data.payload);
+    this.buildOfferForm(this.data.payload);
     this.activeRoute.queryParams.subscribe(params => {
       this.comunityId = params['id'];
       this.comunityName = params['name'];
@@ -73,14 +45,15 @@ export class CreateEventPopupComponent implements OnInit {
     this.createImgUrls();
   }
 
-  buildEventForm(eventformdata) {
-    this.eventForm = this.fb.group({
-      name: [eventformdata.name || '', Validators.required],
-      description: [eventformdata.description || '', Validators.required],
-      status: [eventformdata.status || false, Validators.required],
-      startDate: [eventformdata.startDate, Validators.required],
-      endDate: [eventformdata.endDate, Validators.required],
-      file: [eventformdata.file || '', Validators.required]
+  buildOfferForm(offerFormData) {
+    this.offerForm = this.fb.group({
+      name: [offerFormData.name || '', Validators.required],
+      description: [offerFormData.description || '', Validators.required],
+      status: [offerFormData.status || false, Validators.required],
+      discount: [offerFormData.discount || '', Validators.required],
+      startDate: [offerFormData.startDate, Validators.required],
+      endDate: [offerFormData.endDate, Validators.required],
+      file: [offerFormData.file || '', Validators.required]
     });
   }
 
@@ -97,8 +70,8 @@ export class CreateEventPopupComponent implements OnInit {
   }
 
   validateDatePickerMinMax() {
-    const startDateValue = this.eventForm.get('startDate').value;
-    const endDateValue = this.eventForm.get('endDate').value;
+    const startDateValue = this.offerForm.get('startDate').value;
+    const endDateValue = this.offerForm.get('endDate').value;
 
     if (startDateValue == null && endDateValue == null) {
       this.startDateMin = DateValidator.getToday();
@@ -188,28 +161,29 @@ export class CreateEventPopupComponent implements OnInit {
     }
   }
 
-  prepareEventFormData(formValues): FormData {
-    const eventFormData: FormData = new FormData();
-    eventFormData.append('communityId', this.comunityId);
-    eventFormData.append('name', formValues.name);
-    eventFormData.append('description', formValues.description);
-    eventFormData.append('startDate', formValues.startDate);
-    eventFormData.append('endDate', formValues.endDate);
-    eventFormData.append('status', formValues.status);
+  prepareOfferFormData(formValues): FormData {
+    const offerFormData: FormData = new FormData();
+    offerFormData.append('communityId', this.comunityId);
+    offerFormData.append('name', formValues.name);
+    offerFormData.append('description', formValues.description);
+    offerFormData.append('startDate', formValues.startDate);
+    offerFormData.append('endDate', formValues.endDate);
+    offerFormData.append('status', formValues.status);
+    offerFormData.append('discount', formValues.discount);
 
     for (let i = 0; i < this.newlySelectedFileList.length; i++) {
       const selectedFile: File = this.newlySelectedFileList[i];
       const type = selectedFile.type.split("/");
       const imageName = 'image_' + i + '.' + type[1];
-      eventFormData.append('file', selectedFile, imageName);
+      offerFormData.append('file', selectedFile, imageName);
     }
 
-    return eventFormData;
+    return offerFormData;
   }
 
-  eventFormSubmit() {
-    const eventFormData = this.prepareEventFormData(this.eventForm.value);
-    this.dialogRef.close(eventFormData);
+  offerFormSubmit() {
+    const offerFormData = this.prepareOfferFormData(this.offerForm.value);
+    this.dialogRef.close(offerFormData);
   }
 
   createImgUrls() {

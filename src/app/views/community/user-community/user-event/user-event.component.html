@@ -23,7 +23,7 @@
         <mat-panel-description>
           <span class="mail-subject text-sm mat-color-default hide-on-open">
             <mat-chip *ngIf="eventObj.status" mat-sm-chip color="primary" [selected]="true">Active</mat-chip>
-            <mat-chip *ngIf="!eventObj.status" mat-sm-chip color="accent" [selected]="true">Inactive</mat-chip>
+            <mat-chip *ngIf="!eventObj.status" mat-sm-chip color="warn" [selected]="true">Inactive</mat-chip>
           </span>
           <span fxFlex></span>
           <span class="text-sm" fxHide.lt-sm="true">{{eventObj.startDate | relativeTime}}</span>
