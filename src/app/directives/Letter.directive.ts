@@ -9,7 +9,7 @@ export class LetterOnly {
   private regex: RegExp = new RegExp(/^(?:[A-Za-z]+)(?:[A-Za-z _]*)$/);
   // Allow key codes for special events. Reflect :
   // Backspace, tab, end, home
-  private specialKeys: Array<string> = ["Backspace", "Tab", "End", "Home"];
+  private specialKeys: Array<string> = ["Backspace", "Tab", "End", "Home", "Ctrl"];
 
   constructor(private el: ElementRef) {}
   @HostListener("keydown", ["$event"])

@@ -9,9 +9,9 @@ export class PositiveNumberAndLetterOnly {
   // private regex: RegExp = new RegExp(/^[a-zA-Z0-9._-]+$/);
   // Allow key codes for special events. Reflect :
   // Backspace, tab, end, home
-  private specialKeys: Array<string> = ["Backspace", "Tab", "End", "Home"];
+  private specialKeys: Array<string> = ["Backspace", "Tab", "End", "Home", "Ctrl"];
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef) { }
   @HostListener("keydown", ["$event"])
   onKeyDown(event: KeyboardEvent) {
     // Allow Backspace, tab, end, and home keys

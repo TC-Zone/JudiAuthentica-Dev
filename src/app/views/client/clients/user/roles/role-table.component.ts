@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ClientService } from "../client.service";
+import { ClientService } from "../../../client.service";
 import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
-import { AppConfirmService } from "../../../shared/services/app-confirm/app-confirm.service";
-import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
+import { AppConfirmService } from "../../../../../shared/services/app-confirm/app-confirm.service";
+import { AppLoaderService } from "../../../../../shared/services/app-loader/app-loader.service";
 import { RoleTablePopupComponent } from "./role-table-popup/role-table-popup.component";
 import { Subscription } from "rxjs";
-import { egretAnimations } from "../../../shared/animations/egret-animations";
-import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
+import { egretAnimations } from "../../../../../shared/animations/egret-animations";
+import { AppErrorService } from "../../../../../shared/services/app-error/app-error.service";
 import { NavigationExtras, Router } from "@angular/router";
 
 @Component({

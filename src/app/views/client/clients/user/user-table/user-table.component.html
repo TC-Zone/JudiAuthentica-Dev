@@ -1,12 +1,8 @@
 <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
   <mat-card-title>
-    <div class="card-title-text">Users</div>
-    <mat-divider></mat-divider>
-    <div class="sub_table_header">{{this.name}}</div>
-    <mat-divider></mat-divider>
 
-    <div class="m-333">
-      <button mat-raised-button class="mb-05 ml-05" color="primary" (click)="openPopUp({}, true)">Add User</button>
+    <div class="m-333 mt-3">
+      <button mat-raised-button class="mb-05 ml-05" color="primary" (click)="userCreatePopup()">Add User</button>
       <span fxFlex></span>
       <p class="mat-select-lable"> Page Size: </p>
       <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()">
@@ -21,7 +17,7 @@
 
     <ngx-datatable class="material ml-0 mr-0" [rows]="users" [columnMode]="'force'" [headerHeight]="50"
       [footerHeight]="50" [limit]="10" [rowHeight]="'auto'">
-      
+
       <ngx-datatable-column name="" [flexGrow]="1" [maxWidth]="80">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <img mat-list-avatar class="" src="assets/images/face-1.jpg" alt=""
@@ -43,7 +39,7 @@
 
       <ngx-datatable-column name="Role" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <mat-chip mat-sm-chip color="warn" [selected]="true">{{row?.roles[0].name}}</mat-chip>
+          <mat-chip mat-sm-chip color="warn" [selected]="true">{{row?.role.name}}</mat-chip>
         </ng-template>
       </ngx-datatable-column>
 
@@ -54,14 +50,25 @@
       </ngx-datatable-column>
 
 
-      <ngx-datatable-column name="Actions" [flexGrow]="1" [maxWidth]="200">
+      <ngx-datatable-column name="Actions" [flexGrow]="1" [maxWidth]="80">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopUp(row)">
-            <mat-icon>edit</mat-icon>
+          <button class="card-control" mat-icon-button [matMenuTriggerFor]="menu1">
+            <mat-icon>more_vert</mat-icon>
           </button>
-          <!-- <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row)">
-            <mat-icon>delete</mat-icon>
-          </button> -->
+          <mat-menu #menu1="matMenu">
+            <button mat-menu-item (click)="openEditPopUp(row)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="openCommunityPopUp(row)">
+              <mat-icon>assignment_ind</mat-icon>
+              <span>Community</span>
+            </button>
+            <button mat-menu-item (click)="openCategoryPopUp(row)">
+              <mat-icon>assistant</mat-icon>
+              <span>Category</span>
+            </button>
+          </mat-menu>
         </ng-template>
       </ngx-datatable-column>
     </ngx-datatable>

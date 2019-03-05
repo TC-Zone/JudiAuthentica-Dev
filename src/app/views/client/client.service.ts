@@ -40,6 +40,10 @@ export class ClientService {
     );
   }
 
+  getClient(id): Observable<any> {
+    return this.http.get(this.clientUrl + "/" + id).pipe(catchError(this.handleError));
+  }
+
   updateClient(id, item): Observable<any> {
     return this.http
       .put<any>(this.clientUrl + "/" + id, item)

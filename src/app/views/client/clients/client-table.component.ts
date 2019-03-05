@@ -2,12 +2,13 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ClientService } from "../client.service";
 import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
-import { ClientTablePopupComponent } from "./client-table-popup/client-table-popup.component";
+import { ClientUpdatePopupComponent } from "./client-update-popup/client-update-popup.component";
+import { ClientCreatePopupComponent } from "./client-create-popup/client-create-popup.component";
 import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { NavigationExtras, Router } from "@angular/router";
-import { ClientCreateReq, UserData, ClientUpdateReq } from "app/model/ClientModel.model";
+import { ClientCreateReq, UserData, ClientUpdateReq, ClientLicenseData, CountryData } from "app/model/ClientModel.model";
 
 @Component({
   selector: "app-client-table",
@@ -18,8 +19,8 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
   public clients: any[];
   public statusArray = {
-    'A': {status: "Active", style: "primary"},
-    'I': {status: "Inactive", style: "accent"}
+    'A': { status: "Active", style: "primary" },
+    'I': { status: "Inactive", style: "accent" }
   };
 
   public pageSize = 10;
@@ -58,50 +59,30 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     );
   }
 
-  openPopUp(data: any = {}, isNew?) {
+  clientUpdatePopUp(data: any = {}) {
 
-    let title = isNew ? "Add new client" : "Update client";
-    let dialogRef: MatDialogRef<any> = this.dialog.open(
-      ClientTablePopupComponent,
-      {
-        width: "720px",
-        disableClose: true,
-        data: { title: title, payload: data }
-      }
-    );
+    this.clientService.getClient(data.id).subscribe(successResp => {
+      let dialogRef: MatDialogRef<any> = this.dialog.open(
+        ClientUpdatePopupComponent,
+        {
+          width: "720px",
+          disableClose: true,
+          data: { payload: successResp.content}
+        }
+      );
 
-    dialogRef.afterClosed().subscribe(res => {
-      if (!res) {
-        // If user press cancel
-        return;
-      }
+      dialogRef.afterClosed().subscribe(res => {
+        if (!res) {
+          // If user press cancel
+          return;
+        }
+        console.log(res);
 
-      this.loader.open();
-      if (isNew) {
-        
-      let users: UserData[] = [];
-      users.push(new UserData(res.username, res.email));
-      const req: ClientCreateReq = new ClientCreateReq(res.name, res.description, users);
-
-        this.clientService.addClient(req).subscribe(
-          response => {
-            this.getClients();
-            this.clients = response;
-            this.loader.close();
-            this.snack.open("New Client added !", "OK", { duration: 4000 });
-          },
-          error => {
-            this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
-          }
+        this.loader.open();
+        const country: CountryData = new CountryData('a65715e919d0995f361360cf0b8c2c03', 'Åland Islands', 'AX');
+        const req: ClientUpdateReq = new ClientUpdateReq(
+          res[0].name, res[0].description, res[1], res[0].contactNo, res[0].addressLine1, res[0].addressLine2, res[0].city, res[0].state, res[0].zipCode, country
         );
-      } else {
-
-        const req: ClientUpdateReq= new ClientUpdateReq(res.name, res.description);
 
         this.clientService.updateClient(data.id, req).subscribe(
           response => {
@@ -119,20 +100,90 @@ export class ClientTableComponent implements OnInit, OnDestroy {
             });
           }
         );
+
+      });
+    },
+      error => {
+        this.errDialog.showError({
+          title: "Error",
+          status: error.status,
+          type: "http_error"
+        });
       }
-    });
+    );
+
+
+
+
+
+
+
   }
+
+
+  clientCreatePopUp() {
+
+    let dialogRef: MatDialogRef<any> = this.dialog.open(
+      ClientCreatePopupComponent,
+      {
+        width: "720px",
+        disableClose: true
+      }
+    );
+
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(res);
+
+      if (!res) {
+        // If user press cancel
+        return;
+      }
+
+      this.loader.open();
+
+      let users: UserData[] = [];
+      users.push(new UserData(res[2].username, res[2].email));
+      let license: ClientLicenseData = new ClientLicenseData(res[3].tagCount, res[3].userCount, res[3].communityCount, res[3].feedbackCount, res[3].eventCount, res[3].promoCount);
+      const req: ClientCreateReq = new ClientCreateReq(res[0].name, res[0].description, res[1], users, license);
+
+      this.clientService.addClient(req).subscribe(
+        response => {
+          this.getClients();
+          this.clients = response;
+          this.loader.close();
+          this.snack.open("New Client added !", "OK", { duration: 4000 });
+        },
+        error => {
+          this.loader.close();
+          this.errDialog.showError({
+            title: "Error",
+            status: error.status,
+            type: "http_error"
+          });
+        }
+      );
+
+    });
+
+  }
+
+
+
 
   navigateUserTable(res: any) {
-    let extraParam: NavigationExtras = {
-      queryParams: {
-        id: res.id,
-        name: res.name
+    this.clientService.getClient(res.id).subscribe(successResp => {
+      console.log(successResp.content);
+      localStorage.setItem('currentClient', JSON.stringify(successResp.content));
+      this.router.navigate(["clients/user/user-table"]);
+    },
+      error => {
+        this.errDialog.showError({
+          title: "Error",
+          status: error.status,
+          type: "http_error"
+        });
       }
-    };
-    this.router.navigate(["clients/user-table"], extraParam);
+    );
   }
-
-  
 }
 

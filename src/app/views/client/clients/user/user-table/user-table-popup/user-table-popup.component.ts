@@ -19,22 +19,19 @@ export class UserTablePopupComponent implements OnInit {
 
   ngOnInit() {
     this.buildItemForm(this.data.payload);
-
+    console.log(this.data);
+    
     this.roles = this.data.roles;
 
   }
 
   buildItemForm(item) {
-
-    console.log(item);
-    
-
     let role = null;
     let userStatus = 0;
     if (item.id === undefined) {
       this.formStatus = true;
     } else {
-      role = item.roles[0].id;
+      role = item.role.id;
       if(item.status==="ACTIVE"){
         userStatus = 1;
       }
@@ -50,7 +47,7 @@ export class UserTablePopupComponent implements OnInit {
     })
 
     if (item.id !== undefined) {
-      role = item.roles[0].id;
+      // role = item.role.id;
       this.itemForm.get('password').clearValidators();
       this.itemForm.get('password').updateValueAndValidity();
     }

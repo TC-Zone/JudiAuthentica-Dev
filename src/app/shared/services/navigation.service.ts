@@ -406,7 +406,7 @@ export class NavigationService {
     {
       name: "Client Management",
       type: "link",
-      tooltip: "Client Management",
+      tooltip: "CliManagementent ",
       icon: "person",
       state: "clients/client-table",
       disabled: false

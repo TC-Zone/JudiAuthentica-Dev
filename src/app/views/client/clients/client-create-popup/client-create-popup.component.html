@@ -1,0 +1,195 @@
+<mat-toolbar matDialogTitle class="mat-primary m-0">
+  <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+    <span class="title dialog-title">Create Client</span>
+  </div>
+</mat-toolbar>
+<mat-dialog-content class="mat-typography mt-1" id="client-create">
+
+
+  <mat-horizontal-stepper [linear]="true">
+
+    <mat-step [stepControl]="clientFormGroup">
+
+      <form [formGroup]="clientFormGroup">
+
+        <ng-template matStepLabel>Client</ng-template>
+
+
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+
+          <div fxFlex="100" class="pr-1">
+            <mat-form-field class="full-width">
+              <input matInput name="clientName" letterOnly placeholder="Name"
+                [formControl]="clientFormGroup.controls['name']">
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="100" class="pr-1">
+            <mat-form-field class="full-width">
+              <textarea matInput name="description" placeholder="Description"
+                [formControl]="clientFormGroup.controls['description']"></textarea>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+          <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <span fxFlex></span>
+            <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+          </div>
+        </div>
+
+      </form>
+
+    </mat-step>
+
+
+    <mat-step [stepControl]="profilePicFormGroup">
+      <form [formGroup]="profilePicFormGroup">
+        <ng-template matStepLabel>Profile Picture</ng-template>
+
+        <!-- --------- hidden file input --------- -->
+        <input (change)="onSelectFile($event)" #productImgs type="file" style="display: none"
+          [formControl]="profilePicFormGroup.controls['profilePic']" base-sixty-four-input>
+
+
+        <!-- --------- file input click button --------- -->
+        <div layout-margin layout-padding>
+          <button mat-raised-button class="mr-1 mb-1" (click)="productImgs.click()" type="button">
+            Browse Images</button>
+        </div>
+
+        <!-- --------- start images preview container --------- -->
+        <div id="client_create_image_preview_container" fxLayout="row" fxLayoutWrap="wrap" layout-align="center">
+
+          <!-- --------- start card --------- -->
+          <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngIf="url" fxFlex="100" style="display: flex;">
+            <mat-card class="p-0">
+
+              <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+                <span fxFlex></span>
+                <button type="button" class="close p-1" aria-label="Close" (click)="removeSelectedImg()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+
+              <img [src]="url">
+            </mat-card>
+          </div>
+          <!-- --------- end card --------- -->
+
+        </div>
+        <!-- --------- end images preview container --------- -->
+
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+          <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <span fxFlex></span>
+            <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+          </div>
+        </div>
+
+      </form>
+    </mat-step>
+
+
+    <mat-step [stepControl]="adminFormGroup">
+      <form [formGroup]="adminFormGroup">
+        <ng-template matStepLabel>Admin User</ng-template>
+
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+
+          <div fxFlex="100" class="pr-1">
+            <mat-form-field class="full-width">
+              <input matInput name="username" positiveNumberAndLetterOnly placeholder="Username"
+                [formControl]="adminFormGroup.controls['username']">
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="100" class="pr-1 mb-3">
+            <mat-form-field class="full-width">
+              <input matInput name="email" placeholder="Email" [formControl]="adminFormGroup.controls['email']">
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+          <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <span fxFlex></span>
+            <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="licenseFormGroup">
+      <form [formGroup]="licenseFormGroup">
+        <ng-template matStepLabel>License</ng-template>
+
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+              <input matInput name="tagCount" placeholder="Tag Count" positiveNumberOnly
+                [formControl]="licenseFormGroup.controls['tagCount']">
+            </mat-form-field>
+            <span *ngIf="licenseFormGroup.controls['tagCount'].hasError('max')" class="form-error-msg">
+              {{this.license.tagCount}} max ! </span>
+          </div>
+
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+              <input matInput name="userCount" placeholder="User Count" positiveNumberOnly
+                [formControl]="licenseFormGroup.controls['userCount']">
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+              <input matInput name="comunityCount" placeholder="Comunity Count" positiveNumberOnly
+                [formControl]="licenseFormGroup.controls['comunityCount']">
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+              <input matInput name="feedbackCount" placeholder="Feedback Count" positiveNumberOnly
+                [formControl]="licenseFormGroup.controls['feedbackCount']">
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+              <input matInput name="eventkCount" placeholder="Event Count" positiveNumberOnly
+                [formControl]="licenseFormGroup.controls['eventCount']">
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="50" class="pr-1">
+            <mat-form-field class="full-width">
+              <input matInput name="promoCount" placeholder="Promo Count" positiveNumberOnly
+                [formControl]="licenseFormGroup.controls['promoCount']">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+          <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
+            <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+            <span fxFlex></span>
+            <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+
+  </mat-horizontal-stepper>
+
+
+</mat-dialog-content>
