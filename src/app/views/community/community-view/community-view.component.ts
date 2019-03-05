@@ -85,11 +85,13 @@ export class CommunityViewComponent implements OnInit {
                 },
                 error => {
                   this.loader.close();
-                  this.errDialog.showError({
-                    title: 'Error',
-                    status: error.status,
-                    type: 'http_error'
-                  });
+                  if (error.status !== 401) {
+                    this.errDialog.showError({
+                      title: 'Error',
+                      status: error.status,
+                      type: 'http_error'
+                    });
+                  }
                 }
               );
           } else {
@@ -110,11 +112,13 @@ export class CommunityViewComponent implements OnInit {
                 },
                 error => {
                   this.loader.close();
-                  this.errDialog.showError({
-                    title: 'Error',
-                    status: error.status,
-                    type: 'http_error'
-                  });
+                  if (error.status !== 401) {
+                    this.errDialog.showError({
+                      title: 'Error',
+                      status: error.status,
+                      type: 'http_error'
+                    });
+                  }
                 }
               );
           }
@@ -141,11 +145,13 @@ export class CommunityViewComponent implements OnInit {
             this.totalRecords = this.rows.length;
           },
           error => {
-            this.errDialog.showError({
-              title: 'Error',
-              status: error.status,
-              type: 'http_error'
-            });
+            if (error.status !== 401) {
+              this.errDialog.showError({
+                title: 'Error',
+                status: error.status,
+                type: 'http_error'
+              });
+            }
           }
         );
     }
@@ -200,11 +206,13 @@ export class CommunityViewComponent implements OnInit {
                 });
               },
             error => {
-              this.errDialog.showError({
-                title: 'Error',
-                status: error.status,
-                type: 'http_error'
-              });
+              if (error.status !== 401) {
+                this.errDialog.showError({
+                  title: 'Error',
+                  status: error.status,
+                  type: 'http_error'
+                });
+              }
             }
             );
         }

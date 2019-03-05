@@ -105,11 +105,13 @@ export class CreateEventPopupComponent implements OnInit {
           this.createImgUrls(event);
         },
         error => {
-          this.errDialog.showError({
-            title: 'Error',
-            status: error.status,
-            type: 'http_error'
-          });
+          if (error.status !== 401) {
+            this.errDialog.showError({
+              title: 'Error',
+              status: error.status,
+              type: 'http_error'
+            });
+          }
         }
       );
   }

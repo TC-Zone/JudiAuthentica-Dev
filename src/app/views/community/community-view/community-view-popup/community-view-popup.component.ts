@@ -56,11 +56,13 @@ export class CommunityViewPopupComponent implements OnInit {
           this.buildCommunityForm(response);
         },
         error => {
-          this.errDialog.showError({
-            title: 'Error',
-            status: error.status,
-            type: 'http_error'
-          });
+          if (error.status !== 401) {
+            this.errDialog.showError({
+              title: 'Error',
+              status: error.status,
+              type: 'http_error'
+            });
+          }
         }
       );
   }

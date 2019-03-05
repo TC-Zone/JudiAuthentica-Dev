@@ -90,11 +90,13 @@ export class UserEventComponent implements OnInit {
                 },
                 error => {
                   this.loader.close();
-                  this.errDialog.showError({
-                    title: 'Error',
-                    status: error.status,
-                    type: 'http_error'
-                  });
+                  if (error.status !== 401) {
+                    this.errDialog.showError({
+                      title: 'Error',
+                      status: error.status,
+                      type: 'http_error'
+                    });
+                  }
                 }
               );
           } else {
@@ -112,11 +114,13 @@ export class UserEventComponent implements OnInit {
                 },
                 error => {
                   this.loader.close();
-                  this.errDialog.showError({
-                    title: 'Error',
-                    status: error.status,
-                    type: 'http_error'
-                  });
+                  if (error.status !== 401) {
+                    this.errDialog.showError({
+                      title: 'Error',
+                      status: error.status,
+                      type: 'http_error'
+                    });
+                  }
                 }
               );
           }
