@@ -1,8 +1,9 @@
 import { Routes } from "@angular/router";
 import { ClientComponent } from "./client.component";
 import { ClientTableComponent } from "./clients/client-table.component";
-import { UserTableComponent } from "./clients/user-table/user-table.component";
-import { RoleTableComponent } from "./roles/role-table.component";
+import { UserComponent } from "./clients/user/user.component";
+import { UserTableComponent } from "./clients/user/user-table/user-table.component";
+import { RoleTableComponent } from "./clients/user/roles/role-table.component";
 
 export const ClientRoute: Routes = [
   {
@@ -15,9 +16,21 @@ export const ClientRoute: Routes = [
         data: { title: "Clients", breadcrumb: "Clients" }
       },
       {
-        path: "user-table",
-        component: UserTableComponent,
-        data: { title: "Users", breadcrumb: "Users" }
+        path: "user",
+        component: UserComponent,
+        data: { title: "Users", breadcrumb: "Users" },
+        children: [
+          {
+            path: "user-table",
+            component: UserTableComponent,
+            data: { title: "Users", breadcrumb: "Users" }
+          },
+          {
+            path: "role-table",
+            component: RoleTableComponent,
+            data: { title: "Roles", breadcrumb: "Roles" }
+          }
+        ]
       },
       {
         path: "role-table",

@@ -4,7 +4,7 @@
     <mat-divider></mat-divider>
 
     <div class="m-333">
-      <button mat-raised-button class="mb-05 ml-05" color="primary" (click)="openPopUp({}, true)">Add Client</button>
+      <button mat-raised-button class="mb-05 ml-05" color="primary" (click)="clientCreatePopUp()">Add Client</button>
       <span fxFlex></span>
       <p *ngIf="authArray.search" class="mat-select-lable"> Page Size: </p>
       <mat-select *ngIf="authArray.search" class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()">
@@ -32,12 +32,13 @@
 
       <ngx-datatable-column name="Status" [flexGrow]="1" [maxWidth]="150">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <mat-chip mat-sm-chip color="{{statusArray[row?.status].style}}" [selected]="true">{{statusArray[row?.status].status}}</mat-chip>
+          <mat-chip mat-sm-chip color="{{statusArray[row?.status].style}}" [selected]="true">
+            {{statusArray[row?.status].status}}</mat-chip>
         </ng-template>
       </ngx-datatable-column>
 
 
-      <ngx-datatable-column *ngIf="authArray.update && authArray.delete" name="Actions" [flexGrow]="1"  [maxWidth]="200">
+      <ngx-datatable-column *ngIf="authArray.update && authArray.delete" name="Actions" [flexGrow]="1"  [maxWidth]="80">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <!-- <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="navigateUserTable(row)">
             <mat-icon>list</mat-icon>
@@ -53,7 +54,7 @@
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="navigateUserTable(row)"><mat-icon>list</mat-icon>View</button>
-            <button mat-menu-item *ngIf="authArray.update" (click)="openPopUp(row)"><mat-icon>edit</mat-icon>Edit</button>
+            <button mat-menu-item *ngIf="authArray.update" (click)="clientUpdatePopUp(row)"><mat-icon>edit</mat-icon>Edit</button>
             <button mat-menu-item *ngIf="authArray.delete" (click)="openPopUp(row)"><mat-icon>delete</mat-icon>Delete</button>
           </mat-menu>
         </ng-template>

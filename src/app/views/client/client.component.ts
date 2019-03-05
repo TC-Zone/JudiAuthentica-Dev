@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { egretAnimations } from '../../shared/animations/egret-animations';
+import { NavigationExtras, Router } from "@angular/router";
 
 
 @Component({
@@ -9,9 +10,10 @@ import { egretAnimations } from '../../shared/animations/egret-animations';
 })
 export class ClientComponent implements OnInit {
 
- constructor() { }
+ constructor( private router: Router) { }
 
   ngOnInit() {
+    // this.router.navigate(["clients/client-table"]);
   }
 
 }

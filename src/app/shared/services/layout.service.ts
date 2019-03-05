@@ -33,7 +33,7 @@ export class LayoutService {
   public isMobile: boolean;
   public currentRoute: string;
   public fullWidthRoutes = ['future-survey'];
-  public compactRoutes = ['surveys', 'clients'];
+  public compactRoutes = ['surveys', 'clients/user'];
   constructor(
     private router: Router
   ) {
@@ -109,7 +109,8 @@ export class LayoutService {
 
 
 
-  // --------- Costomized Code -----------------
+  // ------------------------------------------~ HBH ~----------------
+  // --------- Customized Code -----------------
   // adjust full width routes layout
   costomizedAdjustScreenOptions(options: IAdjustScreenOptions = {}) {
     if (this.isSm()) {
@@ -117,17 +118,28 @@ export class LayoutService {
     }
     this.currentRoute = options.route || this.currentRoute;
     if (this.currentRoute) {
+
+      let isFullSidebar = true;
+
       this.fullWidthRoutes.forEach(route => {
         if (this.currentRoute.indexOf(route) !== -1) {
           this.publishLayoutChange({ sidebarStyle: 'closed' });
+          isFullSidebar = false;
         }
       })
 
       this.compactRoutes.forEach(route => {
         if (this.currentRoute.indexOf(route) !== -1) {
           this.publishLayoutChange({ sidebarStyle: 'compact' });
+          isFullSidebar = false;
         }
       });
+
+      // do not uncomment or remove this code (~ HBH ~)
+      // if (isFullSidebar) {
+      //   this.publishLayoutChange({ sidebarStyle: 'full' });
+      // }
+      
     }
   }
 
