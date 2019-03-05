@@ -1,28 +1,29 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { UserService } from "../user.service";
+import { Component, OnInit} from '@angular/core';
+import { ClientService } from "../../client.service";
 import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
-import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
-import { UserTablePopupComponent } from "./user-table-popup/user-table-popup.component";
+import { AppLoaderService } from "../../../../shared/services/app-loader/app-loader.service";
+import { UserTablePopupComponent } from "../user-table/user-table-popup/user-table-popup.component";
 import { Subscription } from "rxjs";
-import { egretAnimations } from "../../../shared/animations/egret-animations";
-import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
-import { UserCreateReq, ClientData, UserRole } from "app/model/ClientModel.model";
-import { authProperties } from './../../../shared/services/auth/auth-properties';
+import { egretAnimations } from "../../../../shared/animations/egret-animations";
+import { AppErrorService } from "../../../../shared/services/app-error/app-error.service";
+import { ActivatedRoute } from '@angular/router';
+import { UserCreateReq, ClientData, UserRole } from 'app/model/ClientModel.model';
+import { authProperties } from './../../../../shared/services/auth/auth-properties';
 import * as jwt_decode from "jwt-decode";
 
 @Component({
-  selector: "app-user-table",
-  templateUrl: "./user-table.component.html",
+  selector: 'app-user-table',
+  templateUrl: './user-table.component.html',
   animations: egretAnimations
 })
-export class UserTableComponent implements OnInit, OnDestroy {
+export class UserTableComponent implements OnInit {
 
   public clientId;
   public users: any[];
   public roles: any[];
   public statusArray = {
     'Active': "primary",
-    'Deactive': "accent"
+    'Inactive': "accent"
   };
   public pageSize = 10;
   public name;
@@ -32,16 +33,18 @@ export class UserTableComponent implements OnInit, OnDestroy {
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    private userService: UserService,
+    private clientService: ClientService,
     private loader: AppLoaderService,
-    private errDialog: AppErrorService
+    private errDialog: AppErrorService,
+    private activeRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    this.clientId = currentUser.userData.client.id;
-    this.name = currentUser.userData.client.name;
+    this.activeRoute.queryParams.subscribe(params => {
+      this.clientId = params["id"];
+      this.name = params["name"];
+    });
 
     this.getUsers();
     this.getUserRoles();
@@ -58,13 +61,9 @@ export class UserTableComponent implements OnInit, OnDestroy {
   }
 
   getUsers() {
-    this.getItemSub = this.userService.getUsers(this.clientId).subscribe(successResp => {
+    this.getItemSub = this.clientService.getUsers(this.clientId).subscribe(successResp => {
+      console.log(successResp.content);
 
-      successResp.content.users.forEach((user, index) => {
-        user.roles.forEach((role) => {
-          if (role.name === "Admin") successResp.content.users.splice(index, 1);
-        });
-      });
       this.users = successResp.content.users;
 
     },
@@ -79,10 +78,10 @@ export class UserTableComponent implements OnInit, OnDestroy {
   }
 
   getUserRoles() {
-    this.getItemSub = this.userService.getRoles().subscribe(successResp => {
+    this.getItemSub = this.clientService.getRoles().subscribe(successResp => {
 
       successResp.content.forEach((item, index) => {
-        if (item.name === "Super Administrator" || item.name === "Admin") successResp.content.splice(index, 1);
+        if (item.name === "Super Administrator") successResp.content.splice(index, 1);
       });
       this.roles = successResp.content;
     },
@@ -122,7 +121,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
       this.loader.open();
       if (isNew) {
 
-        this.userService.addUser(req).subscribe(
+        this.clientService.addUser(req).subscribe(
           response => {
             this.getUsers();
             this.loader.close();
@@ -138,7 +137,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
           }
         );
       } else {
-        this.userService.updateUser(data.id, req).subscribe(
+        this.clientService.updateUser(data.id, req).subscribe(
           response => {
             this.getUsers();
             this.loader.close();
@@ -170,8 +169,6 @@ export class UserTableComponent implements OnInit, OnDestroy {
     if (userObj) {
       const decodedToken = jwt_decode(userObj.token);
       const authorities = decodedToken.authorities;
-      console.log('---------------- authorities ----------------');
-      console.log(authorities);
       authorities.forEach(element => {
         if (element === 'pu-u') {
           authArray.update = true;
@@ -191,3 +188,6 @@ export class UserTableComponent implements OnInit, OnDestroy {
   }
 
 }
+
+
+

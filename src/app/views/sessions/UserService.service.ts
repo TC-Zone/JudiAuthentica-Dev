@@ -153,8 +153,8 @@ export class UserService {
     let arrayList = [];
     if (userObj) {
       console.log('--------------- setComponetDisable ----------------');
-      console.log(userObj.userData.roles[0].name);
-      const roleName = userObj.userData.roles[0].name;
+      console.log(userObj.userData.role.name);
+      const roleName = userObj.userData.role.name;
       if (roleName === 'Super Administrator') {
         arrayList = ['User Management'];
         return arrayList;

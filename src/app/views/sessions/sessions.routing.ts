@@ -7,6 +7,7 @@ import { SignupComponent } from './signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ErrorComponent } from './error/error.component';
 import { UserActivationComponent } from './user-activation/user-activation.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 export const SessionsRoutes: Routes = [
   {
@@ -39,6 +40,10 @@ export const SessionsRoutes: Routes = [
       path: 'activation/:code',
       component: UserActivationComponent,
       data: { title: 'Activation' }
+    }, {
+      path: 'unauthorized',
+      component: UnauthorizedComponent,
+      data: { title: 'Unauthorized' }
     }]
   }
 ];

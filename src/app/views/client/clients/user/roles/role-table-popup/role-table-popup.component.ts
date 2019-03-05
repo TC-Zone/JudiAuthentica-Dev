@@ -75,17 +75,25 @@ export class RoleTablePopupComponent implements OnInit {
   */
   onChange(id: String, name: String, auth_key: String, isChecked: boolean) {
     const dataArray = <FormArray>this.authoritiesFormGroup.controls.data;
+    console.log('--------- role update onchange -------------');
     if (isChecked) {
       dataArray.push(new FormControl(auth_key));
       const tempJson = {
         id: id
       };
+      console.log(id, auth_key);
       this.selectedAuthorities.push(tempJson);
     } else {
       const index = dataArray.controls.findIndex(x => x.value === auth_key);
       dataArray.removeAt(index);
-      const i = this.selectedAuthorities.indexOf(id);
-      this.selectedAuthorities.splice(i, 1);
+      // for (let i = 0; i < this.selectedAuthorities.length; i++) {
+      //   if (this.selectedAuthorities[i].id === id) {
+          const i = this.selectedAuthorities.findIndex(y => y.id === id);
+          console.log(id, auth_key, i);
+          this.selectedAuthorities.splice(i, 1);
+          // break;
+      //   }
+      // }
     }
   }
 
@@ -107,8 +115,8 @@ export class RoleTablePopupComponent implements OnInit {
           }
         });
       });
-      // console.log('-------------- setSelectedRoleAuthorities -------------------');
-      // console.log(this.selectedAuthorities);
+      console.log('-------------- setSelectedRoleAuthorities -------------------');
+      console.log(this.selectedAuthorities);
     }
   }
 
