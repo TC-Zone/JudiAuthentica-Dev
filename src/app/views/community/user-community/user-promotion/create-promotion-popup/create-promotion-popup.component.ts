@@ -6,11 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 import { DateValidator } from 'app/utility/dateValidator';
 
 @Component({
-  selector: 'app-create-offer-popup',
-  templateUrl: './create-offer-popup.component.html',
+  selector: 'app-create-promotion-popup',
+  templateUrl: './create-promotion-popup.component.html',
   animations: egretAnimations
 })
-export class CreateOfferPopupComponent implements OnInit {
+export class CreatePromotionPopupComponent implements OnInit {
 
   public offerForm: FormGroup;
   public startDateMin;
@@ -29,7 +29,7 @@ export class CreateOfferPopupComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<CreateOfferPopupComponent>,
+    public dialogRef: MatDialogRef<CreatePromotionPopupComponent>,
     private fb: FormBuilder,
     public snackBar: MatSnackBar,
     private activeRoute: ActivatedRoute

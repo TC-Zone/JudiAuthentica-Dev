@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { egretAnimations } from 'app/shared/animations/egret-animations';
 import { MatSnackBar, MatDialogRef, MatDialog } from '@angular/material';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
-import { CreateOfferPopupComponent } from './create-offer-popup/create-offer-popup.component';
+import { CreatePromotionPopupComponent } from './create-promotion-popup/create-promotion-popup.component';
 
 @Component({
-  selector: 'app-user-offer',
-  templateUrl: './user-offer.component.html',
+  selector: 'app-user-promotion',
+  templateUrl: './user-promotion.component.html',
   animations: egretAnimations
 })
-export class UserOfferComponent implements OnInit {
+export class UserPromotionComponent implements OnInit {
 
   public promotions = [
     {
@@ -54,7 +54,7 @@ export class UserOfferComponent implements OnInit {
   offerPopUp(data: any = {}, isNew?) {
     const title = isNew ? 'Create New Offer' : 'Update Offer';
     const dialogRef: MatDialogRef<any> = this.dialog.open(
-      CreateOfferPopupComponent,
+      CreatePromotionPopupComponent,
       {
         width: '720px',
         disableClose: true,
