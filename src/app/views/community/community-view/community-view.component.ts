@@ -75,8 +75,8 @@ export class CommunityViewComponent implements OnInit {
             this.comunityService.createCommunity(res)
               .subscribe(
                 response => {
-                  console.log('------------ Create new Community ------------');
-                  console.log(response);
+                  // console.log('------------ Create new Community ------------');
+                  // console.log(response);
                   this.fetchAllCommunities();
                   this.loader.close();
                   this.snack.open('New Community Created', 'close', {
@@ -95,13 +95,13 @@ export class CommunityViewComponent implements OnInit {
           } else {
             res['lastModifiedUserId'] = userObj.id;
             res['communityStatus'] = this.getCommunityStatus(res.communityStatus);
-            console.log('------------ Update Community ------------');
-            console.log(res);
+            // console.log('------------ Update Community ------------');
+            // console.log(res);
             this.comunityService.updateCommunityById(data.id, res)
               .subscribe(
                 response => {
-                  console.log('------------ Update Community ------------');
-                  console.log(response);
+                  // console.log('------------ Update Community ------------');
+                  // console.log(response);
                   this.fetchAllCommunities();
                   this.loader.close();
                   this.snack.open('Community Updated', 'close', {

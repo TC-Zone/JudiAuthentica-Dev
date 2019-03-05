@@ -8,8 +8,8 @@ import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../../../shared/animations/egret-animations";
 import { AppErrorService } from "../../../../../shared/services/app-error/app-error.service";
 import { NavigationExtras, Router } from "@angular/router";
-import { UserService } from './../../sessions/UserService.service';
-import { authProperties } from './../../../shared/services/auth/auth-properties';
+import { UserService } from './../../../../sessions/UserService.service';
+import { authProperties } from './../../../../../shared/services/auth/auth-properties';
 import * as jwt_decode from "jwt-decode";
 
 @Component({

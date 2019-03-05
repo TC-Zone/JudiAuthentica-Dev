@@ -2,7 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { ClientService } from "../../client.service";
 import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
 import { AppLoaderService } from "../../../../shared/services/app-loader/app-loader.service";
-import { UserTablePopupComponent } from "../user-table/user-table-popup/user-table-popup.component";
+import { UserTablePopupComponent } from '../user/user-table/user-table-popup/user-table-popup.component';
 import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../../shared/animations/egret-animations";
 import { AppErrorService } from "../../../../shared/services/app-error/app-error.service";
