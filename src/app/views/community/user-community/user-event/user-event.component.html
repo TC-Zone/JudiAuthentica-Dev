@@ -3,7 +3,7 @@
     <!-- multiple events select and control -->
     <mat-checkbox (change)="selectToggleAll($event)" [indeterminate]="indeterminateState" [checked]="selectAll" class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
     <button mat-icon-button matTooltip="Add event" (click)="eventPopUp({}, true)"><mat-icon>add_box</mat-icon></button>
-    <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedEvent()"><mat-icon>delete</mat-icon></button>
+    <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedEvents()"><mat-icon>delete</mat-icon></button>
   </mat-toolbar>
   <mat-accordion>
     <mat-expansion-panel *ngFor="let eventObj of events" expanded="false" hideToggle="true">
@@ -15,18 +15,18 @@
             <!-- <img [src]="eventObj.file" alt="" class="inbox-face mr-1"> -->
             <div fxLayout="column">
               <span class="m-0">{{ eventObj.name }}</span>
-              <small class="text-muted m-0">Start Date : {{eventObj.startDate | date}}, End Date :
-                {{eventObj.endDate | date}}</small>
+              <small class="text-muted m-0">Start Date : {{eventObj.startDateTime | date}}, End Date :
+                {{eventObj.endDateTime | date}}</small>
             </div>
           </div>
         </mat-panel-title>
         <mat-panel-description>
-          <span class="mail-subject text-sm mat-color-default hide-on-open">
+          <!-- <span class="mail-subject text-sm mat-color-default hide-on-open">
             <mat-chip *ngIf="eventObj.status" mat-sm-chip color="primary" [selected]="true">Active</mat-chip>
             <mat-chip *ngIf="!eventObj.status" mat-sm-chip color="warn" [selected]="true">Inactive</mat-chip>
-          </span>
+          </span> -->
           <span fxFlex></span>
-          <span class="text-sm" fxHide.lt-sm="true">{{eventObj.startDate | relativeTime}}</span>
+          <span class="text-sm" fxHide.lt-sm="true">{{eventObj.createdDate | relativeTime}}</span>
           <button mat-icon-button [matMenuTriggerFor]="msgMenu" (click)="stopProp($event)" class="hidden-on-open">
             <mat-icon class="text-muted">more_vert</mat-icon>
           </button>
@@ -34,14 +34,13 @@
             <button mat-menu-item (click)="eventPopUp(eventObj, false)">
               <mat-icon>edit</mat-icon> Edit
             </button>
-            <button mat-menu-item (click)="deleteEvent(eventObj)">
+            <button mat-menu-item (click)="deleteOneEvent(eventObj)">
               <mat-icon>delete</mat-icon> Delete
             </button>
           </mat-menu>
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
-        <!-- <span fxFlex></span> -->
         <div fxFlex="40" class="pr-1">
           <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
             <img style="padding: 10px;" mat-card-image [src]="eventObj.file" alt="Photo of a Shiba Inu">
@@ -54,12 +53,10 @@
               <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
                 <small class="text-muted">Event Description</small>
               </div>
-
               <p style="padding-top: 10px;" class="md-body-1">{{ eventObj.description }}</p>
             </mat-card-content>
           </mat-card>
         </div>
-        <!-- <span fxFlex></span> -->
       </div>
       <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
         <div fxFlex="50" fxFlex.gt-sm="19.5" fxFlex.sm="25" class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
@@ -67,12 +64,10 @@
             <mat-card-title fxLayoutAlign="start center">
               <small class="text-muted">Start Date & Time</small>
               <span fxFlex></span>
-              <!-- <mat-chip class="icon-chip" color="primary" selected="true"> -->
               <mat-icon color="primary">play_arrow</mat-icon>
-              <!-- </mat-chip> -->
             </mat-card-title>
             <mat-card-content>
-              <h6 class="m-0 font-normal">{{ eventObj.startDate | date:'MMM d, y, h:mm a'}}</h6>
+              <h6 class="m-0 font-normal">{{ eventObj.startDateTime | date:'MMM d, y, h:mm a'}}</h6>
             </mat-card-content>
           </mat-card>
         </div>
@@ -81,17 +76,14 @@
             <mat-card-title fxLayoutAlign="start center">
               <small class="text-muted">End Date & Time</small>
               <span fxFlex></span>
-              <!-- <mat-chip class="icon-chip" color="warn" selected="true"> -->
               <mat-icon color="warn">stop</mat-icon>
-              <!-- </mat-chip> -->
             </mat-card-title>
             <mat-card-content>
-              <h6 class="m-0 font-normal">{{ eventObj.endDate | date:'MMM d, y, h:mm a'}}</h6>
+              <h6 class="m-0 font-normal">{{ eventObj.endDateTime | date:'MMM d, y, h:mm a'}}</h6>
             </mat-card-content>
           </mat-card>
         </div>
       </div>
-      <!-- </div> -->
     </mat-expansion-panel>
   </mat-accordion>
 </div>

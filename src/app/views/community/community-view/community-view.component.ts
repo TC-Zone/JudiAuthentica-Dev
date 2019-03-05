@@ -123,6 +123,11 @@ export class CommunityViewComponent implements OnInit {
     });
   }
 
+  /*
+  * Fetch all communities
+  * 05-03-2019
+  * Prasad Kumara
+  */
   fetchAllCommunities() {
     const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
     if (userObj) {
@@ -146,6 +151,11 @@ export class CommunityViewComponent implements OnInit {
     }
   }
 
+  /*
+  * Convert community status string status
+  * 05-03-2019
+  * Prasad Kumara
+  */
   getCommunityStatus(communityStatus): string {
     if (communityStatus) {
       return 'A';

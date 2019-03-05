@@ -29,6 +29,11 @@ export class CommunityViewPopupComponent implements OnInit {
     this.buildCommunityForm(this.data.payload);
   }
 
+  /*
+  * Build community create and update form
+  * 05-03-2019
+  * Prasad Kumara
+  */
   buildCommunityForm(community) {
     this.communityForm = this.fb.group({
       name: [community.name || '', Validators.required],
@@ -37,6 +42,11 @@ export class CommunityViewPopupComponent implements OnInit {
     });
   }
 
+  /*
+  * Get community details using cimmunity id
+  * 05-03-2019
+  * Prasad Kumara
+  */
   getCommunityById(communityId) {
     this.comunityService.getCommunityById(communityId)
       .subscribe(
@@ -55,6 +65,11 @@ export class CommunityViewPopupComponent implements OnInit {
       );
   }
 
+  /*
+  * Convert string status to boolean status
+  * 05-03-2019
+  * Prasad Kumara
+  */
   setCommunityStatus(communityStatus): boolean {
     if (communityStatus === 'ACTIVE') {
       return true;
@@ -63,6 +78,11 @@ export class CommunityViewPopupComponent implements OnInit {
     }
   }
 
+  /*
+  * Submit community create and update form
+  * 05-03-2019
+  * Prasad Kumara
+  */
   submitCommunityForm(): any {
     this.dialogRef.close(this.communityForm.value);
   }

@@ -12,6 +12,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DateValidator } from 'app/utility/dateValidator';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { ActivatedRoute } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { UserEventService } from '../user-event.service';
+import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -29,14 +32,7 @@ export const MY_FORMATS = {
   selector: 'app-create-event-popup',
   templateUrl: './create-event-popup.component.html',
   animations: egretAnimations,
-  providers: [
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE]
-    },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
-  ]
+  providers: [ DatePipe ]
 })
 export class CreateEventPopupComponent implements OnInit {
 
@@ -60,45 +56,89 @@ export class CreateEventPopupComponent implements OnInit {
     public dialogRef: MatDialogRef<CreateEventPopupComponent>,
     private fb: FormBuilder,
     public snackBar: MatSnackBar,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private datePipe: DatePipe,
+    private errDialog: AppErrorService,
+    private userEventService: UserEventService
   ) { }
 
   ngOnInit() {
+    if (!this.data.isNew) {
+      this.getEventById(this.data.payload.id);
+    }
     this.buildEventForm(this.data.payload);
     this.activeRoute.queryParams.subscribe(params => {
       this.comunityId = params['id'];
       this.comunityName = params['name'];
     });
     this.setStartDateMin();
-    this.createImgUrls();
   }
 
+  /*
+  * Build Event Create and Update Form
+  * 05-03-2019
+  * Prasad Kumara
+  */
   buildEventForm(eventformdata) {
     this.eventForm = this.fb.group({
       name: [eventformdata.name || '', Validators.required],
       description: [eventformdata.description || '', Validators.required],
-      status: [eventformdata.status || false, Validators.required],
-      startDate: [eventformdata.startDate, Validators.required],
-      endDate: [eventformdata.endDate, Validators.required],
-      file: [eventformdata.file || '', Validators.required]
+      eventStatus: [eventformdata.eventStatus || false, Validators.required],
+      startDateTime: [eventformdata.startDateTime, Validators.required],
+      endDateTime: [eventformdata.endDateTime, Validators.required],
+      poster: [eventformdata.poster || '', Validators.required]
     });
   }
 
+  /*
+  * Get event data by event id
+  * 05-03-2019
+  * Prasad Kumara
+  */
+  getEventById(eventId) {
+    this.userEventService.getEventById(eventId)
+      .subscribe(
+        response => {
+          const tempArr: any = response;
+          const event = this.createDateTimeObject(tempArr.content);
+          this.buildEventForm(event);
+          this.createImgUrls(event);
+        },
+        error => {
+          this.errDialog.showError({
+            title: 'Error',
+            status: error.status,
+            type: 'http_error'
+          });
+        }
+      );
+  }
+
+  /*
+  * Set Start date minimum value
+  * 05-03-2019
+  * Prasad Kumara
+  */
   setStartDateMin() {
     const payload = this.data.payload;
     const today = DateValidator.getToday();
     if (payload) {
-      if (payload.startDate < today) {
-        this.startDateMin = payload.startDate;
+      if (payload.startDateTime < today) {
+        this.startDateMin = payload.startDateTime;
       } else {
         this.startDateMin = today;
       }
     }
   }
 
+  /*
+  * Validate Date time picker minimum and maximum value
+  * 05-03-2019
+  * Prasad Kumara
+  */
   validateDatePickerMinMax() {
-    const startDateValue = this.eventForm.get('startDate').value;
-    const endDateValue = this.eventForm.get('endDate').value;
+    const startDateValue = this.eventForm.get('startDateTime').value;
+    const endDateValue = this.eventForm.get('endDateTime').value;
 
     if (startDateValue == null && endDateValue == null) {
       this.startDateMin = DateValidator.getToday();
@@ -113,6 +153,11 @@ export class CreateEventPopupComponent implements OnInit {
     }
   }
 
+  /*
+  * Image file upload function
+  * 05-03-2019
+  * Prasad Kumara
+  */
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       const filesAmount = event.target.files.length;
@@ -177,6 +222,11 @@ export class CreateEventPopupComponent implements OnInit {
     }
   }
 
+  /*
+  * Remove selected images
+  * 05-03-2019
+  * Prasad Kumara
+  */
   removeSelectedImg(index: number) {
     this.urls.splice(index, 1);
     this.currentTotalImageCount -= 1;
@@ -188,38 +238,68 @@ export class CreateEventPopupComponent implements OnInit {
     }
   }
 
+  /*
+  * Convert Json Event data to formData
+  * 05-03-2019
+  * Prasad Kumara
+  */
   prepareEventFormData(formValues): FormData {
     const eventFormData: FormData = new FormData();
     eventFormData.append('communityId', this.comunityId);
     eventFormData.append('name', formValues.name);
     eventFormData.append('description', formValues.description);
-    eventFormData.append('startDate', formValues.startDate);
-    eventFormData.append('endDate', formValues.endDate);
-    eventFormData.append('status', formValues.status);
+    eventFormData.append('startDateTime', formValues.startDateTime);
+    eventFormData.append('endDateTime', formValues.endDateTime);
+    eventFormData.append('eventStatus', formValues.eventStatus);
 
     for (let i = 0; i < this.newlySelectedFileList.length; i++) {
       const selectedFile: File = this.newlySelectedFileList[i];
       const type = selectedFile.type.split("/");
       const imageName = 'image_' + i + '.' + type[1];
-      eventFormData.append('file', selectedFile, imageName);
+      eventFormData.append('poster', selectedFile, imageName);
     }
 
     return eventFormData;
   }
 
+  /*
+  * Create and Update Event Submit function
+  * 05-03-2019
+  * Prasad Kumara
+  */
   eventFormSubmit() {
-    const eventFormData = this.prepareEventFormData(this.eventForm.value);
+    // const eventFormData = this.prepareEventFormData(this.eventForm.value);
+    const eventFormData = this.eventForm.value;
+    eventFormData.poster = this.urls[0];
+    const startDateTime: string = this.datePipe.transform(this.eventForm.value.startDateTime, 'yyy-MM-dd HH:mm');
+    const endDateTime: string = this.datePipe.transform(this.eventForm.value.endDateTime, 'yyy-MM-dd HH:mm');
+    eventFormData.startDateTime = startDateTime;
+    eventFormData.endDateTime = endDateTime;
     this.dialogRef.close(eventFormData);
   }
 
-  createImgUrls() {
-    const payload = this.data.payload;
-    if (payload) {
-      if (payload.hasOwnProperty('file')) {
-        this.urls.push(payload.file);
-        this.currentTotalImageCount = 1;
-      }
+  /*
+  * Create image Urls from bite array
+  * 05-03-2019
+  * Prasad Kumara
+  */
+  createImgUrls(event) {
+    if (event.hasOwnProperty('poster')) {
+      this.urls.push(event.poster);
+      this.currentTotalImageCount = 1;
     }
+  }
+
+  /*
+  * Convert string date time to Date time object
+  * 05-03-2019
+  * Prasad Kumara
+  */
+  createDateTimeObject(event) {
+    event.startDateTime = new Date(event.startDateTime);
+    event.endDateTime = new Date(event.endDateTime);
+    event.createdDate = new Date(event.createdDate);
+    return event;
   }
 
 }
