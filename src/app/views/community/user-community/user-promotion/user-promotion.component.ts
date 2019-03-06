@@ -208,7 +208,7 @@ export class UserPromotionComponent implements OnInit {
   * 06-03-2019
   * Prasad Kumara
   */
-  deleteSelectedEvent() {
+  deleteSelectedPromotions() {
     this.confirmService
       .confirm({ message: 'Do You want to Delete Selected Promotions?' })
       .subscribe(res => {
@@ -250,7 +250,7 @@ export class UserPromotionComponent implements OnInit {
   * 06-03-2019
   * Prasad Kumara
   */
-  deleteEvent(data) {
+ deletePromotion(data) {
     this.confirmService
       .confirm({ message: `Do You want to Delete ${data.name}?` })
       .subscribe(res => {

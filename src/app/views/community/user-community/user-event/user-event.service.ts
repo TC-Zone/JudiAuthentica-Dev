@@ -36,9 +36,10 @@ export class UserEventService {
   * 05-03-2019
   * Prasad Kumara
   */
-  fetchAllEventsByCommunityId(communityId) {
+  fetchAllEvents(communityId, pageNumber, pageSize) {
     return this.http.
-      get(this.userApiUrl + 'events/community/' + communityId)
+      get(this.userApiUrl + 'events/community/' + communityId + '?pageNumber=' +
+      pageNumber + '&pageSize=' + pageSize)
       .pipe(
         map(data => {
           return data;
@@ -87,6 +88,16 @@ export class UserEventService {
   eventDeleteById(eventId) {
     return this.http.
       delete(this.userApiUrl + 'events/' + eventId)
+      .pipe(
+        map(data => {
+          return data;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  deleteEventList(eventIdList) {
+    return this.http.request('delete', this.userApiUrl + 'events', { body: eventIdList })
       .pipe(
         map(data => {
           return data;

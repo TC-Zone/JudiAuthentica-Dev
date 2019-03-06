@@ -3,7 +3,7 @@
     <!-- multiple promotions select and control -->
     <mat-checkbox (change)="selectToggleAll($event)" [indeterminate]="indeterminateState" [checked]="selectAll" class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
     <button mat-icon-button matTooltip="Add event" (click)="offerPopUp({}, true)"><mat-icon>add_box</mat-icon></button>
-    <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedEvent()"><mat-icon>delete</mat-icon></button>
+    <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedPromotions()"><mat-icon>delete</mat-icon></button>
     <span fxFlex></span>
     <mat-form-field *ngIf="this.temPromotions.length > 0" style="font-size: 15px; width: 30%; margin-top: 10px;">
       <input matInput placeholder="Search" value="" (keyup)='updateFilter($event)'>
@@ -46,7 +46,7 @@
             <button mat-menu-item (click)="offerPopUp(promoObj, false)">
               <mat-icon>edit</mat-icon> Edit
             </button>
-            <button mat-menu-item (click)="deleteEvent(promoObj)">
+            <button mat-menu-item (click)="deletePromotion(promoObj)">
               <mat-icon>delete</mat-icon> Delete
             </button>
           </mat-menu>

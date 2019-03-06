@@ -16,11 +16,17 @@ import { AppErrorService } from 'app/shared/services/app-error/app-error.service
 })
 export class UserEventComponent implements OnInit {
 
-  public events;
+  public events = [];
+  public temEvents = [];
   public indeterminateState = false;
   public selectAll = false;
   public comunityName: String;
   public comunityId: String;
+  public pageNumber = 1;
+  public pageSize = 10;
+  public totalPages = [];
+  public totalRecords = 2;
+  public pageSizeArray = [];
 
   constructor(
     private dialog: MatDialog,
@@ -37,7 +43,7 @@ export class UserEventComponent implements OnInit {
       this.comunityId = params['id'];
       this.comunityName = params['name'];
     });
-    this.fetchAllEventsByCommunityId();
+    this.fetchAllEvents(this.pageNumber);
   }
 
   /*
@@ -82,7 +88,17 @@ export class UserEventComponent implements OnInit {
             this.userEventService.createEvent(res)
               .subscribe(
                 response => {
-                  this.fetchAllEventsByCommunityId();
+                  const temData: any = response;
+                  if (this.events.length === this.pageSize) {
+                    this.appendNewlyCreatedEvent(temData.content);
+                  } else {
+                    temData.content['createdDate'] = new Date();
+                    console.log(temData.content);
+                    this.events.push(temData.content);
+                    this.temEvents = this.events;
+                    this.totalRecords += 1;
+                  }
+                  // this.fetchAllEvents();
                   this.loader.close();
                   this.snack.open('New Event Created', 'close', {
                     duration: 2000
@@ -106,7 +122,10 @@ export class UserEventComponent implements OnInit {
             this.userEventService.eventUpdateById(data.id, res)
               .subscribe(
                 response => {
-                  this.fetchAllEventsByCommunityId();
+                  const temData: any = response;
+                  const i = this.events.indexOf(data);
+                  this.events[i] = temData.content;
+                  this.temEvents = this.events;
                   this.loader.close();
                   this.snack.open('Event Updated', 'close', {
                     duration: 2000
@@ -204,17 +223,33 @@ export class UserEventComponent implements OnInit {
         if (res) {
           this.loader.open();
           const selectedEvents = this.getSelectedEvents();
-          selectedEvents.forEach(event => {
-            this.eventDeleteById(event.id);
-          });
-          this.selectAll = false;
-          this.indeterminateState = false;
+          const idArray = {
+            events: selectedEvents
+          };
+          const tempPN = this.setPageNumber(selectedEvents.length);
+          this.userEventService.deleteEventList(idArray)
+            .subscribe(
+              response => {
+                this.selectAll = false;
+                this.indeterminateState = false;
+                this.fetchAllEvents(tempPN);
+                this.loader.close();
+                this.snack.open('Selected Events Deleted', 'close', {
+                  duration: 2000
+                });
+              },
+              error => {
+                this.loader.close();
+                if (error.status !== 401) {
+                  this.errDialog.showError({
+                    title: 'Error',
+                    status: error.status,
+                    type: 'http_error'
+                  });
+                }
+              }
+            );
         }
-        this.fetchAllEventsByCommunityId();
-        this.loader.close();
-        this.snack.open('Selected Events Deleted', 'close', {
-          duration: 2000
-        });
     });
   }
 
@@ -229,13 +264,28 @@ export class UserEventComponent implements OnInit {
       .subscribe(res => {
         if (res) {
           this.loader.open();
-          this.eventDeleteById(data.id);
+          const tempPN = this.setPageNumber(1);
+          this.userEventService.eventDeleteById(data.id)
+            .subscribe(
+              response => {
+                this.fetchAllEvents(tempPN);
+                this.loader.close();
+                this.snack.open(`${data.name} Deleted`, 'close', {
+                  duration: 2000
+                });
+              },
+              error => {
+                this.loader.close();
+                if (error.status !== 401) {
+                  this.errDialog.showError({
+                    title: 'Error',
+                    status: error.status,
+                    type: 'http_error'
+                  });
+                }
+              }
+            );
         }
-        this.fetchAllEventsByCommunityId();
-        this.loader.close();
-        this.snack.open(`${data.name} Deleted`, 'close', {
-          duration: 2000
-        });
     });
   }
 
@@ -248,7 +298,7 @@ export class UserEventComponent implements OnInit {
     const selectedEvents = [];
     this.events.forEach(data => {
       if (data.selected) {
-        selectedEvents.push(data);
+        selectedEvents.push({ id: data.id });
       }
     });
     return selectedEvents;
@@ -259,14 +309,17 @@ export class UserEventComponent implements OnInit {
   * 05-03-2019
   * Prasad Kumara
   */
-  fetchAllEventsByCommunityId() {
-    this.userEventService.fetchAllEventsByCommunityId(this.comunityId)
+  fetchAllEvents(pageNumber) {
+    this.userEventService.fetchAllEvents(this.comunityId, pageNumber, this.pageSize)
       .subscribe(
         response => {
           const tempResponse: any = response;
           const tempEvents = this.createDateTimeObject(tempResponse.content);
-          const tempPagination = tempResponse.pagination;
-          this.events = tempEvents;
+          this.events = this.temEvents = tempEvents;
+          this.totalRecords = tempResponse.pagination.totalRecords;
+          this.pageNumber = tempResponse.pagination.pageNumber;
+          this.createPageNavigationBar();
+          this.createPaginationPageSizeArray();
         },
         error => {
           this.errDialog.showError({
@@ -326,6 +379,89 @@ export class UserEventComponent implements OnInit {
           });
         }
       );
+  }
+
+  createPaginationPageSizeArray() {
+    let totalRec = this.totalRecords;
+    const tempArray = [];
+    if (totalRec > this.pageSize) {
+      const rem = totalRec % this.pageSize;
+      if (rem !== 0) {
+        totalRec = totalRec + this.pageSize;
+      }
+      for (let i = this.pageSize; i < totalRec; ) {
+        tempArray.push(i);
+        i = i + this.pageSize;
+      }
+    } else {
+      tempArray.push(this.pageSize);
+    }
+    this.pageSizeArray = tempArray;
+  }
+
+  updateFilter(event) {
+    const val = event.target.value.toLowerCase();
+    const columns = Object.keys(this.temEvents[0]);
+    columns.splice(columns.length - 1);
+
+    if (!columns.length) {
+      return;
+    }
+
+    const rows = this.temEvents.filter(function(data) {
+      for (let i = 0; i <= columns.length; i++) {
+        const col = columns[i];
+        if (data[col] && data[col].toString().toLowerCase().indexOf(val) > -1) {
+          return true;
+        }
+      }
+    });
+    this.events = rows;
+  }
+
+  changeValue() {
+    this.pageNumber = 1;
+    this.fetchAllEvents(this.pageNumber);
+  }
+
+  appendNewlyCreatedEvent(event) {
+    const tempArray = [];
+    event['createdDate'] = new Date();
+    console.log(event);
+    for (let i = this.events.length; i >= 1; i--) {
+      if (i === this.events.length) {
+        tempArray.push(event);
+      } else {
+        tempArray.push(this.events[i]);
+      }
+    }
+    this.events = this.temEvents = tempArray;
+    this.totalRecords += 1;
+    this.createPageNavigationBar();
+  }
+
+  createPageNavigationBar() {
+    const devider = this.totalRecords / this.pageSize;
+    const numOfPage = Math.ceil(devider);
+    if (numOfPage > 1) {
+      const temPages = [];
+      for (let i = 1; i <= numOfPage; i++) {
+        temPages.push(i);
+      }
+      this.totalPages = temPages;
+    } else {
+      this.totalPages = [];
+    }
+  }
+
+  setPageNumber(numOfPromo): number {
+    const tempTR = this.totalRecords - numOfPromo;
+    const devider = tempTR / this.pageSize;
+    if (devider < this.totalPages.length) {
+      return this.pageNumber - 1;
+    } else {
+      return this.pageNumber;
+    }
   }
 
 }
