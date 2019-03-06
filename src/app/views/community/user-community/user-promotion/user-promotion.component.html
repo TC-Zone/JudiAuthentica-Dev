@@ -5,11 +5,11 @@
     <button mat-icon-button matTooltip="Add event" (click)="offerPopUp({}, true)"><mat-icon>add_box</mat-icon></button>
     <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedEvent()"><mat-icon>delete</mat-icon></button>
     <span fxFlex></span>
-    <mat-form-field style="font-size: 15px; width: 30%; margin-top: 10px;">
+    <mat-form-field *ngIf="this.temPromotions.length > 0" style="font-size: 15px; width: 30%; margin-top: 10px;">
       <input matInput placeholder="Search" value="" (keyup)='updateFilter($event)'>
     </mat-form-field>
-    <p class="mat-select-lable"> Page Size: </p>
-    <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()" placeholder="Favorite food">
+    <p *ngIf="this.temPromotions.length > 0" class="mat-select-lable"> Page Size: </p>
+    <mat-select *ngIf="this.temPromotions.length > 0" class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()" placeholder="Favorite food">
       <mat-option *ngFor="let item of pageSizeArray" [value]="item">{{item}}</mat-option>
       <!-- <mat-option [value]="20">20</mat-option> -->
     </mat-select>
@@ -19,7 +19,9 @@
       <mat-expansion-panel-header>
         <mat-panel-title>
           <mat-checkbox (change)="selectToggleOne($event, promoObj)" [checked]="promoObj.selected" (click)="stopProp($event)" class="mail-checkbox hide-on-open"></mat-checkbox>
-          <span class="hide-on-open">{{ promoObj.name }}</span>
+          <span style="width: 130px; overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;" class="hide-on-open">{{ promoObj.name }}</span>
           <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start center" class="show-on-open">
             <!-- <img [src]="promoObj.file" alt="" class="inbox-face mr-1"> -->
             <div fxLayout="column">
@@ -28,12 +30,13 @@
                 {{promoObj.end | date}}</small>
             </div>
           </div>
+          <span fxFlex></span>
         </mat-panel-title>
         <mat-panel-description>
-          <!-- <span class="mail-subject text-sm mat-color-default hide-on-open">
+          <span class="mail-subject text-sm mat-color-default hide-on-open">
             <mat-chip *ngIf="promoObj.status" mat-sm-chip color="primary" [selected]="true">Active</mat-chip>
             <mat-chip *ngIf="!promoObj.status" mat-sm-chip color="warn" [selected]="true">Inactive</mat-chip>
-          </span> -->
+          </span>
           <span fxFlex></span>
           <span class="text-sm" fxHide.lt-sm="true">{{promoObj.start | relativeTime}}</span>
           <button mat-icon-button [matMenuTriggerFor]="msgMenu" (click)="stopProp($event)" class="hidden-on-open">
@@ -114,29 +117,31 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
-  <mat-toolbar color="primary" class="inbox-toolbar" style="font-size: 12px;">
+  <mat-toolbar color="primary" class="inbox-toolbar" *ngIf="this.promotions.length > 0" style="font-size: 12px;">
     <div class="pagination">{{totalRecords}} Total</div>
     <span fxFlex></span>
-    <nav aria-label="Promotion Page Navigation" style="color: black;">
-      <ul class="pagination" *ngIf="totalPages.length > 1">
-        <li class="page-item" [ngClass]="{'disabled':pageNumber <= 1}">
-          <a class="page-link" (click)="fetchAllPromotions(pageNumber-1)" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Previous</span>
-          </a>
-        </li>
-        <li class="page-item" *ngFor="let page of totalPages" [ngClass]="{'active':pageNumber === page}">
-          <a class="page-link" (click)="fetchAllPromotions(page)">
-            {{page}}
-          </a>
-        </li>
-        <li class="page-item"  [ngClass]="{'disabled':pageNumber >= totalPages.length}">
-          <a class="page-link" (click)="fetchAllPromotions(pageNumber+1)" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Next</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <ng-container>
+      <nav aria-label="Promotion Page Navigation" style="color: black;">
+        <ul class="pagination" *ngIf="totalPages.length > 1">
+          <li class="page-item" [ngClass]="{'disabled':pageNumber <= 1}">
+            <a class="page-link" (click)="fetchAllPromotions(pageNumber-1)" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          <li class="page-item" *ngFor="let page of totalPages" [ngClass]="{'active':pageNumber === page}">
+            <a class="page-link" (click)="fetchAllPromotions(page)">
+              {{page}}
+            </a>
+          </li>
+          <li class="page-item"  [ngClass]="{'disabled':pageNumber >= totalPages.length}">
+            <a class="page-link" (click)="fetchAllPromotions(pageNumber+1)" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </ng-container>
   </mat-toolbar>
 </div>
