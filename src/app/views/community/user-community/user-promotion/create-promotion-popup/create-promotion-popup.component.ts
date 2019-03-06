@@ -75,6 +75,11 @@ export class CreatePromotionPopupComponent implements OnInit {
     this.setStartDateMin();
   }
 
+  /*
+  * Build promotion create and update form
+  * 06-03-2019
+  * Prasad Kumara
+  */
   buildPromotionForm(promotionFormData) {
     this.promotionForm = this.fb.group({
       name: [promotionFormData.name || '', Validators.required],
@@ -87,6 +92,11 @@ export class CreatePromotionPopupComponent implements OnInit {
     });
   }
 
+  /*
+  * Set start date min value
+  * 06-03-2019
+  * Prasad Kumara
+  */
   setStartDateMin() {
     const payload = this.data.payload;
     const today = DateValidator.getToday();
@@ -100,6 +110,11 @@ export class CreatePromotionPopupComponent implements OnInit {
     }
   }
 
+  /*
+  * Validate start and end date min and max value
+  * 06-03-2019
+  * Prasad Kumara
+  */
   validateDatePickerMinMax() {
     const startDateValue = this.promotionForm.get('start').value;
     const endDateValue = this.promotionForm.get('end').value;
@@ -117,6 +132,11 @@ export class CreatePromotionPopupComponent implements OnInit {
     }
   }
 
+  /*
+  * Image upload function
+  * 06-03-2019
+  * Prasad Kumara
+  */
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       const filesAmount = event.target.files.length;
@@ -181,6 +201,11 @@ export class CreatePromotionPopupComponent implements OnInit {
     }
   }
 
+  /*
+  * Remove uploade image
+  * 06-03-2019
+  * Prasad Kumara
+  */
   removeSelectedImg(index: number) {
     this.urls.splice(index, 1);
     this.currentTotalImageCount -= 1;
@@ -192,6 +217,11 @@ export class CreatePromotionPopupComponent implements OnInit {
     }
   }
 
+  /*
+  * Convert Json to form data
+  * 06-03-2019
+  * Prasad Kumara
+  */
   prepareOfferFormData(formValues): FormData {
     const promotionFormData: FormData = new FormData();
     promotionFormData.append('communityId', this.comunityId);
@@ -212,6 +242,11 @@ export class CreatePromotionPopupComponent implements OnInit {
     return promotionFormData;
   }
 
+  /*
+  * Promotion form value submit
+  * 06-03-2019
+  * Prasad Kumara
+  */
   promotionFormSubmit() {
     // const promotionFormData = this.prepareOfferFormData(this.promotionForm.value);
     const promotionFormData = this.promotionForm.value;
@@ -221,6 +256,11 @@ export class CreatePromotionPopupComponent implements OnInit {
     this.dialogRef.close(promotionFormData);
   }
 
+  /*
+  * Create image url
+  * 06-03-2019
+  * Prasad Kumara
+  */
   createImgUrls(promotion) {
     if (promotion.hasOwnProperty('promoPoster')) {
       this.urls.push(promotion.promoPoster);
@@ -228,6 +268,11 @@ export class CreatePromotionPopupComponent implements OnInit {
     }
   }
 
+  /*
+  * Get promtion data using promotion id
+  * 06-03-2019
+  * Prasad Kumara
+  */
   getPromotionById(promotionId) {
     this.userPromotionService.getPromotionById(promotionId)
       .subscribe(
