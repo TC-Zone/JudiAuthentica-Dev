@@ -15,6 +15,11 @@ export class UserPromotionService {
     private http: HttpClient
   ) { }
 
+  /*
+  * Create Promotion
+  * 06-03-2019
+  * Prasad Kumara
+  */
   createPromotion(promotionData) {
     return this.http.
       post(this.userApiUrl + 'promotions', promotionData)
@@ -26,6 +31,11 @@ export class UserPromotionService {
       );
   }
 
+  /*
+  * Update Promotion using promotion id
+  * 06-03-2019
+  * Prasad Kumara
+  */
   updatePromotionById(promotionId, promotionData) {
     return this.http.
       put(this.userApiUrl + 'promotions/' + promotionId, promotionData)
@@ -37,6 +47,11 @@ export class UserPromotionService {
       );
   }
 
+  /*
+  * Delete Promotion using promotion id
+  * 06-03-2019
+  * Prasad Kumara
+  */
   deletePromotionById(promotionId) {
     return this.http.
       delete(this.userApiUrl + 'promotions/' + promotionId)
@@ -48,6 +63,12 @@ export class UserPromotionService {
       );
   }
 
+  /*
+  * Delete Promotion list
+  * Here delete request is not working properly with body parameter. That's why request method used
+  * 06-03-2019
+  * Prasad Kumara
+  */
   deletePromotionList(promotionIdList) {
     return this.http.request('delete', this.userApiUrl + 'promotions', { body: promotionIdList })
       .pipe(
@@ -56,16 +77,13 @@ export class UserPromotionService {
         }),
         catchError(this.handleError)
       );
-    // return this.http.
-    //   delete(this.userApiUrl + 'promotions', promotionIdList)
-    //   .pipe(
-    //     map(data => {
-    //       return data;
-    //     }),
-    //     catchError(this.handleError)
-    //   );
   }
 
+  /*
+  * Get promotion details using promotion id
+  * 06-03-2019
+  * Prasad Kumara
+  */
   getPromotionById(promotionId) {
     return this.http.
       get(this.userApiUrl + 'promotions/' + promotionId)
@@ -77,6 +95,11 @@ export class UserPromotionService {
       );
   }
 
+  /*
+  * Promotion search with pagination
+  * 06-03-2019
+  * Prasad Kumara
+  */
   fetchAllPromotions(communityId, pageNumber, pageSize) {
     return this.http.
       get(this.userApiUrl + 'promotions/community/' + communityId + '?pageNumber=' +
@@ -89,6 +112,11 @@ export class UserPromotionService {
       );
   }
 
+  /*
+  * Handle http response errors
+  * 06-03-2019
+  * Prasad Kumara
+  */
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);
   }
