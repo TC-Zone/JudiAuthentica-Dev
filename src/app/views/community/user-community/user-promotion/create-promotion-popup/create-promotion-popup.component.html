@@ -1,4 +1,4 @@
-<form [formGroup]="offerForm">
+<form [formGroup]="promotionForm">
   <mat-toolbar matDialogTitle class="mat-primary m-0">
     <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
       <span class="title dialog-title">{{data.title}}</span>
@@ -8,44 +8,40 @@
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <div fxFlex="100" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="name" [formControl]="offerForm.controls['name']" letterOnly placeholder="Event Name">
+          <input matInput name="name" [formControl]="promotionForm.controls['name']" letterOnly placeholder="Event Name">
         </mat-form-field>
       </div>
       <div fxFlex="100" class="pr-1">
         <mat-form-field class="full-width">
-          <textarea matInput name="description" placeholder="Description" [formControl]="offerForm.controls['description']"></textarea>
+          <textarea matInput name="description" placeholder="Description" [formControl]="promotionForm.controls['description']"></textarea>
         </mat-form-field>
       </div>
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="startDate" [min]="startDateMin" (ngModelChange)="validateDatePickerMinMax()"
-            [max]="startDateMax" [owlDateTime]="picker1" [owlDateTimeTrigger]="picker1"
-            [formControl]="offerForm.controls['startDate']" required placeholder="Start Date">
-          <button [owlDateTimeTrigger]="picker1" mat-icon-button matSuffix>
-            <mat-icon>keyboard_arrow_down</mat-icon>
-          </button>
-          <owl-date-time #picker1></owl-date-time>
+          <input matInput name="start" [min]="startDateMin" [max]="startDateMax" (dateChange)="validateDatePickerMinMax()" [matDatepicker]="picker1" [formControl]="promotionForm.controls['start']" required placeholder="Start Date">
+          <mat-datepicker-toggle matSuffix [for]="picker1">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
       </div>
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="endDate" [min]="endDateMin" (ngModelChange)="validateDatePickerMinMax()"
-            [max]="endDateMax" [owlDateTime]="picker2" [owlDateTimeTrigger]="picker2"
-            [formControl]="offerForm.controls['endDate']" required placeholder="End Date">
-          <button [owlDateTimeTrigger]="picker2" mat-icon-button matSuffix>
-            <mat-icon>keyboard_arrow_down</mat-icon>
-          </button>
-          <owl-date-time #picker2></owl-date-time>
+          <input matInput name="end" [min]="endDateMin" [max]="endDateMax" (dateChange)="validateDatePickerMinMax()"  [matDatepicker]="picker2" [formControl]="promotionForm.controls['end']" required placeholder="End Date">
+          <mat-datepicker-toggle matSuffix [for]="picker2">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
       </div>
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="discount" [formControl]="offerForm.controls['discount']" positiveNumberOnly placeholder="Discount">
+          <input matInput name="percentage" [formControl]="promotionForm.controls['percentage']" positiveNumberOnly placeholder="Discount">
         </mat-form-field>
       </div>
       <div fxFlex="50" class="pr-1">
         <!-- --------- hidden file input --------- -->
-        <input (change)="onSelectFile($event)" #eventImgs type="file" [formControl]="offerForm.controls['file']"
+        <input (change)="onSelectFile($event)" #eventImgs type="file" [formControl]="promotionForm.controls['promoPoster']"
         multiple style="display: none" />
         <!-- --------- file input click button --------- -->
         <div layout-margin layout-padding>
@@ -62,7 +58,7 @@
         </div>
       </div>
       <div fxFlex="100" class="pr-1">
-        <mat-slide-toggle [formControl]="offerForm.controls['status']">Activate Event</mat-slide-toggle>
+        <mat-slide-toggle [formControl]="promotionForm.controls['status']">Activate Event</mat-slide-toggle>
       </div>
       <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngFor='let url of urls; let i = index' fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" style="display: flex;">
         <mat-card class="p-0">
@@ -75,7 +71,7 @@
     </div>
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
         <div fxFlex="100" class="mt-1">
-          <button mat-raised-button color="primary" (click)="offerFormSubmit()" [disabled]="offerForm.invalid">Save</button>
+          <button mat-raised-button color="primary" (click)="promotionFormSubmit()" [disabled]="promotionForm.invalid">Save</button>
           <span fxFlex></span>
           <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
         </div>

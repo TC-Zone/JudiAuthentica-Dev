@@ -3,6 +3,11 @@ import { egretAnimations } from 'app/shared/animations/egret-animations';
 import { MatSnackBar, MatDialogRef, MatDialog } from '@angular/material';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { CreatePromotionPopupComponent } from './create-promotion-popup/create-promotion-popup.component';
+import { UserPromotionService } from './user-promotion.service';
+import { ActivatedRoute } from '@angular/router';
+import { authProperties } from './../../../../shared/services/auth/auth-properties'
+import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
+import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
 
 @Component({
   selector: 'app-user-promotion',
@@ -11,40 +16,34 @@ import { CreatePromotionPopupComponent } from './create-promotion-popup/create-p
 })
 export class UserPromotionComponent implements OnInit {
 
-  public promotions = [
-    {
-      id: 'promo_id_01',
-      name: 'Promotion Name 01',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit. Fusce ut placerat orci nulla pellentesque dignissim.',
-      startDate: new Date(2019, 1, 2, 8, 0, 0, 0),
-      endDate: new Date(2019, 1, 3, 16, 0, 0, 0),
-      file: 'assets/images/test_event.jpg',
-      status: false,
-      discount: 12,
-      selected: false
-    },
-    {
-      id: 'promo_id_02',
-      name: 'Promotion Name 02',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ligula ullamcorper malesuada proin libero nunc consequat interdum varius sit. Fusce ut placerat orci nulla pellentesque dignissim.',
-      startDate: new Date(2019, 1, 24, 9, 30, 0, 0),
-      endDate: new Date(2019, 1, 24, 15, 0, 0, 0),
-      file: 'assets/images/test_event.jpg',
-      status: true,
-      discount: 25,
-      selected: false
-    }
-  ];
+  public promotions;
+  public temPromotions;
   public indeterminateState = false;
   public selectAll = false;
+  public comunityName: String;
+  public comunityId: String;
+  public pageNumber = 1;
+  public pageSize = 10;
+  public totalPages = [];
+  public totalRecords = 2;
+  public pageSizeArray = [];
 
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    private confirmService: AppConfirmService
+    private activeRoute: ActivatedRoute,
+    private confirmService: AppConfirmService,
+    private loader: AppLoaderService,
+    private errDialog: AppErrorService,
+    private userPromotionService: UserPromotionService
   ) { }
 
   ngOnInit() {
+    this.activeRoute.queryParams.subscribe(params => {
+      this.comunityId = params['id'];
+      this.comunityName = params['name'];
+    });
+    this.fetchAllPromotions(this.pageNumber, true);
   }
 
   stopProp(event) {
@@ -52,31 +51,69 @@ export class UserPromotionComponent implements OnInit {
   }
 
   offerPopUp(data: any = {}, isNew?) {
-    const title = isNew ? 'Create New Offer' : 'Update Offer';
+    const title = isNew ? 'Create New Promotion' : 'Update Promotion';
     const dialogRef: MatDialogRef<any> = this.dialog.open(
       CreatePromotionPopupComponent,
       {
         width: '720px',
         disableClose: true,
-        data: { title: title, payload: data }
+        data: { title: title, payload: data, isNew: isNew }
       }
     );
     dialogRef.afterClosed().subscribe(res => {
       if (!res) {
         return;
       } else {
-        if (isNew) {
-          console.log('------------ Create new Offer ------------');
-          console.log(res);
-          this.snack.open('New Offer Created', 'close', {
-            duration: 2000
-          });
-        } else {
-          console.log('------------ Update Offer ------------');
-          console.log(res);
-          this.snack.open('Offer Updated', 'close', {
-            duration: 2000
-          });
+        this.loader.open();
+        const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+        if (userObj) {
+          if (isNew) {
+            res['community'] = {
+              id: this.comunityId
+            };
+            this.userPromotionService.createPromotion(res)
+              .subscribe(
+                response => {
+                  this.loader.close();
+                  this.fetchAllPromotions(this.pageNumber);
+                  this.snack.open('New Promotion Created', 'close', {
+                    duration: 2000
+                  });
+                },
+                error => {
+                  this.loader.close();
+                  if (error.status !== 401) {
+                    this.errDialog.showError({
+                      title: 'Error',
+                      status: error.status,
+                      type: 'http_error'
+                    });
+                  }
+                }
+              );
+          } else {
+            res['lastModifiedUserId'] = userObj.id;
+            this.userPromotionService.updatePromotionById(data.id, res)
+              .subscribe(
+                response => {
+                  this.fetchAllPromotions(this.pageNumber);
+                  this.loader.close();
+                  this.snack.open('Promotion Updated', 'close', {
+                    duration: 2000
+                  });
+                },
+                error => {
+                  this.loader.close();
+                  if (error.status !== 401) {
+                    this.errDialog.showError({
+                      title: 'Error',
+                      status: error.status,
+                      type: 'http_error'
+                    });
+                  }
+                }
+              );
+          }
         }
       }
     });
@@ -132,12 +169,36 @@ export class UserPromotionComponent implements OnInit {
 
   deleteSelectedEvent() {
     this.confirmService
-      .confirm({ message: 'Do You want to Delete Selected Offers?' })
+      .confirm({ message: 'Do You want to Delete Selected Promotions?' })
       .subscribe(res => {
         if (res) {
+          this.loader.open();
           const selectedEvents = this.getSelectedEvents();
-          console.log('--------- Selected Offers For Delete ---------');
-          console.log(selectedEvents);
+          const idArray = {
+            promos: selectedEvents
+          };
+          this.userPromotionService.deletePromotionList(idArray)
+            .subscribe(
+              response => {
+                this.loader.close();
+                this.selectAll = false;
+                this.indeterminateState = false;
+                this.fetchAllPromotions(this.pageNumber);
+                this.snack.open('Selected Promotions Deleted', 'close', {
+                  duration: 2000
+                });
+              },
+              error => {
+                this.loader.close();
+                if (error.status !== 401) {
+                  this.errDialog.showError({
+                    title: 'Error',
+                    status: error.status,
+                    type: 'http_error'
+                  });
+                }
+              }
+            );
         }
     });
   }
@@ -147,8 +208,27 @@ export class UserPromotionComponent implements OnInit {
       .confirm({ message: `Do You want to Delete ${data.name}?` })
       .subscribe(res => {
         if (res) {
-          console.log('--------- Selected Offer For Delete ---------');
-          console.log(data);
+          this.loader.open();
+          this.userPromotionService.deletePromotionById(data.id)
+            .subscribe(
+              response => {
+                this.fetchAllPromotions(this.pageNumber);
+                this.loader.close();
+                this.snack.open(`${data.name} Deleted`, 'close', {
+                  duration: 2000
+                });
+              },
+              error => {
+                this.loader.close();
+                if (error.status !== 401) {
+                  this.errDialog.showError({
+                    title: 'Error',
+                    status: error.status,
+                    type: 'http_error'
+                  });
+                }
+              }
+            );
         }
     });
   }
@@ -157,10 +237,76 @@ export class UserPromotionComponent implements OnInit {
     const selectedEvents = [];
     this.promotions.forEach(data => {
       if (data.selected) {
-        selectedEvents.push(data);
+        selectedEvents.push({id: data.id});
       }
     });
     return selectedEvents;
+  }
+
+  fetchAllPromotions(pageNumber, firstTime = false) {
+    if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
+      this.userPromotionService.fetchAllPromotions(this.comunityId, pageNumber, this.pageSize)
+      .subscribe(
+        response => {
+          const resData: any = response;
+          this.promotions = this.temPromotions = resData.content;
+          this.totalRecords = resData.pagination.totalRecords;
+          this.pageNumber = pageNumber;
+          if (firstTime) {
+            const totalPages = resData.pagination.totalPages;
+            if (totalPages > 1) {
+              for (let i = 1; i <= totalPages; i++) {
+                this.totalPages.push(i);
+              }
+            }
+            this.createPaginationPageSizeArray();
+          }
+        }
+      );
+    }
+  }
+
+  updateFilter(event) {
+    const val = event.target.value.toLowerCase();
+    const columns = Object.keys(this.temPromotions[0]);
+    columns.splice(columns.length - 1);
+
+    if (!columns.length) {
+      return;
+    }
+
+    const rows = this.temPromotions.filter(function(data) {
+      for (let i = 0; i <= columns.length; i++) {
+        const col= columns[i];
+        if (data[col] && data[col].toString().toLowerCase().indexOf(val) > -1) {
+          return true;
+        }
+      }
+    });
+    this.promotions = rows;
+  }
+
+  changeValue() {
+    this.pageNumber = 1;
+    this.fetchAllPromotions(this.pageNumber);
+  }
+
+  createPaginationPageSizeArray() {
+    let totalRec = this.totalRecords;
+    const tempArray = [];
+    if (totalRec > this.pageSize) {
+      const rem = totalRec % this.pageSize;
+      if (rem !== 0) {
+        totalRec = totalRec + this.pageSize;
+      }
+      for (let i = this.pageSize; i < totalRec; ) {
+        tempArray.push(i);
+        i = i + this.pageSize;
+      }
+    } else {
+      tempArray.push(this.pageSize);
+    }
+    this.pageSizeArray = tempArray;
   }
 
 }

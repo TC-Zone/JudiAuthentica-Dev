@@ -1,18 +1,43 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { egretAnimations } from 'app/shared/animations/egret-animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { DateValidator } from 'app/utility/dateValidator';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DatePipe } from '@angular/common';
+import { UserPromotionService } from '../user-promotion.service';
+import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'YYYY-MM-DD'
+  },
+  display: {
+    dateInput: 'YYYY-MM-DD',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'YYYY-MM-DD',
+    monthYearA11yLabel: 'MMMM YYYY'
+  }
+};
 
 @Component({
   selector: 'app-create-promotion-popup',
   templateUrl: './create-promotion-popup.component.html',
-  animations: egretAnimations
+  animations: egretAnimations,
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE]
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    DatePipe
+  ]
 })
 export class CreatePromotionPopupComponent implements OnInit {
 
-  public offerForm: FormGroup;
+  public promotionForm: FormGroup;
   public startDateMin;
   public startDateMax;
   public endDateMin;
@@ -32,37 +57,43 @@ export class CreatePromotionPopupComponent implements OnInit {
     public dialogRef: MatDialogRef<CreatePromotionPopupComponent>,
     private fb: FormBuilder,
     public snackBar: MatSnackBar,
-    private activeRoute: ActivatedRoute
+    private datePipe: DatePipe,
+    private activeRoute: ActivatedRoute,
+    private errDialog: AppErrorService,
+    private userPromotionService: UserPromotionService
   ) { }
 
   ngOnInit() {
-    this.buildOfferForm(this.data.payload);
+    if (!this.data.isNew) {
+      this.getPromotionById(this.data.payload.id);
+    }
+    this.buildPromotionForm(this.data.payload);
     this.activeRoute.queryParams.subscribe(params => {
       this.comunityId = params['id'];
       this.comunityName = params['name'];
     });
     this.setStartDateMin();
-    this.createImgUrls();
   }
 
-  buildOfferForm(offerFormData) {
-    this.offerForm = this.fb.group({
-      name: [offerFormData.name || '', Validators.required],
-      description: [offerFormData.description || '', Validators.required],
-      status: [offerFormData.status || false, Validators.required],
-      discount: [offerFormData.discount || '', Validators.required],
-      startDate: [offerFormData.startDate, Validators.required],
-      endDate: [offerFormData.endDate, Validators.required],
-      file: [offerFormData.file || '', Validators.required]
+  buildPromotionForm(promotionFormData) {
+    this.promotionForm = this.fb.group({
+      name: [promotionFormData.name || '', Validators.required],
+      description: [promotionFormData.description || '', Validators.required],
+      status: [promotionFormData.status || false, Validators.required],
+      percentage: [promotionFormData.percentage || '', Validators.required],
+      start: [promotionFormData.start, Validators.required],
+      end: [promotionFormData.end, Validators.required],
+      promoPoster: [promotionFormData.promoPoster || '', Validators.required]
     });
   }
 
   setStartDateMin() {
     const payload = this.data.payload;
     const today = DateValidator.getToday();
+    const startDate = new Date(payload.start);
     if (payload) {
-      if (payload.startDate < today) {
-        this.startDateMin = payload.startDate;
+      if (startDate < today) {
+        this.startDateMin = startDate;
       } else {
         this.startDateMin = today;
       }
@@ -70,8 +101,8 @@ export class CreatePromotionPopupComponent implements OnInit {
   }
 
   validateDatePickerMinMax() {
-    const startDateValue = this.offerForm.get('startDate').value;
-    const endDateValue = this.offerForm.get('endDate').value;
+    const startDateValue = this.promotionForm.get('start').value;
+    const endDateValue = this.promotionForm.get('end').value;
 
     if (startDateValue == null && endDateValue == null) {
       this.startDateMin = DateValidator.getToday();
@@ -162,38 +193,59 @@ export class CreatePromotionPopupComponent implements OnInit {
   }
 
   prepareOfferFormData(formValues): FormData {
-    const offerFormData: FormData = new FormData();
-    offerFormData.append('communityId', this.comunityId);
-    offerFormData.append('name', formValues.name);
-    offerFormData.append('description', formValues.description);
-    offerFormData.append('startDate', formValues.startDate);
-    offerFormData.append('endDate', formValues.endDate);
-    offerFormData.append('status', formValues.status);
-    offerFormData.append('discount', formValues.discount);
+    const promotionFormData: FormData = new FormData();
+    promotionFormData.append('communityId', this.comunityId);
+    promotionFormData.append('name', formValues.name);
+    promotionFormData.append('description', formValues.description);
+    promotionFormData.append('start', formValues.start);
+    promotionFormData.append('end', formValues.end);
+    promotionFormData.append('status', formValues.status);
+    promotionFormData.append('percentage', formValues.percentage);
 
     for (let i = 0; i < this.newlySelectedFileList.length; i++) {
       const selectedFile: File = this.newlySelectedFileList[i];
       const type = selectedFile.type.split("/");
       const imageName = 'image_' + i + '.' + type[1];
-      offerFormData.append('file', selectedFile, imageName);
+      promotionFormData.append('promoPoster', selectedFile, imageName);
     }
 
-    return offerFormData;
+    return promotionFormData;
   }
 
-  offerFormSubmit() {
-    const offerFormData = this.prepareOfferFormData(this.offerForm.value);
-    this.dialogRef.close(offerFormData);
+  promotionFormSubmit() {
+    // const promotionFormData = this.prepareOfferFormData(this.promotionForm.value);
+    const promotionFormData = this.promotionForm.value;
+    promotionFormData.promoPoster = this.urls[0];
+    promotionFormData.start = this.datePipe.transform(this.promotionForm.value.start, 'yyy-MM-dd');
+    promotionFormData.end = this.datePipe.transform(this.promotionForm.value.end, 'yyy-MM-dd');
+    this.dialogRef.close(promotionFormData);
   }
 
-  createImgUrls() {
-    const payload = this.data.payload;
-    if (payload) {
-      if (payload.hasOwnProperty('file')) {
-        this.urls.push(payload.file);
-        this.currentTotalImageCount = 1;
-      }
+  createImgUrls(promotion) {
+    if (promotion.hasOwnProperty('promoPoster')) {
+      this.urls.push(promotion.promoPoster);
+      this.currentTotalImageCount = 1;
     }
+  }
+
+  getPromotionById(promotionId) {
+    this.userPromotionService.getPromotionById(promotionId)
+      .subscribe(
+        response => {
+          const tempArr: any = response;
+          this.buildPromotionForm(tempArr.content);
+          this.createImgUrls(tempArr.content);
+        },
+        error => {
+          if (error.status !== 401) {
+            this.errDialog.showError({
+              title: 'Error',
+              status: error.status,
+              type: 'http_error'
+            });
+          }
+        }
+      );
   }
 
 }

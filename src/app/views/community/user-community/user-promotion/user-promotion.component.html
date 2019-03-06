@@ -4,6 +4,15 @@
     <mat-checkbox (change)="selectToggleAll($event)" [indeterminate]="indeterminateState" [checked]="selectAll" class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
     <button mat-icon-button matTooltip="Add event" (click)="offerPopUp({}, true)"><mat-icon>add_box</mat-icon></button>
     <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedEvent()"><mat-icon>delete</mat-icon></button>
+    <span fxFlex></span>
+    <mat-form-field style="font-size: 15px; width: 30%; margin-top: 10px;">
+      <input matInput placeholder="Search" value="" (keyup)='updateFilter($event)'>
+    </mat-form-field>
+    <p class="mat-select-lable"> Page Size: </p>
+    <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()" placeholder="Favorite food">
+      <mat-option *ngFor="let item of pageSizeArray" [value]="item">{{item}}</mat-option>
+      <!-- <mat-option [value]="20">20</mat-option> -->
+    </mat-select>
   </mat-toolbar>
   <mat-accordion>
     <mat-expansion-panel *ngFor="let promoObj of promotions" expanded="false" hideToggle="true">
@@ -15,18 +24,18 @@
             <!-- <img [src]="promoObj.file" alt="" class="inbox-face mr-1"> -->
             <div fxLayout="column">
               <span class="m-0">{{ promoObj.name }}</span>
-              <small class="text-muted m-0">Start Date : {{promoObj.startDate | date}}, End Date :
-                {{promoObj.endDate | date}}</small>
+              <small class="text-muted m-0">Start Date : {{promoObj.start | date}}, End Date :
+                {{promoObj.end | date}}</small>
             </div>
           </div>
         </mat-panel-title>
         <mat-panel-description>
-          <span class="mail-subject text-sm mat-color-default hide-on-open">
+          <!-- <span class="mail-subject text-sm mat-color-default hide-on-open">
             <mat-chip *ngIf="promoObj.status" mat-sm-chip color="primary" [selected]="true">Active</mat-chip>
             <mat-chip *ngIf="!promoObj.status" mat-sm-chip color="warn" [selected]="true">Inactive</mat-chip>
-          </span>
+          </span> -->
           <span fxFlex></span>
-          <span class="text-sm" fxHide.lt-sm="true">{{promoObj.startDate | relativeTime}}</span>
+          <span class="text-sm" fxHide.lt-sm="true">{{promoObj.start | relativeTime}}</span>
           <button mat-icon-button [matMenuTriggerFor]="msgMenu" (click)="stopProp($event)" class="hidden-on-open">
             <mat-icon class="text-muted">more_vert</mat-icon>
           </button>
@@ -43,7 +52,7 @@
       <div fxLayout="row" fxLayoutWrap="wrap" class="mt-1">
         <div fxFlex="40" class="pr-1">
           <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
-            <img style="padding: 10px;" mat-card-image [src]="promoObj.file" alt="Photo of a Shiba Inu">
+            <img style="padding: 10px;" mat-card-image [src]="promoObj.promoPoster" alt="Photo of a Shiba Inu">
           </mat-card>
         </div>
         <div fxFlex="60" class="pr-1">
@@ -68,19 +77,19 @@
                       <mat-icon color="primary">play_arrow</mat-icon>
                     </mat-card-title>
                     <mat-card-content>
-                      <h6 class="m-0 font-normal">{{ promoObj.startDate | date:'MMM d, y, h:mm a'}}</h6>
+                      <h6 class="m-0 font-normal">{{ promoObj.start | date:'MMM d, y, h:mm a'}}</h6>
                     </mat-card-content>
                   </mat-card>
                 </div>
                 <div fxFlex="30">
                   <mat-card>
                     <mat-card-title fxLayoutAlign="start center">
-                      <small class="text-muted">Start Date & Time</small>
+                      <small class="text-muted">End Date & Time</small>
                       <span fxFlex></span>
                       <mat-icon color="warn">stop</mat-icon>
                     </mat-card-title>
                     <mat-card-content>
-                      <h6 class="m-0 font-normal">{{ promoObj.endDate | date:'MMM d, y, h:mm a'}}</h6>
+                      <h6 class="m-0 font-normal">{{ promoObj.end | date:'MMM d, y, h:mm a'}}</h6>
                     </mat-card-content>
                   </mat-card>
                 </div>
@@ -92,7 +101,7 @@
                           <small class="text-muted discount-mt">DISCOUNT</small>
                         </div>
                         <div fxFlex="60">
-                          <h6 class="m-0 discount-font">{{ promoObj.discount }} %</h6>
+                          <h6 class="m-0 discount-font">{{ promoObj.percentage }} %</h6>
                         </div>
                       </div>
                     </mat-card-content>
@@ -105,4 +114,29 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
+  <mat-toolbar color="primary" class="inbox-toolbar" style="font-size: 12px;">
+    <div class="pagination">{{totalRecords}} Total</div>
+    <span fxFlex></span>
+    <nav aria-label="Promotion Page Navigation" style="color: black;">
+      <ul class="pagination" *ngIf="totalPages.length > 1">
+        <li class="page-item" [ngClass]="{'disabled':pageNumber <= 1}">
+          <a class="page-link" (click)="fetchAllPromotions(pageNumber-1)" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        <li class="page-item" *ngFor="let page of totalPages" [ngClass]="{'active':pageNumber === page}">
+          <a class="page-link" (click)="fetchAllPromotions(page)">
+            {{page}}
+          </a>
+        </li>
+        <li class="page-item"  [ngClass]="{'disabled':pageNumber >= totalPages.length}">
+          <a class="page-link" (click)="fetchAllPromotions(pageNumber+1)" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </mat-toolbar>
 </div>
