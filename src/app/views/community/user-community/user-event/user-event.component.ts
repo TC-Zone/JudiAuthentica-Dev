@@ -130,7 +130,7 @@ export class UserEventComponent implements OnInit {
   }
 
   /*
-  * set selected status of ine event
+  * set selected status of one event
   * 05-03-2019
   * Prasad Kumara
   */

@@ -16,8 +16,8 @@ import { AppErrorService } from 'app/shared/services/app-error/app-error.service
 })
 export class UserPromotionComponent implements OnInit {
 
-  public promotions;
-  public temPromotions;
+  public promotions = [];
+  public temPromotions = [];
   public indeterminateState = false;
   public selectAll = false;
   public comunityName: String;
@@ -46,10 +46,20 @@ export class UserPromotionComponent implements OnInit {
     this.fetchAllPromotions(this.pageNumber, true);
   }
 
+  /*
+  * Expantion pannel prevent expantion
+  * 06-03-2019
+  * Prasad Kumara
+  */
   stopProp(event) {
     event.stopPropagation();
   }
 
+  /*
+  * Promotion Create and Update popup window
+  * 06-03-2019
+  * Prasad Kumara
+  */
   offerPopUp(data: any = {}, isNew?) {
     const title = isNew ? 'Create New Promotion' : 'Update Promotion';
     const dialogRef: MatDialogRef<any> = this.dialog.open(
@@ -74,8 +84,16 @@ export class UserPromotionComponent implements OnInit {
             this.userPromotionService.createPromotion(res)
               .subscribe(
                 response => {
+                  const temData: any = response;
+                  if (this.promotions.length === this.pageSize) {
+                    this.appendNewlyCreatedPromotion(temData.content);
+                  } else {
+                    this.promotions.push(temData.content);
+                    this.temPromotions = this.promotions;
+                    this.totalRecords += 1;
+                  }
                   this.loader.close();
-                  this.fetchAllPromotions(this.pageNumber);
+                  // this.fetchAllPromotions(this.pageNumber);
                   this.snack.open('New Promotion Created', 'close', {
                     duration: 2000
                   });
@@ -96,7 +114,10 @@ export class UserPromotionComponent implements OnInit {
             this.userPromotionService.updatePromotionById(data.id, res)
               .subscribe(
                 response => {
-                  this.fetchAllPromotions(this.pageNumber);
+                  const temData: any = response;
+                  const i = this.promotions.indexOf(data);
+                  this.promotions[i] = temData.content;
+                  this.temPromotions = this.promotions;
                   this.loader.close();
                   this.snack.open('Promotion Updated', 'close', {
                     duration: 2000
@@ -119,6 +140,11 @@ export class UserPromotionComponent implements OnInit {
     });
   }
 
+  /*
+  * Set Selected status in one promotion
+  * 06-03-2019
+  * Prasad Kumara
+  */
   selectToggleOne(event, data) {
     const i = this.promotions.indexOf(data);
     if (event.checked) {
@@ -130,6 +156,11 @@ export class UserPromotionComponent implements OnInit {
     this.checkAllSelectedState();
   }
 
+  /*
+  * Set selectd status of all promotions
+  * 06-03-2019
+  * Prasad Kumara
+  */
   checkAllSelectedState() {
     let numOfSelectedEvent = 0;
     this.promotions.forEach(data => {
@@ -151,6 +182,11 @@ export class UserPromotionComponent implements OnInit {
     }
   }
 
+  /*
+  * Select toggle promotions status
+  * 06-03-2019
+  * Prasad Kumara
+  */
   selectToggleAll(event) {
     if (event.checked) {
       this.promotions.forEach(data => {
@@ -167,6 +203,11 @@ export class UserPromotionComponent implements OnInit {
     }
   }
 
+  /*
+  * Delete selected events
+  * 06-03-2019
+  * Prasad Kumara
+  */
   deleteSelectedEvent() {
     this.confirmService
       .confirm({ message: 'Do You want to Delete Selected Promotions?' })
@@ -177,13 +218,14 @@ export class UserPromotionComponent implements OnInit {
           const idArray = {
             promos: selectedEvents
           };
+          const tempPN = this.setPageNumber(selectedEvents.length);
           this.userPromotionService.deletePromotionList(idArray)
             .subscribe(
               response => {
                 this.loader.close();
                 this.selectAll = false;
                 this.indeterminateState = false;
-                this.fetchAllPromotions(this.pageNumber);
+                this.fetchAllPromotions(tempPN);
                 this.snack.open('Selected Promotions Deleted', 'close', {
                   duration: 2000
                 });
@@ -203,16 +245,22 @@ export class UserPromotionComponent implements OnInit {
     });
   }
 
+  /*
+  * Delete one promotion
+  * 06-03-2019
+  * Prasad Kumara
+  */
   deleteEvent(data) {
     this.confirmService
       .confirm({ message: `Do You want to Delete ${data.name}?` })
       .subscribe(res => {
         if (res) {
           this.loader.open();
+          const tempPN = this.setPageNumber(1);
           this.userPromotionService.deletePromotionById(data.id)
             .subscribe(
               response => {
-                this.fetchAllPromotions(this.pageNumber);
+                this.fetchAllPromotions(tempPN);
                 this.loader.close();
                 this.snack.open(`${data.name} Deleted`, 'close', {
                   duration: 2000
@@ -233,6 +281,11 @@ export class UserPromotionComponent implements OnInit {
     });
   }
 
+  /*
+  * Return all selected promotions id list
+  * 06-03-2019
+  * Prasad Kumara
+  */
   getSelectedEvents(): any {
     const selectedEvents = [];
     this.promotions.forEach(data => {
@@ -243,6 +296,11 @@ export class UserPromotionComponent implements OnInit {
     return selectedEvents;
   }
 
+  /*
+  * Search all events with pagination
+  * 06-03-2019
+  * Prasad Kumara
+  */
   fetchAllPromotions(pageNumber, firstTime = false) {
     if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
       this.userPromotionService.fetchAllPromotions(this.comunityId, pageNumber, this.pageSize)
@@ -251,21 +309,19 @@ export class UserPromotionComponent implements OnInit {
           const resData: any = response;
           this.promotions = this.temPromotions = resData.content;
           this.totalRecords = resData.pagination.totalRecords;
-          this.pageNumber = pageNumber;
-          if (firstTime) {
-            const totalPages = resData.pagination.totalPages;
-            if (totalPages > 1) {
-              for (let i = 1; i <= totalPages; i++) {
-                this.totalPages.push(i);
-              }
-            }
-            this.createPaginationPageSizeArray();
-          }
+          this.pageNumber = resData.pagination.pageNumber;
+          this.createPageNavigationBar();
+          this.createPaginationPageSizeArray();
         }
       );
     }
   }
 
+  /*
+  * Search Promotions in viewed promotion list
+  * 06-03-2019
+  * Prasad Kumara
+  */
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
     const columns = Object.keys(this.temPromotions[0]);
@@ -277,7 +333,7 @@ export class UserPromotionComponent implements OnInit {
 
     const rows = this.temPromotions.filter(function(data) {
       for (let i = 0; i <= columns.length; i++) {
-        const col= columns[i];
+        const col = columns[i];
         if (data[col] && data[col].toString().toLowerCase().indexOf(val) > -1) {
           return true;
         }
@@ -286,11 +342,21 @@ export class UserPromotionComponent implements OnInit {
     this.promotions = rows;
   }
 
+  /*
+  * Page size change and update promotion list according to the page size
+  * 06-03-2019
+  * Prasad Kumara
+  */
   changeValue() {
     this.pageNumber = 1;
     this.fetchAllPromotions(this.pageNumber);
   }
 
+  /*
+  * Create pagination page size element array
+  * 06-03-2019
+  * Prasad Kumara
+  */
   createPaginationPageSizeArray() {
     let totalRec = this.totalRecords;
     const tempArray = [];
@@ -307,6 +373,59 @@ export class UserPromotionComponent implements OnInit {
       tempArray.push(this.pageSize);
     }
     this.pageSizeArray = tempArray;
+  }
+
+  /*
+  * Append newly created promotion to the promotion array
+  * 06-03-2019
+  * Prasad Kumara
+  */
+  appendNewlyCreatedPromotion(promotion) {
+    const tempArray = [];
+    for (let i = 1; i <= this.promotions.length; i++) {
+      if (i === this.promotions.length) {
+        tempArray.push(promotion);
+      } else {
+        tempArray.push(this.promotions[i]);
+      }
+    }
+    this.promotions = this.temPromotions = tempArray;
+    this.totalRecords += 1;
+    this.createPageNavigationBar();
+  }
+
+  /*
+  * Create pagination bottom navigation bar
+  * 06-03-2019
+  * Prasad Kumara
+  */
+  createPageNavigationBar() {
+    const devider = this.totalRecords / this.pageSize;
+    const numOfPage = Math.ceil(devider);
+    if (numOfPage > 1) {
+      const temPages = [];
+      for (let i = 1; i <= numOfPage; i++) {
+        temPages.push(i);
+      }
+      this.totalPages = temPages;
+    } else {
+      this.totalPages = [];
+    }
+  }
+
+  /*
+  * Set page number according to the total records
+  * 06-03-2019
+  * Prasad Kumara
+  */
+  setPageNumber(numOfPromo): number {
+    const tempTR = this.totalRecords - numOfPromo;
+    const devider = tempTR / this.pageSize;
+    if (devider < this.totalPages.length) {
+      return this.pageNumber - 1;
+    } else {
+      return this.pageNumber;
+    }
   }
 
 }
