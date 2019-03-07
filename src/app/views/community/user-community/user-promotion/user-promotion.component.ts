@@ -25,7 +25,7 @@ export class UserPromotionComponent implements OnInit {
   public pageNumber = 1;
   public pageSize = 10;
   public totalPages = [];
-  public totalRecords = 2;
+  public totalRecords = 0;
   public pageSizeArray = [];
 
   constructor(
@@ -81,7 +81,7 @@ export class UserPromotionComponent implements OnInit {
             res['community'] = {
               id: this.comunityId
             };
-            res.status = this.getEventStatus(res.status);
+            res.status = this.getPromotionStatus(res.status);
             this.userPromotionService.createPromotion(res)
               .subscribe(
                 response => {
@@ -112,7 +112,7 @@ export class UserPromotionComponent implements OnInit {
               );
           } else {
             res['lastModifiedUserId'] = userObj.id;
-            res.status = this.getEventStatus(res.status);
+            res.status = this.getPromotionStatus(res.status);
             this.userPromotionService.updatePromotionById(data.id, res)
               .subscribe(
                 response => {
@@ -435,7 +435,7 @@ export class UserPromotionComponent implements OnInit {
   * 07-03-2019
   * Prasad Kumara
   */
-  getEventStatus(eventStatus): string {
+  getPromotionStatus(eventStatus): string {
     if (eventStatus) {
       return 'ACTIVE';
     } else {
