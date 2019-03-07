@@ -83,7 +83,7 @@ export class CreateEventPopupComponent implements OnInit {
     this.eventForm = this.fb.group({
       name: [eventformdata.name || '', Validators.required],
       description: [eventformdata.description || '', Validators.required],
-      eventStatus: [eventformdata.eventStatus || false, Validators.required],
+      status: [eventformdata.status || false, Validators.required],
       startDateTime: [eventformdata.startDateTime, Validators.required],
       endDateTime: [eventformdata.endDateTime, Validators.required],
       poster: [eventformdata.poster || '', Validators.required]
@@ -101,6 +101,7 @@ export class CreateEventPopupComponent implements OnInit {
         response => {
           const tempArr: any = response;
           const event = this.createDateTimeObject(tempArr.content);
+          console.log(event);
           this.buildEventForm(event);
           this.createImgUrls(event);
         },
@@ -252,7 +253,7 @@ export class CreateEventPopupComponent implements OnInit {
     eventFormData.append('description', formValues.description);
     eventFormData.append('startDateTime', formValues.startDateTime);
     eventFormData.append('endDateTime', formValues.endDateTime);
-    eventFormData.append('eventStatus', formValues.eventStatus);
+    eventFormData.append('status', formValues.status);
 
     for (let i = 0; i < this.newlySelectedFileList.length; i++) {
       const selectedFile: File = this.newlySelectedFileList[i];
@@ -301,6 +302,11 @@ export class CreateEventPopupComponent implements OnInit {
     event.startDateTime = new Date(event.startDateTime);
     event.endDateTime = new Date(event.endDateTime);
     event.createdDate = new Date(event.createdDate);
+    if (event.status === 'INACTIVE') {
+      event.status = false;
+    } else {
+      event.status = true;
+    }
     return event;
   }
 

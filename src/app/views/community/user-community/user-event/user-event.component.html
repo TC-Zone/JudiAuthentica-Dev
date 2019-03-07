@@ -22,17 +22,19 @@
           <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start center" class="show-on-open">
             <!-- <img [src]="eventObj.file" alt="" class="inbox-face mr-1"> -->
             <div fxLayout="column">
-              <span class="m-0">{{ eventObj.name }}</span>
+              <span style="width: 130px; overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;" class="m-0">{{ eventObj.name }}</span>
               <small class="text-muted m-0">Start Date : {{eventObj.startDateTime | date}}, End Date :
                 {{eventObj.endDateTime | date}}</small>
             </div>
           </div>
         </mat-panel-title>
         <mat-panel-description>
-          <!-- <span class="mail-subject text-sm mat-color-default hide-on-open">
-            <mat-chip *ngIf="eventObj.status" mat-sm-chip color="primary" [selected]="true">Active</mat-chip>
-            <mat-chip *ngIf="!eventObj.status" mat-sm-chip color="warn" [selected]="true">Inactive</mat-chip>
-          </span> -->
+          <span class="mail-subject text-sm mat-color-default hide-on-open">
+            <mat-chip *ngIf="eventObj.status === 'ACTIVE'" mat-sm-chip color="primary" [selected]="true">Active</mat-chip>
+            <mat-chip *ngIf="eventObj.status === 'INACTIVE'" mat-sm-chip color="warn" [selected]="true">Inactive</mat-chip>
+          </span>
           <span fxFlex></span>
           <span class="text-sm" fxHide.lt-sm="true">{{eventObj.createdDate | relativeTime}}</span>
           <button mat-icon-button [matMenuTriggerFor]="msgMenu" (click)="stopProp($event)" class="hidden-on-open">

@@ -341,8 +341,8 @@ export class UserEventComponent implements OnInit {
       event.startDateTime = new Date(event.startDateTime);
       event.endDateTime = new Date(event.endDateTime);
       event.createdDate = new Date(event.createdDate);
-      const eventStatus = this.getEventStatus(event.eventStatus);
-      event.eventStatus = eventStatus;
+      // const eventStatus = this.getEventStatus(event.eventStatus);
+      // event.eventStatus = eventStatus;
     });
     return eventsArray;
   }
@@ -354,9 +354,9 @@ export class UserEventComponent implements OnInit {
   */
   getEventStatus(eventStatus): string {
     if (eventStatus) {
-      return 'A';
+      return 'ACTIVE';
     } else {
-      return 'I';
+      return 'INACTIVE';
     }
   }
 
