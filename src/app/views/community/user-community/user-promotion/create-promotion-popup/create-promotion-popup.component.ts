@@ -278,6 +278,11 @@ export class CreatePromotionPopupComponent implements OnInit {
       .subscribe(
         response => {
           const tempArr: any = response;
+          if (tempArr.content.status === 'INACTIVE') {
+            tempArr.content.status = false;
+          } else {
+            tempArr.content.status = true;
+          }
           this.buildPromotionForm(tempArr.content);
           this.createImgUrls(tempArr.content);
         },

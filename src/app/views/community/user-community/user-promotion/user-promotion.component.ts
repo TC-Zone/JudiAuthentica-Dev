@@ -81,6 +81,7 @@ export class UserPromotionComponent implements OnInit {
             res['community'] = {
               id: this.comunityId
             };
+            res.status = this.getEventStatus(res.status);
             this.userPromotionService.createPromotion(res)
               .subscribe(
                 response => {
@@ -111,6 +112,7 @@ export class UserPromotionComponent implements OnInit {
               );
           } else {
             res['lastModifiedUserId'] = userObj.id;
+            res.status = this.getEventStatus(res.status);
             this.userPromotionService.updatePromotionById(data.id, res)
               .subscribe(
                 response => {
@@ -425,6 +427,19 @@ export class UserPromotionComponent implements OnInit {
       return this.pageNumber - 1;
     } else {
       return this.pageNumber;
+    }
+  }
+
+  /*
+  * Convert boolean event status to string status
+  * 07-03-2019
+  * Prasad Kumara
+  */
+  getEventStatus(eventStatus): string {
+    if (eventStatus) {
+      return 'ACTIVE';
+    } else {
+      return 'INACTIVE';
     }
   }
 

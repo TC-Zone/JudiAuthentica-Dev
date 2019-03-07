@@ -34,8 +34,8 @@
         </mat-panel-title>
         <mat-panel-description>
           <span class="mail-subject text-sm mat-color-default hide-on-open">
-            <mat-chip *ngIf="promoObj.status" mat-sm-chip color="primary" [selected]="true">Active</mat-chip>
-            <mat-chip *ngIf="!promoObj.status" mat-sm-chip color="warn" [selected]="true">Inactive</mat-chip>
+            <mat-chip *ngIf="promoObj.status === 'ACTIVE'" mat-sm-chip color="primary" [selected]="true">Active</mat-chip>
+            <mat-chip *ngIf="promoObj.status === 'INACTIVE'" mat-sm-chip color="warn" [selected]="true">Inactive</mat-chip>
           </span>
           <span fxFlex></span>
           <span class="text-sm" fxHide.lt-sm="true">{{promoObj.createdDate | relativeTime}}</span>
