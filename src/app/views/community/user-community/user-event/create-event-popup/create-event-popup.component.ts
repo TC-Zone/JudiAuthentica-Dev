@@ -126,8 +126,9 @@ export class CreateEventPopupComponent implements OnInit {
     const payload = this.data.payload;
     const today = DateValidator.getToday();
     if (payload) {
-      if (payload.startDateTime < today) {
-        this.startDateMin = payload.startDateTime;
+      const startDate = new Date(payload.startDateTime);
+      if (startDate < today) {
+        this.startDateMin = startDate;
       } else {
         this.startDateMin = today;
       }
