@@ -424,7 +424,6 @@ export class UserEventComponent implements OnInit {
   */
   appendNewlyCreatedEvent(event) {
     const tempArray = [];
-    event['createdDate'] = new Date();
     console.log(event);
     for (let i = this.events.length; i >= 1; i--) {
       if (i === this.events.length) {
