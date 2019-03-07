@@ -85,6 +85,7 @@ export class UserEventComponent implements OnInit {
             res['community'] = {
               id: this.comunityId
             };
+            res.status = this.getEventStatus(res.status);
             this.userEventService.createEvent(res)
               .subscribe(
                 response => {
@@ -92,7 +93,6 @@ export class UserEventComponent implements OnInit {
                   if (this.events.length === this.pageSize) {
                     this.appendNewlyCreatedEvent(temData.content);
                   } else {
-                    temData.content['createdDate'] = new Date();
                     console.log(temData.content);
                     this.events.push(temData.content);
                     this.temEvents = this.events;
@@ -117,8 +117,7 @@ export class UserEventComponent implements OnInit {
               );
           } else {
             res['lastModifiedUserId'] = userObj.id;
-            const eventStatus = this.getEventStatus(res.eventStatus);
-            res.eventStatus = eventStatus;
+            res.status = this.getEventStatus(res.status);
             this.userEventService.eventUpdateById(data.id, res)
               .subscribe(
                 response => {
@@ -361,26 +360,10 @@ export class UserEventComponent implements OnInit {
   }
 
   /*
-  * Delete Event by event id
-  * 05-03-2019
+  * Create pagination page size element array
+  * 07-03-2019
   * Prasad Kumara
   */
-  eventDeleteById(eventId) {
-    this.userEventService.eventDeleteById(eventId)
-      .subscribe(
-        response => {
-
-        },
-        error => {
-          this.errDialog.showError({
-            title: 'Error',
-            status: error.status,
-            type: 'http_error'
-          });
-        }
-      );
-  }
-
   createPaginationPageSizeArray() {
     let totalRec = this.totalRecords;
     const tempArray = [];
@@ -399,6 +382,11 @@ export class UserEventComponent implements OnInit {
     this.pageSizeArray = tempArray;
   }
 
+  /*
+  * Search Event in viewed event list
+  * 07-03-2019
+  * Prasad Kumara
+  */
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
     const columns = Object.keys(this.temEvents[0]);
@@ -419,11 +407,21 @@ export class UserEventComponent implements OnInit {
     this.events = rows;
   }
 
+  /*
+  * Page size change and update event list according to the page size
+  * 06-03-2019
+  * Prasad Kumara
+  */
   changeValue() {
     this.pageNumber = 1;
     this.fetchAllEvents(this.pageNumber);
   }
 
+  /*
+  * Append newly created event to the event array
+  * 06-03-2019
+  * Prasad Kumara
+  */
   appendNewlyCreatedEvent(event) {
     const tempArray = [];
     event['createdDate'] = new Date();
@@ -440,6 +438,11 @@ export class UserEventComponent implements OnInit {
     this.createPageNavigationBar();
   }
 
+  /*
+  * Create pagination bottom navigation bar
+  * 07-03-2019
+  * Prasad Kumara
+  */
   createPageNavigationBar() {
     const devider = this.totalRecords / this.pageSize;
     const numOfPage = Math.ceil(devider);
@@ -454,6 +457,11 @@ export class UserEventComponent implements OnInit {
     }
   }
 
+  /*
+  * Set page number according to the total records
+  * 07-03-2019
+  * Prasad Kumara
+  */
   setPageNumber(numOfPromo): number {
     const tempTR = this.totalRecords - numOfPromo;
     const devider = tempTR / this.pageSize;
