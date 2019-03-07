@@ -41,8 +41,7 @@ export class ComunityService {
       get(this.userApiUrl + 'communities/client/' + clientId)
       .pipe(
         map(data => {
-          const resData: any = data;
-          return resData.content;
+          return data;
         }),
         catchError(this.handleError)
       );

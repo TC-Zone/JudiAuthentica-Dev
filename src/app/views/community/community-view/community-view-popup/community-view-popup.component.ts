@@ -38,7 +38,7 @@ export class CommunityViewPopupComponent implements OnInit {
     this.communityForm = this.fb.group({
       name: [community.name || '', Validators.required],
       description: [community.description || '', Validators.required],
-      communityStatus: [community.communityStatus || false, Validators.required]
+      status: [community.status || false, Validators.required]
     });
   }
 
@@ -51,8 +51,8 @@ export class CommunityViewPopupComponent implements OnInit {
     this.comunityService.getCommunityById(communityId)
       .subscribe(
         response => {
-          const status = this.setCommunityStatus(response.status);
-          response['communityStatus'] = status;
+          // const status = this.setCommunityStatus(response.status);
+          // response['status'] = status;
           this.buildCommunityForm(response);
         },
         error => {
@@ -72,8 +72,8 @@ export class CommunityViewPopupComponent implements OnInit {
   * 05-03-2019
   * Prasad Kumara
   */
-  setCommunityStatus(communityStatus): boolean {
-    if (communityStatus === 'ACTIVE') {
+  setCommunityStatus(status): boolean {
+    if (status === 'ACTIVE') {
       return true;
     } else {
       return false;
