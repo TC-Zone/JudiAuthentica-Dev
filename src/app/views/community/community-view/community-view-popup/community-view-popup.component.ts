@@ -51,8 +51,11 @@ export class CommunityViewPopupComponent implements OnInit {
     this.comunityService.getCommunityById(communityId)
       .subscribe(
         response => {
-          // const status = this.setCommunityStatus(response.status);
-          // response['status'] = status;
+          if (response.status === 'ACTIVE') {
+            response.status = true;
+          } else {
+            response.status = false;
+          }
           this.buildCommunityForm(response);
         },
         error => {
@@ -65,19 +68,6 @@ export class CommunityViewPopupComponent implements OnInit {
           }
         }
       );
-  }
-
-  /*
-  * Convert string status to boolean status
-  * 05-03-2019
-  * Prasad Kumara
-  */
-  setCommunityStatus(status): boolean {
-    if (status === 'ACTIVE') {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   /*
