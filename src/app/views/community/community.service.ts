@@ -36,9 +36,10 @@ export class ComunityService {
   * 05-03-2019
   * Prasad Kumara
   */
-  fetchAllComunities(clientId) {
+  fetchAllComunities(clientId, pageNumber, pageSize) {
     return this.http.
-      get(this.userApiUrl + 'communities/client/' + clientId)
+      get(this.userApiUrl + 'communities/client/' + clientId + '?pageNumber=' +
+      pageNumber + '&pageSize=' + pageSize)
       .pipe(
         map(data => {
           return data;

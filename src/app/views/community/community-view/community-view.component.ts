@@ -19,7 +19,7 @@ export class CommunityViewComponent implements OnInit {
   public communities = [];
   public temCommunities = [];
   public pageNumber = 1;
-  public pageSize = 50;
+  public pageSize = 10;
   public totalPages = [];
   public totalRecords = 0;
   public pageSizeArray = [];
@@ -140,10 +140,9 @@ export class CommunityViewComponent implements OnInit {
     if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
       const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
       if (userObj) {
-        this.comunityService.fetchAllComunities(userObj.userData.client.id)
+        this.comunityService.fetchAllComunities(userObj.userData.client.id, pageNumber, this.pageSize)
           .subscribe(
             response => {
-              console.log(response);
               const resData: any = response;
               this.communities = this.temCommunities = resData.content;
               this.totalRecords = resData.pagination.totalRecords;
