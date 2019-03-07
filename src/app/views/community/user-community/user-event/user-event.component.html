@@ -18,13 +18,13 @@
       <mat-expansion-panel-header>
         <mat-panel-title>
           <mat-checkbox (change)="selectToggleOne($event, eventObj)" [checked]="eventObj.selected" (click)="stopProp($event)" class="mail-checkbox hide-on-open"></mat-checkbox>
-          <span class="hide-on-open">{{ eventObj.name }}</span>
+          <span style="width: 130px; overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;" class="hide-on-open">{{ eventObj.name }}</span>
           <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start center" class="show-on-open">
             <!-- <img [src]="eventObj.file" alt="" class="inbox-face mr-1"> -->
             <div fxLayout="column">
-              <span style="width: 130px; overflow: hidden;
-              white-space: nowrap;
-              text-overflow: ellipsis;" class="m-0">{{ eventObj.name }}</span>
+              <span class="m-0">{{ eventObj.name }}</span>
               <small class="text-muted m-0">Start Date : {{eventObj.startDateTime | date}}, End Date :
                 {{eventObj.endDateTime | date}}</small>
             </div>
