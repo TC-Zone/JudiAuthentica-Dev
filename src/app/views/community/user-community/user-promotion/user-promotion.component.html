@@ -38,7 +38,7 @@
             <mat-chip *ngIf="!promoObj.status" mat-sm-chip color="warn" [selected]="true">Inactive</mat-chip>
           </span>
           <span fxFlex></span>
-          <span class="text-sm" fxHide.lt-sm="true">{{promoObj.start | relativeTime}}</span>
+          <span class="text-sm" fxHide.lt-sm="true">{{promoObj.createdDate | relativeTime}}</span>
           <button mat-icon-button [matMenuTriggerFor]="msgMenu" (click)="stopProp($event)" class="hidden-on-open">
             <mat-icon class="text-muted">more_vert</mat-icon>
           </button>
