@@ -43,7 +43,7 @@ export class CommunityViewComponent implements OnInit {
   * 27-02-2019
   * Prasad Kumara
   */
-  openPopUp(data: any = {}, isNew?) {
+  communityPopUp(data: any = {}, isNew?) {
     const title = isNew ? 'Add New Community' : 'Update Community';
     const dialogRef: MatDialogRef<any> = this.dialog.open(
       CommunityViewPopupComponent,
