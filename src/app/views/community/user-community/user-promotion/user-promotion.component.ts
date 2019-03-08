@@ -60,7 +60,7 @@ export class UserPromotionComponent implements OnInit {
   * 06-03-2019
   * Prasad Kumara
   */
-  offerPopUp(data: any = {}, isNew?) {
+  promotionPopUp(data: any = {}, isNew?) {
     const title = isNew ? 'Create New Promotion' : 'Update Promotion';
     const dialogRef: MatDialogRef<any> = this.dialog.open(
       CreatePromotionPopupComponent,
@@ -216,7 +216,7 @@ export class UserPromotionComponent implements OnInit {
       .subscribe(res => {
         if (res) {
           this.loader.open();
-          const selectedEvents = this.getSelectedEvents();
+          const selectedEvents = this.getSelectedPromotions();
           const idArray = {
             promos: selectedEvents
           };
@@ -288,7 +288,7 @@ export class UserPromotionComponent implements OnInit {
   * 06-03-2019
   * Prasad Kumara
   */
-  getSelectedEvents(): any {
+  getSelectedPromotions(): any {
     const selectedEvents = [];
     this.promotions.forEach(data => {
       if (data.selected) {

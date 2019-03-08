@@ -2,7 +2,7 @@
   <mat-toolbar color="primary" class="inbox-toolbar">
     <!-- multiple promotions select and control -->
     <mat-checkbox (change)="selectToggleAll($event)" [indeterminate]="indeterminateState" [checked]="selectAll" class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
-    <button mat-icon-button matTooltip="Add event" (click)="offerPopUp({}, true)"><mat-icon>add_box</mat-icon></button>
+    <button mat-icon-button matTooltip="Add event" (click)="promotionPopUp({}, true)"><mat-icon>add_box</mat-icon></button>
     <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedPromotions()"><mat-icon>delete</mat-icon></button>
     <span fxFlex></span>
     <mat-form-field *ngIf="this.temPromotions.length > 0" style="font-size: 15px; width: 30%; margin-top: 10px;">
@@ -43,7 +43,7 @@
             <mat-icon class="text-muted">more_vert</mat-icon>
           </button>
           <mat-menu #msgMenu="matMenu">
-            <button mat-menu-item (click)="offerPopUp(promoObj, false)">
+            <button mat-menu-item (click)="promotionPopUp(promoObj, false)">
               <mat-icon>edit</mat-icon> Edit
             </button>
             <button mat-menu-item (click)="deletePromotion(promoObj)">
