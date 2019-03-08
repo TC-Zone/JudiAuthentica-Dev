@@ -23,6 +23,8 @@ export class CommunityViewComponent implements OnInit {
   public totalPages = [];
   public totalRecords = 0;
   public pageSizeArray = [];
+  public quota = 0;
+  public quotaExpire = false;
 
   constructor(
     private dialog: MatDialog,
@@ -35,7 +37,17 @@ export class CommunityViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
     this.fetchAllCommunities(this.pageNumber);
+    this.comunityService.licenseExpireState(userObj.userData.client.id, 'communities')
+      .subscribe(
+        response => {
+          const tempRes: any = response;
+          console.log(tempRes);
+          this.quotaExpire = tempRes.content.expired;
+          this.quota = tempRes.content.quota;
+        }
+      );
   }
 
   /*
@@ -71,31 +83,23 @@ export class CommunityViewComponent implements OnInit {
               }
             ];
             res.status = this.getCommunityStatus(res.status);
-            this.comunityService.createCommunity(res)
+            const clientId = userObj.userData.client.id;
+            this.comunityService.licenseExpireState(clientId, 'communities')
               .subscribe(
                 response => {
-                  const temData: any = response;
-                  if (this.communities.length === this.pageSize) {
-                    this.appendNewlyCreatedCommunity(temData.content);
+                  const tempRes: any = response;
+                  this.quotaExpire = tempRes.content.expired;
+                  if (!tempRes.content.expired) {
+                    this.loader.close();
+                    if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
+                      this.confirmService.confirm({ message: 'This is your last community!' });
+                      this.createCommunity(res);
+                    } else {
+                      this.createCommunity(res);
+                    }
                   } else {
-                    this.communities.push(temData.content);
-                    this.temCommunities = this.communities;
-                    this.totalRecords += 1;
-                  }
-                  // this.fetchAllCommunities(this.pageNumber);
-                  this.loader.close();
-                  this.snack.open('New Community Created', 'close', {
-                    duration: 2000
-                  });
-                },
-                error => {
-                  this.loader.close();
-                  if (error.status !== 401) {
-                    this.errDialog.showError({
-                      title: 'Error',
-                      status: error.status,
-                      type: 'http_error'
-                    });
+                    this.loader.close();
+                    this.confirmService.confirm({ message: 'Allocated Community Limit Exceded!' });
                   }
                 }
               );
@@ -129,6 +133,40 @@ export class CommunityViewComponent implements OnInit {
         }
       }
     });
+  }
+
+  createCommunity(res) {
+    this.comunityService.createCommunity(res)
+      .subscribe(
+        response => {
+          const temData: any = response;
+          if (this.communities.length === this.pageSize) {
+            this.appendNewlyCreatedCommunity(temData.content);
+          } else {
+            this.communities.push(temData.content);
+            this.temCommunities = this.communities;
+            this.totalRecords += 1;
+          }
+          // this.fetchAllCommunities(this.pageNumber);
+          if (this.totalRecords === this.quota) {
+            this.quotaExpire = true;
+          }
+          this.loader.close();
+          this.snack.open('New Community Created', 'close', {
+            duration: 2000
+          });
+        },
+        error => {
+          this.loader.close();
+          if (error.status !== 401) {
+            this.errDialog.showError({
+              title: 'Error',
+              status: error.status,
+              type: 'http_error'
+            });
+          }
+        }
+      );
   }
 
   /*
@@ -185,6 +223,7 @@ export class CommunityViewComponent implements OnInit {
   * Prasad Kumara
   */
   deleteCommunity(row) {
+    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
     this.confirmService
       .confirm({ message: `Delete ${row.name}?` })
       .subscribe(res => {
@@ -194,6 +233,14 @@ export class CommunityViewComponent implements OnInit {
           this.comunityService.deleteCommunityById(row.id)
             .subscribe(
               response => {
+                this.comunityService.licenseExpireState(userObj.userData.client.id, 'communities')
+                  .subscribe(
+                    resData => {
+                      const tempRes: any = resData;
+                      this.quotaExpire = tempRes.content.expired;
+                      this.quota = tempRes.content.quota;
+                    }
+                  );
                 this.fetchAllCommunities(tempPN);
                 this.loader.close();
                 this.snack.open(`${row.name} Deleted`, 'close', {
@@ -318,8 +365,8 @@ export class CommunityViewComponent implements OnInit {
 
   /*
   * Set page number according to the total records
-  * 06-03-2019
-  * Prasad Kumara
+  * 06-03-2019 #780*621#
+  * Prasad Kumara 1b 2d 3b 4c 5c 6c 7b 8a 9a 10d
   */
   setPageNumber(numOfComm): number {
     const tempTR = this.totalRecords - numOfComm;
