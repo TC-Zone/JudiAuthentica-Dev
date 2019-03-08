@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { authProperties } from './../../../../shared/services/auth/auth-properties'
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
+import { ComunityService } from '../../community.service';
 
 @Component({
   selector: 'app-user-promotion',
@@ -27,6 +28,8 @@ export class UserPromotionComponent implements OnInit {
   public totalPages = [];
   public totalRecords = 0;
   public pageSizeArray = [];
+  public quota = 0;
+  public quotaExpire = false;
 
   constructor(
     private dialog: MatDialog,
@@ -35,15 +38,25 @@ export class UserPromotionComponent implements OnInit {
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
-    private userPromotionService: UserPromotionService
+    private userPromotionService: UserPromotionService,
+    private comunityService: ComunityService
   ) { }
 
   ngOnInit() {
+    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
     this.activeRoute.queryParams.subscribe(params => {
       this.comunityId = params['id'];
       this.comunityName = params['name'];
     });
     this.fetchAllPromotions(this.pageNumber, true);
+    this.comunityService.licenseExpireState(userObj.userData.client.id, 'promos')
+      .subscribe(
+        response => {
+          const tempRes: any = response;
+          this.quotaExpire = tempRes.content.expired;
+          this.quota = tempRes.content.quota;
+        }
+      );
   }
 
   /*
@@ -81,35 +94,28 @@ export class UserPromotionComponent implements OnInit {
             res['community'] = {
               id: this.comunityId
             };
+            const clientId = userObj.userData.client.id;
             res.status = this.getPromotionStatus(res.status);
-            this.userPromotionService.createPromotion(res)
+            this.comunityService.licenseExpireState(clientId, 'promos')
               .subscribe(
                 response => {
-                  const temData: any = response;
-                  if (this.promotions.length === this.pageSize) {
-                    this.appendNewlyCreatedPromotion(temData.content);
+                  const tempRes: any = response;
+                  this.quotaExpire = tempRes.content.expired;
+                  if (!tempRes.content.expired) {
+                    this.loader.close();
+                    if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
+                      this.confirmService.confirm({ message: 'This is your last promotion!' });
+                      this.createPromotion(res);
+                    } else {
+                      this.createPromotion(res);
+                    }
                   } else {
-                    this.promotions.push(temData.content);
-                    this.temPromotions = this.promotions;
-                    this.totalRecords += 1;
-                  }
-                  this.loader.close();
-                  // this.fetchAllPromotions(this.pageNumber);
-                  this.snack.open('New Promotion Created', 'close', {
-                    duration: 2000
-                  });
-                },
-                error => {
-                  this.loader.close();
-                  if (error.status !== 401) {
-                    this.errDialog.showError({
-                      title: 'Error',
-                      status: error.status,
-                      type: 'http_error'
-                    });
+                    this.loader.close();
+                    this.confirmService.confirm({ message: 'Allocated Promotion Limit Exceded!' });
                   }
                 }
               );
+            // this.createPromotion(res);
           } else {
             res['lastModifiedUserId'] = userObj.id;
             res.status = this.getPromotionStatus(res.status);
@@ -140,6 +146,37 @@ export class UserPromotionComponent implements OnInit {
         }
       }
     });
+  }
+
+  createPromotion(res) {
+    this.userPromotionService.createPromotion(res)
+      .subscribe(
+        response => {
+          const temData: any = response;
+          if (this.promotions.length === this.pageSize) {
+            this.appendNewlyCreatedPromotion(temData.content);
+          } else {
+            this.promotions.push(temData.content);
+            this.temPromotions = this.promotions;
+            this.totalRecords += 1;
+          }
+          this.loader.close();
+          // this.fetchAllPromotions(this.pageNumber);
+          this.snack.open('New Promotion Created', 'close', {
+            duration: 2000
+          });
+        },
+        error => {
+          this.loader.close();
+          if (error.status !== 401) {
+            this.errDialog.showError({
+              title: 'Error',
+              status: error.status,
+              type: 'http_error'
+            });
+          }
+        }
+      );
   }
 
   /*
@@ -211,6 +248,7 @@ export class UserPromotionComponent implements OnInit {
   * Prasad Kumara
   */
   deleteSelectedPromotions() {
+    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
     this.confirmService
       .confirm({ message: 'Do You want to Delete Selected Promotions?' })
       .subscribe(res => {
@@ -228,6 +266,14 @@ export class UserPromotionComponent implements OnInit {
                 this.selectAll = false;
                 this.indeterminateState = false;
                 this.fetchAllPromotions(tempPN);
+                this.comunityService.licenseExpireState(userObj.userData.client.id, 'promos')
+                  .subscribe(
+                    resData => {
+                      const tempRes: any = resData;
+                      this.quotaExpire = tempRes.content.expired;
+                      this.quota = tempRes.content.quota;
+                    }
+                  );
                 this.snack.open('Selected Promotions Deleted', 'close', {
                   duration: 2000
                 });
@@ -252,7 +298,8 @@ export class UserPromotionComponent implements OnInit {
   * 06-03-2019
   * Prasad Kumara
   */
- deletePromotion(data) {
+  deletePromotion(data) {
+    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
     this.confirmService
       .confirm({ message: `Do You want to Delete ${data.name}?` })
       .subscribe(res => {
@@ -262,6 +309,14 @@ export class UserPromotionComponent implements OnInit {
           this.userPromotionService.deletePromotionById(data.id)
             .subscribe(
               response => {
+                this.comunityService.licenseExpireState(userObj.userData.client.id, 'promos')
+                  .subscribe(
+                    resData => {
+                      const tempRes: any = resData;
+                      this.quotaExpire = tempRes.content.expired;
+                      this.quota = tempRes.content.quota;
+                    }
+                  );
                 this.fetchAllPromotions(tempPN);
                 this.loader.close();
                 this.snack.open(`${data.name} Deleted`, 'close', {
@@ -280,8 +335,8 @@ export class UserPromotionComponent implements OnInit {
               }
             );
         }
-    });
-  }
+      });
+    }
 
   /*
   * Return all selected promotions id list
