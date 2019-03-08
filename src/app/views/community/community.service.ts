@@ -97,6 +97,17 @@ export class ComunityService {
       );
   }
 
+  licenseExpireState(clientId, moduleName) {
+    return this.http.
+      get(this.userApiUrl + 'clients/license/' + clientId + '/' + moduleName)
+      .pipe(
+        map(data => {
+          return data;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
   /*
   * Handle http response error
   * 05-03-2019
