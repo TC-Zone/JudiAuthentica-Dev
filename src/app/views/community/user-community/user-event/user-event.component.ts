@@ -367,17 +367,17 @@ export class UserEventComponent implements OnInit {
   createPaginationPageSizeArray() {
     let totalRec = this.totalRecords;
     const tempArray = [];
-    if (totalRec > this.pageSize) {
-      const rem = totalRec % this.pageSize;
+    if (totalRec > 10) {
+      const rem = totalRec % 10;
       if (rem !== 0) {
-        totalRec = totalRec + this.pageSize;
+        totalRec = totalRec + 10;
       }
-      for (let i = this.pageSize; i < totalRec; ) {
+      for (let i = 10; i < totalRec; ) {
         tempArray.push(i);
-        i = i + this.pageSize;
+        i = i + 10;
       }
     } else {
-      tempArray.push(this.pageSize);
+      tempArray.push(10);
     }
     this.pageSizeArray = tempArray;
   }
