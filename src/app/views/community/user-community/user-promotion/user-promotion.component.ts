@@ -161,6 +161,9 @@ export class UserPromotionComponent implements OnInit {
             this.totalRecords += 1;
           }
           this.loader.close();
+          if(this.totalRecords === this.quota) {
+            this.quotaExpire = true;
+          }
           // this.fetchAllPromotions(this.pageNumber);
           this.snack.open('New Promotion Created', 'close', {
             duration: 2000
