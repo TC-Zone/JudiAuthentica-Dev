@@ -1,0 +1,44 @@
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <mat-toolbar matDialogTitle class="mat-primary m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">{{data.title}}</span>
+    </div>
+  </mat-toolbar>
+  <mat-dialog-content class="mat-typography mt-1">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="username" [formControl]="itemForm.controls['username']" placeholder="User Name">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-1" *ngIf="formStatus">
+        <mat-form-field class="full-width">
+          <input matInput name="password" type="password" [formControl]="itemForm.controls['password']"
+            positiveNumberAndLetterOnly placeholder="Password">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="email" [formControl]="itemForm.controls['email']" placeholder="Email">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <mat-select [formControl]="itemForm.controls['role']" placeholder="Select A User Role">
+            <mat-option>none</mat-option>
+            <mat-option *ngFor="let roles of roles" [value]="roles.id">{{roles.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <!-- <div fxFlex="50" class="pt-1 pr-1">
+        <mat-slide-toggle [formControl]="itemForm.controls['isActive']">Active User</mat-slide-toggle>
+      </div> -->
+      <div fxFlex="100" class="mt-1">
+        <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+        <span fxFlex></span>
+        <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+      </div>
+    </div>
+
+  </mat-dialog-content>
+</form>

@@ -13,7 +13,8 @@ export class ClientCreateReq {
     public name: string,
     public description: string,
     public clientLogo: string,
-    public users: any[],
+    public users: UserData[],
+    public categories: CategoryData[],
     public license: ClientLicenseData
   ) { }
 }
@@ -28,13 +29,6 @@ export class ClientLicenseData {
     public promoCount: number
   ){}
 }
-
-// export class ClientUpdateReq {
-//   constructor(
-//     public name: string,
-//     public description: string
-//   ) { }
-// }
 
 export class ClientUpdateReq {
   constructor(
@@ -68,11 +62,13 @@ export class UserData {
 
 export class UserCreateReq {
   constructor(
-    public userName: string,
+    public accountName: string,
     public password: string,
     public email: string,
-    public roles: any[],
+    public role: RoleData,
     public client: ClientData,
+    public communities: CommunityData[],
+    public categories: CategoryData[],
   ) { }
 }
 
@@ -82,11 +78,43 @@ export class ClientData {
   ) { }
 }
 
-export class UserRole {
+export class LicenseUpdateReq {
+    constructor(
+      public tagCount: number,
+      public userCount: number,
+      public communityCount: number,
+      public feedbackCount: number,
+      public eventCount: number,
+      public promoCount: number,
+      public client: ClientData,
+    ){}
+  }
+
+export class RoleData {
   constructor(
     public id: string
   ) { }
 }
+
+export class CommunityData {
+  constructor(
+    public id: string
+  ) { }
+}
+
+export class CategoryData {
+  constructor(
+    public id: string
+  ) { }
+}
+
+export class LicenseUpdateRequest {
+  constructor(
+    public id: string
+  ) { }
+}
+
+
 
 export class profileUpdateReq {
   constructor(

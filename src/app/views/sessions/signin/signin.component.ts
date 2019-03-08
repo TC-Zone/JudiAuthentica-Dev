@@ -71,7 +71,6 @@ export class SigninComponent implements OnInit {
             const viewData =  res.content;
             tempUser.username = viewData.userName;
             tempUser.accountName = viewData.accountName;
-            tempUser.company = viewData.client.name;
             tempUser.userData = res.content;
             localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
             // this.progressBar.mode = 'determinate';

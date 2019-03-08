@@ -6,7 +6,7 @@ import { UserTablePopupComponent } from "./user-table-popup/user-table-popup.com
 import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
-import { UserCreateReq, ClientData, UserRole } from "app/model/ClientModel.model";
+import { UserCreateReq, ClientData} from "app/model/ClientModel.model";
 import { authProperties } from './../../../shared/services/auth/auth-properties';
 import * as jwt_decode from "jwt-decode";
 
@@ -26,7 +26,6 @@ export class UserTableComponent implements OnInit, OnDestroy {
   };
   public pageSize = 10;
   public name;
-  public authArray: any;
 
   public getItemSub: Subscription;
   constructor(
@@ -45,9 +44,6 @@ export class UserTableComponent implements OnInit, OnDestroy {
 
     this.getUsers();
     this.getUserRoles();
-    this.authArray = this.setAuthorities();
-    console.log('------------------ auth array ----------------------');
-    console.log(this.authArray);
 
   }
 
@@ -114,80 +110,47 @@ export class UserTableComponent implements OnInit, OnDestroy {
         return;
       }
 
-      let roles: UserRole[] = [];
-      roles.push(new UserRole(res.role));
-      const client: ClientData = new ClientData(this.clientId);
-      const req: UserCreateReq = new UserCreateReq(res.username, res.password, res.email, roles, client);
+      // let roles: UserRole[] = [];
+      // roles.push(new UserRole(res.role));
+      // const client: ClientData = new ClientData(this.clientId);
+      // const req: UserCreateReq = new UserCreateReq(res.username, res.password, res.email, roles, client);
 
-      this.loader.open();
-      if (isNew) {
+      // this.loader.open();
+      // if (isNew) {
 
-        this.userService.addUser(req).subscribe(
-          response => {
-            this.getUsers();
-            this.loader.close();
-            this.snack.open("New User added !", "OK", { duration: 4000 });
-          },
-          error => {
-            this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
-          }
-        );
-      } else {
-        this.userService.updateUser(data.id, req).subscribe(
-          response => {
-            this.getUsers();
-            this.loader.close();
-            this.snack.open("User Updated!", "OK", { duration: 4000 });
-            // return this.users.slice();
-          },
-          error => {
-            this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
-          }
-        );
-      }
+      //   this.userService.addUser(req).subscribe(
+      //     response => {
+      //       this.getUsers();
+      //       this.loader.close();
+      //       this.snack.open("New User added !", "OK", { duration: 4000 });
+      //     },
+      //     error => {
+      //       this.loader.close();
+      //       this.errDialog.showError({
+      //         title: "Error",
+      //         status: error.status,
+      //         type: "http_error"
+      //       });
+      //     }
+      //   );
+      // } else {
+      //   this.userService.updateUser(data.id, req).subscribe(
+      //     response => {
+      //       this.getUsers();
+      //       this.loader.close();
+      //       this.snack.open("User Updated!", "OK", { duration: 4000 });
+      //       // return this.users.slice();
+      //     },
+      //     error => {
+      //       this.loader.close();
+      //       this.errDialog.showError({
+      //         title: "Error",
+      //         status: error.status,
+      //         type: "http_error"
+      //       });
+      //     }
+      //   );
+      // }
     });
   }
-
-  setAuthorities(): any {
-    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
-    const authArray = {
-      create: false,
-      search: false,
-      update: false,
-      delete: false,
-      view: false,
-    };
-    if (userObj) {
-      const decodedToken = jwt_decode(userObj.token);
-      const authorities = decodedToken.authorities;
-      console.log('---------------- authorities ----------------');
-      console.log(authorities);
-      authorities.forEach(element => {
-        if (element === 'pu-u') {
-          authArray.update = true;
-        }
-        if (element === 'pu-c') {
-          authArray.create = true;
-        }
-        if (element === 'pu-d') {
-          authArray.delete = true;
-        }
-        if (element === 'pu-v') {
-          authArray.view = true;
-        }
-      });
-    }
-    return authArray;
-  }
-
 }

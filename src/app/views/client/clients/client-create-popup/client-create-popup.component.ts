@@ -1,8 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatAutocomplete, MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { egretAnimations } from "../../../../shared/animations/egret-animations";
 import { GlobalVariable } from "../../../../shared/helpers/global-variable";
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 
 @Component({
@@ -16,25 +19,53 @@ export class ClientCreatePopupComponent implements OnInit {
   public license = this.globalVariable.client.license;
   public regex = this.globalVariable.validators.regex;
 
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  categoryCtrl = new FormControl();
+  filteredCategories: Observable<string[]>;
+  categories: string[] = [];
+  categoriesValue: string[] = [];
+  allCategories: string[] = [];
+
+  @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+
+
   public clientFormGroup: FormGroup;
   public profilePicFormGroup: FormGroup;
   public adminFormGroup: FormGroup;
+  public categoryFormGroup: FormGroup;
   public licenseFormGroup: FormGroup;
   public formStatus = false;
   url;
 
+  public categoriesObj;
+
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ClientCreatePopupComponent>,
     private fb: FormBuilder,
     public snackBar: MatSnackBar
-  ) { }
+  ) {
+    this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
+      startWith(null),
+      map((category: string | null) => category ? this._filter(category) : this.allCategories.slice()));
+     }
 
   ngOnInit() {
+    this.categoriesObj = this.data.category;
+    this.categoriesObj.forEach(element => {
+      this.allCategories.push(element.name);
+    });
+
     this.buildItemForm()
   }
 
   buildItemForm() {
-
+    
     // this.clientFormGroup = this.fb.group({
     //   name: [''],
     //   description: ['']
@@ -46,15 +77,7 @@ export class ClientCreatePopupComponent implements OnInit {
     //   username: [''],
     //   email: ['']
     // });
-    // this.licenseFormGroup = this.fb.group({
-    //   tagCount: [''],
-    //   userCount: [''],
-    //   feedbackCount: [''],
-    //   comunityCount: [''],
-    //   eventCount: [''],
-    //   promoCount: ['']
-    // });
-
+    
     this.clientFormGroup = this.fb.group({
       name: ['', [Validators.required, Validators.pattern(this.regex._Letter)]],
       description: ['', Validators.required]
@@ -66,19 +89,23 @@ export class ClientCreatePopupComponent implements OnInit {
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]]
     });
-    this.licenseFormGroup = this.fb.group({
-      tagCount: ['', [Validators.required, Validators.max(this.license.tagCount), Validators.min(0)], Validators.pattern(this.regex._PosNumber)],
-      userCount: ['', [Validators.required, Validators.max(this.license.userCount), Validators.min(0)], Validators.pattern(this.regex._PosNumber)],
-      comunityCount: ['', [Validators.required, Validators.max(this.license.comunityCount), Validators.min(0)], Validators.pattern(this.regex._PosNumber)],
-      feedbackCount: ['', [Validators.required, Validators.max(this.license.feedbackCount), Validators.min(0)], Validators.pattern(this.regex._PosNumber)],
-      eventCount: ['', [Validators.required, Validators.max(this.license.eventCount), Validators.min(0)], Validators.pattern(this.regex._PosNumber)],
-      promoCount: ['', [Validators.required, Validators.max(this.license.promoCount), Validators.min(0)], Validators.pattern(this.regex._PosNumber)]
+    this.categoryFormGroup = this.fb.group({
+      category: this.categoryCtrl
     });
+    this.licenseFormGroup = this.fb.group({
+      tagCount: ['', Validators.required],
+      userCount: ['', Validators.required],
+      comunityCount: ['', Validators.required],
+      feedbackCount: ['', Validators.required],
+      eventCount: ['', Validators.required],
+      promoCount: ['', Validators.required]
+    });
+    // promoCount: ['', Validators.required, Validators.max(this.license.promoCount), Validators.min(0)], Validators.pattern(this.regex._PosNumber)]
 
   }
 
   submit() {
-    let forms = [this.clientFormGroup.value, this.url, this.adminFormGroup.value, this.licenseFormGroup.value];
+    let forms = [this.clientFormGroup.value, this.url, this.adminFormGroup.value, this.licenseFormGroup.value, this.categoriesValue];
     this.dialogRef.close(forms);
   }
 
@@ -117,6 +144,48 @@ export class ClientCreatePopupComponent implements OnInit {
 
   removeSelectedImg() {
     this.url = null;
+  }
+  
+  add(event: MatChipInputEvent): void {
+
+    if (!this.matAutocomplete.isOpen) {
+      const input = event.input;
+      const value = event.value;
+
+      // if we need to add custom texts as Chips,
+      // Add our category
+      // if ((value || '').trim()) {
+      //   this.categories.push(value.trim());
+      // }
+
+      // Reset the input value
+      if (input) {
+        input.value = '';
+      }
+
+      this.categoryCtrl.setValue(null);
+    }
+  }
+
+  remove(category: string): void {
+    const index = this.categories.indexOf(category);
+    if (index >= 0) {
+      this.categories.splice(index, 1);
+      this.categoriesValue.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.categories.push(event.option.viewValue);
+    this.categoriesValue.push(event.option.value);
+    this.categoryInput.nativeElement.value = '';
+    this.categoryCtrl.setValue(null);
+    
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.allCategories.filter(category => category.toLowerCase().indexOf(filterValue) === 0);
   }
 
 }

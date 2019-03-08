@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientService } from "../../../client.service";
+import { UserService } from "../user.service";
 import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
-import { AppLoaderService } from "../../../../../shared/services/app-loader/app-loader.service";
+import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 import { UserCreatePopupComponent } from "../user-table/user-create-popup/user-create-popup.component";
 import { UserTablePopupComponent } from "../user-table/user-table-popup/user-table-popup.component";
 import { Subscription } from "rxjs";
-import { egretAnimations } from "../../../../../shared/animations/egret-animations";
-import { AppErrorService } from "../../../../../shared/services/app-error/app-error.service";
+import { egretAnimations } from "../../../shared/animations/egret-animations";
+import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { ActivatedRoute } from '@angular/router';
 import { UserCreateReq, ClientData, RoleData, CommunityData, CategoryData } from 'app/model/ClientModel.model';
 import { UserCategoryPopupComponent } from './user-category-popup/user-category-popup.component';
@@ -34,7 +34,7 @@ export class UserTableComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    private clientService: ClientService,
+    private userService: UserService,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
     private activeRoute: ActivatedRoute,
@@ -42,16 +42,16 @@ export class UserTableComponent implements OnInit {
 
   ngOnInit() {
 
-    const client = JSON.parse(localStorage.getItem('currentClient'));
-    console.log(client);
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(user);
 
-    this.clientId = client.id;
-    this.name = client.name;
-    this.url = client.clientLogo;
+    this.clientId = user.userData.client.id;
+    this.name = user.userData.client.name;
+    // this.url = client.clientLogo;
 
     this.getUsers();
     this.getUserRoles();
-    // this.getCategory();
+    this.getCategory();
   }
 
   ngOnDestroy() {
@@ -61,7 +61,7 @@ export class UserTableComponent implements OnInit {
   }
 
   getUsers() {
-    this.getItemSub = this.clientService.getUsers(this.clientId).subscribe(successResp => {
+    this.getItemSub = this.userService.getUsers(this.clientId).subscribe(successResp => {
       this.users = successResp.content.users;
       console.log(this.users);
     },
@@ -76,7 +76,7 @@ export class UserTableComponent implements OnInit {
   }
 
   getUserRoles() {
-    this.getItemSub = this.clientService.getRoles().subscribe(successResp => {
+    this.getItemSub = this.userService.getRoles().subscribe(successResp => {
       successResp.content.forEach((item, index) => {
         if (item.name === "Super Administrator") successResp.content.splice(index, 1);
       });
@@ -93,7 +93,7 @@ export class UserTableComponent implements OnInit {
   }
 
   getCategory(){
-    this.getItemSub = this.clientService.getRoles().subscribe(successResp => {
+    this.getItemSub = this.userService.getRoles().subscribe(successResp => {
       successResp.content.forEach((item, index) => {
         if (item.name === "Super Administrator") successResp.content.splice(index, 1);
       });
@@ -149,7 +149,7 @@ export class UserTableComponent implements OnInit {
       const client: ClientData = new ClientData(this.clientId);
 
       const req: UserCreateReq = new UserCreateReq(res[0].username, res[0].password, res[0].email, role, client, communities, categories);
-      this.clientService.addUser(req).subscribe(
+      this.userService.addUser(req).subscribe(
         response => {
           this.getUsers;
           this.users = response;
