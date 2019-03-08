@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserEventService } from './user-event.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
+import { ComunityService } from '../../community.service';
 
 @Component({
   selector: 'app-user-event',
@@ -27,6 +28,8 @@ export class UserEventComponent implements OnInit {
   public totalPages = [];
   public totalRecords = 2;
   public pageSizeArray = [];
+  public quota = 0;
+  public quotaExpire = false;
 
   constructor(
     private dialog: MatDialog,
@@ -35,15 +38,26 @@ export class UserEventComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
-    private userEventService: UserEventService
+    private userEventService: UserEventService,
+    private comunityService: ComunityService
   ) { }
 
   ngOnInit() {
+    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
     this.activeRoute.queryParams.subscribe(params => {
       this.comunityId = params['id'];
       this.comunityName = params['name'];
     });
     this.fetchAllEvents(this.pageNumber);
+    this.comunityService.licenseExpireState(userObj.userData.client.id, 'events')
+      .subscribe(
+        response => {
+          const tempRes: any = response;
+          console.log(tempRes);
+          this.quotaExpire = tempRes.content.expired;
+          this.quota = tempRes.content.quota;
+        }
+      );
   }
 
   /*
@@ -85,33 +99,24 @@ export class UserEventComponent implements OnInit {
             res['community'] = {
               id: this.comunityId
             };
+            const clientId = userObj.userData.client.id;
             res.status = this.getEventStatus(res.status);
-            this.userEventService.createEvent(res)
+            this.comunityService.licenseExpireState(clientId, 'events')
               .subscribe(
                 response => {
-                  const temData: any = response;
-                  if (this.events.length === this.pageSize) {
-                    this.appendNewlyCreatedEvent(temData.content);
+                  const tempRes: any = response;
+                  this.quotaExpire = tempRes.content.expired;
+                  if (!tempRes.content.expired) {
+                    this.loader.close();
+                    if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
+                      this.confirmService.confirm({ message: 'This is your last event!' });
+                      this.createEvent(res);
+                    } else {
+                      this.createEvent(res);
+                    }
                   } else {
-                    console.log(temData.content);
-                    this.events.push(temData.content);
-                    this.temEvents = this.events;
-                    this.totalRecords += 1;
-                  }
-                  // this.fetchAllEvents();
-                  this.loader.close();
-                  this.snack.open('New Event Created', 'close', {
-                    duration: 2000
-                  });
-                },
-                error => {
-                  this.loader.close();
-                  if (error.status !== 401) {
-                    this.errDialog.showError({
-                      title: 'Error',
-                      status: error.status,
-                      type: 'http_error'
-                    });
+                    this.loader.close();
+                    this.confirmService.confirm({ message: 'Allocated Event Limit Exceded!' });
                   }
                 }
               );
@@ -145,6 +150,41 @@ export class UserEventComponent implements OnInit {
         }
       }
     });
+  }
+
+  createEvent(res) {
+    this.userEventService.createEvent(res)
+      .subscribe(
+        response => {
+          const temData: any = response;
+          if (this.events.length === this.pageSize) {
+            this.appendNewlyCreatedEvent(temData.content);
+          } else {
+            console.log(temData.content);
+            this.events.push(temData.content);
+            this.temEvents = this.events;
+            this.totalRecords += 1;
+          }
+          // this.fetchAllEvents();
+          if (this.totalRecords === this.quota) {
+            this.quotaExpire = true;
+          }
+          this.loader.close();
+          this.snack.open('New Event Created', 'close', {
+            duration: 2000
+          });
+        },
+        error => {
+          this.loader.close();
+          if (error.status !== 401) {
+            this.errDialog.showError({
+              title: 'Error',
+              status: error.status,
+              type: 'http_error'
+            });
+          }
+        }
+      );
   }
 
   /*
@@ -216,6 +256,7 @@ export class UserEventComponent implements OnInit {
   * Prasad Kumara
   */
   deleteSelectedEvents() {
+    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
     this.confirmService
       .confirm({ message: 'Do You want to Delete Selected Events?' })
       .subscribe(res => {
@@ -231,6 +272,14 @@ export class UserEventComponent implements OnInit {
               response => {
                 this.selectAll = false;
                 this.indeterminateState = false;
+                this.comunityService.licenseExpireState(userObj.userData.client.id, 'events')
+                  .subscribe(
+                    resData => {
+                      const tempRes: any = resData;
+                      this.quotaExpire = tempRes.content.expired;
+                      this.quota = tempRes.content.quota;
+                    }
+                  );
                 this.fetchAllEvents(tempPN);
                 this.loader.close();
                 this.snack.open('Selected Events Deleted', 'close', {
@@ -258,6 +307,7 @@ export class UserEventComponent implements OnInit {
   * Prasad Kumara
   */
   deleteOneEvent(data) {
+    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
     this.confirmService
       .confirm({ message: `Do You want to Delete ${data.name}?` })
       .subscribe(res => {
@@ -267,6 +317,14 @@ export class UserEventComponent implements OnInit {
           this.userEventService.eventDeleteById(data.id)
             .subscribe(
               response => {
+                this.comunityService.licenseExpireState(userObj.userData.client.id, 'events')
+                  .subscribe(
+                    resData => {
+                      const tempRes: any = resData;
+                      this.quotaExpire = tempRes.content.expired;
+                      this.quota = tempRes.content.quota;
+                    }
+                  );
                 this.fetchAllEvents(tempPN);
                 this.loader.close();
                 this.snack.open(`${data.name} Deleted`, 'close', {
