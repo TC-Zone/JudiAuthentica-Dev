@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent } from '@angular/material';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
-import { egretAnimations } from "../../../../../../shared/animations/egret-animations";
-import { GlobalVariable } from "../../../../../../shared/helpers/global-variable";
+import { egretAnimations } from "../../../../shared/animations/egret-animations";
+import { GlobalVariable } from "../../../../shared/helpers/global-variable";
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';

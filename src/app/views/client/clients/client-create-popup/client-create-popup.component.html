@@ -128,11 +128,45 @@
       </form>
     </mat-step>
 
+    <mat-step [stepControl]="categoryFormGroup">
+      <form [formGroup]="categoryFormGroup">
+        <ng-template matStepLabel>Category</ng-template>
+
+        <mat-form-field class="matAutocomplete-chip-list">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let category of categories" [selectable]="selectable" [removable]="removable"
+              (removed)="remove(category)">
+              {{category}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Select category..." #categoryInput [formControl]="categoryFormGroup.controls['category']" [matAutocomplete]="auto"
+              [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)"
+              [matChipInputAddOnBlur]="addOnBlur">
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let category of filteredCategories | async; let i = index" [value]="categoriesObj[i].id">
+              {{category}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+          <div fxFlex="100" class="mt-1">
+            <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
+            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <span fxFlex></span>
+            <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+
     <mat-step [stepControl]="licenseFormGroup">
       <form [formGroup]="licenseFormGroup">
         <ng-template matStepLabel>License</ng-template>
 
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+          
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
               <input matInput name="tagCount" placeholder="Tag Count" positiveNumberOnly

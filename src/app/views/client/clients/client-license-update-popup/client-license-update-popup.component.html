@@ -1,0 +1,69 @@
+<form [formGroup]="licenseFormGroup" (ngSubmit)="submit()" id="client-update">
+  <mat-toolbar matDialogTitle class="mat-primary m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">Update Client</span>
+    </div>
+  </mat-toolbar>
+  <mat-dialog-content class="mat-typography mt-1">
+
+
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="tagCount" placeholder="Tag Count" positiveNumberOnly
+            [formControl]="licenseFormGroup.controls['tagCount']">
+        </mat-form-field>
+        <span *ngIf="licenseFormGroup.controls['tagCount'].hasError('max')" class="form-error-msg">
+          {{this.license.tagCount}} max ! </span>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="userCount" placeholder="User Count" positiveNumberOnly
+            [formControl]="licenseFormGroup.controls['userCount']">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="communityCount" placeholder="Community Count" positiveNumberOnly
+            [formControl]="licenseFormGroup.controls['communityCount']">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="feedbackCount" placeholder="Feedback Count" positiveNumberOnly
+            [formControl]="licenseFormGroup.controls['feedbackCount']">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="eventkCount" placeholder="Event Count" positiveNumberOnly
+            [formControl]="licenseFormGroup.controls['eventCount']">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="promoCount" placeholder="Promo Count" positiveNumberOnly
+            [formControl]="licenseFormGroup.controls['promoCount']">
+        </mat-form-field>
+      </div>
+    </div>
+
+  </mat-dialog-content>
+
+  <mat-card-footer>
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+      <div fxFlex="100" class="mt-1">
+        <button mat-raised-button color="primary" [disabled]="licenseFormGroup.invalid">Save</button>
+        <span fxFlex></span>
+        <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+      </div>
+    </div>
+  </mat-card-footer>
+
+</form>

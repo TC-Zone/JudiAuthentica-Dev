@@ -41,6 +41,83 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
+  
+  /*
+  * Create New User Role
+  * Created by Prasad Kumara
+  * 14/02/2019
+  */
+ createNewRole(roleObj) {
+  return this.http.post(this.roleUrl, roleObj)
+    .pipe(
+      map(data => {
+        return data;
+      }),
+      catchError(this.handleError)
+    );
+}
+
+/*
+* Update New User Role
+* Created by Prasad Kumara
+* 14/02/2019
+*/
+updateRloe(roleId, roleObj) {
+  return this.http.put(this.roleUrl + '/' + roleId, roleObj)
+    .pipe(
+      map(data => {
+        return data;
+      }),
+      catchError(this.handleError)
+    );
+}
+
+/*
+* Get All User Role From Data Base
+* Created by Prasad Kumara
+* 14/02/2019
+*/
+getAllUserRoles(): any {
+  return this.http.get(this.roleUrl)
+    .pipe(
+      map(data => {
+        return data;
+      }),
+      catchError(this.handleError)
+    );
+}
+
+/*
+* Get All Authorities From Data Base
+* Created by Prasad Kumara
+* 14/02/2019
+*/
+getAllAuthorities(): any {
+  return this.http.get(environment.userApiUrl + 'platform-authorities')
+    .pipe(
+      map(data => {
+        return data;
+      }),
+      catchError(this.handleError)
+    );
+}
+
+/*
+* Get Role Assign Authorities
+* Created by Prasad Kumara
+* 14/02/2019
+*/
+getOneRoleAuthorities(roleId): any {
+  return this.http.get(this.roleUrl + '/' + roleId)
+    .pipe(
+      map(data => {
+        return data;
+      }),
+      catchError(this.handleError)
+    );
+}
+
+
   private handleError(error: HttpErrorResponse | any) {
     console.log(error);
     return throwError(error);

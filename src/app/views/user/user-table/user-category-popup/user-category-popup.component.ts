@@ -1,31 +1,22 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
-import { egretAnimations } from "../../../../../../shared/animations/egret-animations";
-import { GlobalVariable } from "../../../../../../shared/helpers/global-variable";
+
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { ElementRef, ViewChild } from '@angular/core';
+import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
-import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { map, startWith } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-user-create-popup',
-  templateUrl: './user-create-popup.component.html',
-  animations: egretAnimations,
+  selector: 'app-user-category-popup',
+  templateUrl: './user-category-popup.component.html'
 })
-export class UserCreatePopupComponent implements OnInit {
-
-  public globalVariable: GlobalVariable = new GlobalVariable();
-  public license = this.globalVariable.client.license;
-  public regex = this.globalVariable.validators.regex;
-
-  public userFormGroup: FormGroup;
-  public categoryFormGroup: FormGroup;
-  public communityFormGroup: FormGroup;
-  public licenseFormGroup: FormGroup;
-  // public formStatus = false;
-
-  public roles;
+export class UserCategoryPopupComponent implements OnInit {
+  public itemForm: FormGroup;
+  public roles: any[];
+  public formStatus = false;
 
   visible = true;
   selectable = true;
@@ -40,11 +31,11 @@ export class UserCreatePopupComponent implements OnInit {
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<UserCreatePopupComponent>,
+    public dialogRef: MatDialogRef<UserCategoryPopupComponent>,
     private fb: FormBuilder,
-    public snackBar: MatSnackBar
   ) {
     this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
       startWith(null),
@@ -52,37 +43,12 @@ export class UserCreatePopupComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.roles = this.data.roles;
-    this.buildItemForm()
-  }
-
-  buildItemForm() {
-
-    // this.userFormGroup = this.fb.group({
-    //   username: new FormControl(''),
-    //   password: new FormControl(''),
-    //   email: new FormControl(''),
-    //   role: new FormControl('')
-    // });
-    
-    this.userFormGroup = this.fb.group({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      role: new FormControl('', Validators.required)
-    });
-    this.categoryFormGroup = this.fb.group({
-      category: this.categoryCtrl
-    });
-    this.communityFormGroup = this.fb.group({
-      username: [''],
-    });
   }
 
   submit() {
-    let forms = [this.userFormGroup.value, this.categories, this.communityFormGroup.value];
-    this.dialogRef.close(forms);
+    this.dialogRef.close(this.itemForm.value)
   }
+
 
   add(event: MatChipInputEvent): void {
 
@@ -124,6 +90,4 @@ export class UserCreatePopupComponent implements OnInit {
 
     return this.allCategories.filter(category => category.toLowerCase().indexOf(filterValue) === 0);
   }
-
 }
-

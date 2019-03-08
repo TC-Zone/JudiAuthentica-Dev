@@ -36,6 +36,8 @@ import { ClientService } from "./client.service";
 import { ClientTableComponent } from './clients/client-table.component';
 import { ClientUpdatePopupComponent } from './clients/client-update-popup/client-update-popup.component';
 import { ClientCreatePopupComponent } from './clients/client-create-popup/client-create-popup.component';
+import { ClientCategoryPopupComponent } from './clients/client-category-popup/client-category-popup.component';
+import { ClientLicenseUpdatePopupComponent } from './clients/client-license-update-popup/client-license-update-popup.component';
 import { UserComponent } from './clients/user/user.component';
 import { UserTableComponent } from './clients/user/user-table/user-table.component';
 import { UserCreatePopupComponent } from './clients/user/user-table/user-create-popup/user-create-popup.component';
@@ -83,7 +85,9 @@ import { UserCategoryPopupComponent } from './clients/user/user-table/user-categ
     ClientComponent,
     ClientTableComponent,
     ClientCreatePopupComponent,
+    ClientCategoryPopupComponent,
     ClientUpdatePopupComponent,
+    ClientLicenseUpdatePopupComponent,
     UserComponent,
     UserTableComponent,
     UserCreatePopupComponent,
@@ -95,7 +99,9 @@ import { UserCategoryPopupComponent } from './clients/user/user-table/user-categ
   ],
   entryComponents: [
     ClientCreatePopupComponent,
+    ClientCategoryPopupComponent,
     ClientUpdatePopupComponent,
+    ClientLicenseUpdatePopupComponent,
     UserCreatePopupComponent,
     UserTablePopupComponent,
     RoleTablePopupComponent,

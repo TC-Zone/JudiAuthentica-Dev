@@ -12,6 +12,8 @@ import { environment } from '../../../environments/environment.prod';
 export class ClientService {
 
   clientUrl: string = environment.userApiUrl + "clients";
+  specsUrl: string = environment.userApiUrl + "spec";
+  licenseUrl: string = this.clientUrl + "/license";
   userUrl: string = environment.userApiUrl + "platform-users";
   roleUrl: string = environment.userApiUrl + "platform-user-roles";
 
@@ -28,7 +30,12 @@ export class ClientService {
   getRoles(): Observable<any> {
     return this.http.get(this.roleUrl + "/suggestions").pipe(catchError(this.handleError));
   }
-
+  getCategory(): Observable<any> {
+    return this.http.get(this.specsUrl + "/categories").pipe(catchError(this.handleError));
+  }
+  getClientCategories(id){
+    return this.http.get(this.clientUrl + "/categories/" + id).pipe(catchError(this.handleError));
+  }
 
 
   addClient(item): Observable<any> {
@@ -50,10 +57,16 @@ export class ClientService {
       .pipe(catchError(this.handleError));
   }
 
+  updateClientLicense(id, item): Observable<any> {
+    return this.http
+      .put<any>(this.licenseUrl + "/" + id, item)
+      .pipe(catchError(this.handleError));
+  }
+
   addUser(item): Observable<any> {
     return this.http.post<any>(this.userUrl, item).pipe(
       map(data => {
-        // console.log(data);
+        console.log(data);
       }),
       catchError(this.handleError)
     );
@@ -64,6 +77,7 @@ export class ClientService {
       .put<any>(this.userUrl + "/" + id, item)
       .pipe(catchError(this.handleError));
   }
+
 
 
   /*
