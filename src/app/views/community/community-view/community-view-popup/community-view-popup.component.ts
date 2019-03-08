@@ -29,40 +29,52 @@ export class CommunityViewPopupComponent implements OnInit {
     this.buildCommunityForm(this.data.payload);
   }
 
+  /*
+  * Build community create and update form
+  * 05-03-2019
+  * Prasad Kumara
+  */
   buildCommunityForm(community) {
     this.communityForm = this.fb.group({
       name: [community.name || '', Validators.required],
       description: [community.description || '', Validators.required],
-      communityStatus: [community.communityStatus || false, Validators.required]
+      status: [community.status || false, Validators.required]
     });
   }
 
+  /*
+  * Get community details using cimmunity id
+  * 05-03-2019
+  * Prasad Kumara
+  */
   getCommunityById(communityId) {
     this.comunityService.getCommunityById(communityId)
       .subscribe(
         response => {
-          const status = this.setCommunityStatus(response.status);
-          response['communityStatus'] = status;
+          if (response.status === 'ACTIVE') {
+            response.status = true;
+          } else {
+            response.status = false;
+          }
           this.buildCommunityForm(response);
         },
         error => {
-          this.errDialog.showError({
-            title: 'Error',
-            status: error.status,
-            type: 'http_error'
-          });
+          if (error.status !== 401) {
+            this.errDialog.showError({
+              title: 'Error',
+              status: error.status,
+              type: 'http_error'
+            });
+          }
         }
       );
   }
 
-  setCommunityStatus(communityStatus): boolean {
-    if (communityStatus === 'ACTIVE') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
+  /*
+  * Submit community create and update form
+  * 05-03-2019
+  * Prasad Kumara
+  */
   submitCommunityForm(): any {
     this.dialogRef.close(this.communityForm.value);
   }

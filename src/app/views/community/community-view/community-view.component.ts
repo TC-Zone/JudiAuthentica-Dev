@@ -16,13 +16,13 @@ import { authProperties } from './../../../shared/services/auth/auth-properties'
 })
 export class CommunityViewComponent implements OnInit {
 
-  public rows: any;
-  public columns = [];
-  public temp = [];
+  public communities = [];
+  public temCommunities = [];
   public pageNumber = 1;
   public pageSize = 10;
   public totalPages = [];
   public totalRecords = 0;
+  public pageSizeArray = [];
 
   constructor(
     private dialog: MatDialog,
@@ -35,7 +35,7 @@ export class CommunityViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.fetchAllCommunities();
+    this.fetchAllCommunities(this.pageNumber);
   }
 
   /*
@@ -43,7 +43,7 @@ export class CommunityViewComponent implements OnInit {
   * 27-02-2019
   * Prasad Kumara
   */
-  openPopUp(data: any = {}, isNew?) {
+  communityPopUp(data: any = {}, isNew?) {
     const title = isNew ? 'Add New Community' : 'Update Community';
     const dialogRef: MatDialogRef<any> = this.dialog.open(
       CommunityViewPopupComponent,
@@ -70,14 +70,19 @@ export class CommunityViewComponent implements OnInit {
                 'id': userObj.id
               }
             ];
-            // console.log('------------ Create new Community ------------');
-            // console.log(res);
+            res.status = this.getCommunityStatus(res.status);
             this.comunityService.createCommunity(res)
               .subscribe(
                 response => {
-                  console.log('------------ Create new Community ------------');
-                  console.log(response);
-                  this.fetchAllCommunities();
+                  const temData: any = response;
+                  if (this.communities.length === this.pageSize) {
+                    this.appendNewlyCreatedCommunity(temData.content);
+                  } else {
+                    this.communities.push(temData.content);
+                    this.temCommunities = this.communities;
+                    this.totalRecords += 1;
+                  }
+                  // this.fetchAllCommunities(this.pageNumber);
                   this.loader.close();
                   this.snack.open('New Community Created', 'close', {
                     duration: 2000
@@ -85,24 +90,25 @@ export class CommunityViewComponent implements OnInit {
                 },
                 error => {
                   this.loader.close();
-                  this.errDialog.showError({
-                    title: 'Error',
-                    status: error.status,
-                    type: 'http_error'
-                  });
+                  if (error.status !== 401) {
+                    this.errDialog.showError({
+                      title: 'Error',
+                      status: error.status,
+                      type: 'http_error'
+                    });
+                  }
                 }
               );
           } else {
             res['lastModifiedUserId'] = userObj.id;
-            res['communityStatus'] = this.getCommunityStatus(res.communityStatus);
-            console.log('------------ Update Community ------------');
-            console.log(res);
+            res.status = this.getCommunityStatus(res.status);
             this.comunityService.updateCommunityById(data.id, res)
               .subscribe(
                 response => {
-                  console.log('------------ Update Community ------------');
-                  console.log(response);
-                  this.fetchAllCommunities();
+                  const temData: any = response;
+                  const i = this.communities.indexOf(data);
+                  this.communities[i] = temData.content;
+                  this.temCommunities = this.communities;
                   this.loader.close();
                   this.snack.open('Community Updated', 'close', {
                     duration: 2000
@@ -110,11 +116,13 @@ export class CommunityViewComponent implements OnInit {
                 },
                 error => {
                   this.loader.close();
-                  this.errDialog.showError({
-                    title: 'Error',
-                    status: error.status,
-                    type: 'http_error'
-                  });
+                  if (error.status !== 401) {
+                    this.errDialog.showError({
+                      title: 'Error',
+                      status: error.status,
+                      type: 'http_error'
+                    });
+                  }
                 }
               );
           }
@@ -123,34 +131,36 @@ export class CommunityViewComponent implements OnInit {
     });
   }
 
-  fetchAllCommunities() {
-    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
-    if (userObj) {
-      this.comunityService.fetchAllComunities(userObj.userData.client.id)
-        .subscribe(
-          response => {
-            // console.log('--------- fetch all communities ------');
-            // console.log(response);
-            this.rows = response;
-            this.temp = this.rows;
-            this.totalRecords = this.rows.length;
-          },
-          error => {
-            this.errDialog.showError({
-              title: 'Error',
-              status: error.status,
-              type: 'http_error'
-            });
-          }
-        );
-    }
-  }
-
-  getCommunityStatus(communityStatus): string {
-    if (communityStatus) {
-      return 'A';
-    } else {
-      return 'I';
+  /*
+  * Fetch all communities
+  * 05-03-2019
+  * Prasad Kumara
+  */
+  fetchAllCommunities(pageNumber) {
+    if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
+      const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+      if (userObj) {
+        this.comunityService.fetchAllComunities(userObj.userData.client.id, pageNumber, this.pageSize)
+          .subscribe(
+            response => {
+              const resData: any = response;
+              this.communities = this.temCommunities = resData.content;
+              this.totalRecords = resData.pagination.totalRecords;
+              this.pageNumber = resData.pagination.pageNumber;
+              this.createPageNavigationBar();
+            this.createPaginationPageSizeArray();
+            },
+            error => {
+              if (error.status !== 401) {
+                this.errDialog.showError({
+                  title: 'Error',
+                  status: error.status,
+                  type: 'http_error'
+                });
+              }
+            }
+          );
+      }
     }
   }
 
@@ -180,21 +190,24 @@ export class CommunityViewComponent implements OnInit {
       .subscribe(res => {
         if (res) {
           this.loader.open();
+          const tempPN = this.setPageNumber(1);
           this.comunityService.deleteCommunityById(row.id)
             .subscribe(
               response => {
-                this.fetchAllCommunities();
+                this.fetchAllCommunities(tempPN);
                 this.loader.close();
                 this.snack.open(`${row.name} Deleted`, 'close', {
                   duration: 2000
                 });
               },
             error => {
-              this.errDialog.showError({
-                title: 'Error',
-                status: error.status,
-                type: 'http_error'
-              });
+              if (error.status !== 401) {
+                this.errDialog.showError({
+                  title: 'Error',
+                  status: error.status,
+                  type: 'http_error'
+                });
+              }
             }
             );
         }
@@ -207,9 +220,8 @@ export class CommunityViewComponent implements OnInit {
   * Prasad Kumara
   */
   changeValue() {
-    console.log('pagination page size', this.pageSize);
     this.pageNumber = 1;
-    this.getPageCommunity(this.pageNumber);
+    this.fetchAllCommunities(this.pageNumber);
   }
 
   /*
@@ -219,14 +231,14 @@ export class CommunityViewComponent implements OnInit {
   */
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
-    const columns = Object.keys(this.temp[0]);
+    const columns = Object.keys(this.temCommunities[0]);
     columns.splice(columns.length - 1);
 
     if (!columns.length) {
       return;
     }
 
-    const rows = this.temp.filter(function(data) {
+    const rows = this.temCommunities.filter(function(data) {
       for (let i = 0; i <= columns.length; i++) {
         const column = columns[i];
         if (
@@ -240,17 +252,95 @@ export class CommunityViewComponent implements OnInit {
         }
       }
     });
-    this.rows = rows;
+    this.communities = rows;
   }
 
   /*
-  * Get Community According to the page number
-  * 27-02-2019
+  * Append newly created community to the community array
+  * 06-03-2019
   * Prasad Kumara
   */
-  getPageCommunity(pageNumber) {
-    if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
-      this.pageNumber = pageNumber;
+  appendNewlyCreatedCommunity(community) {
+    const tempArray = [];
+    for (let i = 1; i <= this.communities.length; i++) {
+      if (i === this.communities.length) {
+        tempArray.push(community);
+      } else {
+        tempArray.push(this.communities[i]);
+      }
+    }
+    this.communities = this.temCommunities = tempArray;
+    this.totalRecords += 1;
+    this.createPageNavigationBar();
+  }
+
+  /*
+  * Create pagination bottom navigation bar
+  * 07-03-2019
+  * Prasad Kumara
+  */
+  createPageNavigationBar() {
+    const devider = this.totalRecords / this.pageSize;
+    const numOfPage = Math.ceil(devider);
+    if (numOfPage > 1) {
+      const temPages = [];
+      for (let i = 1; i <= numOfPage; i++) {
+        temPages.push(i);
+      }
+      this.totalPages = temPages;
+    } else {
+      this.totalPages = [];
+    }
+  }
+
+  /*
+  * Create pagination page size element array
+  * 06-03-2019
+  * Prasad Kumara
+  */
+  createPaginationPageSizeArray() {
+    let totalRec = this.totalRecords;
+    const tempArray = [];
+    if (totalRec > 10) {
+      const rem = totalRec % 10;
+      if (rem !== 0) {
+        totalRec = totalRec + 10;
+      }
+      for (let i = 10; i < totalRec; ) {
+        tempArray.push(i);
+        i = i + 10;
+      }
+    } else {
+      tempArray.push(this.pageSize);
+    }
+    this.pageSizeArray = tempArray;
+  }
+
+  /*
+  * Set page number according to the total records
+  * 06-03-2019
+  * Prasad Kumara
+  */
+  setPageNumber(numOfComm): number {
+    const tempTR = this.totalRecords - numOfComm;
+    const devider = tempTR / this.pageSize;
+    if (devider < this.totalPages.length) {
+      return this.pageNumber - 1;
+    } else {
+      return this.pageNumber;
+    }
+  }
+
+  /*
+  * Convert boolean event status to string status
+  * 07-03-2019
+  * Prasad Kumara
+  */
+  getCommunityStatus(eventStatus): string {
+    if (eventStatus) {
+      return 'ACTIVE';
+    } else {
+      return 'INACTIVE';
     }
   }
 

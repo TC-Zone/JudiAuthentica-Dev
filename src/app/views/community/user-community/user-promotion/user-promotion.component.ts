@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { egretAnimations } from 'app/shared/animations/egret-animations';
-import { MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
-import { CreateEventPopupComponent } from './create-event-popup/create-event-popup.component';
+import { MatSnackBar, MatDialogRef, MatDialog } from '@angular/material';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
-import { authProperties } from './../../../../shared/services/auth/auth-properties';
+import { CreatePromotionPopupComponent } from './create-promotion-popup/create-promotion-popup.component';
+import { UserPromotionService } from './user-promotion.service';
 import { ActivatedRoute } from '@angular/router';
-import { UserEventService } from './user-event.service';
+import { authProperties } from './../../../../shared/services/auth/auth-properties'
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
 import { ComunityService } from '../../community.service';
 
 @Component({
-  selector: 'app-user-event',
-  templateUrl: './user-event.component.html',
+  selector: 'app-user-promotion',
+  templateUrl: './user-promotion.component.html',
   animations: egretAnimations
 })
-export class UserEventComponent implements OnInit {
+export class UserPromotionComponent implements OnInit {
 
-  public events = [];
-  public temEvents = [];
+  public promotions = [];
+  public temPromotions = [];
   public indeterminateState = false;
   public selectAll = false;
   public comunityName: String;
@@ -26,7 +26,7 @@ export class UserEventComponent implements OnInit {
   public pageNumber = 1;
   public pageSize = 10;
   public totalPages = [];
-  public totalRecords = 2;
+  public totalRecords = 0;
   public pageSizeArray = [];
   public quota = 0;
   public quotaExpire = false;
@@ -34,11 +34,11 @@ export class UserEventComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    private confirmService: AppConfirmService,
     private activeRoute: ActivatedRoute,
+    private confirmService: AppConfirmService,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
-    private userEventService: UserEventService,
+    private userPromotionService: UserPromotionService,
     private comunityService: ComunityService
   ) { }
 
@@ -48,12 +48,11 @@ export class UserEventComponent implements OnInit {
       this.comunityId = params['id'];
       this.comunityName = params['name'];
     });
-    this.fetchAllEvents(this.pageNumber);
-    this.comunityService.licenseExpireState(userObj.userData.client.id, 'events')
+    this.fetchAllPromotions(this.pageNumber, true);
+    this.comunityService.licenseExpireState(userObj.userData.client.id, 'promos')
       .subscribe(
         response => {
           const tempRes: any = response;
-          console.log(tempRes);
           this.quotaExpire = tempRes.content.expired;
           this.quota = tempRes.content.quota;
         }
@@ -61,8 +60,8 @@ export class UserEventComponent implements OnInit {
   }
 
   /*
-  * expantion pannel prevent expantion
-  * 05-03-2019
+  * Expantion pannel prevent expantion
+  * 06-03-2019
   * Prasad Kumara
   */
   stopProp(event) {
@@ -70,14 +69,14 @@ export class UserEventComponent implements OnInit {
   }
 
   /*
-  * Event create and update popup window
-  * 05-03-2019
+  * Promotion Create and Update popup window
+  * 06-03-2019
   * Prasad Kumara
   */
-  eventPopUp(data: any = {}, isNew?) {
-    const title = isNew ? 'Create New Event' : 'Update Event';
+  promotionPopUp(data: any = {}, isNew?) {
+    const title = isNew ? 'Create New Promotion' : 'Update Promotion';
     const dialogRef: MatDialogRef<any> = this.dialog.open(
-      CreateEventPopupComponent,
+      CreatePromotionPopupComponent,
       {
         width: '720px',
         disableClose: true,
@@ -92,16 +91,12 @@ export class UserEventComponent implements OnInit {
         const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
         if (userObj) {
           if (isNew) {
-            res['createdUserId'] = userObj.id;
-            res['client'] = {
-              id: userObj.userData.client.id
-            };
             res['community'] = {
               id: this.comunityId
             };
             const clientId = userObj.userData.client.id;
-            res.status = this.getEventStatus(res.status);
-            this.comunityService.licenseExpireState(clientId, 'events')
+            res.status = this.getPromotionStatus(res.status);
+            this.comunityService.licenseExpireState(clientId, 'promos')
               .subscribe(
                 response => {
                   const tempRes: any = response;
@@ -109,29 +104,30 @@ export class UserEventComponent implements OnInit {
                   if (!tempRes.content.expired) {
                     this.loader.close();
                     if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
-                      this.confirmService.confirm({ message: 'This is your last event!' });
-                      this.createEvent(res);
+                      this.confirmService.confirm({ message: 'This is your last promotion!' });
+                      this.createPromotion(res);
                     } else {
-                      this.createEvent(res);
+                      this.createPromotion(res);
                     }
                   } else {
                     this.loader.close();
-                    this.confirmService.confirm({ message: 'Allocated Event Limit Exceded!' });
+                    this.confirmService.confirm({ message: 'Allocated Promotion Limit Exceded!' });
                   }
                 }
               );
+            // this.createPromotion(res);
           } else {
             res['lastModifiedUserId'] = userObj.id;
-            res.status = this.getEventStatus(res.status);
-            this.userEventService.eventUpdateById(data.id, res)
+            res.status = this.getPromotionStatus(res.status);
+            this.userPromotionService.updatePromotionById(data.id, res)
               .subscribe(
                 response => {
                   const temData: any = response;
-                  const i = this.events.indexOf(data);
-                  this.events[i] = temData.content;
-                  this.temEvents = this.events;
+                  const i = this.promotions.indexOf(data);
+                  this.promotions[i] = temData.content;
+                  this.temPromotions = this.promotions;
                   this.loader.close();
-                  this.snack.open('Event Updated', 'close', {
+                  this.snack.open('Promotion Updated', 'close', {
                     duration: 2000
                   });
                 },
@@ -152,25 +148,24 @@ export class UserEventComponent implements OnInit {
     });
   }
 
-  createEvent(res) {
-    this.userEventService.createEvent(res)
+  createPromotion(res) {
+    this.userPromotionService.createPromotion(res)
       .subscribe(
         response => {
           const temData: any = response;
-          if (this.events.length === this.pageSize) {
-            this.appendNewlyCreatedEvent(temData.content);
+          if (this.promotions.length === this.pageSize) {
+            this.appendNewlyCreatedPromotion(temData.content);
           } else {
-            console.log(temData.content);
-            this.events.push(temData.content);
-            this.temEvents = this.events;
+            this.promotions.push(temData.content);
+            this.temPromotions = this.promotions;
             this.totalRecords += 1;
           }
-          // this.fetchAllEvents();
-          if (this.totalRecords === this.quota) {
+          this.loader.close();
+          if(this.totalRecords === this.quota) {
             this.quotaExpire = true;
           }
-          this.loader.close();
-          this.snack.open('New Event Created', 'close', {
+          // this.fetchAllPromotions(this.pageNumber);
+          this.snack.open('New Promotion Created', 'close', {
             duration: 2000
           });
         },
@@ -188,34 +183,34 @@ export class UserEventComponent implements OnInit {
   }
 
   /*
-  * set selected status of one event
-  * 05-03-2019
+  * Set Selected status in one promotion
+  * 06-03-2019
   * Prasad Kumara
   */
   selectToggleOne(event, data) {
-    const i = this.events.indexOf(data);
+    const i = this.promotions.indexOf(data);
     if (event.checked) {
-      this.events[i].selected = true;
+      this.promotions[i].selected = true;
       this.indeterminateState = true;
     } else {
-      this.events[i].selected = false;
+      this.promotions[i].selected = false;
     }
     this.checkAllSelectedState();
   }
 
   /*
-  * set selectd status of all events
-  * 05-03-2019
+  * Set selectd status of all promotions
+  * 06-03-2019
   * Prasad Kumara
   */
   checkAllSelectedState() {
     let numOfSelectedEvent = 0;
-    this.events.forEach(data => {
+    this.promotions.forEach(data => {
       if (data.selected) {
         numOfSelectedEvent++;
       }
     });
-    if (numOfSelectedEvent === this.events.length) {
+    if (numOfSelectedEvent === this.promotions.length) {
       this.selectAll = true;
       this.indeterminateState = false;
     } else {
@@ -230,19 +225,19 @@ export class UserEventComponent implements OnInit {
   }
 
   /*
-  * Select toggle events status
-  * 05-03-2019
+  * Select toggle promotions status
+  * 06-03-2019
   * Prasad Kumara
   */
   selectToggleAll(event) {
     if (event.checked) {
-      this.events.forEach(data => {
+      this.promotions.forEach(data => {
         data.selected = true;
       });
       this.selectAll = true;
       this.indeterminateState = false;
     } else {
-      this.events.forEach(data => {
+      this.promotions.forEach(data => {
         data.selected = false;
       });
       this.selectAll = false;
@@ -251,28 +246,30 @@ export class UserEventComponent implements OnInit {
   }
 
   /*
-  * Delete Selected events
-  * 05-03-2019
+  * Delete selected events
+  * 06-03-2019
   * Prasad Kumara
   */
-  deleteSelectedEvents() {
+  deleteSelectedPromotions() {
     const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
     this.confirmService
-      .confirm({ message: 'Do You want to Delete Selected Events?' })
+      .confirm({ message: 'Do You want to Delete Selected Promotions?' })
       .subscribe(res => {
         if (res) {
           this.loader.open();
-          const selectedEvents = this.getSelectedEvents();
+          const selectedEvents = this.getSelectedPromotions();
           const idArray = {
-            events: selectedEvents
+            promos: selectedEvents
           };
           const tempPN = this.setPageNumber(selectedEvents.length);
-          this.userEventService.deleteEventList(idArray)
+          this.userPromotionService.deletePromotionList(idArray)
             .subscribe(
               response => {
+                this.loader.close();
                 this.selectAll = false;
                 this.indeterminateState = false;
-                this.comunityService.licenseExpireState(userObj.userData.client.id, 'events')
+                this.fetchAllPromotions(tempPN);
+                this.comunityService.licenseExpireState(userObj.userData.client.id, 'promos')
                   .subscribe(
                     resData => {
                       const tempRes: any = resData;
@@ -280,9 +277,7 @@ export class UserEventComponent implements OnInit {
                       this.quota = tempRes.content.quota;
                     }
                   );
-                this.fetchAllEvents(tempPN);
-                this.loader.close();
-                this.snack.open('Selected Events Deleted', 'close', {
+                this.snack.open('Selected Promotions Deleted', 'close', {
                   duration: 2000
                 });
               },
@@ -302,11 +297,11 @@ export class UserEventComponent implements OnInit {
   }
 
   /*
-  * Delete one event
-  * 05-03-2019
+  * Delete one promotion
+  * 06-03-2019
   * Prasad Kumara
   */
-  deleteOneEvent(data) {
+  deletePromotion(data) {
     const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
     this.confirmService
       .confirm({ message: `Do You want to Delete ${data.name}?` })
@@ -314,10 +309,10 @@ export class UserEventComponent implements OnInit {
         if (res) {
           this.loader.open();
           const tempPN = this.setPageNumber(1);
-          this.userEventService.eventDeleteById(data.id)
+          this.userPromotionService.deletePromotionById(data.id)
             .subscribe(
               response => {
-                this.comunityService.licenseExpireState(userObj.userData.client.id, 'events')
+                this.comunityService.licenseExpireState(userObj.userData.client.id, 'promos')
                   .subscribe(
                     resData => {
                       const tempRes: any = resData;
@@ -325,7 +320,7 @@ export class UserEventComponent implements OnInit {
                       this.quota = tempRes.content.quota;
                     }
                   );
-                this.fetchAllEvents(tempPN);
+                this.fetchAllPromotions(tempPN);
                 this.loader.close();
                 this.snack.open(`${data.name} Deleted`, 'close', {
                   duration: 2000
@@ -343,85 +338,83 @@ export class UserEventComponent implements OnInit {
               }
             );
         }
-    });
-  }
+      });
+    }
 
   /*
-  * Get Selected events
-  * 05-03-2019
+  * Return all selected promotions id list
+  * 06-03-2019
   * Prasad Kumara
   */
-  getSelectedEvents(): any {
+  getSelectedPromotions(): any {
     const selectedEvents = [];
-    this.events.forEach(data => {
+    this.promotions.forEach(data => {
       if (data.selected) {
-        selectedEvents.push({ id: data.id });
+        selectedEvents.push({id: data.id});
       }
     });
     return selectedEvents;
   }
 
   /*
-  * Fetch all events using community id
-  * 05-03-2019
+  * Search all events with pagination
+  * 06-03-2019
   * Prasad Kumara
   */
-  fetchAllEvents(pageNumber) {
-    this.userEventService.fetchAllEvents(this.comunityId, pageNumber, this.pageSize)
+  fetchAllPromotions(pageNumber, firstTime = false) {
+    if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
+      this.userPromotionService.fetchAllPromotions(this.comunityId, pageNumber, this.pageSize)
       .subscribe(
         response => {
-          const tempResponse: any = response;
-          const tempEvents = this.createDateTimeObject(tempResponse.content);
-          this.events = this.temEvents = tempEvents;
-          this.totalRecords = tempResponse.pagination.totalRecords;
-          this.pageNumber = tempResponse.pagination.pageNumber;
+          const resData: any = response;
+          this.promotions = this.temPromotions = resData.content;
+          this.totalRecords = resData.pagination.totalRecords;
+          this.pageNumber = resData.pagination.pageNumber;
           this.createPageNavigationBar();
           this.createPaginationPageSizeArray();
-        },
-        error => {
-          if (error.status !== 401) {
-            this.errDialog.showError({
-              title: 'Error',
-              status: error.status,
-              type: 'http_error'
-            });
-          }
         }
       );
-  }
-
-  /*
-  * Convert String date to Date Time Object
-  * 05-03-2019
-  * Prasad Kumara
-  */
-  createDateTimeObject(eventsArray) {
-    eventsArray.forEach(event => {
-      event.startDateTime = new Date(event.startDateTime);
-      event.endDateTime = new Date(event.endDateTime);
-      event.createdDate = new Date(event.createdDate);
-      // const eventStatus = this.getEventStatus(event.eventStatus);
-      // event.eventStatus = eventStatus;
-    });
-    return eventsArray;
-  }
-
-  /*
-  * Convert boolean event status to string status
-  * 05-03-2019
-  * Prasad Kumara
-  */
-  getEventStatus(eventStatus): string {
-    if (eventStatus) {
-      return 'ACTIVE';
-    } else {
-      return 'INACTIVE';
     }
   }
 
   /*
+  * Search Promotions in viewed promotion list
+  * 06-03-2019
+  * Prasad Kumara
+  */
+  updateFilter(event) {
+    const val = event.target.value.toLowerCase();
+    const columns = Object.keys(this.temPromotions[0]);
+    columns.splice(columns.length - 1);
+
+    if (!columns.length) {
+      return;
+    }
+
+    const rows = this.temPromotions.filter(function(data) {
+      for (let i = 0; i <= columns.length; i++) {
+        const col = columns[i];
+        if (data[col] && data[col].toString().toLowerCase().indexOf(val) > -1) {
+          return true;
+        }
+      }
+    });
+    this.promotions = rows;
+  }
+
+  /*
+  * Page size change and update promotion list according to the page size
+  * 06-03-2019
+  * Prasad Kumara
+  */
+  changeValue() {
+    this.pageNumber = 1;
+    this.fetchAllPromotions(this.pageNumber);
+  }
+
+  /*
   * Create pagination page size element array
-  * 07-03-2019
+  * 06-03-2019
   * Prasad Kumara
   */
   createPaginationPageSizeArray() {
@@ -443,63 +436,27 @@ export class UserEventComponent implements OnInit {
   }
 
   /*
-  * Search Event in viewed event list
-  * 07-03-2019
-  * Prasad Kumara
-  */
-  updateFilter(event) {
-    const val = event.target.value.toLowerCase();
-    const columns = Object.keys(this.temEvents[0]);
-    columns.splice(columns.length - 1);
-
-    if (!columns.length) {
-      return;
-    }
-
-    const rows = this.temEvents.filter(function(data) {
-      for (let i = 0; i <= columns.length; i++) {
-        const col = columns[i];
-        if (data[col] && data[col].toString().toLowerCase().indexOf(val) > -1) {
-          return true;
-        }
-      }
-    });
-    this.events = rows;
-  }
-
-  /*
-  * Page size change and update event list according to the page size
+  * Append newly created promotion to the promotion array
   * 06-03-2019
   * Prasad Kumara
   */
-  changeValue() {
-    this.pageNumber = 1;
-    this.fetchAllEvents(this.pageNumber);
-  }
-
-  /*
-  * Append newly created event to the event array
-  * 06-03-2019
-  * Prasad Kumara
-  */
-  appendNewlyCreatedEvent(event) {
+  appendNewlyCreatedPromotion(promotion) {
     const tempArray = [];
-    console.log(event);
-    for (let i = this.events.length; i >= 1; i--) {
-      if (i === this.events.length) {
-        tempArray.push(event);
+    for (let i = 1; i <= this.promotions.length; i++) {
+      if (i === this.promotions.length) {
+        tempArray.push(promotion);
       } else {
-        tempArray.push(this.events[i]);
+        tempArray.push(this.promotions[i]);
       }
     }
-    this.events = this.temEvents = tempArray;
+    this.promotions = this.temPromotions = tempArray;
     this.totalRecords += 1;
     this.createPageNavigationBar();
   }
 
   /*
   * Create pagination bottom navigation bar
-  * 07-03-2019
+  * 06-03-2019
   * Prasad Kumara
   */
   createPageNavigationBar() {
@@ -518,7 +475,7 @@ export class UserEventComponent implements OnInit {
 
   /*
   * Set page number according to the total records
-  * 07-03-2019
+  * 06-03-2019
   * Prasad Kumara
   */
   setPageNumber(numOfPromo): number {
@@ -528,6 +485,19 @@ export class UserEventComponent implements OnInit {
       return this.pageNumber - 1;
     } else {
       return this.pageNumber;
+    }
+  }
+
+  /*
+  * Convert boolean event status to string status
+  * 07-03-2019
+  * Prasad Kumara
+  */
+  getPromotionStatus(eventStatus): string {
+    if (eventStatus) {
+      return 'ACTIVE';
+    } else {
+      return 'INACTIVE';
     }
   }
 

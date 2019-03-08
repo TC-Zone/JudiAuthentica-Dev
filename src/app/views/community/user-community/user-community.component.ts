@@ -31,6 +31,11 @@ export class UserCommunityComponent implements OnInit {
     };
   }
 
+  /*
+  * Return to community view page
+  * 05-03-2019
+  * Prasad Kumara
+  */
   backToComunityView() {
     this.router.navigate(['community/community-view']);
   }

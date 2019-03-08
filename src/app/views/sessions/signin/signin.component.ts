@@ -26,6 +26,7 @@ export class SigninComponent implements OnInit {
 
   // test
   public userId
+  public counter = 0;
 
   constructor(
     private userService: UserService,
@@ -64,7 +65,6 @@ export class SigninComponent implements OnInit {
           userData: ''
         };
         localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
-        // this.getRefreshToken(response.expires_in * 1000);
 
         this.userService.getUserData(response.user_id)
           .subscribe(res => {
@@ -75,6 +75,8 @@ export class SigninComponent implements OnInit {
             localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
             // this.progressBar.mode = 'determinate';
             this.router.navigate([this.successUrl]);
+            const expireInMilliSecond = (response.expires_in - 2) * 1000;
+            this.getRefreshToken(expireInMilliSecond);
           },
             error => {
               this.result = false;
@@ -97,19 +99,24 @@ export class SigninComponent implements OnInit {
       );
   }
 
-
-
-
   getRefreshToken(refreshTime) {
     setTimeout(() => {
+      console.log('Set Time out function');
       const tempUser = JSON.parse(localStorage.getItem(this.storage_name));
       this.userService.getUserRefreshToken(tempUser.refreshToken)
         .subscribe(response => {
+          this.counter += 1;
+          console.log('Refresh count = ' + this.counter);
           tempUser.token = response.access_token;
           tempUser.refreshToken = response.refresh_token;
           tempUser.expires_in = response.expires_in;
           localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
-          this.getRefreshToken(response.expires_in * 1000);
+          const expireInMilliSecond = (response.expires_in - 2) * 1000;
+          this.getRefreshToken(expireInMilliSecond);
+        },
+        error => {
+          console.log('Refresh Token Error');
+          this.getRefreshToken(refreshTime);
         });
     }, refreshTime);
   }

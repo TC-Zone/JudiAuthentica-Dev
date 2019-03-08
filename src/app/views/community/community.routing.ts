@@ -3,7 +3,7 @@ import { CommunityViewComponent } from './community-view/community-view.componen
 import { UserCommunityComponent } from './user-community/user-community.component';
 import { UserEventComponent } from './user-community/user-event/user-event.component';
 import { UserFeedbackComponent } from './user-community/user-feedback/user-feedback.component';
-import { UserOfferComponent } from './user-community/user-offer/user-offer.component';
+import { UserPromotionComponent } from './user-community/user-promotion/user-promotion.component';
 
 
 
@@ -30,7 +30,7 @@ export const CommunityRouts: Routes = [
       },
       {
         path: 'user-offer',
-        component: UserOfferComponent,
+        component: UserPromotionComponent,
         data: { title: 'User Offer', breadcrumb: 'User Offer' }
       }
     ]

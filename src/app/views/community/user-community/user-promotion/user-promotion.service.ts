@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from './../../../environments/environment.prod';
+import { environment } from './../../../../../environments/environment.prod';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -7,7 +7,7 @@ import { throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ComunityService {
+export class UserPromotionService {
 
   public userApiUrl = environment.userApiUrl;
 
@@ -16,13 +16,13 @@ export class ComunityService {
   ) { }
 
   /*
-  * Create community
-  * 05-03-2019
+  * Create Promotion
+  * 06-03-2019
   * Prasad Kumara
   */
-  createCommunity(createCommunityData) {
+  createPromotion(promotionData) {
     return this.http.
-      post(this.userApiUrl + 'communities', createCommunityData)
+      post(this.userApiUrl + 'promotions', promotionData)
       .pipe(
         map(data => {
           return data;
@@ -32,14 +32,13 @@ export class ComunityService {
   }
 
   /*
-  * Fetch all communities
-  * 05-03-2019
+  * Update Promotion using promotion id
+  * 06-03-2019
   * Prasad Kumara
   */
-  fetchAllComunities(clientId, pageNumber, pageSize) {
+  updatePromotionById(promotionId, promotionData) {
     return this.http.
-      get(this.userApiUrl + 'communities/client/' + clientId + '?pageNumber=' +
-      pageNumber + '&pageSize=' + pageSize)
+      put(this.userApiUrl + 'promotions/' + promotionId, promotionData)
       .pipe(
         map(data => {
           return data;
@@ -49,30 +48,13 @@ export class ComunityService {
   }
 
   /*
-  * get community using community id
-  * 05-03-2019
+  * Delete Promotion using promotion id
+  * 06-03-2019
   * Prasad Kumara
   */
-  getCommunityById(communityId) {
+  deletePromotionById(promotionId) {
     return this.http.
-      get(this.userApiUrl + 'communities/' + communityId)
-      .pipe(
-        map(data => {
-          const resData: any = data;
-          return resData.content;
-        }),
-        catchError(this.handleError)
-      );
-  }
-
-  /*
-  * Update community using community id
-  * 05-03-2019
-  * Prasad Kumara
-  */
-  updateCommunityById(communityId, communityData) {
-    return this.http.
-      put(this.userApiUrl + 'communities/' + communityId, communityData)
+      delete(this.userApiUrl + 'promotions/' + promotionId)
       .pipe(
         map(data => {
           return data;
@@ -82,24 +64,13 @@ export class ComunityService {
   }
 
   /*
-  * Delete community using community id
-  * 05-03-2019
+  * Delete Promotion list
+  * Here delete request is not working properly with body parameter. That's why request method used
+  * 06-03-2019
   * Prasad Kumara
   */
-  deleteCommunityById(communityId) {
-    return this.http.
-      delete(this.userApiUrl + 'communities/' + communityId)
-      .pipe(
-        map(data => {
-          return data;
-        }),
-        catchError(this.handleError)
-      );
-  }
-
-  licenseExpireState(clientId, moduleName) {
-    return this.http.
-      get(this.userApiUrl + 'clients/license/' + clientId + '/' + moduleName)
+  deletePromotionList(promotionIdList) {
+    return this.http.request('delete', this.userApiUrl + 'promotions', { body: promotionIdList })
       .pipe(
         map(data => {
           return data;
@@ -109,8 +80,41 @@ export class ComunityService {
   }
 
   /*
-  * Handle http response error
-  * 05-03-2019
+  * Get promotion details using promotion id
+  * 06-03-2019
+  * Prasad Kumara
+  */
+  getPromotionById(promotionId) {
+    return this.http.
+      get(this.userApiUrl + 'promotions/' + promotionId)
+      .pipe(
+        map(data => {
+          return data;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  /*
+  * Promotion search with pagination
+  * 06-03-2019
+  * Prasad Kumara
+  */
+  fetchAllPromotions(communityId, pageNumber, pageSize) {
+    return this.http.
+      get(this.userApiUrl + 'promotions/community/' + communityId + '?pageNumber=' +
+        pageNumber + '&pageSize=' + pageSize)
+      .pipe(
+        map(data => {
+          return data;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  /*
+  * Handle http response errors
+  * 06-03-2019
   * Prasad Kumara
   */
   private handleError(error: HttpErrorResponse | any) {
