@@ -69,8 +69,8 @@ export class AppErrorService {
 
   // handle custom error (by prasad kumara)
   showErrorWithMessage(error: any) {
-    console.log('view survey error with message');
-    console.log(error);
+    // console.log('view survey error with message');
+    // console.log(error);
     if (error.error !== null) {
       if (error.error.hasOwnProperty('validationFailures')) {
         this.handleCustomError({
