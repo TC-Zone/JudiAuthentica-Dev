@@ -9,6 +9,7 @@ import { authProperties } from './../../../../shared/services/auth/auth-properti
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
 import { ComunityService } from '../../community.service';
+import { AppWarningService } from 'app/shared/services/app-warning/app-warning.service';
 
 @Component({
   selector: 'app-user-promotion',
@@ -39,7 +40,8 @@ export class UserPromotionComponent implements OnInit {
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
     private userPromotionService: UserPromotionService,
-    private comunityService: ComunityService
+    private comunityService: ComunityService,
+    private appWarningService: AppWarningService
   ) { }
 
   ngOnInit() {
@@ -103,8 +105,17 @@ export class UserPromotionComponent implements OnInit {
                   this.quotaExpire = tempRes.content.expired;
                   if (!tempRes.content.expired) {
                     this.loader.close();
-                    if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
-                      this.confirmService.confirm({ message: 'This is your last promotion!' });
+                    if (tempRes.content.usage < (tempRes.content.quota - 1) && (tempRes.content.quota - tempRes.content.usage) === 2) {
+                      this.appWarningService.showWarning({
+                        title: 'License',
+                        message: 'One Event Remaining!'
+                      });
+                      this.createPromotion(res);
+                    } else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
+                      this.appWarningService.showWarning({
+                        title: 'License',
+                        message: 'This is your last Event!'
+                      });
                       this.createPromotion(res);
                     } else {
                       this.createPromotion(res);
