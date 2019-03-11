@@ -9,6 +9,7 @@ import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.serv
 import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
 import { authProperties } from './../../../shared/services/auth/auth-properties';
 import { AppWarningService } from 'app/shared/services/app-warning/app-warning.service';
+import { AppInfoService } from 'app/shared/services/app-info/app-info.service';
 
 @Component({
   selector: 'app-community-view',
@@ -35,7 +36,8 @@ export class CommunityViewComponent implements OnInit {
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
     private comunityService: ComunityService,
-    private appWarningService: AppWarningService
+    private appWarningService: AppWarningService,
+    private appInfoService: AppInfoService
   ) { }
 
   ngOnInit() {
@@ -58,88 +60,102 @@ export class CommunityViewComponent implements OnInit {
   * Prasad Kumara
   */
   communityPopUp(data: any = {}, isNew?) {
-    const title = isNew ? 'Add New Community' : 'Update Community';
-    const dialogRef: MatDialogRef<any> = this.dialog.open(
-      CommunityViewPopupComponent,
-      {
-        width: '720px',
-        disableClose: true,
-        data: { title: title, payload: data, isNew: isNew }
-      }
-    );
-    dialogRef.afterClosed().subscribe(res => {
-      if (!res) {
-        return;
-      } else {
-        const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
-        if (userObj) {
-          this.loader.open();
-          if (isNew) {
-            res['createdUserId'] = userObj.id;
-            res['client'] = {
-              'id': userObj.userData.client.id
-            };
-            res['users'] = [
-              {
-                'id': userObj.id
-              }
-            ];
-            res.status = this.getCommunityStatus(res.status);
-            const clientId = userObj.userData.client.id;
-            this.comunityService.licenseExpireState(clientId, 'communities')
-              .subscribe(
-                response => {
-                  const tempRes: any = response;
-                  this.quotaExpire = tempRes.content.expired;
-                  if (!tempRes.content.expired) {
-                    this.loader.close();
-                    if (tempRes.content.usage < (tempRes.content.quota - 1) && (tempRes.content.quota - tempRes.content.usage) === 2) {
-                      this.appWarningService.showWarning({
-                        title: 'License',
-                        message: 'One Community Remaining!'
-                      });
-                      this.createCommunity(res);
-                    } else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
-                      this.appWarningService.showWarning({
-                        title: 'License',
-                        message: 'This is your last Community!'
-                      });
-                      this.createCommunity(res);
-                    } else {
-                      this.createCommunity(res);
+    if (this.quotaExpire) {
+      const infoData = {
+        title: 'License',
+        message: 'Allocated Community Limit Exceded. Do you want to Activate More?',
+        linkData: {
+          url: '#',
+          urlDescription: 'Activate more'
+        }
+      };
+      this.appInfoService.showInfo(infoData);
+    } else {
+      const title = isNew ? 'Add New Community' : 'Update Community';
+      const dialogRef: MatDialogRef<any> = this.dialog.open(
+        CommunityViewPopupComponent,
+        {
+          width: '720px',
+          disableClose: true,
+          data: { title: title, payload: data, isNew: isNew }
+        }
+      );
+      dialogRef.afterClosed().subscribe(res => {
+        if (!res) {
+          return;
+        } else {
+          const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+          if (userObj) {
+            this.loader.open();
+            if (isNew) {
+              res['createdUserId'] = userObj.id;
+              res['client'] = {
+                'id': userObj.userData.client.id
+              };
+              res['users'] = [
+                {
+                  'id': userObj.id
+                }
+              ];
+              res.status = this.getCommunityStatus(res.status);
+              const clientId = userObj.userData.client.id;
+              this.comunityService.licenseExpireState(clientId, 'communities')
+                .subscribe(
+                  response => {
+                    const tempRes: any = response;
+                    this.quotaExpire = tempRes.content.expired;
+                    if (!tempRes.content.expired) {
+                      this.loader.close();
+                      if (tempRes.content.usage < (tempRes.content.quota - 1) && (tempRes.content.quota - tempRes.content.usage) === 2) {
+                        this.appWarningService.showWarning({
+                          title: 'License',
+                          message: 'One Community Remaining!'
+                        });
+                        this.createCommunity(res);
+                      } else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
+                        const infoData = {
+                          title: 'License',
+                          message: 'Allocated communities are finished. Do you want to activate more?',
+                          linkData: {
+                            url: '#',
+                            urlDescription: 'Activate more'
+                          }
+                        };
+                        this.appInfoService.showInfo(infoData);
+                        this.createCommunity(res);
+                      } else {
+                        this.createCommunity(res);
+                      }
                     }
-                  } else {
+                  }
+                );
+            } else {
+              res['lastModifiedUserId'] = userObj.id;
+              res.status = this.getCommunityStatus(res.status);
+              this.comunityService.updateCommunityById(data.id, res)
+                .subscribe(
+                  response => {
+                    const temData: any = response;
+                    const i = this.communities.indexOf(data);
+                    this.communities[i] = temData.content;
+                    this.temCommunities = this.communities;
                     this.loader.close();
-                    this.confirmService.confirm({ message: 'Allocated Community Limit Exceded!' });
+                    this.snack.open('Community Updated', 'close', {
+                      duration: 2000
+                    });
+                  },
+                  error => {
+                    this.loader.close();
+                    if (error.status !== 401) {
+                      this.errDialog.showErrorWithMessage(error);
+                    }
                   }
-                }
-              );
-          } else {
-            res['lastModifiedUserId'] = userObj.id;
-            res.status = this.getCommunityStatus(res.status);
-            this.comunityService.updateCommunityById(data.id, res)
-              .subscribe(
-                response => {
-                  const temData: any = response;
-                  const i = this.communities.indexOf(data);
-                  this.communities[i] = temData.content;
-                  this.temCommunities = this.communities;
-                  this.loader.close();
-                  this.snack.open('Community Updated', 'close', {
-                    duration: 2000
-                  });
-                },
-                error => {
-                  this.loader.close();
-                  if (error.status !== 401) {
-                    this.errDialog.showErrorWithMessage(error);
-                  }
-                }
-              );
+                );
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
 
   createCommunity(res) {
