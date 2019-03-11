@@ -51,6 +51,7 @@ export class AppErrorService {
     });
     return dialogRef.afterClosed();
   }
+
   // show popup window for custom error message (by prasad kumara)
   handleCustomError(error: ErrorData = {}): any {
     const errorTitle = this.removeUnderscore(error.title);
@@ -65,6 +66,7 @@ export class AppErrorService {
       this.openPopUpWindow(errorTitle, error.message);
     }
   }
+
   // handle custom error (by prasad kumara)
   showErrorWithMessage(error: any) {
     console.log('view survey error with message');
@@ -92,6 +94,7 @@ export class AppErrorService {
       });
     }
   }
+
   // convert error messages to camell case message (by prasad kumara)
   getEnumKey(string: string): string {
     const stringArray = string.split('.');
@@ -105,6 +108,7 @@ export class AppErrorService {
     }
     return enumkey;
   }
+
   // Remove _ from Error Title
   removeUnderscore(string: string): string {
     const stringArray = string.split('_');
@@ -114,6 +118,7 @@ export class AppErrorService {
     }
     return errorTitle;
   }
+
   // open pop up window
   openPopUpWindow(title, message): any{
     let dialogRef: MatDialogRef<AppErrorComponent>;

@@ -138,11 +138,7 @@ export class UserEventComponent implements OnInit {
                 error => {
                   this.loader.close();
                   if (error.status !== 401) {
-                    this.errDialog.showError({
-                      title: 'Error',
-                      status: error.status,
-                      type: 'http_error'
-                    });
+                    this.errDialog.showErrorWithMessage(error);
                   }
                 }
               );
@@ -177,11 +173,7 @@ export class UserEventComponent implements OnInit {
         error => {
           this.loader.close();
           if (error.status !== 401) {
-            this.errDialog.showError({
-              title: 'Error',
-              status: error.status,
-              type: 'http_error'
-            });
+            this.errDialog.showErrorWithMessage(error);
           }
         }
       );
@@ -289,11 +281,7 @@ export class UserEventComponent implements OnInit {
               error => {
                 this.loader.close();
                 if (error.status !== 401) {
-                  this.errDialog.showError({
-                    title: 'Error',
-                    status: error.status,
-                    type: 'http_error'
-                  });
+                  this.errDialog.showErrorWithMessage(error);
                 }
               }
             );
@@ -334,11 +322,7 @@ export class UserEventComponent implements OnInit {
               error => {
                 this.loader.close();
                 if (error.status !== 401) {
-                  this.errDialog.showError({
-                    title: 'Error',
-                    status: error.status,
-                    type: 'http_error'
-                  });
+                  this.errDialog.showErrorWithMessage(error);
                 }
               }
             );
@@ -380,11 +364,7 @@ export class UserEventComponent implements OnInit {
         },
         error => {
           if (error.status !== 401) {
-            this.errDialog.showError({
-              title: 'Error',
-              status: error.status,
-              type: 'http_error'
-            });
+            this.errDialog.showErrorWithMessage(error);
           }
         }
       );
