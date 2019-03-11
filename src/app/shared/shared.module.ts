@@ -71,6 +71,14 @@ import { AppErrorComponent } from "./services/app-error/app-error.component";
 import { AppErrorService } from "./services/app-error/app-error.service";
 
 /*
+ * App warning component and service
+ * Created by Prasad kumara
+ * 11-03-2019
+*/
+import { AppWarningComponent } from './services/app-warning/app-warning.component';
+import { AppWarningService } from './services/app-warning/app-warning.service';
+
+/*
   Only Required if you want to use Angular Landing
   (https://themeforest.net/item/angular-landing-material-design-angular-app-landing-page/21198258)
 */
@@ -107,6 +115,7 @@ const classesToInclude = [
   PositiveNumberOnly,
   PositiveNumberAndLetterOnly,
   LetterOnly,
+  AppWarningComponent
 ];
 
 @NgModule({
@@ -134,7 +143,12 @@ const classesToInclude = [
     MatRippleModule,
     MatDialogModule
   ],
-  entryComponents: [AppComfirmComponent, AppLoaderComponent, AppErrorComponent],
+  entryComponents: [
+    AppComfirmComponent,
+    AppLoaderComponent,
+    AppErrorComponent,
+    AppWarningComponent
+  ],
   providers: [
     ThemeService,
     LayoutService,
@@ -148,6 +162,7 @@ const classesToInclude = [
     AppDataConversionService,
     // LandingPageService
     LocalizationService,
+    AppWarningService
   ],
   declarations: classesToInclude,
   exports: classesToInclude

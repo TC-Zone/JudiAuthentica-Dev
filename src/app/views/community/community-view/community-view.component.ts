@@ -8,6 +8,7 @@ import { ComunityService } from './../community.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
 import { authProperties } from './../../../shared/services/auth/auth-properties';
+import { AppWarningService } from 'app/shared/services/app-warning/app-warning.service';
 
 @Component({
   selector: 'app-community-view',
@@ -33,7 +34,8 @@ export class CommunityViewComponent implements OnInit {
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
-    private comunityService: ComunityService
+    private comunityService: ComunityService,
+    private appWarningService: AppWarningService
   ) { }
 
   ngOnInit() {
@@ -91,8 +93,17 @@ export class CommunityViewComponent implements OnInit {
                   this.quotaExpire = tempRes.content.expired;
                   if (!tempRes.content.expired) {
                     this.loader.close();
-                    if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
-                      this.confirmService.confirm({ message: 'This is your last community!' });
+                    if (tempRes.content.usage < (tempRes.content.quota - 1) && (tempRes.content.quota - tempRes.content.usage) === 2) {
+                      this.appWarningService.showWarning({
+                        title: 'License',
+                        message: 'One Community Remaining!'
+                      });
+                      this.createCommunity(res);
+                    } else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
+                      this.appWarningService.showWarning({
+                        title: 'License',
+                        message: 'This is your last Community!'
+                      });
                       this.createCommunity(res);
                     } else {
                       this.createCommunity(res);

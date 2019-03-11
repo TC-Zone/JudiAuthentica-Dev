@@ -1,0 +1,12 @@
+<mat-toolbar matDialogTitle class="m-0 warning-title">
+  <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+    <span class="title dialog-title">{{data.title}} Warning!</span>
+  </div>
+</mat-toolbar>
+<mat-dialog-content class="mat-typography mt-1">
+  <span class="warning-font">{{ data.message }}</span>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <span fxFlex></span>
+  <button mat-button color="accent" type="button" (click)="dialogRef.close(false)">Ok</button>
+</mat-dialog-actions>
