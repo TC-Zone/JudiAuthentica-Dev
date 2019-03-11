@@ -16,7 +16,6 @@ export class AppInfoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.data);
   }
 
 }
