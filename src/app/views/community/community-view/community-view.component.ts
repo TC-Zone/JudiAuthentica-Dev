@@ -170,7 +170,7 @@ export class CommunityViewComponent implements OnInit {
     if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
       const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
       if (userObj) {
-        this.comunityService.fetchAllComunities(userObj.userData.client.id+'1', pageNumber, this.pageSize)
+        this.comunityService.fetchAllComunities(userObj.userData.client.id, pageNumber, this.pageSize)
           .subscribe(
             response => {
               const resData: any = response;
