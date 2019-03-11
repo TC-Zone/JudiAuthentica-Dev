@@ -83,7 +83,7 @@ export class UserPromotionComponent implements OnInit {
         title: 'License',
         message: 'Allocated Promotion Limit Exceded. Do you want to activate more?',
         linkData: {
-          url: '/clients/client-table',
+          url: '#',
           urlDescription: 'Activate more'
         }
       };
@@ -127,9 +127,9 @@ export class UserPromotionComponent implements OnInit {
                       } else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
                         const infoData = {
                           title: 'License',
-                          message: 'Allocated promotions are Over. Do you want to activate more?',
+                          message: 'Allocated promotions are finished. Do you want to activate more?',
                           linkData: {
-                            url: '/clients/client-table',
+                            url: '#',
                             urlDescription: 'Activate more'
                           }
                         };
