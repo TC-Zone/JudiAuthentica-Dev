@@ -83,11 +83,7 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
           this.ansTemplates = successResp.content;
         },
         error => {
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
+          this.errDialog.showError(error);
         }
       );
   }
@@ -124,7 +120,7 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
       this.getAllAnsTemplates();
       this.popuplateDropdown(this.selectedType);
 
-      
+
     this.today = DateValidator.getToday();
     });
   }
@@ -245,11 +241,7 @@ export class SurveyBuilderComponent extends SurveyCommonComponent
       },
       error => {
         this.loader.close();
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }

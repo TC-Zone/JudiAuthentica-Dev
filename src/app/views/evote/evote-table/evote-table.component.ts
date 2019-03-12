@@ -129,11 +129,7 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
       },
       error => {
         this.loader.close();
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -164,11 +160,7 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
           this.loader.close();
           console.log(error);
           console.log(error.status);
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
+          this.errDialog.showError(error);
         }
       );
     }
@@ -194,11 +186,7 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
             },
             error => {
               this.loader.close();
-              this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-              });
+              this.errDialog.showError(error);
             }
           );
         }
@@ -240,11 +228,7 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
                 type: "client_error"
               });
             } else {
-              this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-              });
+              this.errDialog.showError(error);
             }
           }
         );
@@ -264,11 +248,7 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
       }
@@ -297,11 +277,7 @@ export class EvoteTableComponent implements OnInit, OnDestroy {
         },
         error => {
           this.loader.close();
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
+          this.errDialog.showError(error);
         }
       );
     });

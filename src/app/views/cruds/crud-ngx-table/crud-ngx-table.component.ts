@@ -36,18 +36,14 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
       this.getItemSub.unsubscribe();
     }
   }
-  
+
   getItems() {
     this.getItemSub = this.crudService.getItems().subscribe(
       successResp => {
         this.items = successResp.content;
       },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -65,7 +61,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(res => {
 
       console.log(res);
-      
+
 
 
       if (!res) {
@@ -82,11 +78,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
       } else {
@@ -104,11 +96,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
       }
@@ -132,11 +120,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
             },
             error => {
               this.loader.close();
-              this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-              });
+              this.errDialog.showError(error);
             }
           );
         }

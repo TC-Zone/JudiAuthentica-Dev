@@ -26,11 +26,11 @@ export class ProfileSettingsComponent implements OnInit {
     private loader: AppLoaderService,
     private snack: MatSnackBar,
     private errDialog: AppErrorService
-    
+
   ) { }
 
   ngOnInit() {
-    
+
     let currentuser = JSON.parse(localStorage.getItem('currentUser'));
 
     this.userId = currentuser.userData.id;
@@ -68,11 +68,7 @@ export class ProfileSettingsComponent implements OnInit {
       },
       error => {
         this.loader.close();
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
 

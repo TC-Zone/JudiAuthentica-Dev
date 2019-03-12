@@ -59,11 +59,7 @@ export class RoleTableComponent implements OnInit, OnDestroy {
         this.items = response.content;
       },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }

@@ -117,11 +117,7 @@ export class FutureSurveyListComponent implements OnInit {
         },
         error => {
           this.loader.close();
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
+          this.errDialog.showError(error);
         }
       );
     });
@@ -130,7 +126,7 @@ export class FutureSurveyListComponent implements OnInit {
   openInvitationPopup(data, channel?, isNew?) {
 
     console.log(isNew);
-    
+
     let isPublic = channel == 1 ? true : false;
     let title = isPublic
       ? "Public Future Survey - Invitee Settings"
@@ -171,11 +167,7 @@ export class FutureSurveyListComponent implements OnInit {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
       }
@@ -216,11 +208,7 @@ export class FutureSurveyListComponent implements OnInit {
 
             console.log(error);
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
       } else {
@@ -241,11 +229,7 @@ export class FutureSurveyListComponent implements OnInit {
               console.log("ERROR LOGESTERS");
               console.log(error);
               this.loader.close();
-              this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-              });
+              this.errDialog.showError(error);
             }
           );
       }
@@ -303,11 +287,7 @@ export class FutureSurveyListComponent implements OnInit {
             },
             error => {
               this.loader.close();
-              this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-              });
+              this.errDialog.showError(error);
             }
           );
         }
