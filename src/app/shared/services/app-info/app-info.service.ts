@@ -24,7 +24,7 @@ export class AppInfoService {
     dialogRef = this.dialog.open(
       AppInfoComponent,
       {
-        width: '520px',
+        width: '480px',
         disableClose: false,
         data: infoData
       }

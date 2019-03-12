@@ -22,8 +22,8 @@ export class UserFeedbackComponent implements OnInit {
 
   openWarning() {
     this.appWarningService.showWarning({
-      title: 'Test',
-      message: 'Test Warning!'
+      title: 'Warning!',
+      message: 'You can create only one community only!'
     });
   }
 

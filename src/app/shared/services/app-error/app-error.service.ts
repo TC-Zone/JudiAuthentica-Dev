@@ -45,7 +45,7 @@ export class AppErrorService {
 
   //   let dialogRef: MatDialogRef<AppErrorComponent>;
   //   dialogRef = this.dialog.open(AppErrorComponent, {
-  //     width: "520px",
+  //     width: "480px",
   //     disableClose: true,
   //     data: { title: error.title, message: errorMsg }
   //   });
@@ -123,7 +123,7 @@ export class AppErrorService {
   openPopUpWindow(title, message): any{
     let dialogRef: MatDialogRef<AppErrorComponent>;
       dialogRef = this.dialog.open(AppErrorComponent, {
-        width: '520px',
+        width: '480px',
         disableClose: false,
         data: { title: title, message: message}
       });
