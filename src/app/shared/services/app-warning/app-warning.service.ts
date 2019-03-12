@@ -20,8 +20,8 @@ export class AppWarningService {
     dialogRef = this.dialog.open(
       AppWarningComponent,
       {
-        width: '380px',
-        disableClose: true,
+        width: '520px',
+        disableClose: false,
         data: warningData
       }
     );

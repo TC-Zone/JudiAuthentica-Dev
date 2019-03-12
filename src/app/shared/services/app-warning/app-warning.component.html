@@ -1,12 +1,18 @@
-<mat-toolbar matDialogTitle class="m-0 warning-title">
-  <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-    <span class="title dialog-title">{{data.title}} Warning!</span>
-  </div>
-</mat-toolbar>
-<mat-dialog-content class="mat-typography mt-1 mb-1">
-  <span class="warning-font">{{ data.message }}</span>
-</mat-dialog-content>
-<mat-dialog-actions class="warning-action">
-  <span fxFlex></span>
-  <button mat-button type="button" (click)="dialogRef.close(false)">Close</button>
-</mat-dialog-actions>
+<mat-dialog-content class="mat-typography mt-0 mb-0">
+    <div fxLayout="row" fxLayoutAlign="center" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+      <img src="./../../../../assets/images/popup-window/info.png">
+    </div>
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="margin-top">
+      <div fxFlex="100" fxLayoutAlign="center">
+        <h4 class="warn-header">{{ data.title }}</h4>
+      </div>
+      <div fxFlex="100" fxLayoutAlign="center">
+        <p class="warn-message">{{ data.message }}</p>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="margin-top action-section">
+    <button mat-button type="button" class="ok-btn" (click)="dialogRef.close(false)">Ok</button>
+    <span fxFlex></span>
+    <button mat-button type="button" class="close-btn" (click)="dialogRef.close(false)">Close</button>
+  </mat-dialog-actions>

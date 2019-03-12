@@ -124,7 +124,7 @@ export class AppErrorService {
     let dialogRef: MatDialogRef<AppErrorComponent>;
       dialogRef = this.dialog.open(AppErrorComponent, {
         width: '520px',
-        disableClose: true,
+        disableClose: false,
         data: { title: title, message: message}
       });
       return dialogRef.afterClosed();

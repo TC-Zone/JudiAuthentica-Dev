@@ -25,7 +25,7 @@ export class AppInfoService {
       AppInfoComponent,
       {
         width: '520px',
-        disableClose: true,
+        disableClose: false,
         data: infoData
       }
     );
