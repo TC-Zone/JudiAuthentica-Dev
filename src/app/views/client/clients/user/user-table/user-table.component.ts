@@ -66,7 +66,7 @@ export class UserTableComponent implements OnInit {
       console.log(this.users);
     },
       error => {
-        this.errDialog.showErrorWithMessage(error);
+        this.errDialog.showError(error);
       }
     );
   }
@@ -79,7 +79,7 @@ export class UserTableComponent implements OnInit {
       this.roles = successResp.content;
     },
       error => {
-        this.errDialog.showErrorWithMessage(error);
+        this.errDialog.showError(error);
       }
     );
   }
@@ -92,7 +92,7 @@ export class UserTableComponent implements OnInit {
       this.roles = successResp.content;
     },
       error => {
-        this.errDialog.showErrorWithMessage(error);
+        this.errDialog.showError(error);
       }
     );
   }
@@ -145,7 +145,7 @@ export class UserTableComponent implements OnInit {
           this.snack.open("New User added !", "OK", { duration: 4000 });
         },
           error => {
-            this.errDialog.showErrorWithMessage(error);
+            this.errDialog.showError(error);
           }
       );
 

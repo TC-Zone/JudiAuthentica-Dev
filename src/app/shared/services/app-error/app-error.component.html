@@ -1,4 +1,4 @@
-<mat-toolbar matDialogTitle class="m-0" style="
+<!-- <mat-toolbar matDialogTitle class="m-0" style="
   background-color: #d9534f;
   color: white;
   border-bottom: 1px solid #e5e5e5;
@@ -6,11 +6,22 @@
   <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
     <span class="title dialog-title">{{data.title}}</span>
   </div>
-</mat-toolbar>
-<mat-dialog-content class="mat-typography mt-1 mb-1">
-  <span style="font-size: 16px;">{{ data.message }}</span>
+</mat-toolbar> -->
+<mat-dialog-content class="mat-typography mt-0 mb-0">
+  <div fxLayout="row" fxLayoutAlign="center" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+    <img src="./../../../../assets/images/popup-window/info.png">
+  </div>
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="margin-top">
+    <div fxFlex="100" fxLayoutAlign="center">
+      <h4 class="info-header">{{ data.title }}</h4>
+    </div>
+    <div fxFlex="100" fxLayoutAlign="center">
+      <p class="info-message">{{ data.message }}</p>
+    </div>
+  </div>
 </mat-dialog-content>
-<mat-dialog-actions style="border-top: 1px solid #e5e5e5;">
+<mat-dialog-actions class="margin-top action-section">
+  <button mat-button type="button" class="ok-btn" (click)="dialogRef.close(false)">Close</button>
   <span fxFlex></span>
-  <button mat-button type="button" (click)="dialogRef.close(false)">Close</button>
+  <button mat-button type="button" class="close-btn" (click)="dialogRef.close(false)">Close</button>
 </mat-dialog-actions>

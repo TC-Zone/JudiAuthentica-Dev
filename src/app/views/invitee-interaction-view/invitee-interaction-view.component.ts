@@ -153,7 +153,7 @@ export class InviteeInteractionViewComponent implements OnInit {
         this.setuptheme();
 
       },
-        error => { this.errDialog.showErrorWithMessage(error); }
+        error => { this.errDialog.showError(error); }
       );
 
   }
@@ -161,7 +161,7 @@ export class InviteeInteractionViewComponent implements OnInit {
   viewSurvey() {
 
     this.jsonContentJSON = JSON.parse(this.jsonContent);
-    
+
     console.log("-------------  Before - jsonContentJSON.pages -----------------");
     console.log(this.jsonContentJSON.pages);
 

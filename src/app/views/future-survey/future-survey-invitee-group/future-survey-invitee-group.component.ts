@@ -129,11 +129,7 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
           },
           error => {
             // this.loader.close();
-            this.errDialog.showErrorWithMessage({
-              title: 'Error',
-              status: error.status,
-              type: 'http_error'
-            });
+            this.errDialog.showError(error);
           }
         );
 

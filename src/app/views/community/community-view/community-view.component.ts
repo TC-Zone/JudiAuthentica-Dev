@@ -147,7 +147,7 @@ export class CommunityViewComponent implements OnInit {
                   error => {
                     this.loader.close();
                     if (error.status !== 401) {
-                      this.errDialog.showErrorWithMessage(error);
+                      this.errDialog.showError(error);
                     }
                   }
                 );
@@ -182,7 +182,7 @@ export class CommunityViewComponent implements OnInit {
         error => {
           this.loader.close();
           if (error.status !== 401) {
-            this.errDialog.showErrorWithMessage(error);
+            this.errDialog.showError(error);
           }
         }
       );
@@ -209,7 +209,7 @@ export class CommunityViewComponent implements OnInit {
             },
             error => {
               if (error.status !== 401) {
-                this.errDialog.showErrorWithMessage(error);
+                this.errDialog.showError(error);
               }
             }
           );
@@ -264,7 +264,7 @@ export class CommunityViewComponent implements OnInit {
               },
             error => {
               if (error.status !== 401) {
-                this.errDialog.showErrorWithMessage(error);
+                this.errDialog.showError(error);
               }
             }
             );

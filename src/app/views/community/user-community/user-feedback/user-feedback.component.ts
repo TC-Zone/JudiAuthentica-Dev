@@ -50,7 +50,7 @@ export class UserFeedbackComponent implements OnInit {
       },
       status: 400
     };
-    this.errDialog.showErrorWithMessage(error);
+    this.errDialog.showError(error);
   }
 
 }

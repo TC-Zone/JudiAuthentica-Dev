@@ -163,7 +163,7 @@ export class UserEventComponent implements OnInit {
                   error => {
                     this.loader.close();
                     if (error.status !== 401) {
-                      this.errDialog.showErrorWithMessage(error);
+                      this.errDialog.showError(error);
                     }
                   }
                 );
@@ -198,7 +198,7 @@ export class UserEventComponent implements OnInit {
         error => {
           this.loader.close();
           if (error.status !== 401) {
-            this.errDialog.showErrorWithMessage(error);
+            this.errDialog.showError(error);
           }
         }
       );
@@ -306,7 +306,7 @@ export class UserEventComponent implements OnInit {
               error => {
                 this.loader.close();
                 if (error.status !== 401) {
-                  this.errDialog.showErrorWithMessage(error);
+                  this.errDialog.showError(error);
                 }
               }
             );
@@ -347,7 +347,7 @@ export class UserEventComponent implements OnInit {
               error => {
                 this.loader.close();
                 if (error.status !== 401) {
-                  this.errDialog.showErrorWithMessage(error);
+                  this.errDialog.showError(error);
                 }
               }
             );
@@ -389,7 +389,7 @@ export class UserEventComponent implements OnInit {
         },
         error => {
           if (error.status !== 401) {
-            this.errDialog.showErrorWithMessage(error);
+            this.errDialog.showError(error);
           }
         }
       );

@@ -160,7 +160,7 @@ export class UserPromotionComponent implements OnInit {
                   error => {
                     this.loader.close();
                     if (error.status !== 401) {
-                      this.errDialog.showErrorWithMessage(error);
+                      this.errDialog.showError(error);
                     }
                   }
                 );
@@ -195,7 +195,7 @@ export class UserPromotionComponent implements OnInit {
         error => {
           this.loader.close();
           if (error.status !== 401) {
-            this.errDialog.showErrorWithMessage(error);
+            this.errDialog.showError(error);
           }
         }
       );
@@ -303,7 +303,7 @@ export class UserPromotionComponent implements OnInit {
               error => {
                 this.loader.close();
                 if (error.status !== 401) {
-                  this.errDialog.showErrorWithMessage(error);
+                  this.errDialog.showError(error);
                 }
               }
             );
@@ -344,7 +344,7 @@ export class UserPromotionComponent implements OnInit {
               error => {
                 this.loader.close();
                 if (error.status !== 401) {
-                  this.errDialog.showErrorWithMessage(error);
+                  this.errDialog.showError(error);
                 }
               }
             );

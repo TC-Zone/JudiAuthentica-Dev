@@ -59,7 +59,7 @@ export class RoleTableComponent implements OnInit, OnDestroy {
         this.items = response.content;
       },
       error => {
-        this.errDialog.showErrorWithMessage(error);
+        this.errDialog.showError(error);
       }
     );
   }
@@ -98,7 +98,7 @@ export class RoleTableComponent implements OnInit, OnDestroy {
           this.getItems();
         },
         error => {
-          this.errDialog.showErrorWithMessage(error);
+          this.errDialog.showError(error);
         });
       } else {
         // console.log('------------ update user role object ---------------');
@@ -114,7 +114,7 @@ export class RoleTableComponent implements OnInit, OnDestroy {
             this.getItems();
           },
           error => {
-            this.errDialog.showErrorWithMessage(error);
+            this.errDialog.showError(error);
           });
       }
       this.loader.close();
@@ -141,7 +141,7 @@ export class RoleTableComponent implements OnInit, OnDestroy {
         this.openPopUp(roleData, false);
       },
       error => {
-        this.errDialog.showErrorWithMessage(error);
+        this.errDialog.showError(error);
       });
   }
 

@@ -288,7 +288,7 @@ export class CreatePromotionPopupComponent implements OnInit {
         },
         error => {
           if (error.status !== 401) {
-            this.errDialog.showErrorWithMessage(error);
+            this.errDialog.showError(error);
           }
         }
       );

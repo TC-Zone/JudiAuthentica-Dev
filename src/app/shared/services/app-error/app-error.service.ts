@@ -30,27 +30,27 @@ export class AppErrorService {
     } else return "Something went  wrong !";
   }
 
-  showError(error: ErrorData = {}): Observable<boolean> {
-    error.title = error.title || "Error";
-    error.type = error.type || "common_error";
+  // showError(error: ErrorData = {}): Observable<boolean> {
+  //   error.title = error.title || "Error";
+  //   error.type = error.type || "common_error";
 
-    let errorMsg;
-    if (error.type == "http_error") {
-      errorMsg = this.showHttpError(error);
-    } else if (error.type == "client_error") {
-      errorMsg = error.clientError;
-    } else {
-      errorMsg = "Truverus - ClearPicture : Something went wrong ";
-    }
+  //   let errorMsg;
+  //   if (error.type == "http_error") {
+  //     errorMsg = this.showHttpError(error);
+  //   } else if (error.type == "client_error") {
+  //     errorMsg = error.clientError;
+  //   } else {
+  //     errorMsg = "Truverus - ClearPicture : Something went wrong ";
+  //   }
 
-    let dialogRef: MatDialogRef<AppErrorComponent>;
-    dialogRef = this.dialog.open(AppErrorComponent, {
-      width: "380px",
-      disableClose: true,
-      data: { title: error.title, message: errorMsg }
-    });
-    return dialogRef.afterClosed();
-  }
+  //   let dialogRef: MatDialogRef<AppErrorComponent>;
+  //   dialogRef = this.dialog.open(AppErrorComponent, {
+  //     width: "520px",
+  //     disableClose: true,
+  //     data: { title: error.title, message: errorMsg }
+  //   });
+  //   return dialogRef.afterClosed();
+  // }
 
   // show popup window for custom error message (by prasad kumara)
   handleCustomError(error: ErrorData = {}): any {
@@ -68,7 +68,7 @@ export class AppErrorService {
   }
 
   // handle custom error (by prasad kumara)
-  showErrorWithMessage(error: any) {
+  showError(error: any) {
     // console.log('view survey error with message');
     // console.log(error);
     if (error.error !== null) {
@@ -123,7 +123,7 @@ export class AppErrorService {
   openPopUpWindow(title, message): any{
     let dialogRef: MatDialogRef<AppErrorComponent>;
       dialogRef = this.dialog.open(AppErrorComponent, {
-        width: '380px',
+        width: '520px',
         disableClose: true,
         data: { title: title, message: message}
       });
