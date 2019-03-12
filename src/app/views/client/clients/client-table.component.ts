@@ -57,11 +57,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
       this.clients = successResp.content;
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showErrorWithMessage(error);
       }
     );
   }
@@ -73,11 +69,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showErrorWithMessage(error);
       }
     );
   }
@@ -115,22 +107,14 @@ export class ClientTableComponent implements OnInit, OnDestroy {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showErrorWithMessage(error);
           }
         );
 
       });
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showErrorWithMessage(error);
       }
     );
 
@@ -185,7 +169,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
         },
         error => {
           this.loader.close();
-          this.errDialog.showError({
+          this.errDialog.showErrorWithMessage({
             title: "Error",
             status: error.status,
             type: "http_error"
@@ -231,7 +215,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
           //   },
           //   error => {
           //     this.loader.close();
-          //     this.errDialog.showError({
+          //     this.errDialog.showErrorWithMessage({
           //       title: "Error",
           //       status: error.status,
           //       type: "http_error"
@@ -243,7 +227,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
     },
       error => {
-        this.errDialog.showError({
+        this.errDialog.showErrorWithMessage({
           title: "Error",
           status: error.status,
           type: "http_error"
@@ -289,7 +273,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
+            this.errDialog.showErrorWithMessage({
               title: "Error",
               status: error.status,
               type: "http_error"
@@ -300,7 +284,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
       });
     },
       error => {
-        this.errDialog.showError({
+        this.errDialog.showErrorWithMessage({
           title: "Error",
           status: error.status,
           type: "http_error"
@@ -318,7 +302,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
       this.router.navigate(["clients/user/user-table"]);
     },
       error => {
-        this.errDialog.showError({
+        this.errDialog.showErrorWithMessage({
           title: "Error",
           status: error.status,
           type: "http_error"
