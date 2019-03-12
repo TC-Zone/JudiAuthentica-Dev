@@ -84,7 +84,7 @@ export class UserEventComponent implements OnInit {
         message: 'Allocated Event Limit Exceded. Do you want to activate more?',
         linkData: {
           url: '#',
-          urlDescription: 'Activate more'
+          buttonText: 'Activate'
         }
       };
       this.appInfoService.showInfo(infoData);
@@ -134,7 +134,7 @@ export class UserEventComponent implements OnInit {
                           message: 'Allocated events are finished. Do you want to activate more?',
                           linkData: {
                             url: '#',
-                            urlDescription: 'Activate more'
+                            buttonText: 'Activate'
                           }
                         };
                         this.appInfoService.showInfo(infoData);

@@ -84,7 +84,7 @@ export class UserPromotionComponent implements OnInit {
         message: 'Allocated Promotion Limit Exceded. Do you want to activate more?',
         linkData: {
           url: '#',
-          urlDescription: 'Activate more'
+          buttonText: 'Activate'
         }
       };
       this.appInfoService.showInfo(infoData);
@@ -130,7 +130,7 @@ export class UserPromotionComponent implements OnInit {
                           message: 'Allocated promotions are finished. Do you want to activate more?',
                           linkData: {
                             url: '#',
-                            urlDescription: 'Activate more'
+                            buttonText: 'Activate'
                           }
                         };
                         this.appInfoService.showInfo(infoData);

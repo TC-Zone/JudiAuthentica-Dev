@@ -29,11 +29,11 @@ export class UserFeedbackComponent implements OnInit {
 
   openInfo() {
     const infoData = {
-      title: 'Test',
-      message: 'Test Information',
+      title: 'License Limit Exceeded',
+      message: 'Your User Limit has Expired. Do you want to extend?',
       linkData: {
         url: '#',
-        urlDescription: 'Activate More'
+        buttonText: 'Extend'
       }
     };
     this.appInfoService.showInfo(infoData);

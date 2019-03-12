@@ -8,7 +8,7 @@ interface infoData {
   message?: string;
   linkData?: {
     url: string;
-    urlDescription: string;
+    buttonText: string;
   };
 }
 
@@ -24,7 +24,7 @@ export class AppInfoService {
     dialogRef = this.dialog.open(
       AppInfoComponent,
       {
-        width: '380px',
+        width: '520px',
         disableClose: true,
         data: infoData
       }

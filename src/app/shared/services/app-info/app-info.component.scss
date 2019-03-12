@@ -1,23 +1,35 @@
-.info-title {
-  background-color: #5bc0de;
-  color: white;
-  border-bottom: 1px solid #e5e5e5;
+@import url('https://fonts.google.com/specimen/Poppins');
+
+.margin-top {
+  margin-top: 20px;
 }
 
-.info-font {
+.info-header {
+  font-family: Poppins;
+  font-size: 26px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.info-message {
+  font-family: Poppins;
+  font-size: 16px;
+  text-align: center;
+}
+
+.ok-btn {
+  background-color: #2bb673;
+  color: white;
   font-size: 16px;
 }
 
-.info-action {
-  border-top: 1px solid #e5e5e5;
+.close-btn {
+  background-color: #ef4136;
+  color: white;
+  font-size: 16px;
 }
 
-.info-link {
-  color: #0062cc!important;
-  font-size: 12px;
-}
-
-.info-link a:hover {
-  color: #007bff!important;
-  text-decoration: underline;
+.action-section {
+  padding-left: 7rem;
+  padding-right: 7rem;
 }

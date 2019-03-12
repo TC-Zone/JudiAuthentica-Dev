@@ -66,7 +66,7 @@ export class CommunityViewComponent implements OnInit {
         message: 'Allocated Community Limit Exceded. Do you want to Activate More?',
         linkData: {
           url: '#',
-          urlDescription: 'Activate more'
+          buttonText: 'Activate'
         }
       };
       this.appInfoService.showInfo(infoData);
@@ -118,7 +118,7 @@ export class CommunityViewComponent implements OnInit {
                           message: 'Allocated communities are finished. Do you want to activate more?',
                           linkData: {
                             url: '#',
-                            urlDescription: 'Activate more'
+                            buttonText: 'Activate'
                           }
                         };
                         this.appInfoService.showInfo(infoData);
