@@ -15381,6 +15381,168 @@ __export(__webpack_require__(/*! ./index */ "./node_modules/ng2-file-upload/inde
 
 /***/ }),
 
+/***/ "./src/app/model/ClientModel.model.ts":
+/*!********************************************!*\
+  !*** ./src/app/model/ClientModel.model.ts ***!
+  \********************************************/
+/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Content", function() { return Content; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientCreateReq", function() { return ClientCreateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientLicenseData", function() { return ClientLicenseData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientUpdateReq", function() { return ClientUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CountryData", function() { return CountryData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserData", function() { return UserData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCreateReq", function() { return UserCreateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientData", function() { return ClientData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LicenseUpdateReq", function() { return LicenseUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleData", function() { return RoleData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommunityData", function() { return CommunityData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoryData", function() { return CategoryData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LicenseUpdateRequest", function() { return LicenseUpdateRequest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "profileUpdateReq", function() { return profileUpdateReq; });
+var Content = /** @class */ (function () {
+    function Content(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+    return Content;
+}());
+
+var ClientCreateReq = /** @class */ (function () {
+    function ClientCreateReq(name, description, clientLogo, users, categories, license) {
+        this.name = name;
+        this.description = description;
+        this.clientLogo = clientLogo;
+        this.users = users;
+        this.categories = categories;
+        this.license = license;
+    }
+    return ClientCreateReq;
+}());
+
+var ClientLicenseData = /** @class */ (function () {
+    function ClientLicenseData(tagCount, userCount, communityCount, feedbackCount, eventCount, promoCount) {
+        this.tagCount = tagCount;
+        this.userCount = userCount;
+        this.communityCount = communityCount;
+        this.feedbackCount = feedbackCount;
+        this.eventCount = eventCount;
+        this.promoCount = promoCount;
+    }
+    return ClientLicenseData;
+}());
+
+var ClientUpdateReq = /** @class */ (function () {
+    function ClientUpdateReq(name, description, clientLogo, primaryContactNo, addressLine1, addressLine2, city, state, zipCode, country) {
+        this.name = name;
+        this.description = description;
+        this.clientLogo = clientLogo;
+        this.primaryContactNo = primaryContactNo;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.country = country;
+    }
+    return ClientUpdateReq;
+}());
+
+var CountryData = /** @class */ (function () {
+    function CountryData(id, name, code) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+    }
+    return CountryData;
+}());
+
+var UserData = /** @class */ (function () {
+    function UserData(accountName, email) {
+        this.accountName = accountName;
+        this.email = email;
+    }
+    return UserData;
+}());
+
+var UserCreateReq = /** @class */ (function () {
+    function UserCreateReq(accountName, password, email, role, client, communities, categories) {
+        this.accountName = accountName;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.client = client;
+        this.communities = communities;
+        this.categories = categories;
+    }
+    return UserCreateReq;
+}());
+
+var ClientData = /** @class */ (function () {
+    function ClientData(id) {
+        this.id = id;
+    }
+    return ClientData;
+}());
+
+var LicenseUpdateReq = /** @class */ (function () {
+    function LicenseUpdateReq(tagCount, userCount, communityCount, feedbackCount, eventCount, promoCount, client) {
+        this.tagCount = tagCount;
+        this.userCount = userCount;
+        this.communityCount = communityCount;
+        this.feedbackCount = feedbackCount;
+        this.eventCount = eventCount;
+        this.promoCount = promoCount;
+        this.client = client;
+    }
+    return LicenseUpdateReq;
+}());
+
+var RoleData = /** @class */ (function () {
+    function RoleData(id) {
+        this.id = id;
+    }
+    return RoleData;
+}());
+
+var CommunityData = /** @class */ (function () {
+    function CommunityData(id) {
+        this.id = id;
+    }
+    return CommunityData;
+}());
+
+var CategoryData = /** @class */ (function () {
+    function CategoryData(id) {
+        this.id = id;
+    }
+    return CategoryData;
+}());
+
+var LicenseUpdateRequest = /** @class */ (function () {
+    function LicenseUpdateRequest(id) {
+        this.id = id;
+    }
+    return LicenseUpdateRequest;
+}());
+
+var profileUpdateReq = /** @class */ (function () {
+    function profileUpdateReq(userName, password, email) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+    }
+    return profileUpdateReq;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/views/profile/profile-blank/profile-blank.component.css":
 /*!*************************************************************************!*\
   !*** ./src/app/views/profile/profile-blank/profile-blank.component.css ***!
@@ -15696,11 +15858,7 @@ var ProfileSettingsComponent = /** @class */ (function () {
             // return this.users.slice();
         }, function (error) {
             _this.loader.close();
-            _this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-            });
+            _this.errDialog.showError(error);
         });
     };
     ProfileSettingsComponent = __decorate([
@@ -15729,7 +15887,7 @@ var ProfileSettingsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" fxFlex.gt-md=\"300px\" fxFlex.gt-sm=\"50\">\r\n    <mat-card class=\"profile-sidebar mb-1 pb-0\">\r\n      <div class=\"propic text-center\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\" />\r\n      </div>\r\n      <div class=\"profile-title text-center mb-1\">\r\n        <div class=\"main-title\">{{ currentUser.profilename }}</div>\r\n        <div class=\"subtitle mb-05\">{{ currentUser.position }}</div>\r\n        <div class=\"text-muted\">\r\n          Hi {{ currentUser.profilename }} ! Hope you are doing great at\r\n          {{ currentUser.company }}\r\n        </div>\r\n      </div>\r\n      <div class=\"profile-actions text-center mb-1\">\r\n        <button\r\n          color=\"primary\"\r\n          mat-raised-button=\"\"\r\n          class=\"mat-raised-button mat-primary mr-1\"\r\n        >\r\n          <span class=\"mat-button-wrapper\">Message</span>\r\n          <div class=\"mat-button-ripple mat-ripple\" matripple=\"\"></div>\r\n          <div class=\"mat-button-focus-overlay\"></div></button\r\n        ><button\r\n          color=\"accent\"\r\n          mat-raised-button=\"\"\r\n          class=\"mat-raised-button mat-accent\"\r\n        >\r\n          <span class=\"mat-button-wrapper\">Follow</span>\r\n          <div class=\"mat-button-ripple mat-ripple\" matripple=\"\"></div>\r\n          <div class=\"mat-button-focus-overlay\"></div>\r\n        </button>\r\n      </div>\r\n      <div class=\"profile-nav\">\r\n        <mat-nav-list>\r\n          <!--\r\n            <mat-list-item routerLink=\"/profile/overview\" routerLinkActive=\"list-item-active\">\r\n              <mat-icon>home</mat-icon>\r\n              Overview\r\n            </mat-list-item>\r\n            <mat-divider></mat-divider>\r\n          -->\r\n          <mat-list-item\r\n            routerLink=\"/profile/settings\"\r\n            routerLinkActive=\"list-item-active\"\r\n          >\r\n            <mat-icon>settings</mat-icon>\r\n            Settings\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <!--\r\n            <mat-list-item routerLink=\"/profile/blank\" routerLinkActive=\"list-item-active\">\r\n              <mat-icon>content_paste</mat-icon>\r\n              Blank\r\n            </mat-list-item>\r\n          -->\r\n        </mat-nav-list>\r\n      </div>\r\n    </mat-card>\r\n\r\n    <!-- Chart grid -->\r\n    <!--\r\n      <mat-card class=\"default\">\r\n        <mat-card-title>Summary</mat-card-title>\r\n        <mat-card-content>\r\n            <div fxLayout=\"row\" fxLayoutWrap=\"wrap\" class=\"doughnut-grid text-center\">\r\n                <div fxFlex=\"50\" class=\"doughnut-grid-item mat-bg-primary\">\r\n                    <canvas\r\n                    baseChart\r\n                    class=\"chart\"\r\n                    [data]=\"doughnutChartData1\"\r\n                    [options]=\"doughnutOptions\"\r\n                    [colors]=\"doughnutChartColors\"\r\n                    [chartType]=\"doughnutChartType\"></canvas>\r\n                    <small>Space: {{data1}}/{{total1}} GB</small>\r\n              </div>\r\n              <div fxFlex=\"50\" class=\"doughnut-grid-item light-gray\">\r\n                  <canvas\r\n                  baseChart\r\n                  class=\"chart\"\r\n                  [data]=\"doughnutChartData2\"\r\n                  [options]=\"doughnutOptions\"\r\n                  [colors]=\"doughnutChartColors\"\r\n                  [chartType]=\"doughnutChartType\"></canvas>\r\n                  <small>Sales: 450</small>\r\n            </div>\r\n            <div fxFlex=\"50\" class=\"doughnut-grid-item light-gray\">\r\n                <canvas\r\n                baseChart\r\n                class=\"chart\"\r\n                [data]=\"doughnutChartData2\"\r\n                [options]=\"doughnutOptions\"\r\n                [colors]=\"doughnutChartColors\"\r\n                [chartType]=\"doughnutChartType\"></canvas>\r\n                <small>Spent: $500</small>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"doughnut-grid-item mat-bg-primary\">\r\n              <canvas\r\n              baseChart\r\n              class=\"chart\"\r\n              [data]=\"doughnutChartData2\"\r\n              [options]=\"doughnutOptions\"\r\n              [colors]=\"doughnutChartColors\"\r\n              [chartType]=\"doughnutChartType\"></canvas>\r\n              <small>Follower: 2000</small>\r\n        </div>\r\n          </div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    -->\r\n    <!-- Contact Information -->\r\n    <!--\r\n      <mat-card class=\"default\">\r\n        <mat-card-title>Contact Information</mat-card-title>\r\n        <mat-card-content class=\"pt-0\">\r\n          <mat-list>\r\n            <mat-list-item><mat-icon class=\"mr-1\">public</mat-icon> www.mhrafi.com</mat-list-item>\r\n            <mat-list-item><mat-icon class=\"mr-1\">email</mat-icon> example@gmail.com</mat-list-item>\r\n            <mat-list-item><mat-icon class=\"mr-1\">phone</mat-icon> 8801822778800</mat-list-item>\r\n            <mat-list-item><mat-icon class=\"mr-1\">add_location</mat-icon> SUST, Sylhet, BD</mat-list-item>\r\n          </mat-list>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    -->\r\n  </div>\r\n\r\n  <!-- Profile Views -->\r\n  <div fxFlex=\"100\" fxFlex.gt-sm=\"50\" fxFlex.gt-md=\"calc(100% - 300px)\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" fxFlex.gt-md=\"300px\" fxFlex.gt-sm=\"50\">\r\n    <mat-card class=\"profile-sidebar mb-1 pb-0\">\r\n      <div class=\"propic text-center\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\" />\r\n      </div>\r\n      <div class=\"profile-title text-center mb-1\">\r\n        <div class=\"main-title\">{{ currentUser.accountName }}</div>\r\n        <div class=\"subtitle mb-05\">{{ currentUser.company }}</div>\r\n        <div class=\"text-muted\">\r\n          Hi {{ currentUser.accountName }} ! Hope you are doing great at\r\n          {{ currentUser.company }}\r\n        </div>\r\n      </div>\r\n      <div class=\"profile-actions text-center mb-1\">\r\n        <button\r\n          color=\"primary\"\r\n          mat-raised-button=\"\"\r\n          class=\"mat-raised-button mat-primary mr-1\"\r\n        >\r\n          <span class=\"mat-button-wrapper\">Message</span>\r\n          <div class=\"mat-button-ripple mat-ripple\" matripple=\"\"></div>\r\n          <div class=\"mat-button-focus-overlay\"></div></button\r\n        ><button\r\n          color=\"accent\"\r\n          mat-raised-button=\"\"\r\n          class=\"mat-raised-button mat-accent\"\r\n        >\r\n          <span class=\"mat-button-wrapper\">Follow</span>\r\n          <div class=\"mat-button-ripple mat-ripple\" matripple=\"\"></div>\r\n          <div class=\"mat-button-focus-overlay\"></div>\r\n        </button>\r\n      </div>\r\n      <div class=\"profile-nav\">\r\n        <mat-nav-list>\r\n          <!--\r\n            <mat-list-item routerLink=\"/profile/overview\" routerLinkActive=\"list-item-active\">\r\n              <mat-icon>home</mat-icon>\r\n              Overview\r\n            </mat-list-item>\r\n            <mat-divider></mat-divider>\r\n          -->\r\n          <mat-list-item\r\n            routerLink=\"/profile/settings\"\r\n            routerLinkActive=\"list-item-active\"\r\n          >\r\n            <mat-icon>settings</mat-icon>\r\n            Settings\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <!--\r\n            <mat-list-item routerLink=\"/profile/blank\" routerLinkActive=\"list-item-active\">\r\n              <mat-icon>content_paste</mat-icon>\r\n              Blank\r\n            </mat-list-item>\r\n          -->\r\n        </mat-nav-list>\r\n      </div>\r\n    </mat-card>\r\n\r\n    <!-- Chart grid -->\r\n    <!--\r\n      <mat-card class=\"default\">\r\n        <mat-card-title>Summary</mat-card-title>\r\n        <mat-card-content>\r\n            <div fxLayout=\"row\" fxLayoutWrap=\"wrap\" class=\"doughnut-grid text-center\">\r\n                <div fxFlex=\"50\" class=\"doughnut-grid-item mat-bg-primary\">\r\n                    <canvas\r\n                    baseChart\r\n                    class=\"chart\"\r\n                    [data]=\"doughnutChartData1\"\r\n                    [options]=\"doughnutOptions\"\r\n                    [colors]=\"doughnutChartColors\"\r\n                    [chartType]=\"doughnutChartType\"></canvas>\r\n                    <small>Space: {{data1}}/{{total1}} GB</small>\r\n              </div>\r\n              <div fxFlex=\"50\" class=\"doughnut-grid-item light-gray\">\r\n                  <canvas\r\n                  baseChart\r\n                  class=\"chart\"\r\n                  [data]=\"doughnutChartData2\"\r\n                  [options]=\"doughnutOptions\"\r\n                  [colors]=\"doughnutChartColors\"\r\n                  [chartType]=\"doughnutChartType\"></canvas>\r\n                  <small>Sales: 450</small>\r\n            </div>\r\n            <div fxFlex=\"50\" class=\"doughnut-grid-item light-gray\">\r\n                <canvas\r\n                baseChart\r\n                class=\"chart\"\r\n                [data]=\"doughnutChartData2\"\r\n                [options]=\"doughnutOptions\"\r\n                [colors]=\"doughnutChartColors\"\r\n                [chartType]=\"doughnutChartType\"></canvas>\r\n                <small>Spent: $500</small>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"doughnut-grid-item mat-bg-primary\">\r\n              <canvas\r\n              baseChart\r\n              class=\"chart\"\r\n              [data]=\"doughnutChartData2\"\r\n              [options]=\"doughnutOptions\"\r\n              [colors]=\"doughnutChartColors\"\r\n              [chartType]=\"doughnutChartType\"></canvas>\r\n              <small>Follower: 2000</small>\r\n        </div>\r\n          </div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    -->\r\n    <!-- Contact Information -->\r\n    <!--\r\n      <mat-card class=\"default\">\r\n        <mat-card-title>Contact Information</mat-card-title>\r\n        <mat-card-content class=\"pt-0\">\r\n          <mat-list>\r\n            <mat-list-item><mat-icon class=\"mr-1\">public</mat-icon> www.mhrafi.com</mat-list-item>\r\n            <mat-list-item><mat-icon class=\"mr-1\">email</mat-icon> example@gmail.com</mat-list-item>\r\n            <mat-list-item><mat-icon class=\"mr-1\">phone</mat-icon> 8801822778800</mat-list-item>\r\n            <mat-list-item><mat-icon class=\"mr-1\">add_location</mat-icon> SUST, Sylhet, BD</mat-list-item>\r\n          </mat-list>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    -->\r\n  </div>\r\n\r\n  <!-- Profile Views -->\r\n  <div fxFlex=\"100\" fxFlex.gt-sm=\"50\" fxFlex.gt-md=\"calc(100% - 300px)\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 

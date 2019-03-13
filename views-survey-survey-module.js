@@ -8412,11 +8412,7 @@ var SurveyBuilderComponent = /** @class */ (function (_super) {
             .subscribe(function (successResp) {
             _this.ansTemplates = successResp.content;
         }, function (error) {
-            _this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-            });
+            _this.errDialog.showError(error);
         });
     };
     SurveyBuilderComponent.prototype.ngOnInit = function () {
@@ -8546,11 +8542,7 @@ var SurveyBuilderComponent = /** @class */ (function (_super) {
             _this.loader.close();
         }, function (error) {
             _this.loader.close();
-            _this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-            });
+            _this.errDialog.showError(error);
         });
     };
     SurveyBuilderComponent = __decorate([
@@ -8972,11 +8964,7 @@ var SurveyInteractionComponent = /** @class */ (function () {
             _this.loader.close();
         }, function (error) {
             _this.loader.close();
-            _this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-            });
+            _this.errDialog.showError(error);
         });
     };
     SurveyInteractionComponent.prototype.showSurveyInfo = function (id) {
@@ -9170,11 +9158,7 @@ var SurveySettingComponent = /** @class */ (function () {
                 _this.loader.close();
             }, function (error) {
                 _this.loader.close();
-                _this.errDialog.showError({
-                    title: "Error",
-                    status: error.status,
-                    type: "http_error"
-                });
+                _this.errDialog.showError(error);
             });
         }
     };
@@ -9194,11 +9178,7 @@ var SurveySettingComponent = /** @class */ (function () {
         }, function (error) {
             console.log(error);
             console.log(error.status);
-            _this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-            });
+            _this.errDialog.showError(error);
         });
     };
     SurveySettingComponent.prototype.openAnswerTemplatePopup = function (data, isNew) {
@@ -9223,11 +9203,7 @@ var SurveySettingComponent = /** @class */ (function () {
                     _this.loader.close();
                 }, function (error) {
                     _this.loader.close();
-                    _this.errDialog.showError({
-                        title: "Error",
-                        status: error.status,
-                        type: "http_error"
-                    });
+                    _this.errDialog.showError(error);
                 });
             }
             else {
@@ -9243,11 +9219,7 @@ var SurveySettingComponent = /** @class */ (function () {
                     return _this.rows.slice();
                 }, function (error) {
                     _this.loader.close();
-                    _this.errDialog.showError({
-                        title: "Error",
-                        status: error.status,
-                        type: "http_error"
-                    });
+                    _this.errDialog.showError(error);
                 });
             }
             console.log("input : ");
@@ -9267,11 +9239,7 @@ var SurveySettingComponent = /** @class */ (function () {
                     _this.loader.close();
                 }, function (error) {
                     _this.loader.close();
-                    _this.errDialog.showError({
-                        title: "Error",
-                        status: error.status,
-                        type: "http_error"
-                    });
+                    _this.errDialog.showError(error);
                 });
             }
         });
@@ -9284,11 +9252,7 @@ var SurveySettingComponent = /** @class */ (function () {
             console.log(successResp);
             _this.openAnswerTemplatePopup(successResp);
         }, function (error) {
-            _this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-            });
+            _this.errDialog.showError(error);
         });
     };
     SurveySettingComponent = __decorate([
@@ -9413,11 +9377,7 @@ var SurveyTableComponent = /** @class */ (function () {
                     _this.loader.close();
                 }, function (error) {
                     _this.loader.close();
-                    _this.errDialog.showError({
-                        title: "Error",
-                        status: error.status,
-                        type: "http_error"
-                    });
+                    _this.errDialog.showError(error);
                 });
             }
             else {
@@ -9430,11 +9390,7 @@ var SurveyTableComponent = /** @class */ (function () {
                     });
                 }, function (error) {
                     _this.loader.close();
-                    _this.errDialog.showError({
-                        title: "Error",
-                        status: error.status,
-                        type: "http_error"
-                    });
+                    _this.errDialog.showError(error);
                 });
             }
         });
@@ -9459,11 +9415,7 @@ var SurveyTableComponent = /** @class */ (function () {
                 _this.loader.close();
                 console.log(error);
                 console.log(error.status);
-                _this.errDialog.showError({
-                    title: "Error",
-                    status: error.status,
-                    type: "http_error"
-                });
+                _this.errDialog.showError(error);
             });
         }
     };
@@ -9484,11 +9436,7 @@ var SurveyTableComponent = /** @class */ (function () {
                     _this.loader.close();
                 }, function (error) {
                     _this.loader.close();
-                    _this.errDialog.showError({
-                        title: "Error",
-                        status: error.status,
-                        type: "http_error"
-                    });
+                    _this.errDialog.showError(error);
                 });
             }
         });
@@ -9499,11 +9447,7 @@ var SurveyTableComponent = /** @class */ (function () {
             _this.rows = successResp.content;
         }, function (error) {
             _this.loader.close();
-            _this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-            });
+            _this.errDialog.showError(error);
         });
     };
     SurveyTableComponent.prototype.navigateSurveyBuilder = function (res) {
@@ -9558,7 +9502,7 @@ var SurveyTableComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" fxFlex.gt-md=\"300px\" fxFlex.gt-sm=\"50\">\r\n    <mat-card class=\"profile-sidebar mb-1 pb-0\">\r\n      <div class=\"propic text-center\">\r\n        <img src=\"assets/images/ui_icons/instant-feedback-logo.png\" alt=\"\">\r\n      </div>\r\n      <div class=\"profile-title text-center mb-1\">\r\n        <div class=\"main-title\">Instant Feedback</div>\r\n        <div class=\"subtitle mb-05\">Judi Authentica</div>\r\n        <div class=\"text-muted\"> Provides the tools you need to easily create feedback questions.</div>\r\n      </div>\r\n\r\n      <div class=\"profile-nav\">\r\n        <mat-nav-list>\r\n          <mat-list-item routerLink=\"/surveys/summery\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>home</mat-icon>\r\n            Feedback Summary\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"/surveys/setting\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>settings</mat-icon>\r\n            Feedback Settings\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"/surveys/demo\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>settings</mat-icon>\r\n            Authenticate Demo\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n        </mat-nav-list>\r\n      </div>\r\n    </mat-card>\r\n\r\n\r\n\r\n  </div>\r\n\r\n  <!-- Profile Views -->\r\n  <div fxFlex=\"100\" fxFlex.gt-sm=\"50\" fxFlex.gt-md=\"calc(100% - 300px)\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" fxFlex.gt-md=\"300px\" fxFlex.gt-sm=\"50\">\r\n    <mat-card class=\"profile-sidebar mb-1 pb-0\">\r\n      <div class=\"propic text-center\">\r\n        <img src=\"assets/images/ui_icons/instant-feedback-logo.png\" alt=\"\">\r\n      </div>\r\n      <div class=\"profile-title text-center mb-1\">\r\n        <div class=\"main-title\">Instant Feedback</div>\r\n        <div class=\"subtitle mb-05\">ClearPicture</div>\r\n        <div class=\"text-muted\"> Provides the tools you need to easily create feedback questions.</div>\r\n      </div>\r\n\r\n      <div class=\"profile-nav\">\r\n        <mat-nav-list>\r\n          <mat-list-item routerLink=\"/surveys/summery\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>home</mat-icon>\r\n            Feedback Summary\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"/surveys/setting\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>settings</mat-icon>\r\n            Feedback Settings\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"/surveys/demo\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>settings</mat-icon>\r\n            Authenticate Demo\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n        </mat-nav-list>\r\n      </div>\r\n    </mat-card>\r\n\r\n\r\n\r\n  </div>\r\n\r\n  <!-- Profile Views -->\r\n  <div fxFlex=\"100\" fxFlex.gt-sm=\"50\" fxFlex.gt-md=\"calc(100% - 300px)\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
