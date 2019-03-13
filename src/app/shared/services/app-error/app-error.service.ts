@@ -55,15 +55,19 @@ export class AppErrorService {
   // show popup window for custom error message (by prasad kumara)
   handleCustomError(error: ErrorData = {}): any {
     const errorTitle = this.removeUnderscore(error.title);
-    if (errorMessages.hasOwnProperty(error.type)) {
-      const jsonArrayKey = this.getEnumKey(error.message);
-      if (errorMessages[error.type].hasOwnProperty(jsonArrayKey)) {
-        this.openPopUpWindow(errorTitle, errorMessages[error.type][jsonArrayKey]);
+    if (error.type.match('pageSize') || error.type.match('entity IDs')) {
+      this.openPopUpWindow('Oh Snap', 'Something went wrong.');
+    } else {
+      if (errorMessages.hasOwnProperty(error.type)) {
+        const jsonArrayKey = this.getEnumKey(error.message);
+        if (errorMessages[error.type].hasOwnProperty(jsonArrayKey)) {
+          this.openPopUpWindow(errorTitle, errorMessages[error.type][jsonArrayKey]);
+        } else {
+          this.openPopUpWindow(errorTitle, error.message);
+        }
       } else {
         this.openPopUpWindow(errorTitle, error.message);
       }
-    } else {
-      this.openPopUpWindow(errorTitle, error.message);
     }
   }
 
