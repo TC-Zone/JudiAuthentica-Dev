@@ -87,7 +87,7 @@ export class InteractionViewComponent implements OnInit {
         }
       },
         error => {
-          this.errDialog.showErrorWithMessage(error);
+          this.errDialog.showError(error);
         });
   }
 
@@ -177,7 +177,7 @@ export class InteractionViewComponent implements OnInit {
         this.setuptheme();
       },
         error => {
-          this.errDialog.showErrorWithMessage(error);
+          this.errDialog.showError(error);
         }
       );
   }

@@ -9,6 +9,8 @@ import { UserEventService } from './user-event.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
 import { ComunityService } from '../../community.service';
+import { AppWarningService } from 'app/shared/services/app-warning/app-warning.service';
+import { AppInfoService } from 'app/shared/services/app-info/app-info.service';
 
 @Component({
   selector: 'app-user-event',
@@ -39,7 +41,9 @@ export class UserEventComponent implements OnInit {
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
     private userEventService: UserEventService,
-    private comunityService: ComunityService
+    private comunityService: ComunityService,
+    private appWarningService: AppWarningService,
+    private appInfoService: AppInfoService
   ) { }
 
   ngOnInit() {
@@ -53,7 +57,6 @@ export class UserEventComponent implements OnInit {
       .subscribe(
         response => {
           const tempRes: any = response;
-          console.log(tempRes);
           this.quotaExpire = tempRes.content.expired;
           this.quota = tempRes.content.quota;
         }
@@ -75,77 +78,100 @@ export class UserEventComponent implements OnInit {
   * Prasad Kumara
   */
   eventPopUp(data: any = {}, isNew?) {
-    const title = isNew ? 'Create New Event' : 'Update Event';
-    const dialogRef: MatDialogRef<any> = this.dialog.open(
-      CreateEventPopupComponent,
-      {
-        width: '720px',
-        disableClose: true,
-        data: { title: title, payload: data, isNew: isNew }
-      }
-    );
-    dialogRef.afterClosed().subscribe(res => {
-      if (!res) {
-        return;
-      } else {
-        this.loader.open();
-        const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
-        if (userObj) {
-          if (isNew) {
-            res['createdUserId'] = userObj.id;
-            res['client'] = {
-              id: userObj.userData.client.id
-            };
-            res['community'] = {
-              id: this.comunityId
-            };
-            const clientId = userObj.userData.client.id;
-            res.status = this.getEventStatus(res.status);
-            this.comunityService.licenseExpireState(clientId, 'events')
-              .subscribe(
-                response => {
-                  const tempRes: any = response;
-                  this.quotaExpire = tempRes.content.expired;
-                  if (!tempRes.content.expired) {
-                    this.loader.close();
-                    if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
-                      this.confirmService.confirm({ message: 'This is your last event!' });
-                      this.createEvent(res);
-                    } else {
-                      this.createEvent(res);
+    if (this.quotaExpire) {
+      const infoData = {
+        title: 'License',
+        message: 'Allocated Event Limit Exceded. Do you want to activate more?',
+        linkData: {
+          url: '#',
+          buttonText: 'Activate'
+        }
+      };
+      this.appInfoService.showInfo(infoData);
+    } else {
+      const title = isNew ? 'Create New Event' : 'Update Event';
+      const dialogRef: MatDialogRef<any> = this.dialog.open(
+        CreateEventPopupComponent,
+        {
+          width: '720px',
+          disableClose: true,
+          data: { title: title, payload: data, isNew: isNew }
+        }
+      );
+      dialogRef.afterClosed().subscribe(res => {
+        if (!res) {
+          return;
+        } else {
+          this.loader.open();
+          const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+          if (userObj) {
+            if (isNew) {
+              res['createdUserId'] = userObj.id;
+              res['client'] = {
+                id: userObj.userData.client.id
+              };
+              res['community'] = {
+                id: this.comunityId
+              };
+              const clientId = userObj.userData.client.id;
+              res.status = this.getEventStatus(res.status);
+              this.comunityService.licenseExpireState(clientId, 'events')
+                .subscribe(
+                  response => {
+                    const tempRes: any = response;
+                    this.quotaExpire = tempRes.content.expired;
+                    if (!tempRes.content.expired) {
+                      this.loader.close();
+                      if (tempRes.content.usage < (tempRes.content.quota - 1) && (tempRes.content.quota - tempRes.content.usage) === 2) {
+                        this.appWarningService.showWarning({
+                          title: 'License',
+                          message: 'One Event Remaining!'
+                        });
+                        this.createEvent(res);
+                      } else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
+                        const infoData = {
+                          title: 'License',
+                          message: 'Allocated events are finished. Do you want to activate more?',
+                          linkData: {
+                            url: '#',
+                            buttonText: 'Activate'
+                          }
+                        };
+                        this.appInfoService.showInfo(infoData);
+                        this.createEvent(res);
+                      } else {
+                        this.createEvent(res);
+                      }
                     }
-                  } else {
+                  }
+                );
+            } else {
+              res['lastModifiedUserId'] = userObj.id;
+              res.status = this.getEventStatus(res.status);
+              this.userEventService.eventUpdateById(data.id, res)
+                .subscribe(
+                  response => {
+                    const temData: any = response;
+                    const i = this.events.indexOf(data);
+                    this.events[i] = temData.content;
+                    this.temEvents = this.events;
                     this.loader.close();
-                    this.confirmService.confirm({ message: 'Allocated Event Limit Exceded!' });
+                    this.snack.open('Event Updated', 'close', {
+                      duration: 2000
+                    });
+                  },
+                  error => {
+                    this.loader.close();
+                    if (error.status !== 401) {
+                      this.errDialog.showError(error);
+                    }
                   }
-                }
-              );
-          } else {
-            res['lastModifiedUserId'] = userObj.id;
-            res.status = this.getEventStatus(res.status);
-            this.userEventService.eventUpdateById(data.id, res)
-              .subscribe(
-                response => {
-                  const temData: any = response;
-                  const i = this.events.indexOf(data);
-                  this.events[i] = temData.content;
-                  this.temEvents = this.events;
-                  this.loader.close();
-                  this.snack.open('Event Updated', 'close', {
-                    duration: 2000
-                  });
-                },
-                error => {
-                  this.loader.close();
-                  if (error.status !== 401) {
-                    this.errDialog.showErrorWithMessage(error);
-                  }
-                }
-              );
+                );
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
 
   createEvent(res) {
@@ -156,7 +182,6 @@ export class UserEventComponent implements OnInit {
           if (this.events.length === this.pageSize) {
             this.appendNewlyCreatedEvent(temData.content);
           } else {
-            console.log(temData.content);
             this.events.push(temData.content);
             this.temEvents = this.events;
             this.totalRecords += 1;
@@ -173,7 +198,7 @@ export class UserEventComponent implements OnInit {
         error => {
           this.loader.close();
           if (error.status !== 401) {
-            this.errDialog.showErrorWithMessage(error);
+            this.errDialog.showError(error);
           }
         }
       );
@@ -281,7 +306,7 @@ export class UserEventComponent implements OnInit {
               error => {
                 this.loader.close();
                 if (error.status !== 401) {
-                  this.errDialog.showErrorWithMessage(error);
+                  this.errDialog.showError(error);
                 }
               }
             );
@@ -322,7 +347,7 @@ export class UserEventComponent implements OnInit {
               error => {
                 this.loader.close();
                 if (error.status !== 401) {
-                  this.errDialog.showErrorWithMessage(error);
+                  this.errDialog.showError(error);
                 }
               }
             );
@@ -364,7 +389,7 @@ export class UserEventComponent implements OnInit {
         },
         error => {
           if (error.status !== 401) {
-            this.errDialog.showErrorWithMessage(error);
+            this.errDialog.showError(error);
           }
         }
       );
@@ -464,7 +489,6 @@ export class UserEventComponent implements OnInit {
   */
   appendNewlyCreatedEvent(event) {
     const tempArray = [];
-    console.log(event);
     for (let i = this.events.length; i >= 1; i--) {
       if (i === this.events.length) {
         tempArray.push(event);

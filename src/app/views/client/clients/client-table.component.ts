@@ -57,11 +57,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
       this.clients = successResp.content;
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -73,11 +69,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -115,22 +107,14 @@ export class ClientTableComponent implements OnInit, OnDestroy {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
 
       });
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
 
@@ -185,11 +169,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
         },
         error => {
           this.loader.close();
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
+          this.errDialog.showError(error);
         }
       );
 
@@ -231,11 +211,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
           //   },
           //   error => {
           //     this.loader.close();
-          //     this.errDialog.showError({
-          //       title: "Error",
-          //       status: error.status,
-          //       type: "http_error"
-          //     });
+          //     this.errDialog.showError(error);
           //   }
           // );
 
@@ -243,11 +219,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
 
@@ -289,22 +261,14 @@ export class ClientTableComponent implements OnInit, OnDestroy {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
 
       });
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -318,11 +282,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
       this.router.navigate(["clients/user/user-table"]);
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }

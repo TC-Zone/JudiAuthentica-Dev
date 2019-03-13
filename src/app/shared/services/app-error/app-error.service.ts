@@ -30,46 +30,50 @@ export class AppErrorService {
     } else return "Something went  wrong !";
   }
 
-  showError(error: ErrorData = {}): Observable<boolean> {
-    error.title = error.title || "Error";
-    error.type = error.type || "common_error";
+  // showError(error: ErrorData = {}): Observable<boolean> {
+  //   error.title = error.title || "Error";
+  //   error.type = error.type || "common_error";
 
-    let errorMsg;
-    if (error.type == "http_error") {
-      errorMsg = this.showHttpError(error);
-    } else if (error.type == "client_error") {
-      errorMsg = error.clientError;
-    } else {
-      errorMsg = "Truverus - ClearPicture : Something went wrong ";
-    }
+  //   let errorMsg;
+  //   if (error.type == "http_error") {
+  //     errorMsg = this.showHttpError(error);
+  //   } else if (error.type == "client_error") {
+  //     errorMsg = error.clientError;
+  //   } else {
+  //     errorMsg = "Truverus - ClearPicture : Something went wrong ";
+  //   }
 
-    let dialogRef: MatDialogRef<AppErrorComponent>;
-    dialogRef = this.dialog.open(AppErrorComponent, {
-      width: "380px",
-      disableClose: true,
-      data: { title: error.title, message: errorMsg }
-    });
-    return dialogRef.afterClosed();
-  }
+  //   let dialogRef: MatDialogRef<AppErrorComponent>;
+  //   dialogRef = this.dialog.open(AppErrorComponent, {
+  //     width: "480px",
+  //     disableClose: true,
+  //     data: { title: error.title, message: errorMsg }
+  //   });
+  //   return dialogRef.afterClosed();
+  // }
 
   // show popup window for custom error message (by prasad kumara)
   handleCustomError(error: ErrorData = {}): any {
     const errorTitle = this.removeUnderscore(error.title);
-    if (errorMessages.hasOwnProperty(error.type)) {
-      const jsonArrayKey = this.getEnumKey(error.message);
-      if (errorMessages[error.type].hasOwnProperty(jsonArrayKey)) {
-        this.openPopUpWindow(errorTitle, errorMessages[error.type][jsonArrayKey]);
+    if (error.type.match('pageSize') || error.type.match('entity IDs')) {
+      this.openPopUpWindow('Oh Snap', 'Something went wrong.');
+    } else {
+      if (errorMessages.hasOwnProperty(error.type)) {
+        const jsonArrayKey = this.getEnumKey(error.message);
+        if (errorMessages[error.type].hasOwnProperty(jsonArrayKey)) {
+          this.openPopUpWindow(errorTitle, errorMessages[error.type][jsonArrayKey]);
+        } else {
+          this.openPopUpWindow(errorTitle, error.message);
+        }
       } else {
         this.openPopUpWindow(errorTitle, error.message);
       }
-    } else {
-      this.openPopUpWindow(errorTitle, error.message);
     }
   }
 
   // handle custom error (by prasad kumara)
-  showErrorWithMessage(error: any) {
-    console.log('view survey error with message');
+  showError(error: any) {
+    console.log('show error messages');
     console.log(error);
     if (error.error !== null) {
       if (error.error.hasOwnProperty('validationFailures')) {
@@ -123,8 +127,8 @@ export class AppErrorService {
   openPopUpWindow(title, message): any{
     let dialogRef: MatDialogRef<AppErrorComponent>;
       dialogRef = this.dialog.open(AppErrorComponent, {
-        width: '380px',
-        disableClose: true,
+        width: '480px',
+        disableClose: false,
         data: { title: title, message: message}
       });
       return dialogRef.afterClosed();

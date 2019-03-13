@@ -77,9 +77,69 @@ export const errorMessages = {
   },
   product : {
     productViewRequestProductNotExist : 'Product is not Exist.',
-    productUpdateRequestProductNotExist : ''
+    productUpdateRequestProductNotExist : 'Product is not Exist.'
   },
   product_image : {
     productImageRetrieveProducImageNotExists : 'Product Image is not Exist.'
+  },
+  authority : {
+    createAuthorityPersistError : 'Authority is not created.'
+  },
+  email : {
+    companyCreateRequestUserEmailDuplicate : 'Email allready exists.',
+    platformUserCreateRequestEmailDuplicate : 'Email allready exists.',
+    platformUserUpdateRequestEmailDuplicate : 'Email allready exists.'
+  },
+  license : {
+    licenseViewLicenseNotExist : 'License is not exists.',
+    licenseViewLicenseViewError : 'License view error.'
+  },
+  download : {
+    imageByteNullContext : 'Image is not exists.',
+    imageByteContextNotExists : 'Image is not exists.'
+  },
+  role : {
+    platformRoleViewRequestRoleNotExist : 'Role is not exists.',
+    platformRoleUpdateRequestRoleNotExist : 'Role is not exists.',
+    retrievePredefinedRoleByNameFetchError : 'Role data view error.'
+  },
+  user : {
+    platformUserViewRequestUserNotExist : 'User is not exists.',
+    platformUserUpdateRequestUserNotExist : 'User is not exists.',
+    platformUserDeleteRequestUserDeleteFiledUserId : 'Unable to delete user account.',
+    platformUserDeleteRequestUserNotExis : 'User is not exists.'
+  },
+  status : {
+    platformUserUpdateRequestStatusCannotChange : 'Status can\'t change.'
+  },
+  activationLink : {
+    userActivationRequestAlreadyActivated : 'Your account already activated.',
+    userActivationRequestUserNotFound : 'User is not exists.'
+  },
+  community : {
+    communityCreateCreateError : 'Unable to create community.',
+    communityUpdateUpdateError : 'Unable to update community.',
+    communityViewCommunityNotExists : 'Community is not exists.',
+    getByClientFetchError : 'Community data view error.',
+    communityDeleteDeleteError : 'Unable to delete community.',
+    communitySearchFetchError : 'Community data search error.'
+  },
+  event : {
+    createEventCreateError : 'Unable to create event.',
+    eventUpdateUpdateError : 'Unable to update event.',
+    eventViewEventNotExists : 'Event is not exists.',
+    eventSearchFetchError : 'Event data search error.',
+    eventDeleteRequestDeleteError : 'Unable to delete event.',
+    listDeleteRequestDeleteError : 'Unable to delete event list.',
+    eventsByCommunitiesFetchError : 'Event data view error.'
+  },
+  promotion : {
+    createPromotionCreateError : 'Unable to create promotion.',
+    promotionViewPromotionNotExists : 'Promotion is not exists.',
+    promotionUpdatePromotionError : 'Unable to update promotion.',
+    promoSearchFetchError : 'Promotion data search error.',
+    promoDeleteRequestDeleteError : 'Unable to delete promotion.',
+    listDeleteRequestDeleteError : 'Unable to delete promotion list.',
+    promosByCommunitiesFetchError : 'Promotion data view error.'
   }
 };

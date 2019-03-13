@@ -105,7 +105,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
   ngOnInit() {
     // build form group
-    let data; 
+    let data;
     let inviteeGroup;
     if(this.data.payload.invitation !== null){
       data = this.data.payload.invitation;
@@ -128,9 +128,9 @@ export class FutureSurveyLaunchComponent implements OnInit {
     if(surveyStatus !== 0){
       this.isDisabled = true;
     }
-    
+
     this.buildLaunchForm(data,inviteeGroup);
-    
+
     this.currentStatus = this.statusArray.filter(function (status) {
       console.log(status);
       return status.id === surveyStatus;
@@ -503,11 +503,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
       },
       error => {
         // this.loader.close();
-        this.errDialog.showErrorWithMessage({
-          title: 'Error',
-          status: error.status,
-          type: 'http_error'
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -527,6 +523,6 @@ export class FutureSurveyLaunchComponent implements OnInit {
       this.requiredFields2 = ["name", "email", "username", "password"];
     }
   }
-  
+
 }
 

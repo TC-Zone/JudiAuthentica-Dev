@@ -2,7 +2,7 @@
   <input matInput placeholder="Type to filter all columns" value="" (keyup)='updateFilter($event)'>
 </mat-form-field>
 <div class="m-333">
-  <button mat-raised-button class="mb-05" *ngIf="!quotaExpire" color="primary" (click)="communityPopUp({}, true)">Add Community</button>
+  <button mat-raised-button class="mb-05" color="primary" (click)="communityPopUp({}, true)">Add Community</button>
   <span fxFlex></span>
   <p *ngIf="this.temCommunities.length > 0" class="mat-select-lable"> Page Size: </p>
   <mat-select *ngIf="this.temCommunities.length > 0" class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()" placeholder="Favorite food">
@@ -71,3 +71,11 @@
     </table>
   </mat-card-content>
 </mat-card>
+<div *ngIf="this.temCommunities.length === 0 && this.communities.length === 0" fxLayout="row" fxLayoutAlign="center" style="margin-top: 10rem;" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+  <div fxFlex="100" class="text-center">
+    <h1 class="text-muted">Create New Community</h1>
+  </div>
+  <div fxFlex="100" class="text-center">
+    <h2 class="text-muted">Click "Add Community" Button</h2>
+  </div>
+</div>

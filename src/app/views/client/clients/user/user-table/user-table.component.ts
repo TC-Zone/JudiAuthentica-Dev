@@ -66,11 +66,7 @@ export class UserTableComponent implements OnInit {
       console.log(this.users);
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -83,11 +79,7 @@ export class UserTableComponent implements OnInit {
       this.roles = successResp.content;
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -100,11 +92,7 @@ export class UserTableComponent implements OnInit {
       this.roles = successResp.content;
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -136,8 +124,8 @@ export class UserTableComponent implements OnInit {
       // let roles: UserRole[] = [];
       // roles.push(new UserRole(res[0].role));
 
-      
-      let role: RoleData = new RoleData(res[0].role);   
+
+      let role: RoleData = new RoleData(res[0].role);
 
       let communities: CommunityData[] = [];
       // communities.push(new CommunityData(res[0].role));
@@ -145,7 +133,7 @@ export class UserTableComponent implements OnInit {
       let categories: CategoryData[] = [];
       categories.push(new CategoryData('d36eeebd8b1f0cde16210339e97b9408'));
       categories.push(new CategoryData('ec21ff12b34a21bece175e48a059ec7f'));
-      
+
       const client: ClientData = new ClientData(this.clientId);
 
       const req: UserCreateReq = new UserCreateReq(res[0].username, res[0].password, res[0].email, role, client, communities, categories);
@@ -156,14 +144,9 @@ export class UserTableComponent implements OnInit {
           this.loader.close();
           this.snack.open("New User added !", "OK", { duration: 4000 });
         },
-        error => {
-          this.loader.close();
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
-        }
+          error => {
+            this.errDialog.showError(error);
+          }
       );
 
     });

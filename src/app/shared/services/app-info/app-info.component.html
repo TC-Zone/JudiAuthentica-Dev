@@ -1,0 +1,27 @@
+<!-- <mat-toolbar matDialogTitle class="m-0 info-title">
+  <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+    <span class="title dialog-title">{{ data.title }} Information!</span>
+  </div>
+</mat-toolbar> -->
+<mat-dialog-content class="mat-typography mt-0 mb-0">
+  <!-- <span class="info-font">{{ data.message }}</span>
+  <div class="info-link">
+    <a routerLink="{{ data.linkData.url }}" (click)="dialogRef.close(false)">{{ data.linkData.urlDescription }}</a>
+  </div> -->
+  <div fxLayout="row" fxLayoutAlign="center" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+    <img src="./../../../../assets/images/popup-window/info.png">
+  </div>
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="margin-top">
+    <div fxFlex="100" fxLayoutAlign="center">
+      <h4 class="info-header">{{ data.title }}</h4>
+    </div>
+    <div fxFlex="100" fxLayoutAlign="center">
+      <p class="info-message">{{ data.message }}</p>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="margin-top action-section">
+  <a mat-button type="button" class="ok-btn" href="{{ data.linkData.url }}" (click)="dialogRef.close(false)">{{ data.linkData.buttonText }}</a>
+  <span fxFlex></span>
+  <button mat-button type="button" class="close-btn" (click)="dialogRef.close(false)">Close</button>
+</mat-dialog-actions>

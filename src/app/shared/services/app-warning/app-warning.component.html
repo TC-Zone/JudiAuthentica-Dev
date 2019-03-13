@@ -1,0 +1,18 @@
+<mat-dialog-content class="mat-typography mt-0 mb-0">
+    <div fxLayout="row" fxLayoutAlign="center" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+      <img src="./../../../../assets/images/popup-window/warning.png">
+    </div>
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="margin-top">
+      <div fxFlex="100" fxLayoutAlign="center">
+        <h4 class="warn-header">{{ data.title }}</h4>
+      </div>
+      <div fxFlex="100" fxLayoutAlign="center">
+        <p class="warn-message">{{ data.message }}</p>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="margin-top action-section">
+    <button mat-button type="button" class="ok-btn" (click)="dialogRef.close(false)">Okey</button>
+    <span fxFlex></span>
+    <button mat-button type="button" class="close-btn" (click)="dialogRef.close(false)">Close</button>
+  </mat-dialog-actions>

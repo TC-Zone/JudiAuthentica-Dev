@@ -87,11 +87,7 @@ export class FutureSurveyInvitationLaunchComponent implements OnInit {
             },
             error => {
               this.loader.close();
-              this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-              });
+              this.errDialog.showError(error);
             }
           );
         }

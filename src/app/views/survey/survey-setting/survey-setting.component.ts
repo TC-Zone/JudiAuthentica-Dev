@@ -56,11 +56,7 @@ export class SurveySettingComponent implements OnInit {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
     }
@@ -84,11 +80,7 @@ export class SurveySettingComponent implements OnInit {
         error => {
           console.log(error);
           console.log(error.status);
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
+          this.errDialog.showError(error);
         }
       );
   }
@@ -119,11 +111,7 @@ export class SurveySettingComponent implements OnInit {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
       } else {
@@ -142,11 +130,7 @@ export class SurveySettingComponent implements OnInit {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
       }
@@ -170,11 +154,7 @@ export class SurveySettingComponent implements OnInit {
             },
             error => {
               this.loader.close();
-              this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-              });
+              this.errDialog.showError(error);
             }
           );
         }
@@ -190,11 +170,7 @@ export class SurveySettingComponent implements OnInit {
         this.openAnswerTemplatePopup(successResp);
       },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }

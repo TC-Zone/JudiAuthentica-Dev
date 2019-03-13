@@ -65,11 +65,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
 
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -83,11 +79,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
       this.roles = successResp.content;
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
 
