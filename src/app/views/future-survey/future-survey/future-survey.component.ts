@@ -15,6 +15,7 @@ import { MatSnackBar } from "@angular/material";
 
 import { LocalizationService } from "../../../shared/services/localization.service";
 import { FutureSurveyOperationalService } from "../future-survey-operational.service";
+import { ClientService } from '../../client/client.service';
 import {
   FutureSurveyRequest,
   ChoiceTypeEnum,
@@ -71,6 +72,7 @@ export class FutureSurveyComponent implements OnInit {
 
   constructor(
     private clientService: CrudService,
+    private clientService2: ClientService,
     private furureSurveyService: FutureSurveyService,
     private router: Router,
     private route: ActivatedRoute,
@@ -111,7 +113,7 @@ export class FutureSurveyComponent implements OnInit {
   }
 
   setClients() {
-    this.getClientSub = this.clientService.getItems().subscribe(data => {
+    this.getClientSub = this.clientService2.getClients().subscribe(data => {
       this.response = data;
       this.clients = this.response.content;
 

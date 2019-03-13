@@ -16,6 +16,7 @@ import { FutureSurveyService } from "../future-survey.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 import { FSCreateRequest, FSUpdateRequest } from "../../../model/FSurveyConfigRequest.model";
 import { JsonContentPart } from "../../../model/FutureSurvey.model";
+import { ClientService } from '../../client/client.service';
 
 @Component({
   selector: "app-future-survey-config-popup",
@@ -46,7 +47,7 @@ export class FutureSurveyConfigPopupComponent
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<FutureSurveyConfigPopupComponent>,
     public fb: FormBuilder,
-    public clientService: CrudService,
+    public clientService: ClientService,
     public snackBar: MatSnackBar,
     public errDialog: AppErrorService,
     public futureSurveyService: FutureSurveyService,
