@@ -6714,17 +6714,6 @@ var ErrorComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/views/sessions/forgot-password/forgot-password.component.css":
-/*!******************************************************************************!*\
-  !*** ./src/app/views/sessions/forgot-password/forgot-password.component.css ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
 /***/ "./src/app/views/sessions/forgot-password/forgot-password.component.html":
 /*!*******************************************************************************!*\
   !*** ./src/app/views/sessions/forgot-password/forgot-password.component.html ***!
@@ -6732,7 +6721,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"page-wrap height-100 mat-bg-primary\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-progress-bar mode=\"determinate\" class=\"session-progress\"></mat-progress-bar>\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <img src=\"assets/images/signin/logo.jpg\" alt=\"\" class=\"mb-05\">\r\n          <p class=\"text-muted m-0\">New password will be sent to your email address</p>\r\n        </div>\r\n        <form #fpForm=\"ngForm\" (ngSubmit)=\"submitEmail()\">\r\n\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input\r\n                matInput\r\n                name=\"email\"\r\n                required\r\n                [(ngModel)]=\"userEmail\"\r\n                #email=\"ngModel\"\r\n                placeholder=\"Email\"\r\n                value=\"\">\r\n            </mat-form-field>\r\n            <!-- <small\r\n              *ngIf=\"email.errors && (email.dirty || email.touched) && (email.errors.required)\"\r\n              class=\"form-error-msg\"> Email is required </small> -->\r\n          </div>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"fpForm.invalid\">Submit</button>\r\n          <div class=\"text-center\">\r\n            <a [routerLink]=\"'/sessions/signin'\" class=\"mat-primary text-center full-width\">Sign in</a>\r\n            <span fxFlex></span>\r\n            <a [routerLink]=\"'/sessions/signup'\" class=\"mat-primary text-center full-width\">Create a new account</a>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div>\r\n\r\n"
+module.exports = "<!-- <div class=\"page-wrap height-100 comman-background\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-progress-bar mode=\"determinate\" class=\"session-progress\"></mat-progress-bar>\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" style=\"width: 300px;\">\r\n          <p class=\"text-muted m-0\">New password will be sent to your email address</p>\r\n        </div>\r\n        <form #fpForm=\"ngForm\" (ngSubmit)=\"submitEmail()\">\r\n\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"email\" required [(ngModel)]=\"userEmail\" #email=\"ngModel\" placeholder=\"Email\"\r\n                value=\"\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"fpForm.invalid\">Submit</button>\r\n          <div class=\"text-center\">\r\n            <a [routerLink]=\"'/sessions/signin'\" class=\"mat-primary text-center full-width\">Sign in</a>\r\n            <span fxFlex></span>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div> -->\r\n\r\n<form id=\"user-login-view\">\r\n  <div class=\"page-wrap height-100 signin-background\">\r\n    <div class=\"session-form-hold set-form-left\">\r\n      <mat-card id=\"login-card\">\r\n        <mat-card-content>\r\n          <div id=\"login-form\">\r\n\r\n\r\n            <div class=\"text-center pb-1\" id=\"login-form-logo\">\r\n              <img src=\"assets/images/truverus/Tru-Verus-Logo.png\" alt=\"\">\r\n              <p class=\"text-muted m-0\">Enter your email address and we will send you a link to reset it.</p>\r\n              <!-- <small *ngIf=\"!result\" class=\" m-0 form-error-msg\"> Invalid Login Credentials ! </small> -->\r\n            </div>\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"email\" placeholder=\"Email\" value=\"\">\r\n            </mat-form-field>\r\n            <!-- <small\r\n              *ngIf=\"signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched\"\r\n              class=\"form-error-msg\">\r\n              Username is required </small> -->\r\n\r\n\r\n            <button mat-raised-button class=\"mat-primary full-width mb-1\">Resend A Email</button>\r\n            <div>\r\n              <a [routerLink]=\"'/sessions/signin'\" class=\"mat-primary text-center full-width\">Sign in</a>\r\n              <span fxFlex></span>\r\n            </div>\r\n\r\n\r\n          </div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>"
 
 /***/ }),
 
@@ -6779,8 +6768,7 @@ var ForgotPasswordComponent = /** @class */ (function () {
     ForgotPasswordComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-forgot-password',
-            template: __webpack_require__(/*! ./forgot-password.component.html */ "./src/app/views/sessions/forgot-password/forgot-password.component.html"),
-            styles: [__webpack_require__(/*! ./forgot-password.component.css */ "./src/app/views/sessions/forgot-password/forgot-password.component.css")]
+            template: __webpack_require__(/*! ./forgot-password.component.html */ "./src/app/views/sessions/forgot-password/forgot-password.component.html")
         }),
         __metadata("design:paramtypes", [])
     ], ForgotPasswordComponent);
@@ -6966,6 +6954,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _error_error_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./error/error.component */ "./src/app/views/sessions/error/error.component.ts");
 /* harmony import */ var _UserService_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./UserService.service */ "./src/app/views/sessions/UserService.service.ts");
 /* harmony import */ var _user_activation_user_activation_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./user-activation/user-activation.component */ "./src/app/views/sessions/user-activation/user-activation.component.ts");
+/* harmony import */ var _unauthorized_unauthorized_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./unauthorized/unauthorized.component */ "./src/app/views/sessions/unauthorized/unauthorized.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6979,6 +6968,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 // import { CommonDirectivesModule } from './sdirectives/common/common-directives.module';
+
 
 
 
@@ -7013,7 +7003,8 @@ var SessionsModule = /** @class */ (function () {
                 _signup_signup_component__WEBPACK_IMPORTED_MODULE_9__["SignupComponent"],
                 _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_11__["NotFoundComponent"],
                 _error_error_component__WEBPACK_IMPORTED_MODULE_12__["ErrorComponent"],
-                _user_activation_user_activation_component__WEBPACK_IMPORTED_MODULE_14__["UserActivationComponent"]
+                _user_activation_user_activation_component__WEBPACK_IMPORTED_MODULE_14__["UserActivationComponent"],
+                _unauthorized_unauthorized_component__WEBPACK_IMPORTED_MODULE_15__["UnauthorizedComponent"]
             ],
             providers: [_UserService_service__WEBPACK_IMPORTED_MODULE_13__["UserService"]]
         })
@@ -7042,6 +7033,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./not-found/not-found.component */ "./src/app/views/sessions/not-found/not-found.component.ts");
 /* harmony import */ var _error_error_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./error/error.component */ "./src/app/views/sessions/error/error.component.ts");
 /* harmony import */ var _user_activation_user_activation_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user-activation/user-activation.component */ "./src/app/views/sessions/user-activation/user-activation.component.ts");
+/* harmony import */ var _unauthorized_unauthorized_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./unauthorized/unauthorized.component */ "./src/app/views/sessions/unauthorized/unauthorized.component.ts");
+
 
 
 
@@ -7080,21 +7073,14 @@ var SessionsRoutes = [
                 path: 'activation/:code',
                 component: _user_activation_user_activation_component__WEBPACK_IMPORTED_MODULE_6__["UserActivationComponent"],
                 data: { title: 'Activation' }
+            }, {
+                path: 'unauthorized',
+                component: _unauthorized_unauthorized_component__WEBPACK_IMPORTED_MODULE_7__["UnauthorizedComponent"],
+                data: { title: 'Unauthorized' }
             }]
     }
 ];
 
-
-/***/ }),
-
-/***/ "./src/app/views/sessions/signin/signin.component.css":
-/*!************************************************************!*\
-  !*** ./src/app/views/sessions/signin/signin.component.css ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".comman-background{\r\n    background-image: url('signinimg.jpg') !important;\r\n    background-size:     cover !important;                      \r\n    background-repeat:   no-repeat !important;  \r\n    \r\n} \r\n.session-form-hold{\r\n    margin-top: 40px;\r\n}\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -7105,7 +7091,7 @@ module.exports = ".comman-background{\r\n    background-image: url('signinimg.jp
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"page-wrap height-100 mat-bg-primary comman-background\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-progress-bar mode=\"determinate\" class=\"session-progress\"></mat-progress-bar>\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <img src=\"assets/images/signin/logo.jpg\" alt=\"\">\r\n          <p class=\"text-muted m-0\">Sign in to your account</p>\r\n          <small *ngIf=\"!result\" class=\" m-0 form-error-msg\"> Invalid Login Credentials ! </small>\r\n        </div>\r\n        <form [formGroup]=\"signinForm\" (ngSubmit)=\"signin()\">\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" [formControl]=\"signinForm.controls['username']\" placeholder=\"Username\" value=\"\">\r\n            </mat-form-field>\r\n            <small *ngIf=\"signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched\" class=\"form-error-msg\">\r\n            Username is required </small>\r\n          </div>\r\n\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"password\" name=\"password\" matInput [formControl]=\"signinForm.controls['password']\" placeholder=\"Password\" value=\"\">\r\n            </mat-form-field>\r\n            <small *ngIf=\"signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched\" class=\"form-error-msg\">\r\n            Password is required </small>\r\n          </div>\r\n\r\n          <div class=\"pb-1\">\r\n            <mat-checkbox name=\"rememberMe\" [formControl]=\"signinForm.controls['rememberMe']\" class=\"pb-1\">Remember this\r\n              computer</mat-checkbox>\r\n          </div>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"signinForm.invalid\">Sign in</button>\r\n          <div class=\"text-center\">\r\n            <a [routerLink]=\"'/sessions/forgot-password'\" class=\"mat-primary text-center full-width\">Forgot password</a>\r\n            <span fxFlex></span>\r\n            <a [routerLink]=\"'/sessions/signup'\" class=\"mat-primary text-center full-width\">Create a new account</a>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<!-- <div class=\"page-wrap height-100 comman-background\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" style=\"width: 300px;\">\r\n          <p class=\"text-muted m-0\">Sign in to your account</p>\r\n          <small *ngIf=\"!result\" class=\" m-0 form-error-msg\"> Invalid Login Credentials ! </small>\r\n        </div>\r\n        <form [formGroup]=\"signinForm\" (ngSubmit)=\"signin()\">\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" [formControl]=\"signinForm.controls['username']\" placeholder=\"Username\" value=\"\">\r\n            </mat-form-field>\r\n            <small *ngIf=\"signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched\" class=\"form-error-msg\">\r\n            Username is required </small>\r\n          </div>\r\n\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"password\" name=\"password\" matInput [formControl]=\"signinForm.controls['password']\" placeholder=\"Password\" value=\"\">\r\n            </mat-form-field>\r\n            <small *ngIf=\"signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched\" class=\"form-error-msg\">\r\n            Password is required </small>\r\n          </div>\r\n\r\n          <div class=\"pb-1\">\r\n            <mat-checkbox name=\"rememberMe\" [formControl]=\"signinForm.controls['rememberMe']\" class=\"pb-1\">Remember this\r\n              computer</mat-checkbox>\r\n          </div>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"signinForm.invalid\">Sign in</button>\r\n          <div class=\"text-center\">\r\n            <a [routerLink]=\"'/sessions/forgot-password'\" class=\"mat-primary text-center full-width\">Forgot password</a>\r\n            <span fxFlex></span>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div> -->\r\n\r\n<form [formGroup]=\"signinForm\" id=\"user-login-view\"  (ngSubmit)=\"signin()\">\r\n  <div class=\"page-wrap height-100 signin-background\">\r\n    <div class=\"session-form-hold set-form-left\">\r\n      <mat-card id=\"login-card\">\r\n        <mat-card-content>\r\n          <div id=\"login-form\">\r\n            <div class=\"text-center pb-1\" id=\"login-form-logo\">\r\n              <img src=\"assets/images/truverus/Tru-Verus-Logo.png\" alt=\"\">\r\n              <p class=\"text-muted m-0\">Welcome, Please Signin to your Account.</p>\r\n              <small *ngIf=\"!result\" class=\" m-0 form-error-msg\"> Invalid Login Credentials ! </small>\r\n            </div>\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" [formControl]=\"signinForm.controls['username']\" placeholder=\"Username\"\r\n                value=\"\">\r\n            </mat-form-field>\r\n            <small\r\n              *ngIf=\"signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched\"\r\n              class=\"form-error-msg\">\r\n              Username is required </small>\r\n\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"password\" name=\"password\" matInput [formControl]=\"signinForm.controls['password']\"\r\n                placeholder=\"Password\" value=\"\">\r\n            </mat-form-field>\r\n            <small\r\n              *ngIf=\"signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched\"\r\n              class=\"form-error-msg\"> Password is required </small>\r\n\r\n            <div class=\"pb-1\">\r\n              <mat-checkbox name=\"rememberMe\" [formControl]=\"signinForm.controls['rememberMe']\" class=\"pb-1\">Remember\r\n                this computer</mat-checkbox>\r\n            </div>\r\n\r\n            <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"signinForm.invalid\">Sign\r\n              in</button>\r\n            <div class=\"text-center\">\r\n              <a [routerLink]=\"'/sessions/forgot-password'\" class=\"mat-primary text-center full-width\">Forgot\r\n                password</a>\r\n              <span fxFlex></span>\r\n            </div>\r\n          </div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -7149,6 +7135,7 @@ var SigninComponent = /** @class */ (function () {
         this.signInUrl = "sessions/signin";
         this.result = true;
         this.storage_name = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__["authProperties"].storage_name;
+        this.counter = 0;
     }
     SigninComponent.prototype.ngOnInit = function () {
         this.signinForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
@@ -7165,49 +7152,45 @@ var SigninComponent = /** @class */ (function () {
         }
         var signinData = this.signinForm.value;
         this.submitButton.disabled = true;
-        this.progressBar.mode = 'indeterminate';
+        // this.progressBar.mode = 'indeterminate';
         this.userService.login(signinData)
             .subscribe(function (response) {
             var tempUser = {
                 id: response.user_id,
                 username: 'contactpkumara@gmail.com',
-                profilename: 'Kushan Pabasara',
+                accountName: 'Kushan Pabasara',
                 image: 'assets/images/cp_users/placeholder-user.png',
                 token: response.access_token,
                 refreshToken: response.refresh_token,
                 company: 'Kushan Pabasara',
-                position: 'UI/UX Engineer',
                 expires_in: response.expires_in,
                 userData: ''
             };
             localStorage.setItem(_this.storage_name, JSON.stringify(tempUser));
-            // this.getRefreshToken(response.expires_in * 1000);
             _this.userService.getUserData(response.user_id)
                 .subscribe(function (res) {
-                tempUser.username = res.content.userName;
-                tempUser.profilename = res.content.userName;
-                tempUser.company = res.content.client;
+                var viewData = res.content;
+                tempUser.username = viewData.userName;
+                tempUser.accountName = viewData.accountName;
                 tempUser.userData = res.content;
                 localStorage.setItem(_this.storage_name, JSON.stringify(tempUser));
-                _this.progressBar.mode = 'determinate';
+                // this.progressBar.mode = 'determinate';
                 _this.router.navigate([_this.successUrl]);
+                var expireInMilliSecond = (response.expires_in - 2) * 1000;
+                _this.getRefreshToken(expireInMilliSecond);
             }, function (error) {
-                _this.progressBar.mode = 'determinate';
+                _this.result = false;
+                // this.progressBar.mode = 'determinate';
                 localStorage.removeItem(_this.storage_name);
-                _this.snack.open('Invalid Credential', 'close', {
-                    duration: 2000
-                });
             });
         }, function (error) {
+            _this.result = false;
             if (error.status === 400) {
-                _this.progressBar.mode = 'determinate';
-                _this.snack.open('Invalid Credential', 'close', {
-                    duration: 2000
-                });
+                // this.progressBar.mode = 'determinate';
                 _this.signinForm.reset();
             }
             else {
-                _this.progressBar.mode = 'determinate';
+                // this.progressBar.mode = 'determinate';
                 _this.signinForm.reset();
                 _this.router.navigate([_this.signInUrl]);
             }
@@ -7216,30 +7199,35 @@ var SigninComponent = /** @class */ (function () {
     SigninComponent.prototype.getRefreshToken = function (refreshTime) {
         var _this = this;
         setTimeout(function () {
+            console.log('Set Time out function');
             var tempUser = JSON.parse(localStorage.getItem(_this.storage_name));
             _this.userService.getUserRefreshToken(tempUser.refreshToken)
                 .subscribe(function (response) {
+                _this.counter += 1;
+                console.log('Refresh count = ' + _this.counter);
                 tempUser.token = response.access_token;
                 tempUser.refreshToken = response.refresh_token;
                 tempUser.expires_in = response.expires_in;
                 localStorage.setItem(_this.storage_name, JSON.stringify(tempUser));
-                _this.getRefreshToken(response.expires_in * 1000);
+                var expireInMilliSecond = (response.expires_in - 2) * 1000;
+                _this.getRefreshToken(expireInMilliSecond);
+            }, function (error) {
+                console.log('Refresh Token Error');
+                _this.getRefreshToken(refreshTime);
             });
         }, refreshTime);
     };
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatProgressBar"]),
-        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatProgressBar"])
-    ], SigninComponent.prototype, "progressBar", void 0);
-    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatProgressBar"])
+        // progressBar: MatProgressBar;
+        ,
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatButton"]),
         __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatButton"])
     ], SigninComponent.prototype, "submitButton", void 0);
     SigninComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: "app-signin",
-            template: __webpack_require__(/*! ./signin.component.html */ "./src/app/views/sessions/signin/signin.component.html"),
-            styles: [__webpack_require__(/*! ./signin.component.css */ "./src/app/views/sessions/signin/signin.component.css")]
+            template: __webpack_require__(/*! ./signin.component.html */ "./src/app/views/sessions/signin/signin.component.html")
         }),
         __metadata("design:paramtypes", [_UserService_service__WEBPACK_IMPORTED_MODULE_3__["UserService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
@@ -7252,17 +7240,6 @@ var SigninComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/views/sessions/signup/signup.component.css":
-/*!************************************************************!*\
-  !*** ./src/app/views/sessions/signup/signup.component.css ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ".background-signup{\r\n    background-image: url('signupimg.jpg') !important;\r\n    background-size:     cover !important;                      \r\n    background-repeat:   no-repeat !important;  \r\n    \r\n} \r\n.session-form-hold{\r\n    margin-right: 5%;\r\n}"
-
-/***/ }),
-
 /***/ "./src/app/views/sessions/signup/signup.component.html":
 /*!*************************************************************!*\
   !*** ./src/app/views/sessions/signup/signup.component.html ***!
@@ -7270,7 +7247,7 @@ module.exports = ".background-signup{\r\n    background-image: url('signupimg.jp
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"page-wrap height-100 mat-bg-primary background-signup\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-progress-bar mode=\"determinate\" class=\"session-progress\"></mat-progress-bar>\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <img src=\"assets/images/signup/logo.jpg\" alt=\"\" class=\"mb-05\">\r\n          <p class=\"text-muted m-0\">Sign up to use our service</p>\r\n        </div>\r\n        <form [formGroup]=\"signupForm\"  (ngSubmit)=\"signup()\">\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input\r\n                matInput\r\n                type=\"email\"\r\n                name=\"email\"\r\n                [formControl]=\"signupForm.controls['email']\"\r\n                placeholder=\"Your Email\"\r\n                value=\"\">\r\n            </mat-form-field>\r\n            <small \r\n              *ngIf=\"signupForm.controls['email'].hasError('required') && signupForm.controls['email'].touched\" \r\n              class=\"form-error-msg\"> Email is required </small>\r\n\r\n              <small \r\n                *ngIf=\"signupForm.controls['email'].hasError('email') && signupForm.controls['email'].touched\" \r\n                class=\"form-error-msg\"> Invaild email address </small>\r\n          </div>\r\n\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input \r\n                type=\"password\"\r\n                name=\"password\"\r\n                matInput\r\n                [formControl]=\"signupForm.controls['password']\"\r\n                placeholder=\"Password\" \r\n                value=\"\">\r\n            </mat-form-field>\r\n            <small \r\n              *ngIf=\"signupForm.controls['password'].hasError('required') && signupForm.controls['password'].touched\" \r\n              class=\"form-error-msg\"> Password is required </small>\r\n          </div>\r\n          \r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input\r\n                type=\"password\"\r\n                name=\"confirmPassword\"\r\n                matInput\r\n                [formControl]=\"signupForm.controls['confirmPassword']\"\r\n                placeholder=\"Confirm Password\"\r\n                value=\"\">\r\n            </mat-form-field>\r\n            <small *ngIf=\"signupForm.controls['confirmPassword'].hasError('required') && signupForm.controls['confirmPassword'].touched\" class=\"form-error-msg\">Confirm password is required.</small>\r\n            <small *ngIf=\"signupForm.controls['confirmPassword'].hasError('equalTo')\" class=\"form-error-msg\">Passwords do not math.</small>\r\n          </div>\r\n          \r\n          <div class=\"pb-1\">\r\n            <mat-checkbox\r\n              name=\"agreed\"\r\n              [formControl]=\"signupForm.controls['agreed']\"\r\n              class=\"pb-1\">I have read and agree to the terms of service.</mat-checkbox>\r\n\r\n              <small \r\n                *ngIf=\"signupForm.controls['agreed'].hasError('agreed') && signupForm.controls['agreed'].touched\" \r\n                class=\"form-error-msg\"> You must agree to the terms and conditions </small>\r\n          </div>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"signupForm.invalid\">Sign up</button>\r\n          <div class=\"text-center\">\r\n            <a [routerLink]=\"'/sessions/signin'\" class=\"mat-primary text-center full-width\">Sign in to existing account</a>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"page-wrap height-100 background-signup\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-progress-bar mode=\"determinate\" class=\"session-progress\"></mat-progress-bar>\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <!-- <img src=\"assets/images/signup/logo.jpg\" alt=\"\" class=\"mb-05\"> -->\r\n          <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" style=\"width: 300px;\">\r\n          <p class=\"text-muted m-0\">Sign up to use our service</p>\r\n        </div>\r\n        <form [formGroup]=\"signupForm\"  (ngSubmit)=\"signup()\">\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input\r\n                matInput\r\n                type=\"email\"\r\n                name=\"email\"\r\n                [formControl]=\"signupForm.controls['email']\"\r\n                placeholder=\"Your Email\"\r\n                value=\"\">\r\n            </mat-form-field>\r\n            <small \r\n              *ngIf=\"signupForm.controls['email'].hasError('required') && signupForm.controls['email'].touched\" \r\n              class=\"form-error-msg\"> Email is required </small>\r\n\r\n              <small \r\n                *ngIf=\"signupForm.controls['email'].hasError('email') && signupForm.controls['email'].touched\" \r\n                class=\"form-error-msg\"> Invaild email address </small>\r\n          </div>\r\n\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input \r\n                type=\"password\"\r\n                name=\"password\"\r\n                matInput\r\n                [formControl]=\"signupForm.controls['password']\"\r\n                placeholder=\"Password\" \r\n                value=\"\">\r\n            </mat-form-field>\r\n            <small \r\n              *ngIf=\"signupForm.controls['password'].hasError('required') && signupForm.controls['password'].touched\" \r\n              class=\"form-error-msg\"> Password is required </small>\r\n          </div>\r\n          \r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input\r\n                type=\"password\"\r\n                name=\"confirmPassword\"\r\n                matInput\r\n                [formControl]=\"signupForm.controls['confirmPassword']\"\r\n                placeholder=\"Confirm Password\"\r\n                value=\"\">\r\n            </mat-form-field>\r\n            <small *ngIf=\"signupForm.controls['confirmPassword'].hasError('required') && signupForm.controls['confirmPassword'].touched\" class=\"form-error-msg\">Confirm password is required.</small>\r\n            <small *ngIf=\"signupForm.controls['confirmPassword'].hasError('equalTo')\" class=\"form-error-msg\">Passwords do not math.</small>\r\n          </div>\r\n          \r\n          <div class=\"pb-1\">\r\n            <mat-checkbox\r\n              name=\"agreed\"\r\n              [formControl]=\"signupForm.controls['agreed']\"\r\n              class=\"pb-1\">I have read and agree to the terms of service.</mat-checkbox>\r\n\r\n              <small \r\n                *ngIf=\"signupForm.controls['agreed'].hasError('agreed') && signupForm.controls['agreed'].touched\" \r\n                class=\"form-error-msg\"> You must agree to the terms and conditions </small>\r\n          </div>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"signupForm.invalid\">Sign up</button>\r\n          <div class=\"text-center\">\r\n            <a [routerLink]=\"'/sessions/signin'\" class=\"mat-primary text-center full-width\">Sign in to existing account</a>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -7338,12 +7315,80 @@ var SignupComponent = /** @class */ (function () {
     SignupComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-signup',
-            template: __webpack_require__(/*! ./signup.component.html */ "./src/app/views/sessions/signup/signup.component.html"),
-            styles: [__webpack_require__(/*! ./signup.component.css */ "./src/app/views/sessions/signup/signup.component.css")]
+            template: __webpack_require__(/*! ./signup.component.html */ "./src/app/views/sessions/signup/signup.component.html")
         }),
         __metadata("design:paramtypes", [])
     ], SignupComponent);
     return SignupComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/views/sessions/unauthorized/unauthorized.component.html":
+/*!*************************************************************************!*\
+  !*** ./src/app/views/sessions/unauthorized/unauthorized.component.html ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"page-wrap height-100 default-bg\">\r\n  <div class=\"app-error\">\r\n    <div class=\"fix\">\r\n      <mat-icon class=\"error-icon\" color=\"warn\">error</mat-icon>\r\n      <div class=\"error-text\">\r\n        <h1 class=\"error-title\">401</h1>\r\n        <div class=\"error-subtitle\">Unauthorized!</div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"error-actions\">\r\n      <button mat-raised-button color=\"primary\" class=\"mb-1 mr-05\" (click)=\"backClicked()\">Back to Dashboard</button>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/views/sessions/unauthorized/unauthorized.component.scss":
+/*!*************************************************************************!*\
+  !*** ./src/app/views/sessions/unauthorized/unauthorized.component.scss ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/views/sessions/unauthorized/unauthorized.component.ts":
+/*!***********************************************************************!*\
+  !*** ./src/app/views/sessions/unauthorized/unauthorized.component.ts ***!
+  \***********************************************************************/
+/*! exports provided: UnauthorizedComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UnauthorizedComponent", function() { return UnauthorizedComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var UnauthorizedComponent = /** @class */ (function () {
+    function UnauthorizedComponent(router) {
+        this.router = router;
+    }
+    UnauthorizedComponent.prototype.ngOnInit = function () {
+    };
+    UnauthorizedComponent.prototype.backClicked = function () {
+        this.router.navigate(['profile']);
+    };
+    UnauthorizedComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-unauthorized',
+            template: __webpack_require__(/*! ./unauthorized.component.html */ "./src/app/views/sessions/unauthorized/unauthorized.component.html"),
+            styles: [__webpack_require__(/*! ./unauthorized.component.scss */ "./src/app/views/sessions/unauthorized/unauthorized.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+    ], UnauthorizedComponent);
+    return UnauthorizedComponent;
 }());
 
 
@@ -7357,7 +7402,7 @@ var SignupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"page-wrap height-100 mat-bg-primary comman-background\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-progress-bar mode=\"determinate\" class=\"session-progress\"></mat-progress-bar>\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <img src=\"assets/images/signin/logo.jpg\" alt=\"\">\r\n          <p class=\"text-muted m-0\">Truverus User Activation</p>\r\n          <small *ngIf=\"result\" class=\" m-0 form-error-msg\"> {{errorMsg}} </small>\r\n        </div>\r\n        <form [formGroup]=\"activationForm\" (ngSubmit)=\"activateUser()\">\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"password\" name=\"password\" matInput [formControl]=\"activationForm.controls['password']\"\r\n                placeholder=\"Password\" value=\"\">\r\n            </mat-form-field>\r\n            <small\r\n              *ngIf=\"activationForm.controls['password'].hasError('required') && activationForm.controls['password'].touched\"\r\n              class=\"form-error-msg\">\r\n              Password is required </small>\r\n          </div>\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\"\r\n            [disabled]=\"activationForm.invalid\">Activate</button>\r\n        </form>\r\n\r\n\r\n\r\n\r\n        <!-- <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"activateUser()\">Activate</button> -->\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"page-wrap height-100 comman-background\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-progress-bar mode=\"determinate\" class=\"session-progress\"></mat-progress-bar>\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <img src=\"assets/images/truverus/Tru-Verus-Logo.png\" alt=\"\">\r\n          <p class=\"text-muted m-0\">Truverus User Activation</p>\r\n          <small *ngIf=\"result\" class=\" m-0 form-error-msg\"> {{errorMsg}} </small>\r\n        </div>\r\n        <form [formGroup]=\"activationForm\" (ngSubmit)=\"activateUser()\">\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"password\" name=\"password\" matInput [formControl]=\"activationForm.controls['password']\"\r\n                placeholder=\"Password\" value=\"\">\r\n            </mat-form-field>\r\n            <small\r\n              *ngIf=\"activationForm.controls['password'].hasError('required') && activationForm.controls['password'].touched\"\r\n              class=\"form-error-msg\">\r\n              Password is required </small>\r\n          </div>\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\"\r\n            [disabled]=\"activationForm.invalid\">Activate</button>\r\n        </form>\r\n        <!-- <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"activateUser()\">Activate</button> -->\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -7398,7 +7443,7 @@ var UserActivationComponent = /** @class */ (function () {
         this.snack = snack;
         this.router = router;
         this.result = false;
-        this.errorMsg = "The password must contain at least 6 characters !";
+        this.errorMsg = "The password must have more than 6 characters !";
     }
     UserActivationComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -7425,14 +7470,22 @@ var UserActivationComponent = /** @class */ (function () {
                 _this.snack.open("User Activated !", "OK", { duration: 3000 });
                 _this.router.navigate(['sessions/signin']);
             }, function (error) {
-                if (error.error.validationFailures[0].code === "userActivationRequest.alreadyActivated") {
-                    _this.errorMsg = "User Already Activated !";
-                    _this.result = true;
+                if (error.status === 500) {
+                    console.log("SUCCESS ACTIVATION With 500 Error");
+                    _this.result = false;
+                    _this.snack.open("User Activated !", "OK", { duration: 3000 });
+                    _this.router.navigate(['sessions/signin']);
+                }
+                else {
+                    if (error.error.validationFailures[0].code === "userActivationRequest.alreadyActivated") {
+                        _this.errorMsg = "User Already Activated !";
+                        _this.result = true;
+                    }
                 }
             });
         }
         else {
-            this.errorMsg = "The password must contain at least 6 characters !";
+            this.errorMsg = "The password must have more than 6 characters !";
             this.result = true;
         }
     };
