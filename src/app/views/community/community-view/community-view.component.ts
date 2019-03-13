@@ -47,7 +47,6 @@ export class CommunityViewComponent implements OnInit {
       .subscribe(
         response => {
           const tempRes: any = response;
-          console.log(tempRes);
           this.quotaExpire = tempRes.content.expired;
           this.quota = tempRes.content.quota;
         }
@@ -158,6 +157,11 @@ export class CommunityViewComponent implements OnInit {
     }
   }
 
+  /*
+  * Create community
+  * 05-03-2019
+  * Prasad Kumara
+  */
   createCommunity(res) {
     this.comunityService.createCommunity(res)
       .subscribe(
@@ -263,6 +267,7 @@ export class CommunityViewComponent implements OnInit {
                 });
               },
             error => {
+              this.loader.close();
               if (error.status !== 401) {
                 this.errDialog.showError(error);
               }

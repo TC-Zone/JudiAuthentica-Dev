@@ -95,6 +95,7 @@ export const errorMessages = {
     licenseViewLicenseViewError : 'License view error.'
   },
   download : {
+    imageByteNullContext : 'Image is not exists.',
     imageByteContextNotExists : 'Image is not exists.'
   },
   role : {
