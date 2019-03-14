@@ -199,7 +199,7 @@ var AppComponent = /** @class */ (function () {
         this.renderer = renderer;
         this.userService = userService;
         this.document = document;
-        this.appTitle = "CP Authentica";
+        this.appTitle = "Clear Picture";
         this.pageTitle = "";
     }
     AppComponent.prototype.ngOnInit = function () {
@@ -4757,9 +4757,9 @@ var ThemeService = /** @class */ (function () {
         ****** (SET YOUR DEFAULT THEME HERE) *******
         * Assign new Theme to activatedTheme
         */
-        // this.activatedTheme = this.egretThemes[0]; 
-        // this.activatedTheme = this.egretThemes[1]; 
-        // this.activatedTheme = this.egretThemes[2]; 
+        // this.activatedTheme = this.egretThemes[0];
+        // this.activatedTheme = this.egretThemes[1];
+        // this.activatedTheme = this.egretThemes[2];
         this.activatedTheme = this.egretThemes[1];
         // *********** ONLY FOR DEMO **********
         this.setThemeFromQuery();

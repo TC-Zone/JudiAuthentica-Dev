@@ -100,14 +100,16 @@ export class FutureSurveyViewComponent implements OnInit {
 
       if (options.question.getType() === 'rating') {
         classes.root = 'btn-group';
-        classes.item = 'btn btn-default btn-secondary';
+        classes.item = 'btn btn-outline-secondary';
       }
 
       if (options.question.getType() === 'radiogroup') {
+        classes.root = 'sv_qcbc';
         classes.item = 'sv-q-col-1';
       }
 
       if (options.question.getType() === 'checkbox') {
+        classes.root = 'sv_qcbc sv_qcbx';
         classes.item = 'sv-q-col-1';
       }
 
@@ -127,7 +129,6 @@ export class FutureSurveyViewComponent implements OnInit {
         classes.root = 'form-control';
       }
     });
-
 
     //Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
     // console.log('.....bootstrap');
