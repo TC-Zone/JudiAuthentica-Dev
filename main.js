@@ -2784,17 +2784,22 @@ var AppErrorService = /** @class */ (function () {
         console.log('show error messages');
         console.log(error);
         if (error.error !== null) {
-            if (error.error.hasOwnProperty('validationFailures')) {
-                this.handleCustomError({
-                    title: error.error.status,
-                    message: error.error.validationFailures[0].code,
-                    type: error.error.validationFailures[0].field,
-                    status: error.status,
-                    clientError: ''
-                });
+            if (error.status === 403) {
+                this.openPopUpWindow(this.removeUnderscore(error.error.error), error.error.error_description);
             }
             else {
-                this.openPopUpWindow(this.removeUnderscore(error.error.status), 'Truverus - ClearPicture : Something went wrong');
+                if (error.error.hasOwnProperty('validationFailures')) {
+                    this.handleCustomError({
+                        title: error.error.status,
+                        message: error.error.validationFailures[0].code,
+                        type: error.error.validationFailures[0].field,
+                        status: error.status,
+                        clientError: ''
+                    });
+                }
+                else {
+                    this.openPopUpWindow(this.removeUnderscore(error.error.status), 'Truverus - ClearPicture : Something went wrong');
+                }
             }
         }
         else {
@@ -2822,8 +2827,9 @@ var AppErrorService = /** @class */ (function () {
         return enumkey;
     };
     // Remove _ from Error Title
-    AppErrorService.prototype.removeUnderscore = function (string) {
-        var stringArray = string.split('_');
+    AppErrorService.prototype.removeUnderscore = function (text) {
+        console.log(text);
+        var stringArray = text.split('_');
         var errorTitle = '';
         for (var i = 0; i < stringArray.length; i++) {
             errorTitle += stringArray[i].substring(0, 1).toUpperCase() + stringArray[i].substring(1).toLowerCase() + ' ';
@@ -3256,7 +3262,7 @@ var AppLoaderService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n    <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n      <img src=\"./../../../../assets/images/popup-window/warning.png\">\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n      <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n        <h4 class=\"warn-header\">{{ data.title }}</h4>\r\n      </div>\r\n      <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n        <p class=\"warn-message\">{{ data.message }}</p>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n  <mat-dialog-actions class=\"margin-top action-section\">\r\n    <button mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(false)\">Okey</button>\r\n    <span fxFlex></span>\r\n    <button mat-button type=\"button\" class=\"close-btn\" (click)=\"dialogRef.close(false)\">Close</button>\r\n  </mat-dialog-actions>\r\n"
+module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n    <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n      <img src=\"./../../../../assets/images/popup-window/warning.png\">\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n      <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n        <h4 class=\"warn-header\">{{ data.title }}</h4>\r\n      </div>\r\n      <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n        <p class=\"warn-message\">{{ data.message }}</p>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n  <mat-dialog-actions class=\"margin-top action-section\">\r\n    <button mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(false)\">OK</button>\r\n    <span fxFlex></span>\r\n    <button mat-button type=\"button\" class=\"close-btn\" (click)=\"dialogRef.close(false)\">Close</button>\r\n  </mat-dialog-actions>\r\n"
 
 /***/ }),
 
