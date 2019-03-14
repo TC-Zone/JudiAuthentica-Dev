@@ -21,6 +21,7 @@ import {
   ChoiceTypeEnum,
   MatrixTypeEnum
 } from "../../../model/FutureSurvey.model";
+import { AppWarningService } from "app/shared/services/app-warning/app-warning.service";
 
 widgets.icheck(SurveyKo);
 widgets.select2(SurveyKo);
@@ -80,7 +81,8 @@ export class FutureSurveyComponent implements OnInit {
     private errDialog: AppErrorService,
     private snack: MatSnackBar,
     private loc: LocalizationService,
-    private FSOperationalService: FutureSurveyOperationalService
+    private FSOperationalService: FutureSurveyOperationalService,
+    private appWarning: AppWarningService
   ) { }
 
   ngOnInit() {
@@ -451,11 +453,16 @@ export class FutureSurveyComponent implements OnInit {
 
 
     if (clientError) {
-      this.errDialog.showError({
-        title: "Error",
-        type: "client_error",
-        clientError: clientError
-      });
+      const warningData = {
+        title: "Future Survey Warning!",
+        message: clientError
+      };
+      this.appWarning.showWarning(warningData);
+      // this.errDialog.showError({
+      //   title: "Error",
+      //   type: "client_error",
+      //   clientError: clientError
+      // });
       return true;
     } else {
       return false;
