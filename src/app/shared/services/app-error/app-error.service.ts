@@ -76,18 +76,21 @@ export class AppErrorService {
     console.log('show error messages');
     console.log(error);
     if (error.error !== null) {
-      if (error.error.hasOwnProperty('validationFailures')) {
-        this.handleCustomError({
-          title: error.error.status,
-          message: error.error.validationFailures[0].code,
-          type: error.error.validationFailures[0].field,
-          status: error.status,
-          clientError: ''
-        });
+      if (error.status === 403) {
+        this.openPopUpWindow(this.removeUnderscore(error.error.error), error.error.error_description);
       } else {
-        this.openPopUpWindow(this.removeUnderscore(error.error.status), 'Truverus - ClearPicture : Something went wrong');
+        if (error.error.hasOwnProperty('validationFailures')) {
+          this.handleCustomError({
+            title: error.error.status,
+            message: error.error.validationFailures[0].code,
+            type: error.error.validationFailures[0].field,
+            status: error.status,
+            clientError: ''
+          });
+        } else {
+          this.openPopUpWindow(this.removeUnderscore(error.error.status), 'Truverus - ClearPicture : Something went wrong');
+        }
       }
-
     } else {
       this.showHttpError({
         title: 'Error',
@@ -114,8 +117,9 @@ export class AppErrorService {
   }
 
   // Remove _ from Error Title
-  removeUnderscore(string: string): string {
-    const stringArray = string.split('_');
+  removeUnderscore(text: string): string {
+    console.log(text);
+    const stringArray = text.split('_');
     let errorTitle = '';
     for (let i = 0; i < stringArray.length; i++) {
       errorTitle += stringArray[i].substring(0, 1).toUpperCase() + stringArray[i].substring(1).toLowerCase() + ' ';
