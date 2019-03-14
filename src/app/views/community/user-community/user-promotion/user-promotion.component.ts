@@ -78,7 +78,7 @@ export class UserPromotionComponent implements OnInit {
   * Prasad Kumara
   */
   promotionPopUp(data: any = {}, isNew?) {
-    if (this.quotaExpire) {
+    if (this.quotaExpire && isNew) {
       const infoData = {
         title: 'License',
         message: 'Allocated Promotion Limit Exceded. Do you want to activate more?',
