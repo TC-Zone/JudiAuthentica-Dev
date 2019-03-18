@@ -35,6 +35,7 @@ export class AppInfoService {
           return;
         } else {
           window.open(infoData.linkData.url);
+          return;
         }
       }
     );
