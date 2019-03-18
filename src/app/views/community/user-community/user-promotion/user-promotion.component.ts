@@ -81,7 +81,7 @@ export class UserPromotionComponent implements OnInit {
     if (this.quotaExpire && isNew) {
       const infoData = {
         title: 'License',
-        message: 'Allocated Promotion Limit Exceded. Do you want to activate more?',
+        message: 'You subscribed number of promotions have expired! Do you like to extend the plan?',
         linkData: {
           url: '#',
           buttonText: 'Activate'
@@ -121,13 +121,13 @@ export class UserPromotionComponent implements OnInit {
                       if (tempRes.content.usage < (tempRes.content.quota - 1) && (tempRes.content.quota - tempRes.content.usage) === 2) {
                         this.appWarningService.showWarning({
                           title: 'License',
-                          message: 'One Event Remaining!'
+                          message: 'Your subscription plan is about to expire! / One more promotion remaining!'
                         });
                         this.createPromotion(res);
                       } else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
                         const infoData = {
                           title: 'License',
-                          message: 'Allocated promotions are finished. Do you want to activate more?',
+                          message: 'You subscribed number of promotions have expired! Do you like to extend the plan?',
                           linkData: {
                             url: '#',
                             buttonText: 'Activate'

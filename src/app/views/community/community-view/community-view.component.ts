@@ -62,7 +62,7 @@ export class CommunityViewComponent implements OnInit {
     if (this.quotaExpire && isNew) {
       const infoData = {
         title: 'License',
-        message: 'Allocated Community Limit Exceded. Do you want to Activate More?',
+        message: 'You subscribed number of communities have expired! Do you like to extend the plan?',
         linkData: {
           url: '#',
           buttonText: 'Activate'
@@ -108,13 +108,13 @@ export class CommunityViewComponent implements OnInit {
                       if (tempRes.content.usage < (tempRes.content.quota - 1) && (tempRes.content.quota - tempRes.content.usage) === 2) {
                         this.appWarningService.showWarning({
                           title: 'License',
-                          message: 'One Community Remaining!'
+                          message: 'Your subscription plan is about to expire! / One more community remaining!'
                         });
                         this.createCommunity(res);
                       } else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
                         const infoData = {
                           title: 'License',
-                          message: 'Allocated communities are finished. Do you want to activate more?',
+                          message: 'You subscribed number of communities have expired! Do you like to extend the plan?',
                           linkData: {
                             url: '#',
                             buttonText: 'Activate'
