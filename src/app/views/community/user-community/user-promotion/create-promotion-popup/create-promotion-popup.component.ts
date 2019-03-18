@@ -177,6 +177,7 @@ export class CreatePromotionPopupComponent implements OnInit {
                 return;
               }
               this.urls.push(ev.target.result);
+              this.promotionForm.controls['promoPoster'].setErrors(null);
             };
             reader.readAsDataURL(event.target.files[i]);
             this.newlySelectedFileList.push(event.target.files[i]);
@@ -212,6 +213,7 @@ export class CreatePromotionPopupComponent implements OnInit {
   removeSelectedImg(index: number) {
     this.urls.splice(index, 1);
     this.currentTotalImageCount -= 1;
+    this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
 
     if (this.remainImagesID.length < index + 1) {
       this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);

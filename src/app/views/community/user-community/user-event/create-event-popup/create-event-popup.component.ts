@@ -177,7 +177,7 @@ export class CreateEventPopupComponent implements OnInit {
               img.src = ev.target.result;
               const widthReminder = img.width % 4;
               const heightReminder = img.height % 3;
-              if (img.width < this.minWidth && img.height < this.minHeight) {
+              if (img.width < this.minWidth || img.height < this.minHeight) {
                 this.snackBar.open(
                   'Image minimum dimension should be ' + this.minWidth + 'X' + this.minHeight,
                   'close',
@@ -198,6 +198,7 @@ export class CreateEventPopupComponent implements OnInit {
                 return;
               }
               this.urls.push(ev.target.result);
+              this.eventForm.controls['poster'].setErrors(null);
             };
             reader.readAsDataURL(event.target.files[i]);
             this.newlySelectedFileList.push(event.target.files[i]);
@@ -233,6 +234,7 @@ export class CreateEventPopupComponent implements OnInit {
   removeSelectedImg(index: number) {
     this.urls.splice(index, 1);
     this.currentTotalImageCount -= 1;
+    this.eventForm.controls['poster'].setErrors({'incorrect': true});
 
     if (this.remainImagesID.length < index + 1) {
       this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
