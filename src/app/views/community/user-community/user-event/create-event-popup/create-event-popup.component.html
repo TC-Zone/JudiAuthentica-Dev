@@ -49,9 +49,6 @@
         </mat-form-field>
       </div>
       <div fxFlex="50" class="pr-1">
-        <mat-slide-toggle [formControl]="eventForm.controls['status']">Activate Event</mat-slide-toggle>
-      </div>
-      <div fxFlex="50" class="pr-1">
         <!-- --------- hidden file input --------- -->
         <input (change)="onSelectFile($event)" #eventImgs type="file" [formControl]="eventForm.controls['poster']"
         multiple style="display: none" />
@@ -68,6 +65,9 @@
             (this.currentTotalImageCount > 0)"> ({{this.currentTotalImageCount}} / {{this.maxUploadableFileCount}})</span>
           </button>
         </div>
+      </div>
+      <div fxFlex="50" class="pr-1">
+        <mat-slide-toggle *ngIf="!data.isNew" [formControl]="eventForm.controls['status']">Activate Event</mat-slide-toggle>
       </div>
       <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngFor='let url of urls; let i = index' fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" style="display: flex;">
         <mat-card class="p-0">

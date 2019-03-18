@@ -81,10 +81,11 @@ export class UserEventComponent implements OnInit {
     if (this.quotaExpire && isNew) {
       const infoData = {
         title: 'License',
-        message: 'You subscribed number of events have expired! Do you like to extend the plan?',
+        message: 'You subscribed number of events have expired!</br>' +
+        '<small class="text-muted">Do you like to extend the plan?</small>',
         linkData: {
-          url: '#',
-          buttonText: 'Activate'
+          url: 'https://www.google.com/gmail/',
+          buttonText: 'Extend'
         }
       };
       this.appInfoService.showInfo(infoData);
@@ -125,16 +126,17 @@ export class UserEventComponent implements OnInit {
                       if (tempRes.content.usage < (tempRes.content.quota - 1) && (tempRes.content.quota - tempRes.content.usage) === 2) {
                         this.appWarningService.showWarning({
                           title: 'License',
-                          message: 'Your subscription plan is about to expire! / One more event remaining!'
+                          message: 'Your subscription plan is about to expire!</br>One more event remaining!'
                         });
                         this.createEvent(res);
                       } else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
                         const infoData = {
                           title: 'License',
-                          message: 'You subscribed number of events have expired! Do you like to extend the plan?',
+                          message: 'You subscribed number of events have expired!</br>' +
+                          '<small class="text-muted">Do you like to extend the plan?</small>',
                           linkData: {
-                            url: '#',
-                            buttonText: 'Activate'
+                            url: 'https://www.google.com/gmail/',
+                            buttonText: 'Extend'
                           }
                         };
                         this.appInfoService.showInfo(infoData);

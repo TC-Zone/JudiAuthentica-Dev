@@ -158,19 +158,21 @@ export class CreatePromotionPopupComponent implements OnInit {
               const heightReminder = img.height % 3;
               if (img.width < this.minWidth && img.height < this.minHeight) {
                 this.snackBar.open(
-                  'Please upload' + this.minWidth + ' X ' + this.minHeight + ' size image files only',
+                  'Image minimum dimension should be ' + this.minWidth + 'X' + this.minHeight,
                   'close',
                   { duration: 3000 }
                 );
+                this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
                 this.currentTotalImageCount--;
                 return;
               }
               if (widthReminder !== 0 || heightReminder !== 0) {
                 this.snackBar.open(
-                  'Please upload' + this.minWidth + ' X ' + this.minHeight + ' size image files only',
+                  'Image aspect ratio should be 4:3 (' + this.minWidth + 'X' + this.minHeight + ')' ,
                   'close',
                   { duration: 3000 }
                 );
+                this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
                 this.currentTotalImageCount--;
                 return;
               }
@@ -181,10 +183,11 @@ export class CreatePromotionPopupComponent implements OnInit {
             this.currentTotalImageCount++;
           } else {
             this.snackBar.open(
-              'Invalid file type in ' + fileName + ', Please upload image files only',
+              'Upload valiid images. Only PNG, JPG and JPEG are allowed!',
               'close',
               { duration: 3000 }
             );
+            this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
             this.currentTotalImageCount--;
             return;
           }

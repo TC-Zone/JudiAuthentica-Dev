@@ -1,7 +1,7 @@
 export const errorMessages = {
   name : {
     answerTemplateCreateRequestNameDuplicate : 'Answer template name already exists!' +
-      ' Name you entered for the answer template already exists. Give a different name.'
+      '<small class="text-muted">Name you entered for the answer template already exists. Give a different name.</small>'
   },
   answerTemplate : {
     answerTemplateUpdateRequestAnswerTemplateNotExist : 'Answer Template does not exist!',
@@ -9,7 +9,7 @@ export const errorMessages = {
   },
   votersZero : {
     eVoteCreateRequestEVoteVotersNotExists : 'E-voters not found!' +
-      ' Please create E-voters before creating an E-vote.'
+      '<small class="text-muted">Please create E-voters before creating an E-vote.</small>'
   },
   eVote : {
     eVoteViewRequestEVoteNotExist : 'E-vote does not exist!',
