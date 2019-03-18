@@ -59,7 +59,7 @@ export class CommunityViewComponent implements OnInit {
   * Prasad Kumara
   */
   communityPopUp(data: any = {}, isNew?) {
-    if (this.quotaExpire) {
+    if (this.quotaExpire && isNew) {
       const infoData = {
         title: 'License',
         message: 'Allocated Community Limit Exceded. Do you want to Activate More?',

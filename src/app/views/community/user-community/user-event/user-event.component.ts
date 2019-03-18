@@ -78,7 +78,7 @@ export class UserEventComponent implements OnInit {
   * Prasad Kumara
   */
   eventPopUp(data: any = {}, isNew?) {
-    if (this.quotaExpire) {
+    if (this.quotaExpire && isNew) {
       const infoData = {
         title: 'License',
         message: 'Allocated Event Limit Exceded. Do you want to activate more?',
