@@ -81,7 +81,7 @@ export class UserPromotionComponent implements OnInit {
     if (this.quotaExpire && isNew) {
       const infoData = {
         title: 'License',
-        message: 'You subscribed number of promotions have expired!' +
+        message: 'You subscribed number of promotions have expired!</br>' +
         '<small class="text-muted">Do you like to extend the plan?</small>',
         linkData: {
           url: 'https://www.google.com/gmail/',
@@ -128,7 +128,7 @@ export class UserPromotionComponent implements OnInit {
                       } else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
                         const infoData = {
                           title: 'License',
-                          message: 'You subscribed number of promotions have expired!' +
+                          message: 'You subscribed number of promotions have expired!</br>' +
                           '<small class="text-muted">Do you like to extend the plan?</small>',
                           linkData: {
                             url: 'https://www.google.com/gmail/',
