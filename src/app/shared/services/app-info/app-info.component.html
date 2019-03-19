@@ -16,12 +16,12 @@
       <h4 class="info-header">{{ data.title }}</h4>
     </div>
     <div fxFlex="100" fxLayoutAlign="center">
-      <p class="info-message">{{ data.message }}</p>
+      <p class="info-message" [innerHTML]="data.message"></p>
     </div>
   </div>
 </mat-dialog-content>
 <mat-dialog-actions class="margin-top action-section">
-  <a mat-button type="button" class="ok-btn" href="{{ data.linkData.url }}" (click)="dialogRef.close(false)">{{ data.linkData.buttonText }}</a>
+  <a mat-button type="button" class="ok-btn" (click)="dialogRef.close(true)">{{ data.linkData.buttonText }}</a>
   <span fxFlex></span>
   <button mat-button type="button" class="close-btn" (click)="dialogRef.close(false)">Close</button>
 </mat-dialog-actions>

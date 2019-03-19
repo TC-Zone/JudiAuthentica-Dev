@@ -29,7 +29,16 @@ export class AppInfoService {
         data: infoData
       }
     );
-    return dialogRef.afterClosed();
+    return dialogRef.afterClosed().subscribe(
+      res => {
+        if (!res) {
+          return;
+        } else {
+          window.open(infoData.linkData.url);
+          return;
+        }
+      }
+    );
   }
 
 }

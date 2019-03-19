@@ -81,10 +81,11 @@ export class UserPromotionComponent implements OnInit {
     if (this.quotaExpire && isNew) {
       const infoData = {
         title: 'License',
-        message: 'Allocated Promotion Limit Exceded. Do you want to activate more?',
+        message: 'You subscribed number of promotions have expired!</br>' +
+        '<small class="text-muted">Do you like to extend the plan?</small>',
         linkData: {
-          url: '#',
-          buttonText: 'Activate'
+          url: 'https://www.google.com/gmail/',
+          buttonText: 'Extend'
         }
       };
       this.appInfoService.showInfo(infoData);
@@ -118,26 +119,7 @@ export class UserPromotionComponent implements OnInit {
                     this.quotaExpire = tempRes.content.expired;
                     if (!tempRes.content.expired) {
                       this.loader.close();
-                      if (tempRes.content.usage < (tempRes.content.quota - 1) && (tempRes.content.quota - tempRes.content.usage) === 2) {
-                        this.appWarningService.showWarning({
-                          title: 'License',
-                          message: 'One Event Remaining!'
-                        });
-                        this.createPromotion(res);
-                      } else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
-                        const infoData = {
-                          title: 'License',
-                          message: 'Allocated promotions are finished. Do you want to activate more?',
-                          linkData: {
-                            url: '#',
-                            buttonText: 'Activate'
-                          }
-                        };
-                        this.appInfoService.showInfo(infoData);
-                        this.createPromotion(res);
-                      } else {
-                        this.createPromotion(res);
-                      }
+                      this.createPromotion(res, tempRes.content.usage, tempRes.content.quota);
                     }
                   }
                 );
@@ -171,7 +153,7 @@ export class UserPromotionComponent implements OnInit {
     }
   }
 
-  createPromotion(res) {
+  createPromotion(res, usage, tempQuoata) {
     this.userPromotionService.createPromotion(res)
       .subscribe(
         response => {
@@ -188,9 +170,27 @@ export class UserPromotionComponent implements OnInit {
             this.quotaExpire = true;
           }
           // this.fetchAllPromotions(this.pageNumber);
-          this.snack.open('New Promotion Created', 'close', {
-            duration: 2000
-          });
+          if (usage < (tempQuoata - 1) && (tempQuoata - usage) === 2) {
+            this.appWarningService.showWarning({
+              title: 'License',
+              message: 'Your subscription plan is about to expire!</br>One more promotion remaining!'
+            });
+          } else if (usage < tempQuoata && (tempQuoata - usage) === 1) {
+            const infoData = {
+              title: 'License',
+              message: 'You subscribed number of promotions have expired!</br>' +
+              '<small class="text-muted">Do you like to extend the plan?</small>',
+              linkData: {
+                url: 'https://www.google.com/gmail/',
+                buttonText: 'Extend'
+              }
+            };
+            this.appInfoService.showInfo(infoData);
+          } // else {
+            this.snack.open('New Promotion Created', 'close', {
+              duration: 2000
+            });
+          // }
         },
         error => {
           this.loader.close();

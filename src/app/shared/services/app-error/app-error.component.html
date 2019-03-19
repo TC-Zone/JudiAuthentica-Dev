@@ -7,7 +7,7 @@
       <h4 class="error-header">{{ data.title }}!</h4>
     </div>
     <div fxFlex="100" fxLayoutAlign="center">
-      <p class="error-message">{{ data.message }}</p>
+      <p class="error-message" [innerHTML]="data.message"></p>
     </div>
   </div>
 </mat-dialog-content>

@@ -62,10 +62,11 @@ export class CommunityViewComponent implements OnInit {
     if (this.quotaExpire && isNew) {
       const infoData = {
         title: 'License',
-        message: 'Allocated Community Limit Exceded. Do you want to Activate More?',
+        message: 'You subscribed number of communities have expired!</br>' +
+          '<small class="text-muted">Do you like to extend the plan?</small>',
         linkData: {
-          url: '#',
-          buttonText: 'Activate'
+          url: 'https://www.google.com/gmail/',
+          buttonText: 'Extend'
         }
       };
       this.appInfoService.showInfo(infoData);
@@ -103,28 +104,10 @@ export class CommunityViewComponent implements OnInit {
                   response => {
                     const tempRes: any = response;
                     this.quotaExpire = tempRes.content.expired;
+                    this.quota = tempRes.content.quota;
                     if (!tempRes.content.expired) {
                       this.loader.close();
-                      if (tempRes.content.usage < (tempRes.content.quota - 1) && (tempRes.content.quota - tempRes.content.usage) === 2) {
-                        this.appWarningService.showWarning({
-                          title: 'License',
-                          message: 'One Community Remaining!'
-                        });
-                        this.createCommunity(res);
-                      } else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
-                        const infoData = {
-                          title: 'License',
-                          message: 'Allocated communities are finished. Do you want to activate more?',
-                          linkData: {
-                            url: '#',
-                            buttonText: 'Activate'
-                          }
-                        };
-                        this.appInfoService.showInfo(infoData);
-                        this.createCommunity(res);
-                      } else {
-                        this.createCommunity(res);
-                      }
+                      this.createCommunity(res, tempRes.content.usage, tempRes.content.quota);
                     }
                   }
                 );
@@ -162,7 +145,7 @@ export class CommunityViewComponent implements OnInit {
   * 05-03-2019
   * Prasad Kumara
   */
-  createCommunity(res) {
+  createCommunity(res, usage, tempQuoata) {
     this.comunityService.createCommunity(res)
       .subscribe(
         response => {
@@ -179,9 +162,27 @@ export class CommunityViewComponent implements OnInit {
             this.quotaExpire = true;
           }
           this.loader.close();
-          this.snack.open('New Community Created', 'close', {
-            duration: 2000
-          });
+          if (usage < (tempQuoata - 1) && (tempQuoata - usage) === 2) {
+            this.appWarningService.showWarning({
+              title: 'License',
+              message: 'Your subscription plan is about to expire!</br>One more community remaining!'
+            });
+          } else if (usage < tempQuoata && (tempQuoata - usage) === 1) {
+            const infoData = {
+              title: 'License',
+              message: 'You subscribed number of communities have expired!</br>' +
+              '<small class="text-muted">Do you like to extend the plan?</small>',
+              linkData: {
+                url: 'https://www.google.com/gmail/',
+                buttonText: 'Extend'
+              }
+            };
+            this.appInfoService.showInfo(infoData);
+          } // else {
+            this.snack.open('New Community Created', 'close', {
+              duration: 2000
+            });
+          // }
         },
         error => {
           this.loader.close();
