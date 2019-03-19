@@ -99,11 +99,7 @@ export class UserTableComponent implements OnInit {
 
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -195,11 +191,7 @@ export class UserTableComponent implements OnInit {
         },
         error => {
           this.loader.close();
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
+          this.errDialog.showError(error);
         }
       );
 
@@ -226,7 +218,7 @@ export class UserTableComponent implements OnInit {
         }
 
         console.log(res);
-        
+
 
         // let role: RoleData = new RoleData(successResp.content.role.id);
         // let categories: CategoryData[] = [];
@@ -254,11 +246,7 @@ export class UserTableComponent implements OnInit {
       });
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -310,11 +298,7 @@ export class UserTableComponent implements OnInit {
       });
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
