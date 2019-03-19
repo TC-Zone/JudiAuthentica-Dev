@@ -1,18 +1,20 @@
 export const errorMessages = {
   name : {
-    answerTemplateCreateRequestNameDuplicate : 'Answer Name is Duplicated.'
+    answerTemplateCreateRequestNameDuplicate : 'Answer template name already exists!' +
+      '<small class="text-muted">Name you entered for the answer template already exists. Give a different name.</small>'
   },
   answerTemplate : {
-    answerTemplateUpdateRequestAnswerTemplateNotExist : 'Answer Template is not Found.',
-    answerTemplateDeleteRequestAnswerTemplateNotExist : 'Answer Template is not Found.'
+    answerTemplateUpdateRequestAnswerTemplateNotExist : 'Answer Template does not exist!',
+    answerTemplateDeleteRequestAnswerTemplateNotExist : 'Answer Template does not exist!'
   },
   votersZero : {
-    eVoteCreateRequestEVoteVotersNotExists : 'Evote Voters are not Found.'
+    eVoteCreateRequestEVoteVotersNotExists : 'E-voters not found!' +
+      '<small class="text-muted">Please create E-voters before creating an E-vote.</small>'
   },
   eVote : {
-    eVoteViewRequestEVoteNotExist : 'Evote is not Found.',
-    eVoteUpdateRequestEVoteNotExist : 'Evote is not Found.',
-    eVoteDeleteRequestEVoteNotExist : 'Evote is not Found.',
+    eVoteViewRequestEVoteNotExist : 'E-vote does not exist!',
+    eVoteUpdateRequestEVoteNotExist : 'E-vote does not exist!',
+    eVoteDeleteRequestEVoteNotExist : 'E-vote does not exist!',
     eVoteCreateRequestCanNotStoreFile : 'Canot Store File.',
     eVoteUpdateRequestCanNotStoreFile : 'Canot Store File.'
   },
@@ -23,63 +25,123 @@ export const errorMessages = {
     ProductCreateRequestImageNameAlreadyExist : 'Image Name All Ready Exist.'
   },
   element : {
-    futureSurveyAnswerRequestQuestionElementDoesNotExists : 'Question Element is not Found.'
+    futureSurveyAnswerRequestQuestionElementDoesNotExists : 'Question Element could not Found!'
   },
   futureSurvey : {
     updateConfigErrorConfigUpdate : 'Error Configure Update.',
-    futureSurveytUpdateRequestFutureSurveyNotExist : 'Survey is not Exist.',
-    futureSurveyDeleteRequestFutureSurveyNotExist : 'Survey is not Exist.',
-    futureSurveyViewFutureSurveyNotExist : 'Survey is not Exist.',
-    futureSurveyViewInvalidId : 'Invalid Survey Id.'
+    futureSurveytUpdateRequestFutureSurveyNotExist : 'Survey does not exist!',
+    futureSurveyDeleteRequestFutureSurveyNotExist : 'Survey does not exist!',
+    futureSurveyViewFutureSurveyNotExist : 'Survey does not exist!',
+    futureSurveyViewInvalidId : 'Invalid Survey Id!'
 
   },
   futureSurveyInteraction : {
-    interactionViewInteractionDoesNotExists : 'Interaction is not Found.',
-    updateErrorWhenUpdate : 'Can not Update at this Time.',
-    interactLoginCouldNotFindrecord : 'Record is not Found.',
-    interactLoginPostCouldNotFindRecord : 'Record is not Found.',
-    deleteInteractionBySurvey : 'Can not Delete at this Time.'
+    interactionViewInteractionDoesNotExists : '"filename" not Found!',
+    updateErrorWhenUpdate : 'Could not updated!',
+    interactLoginCouldNotFindrecord : '"filename" not Found!',
+    interactLoginPostCouldNotFindRecord : '"filename" not Found!',
+    deleteInteractionBySurvey : 'The record cannot be deleted!'
   },
   interaction : {
-    fetchAllInteractionsInteractionsNotExists : 'Interaction is not Exist.',
-    fetchGroupByClientIdGroupsNotExists : 'Groups are not Exists.',
-    getAssignedInviteesGroupDetailsDoesNotExists : 'Group Details are not Exist.'
+    fetchAllInteractionsInteractionsNotExists : 'Interaction does not exist!',
+    fetchGroupByClientIdGroupsNotExists : 'Group does not exist!',
+    getAssignedInviteesGroupDetailsDoesNotExists : 'Can not retrieve group details!'
   },
   inviteeGroup : {
-    findGroupByIdInviteeGroupNotExist : 'Invitee Group is not Exist.'
+    findGroupByIdInviteeGroupNotExist : 'Invitee Group does not exist!'
   },
   question : {
-    questionViewRequestQuestionNotExist : 'Question is not Exist.',
-    questionUpdateRequestQuestionNotExist : 'Question is not Exist.',
-    questionDeleteRequestQuestionNotExist : 'Question is not Exist.'
+    questionViewRequestQuestionNotExist : 'Question does not exist!',
+    questionUpdateRequestQuestionNotExist : 'Question does not exist!',
+    questionDeleteRequestQuestionNotExist : 'Question does not exist!'
   },
   survey : {
-    surveyUpdateRequestSurveyNotExist : 'Survey is not Exist.',
+    surveyUpdateRequestSurveyNotExist : 'Survey does not exist!',
     EVoteCreateRequestSurveyInvalid : 'Invalid Survey.',
-    surveyViewRequestSurveyNotExist : 'Survey is not Exist.'
+    surveyViewRequestSurveyNotExist : 'Survey does not exist!'
   },
   client : {
-    EVoteCreateRequestClientEmpty : 'Invalid Client.',
-    EVoteCreateRequestClientInvalid : 'Invalid Client.',
-    EVoteRequestClientEmpty : 'Invalid Client.',
-    EVoteUpdateRequestClientEmpty : 'Invalid Client.',
-    productsCreateRequestClientInvalid : 'Invalid Client.',
-    clientViewRequestClientNotExist : 'Client is not Exist.',
-    clientUpdateRequestClientNotExist : 'Client is not Exist.',
-    clientDeleteRequestClientNotExist : 'Client is not Exist.',
-    productCreateRequestClientNotExist : 'Client is not Exist.'
+    EVoteCreateRequestClientEmpty : 'Invalid Client!',
+    EVoteCreateRequestClientInvalid : 'Invalid Client!',
+    EVoteRequestClientEmpty : 'Invalid Client!',
+    EVoteUpdateRequestClientEmpty : 'Invalid Client!',
+    productsCreateRequestClientInvalid : 'Invalid Client!',
+    clientViewRequestClientNotExist : 'Client does not exist!',
+    clientUpdateRequestClientNotExist : 'Client does not exist!',
+    clientDeleteRequestClientNotExist : 'Client does not exist!',
+    productCreateRequestClientNotExist : 'Client does not exist!'
   },
   answer : {
     platformAnswerSubmitRequestAnswerAlreadyExpired : 'Answers Expired.'
   },
   surveyId : {
-    productsCreateRequestSurveyIdInvalid : 'Invalid Survey.'
+    productsCreateRequestSurveyIdInvalid : 'Invalid Survey Id!'
   },
   product : {
-    productViewRequestProductNotExist : 'Product is not Exist.',
-    productUpdateRequestProductNotExist : ''
+    productViewRequestProductNotExist : 'Product does not exist!',
+    productUpdateRequestProductNotExist : 'Product does not exist!'
   },
   product_image : {
-    productImageRetrieveProducImageNotExists : 'Product Image is not Exist.'
+    productImageRetrieveProducImageNotExists : 'Product Image does not exist!'
+  },
+  authority : {
+    createAuthorityPersistError : 'Authority is not created.'
+  },
+  email : {
+    companyCreateRequestUserEmailDuplicate : 'Email is already in use!',
+    platformUserCreateRequestEmailDuplicate : 'Email is already in use!',
+    platformUserUpdateRequestEmailDuplicate : 'Email is already in use!'
+  },
+  license : {
+    licenseViewLicenseNotExist : 'License does not exist!',
+    licenseViewLicenseViewError : 'License view error.'
+  },
+  download : {
+    imageByteNullContext : 'Image does not exist!',
+    imageByteContextNotExists : 'Image does not exist!'
+  },
+  role : {
+    platformRoleViewRequestRoleNotExist : 'Role does not exist!',
+    platformRoleUpdateRequestRoleNotExist : 'Role does not exist!',
+    retrievePredefinedRoleByNameFetchError : 'Role data view error.'
+  },
+  user : {
+    platformUserViewRequestUserNotExist : 'User does not exist!',
+    platformUserUpdateRequestUserNotExist : 'User does not exist!',
+    platformUserDeleteRequestUserDeleteFiledUserId : 'Could not delete user account!',
+    platformUserDeleteRequestUserNotExis : 'User does not exist!'
+  },
+  status : {
+    platformUserUpdateRequestStatusCannotChange : 'You cannot change status! / The action cannot be completed!'
+  },
+  activationLink : {
+    userActivationRequestAlreadyActivated : 'Your account is already activated!',
+    userActivationRequestUserNotFound : 'User does not exist!'
+  },
+  community : {
+    communityCreateCreateError : 'System cannot create community!',
+    communityUpdateUpdateError : 'System cannot update community!',
+    communityViewCommunityNotExists : 'Community does not exist!',
+    getByClientFetchError : 'Community data view error.',
+    communityDeleteDeleteError : 'Could not delete community!',
+    communitySearchFetchError : 'Cannot retrieve searched record!'
+  },
+  event : {
+    createEventCreateError : 'System cannot create event!',
+    eventUpdateUpdateError : 'System cannot update event!',
+    eventViewEventNotExists : 'Event does not exist!',
+    eventSearchFetchError : 'Cannot retrieve searched record!',
+    eventDeleteRequestDeleteError : 'Unable to delete event.',
+    listDeleteRequestDeleteError : 'Unable to delete event list.',
+    eventsByCommunitiesFetchError : 'Event data view error.'
+  },
+  promotion : {
+    createPromotionCreateError : 'Unable to create promotion.',
+    promotionViewPromotionNotExists : 'Promotion does not exist!',
+    promotionUpdatePromotionError : 'Unable to update promotion.',
+    promoSearchFetchError : 'Promotion data search error.',
+    promoDeleteRequestDeleteError : 'Unable to delete promotion.',
+    listDeleteRequestDeleteError : 'Unable to delete promotion list.',
+    promosByCommunitiesFetchError : 'Promotion data view error.'
   }
 };

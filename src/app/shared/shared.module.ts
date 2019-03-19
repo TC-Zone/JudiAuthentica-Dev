@@ -71,6 +71,22 @@ import { AppErrorComponent } from "./services/app-error/app-error.component";
 import { AppErrorService } from "./services/app-error/app-error.service";
 
 /*
+ * App warning component and service
+ * Created by Prasad kumara
+ * 11-03-2019
+*/
+import { AppWarningComponent } from './services/app-warning/app-warning.component';
+import { AppWarningService } from './services/app-warning/app-warning.service';
+
+/*
+ * App information component and service
+ * Created by Prasad kumara
+ * 11-03-2019
+*/
+import { AppInfoComponent } from './services/app-info/app-info.component';
+import { AppInfoService } from './services/app-info/app-info.service';
+
+/*
   Only Required if you want to use Angular Landing
   (https://themeforest.net/item/angular-landing-material-design-angular-app-landing-page/21198258)
 */
@@ -107,6 +123,8 @@ const classesToInclude = [
   PositiveNumberOnly,
   PositiveNumberAndLetterOnly,
   LetterOnly,
+  AppWarningComponent,
+  AppInfoComponent
 ];
 
 @NgModule({
@@ -134,7 +152,13 @@ const classesToInclude = [
     MatRippleModule,
     MatDialogModule
   ],
-  entryComponents: [AppComfirmComponent, AppLoaderComponent, AppErrorComponent],
+  entryComponents: [
+    AppComfirmComponent,
+    AppLoaderComponent,
+    AppErrorComponent,
+    AppWarningComponent,
+    AppInfoComponent
+  ],
   providers: [
     ThemeService,
     LayoutService,
@@ -148,6 +172,8 @@ const classesToInclude = [
     AppDataConversionService,
     // LandingPageService
     LocalizationService,
+    AppWarningService,
+    AppInfoService
   ],
   declarations: classesToInclude,
   exports: classesToInclude

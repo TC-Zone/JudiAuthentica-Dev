@@ -15,6 +15,16 @@ export class ComunityService {
     private http: HttpClient
   ) { }
 
+/*
+  * Get download url for events
+  * 18-03-2019
+  * Raveen Sankalpa
+  */
+
+  getPosterDownloadUrl(){
+    return this.userApiUrl + "downloads/event/";
+  }
+
   /*
   * Create community
   * 05-03-2019

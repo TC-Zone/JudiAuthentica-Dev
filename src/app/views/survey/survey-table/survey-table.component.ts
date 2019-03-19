@@ -84,11 +84,7 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
       } else {
@@ -103,11 +99,7 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
       }
@@ -138,11 +130,7 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
           this.loader.close();
           console.log(error);
           console.log(error.status);
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
+          this.errDialog.showError(error);
         }
       );
     }
@@ -167,11 +155,7 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
             },
             error => {
               this.loader.close();
-              this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-              });
+              this.errDialog.showError(error);
             }
           );
         }
@@ -185,11 +169,7 @@ export class SurveyTableComponent implements OnInit, OnDestroy {
       },
       error => {
         this.loader.close();
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }

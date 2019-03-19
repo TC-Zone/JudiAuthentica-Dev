@@ -19,59 +19,69 @@ var map = {
 	],
 	"./views/client/client.module": [
 		"./src/app/views/client/client.module.ts",
-		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
+		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
+		"views-client-client-module~views-user-user-module",
 		"common",
 		"views-client-client-module"
 	],
+	"./views/community/community.module": [
+		"./src/app/views/community/community.module.ts",
+		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
+		"views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-module~vie~0709af30",
+		"common",
+		"views-community-community-module"
+	],
 	"./views/evote/evote.module": [
 		"./src/app/views/evote/evote.module.ts",
-		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
-		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
-		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
-		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module",
+		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
+		"views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-module~vie~0709af30",
 		"common",
 		"views-evote-evote-module"
 	],
 	"./views/future-survey/future-survey.module": [
 		"./src/app/views/future-survey/future-survey.module.ts",
-		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
-		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
-		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
+		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
 		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
 		"common"
 	],
 	"./views/interaction-view/interaction-view.module": [
 		"./src/app/views/interaction-view/interaction-view.module.ts",
-		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
-		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
-		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
+		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
 		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
 		"common",
 		"views-interaction-view-interaction-view-module"
 	],
 	"./views/invitee-interaction-view/invitee-interaction-view.module": [
 		"./src/app/views/invitee-interaction-view/invitee-interaction-view.module.ts",
-		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
-		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
-		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
+		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
 		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
 		"common",
 		"views-invitee-interaction-view-invitee-interaction-view-module"
 	],
 	"./views/product-crud/product-crud.module": [
 		"./src/app/views/product-crud/product-crud.module.ts",
-		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
-		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
-		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
-		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module",
+		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
+		"views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-module~vie~0709af30",
 		"common",
 		"views-product-crud-product-crud-module"
 	],
 	"./views/profile/profile.module": [
 		"./src/app/views/profile/profile.module.ts",
-		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
-		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
-		"views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module",
+		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
+		"views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-module~vie~0709af30",
 		"common",
 		"views-profile-profile-module"
 	],
@@ -81,15 +91,16 @@ var map = {
 	],
 	"./views/survey/survey.module": [
 		"./src/app/views/survey/survey.module.ts",
-		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
-		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~a7ea736f",
-		"views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-interaction~e560b57b",
+		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
+		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
 		"common",
 		"views-survey-survey-module"
 	],
 	"./views/user/user.module": [
 		"./src/app/views/user/user.module.ts",
-		"views-client-client-module~views-evote-evote-module~views-future-survey-future-survey-module~views-i~43f37882",
+		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
+		"views-client-client-module~views-user-user-module",
 		"common",
 		"views-user-user-module"
 	]
@@ -425,6 +436,11 @@ var rootRouterConfig = [
                 path: "evote",
                 loadChildren: "./views/evote/evote.module#EvoteModule",
                 data: { title: "E - Vote", breadcrumb: "E Vote" }
+            },
+            {
+                path: "community",
+                loadChildren: "./views/community/community.module#CommunityModule",
+                data: { title: "Comunity", breadcrumb: "Comunity" }
             }
         ]
     },
@@ -466,7 +482,7 @@ var LetterOnly = /** @class */ (function () {
         this.regex = new RegExp(/^(?:[A-Za-z]+)(?:[A-Za-z _]*)$/);
         // Allow key codes for special events. Reflect :
         // Backspace, tab, end, home
-        this.specialKeys = ["Backspace", "Tab", "End", "Home"];
+        this.specialKeys = ["Backspace", "Tab", "End", "Home", "Ctrl"];
     }
     LetterOnly.prototype.onKeyDown = function (event) {
         // Allow Backspace, tab, end, and home keys
@@ -526,7 +542,7 @@ var PositiveNumberOnly = /** @class */ (function () {
         this.regex = new RegExp(/^[+]?([1-9]+(?:[0-9]*)?|\.[0-9]+)$/);
         // Allow key codes for special events. Reflect :
         // Backspace, tab, end, home
-        this.specialKeys = ["Backspace", "Tab", "End", "Home"];
+        this.specialKeys = ["Backspace", "Tab", "End", "Home", "Ctrl"];
     }
     PositiveNumberOnly.prototype.onKeyDown = function (event) {
         // Allow Backspace, tab, end, and home keys
@@ -587,7 +603,7 @@ var PositiveNumberAndLetterOnly = /** @class */ (function () {
         // private regex: RegExp = new RegExp(/^[a-zA-Z0-9._-]+$/);
         // Allow key codes for special events. Reflect :
         // Backspace, tab, end, home
-        this.specialKeys = ["Backspace", "Tab", "End", "Home"];
+        this.specialKeys = ["Backspace", "Tab", "End", "Home", "Ctrl"];
     }
     PositiveNumberAndLetterOnly.prototype.onKeyDown = function (event) {
         // Allow Backspace, tab, end, and home keys
@@ -615,6 +631,54 @@ var PositiveNumberAndLetterOnly = /** @class */ (function () {
     return PositiveNumberAndLetterOnly;
 }());
 
+
+
+/***/ }),
+
+/***/ "./src/app/shared/animations/egret-animations.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/shared/animations/egret-animations.ts ***!
+  \*******************************************************/
+/*! exports provided: egretAnimations */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "egretAnimations", function() { return egretAnimations; });
+/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
+
+var reusable = Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animation"])([
+    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({
+        opacity: '{{opacity}}',
+        transform: 'scale({{scale}}) translate3d({{x}}, {{y}}, {{z}})'
+    }),
+    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animate"])('{{duration}} {{delay}} cubic-bezier(0.0, 0.0, 0.2, 1)', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])('*'))
+], {
+    params: {
+        duration: '200ms',
+        delay: '0ms',
+        opacity: '0',
+        scale: '1',
+        x: '0',
+        y: '0',
+        z: '0'
+    }
+});
+var egretAnimations = [
+    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["trigger"])('animate', [Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["transition"])('void => *', [Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["useAnimation"])(reusable)])]),
+    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["trigger"])('fadeInOut', [
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["state"])('0', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({
+            opacity: 0,
+            display: 'none'
+        })),
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["state"])('1', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["style"])({
+            opacity: 1,
+            display: 'block'
+        })),
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["transition"])('0 => 1', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animate"])('300ms')),
+        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["transition"])('1 => 0', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_0__["animate"])('300ms'))
+    ]),
+];
 
 
 /***/ }),
@@ -985,7 +1049,7 @@ module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header-topnav mat-elevation-z2\">\r\n  <div class=\"container\">\r\n    <div class=\"topnav\">\r\n      <!-- App Logo -->\r\n      <div class=\"topbar-branding\">\r\n        <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\">\r\n      </div>\r\n\r\n      <ul class=\"menu\" *ngIf=\"!layoutConf.isMobile\">\r\n        <li *ngFor=\"let item of menuItems; let i = index;\">\r\n          <div *ngIf=\"item.type !== 'separator'\" routerLinkActive=\"open\">\r\n            <a matRipple routerLink=\"/{{item.state}}\" *ngIf=\"item.type === 'link'\">\r\n              <mat-icon>{{item.icon}}</mat-icon>\r\n              {{item.name | translate}}\r\n            </a>\r\n            <div *ngIf=\"item.type === 'dropDown'\">\r\n              <label matRipple for=\"drop-{{i}}\" class=\"toggle\"><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</label>\r\n              <a matRipple><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</a>\r\n              <input type=\"checkbox\" id=\"drop-{{i}}\" />\r\n              <ul>\r\n                <li *ngFor=\"let itemLvL2 of item.sub; let j = index;\" routerLinkActive=\"open\">\r\n                  <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\"\r\n                  *ngIf=\"itemLvL2.type !== 'dropDown'\">\r\n                    <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>\r\n                    {{itemLvL2.name | translate}}\r\n                  </a>\r\n\r\n                  <div *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n                    <label matRipple for=\"drop-{{i}}{{j}}\" class=\"toggle\">{{itemLvL2.name | translate}}</label>\r\n                    <a matRipple><mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>  {{itemLvL2.name | translate}}</a>\r\n                    <input type=\"checkbox\" id=\"drop-{{i}}{{j}}\" />\r\n                    <!-- Level 3 -->\r\n                    <ul>\r\n                      <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" routerLinkActive=\"open\">\r\n                        <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\">\r\n                          <mat-icon *ngIf=\"itemLvL3.icon\">{{itemLvL3.icon}}</mat-icon>\r\n                          {{itemLvL3.name | translate}}\r\n                        </a>\r\n                      </li>\r\n                    </ul>\r\n                  </div>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n      <span fxFlex></span>\r\n      <!-- End Navigation -->\r\n\r\n      <!-- Language Switcher -->\r\n      <mat-select\r\n      *ngIf=\"!layoutConf.isMobile\"\r\n      placeholder=\"\"\r\n      id=\"langToggle\"\r\n      [style.width]=\"'auto'\"\r\n      name=\"currentLang\"\r\n      [(ngModel)]=\"currentLang\"\r\n      (selectionChange)=\"setLang()\"\r\n      class=\"topbar-button-right\">\r\n        <mat-option\r\n        *ngFor=\"let lang of availableLangs\"\r\n        [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n      </mat-select>\r\n      <!-- Theme Switcher -->\r\n      <button\r\n      mat-icon-button\r\n      id=\"schemeToggle\"\r\n      [style.overflow]=\"'visible'\"\r\n      matTooltip=\"Color Schemes\"\r\n      [matMenuTriggerFor]=\"themeMenu\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>format_color_fill</mat-icon>\r\n      </button>\r\n      <mat-menu #themeMenu=\"matMenu\">\r\n        <mat-grid-list\r\n        class=\"theme-list\"\r\n        cols=\"2\"\r\n        rowHeight=\"48px\">\r\n          <mat-grid-tile\r\n          *ngFor=\"let theme of egretThemes\"\r\n          (click)=\"changeTheme(theme)\">\r\n            <div mat-menu-item [title]=\"theme.name\">\r\n              <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n              <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </mat-menu>\r\n      <!-- Notification toggle button -->\r\n      <button\r\n      mat-icon-button\r\n      matTooltip=\"Notifications\"\r\n      (click)=\"toggleNotific()\"\r\n      [style.overflow]=\"'visible'\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>notifications</mat-icon>\r\n        <span class=\"notification-number mat-bg-warn\">3</span>\r\n      </button>\r\n      <!-- Top left user menu -->\r\n      <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right mr-1 img-button\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </button>\r\n      <mat-menu #accountMenu=\"matMenu\">\r\n        <button mat-menu-item [routerLink]=\"['/profile/']\">\r\n          <mat-icon>account_box</mat-icon>\r\n          <span>Profile</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/settings']\">\r\n          <mat-icon>settings</mat-icon>\r\n          <span>Account Settings</span>\r\n        </button>\r\n        <!-- <button mat-menu-item>\r\n          <mat-icon>notifications_off</mat-icon>\r\n          <span>Disable alerts</span>\r\n        </button> -->\r\n        <button mat-menu-item (click)=\"signOut()\" >\r\n          <mat-icon>exit_to_app</mat-icon>\r\n          <span>Sign out</span>\r\n        </button>\r\n      </mat-menu>\r\n      <!-- Mobile screen menu toggle -->\r\n      <button\r\n      mat-icon-button\r\n      class=\"mr-1\"\r\n      (click)=\"toggleSidenav()\"\r\n      *ngIf=\"layoutConf.isMobile\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"header-topnav mat-elevation-z2\">\r\n  <div class=\"container\">\r\n    <div class=\"topnav\">\r\n      <!-- App Logo -->\r\n      <div class=\"topbar-branding\">\r\n        <!-- <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\"> -->\r\n        <img src=\"assets/images/truverus/TruVerus_Logo_short.png\" alt=\"\" class=\"app-logo\">\r\n      </div>\r\n\r\n      <ul class=\"menu\" *ngIf=\"!layoutConf.isMobile\">\r\n        <li *ngFor=\"let item of menuItems; let i = index;\">\r\n          <div *ngIf=\"item.type !== 'separator'\" routerLinkActive=\"open\">\r\n            <a matRipple routerLink=\"/{{item.state}}\" *ngIf=\"item.type === 'link'\">\r\n              <mat-icon>{{item.icon}}</mat-icon>\r\n              {{item.name | translate}}\r\n            </a>\r\n            <div *ngIf=\"item.type === 'dropDown'\">\r\n              <label matRipple for=\"drop-{{i}}\" class=\"toggle\"><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</label>\r\n              <a matRipple><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</a>\r\n              <input type=\"checkbox\" id=\"drop-{{i}}\" />\r\n              <ul>\r\n                <li *ngFor=\"let itemLvL2 of item.sub; let j = index;\" routerLinkActive=\"open\">\r\n                  <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\"\r\n                  *ngIf=\"itemLvL2.type !== 'dropDown'\">\r\n                    <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>\r\n                    {{itemLvL2.name | translate}}\r\n                  </a>\r\n\r\n                  <div *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n                    <label matRipple for=\"drop-{{i}}{{j}}\" class=\"toggle\">{{itemLvL2.name | translate}}</label>\r\n                    <a matRipple><mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>  {{itemLvL2.name | translate}}</a>\r\n                    <input type=\"checkbox\" id=\"drop-{{i}}{{j}}\" />\r\n                    <!-- Level 3 -->\r\n                    <ul>\r\n                      <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" routerLinkActive=\"open\">\r\n                        <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\">\r\n                          <mat-icon *ngIf=\"itemLvL3.icon\">{{itemLvL3.icon}}</mat-icon>\r\n                          {{itemLvL3.name | translate}}\r\n                        </a>\r\n                      </li>\r\n                    </ul>\r\n                  </div>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n      <span fxFlex></span>\r\n      <!-- End Navigation -->\r\n\r\n      <!-- Language Switcher -->\r\n      <mat-select\r\n      *ngIf=\"!layoutConf.isMobile\"\r\n      placeholder=\"\"\r\n      id=\"langToggle\"\r\n      [style.width]=\"'auto'\"\r\n      name=\"currentLang\"\r\n      [(ngModel)]=\"currentLang\"\r\n      (selectionChange)=\"setLang()\"\r\n      class=\"topbar-button-right\">\r\n        <mat-option\r\n        *ngFor=\"let lang of availableLangs\"\r\n        [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n      </mat-select>\r\n      <!-- Theme Switcher -->\r\n      <button\r\n      mat-icon-button\r\n      id=\"schemeToggle\"\r\n      [style.overflow]=\"'visible'\"\r\n      matTooltip=\"Color Schemes\"\r\n      [matMenuTriggerFor]=\"themeMenu\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>format_color_fill</mat-icon>\r\n      </button>\r\n      <mat-menu #themeMenu=\"matMenu\">\r\n        <mat-grid-list\r\n        class=\"theme-list\"\r\n        cols=\"2\"\r\n        rowHeight=\"48px\">\r\n          <mat-grid-tile\r\n          *ngFor=\"let theme of egretThemes\"\r\n          (click)=\"changeTheme(theme)\">\r\n            <div mat-menu-item [title]=\"theme.name\">\r\n              <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n              <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </mat-menu>\r\n      <!-- Notification toggle button -->\r\n      <button\r\n      mat-icon-button\r\n      matTooltip=\"Notifications\"\r\n      (click)=\"toggleNotific()\"\r\n      [style.overflow]=\"'visible'\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>notifications</mat-icon>\r\n        <span class=\"notification-number mat-bg-warn\">3</span>\r\n      </button>\r\n      <!-- Top left user menu -->\r\n      <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right mr-1 img-button\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </button>\r\n      <mat-menu #accountMenu=\"matMenu\">\r\n        <button mat-menu-item [routerLink]=\"['/profile/']\">\r\n          <mat-icon>account_box</mat-icon>\r\n          <span>Profile</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/settings']\">\r\n          <mat-icon>settings</mat-icon>\r\n          <span>Account Settings</span>\r\n        </button>\r\n        <!-- <button mat-menu-item>\r\n          <mat-icon>notifications_off</mat-icon>\r\n          <span>Disable alerts</span>\r\n        </button> -->\r\n        <button mat-menu-item (click)=\"signOut()\" >\r\n          <mat-icon>exit_to_app</mat-icon>\r\n          <span>Sign out</span>\r\n        </button>\r\n      </mat-menu>\r\n      <!-- Mobile screen menu toggle -->\r\n      <button\r\n      mat-icon-button\r\n      class=\"mr-1\"\r\n      (click)=\"toggleSidenav()\"\r\n      *ngIf=\"layoutConf.isMobile\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1107,7 +1171,7 @@ var HeaderTopComponent = /** @class */ (function (_super) {
         if (localStorage.getItem('currentUser')) {
             console.log('NULL OI');
         }
-        this.router.navigate(['/sessions/signin']);
+        // this.router.navigate(['/sessions/signin']);
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -1441,7 +1505,7 @@ var NotificationsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sidebar-panel\">\r\n  <div id=\"scroll-area\" class=\"navigation-hold\" fxLayout=\"column\">\r\n    <!-- App Logo -->\r\n    <div class=\"branding default-bg\">\r\n      <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\">\r\n      <!-- Two different logos for dark and light themes -->\r\n      <img src=\"assets/images/clear-picture-logo.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\">\r\n      <img src=\"assets/images/cp_logo_text.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\">\r\n    </div>\r\n\r\n    <!-- Sidebar user -->\r\n    <div class=\"app-user\">\r\n      <div class=\"app-user-photo\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </div>\r\n      <span class=\"app-user-name mb-05\">\r\n        <mat-icon class=\"icon-xs text-muted\">lock</mat-icon>\r\n        {{currentUser.profilename}}\r\n      </span>\r\n      <!-- Small buttons -->\r\n      <div class=\"app-user-controls\">\r\n        <button class=\"text-muted\" mat-icon-button mat-xs-button [matMenuTriggerFor]=\"appUserMenu\">\r\n          <mat-icon>settings</mat-icon>\r\n        </button>\r\n        <button class=\"text-muted\" mat-icon-button mat-xs-button matTooltip=\"Inbox\" routerLink=\"/inbox\">\r\n          <mat-icon>email</mat-icon>\r\n        </button>\r\n\r\n        <mat-menu #appUserMenu=\"matMenu\">\r\n          <!-- routerLink=\"/profile/overview\" -->\r\n          <button mat-menu-item routerLink=\"/profile/\">\r\n            <mat-icon>account_box</mat-icon>\r\n            <span>Profile</span>\r\n          </button>\r\n          <button mat-menu-item routerLink=\"/profile/settings\">\r\n            <mat-icon>settings</mat-icon>\r\n            <span>Account Settings</span>\r\n          </button>\r\n          <button mat-menu-item routerLink=\"/calendar\">\r\n            <mat-icon>date_range</mat-icon>\r\n            <span>Calendar</span>\r\n          </button>\r\n\r\n        </mat-menu>\r\n      </div>\r\n    </div>\r\n    <!-- Navigation -->\r\n    <app-sidenav [items]=\"menuItems\" [hasIconMenu]=\"hasIconTypeMenuItem\" [iconMenuTitle]=\"iconTypeMenuTitle\"></app-sidenav>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"sidebar-panel\">\r\n  <div id=\"scroll-area\" class=\"navigation-hold\" fxLayout=\"column\">\r\n\r\n    <!-- App Logo -->\r\n    <!-- <div class=\"branding default-bg\"> -->\r\n    <div class=\"default-bg\">\r\n\r\n      <!-- <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\"> -->\r\n      <!-- Two different logos for dark and light themes -->\r\n      <!-- <img src=\"assets/images/clear-picture-logo.png\" alt=\"\" class=\"app-logo-text\"\r\n        *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\"> -->\r\n      <!-- <img src=\"assets/images/cp_logo_text.png\" alt=\"\" class=\"app-logo-text\"\r\n          *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n\r\n      <img *ngIf=\"layoutConf.sidebarStyle === 'compact'\" src=\"assets/images/truverus/TruVerus_Logo_short.png\" alt=\"\" class=\"app-logo\">\r\n      <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\">\r\n      <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\">\r\n      \r\n      \r\n      \r\n      <!-- <img src=\"https://about.canva.com/wp-content/uploads/sites/3/2015/01/concert_poster.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"https://www.acurax.com/wp-content/themes/acuraxsite/images/inner_page_bnr.jpg?x21789\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"https://marketplace.canva.com/MACq6ALcZxM/1/0/thumbnail_large/canva-blue-shapes-etsy-banner-MACq6ALcZxM.jpg\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"http://gdj.graphicdesignjunction.com/wp-content/uploads/2015/01/Free+Square+Poster+Mockup.jpg\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n\r\n\r\n\r\n\r\n\r\n    </div>\r\n    \r\n    <!-- Sidebar user -->\r\n    <div class=\"app-user\">\r\n      <div class=\"app-user-photo\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </div>\r\n      <span class=\"app-user-name mb-05\">\r\n        <mat-icon class=\"icon-xs text-muted\">lock</mat-icon>\r\n        {{currentUser.accountName}}\r\n      </span>\r\n      <!-- Small buttons -->\r\n      <div class=\"app-user-controls\">\r\n        <button class=\"text-muted\" mat-icon-button mat-xs-button [matMenuTriggerFor]=\"appUserMenu\">\r\n          <mat-icon>settings</mat-icon>\r\n        </button>\r\n        <button class=\"text-muted\" mat-icon-button mat-xs-button matTooltip=\"Inbox\" routerLink=\"/inbox\">\r\n          <mat-icon>email</mat-icon>\r\n        </button>\r\n\r\n        <mat-menu #appUserMenu=\"matMenu\">\r\n          <!-- routerLink=\"/profile/overview\" -->\r\n          <button mat-menu-item routerLink=\"/profile/\">\r\n            <mat-icon>account_box</mat-icon>\r\n            <span>Profile</span>\r\n          </button>\r\n          <button mat-menu-item routerLink=\"/profile/settings\">\r\n            <mat-icon>settings</mat-icon>\r\n            <span>Account Settings</span>\r\n          </button>\r\n          <button mat-menu-item routerLink=\"/calendar\">\r\n            <mat-icon>date_range</mat-icon>\r\n            <span>Calendar</span>\r\n          </button>\r\n\r\n        </mat-menu>\r\n      </div>\r\n    </div>\r\n    <!-- Navigation -->\r\n    <app-sidenav [items]=\"menuItems\" [hasIconMenu]=\"hasIconTypeMenuItem\" [iconMenuTitle]=\"iconTypeMenuTitle\">\r\n    </app-sidenav>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1461,6 +1525,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var perfect_scrollbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! perfect-scrollbar */ "./node_modules/perfect-scrollbar/dist/perfect-scrollbar.esm.js");
 /* harmony import */ var _helpers_local_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/local-storage */ "./src/app/shared/helpers/local-storage.ts");
 /* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _services_layout_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services/layout.service */ "./src/app/shared/services/layout.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1486,17 +1551,20 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var SidebarSideComponent = /** @class */ (function (_super) {
     __extends(SidebarSideComponent, _super);
-    function SidebarSideComponent(navService, themeService, userService) {
+    function SidebarSideComponent(navService, themeService, userService, layout) {
         var _this = _super.call(this) || this;
         _this.navService = navService;
         _this.themeService = themeService;
         _this.userService = userService;
+        _this.layout = layout;
         return _this;
     }
     SidebarSideComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.layoutConf = this.layout.layoutConf;
         this.iconTypeMenuTitle = this.navService.iconTypeMenuTitle;
         this.menuItemsSub = this.navService.menuItems$.subscribe(function (menuItem) {
             _this.menuItems = menuItem;
@@ -1536,7 +1604,8 @@ var SidebarSideComponent = /** @class */ (function (_super) {
         }),
         __metadata("design:paramtypes", [_shared_services_navigation_service__WEBPACK_IMPORTED_MODULE_1__["NavigationService"],
             _services_theme_service__WEBPACK_IMPORTED_MODULE_2__["ThemeService"],
-            _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
+            _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__["UserService"],
+            _services_layout_service__WEBPACK_IMPORTED_MODULE_6__["LayoutService"]])
     ], SidebarSideComponent);
     return SidebarSideComponent;
 }(_helpers_local_storage__WEBPACK_IMPORTED_MODULE_4__["LocalStorageHandler"]));
@@ -2420,23 +2489,23 @@ var RelativeTimePipe = /** @class */ (function () {
             value = new Date(value);
         var seconds = Math.floor(((new Date()).getTime() - value.getTime()) / 1000);
         var interval = Math.floor(seconds / 31536000);
-        if (interval > 1) {
+        if (interval >= 1) {
             return interval + " years ago";
         }
         interval = Math.floor(seconds / 2592000);
-        if (interval > 1) {
+        if (interval >= 1) {
             return interval + " months ago";
         }
         interval = Math.floor(seconds / 86400);
-        if (interval > 1) {
+        if (interval >= 1) {
             return interval + " days ago";
         }
         interval = Math.floor(seconds / 3600);
-        if (interval > 1) {
+        if (interval >= 1) {
             return interval + " hours ago";
         }
         interval = Math.floor(seconds / 60);
-        if (interval > 1) {
+        if (interval >= 1) {
             return interval + " minutes ago";
         }
         return Math.floor(seconds) + " seconds ago";
@@ -2556,7 +2625,18 @@ var AppConfirmService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1 matDialogTitle>{{ data.title}}</h1>\r\n<div mat-dialog-content>{{ data.message}}</div>\r\n<div mat-dialog-actions>\r\n\r\n  <span fxFlex></span>\r\n  <button type=\"button\" color=\"warn\" mat-raised-button (click)=\"dialogRef.close(false)\">OK</button>\r\n</div>"
+module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n  <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <img src=\"./../../../../assets/images/popup-window/error.png\">\r\n  </div>\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <h4 class=\"error-header\">{{ data.title }}!</h4>\r\n    </div>\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <p class=\"error-message\">{{ data.message }}</p>\r\n    </div>\r\n  </div>\r\n</mat-dialog-content>\r\n<mat-dialog-actions class=\"margin-top action-section\">\r\n  <span fxFlex></span>\r\n  <button mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(false)\">Dismiss</button>\r\n  <span fxFlex></span>\r\n</mat-dialog-actions>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/shared/services/app-error/app-error.component.scss":
+/*!********************************************************************!*\
+  !*** ./src/app/shared/services/app-error/app-error.component.scss ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.error-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.error-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n"
 
 /***/ }),
 
@@ -2572,6 +2652,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppErrorComponent", function() { return AppErrorComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/animations/egret-animations */ "./src/app/shared/animations/egret-animations.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2586,6 +2667,7 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 };
 
 
+
 var AppErrorComponent = /** @class */ (function () {
     function AppErrorComponent(dialogRef, data) {
         this.dialogRef = dialogRef;
@@ -2596,7 +2678,9 @@ var AppErrorComponent = /** @class */ (function () {
     AppErrorComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-app-error',
-            template: __webpack_require__(/*! ./app-error.component.html */ "./src/app/shared/services/app-error/app-error.component.html")
+            template: __webpack_require__(/*! ./app-error.component.html */ "./src/app/shared/services/app-error/app-error.component.html"),
+            styles: [__webpack_require__(/*! ./app-error.component.scss */ "./src/app/shared/services/app-error/app-error.component.scss")],
+            animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_2__["egretAnimations"]
         }),
         __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"], Object])
@@ -2654,61 +2738,68 @@ var AppErrorService = /** @class */ (function () {
         else
             return "Something went  wrong !";
     };
-    AppErrorService.prototype.showError = function (error) {
-        if (error === void 0) { error = {}; }
-        error.title = error.title || "Error";
-        error.type = error.type || "common_error";
-        var errorMsg;
-        if (error.type == "http_error") {
-            errorMsg = this.showHttpError(error);
-        }
-        else if (error.type == "client_error") {
-            errorMsg = error.clientError;
-        }
-        else {
-            errorMsg = "CP Judi Authentica : Something went wrong ";
-        }
-        var dialogRef;
-        dialogRef = this.dialog.open(_app_error_component__WEBPACK_IMPORTED_MODULE_2__["AppErrorComponent"], {
-            width: "380px",
-            disableClose: true,
-            data: { title: error.title, message: errorMsg }
-        });
-        return dialogRef.afterClosed();
-    };
+    // showError(error: ErrorData = {}): Observable<boolean> {
+    //   error.title = error.title || "Error";
+    //   error.type = error.type || "common_error";
+    //   let errorMsg;
+    //   if (error.type == "http_error") {
+    //     errorMsg = this.showHttpError(error);
+    //   } else if (error.type == "client_error") {
+    //     errorMsg = error.clientError;
+    //   } else {
+    //     errorMsg = "Truverus - ClearPicture : Something went wrong ";
+    //   }
+    //   let dialogRef: MatDialogRef<AppErrorComponent>;
+    //   dialogRef = this.dialog.open(AppErrorComponent, {
+    //     width: "480px",
+    //     disableClose: true,
+    //     data: { title: error.title, message: errorMsg }
+    //   });
+    //   return dialogRef.afterClosed();
+    // }
     // show popup window for custom error message (by prasad kumara)
     AppErrorService.prototype.handleCustomError = function (error) {
         if (error === void 0) { error = {}; }
         var errorTitle = this.removeUnderscore(error.title);
-        if (_error_messages__WEBPACK_IMPORTED_MODULE_3__["errorMessages"].hasOwnProperty(error.type)) {
-            var jsonArrayKey = this.getEnumKey(error.message);
-            if (_error_messages__WEBPACK_IMPORTED_MODULE_3__["errorMessages"][error.type].hasOwnProperty(jsonArrayKey)) {
-                this.openPopUpWindow(errorTitle, _error_messages__WEBPACK_IMPORTED_MODULE_3__["errorMessages"][error.type][jsonArrayKey]);
+        if (error.type.match('pageSize') || error.type.match('entity IDs')) {
+            this.openPopUpWindow('Oh Snap', 'Something went wrong.');
+        }
+        else {
+            if (_error_messages__WEBPACK_IMPORTED_MODULE_3__["errorMessages"].hasOwnProperty(error.type)) {
+                var jsonArrayKey = this.getEnumKey(error.message);
+                if (_error_messages__WEBPACK_IMPORTED_MODULE_3__["errorMessages"][error.type].hasOwnProperty(jsonArrayKey)) {
+                    this.openPopUpWindow(errorTitle, _error_messages__WEBPACK_IMPORTED_MODULE_3__["errorMessages"][error.type][jsonArrayKey]);
+                }
+                else {
+                    this.openPopUpWindow(errorTitle, error.message);
+                }
             }
             else {
                 this.openPopUpWindow(errorTitle, error.message);
             }
         }
-        else {
-            this.openPopUpWindow(errorTitle, error.message);
-        }
     };
     // handle custom error (by prasad kumara)
-    AppErrorService.prototype.showErrorWithMessage = function (error) {
-        console.log('view survey error with message');
+    AppErrorService.prototype.showError = function (error) {
+        console.log('show error messages');
         console.log(error);
         if (error.error !== null) {
-            if (error.error.hasOwnProperty('validationFailures')) {
-                this.handleCustomError({
-                    title: error.error.status,
-                    message: error.error.validationFailures[0].code,
-                    type: error.error.validationFailures[0].field,
-                    status: error.status,
-                    clientError: ''
-                });
+            if (error.status === 403) {
+                this.openPopUpWindow(this.removeUnderscore(error.error.error), error.error.error_description);
             }
             else {
-                this.openPopUpWindow(this.removeUnderscore(error.error.status), 'CP Judi Authentica : Something went wrong');
+                if (error.error.hasOwnProperty('validationFailures')) {
+                    this.handleCustomError({
+                        title: error.error.status,
+                        message: error.error.validationFailures[0].code,
+                        type: error.error.validationFailures[0].field,
+                        status: error.status,
+                        clientError: ''
+                    });
+                }
+                else {
+                    this.openPopUpWindow(this.removeUnderscore(error.error.status), 'Truverus - ClearPicture : Something went wrong');
+                }
             }
         }
         else {
@@ -2736,8 +2827,9 @@ var AppErrorService = /** @class */ (function () {
         return enumkey;
     };
     // Remove _ from Error Title
-    AppErrorService.prototype.removeUnderscore = function (string) {
-        var stringArray = string.split('_');
+    AppErrorService.prototype.removeUnderscore = function (text) {
+        console.log(text);
+        var stringArray = text.split('_');
         var errorTitle = '';
         for (var i = 0; i < stringArray.length; i++) {
             errorTitle += stringArray[i].substring(0, 1).toUpperCase() + stringArray[i].substring(1).toLowerCase() + ' ';
@@ -2748,8 +2840,8 @@ var AppErrorService = /** @class */ (function () {
     AppErrorService.prototype.openPopUpWindow = function (title, message) {
         var dialogRef;
         dialogRef = this.dialog.open(_app_error_component__WEBPACK_IMPORTED_MODULE_2__["AppErrorComponent"], {
-            width: '380px',
-            disableClose: true,
+            width: '480px',
+            disableClose: false,
             data: { title: title, message: message }
         });
         return dialogRef.afterClosed();
@@ -2853,12 +2945,195 @@ var errorMessages = {
     },
     product: {
         productViewRequestProductNotExist: 'Product is not Exist.',
-        productUpdateRequestProductNotExist: ''
+        productUpdateRequestProductNotExist: 'Product is not Exist.'
     },
     product_image: {
         productImageRetrieveProducImageNotExists: 'Product Image is not Exist.'
+    },
+    authority: {
+        createAuthorityPersistError: 'Authority is not created.'
+    },
+    email: {
+        companyCreateRequestUserEmailDuplicate: 'Email allready exists.',
+        platformUserCreateRequestEmailDuplicate: 'Email allready exists.',
+        platformUserUpdateRequestEmailDuplicate: 'Email allready exists.'
+    },
+    license: {
+        licenseViewLicenseNotExist: 'License is not exists.',
+        licenseViewLicenseViewError: 'License view error.'
+    },
+    download: {
+        imageByteNullContext: 'Image is not exists.',
+        imageByteContextNotExists: 'Image is not exists.'
+    },
+    role: {
+        platformRoleViewRequestRoleNotExist: 'Role is not exists.',
+        platformRoleUpdateRequestRoleNotExist: 'Role is not exists.',
+        retrievePredefinedRoleByNameFetchError: 'Role data view error.'
+    },
+    user: {
+        platformUserViewRequestUserNotExist: 'User is not exists.',
+        platformUserUpdateRequestUserNotExist: 'User is not exists.',
+        platformUserDeleteRequestUserDeleteFiledUserId: 'Unable to delete user account.',
+        platformUserDeleteRequestUserNotExis: 'User is not exists.'
+    },
+    status: {
+        platformUserUpdateRequestStatusCannotChange: 'Status can\'t change.'
+    },
+    activationLink: {
+        userActivationRequestAlreadyActivated: 'Your account already activated.',
+        userActivationRequestUserNotFound: 'User is not exists.'
+    },
+    community: {
+        communityCreateCreateError: 'Unable to create community.',
+        communityUpdateUpdateError: 'Unable to update community.',
+        communityViewCommunityNotExists: 'Community is not exists.',
+        getByClientFetchError: 'Community data view error.',
+        communityDeleteDeleteError: 'Unable to delete community.',
+        communitySearchFetchError: 'Community data search error.'
+    },
+    event: {
+        createEventCreateError: 'Unable to create event.',
+        eventUpdateUpdateError: 'Unable to update event.',
+        eventViewEventNotExists: 'Event is not exists.',
+        eventSearchFetchError: 'Event data search error.',
+        eventDeleteRequestDeleteError: 'Unable to delete event.',
+        listDeleteRequestDeleteError: 'Unable to delete event list.',
+        eventsByCommunitiesFetchError: 'Event data view error.'
+    },
+    promotion: {
+        createPromotionCreateError: 'Unable to create promotion.',
+        promotionViewPromotionNotExists: 'Promotion is not exists.',
+        promotionUpdatePromotionError: 'Unable to update promotion.',
+        promoSearchFetchError: 'Promotion data search error.',
+        promoDeleteRequestDeleteError: 'Unable to delete promotion.',
+        listDeleteRequestDeleteError: 'Unable to delete promotion list.',
+        promosByCommunitiesFetchError: 'Promotion data view error.'
     }
 };
+
+
+/***/ }),
+
+/***/ "./src/app/shared/services/app-info/app-info.component.html":
+/*!******************************************************************!*\
+  !*** ./src/app/shared/services/app-info/app-info.component.html ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!-- <mat-toolbar matDialogTitle class=\"m-0 info-title\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">{{ data.title }} Information!</span>\r\n  </div>\r\n</mat-toolbar> -->\r\n<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n  <!-- <span class=\"info-font\">{{ data.message }}</span>\r\n  <div class=\"info-link\">\r\n    <a routerLink=\"{{ data.linkData.url }}\" (click)=\"dialogRef.close(false)\">{{ data.linkData.urlDescription }}</a>\r\n  </div> -->\r\n  <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <img src=\"./../../../../assets/images/popup-window/info.png\">\r\n  </div>\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <h4 class=\"info-header\">{{ data.title }}</h4>\r\n    </div>\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <p class=\"info-message\">{{ data.message }}</p>\r\n    </div>\r\n  </div>\r\n</mat-dialog-content>\r\n<mat-dialog-actions class=\"margin-top action-section\">\r\n  <a mat-button type=\"button\" class=\"ok-btn\" href=\"{{ data.linkData.url }}\" (click)=\"dialogRef.close(false)\">{{ data.linkData.buttonText }}</a>\r\n  <span fxFlex></span>\r\n  <button mat-button type=\"button\" class=\"close-btn\" (click)=\"dialogRef.close(false)\">Close</button>\r\n</mat-dialog-actions>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/shared/services/app-info/app-info.component.scss":
+/*!******************************************************************!*\
+  !*** ./src/app/shared/services/app-info/app-info.component.scss ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.info-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.info-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #2bb673;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n"
+
+/***/ }),
+
+/***/ "./src/app/shared/services/app-info/app-info.component.ts":
+/*!****************************************************************!*\
+  !*** ./src/app/shared/services/app-info/app-info.component.ts ***!
+  \****************************************************************/
+/*! exports provided: AppInfoComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppInfoComponent", function() { return AppInfoComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/shared/animations/egret-animations */ "./src/app/shared/animations/egret-animations.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+var AppInfoComponent = /** @class */ (function () {
+    function AppInfoComponent(data, dialogRef) {
+        this.data = data;
+        this.dialogRef = dialogRef;
+    }
+    AppInfoComponent.prototype.ngOnInit = function () {
+    };
+    AppInfoComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-app-info',
+            template: __webpack_require__(/*! ./app-info.component.html */ "./src/app/shared/services/app-info/app-info.component.html"),
+            styles: [__webpack_require__(/*! ./app-info.component.scss */ "./src/app/shared/services/app-info/app-info.component.scss")],
+            animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"]
+        }),
+        __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [Object, _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"]])
+    ], AppInfoComponent);
+    return AppInfoComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/services/app-info/app-info.service.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/shared/services/app-info/app-info.service.ts ***!
+  \**************************************************************/
+/*! exports provided: AppInfoService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppInfoService", function() { return AppInfoService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _app_info_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app-info.component */ "./src/app/shared/services/app-info/app-info.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var AppInfoService = /** @class */ (function () {
+    function AppInfoService(dialog) {
+        this.dialog = dialog;
+    }
+    AppInfoService.prototype.showInfo = function (infoData) {
+        var dialogRef;
+        dialogRef = this.dialog.open(_app_info_component__WEBPACK_IMPORTED_MODULE_2__["AppInfoComponent"], {
+            width: '480px',
+            disableClose: false,
+            data: infoData
+        });
+        return dialogRef.afterClosed();
+    };
+    AppInfoService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"]])
+    ], AppInfoService);
+    return AppInfoService;
+}());
+
 
 
 /***/ }),
@@ -2974,6 +3249,129 @@ var AppLoaderService = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"]])
     ], AppLoaderService);
     return AppLoaderService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/services/app-warning/app-warning.component.html":
+/*!************************************************************************!*\
+  !*** ./src/app/shared/services/app-warning/app-warning.component.html ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n    <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n      <img src=\"./../../../../assets/images/popup-window/warning.png\">\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n      <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n        <h4 class=\"warn-header\">{{ data.title }}</h4>\r\n      </div>\r\n      <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n        <p class=\"warn-message\">{{ data.message }}</p>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n  <mat-dialog-actions class=\"margin-top action-section\">\r\n    <button mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(false)\">OK</button>\r\n    <span fxFlex></span>\r\n    <button mat-button type=\"button\" class=\"close-btn\" (click)=\"dialogRef.close(false)\">Close</button>\r\n  </mat-dialog-actions>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/shared/services/app-warning/app-warning.component.scss":
+/*!************************************************************************!*\
+  !*** ./src/app/shared/services/app-warning/app-warning.component.scss ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.warn-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.warn-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #2bb673;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n"
+
+/***/ }),
+
+/***/ "./src/app/shared/services/app-warning/app-warning.component.ts":
+/*!**********************************************************************!*\
+  !*** ./src/app/shared/services/app-warning/app-warning.component.ts ***!
+  \**********************************************************************/
+/*! exports provided: AppWarningComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppWarningComponent", function() { return AppWarningComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/shared/animations/egret-animations */ "./src/app/shared/animations/egret-animations.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+var AppWarningComponent = /** @class */ (function () {
+    function AppWarningComponent(data, dialogRef) {
+        this.data = data;
+        this.dialogRef = dialogRef;
+    }
+    AppWarningComponent.prototype.ngOnInit = function () {
+    };
+    AppWarningComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-app-warning',
+            template: __webpack_require__(/*! ./app-warning.component.html */ "./src/app/shared/services/app-warning/app-warning.component.html"),
+            styles: [__webpack_require__(/*! ./app-warning.component.scss */ "./src/app/shared/services/app-warning/app-warning.component.scss")],
+            animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"]
+        }),
+        __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [Object, _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"]])
+    ], AppWarningComponent);
+    return AppWarningComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/services/app-warning/app-warning.service.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/shared/services/app-warning/app-warning.service.ts ***!
+  \********************************************************************/
+/*! exports provided: AppWarningService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppWarningService", function() { return AppWarningService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _app_warning_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./app-warning.component */ "./src/app/shared/services/app-warning/app-warning.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var AppWarningService = /** @class */ (function () {
+    function AppWarningService(dialog) {
+        this.dialog = dialog;
+    }
+    AppWarningService.prototype.showWarning = function (warningData) {
+        var dialogRef;
+        dialogRef = this.dialog.open(_app_warning_component__WEBPACK_IMPORTED_MODULE_2__["AppWarningComponent"], {
+            width: '480px',
+            disableClose: false,
+            data: warningData
+        });
+        return dialogRef.afterClosed();
+    };
+    AppWarningService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"]])
+    ], AppWarningService);
+    return AppWarningService;
 }());
 
 
@@ -3415,7 +3813,7 @@ var LayoutService = /** @class */ (function () {
         this.layoutConfSubject = new rxjs__WEBPACK_IMPORTED_MODULE_1__["BehaviorSubject"](this.layoutConf);
         this.layoutConf$ = this.layoutConfSubject.asObservable();
         this.fullWidthRoutes = ['future-survey'];
-        this.compactRoutes = ['surveys', 'clients'];
+        this.compactRoutes = ['surveys', 'clients/user'];
         this.setAppLayout();
     }
     LayoutService.prototype.setAppLayout = function () {
@@ -3477,7 +3875,8 @@ var LayoutService = /** @class */ (function () {
     LayoutService.prototype.isSm = function () {
         return window.matchMedia("(max-width: 959px)").matches;
     };
-    // --------- Costomized Code -----------------
+    // ------------------------------------------~ HBH ~----------------
+    // --------- Customized Code -----------------
     // adjust full width routes layout
     LayoutService.prototype.costomizedAdjustScreenOptions = function (options) {
         var _this = this;
@@ -3487,16 +3886,23 @@ var LayoutService = /** @class */ (function () {
         }
         this.currentRoute = options.route || this.currentRoute;
         if (this.currentRoute) {
+            var isFullSidebar_1 = true;
             this.fullWidthRoutes.forEach(function (route) {
                 if (_this.currentRoute.indexOf(route) !== -1) {
                     _this.publishLayoutChange({ sidebarStyle: 'closed' });
+                    isFullSidebar_1 = false;
                 }
             });
             this.compactRoutes.forEach(function (route) {
                 if (_this.currentRoute.indexOf(route) !== -1) {
                     _this.publishLayoutChange({ sidebarStyle: 'compact' });
+                    isFullSidebar_1 = false;
                 }
             });
+            // do not uncomment or remove this code (~ HBH ~)
+            // if (isFullSidebar) {
+            //   this.publishLayoutChange({ sidebarStyle: 'full' });
+            // }
         }
     };
     LayoutService = __decorate([
@@ -3972,7 +4378,7 @@ var NavigationService = /** @class */ (function () {
             {
                 name: "Client Management",
                 type: "link",
-                tooltip: "Client Management",
+                tooltip: "CliManagementent ",
                 icon: "person",
                 state: "clients/client-table",
                 disabled: false
@@ -4007,6 +4413,14 @@ var NavigationService = /** @class */ (function () {
                 tooltip: "Future Survey",
                 icon: "language",
                 state: "future-survey",
+                disabled: false
+            },
+            {
+                name: "Community",
+                type: "link",
+                tooltip: "Community",
+                icon: "group",
+                state: "community/community-view",
                 disabled: false
             },
             // ,
@@ -4443,10 +4857,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
 /* harmony import */ var _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./services/app-error/app-error.component */ "./src/app/shared/services/app-error/app-error.component.ts");
 /* harmony import */ var _services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
-/* harmony import */ var _services_file_download_service__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./services/file-download.service */ "./src/app/shared/services/file-download.service.ts");
-/* harmony import */ var _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./services/data-conversion.service */ "./src/app/shared/services/data-conversion.service.ts");
-/* harmony import */ var _pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./pipes/array-filter.pipe */ "./src/app/shared/pipes/array-filter.pipe.ts");
-/* harmony import */ var _services_localization_service__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./services/localization.service */ "./src/app/shared/services/localization.service.ts");
+/* harmony import */ var _services_app_warning_app_warning_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./services/app-warning/app-warning.component */ "./src/app/shared/services/app-warning/app-warning.component.ts");
+/* harmony import */ var _services_app_warning_app_warning_service__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./services/app-warning/app-warning.service */ "./src/app/shared/services/app-warning/app-warning.service.ts");
+/* harmony import */ var _services_app_info_app_info_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./services/app-info/app-info.component */ "./src/app/shared/services/app-info/app-info.component.ts");
+/* harmony import */ var _services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./services/app-info/app-info.service */ "./src/app/shared/services/app-info/app-info.service.ts");
+/* harmony import */ var _services_file_download_service__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./services/file-download.service */ "./src/app/shared/services/file-download.service.ts");
+/* harmony import */ var _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./services/data-conversion.service */ "./src/app/shared/services/data-conversion.service.ts");
+/* harmony import */ var _pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./pipes/array-filter.pipe */ "./src/app/shared/pipes/array-filter.pipe.ts");
+/* harmony import */ var _services_localization_service__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./services/localization.service */ "./src/app/shared/services/localization.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4500,6 +4918,20 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 /*
+ * App warning component and service
+ * Created by Prasad kumara
+ * 11-03-2019
+*/
+
+
+/*
+ * App information component and service
+ * Created by Prasad kumara
+ * 11-03-2019
+*/
+
+
+/*
   Only Required if you want to use Angular Landing
   (https://themeforest.net/item/angular-landing-material-design-angular-app-landing-page/21198258)
 */
@@ -4530,10 +4962,12 @@ var classesToInclude = [
     _directives_egret_side_nav_toggle_directive__WEBPACK_IMPORTED_MODULE_24__["EgretSideNavToggleDirective"],
     _pipes_relative_time_pipe__WEBPACK_IMPORTED_MODULE_28__["RelativeTimePipe"],
     _pipes_excerpt_pipe__WEBPACK_IMPORTED_MODULE_29__["ExcerptPipe"],
-    _pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_41__["ArrayFilter"],
+    _pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_45__["ArrayFilter"],
     _directives_PositiveNumber_directive__WEBPACK_IMPORTED_MODULE_25__["PositiveNumberOnly"],
     _directives_PositiveNumberAndLetter_directive__WEBPACK_IMPORTED_MODULE_26__["PositiveNumberAndLetterOnly"],
     _directives_Letter_directive__WEBPACK_IMPORTED_MODULE_27__["LetterOnly"],
+    _services_app_warning_app_warning_component__WEBPACK_IMPORTED_MODULE_39__["AppWarningComponent"],
+    _services_app_info_app_info_component__WEBPACK_IMPORTED_MODULE_41__["AppInfoComponent"]
 ];
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
@@ -4564,7 +4998,13 @@ var SharedModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatRippleModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatDialogModule"]
             ],
-            entryComponents: [_services_app_confirm_app_confirm_component__WEBPACK_IMPORTED_MODULE_17__["AppComfirmComponent"], _services_app_loader_app_loader_component__WEBPACK_IMPORTED_MODULE_18__["AppLoaderComponent"], _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_37__["AppErrorComponent"]],
+            entryComponents: [
+                _services_app_confirm_app_confirm_component__WEBPACK_IMPORTED_MODULE_17__["AppComfirmComponent"],
+                _services_app_loader_app_loader_component__WEBPACK_IMPORTED_MODULE_18__["AppLoaderComponent"],
+                _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_37__["AppErrorComponent"],
+                _services_app_warning_app_warning_component__WEBPACK_IMPORTED_MODULE_39__["AppWarningComponent"],
+                _services_app_info_app_info_component__WEBPACK_IMPORTED_MODULE_41__["AppInfoComponent"]
+            ],
             providers: [
                 _services_theme_service__WEBPACK_IMPORTED_MODULE_30__["ThemeService"],
                 _services_layout_service__WEBPACK_IMPORTED_MODULE_31__["LayoutService"],
@@ -4574,10 +5014,12 @@ var SharedModule = /** @class */ (function () {
                 _services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_35__["AppConfirmService"],
                 _services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_36__["AppLoaderService"],
                 _services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_38__["AppErrorService"],
-                _services_file_download_service__WEBPACK_IMPORTED_MODULE_39__["AppFileDownloadService"],
-                _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_40__["AppDataConversionService"],
+                _services_file_download_service__WEBPACK_IMPORTED_MODULE_43__["AppFileDownloadService"],
+                _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_44__["AppDataConversionService"],
                 // LandingPageService
-                _services_localization_service__WEBPACK_IMPORTED_MODULE_42__["LocalizationService"],
+                _services_localization_service__WEBPACK_IMPORTED_MODULE_46__["LocalizationService"],
+                _services_app_warning_app_warning_service__WEBPACK_IMPORTED_MODULE_40__["AppWarningService"],
+                _services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_42__["AppInfoService"]
             ],
             declarations: classesToInclude,
             exports: classesToInclude
@@ -4886,8 +5328,8 @@ var UserService = /** @class */ (function () {
         var arrayList = [];
         if (userObj) {
             console.log('--------------- setComponetDisable ----------------');
-            console.log(userObj.userData.roles[0].name);
-            var roleName = userObj.userData.roles[0].name;
+            console.log(userObj.userData.role.name);
+            var roleName = userObj.userData.role.name;
             if (roleName === 'Super Administrator') {
                 arrayList = ['User Management'];
                 return arrayList;
@@ -4946,9 +5388,10 @@ var environment = {
     // SAP NEW 32GB -  DEV TEST
     productApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/product/api/",
     surveyApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey/api/",
-    // userApiUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user",
     productimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/product",
     evoteimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey",
+    authTokenUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user/",
+    userApiUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user/api/",
     // LOCALE
     // authTokenUrl:"http://localhost:10000/",
     // userApiUrl: "http://localhost:10000/api/",
@@ -4956,8 +5399,8 @@ var environment = {
     // surveyApiURL: "http://localhost:10002/api/",
     // productimageUrl: "http://localhost:10001/",
     // evoteimageUrl: "http://localhost:10002/",
-    authTokenUrl: "https://userk84f365ea.ca1.hana.ondemand.com/user/",
-    userApiUrl: "https://userk84f365ea.ca1.hana.ondemand.com/user/api/",
+    // authTokenUrl:"https://userk84f365ea.ca1.hana.ondemand.com/user/",
+    // userApiUrl:"https://userk84f365ea.ca1.hana.ondemand.com/user/api/",
     // SAP OLD
     // productApiURL: "https://productzg4t4ks63a.hana.ondemand.com/product/api/",
     // surveyApiURL: "https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/",

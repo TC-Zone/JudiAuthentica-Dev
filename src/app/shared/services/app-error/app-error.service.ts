@@ -30,58 +30,67 @@ export class AppErrorService {
     } else return "Something went  wrong !";
   }
 
-  showError(error: ErrorData = {}): Observable<boolean> {
-    error.title = error.title || "Error";
-    error.type = error.type || "common_error";
+  // showError(error: ErrorData = {}): Observable<boolean> {
+  //   error.title = error.title || "Error";
+  //   error.type = error.type || "common_error";
 
-    let errorMsg;
-    if (error.type == "http_error") {
-      errorMsg = this.showHttpError(error);
-    } else if (error.type == "client_error") {
-      errorMsg = error.clientError;
-    } else {
-      errorMsg = "Truverus - ClearPicture : Something went wrong ";
-    }
+  //   let errorMsg;
+  //   if (error.type == "http_error") {
+  //     errorMsg = this.showHttpError(error);
+  //   } else if (error.type == "client_error") {
+  //     errorMsg = error.clientError;
+  //   } else {
+  //     errorMsg = "Truverus - ClearPicture : Something went wrong ";
+  //   }
 
-    let dialogRef: MatDialogRef<AppErrorComponent>;
-    dialogRef = this.dialog.open(AppErrorComponent, {
-      width: "380px",
-      disableClose: true,
-      data: { title: error.title, message: errorMsg }
-    });
-    return dialogRef.afterClosed();
-  }
+  //   let dialogRef: MatDialogRef<AppErrorComponent>;
+  //   dialogRef = this.dialog.open(AppErrorComponent, {
+  //     width: "480px",
+  //     disableClose: true,
+  //     data: { title: error.title, message: errorMsg }
+  //   });
+  //   return dialogRef.afterClosed();
+  // }
+
   // show popup window for custom error message (by prasad kumara)
   handleCustomError(error: ErrorData = {}): any {
     const errorTitle = this.removeUnderscore(error.title);
-    if (errorMessages.hasOwnProperty(error.type)) {
-      const jsonArrayKey = this.getEnumKey(error.message);
-      if (errorMessages[error.type].hasOwnProperty(jsonArrayKey)) {
-        this.openPopUpWindow(errorTitle, errorMessages[error.type][jsonArrayKey]);
+    if (error.type.match('pageSize') || error.type.match('entity IDs')) {
+      this.openPopUpWindow('Oh Snap', 'Something went wrong.');
+    } else {
+      if (errorMessages.hasOwnProperty(error.type)) {
+        const jsonArrayKey = this.getEnumKey(error.message);
+        if (errorMessages[error.type].hasOwnProperty(jsonArrayKey)) {
+          this.openPopUpWindow(errorTitle, errorMessages[error.type][jsonArrayKey]);
+        } else {
+          this.openPopUpWindow(errorTitle, error.message);
+        }
       } else {
         this.openPopUpWindow(errorTitle, error.message);
       }
-    } else {
-      this.openPopUpWindow(errorTitle, error.message);
     }
   }
+
   // handle custom error (by prasad kumara)
-  showErrorWithMessage(error: any) {
-    console.log('view survey error with message');
+  showError(error: any) {
+    console.log('show error messages');
     console.log(error);
     if (error.error !== null) {
-      if (error.error.hasOwnProperty('validationFailures')) {
-        this.handleCustomError({
-          title: error.error.status,
-          message: error.error.validationFailures[0].code,
-          type: error.error.validationFailures[0].field,
-          status: error.status,
-          clientError: ''
-        });
+      if (error.status === 403) {
+        this.openPopUpWindow(this.removeUnderscore(error.error.error), error.error.error_description);
       } else {
-        this.openPopUpWindow(this.removeUnderscore(error.error.status), 'Truverus - ClearPicture : Something went wrong');
+        if (error.error.hasOwnProperty('validationFailures')) {
+          this.handleCustomError({
+            title: error.error.status,
+            message: error.error.validationFailures[0].code,
+            type: error.error.validationFailures[0].field,
+            status: error.status,
+            clientError: ''
+          });
+        } else {
+          this.openPopUpWindow(this.removeUnderscore(error.error.status), 'Truverus - ClearPicture : Something went wrong');
+        }
       }
-
     } else {
       this.showHttpError({
         title: 'Error',
@@ -92,6 +101,7 @@ export class AppErrorService {
       });
     }
   }
+
   // convert error messages to camell case message (by prasad kumara)
   getEnumKey(string: string): string {
     const stringArray = string.split('.');
@@ -105,21 +115,24 @@ export class AppErrorService {
     }
     return enumkey;
   }
+
   // Remove _ from Error Title
-  removeUnderscore(string: string): string {
-    const stringArray = string.split('_');
+  removeUnderscore(text: string): string {
+    console.log(text);
+    const stringArray = text.split('_');
     let errorTitle = '';
     for (let i = 0; i < stringArray.length; i++) {
       errorTitle += stringArray[i].substring(0, 1).toUpperCase() + stringArray[i].substring(1).toLowerCase() + ' ';
     }
     return errorTitle;
   }
+
   // open pop up window
   openPopUpWindow(title, message): any{
     let dialogRef: MatDialogRef<AppErrorComponent>;
       dialogRef = this.dialog.open(AppErrorComponent, {
-        width: '380px',
-        disableClose: true,
+        width: '480px',
+        disableClose: false,
         data: { title: title, message: message}
       });
       return dialogRef.afterClosed();

@@ -11,9 +11,11 @@ export const environment = {
   // SAP NEW 32GB -  DEV TEST
   // productApiURL:"https://authenticak84f365ea.ca1.hana.ondemand.com/product/api/",
   // surveyApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey/api/",
-  // userApiUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user",
   // productimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/product",
   // evoteimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey",
+  // authTokenUrl:"https://authenticak84f365ea.ca1.hana.ondemand.com/user/",
+  // userApiUrl:"https://authenticak84f365ea.ca1.hana.ondemand.com/user/api/",
+
 
   // LOCALE
   authTokenUrl:"http://localhost:10000/",
@@ -32,7 +34,7 @@ export const environment = {
   // productimageUrl: "https://productzg4t4ks63a.hana.ondemand.com/product/",
   // evoteimageUrl : 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/'
 
-  //  frontEndBaseUrl :'https://judedw.github.io/JudiAuthentica-Dev/',
-  frontEndBaseUrl: "http://localhost:4200/",
+    frontEndBaseUrl :'https://judedw.github.io/JudiAuthentica-Dev/',
+  // frontEndBaseUrl: "http://localhost:4200/",
   //  frontEndBaseUrl: "https://www.clearpicturevote.com/"
 };

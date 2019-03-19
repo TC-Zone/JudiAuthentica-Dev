@@ -15,11 +15,13 @@ import { MatSnackBar } from "@angular/material";
 
 import { LocalizationService } from "../../../shared/services/localization.service";
 import { FutureSurveyOperationalService } from "../future-survey-operational.service";
+import { ClientService } from '../../client/client.service';
 import {
   FutureSurveyRequest,
   ChoiceTypeEnum,
   MatrixTypeEnum
 } from "../../../model/FutureSurvey.model";
+import { AppWarningService } from "app/shared/services/app-warning/app-warning.service";
 
 widgets.icheck(SurveyKo);
 widgets.select2(SurveyKo);
@@ -71,6 +73,7 @@ export class FutureSurveyComponent implements OnInit {
 
   constructor(
     private clientService: CrudService,
+    private clientService2: ClientService,
     private furureSurveyService: FutureSurveyService,
     private router: Router,
     private route: ActivatedRoute,
@@ -78,7 +81,8 @@ export class FutureSurveyComponent implements OnInit {
     private errDialog: AppErrorService,
     private snack: MatSnackBar,
     private loc: LocalizationService,
-    private FSOperationalService: FutureSurveyOperationalService
+    private FSOperationalService: FutureSurveyOperationalService,
+    private appWarning: AppWarningService
   ) { }
 
   ngOnInit() {
@@ -111,7 +115,7 @@ export class FutureSurveyComponent implements OnInit {
   }
 
   setClients() {
-    this.getClientSub = this.clientService.getItems().subscribe(data => {
+    this.getClientSub = this.clientService2.getClients().subscribe(data => {
       this.response = data;
       this.clients = this.response.content;
 
@@ -308,11 +312,7 @@ export class FutureSurveyComponent implements OnInit {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
     }
@@ -453,11 +453,16 @@ export class FutureSurveyComponent implements OnInit {
 
 
     if (clientError) {
-      this.errDialog.showError({
-        title: "Error",
-        type: "client_error",
-        clientError: clientError
-      });
+      const warningData = {
+        title: "Future Survey Warning!",
+        message: clientError
+      };
+      this.appWarning.showWarning(warningData);
+      // this.errDialog.showError({
+      //   title: "Error",
+      //   type: "client_error",
+      //   clientError: clientError
+      // });
       return true;
     } else {
       return false;

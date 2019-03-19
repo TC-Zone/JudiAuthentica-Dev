@@ -107,11 +107,7 @@ export class CreateEventPopupComponent implements OnInit {
         },
         error => {
           if (error.status !== 401) {
-            this.errDialog.showError({
-              title: 'Error',
-              status: error.status,
-              type: 'http_error'
-            });
+            this.errDialog.showError(error);
           }
         }
       );
@@ -181,35 +177,39 @@ export class CreateEventPopupComponent implements OnInit {
               img.src = ev.target.result;
               const widthReminder = img.width % 4;
               const heightReminder = img.height % 3;
-              if (img.width < this.minWidth && img.height < this.minHeight) {
+              if (img.width < this.minWidth || img.height < this.minHeight) {
                 this.snackBar.open(
-                  'Please upload' + this.minWidth + ' X ' + this.minHeight + ' size image files only',
+                  'Please upload ' + this.minWidth + ' X ' + this.minHeight + ' size image files only',
                   'close',
                   { duration: 3000 }
                 );
+                this.eventForm.controls['poster'].setErrors({'incorrect': true});
                 this.currentTotalImageCount--;
                 return;
               }
               if (widthReminder !== 0 || heightReminder !== 0) {
                 this.snackBar.open(
-                  'Please upload' + this.minWidth + ' X ' + this.minHeight + ' size image files only',
+                  'Please upload ' + this.minWidth + ' X ' + this.minHeight + ' size image files only',
                   'close',
                   { duration: 3000 }
                 );
+                this.eventForm.controls['poster'].setErrors({'incorrect': true});
                 this.currentTotalImageCount--;
                 return;
               }
               this.urls.push(ev.target.result);
+              this.eventForm.controls['poster'].setErrors(null);
             };
             reader.readAsDataURL(event.target.files[i]);
             this.newlySelectedFileList.push(event.target.files[i]);
             this.currentTotalImageCount++;
           } else {
             this.snackBar.open(
-              'Invalid file type in ' + fileName + ', Please upload image files only',
+              'Upload valiid images. Only PNG, JPG and JPEG are allowed!',
               'close',
               { duration: 3000 }
             );
+            this.eventForm.controls['poster'].setErrors({'incorrect': true});
             this.currentTotalImageCount--;
             return;
           }
@@ -234,6 +234,7 @@ export class CreateEventPopupComponent implements OnInit {
   removeSelectedImg(index: number) {
     this.urls.splice(index, 1);
     this.currentTotalImageCount -= 1;
+    this.eventForm.controls['poster'].setErrors({'incorrect': true});
 
     if (this.remainImagesID.length < index + 1) {
       this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);

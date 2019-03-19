@@ -44,6 +44,7 @@ import { FutureSurveyInvitationLaunchComponent } from "./future-survey-invitatio
 import { FutureSurveyInvitationDashboardComponent } from "./future-survey-invitation-dashboard/future-survey-invitation-dashboard.component";
 import { EditMailPopupComponent } from "./edit-mail-popup/edit-mail-popup.component";
 import { EditInvitationSettingPopupComponent } from "./edit-invitation-setting-popup/edit-invitation-setting-popup.component";
+import { ClientService } from '../client/client.service';
 
 
 export let InjectorInstance: Injector;
@@ -90,7 +91,7 @@ export let InjectorInstance: Injector;
     EditInvitationSettingPopupComponent
 
   ],
-  providers: [CrudService, FutureSurveyService, AppDataConversionService, FutureSurveyOperationalService],
+  providers: [CrudService, ClientService, FutureSurveyService, AppDataConversionService, FutureSurveyOperationalService],
   entryComponents: [
     FutureSurveyConfigPopupComponent,
     FutureSurveyLaunchComponent,

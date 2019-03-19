@@ -1,7 +1,18 @@
-<h1 matDialogTitle>{{ data.title}}</h1>
-<div mat-dialog-content>{{ data.message}}</div>
-<div mat-dialog-actions>
-
+<mat-dialog-content class="mat-typography mt-0 mb-0">
+  <div fxLayout="row" fxLayoutAlign="center" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+    <img src="./../../../../assets/images/popup-window/error.png">
+  </div>
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="margin-top">
+    <div fxFlex="100" fxLayoutAlign="center">
+      <h4 class="error-header">{{ data.title }}!</h4>
+    </div>
+    <div fxFlex="100" fxLayoutAlign="center">
+      <p class="error-message" [innerHTML]="data.message"></p>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="margin-top action-section">
   <span fxFlex></span>
-  <button type="button" color="warn" mat-raised-button (click)="dialogRef.close(false)">OK</button>
-</div>
+  <button mat-button type="button" class="ok-btn" (click)="dialogRef.close(false)">Dismiss</button>
+  <span fxFlex></span>
+</mat-dialog-actions>

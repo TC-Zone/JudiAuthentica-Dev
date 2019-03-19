@@ -50,6 +50,168 @@ var DateValidator = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/model/ClientModel.model.ts":
+/*!********************************************!*\
+  !*** ./src/app/model/ClientModel.model.ts ***!
+  \********************************************/
+/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Content", function() { return Content; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientCreateReq", function() { return ClientCreateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientLicenseData", function() { return ClientLicenseData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientUpdateReq", function() { return ClientUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CountryData", function() { return CountryData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserData", function() { return UserData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCreateReq", function() { return UserCreateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientData", function() { return ClientData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LicenseUpdateReq", function() { return LicenseUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleData", function() { return RoleData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommunityData", function() { return CommunityData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoryData", function() { return CategoryData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LicenseUpdateRequest", function() { return LicenseUpdateRequest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "profileUpdateReq", function() { return profileUpdateReq; });
+var Content = /** @class */ (function () {
+    function Content(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+    return Content;
+}());
+
+var ClientCreateReq = /** @class */ (function () {
+    function ClientCreateReq(name, description, clientLogo, users, categories, license) {
+        this.name = name;
+        this.description = description;
+        this.clientLogo = clientLogo;
+        this.users = users;
+        this.categories = categories;
+        this.license = license;
+    }
+    return ClientCreateReq;
+}());
+
+var ClientLicenseData = /** @class */ (function () {
+    function ClientLicenseData(tagCount, userCount, communityCount, feedbackCount, eventCount, promoCount) {
+        this.tagCount = tagCount;
+        this.userCount = userCount;
+        this.communityCount = communityCount;
+        this.feedbackCount = feedbackCount;
+        this.eventCount = eventCount;
+        this.promoCount = promoCount;
+    }
+    return ClientLicenseData;
+}());
+
+var ClientUpdateReq = /** @class */ (function () {
+    function ClientUpdateReq(name, description, clientLogo, primaryContactNo, addressLine1, addressLine2, city, state, zipCode, country) {
+        this.name = name;
+        this.description = description;
+        this.clientLogo = clientLogo;
+        this.primaryContactNo = primaryContactNo;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.country = country;
+    }
+    return ClientUpdateReq;
+}());
+
+var CountryData = /** @class */ (function () {
+    function CountryData(id, name, code) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+    }
+    return CountryData;
+}());
+
+var UserData = /** @class */ (function () {
+    function UserData(accountName, email) {
+        this.accountName = accountName;
+        this.email = email;
+    }
+    return UserData;
+}());
+
+var UserCreateReq = /** @class */ (function () {
+    function UserCreateReq(accountName, password, email, role, client, communities, categories) {
+        this.accountName = accountName;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.client = client;
+        this.communities = communities;
+        this.categories = categories;
+    }
+    return UserCreateReq;
+}());
+
+var ClientData = /** @class */ (function () {
+    function ClientData(id) {
+        this.id = id;
+    }
+    return ClientData;
+}());
+
+var LicenseUpdateReq = /** @class */ (function () {
+    function LicenseUpdateReq(tagCount, userCount, communityCount, feedbackCount, eventCount, promoCount, client) {
+        this.tagCount = tagCount;
+        this.userCount = userCount;
+        this.communityCount = communityCount;
+        this.feedbackCount = feedbackCount;
+        this.eventCount = eventCount;
+        this.promoCount = promoCount;
+        this.client = client;
+    }
+    return LicenseUpdateReq;
+}());
+
+var RoleData = /** @class */ (function () {
+    function RoleData(id) {
+        this.id = id;
+    }
+    return RoleData;
+}());
+
+var CommunityData = /** @class */ (function () {
+    function CommunityData(id) {
+        this.id = id;
+    }
+    return CommunityData;
+}());
+
+var CategoryData = /** @class */ (function () {
+    function CategoryData(id) {
+        this.id = id;
+    }
+    return CategoryData;
+}());
+
+var LicenseUpdateRequest = /** @class */ (function () {
+    function LicenseUpdateRequest(id) {
+        this.id = id;
+    }
+    return LicenseUpdateRequest;
+}());
+
+var profileUpdateReq = /** @class */ (function () {
+    function profileUpdateReq(userName, password, email) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+    }
+    return profileUpdateReq;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/views/cruds/crud.service.ts":
 /*!*********************************************!*\
   !*** ./src/app/views/cruds/crud.service.ts ***!
@@ -84,7 +246,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var CrudService = /** @class */ (function () {
     function CrudService(http) {
         this.http = http;
-        this.clientApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].productApiURL + "clients/";
+        this.clientApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "clients/";
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
                 "Content-Type": "application/json"
@@ -347,7 +509,7 @@ var ProductCrudRouts = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"productForm\" (ngSubmit)=\"submit()\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n      <div fxFlex=\"34\" class=\"pr-1\">\r\n\r\n        <mat-form-field class=\"full-width\">\r\n          <mat-select [disabled]='!data.isNew' [formControl]=\"productForm.controls['client']\" required placeholder=\"Select A Client\">\r\n            <mat-option>none</mat-option>\r\n            <mat-option *ngFor=\"let client of clients\" [value]=\"client.id\">{{client.name}}</mat-option>\r\n          </mat-select>\r\n        </mat-form-field>\r\n      </div>\r\n\r\n\r\n      <div fxFlex=\"33\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput [formControl]=\"productForm.controls['code']\" required name=\"proCode\"\r\n            positiveNumberAndLetterOnly placeholder=\"Product Code\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"33\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput [formControl]=\"productForm.controls['name']\" required name=\"name\" letterOnly placeholder=\"Product Name\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"34\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"desc\" [formControl]=\"productForm.controls['description']\" required name=\"description\"\r\n            placeholder=\"Description\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"33\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"batchNumber\" [formControl]=\"productForm.controls['batchNumber']\"\r\n            positiveNumberAndLetterOnly required placeholder=\"Batch Number\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"33\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input type=\"number\" matInput name=\"quantity\" [formControl]=\"productForm.controls['quantity']\"\r\n            positiveNumberOnly required placeholder=\"Quantity\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"33\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"expireDate\" [min]=\"tomorrow\" [matDatepicker]=\"picker\" [formControl]=\"productForm.controls['expireDate']\"\r\n            required placeholder=\"Expire Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker></mat-datepicker>\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"33\" class=\"pr-1\">\r\n\r\n        <mat-form-field class=\"full-width\">\r\n          <input type=\"text\" placeholder=\"Select A Feedback\" matInput [formControl]=\"productForm.controls['surveyId']\" [matAutocomplete]=\"auto\" (focusout)=\"surveyOnFocusOut($event)\">\r\n          <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"onSelectionChanged($event)\">\r\n            <mat-option *ngFor=\"let option of surveyFilteredOptions | async; let i = index\" [value]=\"surveyIDs[i]\">\r\n              {{option}}\r\n            </mat-option>\r\n          </mat-autocomplete>\r\n        </mat-form-field>\r\n\r\n      </div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n      <!-- --------- New Code ----------------- -->\r\n\r\n      <!-- --------- hidden file input --------- -->\r\n      <input (change)=\"onSelectFile($event)\" #productImgs type=\"file\" [formControl]=\"productForm.controls['file']\"\r\n        multiple style=\"display: none\" />\r\n\r\n\r\n      <!-- --------- file input click button --------- -->\r\n      <!-- *ngIf=\"data.isNew\"  -->\r\n      <div layout-margin layout-padding>\r\n        <button mat-raised-button class=\"mr-1\" (click)=\"productImgs.click()\"\r\n        [disabled]=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n        (false) :\r\n        (this.currentTotalImageCount === this.maxUploadableFileCount)\"\r\n          type=\"button\">\r\n          Browse Images\r\n          <span *ngIf=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n          (false) :\r\n          (this.currentTotalImageCount > 0)\"> ({{this.currentTotalImageCount}} / 4)</span>\r\n        </button>\r\n      </div>\r\n\r\n      <!-- --------- start images preview container --------- -->\r\n      <div id=\"cp_image_preview_container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\" layout-align=\"center\">\r\n\r\n        <!-- --------- start card --------- -->\r\n        <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngFor='let url of urls; let i = index' fxFlex=\"100\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\" style=\"display: flex;\">\r\n          <mat-card class=\"p-0\">\r\n            <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"removeSelectedImg(i)\">\r\n              <span aria-hidden=\"true\">&times;</span>\r\n            </button>\r\n            <img [src]=\"url\">\r\n          </mat-card>\r\n        </div>\r\n        <!-- --------- end card --------- -->\r\n\r\n      </div>\r\n      <!-- --------- end images preview container --------- -->\r\n\r\n\r\n      <div fxFlex=\"33\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"videoUrl\" [formControl]=\"productForm.controls['videoUrl']\"  placeholder=\"Video URL\" type=\"text\"  >\r\n        </mat-form-field>\r\n      </div>\r\n\r\n\r\n    </div>\r\n\r\n  </mat-dialog-content>\r\n\r\n\r\n  <mat-dialog-actions align=\"end\">\r\n    <button mat-raised-button color=\"primary\" [disabled]=\"productForm.invalid\">Save</button>\r\n    <span fxFlex></span>\r\n    <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n  </mat-dialog-actions>\r\n\r\n\r\n</form>\r\n"
+module.exports = "<form [formGroup]=\"productForm\" (ngSubmit)=\"submit()\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n      <div fxFlex=\"34\" class=\"pr-1\">\r\n\r\n        <mat-form-field class=\"full-width\">\r\n          <mat-select [disabled]='!data.isNew' [formControl]=\"productForm.controls['client']\" required placeholder=\"Select A Client\">\r\n            <mat-option>none</mat-option>\r\n            <mat-option *ngFor=\"let client of clients\" [value]=\"client.id\">{{client.name}}</mat-option>\r\n          </mat-select>\r\n        </mat-form-field>\r\n      </div>\r\n\r\n\r\n      <div fxFlex=\"33\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput [formControl]=\"productForm.controls['code']\" required name=\"proCode\"\r\n            positiveNumberAndLetterOnly placeholder=\"Product Code\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"33\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput [formControl]=\"productForm.controls['name']\" required name=\"name\" letterOnly placeholder=\"Product Name\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"34\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"desc\" [formControl]=\"productForm.controls['description']\" required name=\"description\"\r\n            placeholder=\"Description\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"33\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"batchNumber\" [formControl]=\"productForm.controls['batchNumber']\"\r\n            positiveNumberAndLetterOnly required placeholder=\"Batch Number\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"33\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input type=\"number\" matInput name=\"quantity\" [formControl]=\"productForm.controls['quantity']\"\r\n            positiveNumberOnly required placeholder=\"Quantity\">\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"33\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"expireDate\" [min]=\"tomorrow\" [matDatepicker]=\"picker\" [formControl]=\"productForm.controls['expireDate']\"\r\n            required placeholder=\"Expire Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker></mat-datepicker>\r\n        </mat-form-field>\r\n      </div>\r\n\r\n      <div fxFlex=\"33\" class=\"pr-1\">\r\n\r\n        <mat-form-field class=\"full-width\">\r\n          <input type=\"text\" placeholder=\"Select A Feedback\" matInput [formControl]=\"productForm.controls['surveyId']\" [matAutocomplete]=\"auto\" (focusout)=\"surveyOnFocusOut($event)\">\r\n          <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"onSelectionChanged($event)\">\r\n            <mat-option *ngFor=\"let option of surveyFilteredOptions | async; let i = index\" [value]=\"surveyIDs[i]\">\r\n              {{option}}\r\n            </mat-option>\r\n          </mat-autocomplete>\r\n        </mat-form-field>\r\n\r\n      </div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n      <!-- --------- New Code ----------------- -->\r\n\r\n      <!-- --------- hidden file input --------- -->\r\n      <input (change)=\"onSelectFile($event)\" #productImgs type=\"file\" [formControl]=\"productForm.controls['file']\"\r\n        multiple style=\"display: none\" />\r\n\r\n\r\n      <!-- --------- file input click button --------- -->\r\n      <!-- *ngIf=\"data.isNew\"  -->\r\n      <div layout-margin layout-padding>\r\n        <button mat-raised-button class=\"mr-1\" (click)=\"productImgs.click()\"\r\n        [disabled]=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n        (false) :\r\n        (this.currentTotalImageCount === this.maxUploadableFileCount)\"\r\n          type=\"button\">\r\n          Browse Images\r\n          <span *ngIf=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n          (false) :\r\n          (this.currentTotalImageCount > 0)\"> ({{this.currentTotalImageCount}} / 4)</span>\r\n        </button>\r\n      </div>\r\n\r\n      <!-- --------- start images preview container --------- -->\r\n      <div id=\"cp_image_preview_container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\" layout-align=\"center\">\r\n\r\n        <!-- --------- start card --------- -->\r\n        <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngFor='let url of urls; let i = index' fxFlex=\"100\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\" style=\"display: flex;\">\r\n          <mat-card class=\"p-0\">\r\n            <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"removeSelectedImg(i)\">\r\n              <span aria-hidden=\"true\">&times;</span>\r\n            </button>\r\n            <img [src]=\"url\">\r\n          </mat-card>\r\n        </div>\r\n        <!-- --------- end card --------- -->\r\n\r\n      </div>\r\n      <!-- --------- end images preview container --------- -->\r\n\r\n\r\n\r\n      \r\n      <div fxFlex=\"33\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"videoUrl\" [formControl]=\"productForm.controls['videoUrl']\"  placeholder=\"Video URL\" type=\"text\"  >\r\n        </mat-form-field>\r\n      </div>\r\n\r\n\r\n    </div>\r\n\r\n  </mat-dialog-content>\r\n\r\n\r\n  <mat-dialog-actions align=\"end\">\r\n    <button mat-raised-button color=\"primary\" [disabled]=\"productForm.invalid\">Save</button>\r\n    <span fxFlex></span>\r\n    <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n  </mat-dialog-actions>\r\n\r\n\r\n</form>\r\n"
 
 /***/ }),
 
@@ -814,11 +976,7 @@ var ProductFilterTableComponent = /** @class */ (function () {
             _this.rows = _this.temp = successResp.content;
         }, function (error) {
             _this.loader.close();
-            _this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-            });
+            _this.errDialog.showError(error);
         });
     };
     // --------- BH ----------
@@ -841,11 +999,7 @@ var ProductFilterTableComponent = /** @class */ (function () {
                 _this.loader.close();
                 console.log(error);
                 console.log(error.status);
-                _this.errDialog.showError({
-                    title: "Error",
-                    status: error.status,
-                    type: "http_error"
-                });
+                _this.errDialog.showError(error);
             });
         }
     };
@@ -866,11 +1020,7 @@ var ProductFilterTableComponent = /** @class */ (function () {
                     _this.loader.close();
                 }, function (error) {
                     _this.loader.close();
-                    _this.errDialog.showError({
-                        title: "Error",
-                        status: error.status,
-                        type: "http_error"
-                    });
+                    _this.errDialog.showError(error);
                 });
             }
         });
@@ -905,11 +1055,7 @@ var ProductFilterTableComponent = /** @class */ (function () {
                     _this.loader.close();
                 }, function (error) {
                     _this.loader.close();
-                    _this.errDialog.showError({
-                        title: "Error",
-                        status: error.status,
-                        type: "http_error"
-                    });
+                    _this.errDialog.showError(error);
                 });
             }
             else {
@@ -930,11 +1076,7 @@ var ProductFilterTableComponent = /** @class */ (function () {
                     return _this.rows.slice();
                 }, function (error) {
                     _this.loader.close();
-                    _this.errDialog.showError({
-                        title: "Error",
-                        status: error.status,
-                        type: "http_error"
-                    });
+                    _this.errDialog.showError(error);
                 });
             }
         });

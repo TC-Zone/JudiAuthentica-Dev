@@ -89,11 +89,7 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
 
       },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -129,11 +125,7 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
           },
           error => {
             // this.loader.close();
-            this.errDialog.showErrorWithMessage({
-              title: 'Error',
-              status: error.status,
-              type: 'http_error'
-            });
+            this.errDialog.showError(error);
           }
         );
 

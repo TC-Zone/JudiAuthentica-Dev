@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"interactForm\">\r\n  <div class=\"page-wrap height-100 background-survey-signin\" *ngIf=\"showLogin\">\r\n    <div class=\"session-form-hold\">\r\n      <mat-card>\r\n        <mat-card-content>\r\n          <div class=\"text-center pb-1\">\r\n            <img src=\"assets/images/signin/logo.jpg\" alt=\"\">\r\n            <p class=\"text-muted m-0\">Sign in to your account</p>\r\n            <h6 *ngIf=\"loginError\" class=\"m-1 form-error-msg\"> Invalid Credentials ! </h6>\r\n          </div>\r\n\r\n          <mat-form-field class=\"full-width\">\r\n            <input type=\"text\" name=\"username\" matInput placeholder=\"Username\" value=\"\" [formControl]=\"interactForm.controls['username']\"\r\n              required name=\"username\">\r\n          </mat-form-field>\r\n\r\n          <mat-form-field class=\"full-width\">\r\n            <input type=\"password\" name=\"password\" matInput placeholder=\"Password\" value=\"\" [formControl]=\"interactForm.controls['password']\"\r\n              required name=\"password\">\r\n          </mat-form-field>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"doLog()\" [disabled]=\"interactForm.invalid\">Login\r\n            to Survey</button>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>\r\n\r\n<div fxFlex=\"100\" fxLayoutAlign=\"center center\" id=\"survey-view-survey\" class=\"background-survey-form\">\r\n  <header>\r\n    <mat-toolbar fxLayoutAlign=\"center center\" matDialogTitle class=\"mat-primary m-0\">\r\n      <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <div mat-card-avatar class=\"example-header-image\"></div>\r\n      </div>\r\n      <!-- <mat-card-title class=\"example-card-title\">Nova Scotia Engineers</mat-card-title> -->\r\n      <span class=\"example-card-title hidden-xs\">Clear Picture</span>\r\n      <span class=\"example-spacer\"></span>\r\n      <span *ngIf=\"loggedInvitee\" class=\"example-invite\">Hi, {{loggedInvitee}}</span>\r\n    </mat-toolbar>\r\n  </header>\r\n\r\n\r\n\r\n  <div class=\"survey-page-wrap\" *ngIf=\"!showLogin\">\r\n    <div class=\"survey-form-hold\">\r\n      <mat-card id=\"finishedSurveyMsg\" class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <h5>The Survey is Previously Submitted </h5>\r\n          <h6>Summary is provided bellow</h6>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <mat-card class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <div id=\"surveyElement\"></div>\r\n          <div id=\"surveyResult\"></div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n\r\n  <mat-card-content>\r\n\r\n    <div class=\"pb-1\" style=\"text-align: center\">\r\n      <a id=\"btnViewSummary\" mat-raised-button class=\"mr-1\" (click)=\"viewSummary()\">View Summary</a>\r\n      <a id=\"btnViewSurvey\" mat-raised-button class=\"mr-1\" (click)=\"viewSurvey()\">Edit Survey</a>\r\n      <a id=\"btnSubmitSurvey\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"submitSurvey()\">Submit Survey</a>\r\n      <a id=\"btnAnswerLater\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"answerLater()\">Answer Later</a>\r\n    </div>\r\n\r\n\r\n  </mat-card-content>\r\n\r\n\r\n  <div id=\"survey-view-footer\">\r\n    <div class=\"container custom-center\">\r\n      <span>Powered by</span>\r\n      <img src=\"assets/images/cp_logo_text.png\" alt=\"\">\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n\r\n<script>\r\n  $.material.init();\r\n</script>"
+module.exports = "<form [formGroup]=\"interactForm\">\r\n  <div class=\"page-wrap height-100 background-survey-signin\" *ngIf=\"showLogin\">\r\n    <div class=\"session-form-hold\">\r\n      <mat-card>\r\n        <mat-card-content>\r\n          <div class=\"text-center pb-1\">\r\n            <img src=\"assets/images/signin/logo.jpg\" alt=\"\">\r\n            <p class=\"text-muted m-0\">Sign in to your account</p>\r\n            <h6 *ngIf=\"loginError\" class=\"m-1 form-error-msg\"> Invalid Credentials ! </h6>\r\n          </div>\r\n\r\n          <mat-form-field class=\"full-width\">\r\n            <input type=\"text\" name=\"username\" matInput placeholder=\"Username\" value=\"\" [formControl]=\"interactForm.controls['username']\"\r\n              required name=\"username\">\r\n          </mat-form-field>\r\n\r\n          <mat-form-field class=\"full-width\">\r\n            <input type=\"password\" name=\"password\" matInput placeholder=\"Password\" value=\"\" [formControl]=\"interactForm.controls['password']\"\r\n              required name=\"password\">\r\n          </mat-form-field>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"doLog()\" [disabled]=\"interactForm.invalid\">Login\r\n            to Survey</button>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>\r\n\r\n<div fxFlex=\"100\" fxLayoutAlign=\"center center\" id=\"survey-view-survey\" class=\"background-survey-form\">\r\n  <header>\r\n    <mat-toolbar fxLayoutAlign=\"center center\" matDialogTitle class=\"mat-primary m-0\">\r\n      <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <div mat-card-avatar class=\"example-header-image\"></div>\r\n      </div>\r\n      <!-- <mat-card-title class=\"example-card-title\">Nova Scotia Engineers</mat-card-title> -->\r\n      <span class=\"example-card-title hidden-xs\">Clear Picture</span>\r\n      <span class=\"example-spacer\"></span>\r\n      <span *ngIf=\"loggedInvitee\" class=\"example-invite\">Hi, {{loggedInvitee}}</span>\r\n    </mat-toolbar>\r\n  </header>\r\n\r\n\r\n\r\n  <div class=\"survey-page-wrap\" *ngIf=\"!showLogin\">\r\n    <div class=\"survey-form-hold\">\r\n      <mat-card id=\"finishedSurveyMsg\" class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <h5>The Survey is Previously Submitted </h5>\r\n          <h6>Summary is provided bellow</h6>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <mat-card class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <div id=\"surveyElement\"></div>\r\n          <div id=\"surveyResult\"></div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n\r\n  <mat-card-content>\r\n\r\n    <div class=\"pb-1\" style=\"text-align: center\">\r\n      <a id=\"btnViewSummary\" mat-raised-button class=\"mr-1\" (click)=\"viewSummary()\">View Summary</a>\r\n      <a id=\"btnViewSurvey\" mat-raised-button class=\"mr-1\" (click)=\"viewSurvey()\">Edit Survey</a>\r\n      <a id=\"btnSubmitSurvey\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"submitSurvey()\">Submit Survey</a>\r\n      <a id=\"btnAnswerLater\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"answerLater()\">Answer Later</a>\r\n    </div>\r\n\r\n\r\n  </mat-card-content>\r\n\r\n\r\n  <div id=\"survey-view-footer\">\r\n    <div class=\"container custom-center\">\r\n      <span>Powered by</span>\r\n      <!-- <img src=\"assets/images/cp_logo_text.png\" alt=\"\"> -->\r\n      <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\">\r\n    </div>\r\n\r\n  </div>\r\n</div>\r\n\r\n<script>\r\n  $.material.init();\r\n</script>"
 
 /***/ }),
 
@@ -106,7 +106,7 @@ var InteractionViewComponent = /** @class */ (function () {
                 console.log("------------------------------------------------------");
             }
         }, function (error) {
-            _this.errDialog.showErrorWithMessage(error);
+            _this.errDialog.showError(error);
         });
     };
     InteractionViewComponent.prototype.viewInteraction = function (interactionId) {
@@ -181,7 +181,7 @@ var InteractionViewComponent = /** @class */ (function () {
             }
             _this.setuptheme();
         }, function (error) {
-            _this.errDialog.showErrorWithMessage(error);
+            _this.errDialog.showError(error);
         });
     };
     // ........... Survey Respond view should be re architecturing with following certin Angular techniquees .............
@@ -197,27 +197,29 @@ var InteractionViewComponent = /** @class */ (function () {
         survey_angular__WEBPACK_IMPORTED_MODULE_4__["StylesManager"].applyTheme("bootstrap");
         this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
             var classes = options.cssClasses;
-            if (options.question.getType() === "rating") {
-                classes.root = "btn-group";
-                classes.item = "btn btn-default btn-secondary";
+            if (options.question.getType() === 'rating') {
+                classes.root = 'btn-group';
+                classes.item = 'btn btn-outline-secondary';
             }
-            if (options.question.getType() === "radiogroup") {
-                classes.item = "sv-q-col-1";
+            if (options.question.getType() === 'radiogroup') {
+                classes.root = 'sv_qcbc';
+                classes.item = 'sv-q-col-1';
             }
-            if (options.question.getType() === "checkbox") {
-                classes.item = "sv-q-col-1";
+            if (options.question.getType() === 'checkbox') {
+                classes.root = 'sv_qcbc sv_qcbx';
+                classes.item = 'sv-q-col-1';
             }
-            if (options.question.getType() === "matrix") {
-                classes.root = "table sv_q_matrix";
+            if (options.question.getType() === 'matrix') {
+                classes.root = 'table sv_q_matrix';
             }
             if (options.question.getType() === "comment") {
-                classes.root = "form-control";
+                classes.root = 'form-control';
             }
-            if (options.question.getType() === "dropdown") {
-                classes.control = "form-control";
+            if (options.question.getType() === 'dropdown') {
+                classes.control = 'form-control';
             }
-            if (options.question.getType() === "text") {
-                classes.root = "form-control";
+            if (options.question.getType() === 'text') {
+                classes.root = 'form-control';
             }
         });
         document.getElementById('btnViewSummary').style.display = 'none';

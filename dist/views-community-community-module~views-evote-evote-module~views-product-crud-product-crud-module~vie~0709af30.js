@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-module~vie~0709af30"],{
 
 /***/ "./node_modules/ng2-file-upload/file-upload/file-drop.directive.js":
 /*!*************************************************************************!*\
@@ -1016,95 +1016,7 @@ var file_upload_module_1 = __webpack_require__(/*! ./file-upload/file-upload.mod
 exports.FileUploadModule = file_upload_module_1.FileUploadModule;
 
 
-/***/ }),
-
-/***/ "./src/app/model/ClientModel.model.ts":
-/*!********************************************!*\
-  !*** ./src/app/model/ClientModel.model.ts ***!
-  \********************************************/
-/*! exports provided: Content, ClientCreateReq, ClientUpdateReq, UserData, UserCreateReq, ClientData, UserRole, profileUpdateReq */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Content", function() { return Content; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientCreateReq", function() { return ClientCreateReq; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientUpdateReq", function() { return ClientUpdateReq; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserData", function() { return UserData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCreateReq", function() { return UserCreateReq; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientData", function() { return ClientData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserRole", function() { return UserRole; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "profileUpdateReq", function() { return profileUpdateReq; });
-var Content = /** @class */ (function () {
-    function Content(id, name) {
-        this.id = id;
-        this.name = name;
-    }
-    return Content;
-}());
-
-var ClientCreateReq = /** @class */ (function () {
-    function ClientCreateReq(name, description, users) {
-        this.name = name;
-        this.description = description;
-        this.users = users;
-    }
-    return ClientCreateReq;
-}());
-
-var ClientUpdateReq = /** @class */ (function () {
-    function ClientUpdateReq(name, description) {
-        this.name = name;
-        this.description = description;
-    }
-    return ClientUpdateReq;
-}());
-
-var UserData = /** @class */ (function () {
-    function UserData(userName, email) {
-        this.userName = userName;
-        this.email = email;
-    }
-    return UserData;
-}());
-
-var UserCreateReq = /** @class */ (function () {
-    function UserCreateReq(userName, password, email, roles, client) {
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-        this.roles = roles;
-        this.client = client;
-    }
-    return UserCreateReq;
-}());
-
-var ClientData = /** @class */ (function () {
-    function ClientData(id) {
-        this.id = id;
-    }
-    return ClientData;
-}());
-
-var UserRole = /** @class */ (function () {
-    function UserRole(id) {
-        this.id = id;
-    }
-    return UserRole;
-}());
-
-var profileUpdateReq = /** @class */ (function () {
-    function profileUpdateReq(userName, password, email) {
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-    }
-    return profileUpdateReq;
-}());
-
-
-
 /***/ })
 
 }]);
-//# sourceMappingURL=views-evote-evote-module~views-product-crud-product-crud-module~views-profile-profile-module.js.map
+//# sourceMappingURL=views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-module~vie~0709af30.js.map

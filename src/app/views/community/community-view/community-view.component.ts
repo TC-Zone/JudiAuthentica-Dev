@@ -8,6 +8,8 @@ import { ComunityService } from './../community.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
 import { authProperties } from './../../../shared/services/auth/auth-properties';
+import { AppWarningService } from 'app/shared/services/app-warning/app-warning.service';
+import { AppInfoService } from 'app/shared/services/app-info/app-info.service';
 
 @Component({
   selector: 'app-community-view',
@@ -23,6 +25,8 @@ export class CommunityViewComponent implements OnInit {
   public totalPages = [];
   public totalRecords = 0;
   public pageSizeArray = [];
+  public quota = 0;
+  public quotaExpire = false;
 
   constructor(
     private dialog: MatDialog,
@@ -31,11 +35,22 @@ export class CommunityViewComponent implements OnInit {
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
-    private comunityService: ComunityService
+    private comunityService: ComunityService,
+    private appWarningService: AppWarningService,
+    private appInfoService: AppInfoService
   ) { }
 
   ngOnInit() {
+    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
     this.fetchAllCommunities(this.pageNumber);
+    this.comunityService.licenseExpireState(userObj.userData.client.id, 'communities')
+      .subscribe(
+        response => {
+          const tempRes: any = response;
+          this.quotaExpire = tempRes.content.expired;
+          this.quota = tempRes.content.quota;
+        }
+      );
   }
 
   /*
@@ -44,91 +59,138 @@ export class CommunityViewComponent implements OnInit {
   * Prasad Kumara
   */
   communityPopUp(data: any = {}, isNew?) {
-    const title = isNew ? 'Add New Community' : 'Update Community';
-    const dialogRef: MatDialogRef<any> = this.dialog.open(
-      CommunityViewPopupComponent,
-      {
-        width: '720px',
-        disableClose: true,
-        data: { title: title, payload: data, isNew: isNew }
-      }
-    );
-    dialogRef.afterClosed().subscribe(res => {
-      if (!res) {
-        return;
-      } else {
-        const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
-        if (userObj) {
-          this.loader.open();
-          if (isNew) {
-            res['createdUserId'] = userObj.id;
-            res['client'] = {
-              'id': userObj.userData.client.id
-            };
-            res['users'] = [
-              {
-                'id': userObj.id
-              }
-            ];
-            res.status = this.getCommunityStatus(res.status);
-            this.comunityService.createCommunity(res)
-              .subscribe(
-                response => {
-                  const temData: any = response;
-                  if (this.communities.length === this.pageSize) {
-                    this.appendNewlyCreatedCommunity(temData.content);
-                  } else {
-                    this.communities.push(temData.content);
+    if (this.quotaExpire && isNew) {
+      const infoData = {
+        title: 'License',
+        message: 'You subscribed number of communities have expired!</br>' +
+          '<small class="text-muted">Do you like to extend the plan?</small>',
+        linkData: {
+          url: 'https://www.google.com/gmail/',
+          buttonText: 'Extend'
+        }
+      };
+      this.appInfoService.showInfo(infoData);
+    } else {
+      const title = isNew ? 'Add New Community' : 'Update Community';
+      const dialogRef: MatDialogRef<any> = this.dialog.open(
+        CommunityViewPopupComponent,
+        {
+          width: '720px',
+          disableClose: true,
+          data: { title: title, payload: data, isNew: isNew }
+        }
+      );
+      dialogRef.afterClosed().subscribe(res => {
+        if (!res) {
+          return;
+        } else {
+          const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+          if (userObj) {
+            this.loader.open();
+            if (isNew) {
+              res['createdUserId'] = userObj.id;
+              res['client'] = {
+                'id': userObj.userData.client.id
+              };
+              res['users'] = [
+                {
+                  'id': userObj.id
+                }
+              ];
+              res.status = this.getCommunityStatus(res.status);
+              const clientId = userObj.userData.client.id;
+              this.comunityService.licenseExpireState(clientId, 'communities')
+                .subscribe(
+                  response => {
+                    const tempRes: any = response;
+                    this.quotaExpire = tempRes.content.expired;
+                    this.quota = tempRes.content.quota;
+                    if (!tempRes.content.expired) {
+                      this.loader.close();
+                      this.createCommunity(res, tempRes.content.usage, tempRes.content.quota);
+                    }
+                  }
+                );
+            } else {
+              res['lastModifiedUserId'] = userObj.id;
+              res.status = this.getCommunityStatus(res.status);
+              this.comunityService.updateCommunityById(data.id, res)
+                .subscribe(
+                  response => {
+                    const temData: any = response;
+                    const i = this.communities.indexOf(data);
+                    this.communities[i] = temData.content;
                     this.temCommunities = this.communities;
-                    this.totalRecords += 1;
-                  }
-                  // this.fetchAllCommunities(this.pageNumber);
-                  this.loader.close();
-                  this.snack.open('New Community Created', 'close', {
-                    duration: 2000
-                  });
-                },
-                error => {
-                  this.loader.close();
-                  if (error.status !== 401) {
-                    this.errDialog.showError({
-                      title: 'Error',
-                      status: error.status,
-                      type: 'http_error'
+                    this.loader.close();
+                    this.snack.open('Community Updated', 'close', {
+                      duration: 2000
                     });
+                  },
+                  error => {
+                    this.loader.close();
+                    if (error.status !== 401) {
+                      this.errDialog.showError(error);
+                    }
                   }
-                }
-              );
-          } else {
-            res['lastModifiedUserId'] = userObj.id;
-            res.status = this.getCommunityStatus(res.status);
-            this.comunityService.updateCommunityById(data.id, res)
-              .subscribe(
-                response => {
-                  const temData: any = response;
-                  const i = this.communities.indexOf(data);
-                  this.communities[i] = temData.content;
-                  this.temCommunities = this.communities;
-                  this.loader.close();
-                  this.snack.open('Community Updated', 'close', {
-                    duration: 2000
-                  });
-                },
-                error => {
-                  this.loader.close();
-                  if (error.status !== 401) {
-                    this.errDialog.showError({
-                      title: 'Error',
-                      status: error.status,
-                      type: 'http_error'
-                    });
-                  }
-                }
-              );
+                );
+            }
           }
         }
-      }
-    });
+      });
+    }
+  }
+
+  /*
+  * Create community
+  * 05-03-2019
+  * Prasad Kumara
+  */
+  createCommunity(res, usage, tempQuoata) {
+    this.comunityService.createCommunity(res)
+      .subscribe(
+        response => {
+          const temData: any = response;
+          if (this.communities.length === this.pageSize) {
+            this.appendNewlyCreatedCommunity(temData.content);
+          } else {
+            this.communities.push(temData.content);
+            this.temCommunities = this.communities;
+            this.totalRecords += 1;
+          }
+          // this.fetchAllCommunities(this.pageNumber);
+          if (this.totalRecords === this.quota) {
+            this.quotaExpire = true;
+          }
+          this.loader.close();
+          if (usage < (tempQuoata - 1) && (tempQuoata - usage) === 2) {
+            this.appWarningService.showWarning({
+              title: 'License',
+              message: 'Your subscription plan is about to expire!</br>One more community remaining!'
+            });
+          } else if (usage < tempQuoata && (tempQuoata - usage) === 1) {
+            const infoData = {
+              title: 'License',
+              message: 'You subscribed number of communities have expired!</br>' +
+              '<small class="text-muted">Do you like to extend the plan?</small>',
+              linkData: {
+                url: 'https://www.google.com/gmail/',
+                buttonText: 'Extend'
+              }
+            };
+            this.appInfoService.showInfo(infoData);
+          } // else {
+            this.snack.open('New Community Created', 'close', {
+              duration: 2000
+            });
+          // }
+        },
+        error => {
+          this.loader.close();
+          if (error.status !== 401) {
+            this.errDialog.showError(error);
+          }
+        }
+      );
   }
 
   /*
@@ -152,11 +214,7 @@ export class CommunityViewComponent implements OnInit {
             },
             error => {
               if (error.status !== 401) {
-                this.errDialog.showError({
-                  title: 'Error',
-                  status: error.status,
-                  type: 'http_error'
-                });
+                this.errDialog.showError(error);
               }
             }
           );
@@ -185,6 +243,7 @@ export class CommunityViewComponent implements OnInit {
   * Prasad Kumara
   */
   deleteCommunity(row) {
+    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
     this.confirmService
       .confirm({ message: `Delete ${row.name}?` })
       .subscribe(res => {
@@ -194,6 +253,14 @@ export class CommunityViewComponent implements OnInit {
           this.comunityService.deleteCommunityById(row.id)
             .subscribe(
               response => {
+                this.comunityService.licenseExpireState(userObj.userData.client.id, 'communities')
+                  .subscribe(
+                    resData => {
+                      const tempRes: any = resData;
+                      this.quotaExpire = tempRes.content.expired;
+                      this.quota = tempRes.content.quota;
+                    }
+                  );
                 this.fetchAllCommunities(tempPN);
                 this.loader.close();
                 this.snack.open(`${row.name} Deleted`, 'close', {
@@ -201,12 +268,9 @@ export class CommunityViewComponent implements OnInit {
                 });
               },
             error => {
+              this.loader.close();
               if (error.status !== 401) {
-                this.errDialog.showError({
-                  title: 'Error',
-                  status: error.status,
-                  type: 'http_error'
-                });
+                this.errDialog.showError(error);
               }
             }
             );
@@ -318,8 +382,8 @@ export class CommunityViewComponent implements OnInit {
 
   /*
   * Set page number according to the total records
-  * 06-03-2019
-  * Prasad Kumara
+  * 06-03-2019 #780*621#
+  * Prasad Kumara 1b 2d 3b 4c 5c 6c 7b 8a 9a 10d
   */
   setPageNumber(numOfComm): number {
     const tempTR = this.totalRecords - numOfComm;

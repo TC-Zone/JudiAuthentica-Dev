@@ -1,5 +1,167 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-evote-evote-module"],{
 
+/***/ "./src/app/model/ClientModel.model.ts":
+/*!********************************************!*\
+  !*** ./src/app/model/ClientModel.model.ts ***!
+  \********************************************/
+/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Content", function() { return Content; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientCreateReq", function() { return ClientCreateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientLicenseData", function() { return ClientLicenseData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientUpdateReq", function() { return ClientUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CountryData", function() { return CountryData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserData", function() { return UserData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCreateReq", function() { return UserCreateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientData", function() { return ClientData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LicenseUpdateReq", function() { return LicenseUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleData", function() { return RoleData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommunityData", function() { return CommunityData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoryData", function() { return CategoryData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LicenseUpdateRequest", function() { return LicenseUpdateRequest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "profileUpdateReq", function() { return profileUpdateReq; });
+var Content = /** @class */ (function () {
+    function Content(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+    return Content;
+}());
+
+var ClientCreateReq = /** @class */ (function () {
+    function ClientCreateReq(name, description, clientLogo, users, categories, license) {
+        this.name = name;
+        this.description = description;
+        this.clientLogo = clientLogo;
+        this.users = users;
+        this.categories = categories;
+        this.license = license;
+    }
+    return ClientCreateReq;
+}());
+
+var ClientLicenseData = /** @class */ (function () {
+    function ClientLicenseData(tagCount, userCount, communityCount, feedbackCount, eventCount, promoCount) {
+        this.tagCount = tagCount;
+        this.userCount = userCount;
+        this.communityCount = communityCount;
+        this.feedbackCount = feedbackCount;
+        this.eventCount = eventCount;
+        this.promoCount = promoCount;
+    }
+    return ClientLicenseData;
+}());
+
+var ClientUpdateReq = /** @class */ (function () {
+    function ClientUpdateReq(name, description, clientLogo, primaryContactNo, addressLine1, addressLine2, city, state, zipCode, country) {
+        this.name = name;
+        this.description = description;
+        this.clientLogo = clientLogo;
+        this.primaryContactNo = primaryContactNo;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.country = country;
+    }
+    return ClientUpdateReq;
+}());
+
+var CountryData = /** @class */ (function () {
+    function CountryData(id, name, code) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+    }
+    return CountryData;
+}());
+
+var UserData = /** @class */ (function () {
+    function UserData(accountName, email) {
+        this.accountName = accountName;
+        this.email = email;
+    }
+    return UserData;
+}());
+
+var UserCreateReq = /** @class */ (function () {
+    function UserCreateReq(accountName, password, email, role, client, communities, categories) {
+        this.accountName = accountName;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.client = client;
+        this.communities = communities;
+        this.categories = categories;
+    }
+    return UserCreateReq;
+}());
+
+var ClientData = /** @class */ (function () {
+    function ClientData(id) {
+        this.id = id;
+    }
+    return ClientData;
+}());
+
+var LicenseUpdateReq = /** @class */ (function () {
+    function LicenseUpdateReq(tagCount, userCount, communityCount, feedbackCount, eventCount, promoCount, client) {
+        this.tagCount = tagCount;
+        this.userCount = userCount;
+        this.communityCount = communityCount;
+        this.feedbackCount = feedbackCount;
+        this.eventCount = eventCount;
+        this.promoCount = promoCount;
+        this.client = client;
+    }
+    return LicenseUpdateReq;
+}());
+
+var RoleData = /** @class */ (function () {
+    function RoleData(id) {
+        this.id = id;
+    }
+    return RoleData;
+}());
+
+var CommunityData = /** @class */ (function () {
+    function CommunityData(id) {
+        this.id = id;
+    }
+    return CommunityData;
+}());
+
+var CategoryData = /** @class */ (function () {
+    function CategoryData(id) {
+        this.id = id;
+    }
+    return CategoryData;
+}());
+
+var LicenseUpdateRequest = /** @class */ (function () {
+    function LicenseUpdateRequest(id) {
+        this.id = id;
+    }
+    return LicenseUpdateRequest;
+}());
+
+var profileUpdateReq = /** @class */ (function () {
+    function profileUpdateReq(userName, password, email) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+    }
+    return profileUpdateReq;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/views/cruds/crud.service.ts":
 /*!*********************************************!*\
   !*** ./src/app/views/cruds/crud.service.ts ***!
@@ -34,7 +196,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var CrudService = /** @class */ (function () {
     function CrudService(http) {
         this.http = http;
-        this.clientApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].productApiURL + "clients/";
+        this.clientApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "clients/";
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpHeaders"]({
                 "Content-Type": "application/json"
@@ -542,11 +704,7 @@ var EvoteTableComponent = /** @class */ (function () {
             _this.rows = successResp.content;
         }, function (error) {
             _this.loader.close();
-            _this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-            });
+            _this.errDialog.showError(error);
         });
     };
     // --------- BH ----------
@@ -569,11 +727,7 @@ var EvoteTableComponent = /** @class */ (function () {
                 _this.loader.close();
                 console.log(error);
                 console.log(error.status);
-                _this.errDialog.showError({
-                    title: "Error",
-                    status: error.status,
-                    type: "http_error"
-                });
+                _this.errDialog.showError(error);
             });
         }
     };
@@ -594,11 +748,7 @@ var EvoteTableComponent = /** @class */ (function () {
                     _this.loader.close();
                 }, function (error) {
                     _this.loader.close();
-                    _this.errDialog.showError({
-                        title: "Error",
-                        status: error.status,
-                        type: "http_error"
-                    });
+                    _this.errDialog.showError(error);
                 });
             }
         });
@@ -634,11 +784,7 @@ var EvoteTableComponent = /** @class */ (function () {
                         });
                     }
                     else {
-                        _this.errDialog.showError({
-                            title: "Error",
-                            status: error.status,
-                            type: "http_error"
-                        });
+                        _this.errDialog.showError(error);
                     }
                 });
             }
@@ -655,11 +801,7 @@ var EvoteTableComponent = /** @class */ (function () {
                     return _this.rows.slice();
                 }, function (error) {
                     _this.loader.close();
-                    _this.errDialog.showError({
-                        title: "Error",
-                        status: error.status,
-                        type: "http_error"
-                    });
+                    _this.errDialog.showError(error);
                 });
             }
         });
@@ -685,11 +827,7 @@ var EvoteTableComponent = /** @class */ (function () {
                 _this.loader.close();
             }, function (error) {
                 _this.loader.close();
-                _this.errDialog.showError({
-                    title: "Error",
-                    status: error.status,
-                    type: "http_error"
-                });
+                _this.errDialog.showError(error);
             });
         });
     };

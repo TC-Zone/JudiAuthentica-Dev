@@ -2,7 +2,7 @@
   <mat-toolbar color="primary" class="inbox-toolbar">
     <!-- multiple events select and control -->
     <mat-checkbox (change)="selectToggleAll($event)" [indeterminate]="indeterminateState" [checked]="selectAll" class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
-    <button mat-icon-button matTooltip="Add event" *ngIf="!quotaExpire" (click)="eventPopUp({}, true)"><mat-icon>add_box</mat-icon></button>
+    <button mat-icon-button matTooltip="Add event" (click)="eventPopUp({}, true)"><mat-icon>add_box</mat-icon></button>
     <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedEvents()"><mat-icon>delete</mat-icon></button>
     <span fxFlex></span>
     <mat-form-field *ngIf="this.temEvents.length > 0" style="font-size: 15px; width: 30%; margin-top: 10px;">
@@ -53,7 +53,7 @@
       <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
         <div fxFlex="40" class="pr-1">
           <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
-            <img style="padding: 10px;" mat-card-image [src]="eventObj.poster" alt="Photo of a Shiba Inu">
+            <img style="padding: 10px;" mat-card-image [src]="eventPosterUrl+eventObj.id" alt="Photo of a Shiba Inu">
           </mat-card>
         </div>
         <div fxFlex="60" class="pr-1">
@@ -123,4 +123,12 @@
       </nav>
     </ng-container>
   </mat-toolbar>
+  <div *ngIf="this.temEvents.length === 0 && this.events.length === 0" fxLayout="row" fxLayoutAlign="center" style="margin-top: 10rem;" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+    <div fxFlex="100" class="text-center">
+      <h1 class="text-muted">Create New Event</h1>
+    </div>
+    <div fxFlex="100" class="text-center">
+      <h2 class="text-muted">Click "Add" Button</h2>
+    </div>
+  </div>
 </div>

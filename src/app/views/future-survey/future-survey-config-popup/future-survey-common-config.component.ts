@@ -6,6 +6,7 @@ import { AppErrorService } from "../../../shared/services/app-error/app-error.se
 import { MatSnackBar } from "@angular/material";
 import { FutureSurveyService } from "../future-survey.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
+import { ClientService } from '../../client/client.service';
 
 @Component({
   selector: "app-future-survey-common-config",
@@ -42,7 +43,7 @@ export class FutureSurveyCommonConfigComponent implements OnInit {
   public emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   constructor(
-    public clientService: CrudService,
+    public clientService: ClientService,
     public errDialog: AppErrorService,
     public snackBar: MatSnackBar,
     public futureSurveyService: FutureSurveyService,
@@ -54,7 +55,7 @@ export class FutureSurveyCommonConfigComponent implements OnInit {
   // load clients : till implement user login services.
   getClientSuggestions() {
     this.getClientSub = this.clientService
-      .getClientSuggestions()
+      .getClientsSuggestions()
       .subscribe(data => {
         this.clients = data.content;
       });

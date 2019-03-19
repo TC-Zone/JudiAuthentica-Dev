@@ -12,6 +12,7 @@ import { MatDialog, MatDialogRef, MatSnackBar } from "@angular/material";
 import { FutureSurveyConfigPopupComponent } from "../future-survey-config-popup/future-survey-config-popup.component";
 import { FutureSurveyLaunchComponent } from "../future-survey-launch/future-survey-launch.component";
 import { FutureSurveyInvitationLaunchComponent } from "../future-survey-invitation-launch/future-survey-invitation-launch.component";
+import { ClientService } from '../../client/client.service';
 
 @Component({
   selector: "app-future-survey-list",
@@ -35,6 +36,7 @@ export class FutureSurveyListComponent implements OnInit {
   constructor(
     private futureSurveyService: FutureSurveyService,
     private clientService: CrudService,
+    private clientService2: ClientService,
     private router: Router,
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
@@ -117,11 +119,7 @@ export class FutureSurveyListComponent implements OnInit {
         },
         error => {
           this.loader.close();
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
+          this.errDialog.showError(error);
         }
       );
     });
@@ -130,7 +128,7 @@ export class FutureSurveyListComponent implements OnInit {
   openInvitationPopup(data, channel?, isNew?) {
 
     console.log(isNew);
-    
+
     let isPublic = channel == 1 ? true : false;
     let title = isPublic
       ? "Public Future Survey - Invitee Settings"
@@ -171,11 +169,7 @@ export class FutureSurveyListComponent implements OnInit {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
       }
@@ -216,11 +210,7 @@ export class FutureSurveyListComponent implements OnInit {
 
             console.log(error);
             this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
+            this.errDialog.showError(error);
           }
         );
       } else {
@@ -241,11 +231,7 @@ export class FutureSurveyListComponent implements OnInit {
               console.log("ERROR LOGESTERS");
               console.log(error);
               this.loader.close();
-              this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-              });
+              this.errDialog.showError(error);
             }
           );
       }
@@ -261,8 +247,9 @@ export class FutureSurveyListComponent implements OnInit {
       });
   }
 
+
   getAllClients() {
-    this.getClientSub = this.clientService.getItems().subscribe(data => {
+    this.getClientSub = this.clientService2.getClients().subscribe(data => {
       this.response = data;
       this.clients = this.response.content;
     });
@@ -303,11 +290,7 @@ export class FutureSurveyListComponent implements OnInit {
             },
             error => {
               this.loader.close();
-              this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-              });
+              this.errDialog.showError(error);
             }
           );
         }

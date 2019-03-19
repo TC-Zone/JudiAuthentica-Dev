@@ -41,7 +41,7 @@
       <tfoot>
         <tr >
           <td class="pt-1 pb-1 pl-1">
-            <div class="pagination">{{totalRecords}} Total</div>
+            <div class="pagination">{{totalRecords}} Created, {{quota}} Quota</div>
           </td>
           <td colspan="7" class="text-center">
             <nav aria-label="Page navigation example">
@@ -71,3 +71,11 @@
     </table>
   </mat-card-content>
 </mat-card>
+<div *ngIf="this.temCommunities.length === 0 && this.communities.length === 0" fxLayout="row" fxLayoutAlign="center" style="margin-top: 10rem;" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+  <div fxFlex="100" class="text-center">
+    <h1 class="text-muted">Create New Community</h1>
+  </div>
+  <div fxFlex="100" class="text-center">
+    <h2 class="text-muted">Click "Add Community" Button</h2>
+  </div>
+</div>

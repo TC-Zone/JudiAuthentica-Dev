@@ -93,11 +93,7 @@ export class UserTableComponent implements OnInit {
       console.log(this.users);
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -113,11 +109,7 @@ export class UserTableComponent implements OnInit {
       this.roles = successResp.content;
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -144,11 +136,7 @@ export class UserTableComponent implements OnInit {
       console.log(this.clientCommunity);
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -195,11 +183,7 @@ export class UserTableComponent implements OnInit {
         },
         error => {
           this.loader.close();
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
+          this.errDialog.showError(error);
         }
       );
 

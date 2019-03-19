@@ -131,9 +131,6 @@ export class FutureSurveyViewComponent implements OnInit {
       }
     });
 
-
-
-
     //Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
     // console.log('.....bootstrap');
     // console.log(Survey.defaultBootstrapCss);

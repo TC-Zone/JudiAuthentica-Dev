@@ -74,11 +74,7 @@ export class UserTableComponent implements OnInit {
       console.log(successResp);
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -91,11 +87,7 @@ export class UserTableComponent implements OnInit {
       this.roles = successResp.content;
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -122,11 +114,7 @@ export class UserTableComponent implements OnInit {
       console.log(this.clientCommunity);
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -171,14 +159,9 @@ export class UserTableComponent implements OnInit {
           this.loader.close();
           this.snack.open("New User added !", "OK", { duration: 4000 });
         },
-        error => {
-          this.loader.close();
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
-        }
+          error => {
+            this.errDialog.showError(error);
+          }
       );
 
     });

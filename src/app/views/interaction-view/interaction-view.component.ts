@@ -87,7 +87,7 @@ export class InteractionViewComponent implements OnInit {
         }
       },
         error => {
-          this.errDialog.showErrorWithMessage(error);
+          this.errDialog.showError(error);
         });
   }
 
@@ -177,7 +177,7 @@ export class InteractionViewComponent implements OnInit {
         this.setuptheme();
       },
         error => {
-          this.errDialog.showErrorWithMessage(error);
+          this.errDialog.showError(error);
         }
       );
   }
@@ -202,34 +202,35 @@ export class InteractionViewComponent implements OnInit {
 
     this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
       var classes = options.cssClasses;
-
-      if (options.question.getType() === "rating") {
-        classes.root = "btn-group";
-        classes.item = "btn btn-default btn-secondary";
+      if (options.question.getType() === 'rating') {
+        classes.root = 'btn-group';
+        classes.item = 'btn btn-outline-secondary';
       }
 
-      if (options.question.getType() === "radiogroup") {
-        classes.item = "sv-q-col-1";
+      if (options.question.getType() === 'radiogroup') {
+        classes.root = 'sv_qcbc';
+        classes.item = 'sv-q-col-1';
       }
 
-      if (options.question.getType() === "checkbox") {
-        classes.item = "sv-q-col-1";
+      if (options.question.getType() === 'checkbox') {
+        classes.root = 'sv_qcbc sv_qcbx';
+        classes.item = 'sv-q-col-1';
       }
 
-      if (options.question.getType() === "matrix") {
-        classes.root = "table sv_q_matrix";
+      if (options.question.getType() === 'matrix') {
+        classes.root = 'table sv_q_matrix';
       }
 
       if (options.question.getType() === "comment") {
-        classes.root = "form-control";
+        classes.root = 'form-control';
       }
 
-      if (options.question.getType() === "dropdown") {
-        classes.control = "form-control";
+      if (options.question.getType() === 'dropdown') {
+        classes.control = 'form-control';
       }
 
-      if (options.question.getType() === "text") {
-        classes.root = "form-control";
+      if (options.question.getType() === 'text') {
+        classes.root = 'form-control';
       }
     });
 

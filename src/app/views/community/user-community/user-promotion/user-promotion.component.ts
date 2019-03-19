@@ -9,6 +9,8 @@ import { authProperties } from './../../../../shared/services/auth/auth-properti
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
 import { ComunityService } from '../../community.service';
+import { AppWarningService } from 'app/shared/services/app-warning/app-warning.service';
+import { AppInfoService } from 'app/shared/services/app-info/app-info.service';
 
 @Component({
   selector: 'app-user-promotion',
@@ -39,7 +41,9 @@ export class UserPromotionComponent implements OnInit {
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
     private userPromotionService: UserPromotionService,
-    private comunityService: ComunityService
+    private comunityService: ComunityService,
+    private appWarningService: AppWarningService,
+    private appInfoService: AppInfoService
   ) { }
 
   ngOnInit() {
@@ -74,81 +78,82 @@ export class UserPromotionComponent implements OnInit {
   * Prasad Kumara
   */
   promotionPopUp(data: any = {}, isNew?) {
-    const title = isNew ? 'Create New Promotion' : 'Update Promotion';
-    const dialogRef: MatDialogRef<any> = this.dialog.open(
-      CreatePromotionPopupComponent,
-      {
-        width: '720px',
-        disableClose: true,
-        data: { title: title, payload: data, isNew: isNew }
-      }
-    );
-    dialogRef.afterClosed().subscribe(res => {
-      if (!res) {
-        return;
-      } else {
-        this.loader.open();
-        const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
-        if (userObj) {
-          if (isNew) {
-            res['community'] = {
-              id: this.comunityId
-            };
-            const clientId = userObj.userData.client.id;
-            res.status = this.getPromotionStatus(res.status);
-            this.comunityService.licenseExpireState(clientId, 'promos')
-              .subscribe(
-                response => {
-                  const tempRes: any = response;
-                  this.quotaExpire = tempRes.content.expired;
-                  if (!tempRes.content.expired) {
-                    this.loader.close();
-                    if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
-                      this.confirmService.confirm({ message: 'This is your last promotion!' });
-                      this.createPromotion(res);
-                    } else {
-                      this.createPromotion(res);
+    if (this.quotaExpire && isNew) {
+      const infoData = {
+        title: 'License',
+        message: 'You subscribed number of promotions have expired!</br>' +
+        '<small class="text-muted">Do you like to extend the plan?</small>',
+        linkData: {
+          url: 'https://www.google.com/gmail/',
+          buttonText: 'Extend'
+        }
+      };
+      this.appInfoService.showInfo(infoData);
+    } else {
+      const title = isNew ? 'Create New Promotion' : 'Update Promotion';
+      const dialogRef: MatDialogRef<any> = this.dialog.open(
+        CreatePromotionPopupComponent,
+        {
+          width: '720px',
+          disableClose: true,
+          data: { title: title, payload: data, isNew: isNew }
+        }
+      );
+      dialogRef.afterClosed().subscribe(res => {
+        if (!res) {
+          return;
+        } else {
+          this.loader.open();
+          const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+          if (userObj) {
+            if (isNew) {
+              res['community'] = {
+                id: this.comunityId
+              };
+              const clientId = userObj.userData.client.id;
+              res.status = this.getPromotionStatus(res.status);
+              this.comunityService.licenseExpireState(clientId, 'promos')
+                .subscribe(
+                  response => {
+                    const tempRes: any = response;
+                    this.quotaExpire = tempRes.content.expired;
+                    if (!tempRes.content.expired) {
+                      this.loader.close();
+                      this.createPromotion(res, tempRes.content.usage, tempRes.content.quota);
                     }
-                  } else {
+                  }
+                );
+              // this.createPromotion(res);
+            } else {
+              res['lastModifiedUserId'] = userObj.id;
+              res.status = this.getPromotionStatus(res.status);
+              this.userPromotionService.updatePromotionById(data.id, res)
+                .subscribe(
+                  response => {
+                    const temData: any = response;
+                    const i = this.promotions.indexOf(data);
+                    this.promotions[i] = temData.content;
+                    this.temPromotions = this.promotions;
                     this.loader.close();
-                    this.confirmService.confirm({ message: 'Allocated Promotion Limit Exceded!' });
-                  }
-                }
-              );
-            // this.createPromotion(res);
-          } else {
-            res['lastModifiedUserId'] = userObj.id;
-            res.status = this.getPromotionStatus(res.status);
-            this.userPromotionService.updatePromotionById(data.id, res)
-              .subscribe(
-                response => {
-                  const temData: any = response;
-                  const i = this.promotions.indexOf(data);
-                  this.promotions[i] = temData.content;
-                  this.temPromotions = this.promotions;
-                  this.loader.close();
-                  this.snack.open('Promotion Updated', 'close', {
-                    duration: 2000
-                  });
-                },
-                error => {
-                  this.loader.close();
-                  if (error.status !== 401) {
-                    this.errDialog.showError({
-                      title: 'Error',
-                      status: error.status,
-                      type: 'http_error'
+                    this.snack.open('Promotion Updated', 'close', {
+                      duration: 2000
                     });
+                  },
+                  error => {
+                    this.loader.close();
+                    if (error.status !== 401) {
+                      this.errDialog.showError(error);
+                    }
                   }
-                }
-              );
+                );
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
 
-  createPromotion(res) {
+  createPromotion(res, usage, tempQuoata) {
     this.userPromotionService.createPromotion(res)
       .subscribe(
         response => {
@@ -165,18 +170,32 @@ export class UserPromotionComponent implements OnInit {
             this.quotaExpire = true;
           }
           // this.fetchAllPromotions(this.pageNumber);
-          this.snack.open('New Promotion Created', 'close', {
-            duration: 2000
-          });
+          if (usage < (tempQuoata - 1) && (tempQuoata - usage) === 2) {
+            this.appWarningService.showWarning({
+              title: 'License',
+              message: 'Your subscription plan is about to expire!</br>One more promotion remaining!'
+            });
+          } else if (usage < tempQuoata && (tempQuoata - usage) === 1) {
+            const infoData = {
+              title: 'License',
+              message: 'You subscribed number of promotions have expired!</br>' +
+              '<small class="text-muted">Do you like to extend the plan?</small>',
+              linkData: {
+                url: 'https://www.google.com/gmail/',
+                buttonText: 'Extend'
+              }
+            };
+            this.appInfoService.showInfo(infoData);
+          } // else {
+            this.snack.open('New Promotion Created', 'close', {
+              duration: 2000
+            });
+          // }
         },
         error => {
           this.loader.close();
           if (error.status !== 401) {
-            this.errDialog.showError({
-              title: 'Error',
-              status: error.status,
-              type: 'http_error'
-            });
+            this.errDialog.showError(error);
           }
         }
       );
@@ -284,11 +303,7 @@ export class UserPromotionComponent implements OnInit {
               error => {
                 this.loader.close();
                 if (error.status !== 401) {
-                  this.errDialog.showError({
-                    title: 'Error',
-                    status: error.status,
-                    type: 'http_error'
-                  });
+                  this.errDialog.showError(error);
                 }
               }
             );
@@ -329,11 +344,7 @@ export class UserPromotionComponent implements OnInit {
               error => {
                 this.loader.close();
                 if (error.status !== 401) {
-                  this.errDialog.showError({
-                    title: 'Error',
-                    status: error.status,
-                    type: 'http_error'
-                  });
+                  this.errDialog.showError(error);
                 }
               }
             );

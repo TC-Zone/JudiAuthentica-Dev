@@ -16,7 +16,7 @@
           <textarea matInput name="description" placeholder="Description" [formControl]="communityForm.controls['description']"></textarea>
         </mat-form-field>
       </div>
-      <div fxFlex="100" class="pr-1">
+      <div fxFlex="100" class="pr-1" *ngIf="!data.isNew">
         <mat-slide-toggle [formControl]="communityForm.controls['status']">Activate Community</mat-slide-toggle>
       </div>
     </div>

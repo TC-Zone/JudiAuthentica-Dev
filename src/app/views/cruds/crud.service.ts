@@ -13,7 +13,7 @@ import { Clients, Content } from "../../model/ClientModel.model";
 
 @Injectable()
 export class CrudService {
-  clientApiUrl: string = environment.productApiURL + "clients/";
+  clientApiUrl: string = environment.userApiUrl + "clients/";
   httpOptions = {
     headers: new HttpHeaders({
       "Content-Type": "application/json"
