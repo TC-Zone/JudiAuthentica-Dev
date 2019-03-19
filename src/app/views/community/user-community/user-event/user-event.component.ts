@@ -33,6 +33,8 @@ export class UserEventComponent implements OnInit {
   public quota = 0;
   public quotaExpire = false;
 
+  public eventPosterUrl: string;
+
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
@@ -44,7 +46,10 @@ export class UserEventComponent implements OnInit {
     private comunityService: ComunityService,
     private appWarningService: AppWarningService,
     private appInfoService: AppInfoService
-  ) { }
+  ) {
+    this.eventPosterUrl =this.comunityService.getPosterDownloadUrl();
+
+   }
 
   ngOnInit() {
     const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
@@ -61,6 +66,8 @@ export class UserEventComponent implements OnInit {
           this.quota = tempRes.content.quota;
         }
       );
+
+     
   }
 
   /*
@@ -125,7 +132,7 @@ export class UserEventComponent implements OnInit {
                       if (tempRes.content.usage < (tempRes.content.quota - 1) && (tempRes.content.quota - tempRes.content.usage) === 2) {
                         this.appWarningService.showWarning({
                           title: 'License',
-                          message: 'One Event Remaining!'
+                          message: 'One Event is Remaining!'
                         });
                         this.createEvent(res);
                       } else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
@@ -137,8 +144,9 @@ export class UserEventComponent implements OnInit {
                             buttonText: 'Activate'
                           }
                         };
-                        this.appInfoService.showInfo(infoData);
                         this.createEvent(res);
+                        this.appInfoService.showInfo(infoData);
+                        
                       } else {
                         this.createEvent(res);
                       }

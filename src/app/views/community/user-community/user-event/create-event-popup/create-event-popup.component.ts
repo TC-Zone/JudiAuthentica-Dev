@@ -179,7 +179,7 @@ export class CreateEventPopupComponent implements OnInit {
               const heightReminder = img.height % 3;
               if (img.width < this.minWidth && img.height < this.minHeight) {
                 this.snackBar.open(
-                  'Please upload' + this.minWidth + ' X ' + this.minHeight + ' size image files only',
+                  'Please upload ' + this.minWidth + ' X ' + this.minHeight + ' size image files only',
                   'close',
                   { duration: 3000 }
                 );
@@ -188,7 +188,7 @@ export class CreateEventPopupComponent implements OnInit {
               }
               if (widthReminder !== 0 || heightReminder !== 0) {
                 this.snackBar.open(
-                  'Please upload' + this.minWidth + ' X ' + this.minHeight + ' size image files only',
+                  'Please upload ' + this.minWidth + ' X ' + this.minHeight + ' size image files only',
                   'close',
                   { duration: 3000 }
                 );

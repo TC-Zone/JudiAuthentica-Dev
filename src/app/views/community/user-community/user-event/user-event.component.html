@@ -53,7 +53,7 @@
       <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
         <div fxFlex="40" class="pr-1">
           <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
-            <img style="padding: 10px;" mat-card-image [src]="eventObj.poster" alt="Photo of a Shiba Inu">
+            <img style="padding: 10px;" mat-card-image [src]="eventPosterUrl+eventObj.id" alt="Photo of a Shiba Inu">
           </mat-card>
         </div>
         <div fxFlex="60" class="pr-1">
