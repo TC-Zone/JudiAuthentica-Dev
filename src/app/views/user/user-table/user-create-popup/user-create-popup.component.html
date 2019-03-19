@@ -73,7 +73,7 @@
               [matChipInputAddOnBlur]="addOnBlur">
           </mat-chip-list>
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-            <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
+            <mat-option *ngFor="let category of filteredCategories | async; let i = index" [value]="categoriesObj[i].id">
               {{category}}
             </mat-option>
           </mat-autocomplete>

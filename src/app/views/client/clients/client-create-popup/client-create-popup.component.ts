@@ -29,6 +29,9 @@ export class ClientCreatePopupComponent implements OnInit {
   categories: string[] = [];
   categoriesValue: string[] = [];
   allCategories: string[] = [];
+  public categoriesObj;
+
+  public oldestValue = 0;
 
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -39,10 +42,9 @@ export class ClientCreatePopupComponent implements OnInit {
   public adminFormGroup: FormGroup;
   public categoryFormGroup: FormGroup;
   public licenseFormGroup: FormGroup;
-  public formStatus = false;
+  public categoryFormStatus = true;
   url;
 
-  public categoriesObj;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -53,7 +55,7 @@ export class ClientCreatePopupComponent implements OnInit {
     this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
       startWith(null),
       map((category: string | null) => category ? this._filter(category) : this.allCategories.slice()));
-     }
+  }
 
   ngOnInit() {
     this.categoriesObj = this.data.category;
@@ -65,7 +67,7 @@ export class ClientCreatePopupComponent implements OnInit {
   }
 
   buildItemForm() {
-    
+
     // this.clientFormGroup = this.fb.group({
     //   name: [''],
     //   description: ['']
@@ -77,7 +79,7 @@ export class ClientCreatePopupComponent implements OnInit {
     //   username: [''],
     //   email: ['']
     // });
-    
+
     this.clientFormGroup = this.fb.group({
       name: ['', [Validators.required, Validators.pattern(this.regex._Letter)]],
       description: ['', Validators.required]
@@ -89,19 +91,51 @@ export class ClientCreatePopupComponent implements OnInit {
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]]
     });
+
     this.categoryFormGroup = this.fb.group({
       category: this.categoryCtrl
     });
-    this.licenseFormGroup = this.fb.group({
-      tagCount: ['', Validators.required],
-      userCount: ['', Validators.required],
-      comunityCount: ['', Validators.required],
-      feedbackCount: ['', Validators.required],
-      eventCount: ['', Validators.required],
-      promoCount: ['', Validators.required]
-    });
-    // promoCount: ['', Validators.required, Validators.max(this.license.promoCount), Validators.min(0)], Validators.pattern(this.regex._PosNumber)]
 
+    this.licenseFormGroup = this.fb.group({
+      tagCount: ['', [Validators.required, Validators.max(this.license.tagCount), Validators.min(0), Validators.pattern(this.regex._PosNumber)]],
+      userCount: ['', Validators.required],
+      communityCount: ['1', Validators.required],
+      feedbackCount: ['1', Validators.required],
+      eventCount: ['1', Validators.required],
+      promoCount: ['1', Validators.required]
+    });
+
+  }
+
+  setOldValue() {
+    this.oldestValue = this.licenseFormGroup.controls['communityCount'].value;
+  }
+
+  validateLicense() {
+    let form = this.licenseFormGroup;
+    if (form.controls['communityCount'].value !== '') {
+      let value = form.controls['communityCount'].value;
+      let diff;
+
+      if (value > this.oldestValue) {
+        diff = value - this.oldestValue;
+        form.controls['feedbackCount'].setValue(+(form.get('feedbackCount').value) + diff);
+        form.controls['eventCount'].setValue(+(form.get('eventCount').value) + diff);
+        form.controls['promoCount'].setValue(+(form.get('promoCount').value) + diff);
+      }
+    } else {
+      form.controls['communityCount'].setValue(1);
+      form.controls['feedbackCount'].setValue(1);
+      form.controls['eventCount'].setValue(1);
+      form.controls['promoCount'].setValue(1);
+    }
+  }
+
+  setDefaultValue(control) {
+    let form = this.licenseFormGroup;
+    if (form.controls[control].value === '') {
+      form.controls[control].setValue(1);
+    }
   }
 
   submit() {
@@ -144,8 +178,9 @@ export class ClientCreatePopupComponent implements OnInit {
 
   removeSelectedImg() {
     this.url = null;
+    this.profilePicFormGroup.controls['profilePic'].setValue('')
   }
-  
+
   add(event: MatChipInputEvent): void {
 
     if (!this.matAutocomplete.isOpen) {
@@ -173,6 +208,9 @@ export class ClientCreatePopupComponent implements OnInit {
       this.categories.splice(index, 1);
       this.categoriesValue.splice(index, 1);
     }
+    if(this.categoriesValue.length === 0){
+      this.categoryFormStatus = true;
+    }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
@@ -180,7 +218,7 @@ export class ClientCreatePopupComponent implements OnInit {
     this.categoriesValue.push(event.option.value);
     this.categoryInput.nativeElement.value = '';
     this.categoryCtrl.setValue(null);
-    
+    this.categoryFormStatus = false;
   }
 
   private _filter(value: string): string[] {

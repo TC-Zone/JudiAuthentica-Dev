@@ -10,6 +10,7 @@ import { map, catchError, share } from "rxjs/operators";
 import { throwError, Observable } from 'rxjs';
 import { environment } from "environments/environment.prod";
 import { authProperties } from "./../../shared/services/auth/auth-properties";
+import { json } from "body-parser";
 
 @Injectable()
 export class UserService {
@@ -18,6 +19,7 @@ export class UserService {
   private storage_name = authProperties.storage_name;
   private componentList = authProperties.componentList;
   private userApiUrl = environment.userApiUrl;
+  public testValue;
 
   constructor(private http: HttpClient) {
     const user: CpUsersDB = new CpUsersDB();

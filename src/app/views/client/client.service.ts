@@ -23,13 +23,9 @@ export class ClientService {
     return this.http.get(this.clientUrl).pipe(catchError(this.handleError));
   }
 
-  getClientsSuggestions() : Observable<any>{
-    return this.http.get(this.clientUrl + "/suggestions").pipe(catchError(this.handleError));
-  }
-
-  getUsers(id): Observable<any> {
-    return this.http.get(this.clientUrl + "/" + id).pipe(catchError(this.handleError));
-  }
+  // getUsers(id): Observable<any> {
+  //   return this.http.get(this.clientUrl + "/" + id).pipe(catchError(this.handleError));
+  // }
 
   getRoles(): Observable<any> {
     return this.http.get(this.roleUrl + "/suggestions").pipe(catchError(this.handleError));
@@ -37,8 +33,11 @@ export class ClientService {
   getCategory(): Observable<any> {
     return this.http.get(this.specsUrl + "/categories").pipe(catchError(this.handleError));
   }
-  getClientCategories(id){
+  getClientCategories(id): Observable<any> {
     return this.http.get(this.clientUrl + "/categories/" + id).pipe(catchError(this.handleError));
+  }
+  getClientCommunities(id): Observable<any> {
+    return this.http.get(environment.userApiUrl + "communities/client/" + id).pipe(catchError(this.handleError));
   }
 
 
@@ -74,6 +73,10 @@ export class ClientService {
       }),
       catchError(this.handleError)
     );
+  }
+
+  getUser(id): Observable<any> {
+    return this.http.get(this.userUrl + "/" + id).pipe(catchError(this.handleError));
   }
 
   updateUser(id, item): Observable<any> {

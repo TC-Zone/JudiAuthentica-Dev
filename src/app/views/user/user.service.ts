@@ -26,6 +26,14 @@ export class UserService {
     return this.http.get(this.roleUrl + "/suggestions").pipe(catchError(this.handleError));
   }
 
+  getClientCategories(id): Observable<any> {
+    return this.http.get(this.clientUrl + "/categories/" + id).pipe(catchError(this.handleError));
+  }
+
+  getClientCommunities(id): Observable<any> {
+    return this.http.get(environment.userApiUrl + "communities/client/" + id).pipe(catchError(this.handleError));
+  }
+  
   addUser(item): Observable<any> {
     return this.http.post<any>(this.userUrl, item).pipe(
       map(data => {
@@ -35,6 +43,10 @@ export class UserService {
     );
   }
 
+  getUser(id): Observable<any> {
+    return this.http.get(this.userUrl + "/" + id).pipe(catchError(this.handleError));
+  }
+  
   updateUser(id, item): Observable<any> {
     return this.http
       .put<any>(this.userUrl +"/"+ id, item)
