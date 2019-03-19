@@ -23,9 +23,13 @@ export class ClientService {
     return this.http.get(this.clientUrl).pipe(catchError(this.handleError));
   }
 
-  // getUsers(id): Observable<any> {
-  //   return this.http.get(this.clientUrl + "/" + id).pipe(catchError(this.handleError));
-  // }
+  getClientsSuggestions() : Observable<any>{
+    return this.http.get(this.clientUrl + "/suggestions").pipe(catchError(this.handleError));
+  }
+
+  getUsers(id): Observable<any> {
+    return this.http.get(this.clientUrl + "/" + id).pipe(catchError(this.handleError));
+  }
 
   getRoles(): Observable<any> {
     return this.http.get(this.roleUrl + "/suggestions").pipe(catchError(this.handleError));
