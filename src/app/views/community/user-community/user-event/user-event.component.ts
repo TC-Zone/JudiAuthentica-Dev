@@ -33,6 +33,8 @@ export class UserEventComponent implements OnInit {
   public quota = 0;
   public quotaExpire = false;
 
+  public eventPosterUrl: string;
+
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
@@ -44,7 +46,10 @@ export class UserEventComponent implements OnInit {
     private comunityService: ComunityService,
     private appWarningService: AppWarningService,
     private appInfoService: AppInfoService
-  ) { }
+  ) {
+    this.eventPosterUrl =this.comunityService.getPosterDownloadUrl();
+
+   }
 
   ngOnInit() {
     const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
@@ -61,6 +66,8 @@ export class UserEventComponent implements OnInit {
           this.quota = tempRes.content.quota;
         }
       );
+
+
   }
 
   /*
