@@ -133,13 +133,6 @@ export class ClientTableComponent implements OnInit, OnDestroy {
         });
       }
     );
-
-
-
-
-
-
-
   }
 
 

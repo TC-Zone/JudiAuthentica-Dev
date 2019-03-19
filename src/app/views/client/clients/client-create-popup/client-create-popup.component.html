@@ -35,7 +35,7 @@
 
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
           <div fxFlex="100" class="mt-1">
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <button mat-raised-button color="primary" matStepperNext [disabled]="clientFormGroup.invalid">Next</button>
             <span fxFlex></span>
             <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
           </div>
@@ -56,16 +56,22 @@
 
 
         <!-- --------- file input click button --------- -->
-        <div layout-margin layout-padding>
+        <!-- <div layout-margin layout-padding>
           <button mat-raised-button class="mr-1 mb-1" (click)="productImgs.click()" type="button">
             Browse Images</button>
+        </div> -->
+        <div layout-margin layout-padding class="mb-2">
+          <button mat-raised-button class="mr-1" (click)="productImgs.click()" type="button">
+            Browse Images</button>
+          <button mat-raised-button class="mr-1" (click)="removeSelectedImg()" type="button" *ngIf="url">
+            Clear Images</button>
         </div>
 
         <!-- --------- start images preview container --------- -->
         <div id="client_create_image_preview_container" fxLayout="row" fxLayoutWrap="wrap" layout-align="center">
 
           <!-- --------- start card --------- -->
-          <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngIf="url" fxFlex="100" style="display: flex;">
+          <!-- <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngIf="url" fxFlex="100" style="display: flex;">
             <mat-card class="p-0">
 
               <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
@@ -77,6 +83,12 @@
 
               <img [src]="url">
             </mat-card>
+          </div> -->
+
+          <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngIf="url" fxFlex="100" style="display: flex;">
+
+            <img id="clientProfilePic" [src]="url">
+
           </div>
           <!-- --------- end card --------- -->
 
@@ -86,7 +98,7 @@
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
           <div fxFlex="100" class="mt-1">
             <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <button mat-raised-button color="primary" matStepperNext [disabled]="!url">Next</button>
             <span fxFlex></span>
             <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
           </div>
@@ -120,7 +132,7 @@
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
           <div fxFlex="100" class="mt-1">
             <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <button mat-raised-button color="primary" matStepperNext [disabled]="adminFormGroup.invalid">Next</button>
             <span fxFlex></span>
             <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
           </div>
@@ -139,12 +151,15 @@
               {{category}}
               <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
             </mat-chip>
-            <input placeholder="Select category..." #categoryInput [formControl]="categoryFormGroup.controls['category']" [matAutocomplete]="auto"
-              [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)"
-              [matChipInputAddOnBlur]="addOnBlur">
+
+            <input placeholder="Select category..." #categoryInput
+              [formControl]="categoryFormGroup.controls['category']" [matAutocomplete]="auto"
+              [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="add($event)" [matChipInputAddOnBlur]="addOnBlur" [required]="categoryFormStatus">
           </mat-chip-list>
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-            <mat-option *ngFor="let category of filteredCategories | async; let i = index" [value]="categoriesObj[i].id">
+            <mat-option *ngFor="let category of filteredCategories | async; let i = index"
+              [value]="categoriesObj[i].id">
               {{category}}
             </mat-option>
           </mat-autocomplete>
@@ -153,7 +168,7 @@
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
           <div fxFlex="100" class="mt-1">
             <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <button mat-raised-button color="primary" matStepperNext [disabled]='categoryFormStatus'>Next</button>
             <span fxFlex></span>
             <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
           </div>
@@ -166,7 +181,7 @@
         <ng-template matStepLabel>License</ng-template>
 
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
-          
+
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
               <input matInput name="tagCount" placeholder="Tag Count" positiveNumberOnly
@@ -185,29 +200,30 @@
 
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput name="comunityCount" placeholder="Comunity Count" positiveNumberOnly
-                [formControl]="licenseFormGroup.controls['comunityCount']">
+              <input matInput name="communityCount" placeholder="Comunity Count" positiveNumberOnly
+                [formControl]="licenseFormGroup.controls['communityCount']" (blur)="validateLicense()"
+                (focus)='setOldValue()'>
             </mat-form-field>
           </div>
 
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
               <input matInput name="feedbackCount" placeholder="Feedback Count" positiveNumberOnly
-                [formControl]="licenseFormGroup.controls['feedbackCount']">
+                [formControl]="licenseFormGroup.controls['feedbackCount']" (blur)="setDefaultValue('feedbackCount')">
             </mat-form-field>
           </div>
 
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
               <input matInput name="eventkCount" placeholder="Event Count" positiveNumberOnly
-                [formControl]="licenseFormGroup.controls['eventCount']">
+                [formControl]="licenseFormGroup.controls['eventCount']" (blur)="setDefaultValue('eventCount')">
             </mat-form-field>
           </div>
 
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
               <input matInput name="promoCount" placeholder="Promo Count" positiveNumberOnly
-                [formControl]="licenseFormGroup.controls['promoCount']">
+                [formControl]="licenseFormGroup.controls['promoCount']" (blur)="setDefaultValue('promoCount')">
             </mat-form-field>
           </div>
         </div>
@@ -215,7 +231,8 @@
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
           <div fxFlex="100" class="mt-1">
             <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
-            <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+            <button mat-raised-button color="primary" (click)="submit()"
+              [disabled]="licenseFormGroup.invalid">Submit</button>
             <span fxFlex></span>
             <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
           </div>

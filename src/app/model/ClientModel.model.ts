@@ -27,7 +27,7 @@ export class ClientLicenseData {
     public feedbackCount: number,
     public eventCount: number,
     public promoCount: number
-  ){}
+  ) { }
 }
 
 export class ClientUpdateReq {
@@ -45,12 +45,12 @@ export class ClientUpdateReq {
   ) { }
 }
 
-export class CountryData{
-  constructor(  
+export class CountryData {
+  constructor(
     public id: string,
     public name: string,
     public code: string
-    ) {}
+  ) { }
 }
 
 export class UserData {
@@ -72,6 +72,23 @@ export class UserCreateReq {
   ) { }
 }
 
+export class UserUpdateReq {
+  constructor(
+    public accountName: string,
+    public email: string,
+    public role: RoleData,
+  ) { }
+}
+
+export class UserCategoryUpdateReq {
+  constructor(
+    public accountName: string,
+    public email: string,
+    public role: RoleData,
+    public categories: CategoryData[]
+  ) { }
+}
+
 export class ClientData {
   constructor(
     public id: string
@@ -79,16 +96,16 @@ export class ClientData {
 }
 
 export class LicenseUpdateReq {
-    constructor(
-      public tagCount: number,
-      public userCount: number,
-      public communityCount: number,
-      public feedbackCount: number,
-      public eventCount: number,
-      public promoCount: number,
-      public client: ClientData,
-    ){}
-  }
+  constructor(
+    public tagCount: number,
+    public userCount: number,
+    public communityCount: number,
+    public feedbackCount: number,
+    public eventCount: number,
+    public promoCount: number,
+    public client: ClientData,
+  ) { }
+}
 
 export class RoleData {
   constructor(
@@ -114,12 +131,15 @@ export class LicenseUpdateRequest {
   ) { }
 }
 
-
-
 export class profileUpdateReq {
   constructor(
     public userName: string,
     public password: string,
     public email: string
   ) { }
+}
+
+export interface autoCompletableCategory {
+  id: string;
+  name: string;
 }

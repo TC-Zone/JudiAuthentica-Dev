@@ -34,8 +34,10 @@ export class UserCreatePopupComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   categoryCtrl = new FormControl();
   filteredCategories: Observable<string[]>;
-  categories: string[] = ['Lifestyle'];
-  allCategories: string[] = ['SNKRS Launch Calendar', 'Lifestyle', 'Running', 'Training & Gym', 'Basketball', 'Jordan', 'Football', 'Soccer', 'Baseball', 'Golf', 'Skateboarding', 'Tennis', 'Boots'];
+  categories: string[] = [];
+  categoriesValue: string[] = [];
+  allCategories: string[] = [];
+  public categoriesObj;
 
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -53,6 +55,10 @@ export class UserCreatePopupComponent implements OnInit {
 
   ngOnInit() {
     this.roles = this.data.roles;
+    this.categoriesObj = this.data.category;
+    this.categoriesObj.forEach(element => {
+      this.allCategories.push(element.name);
+    });
     this.buildItemForm()
   }
 
@@ -80,7 +86,7 @@ export class UserCreatePopupComponent implements OnInit {
   }
 
   submit() {
-    let forms = [this.userFormGroup.value, this.categories, this.communityFormGroup.value];
+    let forms = [this.userFormGroup.value, this.categoriesValue, this.communityFormGroup.value];
     this.dialogRef.close(forms);
   }
 
@@ -110,11 +116,13 @@ export class UserCreatePopupComponent implements OnInit {
 
     if (index >= 0) {
       this.categories.splice(index, 1);
+      this.categoriesValue.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.categories.push(event.option.viewValue);
+    this.categoriesValue.push(event.option.value);
     this.categoryInput.nativeElement.value = '';
     this.categoryCtrl.setValue(null);
   }

@@ -5,7 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { 
   MatListModule,
+  MatToolbarModule,
   MatIconModule,
+  MatDialogModule,
   MatButtonModule,
   MatCardModule,
   MatMenuModule,
@@ -27,6 +29,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { ProfileComponent } from "./profile.component";
 import { ProfileOverviewComponent } from './profile-overview/profile-overview.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
+import { ProfileLicenseComponent } from './profile-license/profile-license.component';
 import { ProfileBlankComponent } from './profile-blank/profile-blank.component';
 import { ProfileRoutes } from "./profile.routing";
 import { ProfileService } from "./profile.service";
@@ -45,9 +48,11 @@ import { ProfileService } from "./profile.service";
     MatGridListModule,
     MatChipsModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatRadioModule,
     MatTabsModule,
     MatInputModule,
+    MatToolbarModule,
     MatProgressBarModule,
     FlexLayoutModule,
     NgxDatatableModule,
@@ -57,6 +62,6 @@ import { ProfileService } from "./profile.service";
     RouterModule.forChild(ProfileRoutes)
   ],
   providers: [ProfileService],
-  declarations: [ProfileComponent, ProfileOverviewComponent, ProfileSettingsComponent, ProfileBlankComponent]
+  declarations: [ProfileComponent, ProfileOverviewComponent, ProfileSettingsComponent, ProfileLicenseComponent, ProfileBlankComponent]
 })
 export class ProfileModule { }

@@ -8,7 +8,7 @@ import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../../../shared/animations/egret-animations";
 import { AppErrorService } from "../../../../../shared/services/app-error/app-error.service";
 import { ActivatedRoute } from '@angular/router';
-import { UserCreateReq, ClientData, RoleData, CommunityData, CategoryData } from 'app/model/ClientModel.model';
+import { UserCreateReq, ClientData, RoleData, CommunityData, CategoryData, UserUpdateReq, UserCategoryUpdateReq } from 'app/model/ClientModel.model';
 import { UserCategoryPopupComponent } from './user-category-popup/user-category-popup.component';
 import { UserCommunityPopupComponent } from './user-community-popup/user-community-popup.component';
 
@@ -29,6 +29,9 @@ export class UserTableComponent implements OnInit {
   public clientId;
   public name;
   public url;
+
+  public clientCategory;
+  public clientCommunity;
 
   public getItemSub: Subscription;
   constructor(
@@ -51,7 +54,8 @@ export class UserTableComponent implements OnInit {
 
     this.getUsers();
     this.getUserRoles();
-    // this.getCategory();
+    this.getClientCategories();
+    this.getClientCommunities();
   }
 
   ngOnDestroy() {
@@ -61,9 +65,13 @@ export class UserTableComponent implements OnInit {
   }
 
   getUsers() {
-    this.getItemSub = this.clientService.getUsers(this.clientId).subscribe(successResp => {
+    this.getItemSub = this.clientService.getClient(this.clientId).subscribe(successResp => {
       this.users = successResp.content.users;
-      console.log(this.users);
+      // successResp.content.forEach((item, index) => {
+      //   if (item.name === "Super Administrator") successResp.content.splice(index, 1);
+      // });
+      // this.roles = successResp.content;
+      console.log(successResp);
     },
       error => {
         this.errDialog.showError({
@@ -92,12 +100,26 @@ export class UserTableComponent implements OnInit {
     );
   }
 
-  getCategory(){
-    this.getItemSub = this.clientService.getRoles().subscribe(successResp => {
-      successResp.content.forEach((item, index) => {
-        if (item.name === "Super Administrator") successResp.content.splice(index, 1);
-      });
-      this.roles = successResp.content;
+  getClientCategories() {
+    this.getItemSub = this.clientService.getClientCategories(this.clientId).subscribe(successResp => {
+      this.clientCategory = successResp.content;
+      console.log(this.clientCategory);
+
+    },
+      error => {
+        this.errDialog.showError({
+          title: "Error",
+          status: error.status,
+          type: "http_error"
+        });
+      }
+    );
+  }
+
+  getClientCommunities() {
+    this.getItemSub = this.clientService.getClientCommunities(this.clientId).subscribe(successResp => {
+      this.clientCommunity = successResp.content;
+      console.log(this.clientCommunity);
     },
       error => {
         this.errDialog.showError({
@@ -115,7 +137,7 @@ export class UserTableComponent implements OnInit {
       {
         width: "720px",
         disableClose: true,
-        data: { roles: this.roles }
+        data: { roles: this.roles, category: this.clientCategory }
       }
     );
 
@@ -128,30 +150,23 @@ export class UserTableComponent implements OnInit {
       }
 
       this.loader.open();
-      // let users: UserData[] = [];
-      // users.push(new UserData(res[2].username, res[2].email));
-      // let license: ClientLicenseData = new ClientLicenseData(res[3].tagCount, res[3].userCount, res[3].communityCount, res[3].feedbackCount, res[3].eventCount, res[3].promoCount);
-      // const req: ClientCreateReq = new ClientCreateReq(res[0].name, res[0].description, res[1], users, license);
-
-      // let roles: UserRole[] = [];
-      // roles.push(new UserRole(res[0].role));
-
-      
-      let role: RoleData = new RoleData(res[0].role);   
+      let role: RoleData = new RoleData(res[0].role);
 
       let communities: CommunityData[] = [];
       // communities.push(new CommunityData(res[0].role));
 
       let categories: CategoryData[] = [];
-      categories.push(new CategoryData('d36eeebd8b1f0cde16210339e97b9408'));
-      categories.push(new CategoryData('ec21ff12b34a21bece175e48a059ec7f'));
-      
+      res[1].forEach(element => {
+        categories.push(new CategoryData(element));
+      });
+
       const client: ClientData = new ClientData(this.clientId);
 
       const req: UserCreateReq = new UserCreateReq(res[0].username, res[0].password, res[0].email, role, client, communities, categories);
+
       this.clientService.addUser(req).subscribe(
         response => {
-          this.getUsers;
+          this.getUsers();
           this.users = response;
           this.loader.close();
           this.snack.open("New User added !", "OK", { duration: 4000 });
@@ -169,189 +184,156 @@ export class UserTableComponent implements OnInit {
     });
   }
 
-  openEditPopUp(data: any = {}, isNew?) {
-
-    let title = isNew ? "Add new User" : "Update User";
+  openEditPopUp(data: any = {}) {
     let dialogRef: MatDialogRef<any> = this.dialog.open(
       UserTablePopupComponent,
       {
         width: "720px",
         disableClose: true,
-        data: { title: title, payload: data, roles: this.roles }
+        data: { payload: data, roles: this.roles }
       }
     );
+
     dialogRef.afterClosed().subscribe(res => {
       if (!res) {
         // If user press cancel
         return;
       }
 
-      // let roles: UserRole[] = [];
-      // roles.push(new UserRole(res.role));
-      // const client: ClientData = new ClientData(this.clientId);
-      // const req: UserCreateReq = new UserCreateReq(res.username, res.password, res.email, roles, client);
+      let role: RoleData = new RoleData(res.role);
+      const req: UserUpdateReq = new UserUpdateReq(res.username, res.email, role);
 
-      // this.loader.open();
-      // if (isNew) {
+      this.loader.open();
+      this.clientService.updateUser(data.id, req).subscribe(
+        response => {
+          this.getUsers();
+          this.loader.close();
+          this.snack.open("User Updated!", "OK", { duration: 4000 });
+        },
+        error => {
+          this.loader.close();
+          this.errDialog.showError({
+            title: "Error",
+            status: error.status,
+            type: "http_error"
+          });
+        }
+      );
 
-      //   this.clientService.addUser(req).subscribe(
-      //     response => {
-      //       this.getUsers();
-      //       this.loader.close();
-      //       this.snack.open("New User added !", "OK", { duration: 4000 });
-      //     },
-      //     error => {
-      //       this.loader.close();
-      //       this.errDialog.showError({
-      //         title: "Error",
-      //         status: error.status,
-      //         type: "http_error"
-      //       });
-      //     }
-      //   );
-      // } else {
-      //   this.clientService.updateUser(data.id, req).subscribe(
-      //     response => {
-      //       this.getUsers();
-      //       this.loader.close();
-      //       this.snack.open("User Updated!", "OK", { duration: 4000 });
-      //       // return this.users.slice();
-      //     },
-      //     error => {
-      //       this.loader.close();
-      //       this.errDialog.showError({
-      //         title: "Error",
-      //         status: error.status,
-      //         type: "http_error"
-      //       });
-      //     }
-      //   );
-      // }
     });
   }
 
 
-  openCommunityPopUp(data: any = {}, isNew?) {
+  openCommunityPopUp(data: any = {}) {
 
-    let title = isNew ? "Add new User" : "Update User";
-    let dialogRef: MatDialogRef<any> = this.dialog.open(
-      UserCommunityPopupComponent,
-      {
-        width: "720px",
-        disableClose: true,
-        data: { title: title, payload: data, roles: this.roles }
+    this.getItemSub = this.clientService.getUser(data.id).subscribe(successResp => {
+
+      let dialogRef: MatDialogRef<any> = this.dialog.open(
+        UserCommunityPopupComponent,
+        {
+          width: "720px",
+          disableClose: true,
+          data: { community: this.clientCommunity, selectedCommunity: successResp.content.communities }
+        }
+      );
+      dialogRef.afterClosed().subscribe(res => {
+        if (!res) {
+          // If user press cancel
+          return;
+        }
+
+        console.log(res);
+        
+
+        // let role: RoleData = new RoleData(successResp.content.role.id);
+        // let categories: CategoryData[] = [];
+        // res.forEach(element => {
+        //   categories.push(new CategoryData(element));
+        // });
+        // const req: UserCategoryUpdateReq = new UserCategoryUpdateReq(successResp.content.accountName, successResp.content.email, role, categories);
+
+        // this.loader.open();
+        // this.clientService.updateUser(data.id, req).subscribe(
+        //   response => {
+        //     this.getUsers();
+        //     this.loader.close();
+        //     this.snack.open("User Category Updated!", "OK", { duration: 4000 });
+        //   },
+        //   error => {
+        //     this.loader.close();
+        //     this.errDialog.showError({
+        //       title: "Error",
+        //       status: error.status,
+        //       type: "http_error"
+        //     });
+        //   }
+        // );
+      });
+    },
+      error => {
+        this.errDialog.showError({
+          title: "Error",
+          status: error.status,
+          type: "http_error"
+        });
       }
     );
-    dialogRef.afterClosed().subscribe(res => {
-      if (!res) {
-        // If user press cancel
-        return;
-      }
-
-      // let roles: UserRole[] = [];
-      // roles.push(new UserRole(res.role));
-      // const client: ClientData = new ClientData(this.clientId);
-      // const req: UserCreateReq = new UserCreateReq(res.username, res.password, res.email, roles, client);
-
-      // this.loader.open();
-      // if (isNew) {
-
-      //   this.clientService.addUser(req).subscribe(
-      //     response => {
-      //       this.getUsers();
-      //       this.loader.close();
-      //       this.snack.open("New User added !", "OK", { duration: 4000 });
-      //     },
-      //     error => {
-      //       this.loader.close();
-      //       this.errDialog.showError({
-      //         title: "Error",
-      //         status: error.status,
-      //         type: "http_error"
-      //       });
-      //     }
-      //   );
-      // } else {
-      //   this.clientService.updateUser(data.id, req).subscribe(
-      //     response => {
-      //       this.getUsers();
-      //       this.loader.close();
-      //       this.snack.open("User Updated!", "OK", { duration: 4000 });
-      //       // return this.users.slice();
-      //     },
-      //     error => {
-      //       this.loader.close();
-      //       this.errDialog.showError({
-      //         title: "Error",
-      //         status: error.status,
-      //         type: "http_error"
-      //       });
-      //     }
-      //   );
-      // }
-    });
   }
 
 
-  openCategoryPopUp(data: any = {}, isNew?) {
+  openCategoryPopUp(data: any = {}) {
 
-    let title = isNew ? "Add new User" : "Update User";
-    let dialogRef: MatDialogRef<any> = this.dialog.open(
-      UserCategoryPopupComponent,
-      {
-        width: "720px",
-        disableClose: true,
-        data: { title: title, payload: data, roles: this.roles }
+    this.getItemSub = this.clientService.getUser(data.id).subscribe(successResp => {
+      console.log(successResp);
+      console.log(successResp.content.role.id);
+
+      let dialogRef: MatDialogRef<any> = this.dialog.open(
+        UserCategoryPopupComponent,
+        {
+          width: "720px",
+          disableClose: true,
+          data: { category: this.clientCategory, selectedCategory: successResp.content.categories }
+        }
+      );
+      dialogRef.afterClosed().subscribe(res => {
+        if (!res) {
+          // If user press cancel
+          return;
+        }
+
+        // let role: RoleData = new RoleData(successResp.content.role.id);
+        // let categories: CategoryData[] = [];
+        // res.forEach(element => {
+        //   categories.push(new CategoryData(element));
+        // });
+        // const req: UserCategoryUpdateReq = new UserCategoryUpdateReq(successResp.content.accountName, successResp.content.email, role, categories);
+
+        // this.loader.open();
+        // this.clientService.updateUser(data.id, req).subscribe(
+        //   response => {
+        //     this.getUsers();
+        //     this.loader.close();
+        //     this.snack.open("User Category Updated!", "OK", { duration: 4000 });
+        //   },
+        //   error => {
+        //     this.loader.close();
+        //     this.errDialog.showError({
+        //       title: "Error",
+        //       status: error.status,
+        //       type: "http_error"
+        //     });
+        //   }
+        // );
+      });
+    },
+      error => {
+        this.errDialog.showError({
+          title: "Error",
+          status: error.status,
+          type: "http_error"
+        });
       }
     );
-    dialogRef.afterClosed().subscribe(res => {
-      if (!res) {
-        // If user press cancel
-        return;
-      }
-
-      // let roles: UserRole[] = [];
-      // roles.push(new UserRole(res.role));
-      // const client: ClientData = new ClientData(this.clientId);
-      // const req: UserCreateReq = new UserCreateReq(res.username, res.password, res.email, roles, client);
-
-      // this.loader.open();
-      // if (isNew) {
-
-      //   this.clientService.addUser(req).subscribe(
-      //     response => {
-      //       this.getUsers();
-      //       this.loader.close();
-      //       this.snack.open("New User added !", "OK", { duration: 4000 });
-      //     },
-      //     error => {
-      //       this.loader.close();
-      //       this.errDialog.showError({
-      //         title: "Error",
-      //         status: error.status,
-      //         type: "http_error"
-      //       });
-      //     }
-      //   );
-      // } else {
-      //   this.clientService.updateUser(data.id, req).subscribe(
-      //     response => {
-      //       this.getUsers();
-      //       this.loader.close();
-      //       this.snack.open("User Updated!", "OK", { duration: 4000 });
-      //       // return this.users.slice();
-      //     },
-      //     error => {
-      //       this.loader.close();
-      //       this.errDialog.showError({
-      //         title: "Error",
-      //         status: error.status,
-      //         type: "http_error"
-      //       });
-      //     }
-      //   );
-      // }
-    });
   }
 
 }
