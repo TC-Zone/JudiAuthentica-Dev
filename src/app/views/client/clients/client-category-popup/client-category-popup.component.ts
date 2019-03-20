@@ -7,56 +7,54 @@ import { ElementRef, ViewChild } from '@angular/core';
 import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-
+import { autoCompletableCategory } from 'app/model/ClientModel.model';
 
 @Component({
   selector: 'app-client-category-popup',
   templateUrl: './client-category-popup.component.html'
 })
 export class ClientCategoryPopupComponent implements OnInit {
-  public itemForm: FormGroup;
-  public roles: any[];
-  public formStatus = false;
-
-  visible = true;
+  // visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   categoryCtrl = new FormControl();
-  filteredCategories: Observable<string[]>;
+  allCategories: autoCompletableCategory[] = [];
+  filteredCategories: Observable<autoCompletableCategory[]>;
+  selectedCategories: autoCompletableCategory[] = [];
   categories: string[] = [];
   categoriesValue: string[] = [];
-  allCategories: string[] = [];
-  public categoriesObj;
 
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
-
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ClientCategoryPopupComponent>,
     private fb: FormBuilder,
   ) {
-    this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
-      startWith(null),
-      map((category: string | null) => category ? this._filter(category) : this.allCategories.slice()));
+    this.filteredCategories = this.categoryCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map(category => category ? this._filterCategories(category) : this.allCategories.slice())
+      );
   }
 
   ngOnInit() {
-    this.categoriesObj = this.data.category;
-    this.categoriesObj.forEach(element => {
-      this.allCategories.push(element.name);
-    });
-    this.data.selectedCategory.content.forEach(element => {
-      this.categories.push(element.name);
-      this.categoriesValue.push(element.id);
-    });
+
+    this.allCategories = JSON.parse(JSON.stringify(this.data.category));
+    this.selectedCategories = [];
+    if (this.data.selectedCategory.content.length > 0) {
+      this.data.selectedCategory.content.forEach(element => {
+        this.addSelectedCategory(element.id)
+      });
+    }
+
   }
 
   submit() {
-    this.dialogRef.close(this.itemForm.value)
+    this.dialogRef.close(this.selectedCategories);
   }
 
 
@@ -81,25 +79,32 @@ export class ClientCategoryPopupComponent implements OnInit {
     }
   }
 
-  remove(category: string): void {
-    const index = this.categories.indexOf(category);
-
-    if (index >= 0) {
-      this.categories.splice(index, 1);
-      this.categoriesValue.splice(index, 1);
-    }
-  }
-
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.categories.push(event.option.viewValue);
-    this.categoriesValue.push(event.option.value);
+    this.addSelectedCategory(event.option.value);
     this.categoryInput.nativeElement.value = '';
     this.categoryCtrl.setValue(null);
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  addSelectedCategory(id){
+    this.allCategories.forEach((item, index) => {
+      if (item.id === id) {
+        this.selectedCategories.push(item);
+        this.allCategories.splice(index, 1);
+      }
+    });
+  }
 
-    return this.allCategories.filter(category => category.toLowerCase().indexOf(filterValue) === 0);
+  remove(category: autoCompletableCategory): void {
+    this.selectedCategories.forEach((item, index) => {
+      if (item.id === category.id) {
+        this.allCategories.push(category);
+        this.selectedCategories.splice(index, 1);
+      }
+    });
+  }
+
+  private _filterCategories(value: string): autoCompletableCategory[] {
+    const filterValue = value.toLowerCase();
+    return this.allCategories.filter(category => category.name.toLowerCase().indexOf(filterValue) === 0);
   }
 }

@@ -28,28 +28,28 @@
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
           <input matInput name="communityCount" placeholder="Community Count" positiveNumberOnly
-            [formControl]="licenseFormGroup.controls['communityCount']">
+            [formControl]="licenseFormGroup.controls['communityCount']" (blur)="validateLicense()" (focus)='setOldValue()'>
         </mat-form-field>
       </div>
 
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
           <input matInput name="feedbackCount" placeholder="Feedback Count" positiveNumberOnly
-            [formControl]="licenseFormGroup.controls['feedbackCount']">
+            [formControl]="licenseFormGroup.controls['feedbackCount']" (blur)="setDefaultValue('feedbackCount')">
         </mat-form-field>
       </div>
 
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
           <input matInput name="eventkCount" placeholder="Event Count" positiveNumberOnly
-            [formControl]="licenseFormGroup.controls['eventCount']">
+            [formControl]="licenseFormGroup.controls['eventCount']" (blur)="setDefaultValue('eventCount')">
         </mat-form-field>
       </div>
 
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
           <input matInput name="promoCount" placeholder="Promo Count" positiveNumberOnly
-            [formControl]="licenseFormGroup.controls['promoCount']">
+            [formControl]="licenseFormGroup.controls['promoCount']" (blur)="setDefaultValue('promoCount')">
         </mat-form-field>
       </div>
     </div>

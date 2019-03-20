@@ -19,6 +19,7 @@ export class ClientLicenseUpdatePopupComponent implements OnInit {
   public licenseFormGroup: FormGroup;
   public formStatus = false;
   public url;
+  public oldestValue = 0;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -44,6 +45,38 @@ export class ClientLicenseUpdatePopupComponent implements OnInit {
       promoCount: [item.promoCount || '', Validators.required]
     });
 
+  }
+
+  
+  setOldValue() {
+    this.oldestValue = this.licenseFormGroup.controls['communityCount'].value;
+  }
+
+  validateLicense() {
+    let form = this.licenseFormGroup;
+    if (form.controls['communityCount'].value !== '') {
+      let value = form.controls['communityCount'].value;
+      let diff;
+
+      if (value > this.oldestValue) {
+        diff = value - this.oldestValue;
+        form.controls['feedbackCount'].setValue(+(form.get('feedbackCount').value) + diff);
+        form.controls['eventCount'].setValue(+(form.get('eventCount').value) + diff);
+        form.controls['promoCount'].setValue(+(form.get('promoCount').value) + diff);
+      }
+    } else {
+      form.controls['communityCount'].setValue(1)
+      form.controls['feedbackCount'].setValue(1)
+      form.controls['eventCount'].setValue(1)
+      form.controls['promoCount'].setValue(1)
+    }
+  }
+
+  setDefaultValue(control) {
+    let form = this.licenseFormGroup;
+    if (form.controls[control].value === '') {
+      form.controls[control].setValue(1);
+    }
   }
 
   submit() {

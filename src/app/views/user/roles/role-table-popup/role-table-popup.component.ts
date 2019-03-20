@@ -129,6 +129,8 @@ export class RoleTablePopupComponent implements OnInit {
     this.userService.getAllAuthorities()
       .subscribe(
         response => {
+          console.log(response);
+          
           this.createComponentArray(response.content);
         }
       );

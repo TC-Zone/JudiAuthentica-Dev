@@ -12,12 +12,26 @@ import { environment } from "environments/environment.prod";
 export class ProfileService {
 
   userUrl: string = environment.userApiUrl + "platform-users";
+  clientUrl: string = environment.userApiUrl + "clients";
+  licenseUrl: string = this.clientUrl + "/license";
 
   constructor(private http: HttpClient) { }
 
   updateUser(id, item): Observable<any> {
     return this.http
       .put<any>(this.userUrl +"/"+ id, item)
+      .pipe(catchError(this.handleError));
+  }
+
+  
+  getClient(id): Observable<any> {
+    return this.http.get(this.clientUrl + "/" + id).pipe(catchError(this.handleError));
+  }
+
+  
+  updateClientLicense(id, item): Observable<any> {
+    return this.http
+      .put<any>(this.licenseUrl + "/" + id, item)
       .pipe(catchError(this.handleError));
   }
 

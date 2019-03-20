@@ -117,13 +117,6 @@ export class ClientTableComponent implements OnInit, OnDestroy {
         this.errDialog.showError(error);
       }
     );
-
-
-
-
-
-
-
   }
 
 

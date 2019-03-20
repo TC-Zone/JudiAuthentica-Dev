@@ -175,37 +175,39 @@ export class CreateEventPopupComponent implements OnInit {
             reader.onload = (ev: any) => {
               const img = new Image();
               img.src = ev.target.result;
-              const widthReminder = img.width % 4;
-              const heightReminder = img.height % 3;
-              if (img.width < this.minWidth || img.height < this.minHeight) {
-                this.snackBar.open(
-                  'Please upload ' + this.minWidth + ' X ' + this.minHeight + ' size image files only',
-                  'close',
-                  { duration: 3000 }
-                );
-                this.eventForm.controls['poster'].setErrors({'incorrect': true});
-                this.currentTotalImageCount--;
-                return;
-              }
-              if (widthReminder !== 0 || heightReminder !== 0) {
-                this.snackBar.open(
-                  'Please upload ' + this.minWidth + ' X ' + this.minHeight + ' size image files only',
-                  'close',
-                  { duration: 3000 }
-                );
-                this.eventForm.controls['poster'].setErrors({'incorrect': true});
-                this.currentTotalImageCount--;
-                return;
-              }
-              this.urls.push(ev.target.result);
-              this.eventForm.controls['poster'].setErrors(null);
+              img.onload = () => {
+                const widthReminder = img.width % 4;
+                const heightReminder = img.height % 3;
+                if (img.width < this.minWidth || img.height < this.minHeight) {
+                  this.snackBar.open(
+                    'Image minimum dimension should be ' + this.minWidth + 'X' + this.minHeight,
+                    'close',
+                    { duration: 3000 }
+                  );
+                  this.eventForm.controls['poster'].setErrors({'incorrect': true});
+                  this.currentTotalImageCount--;
+                  return;
+                }
+                if (widthReminder !== 0 || heightReminder !== 0) {
+                  this.snackBar.open(
+                    'Image aspect ratio should be 4:3 (' + this.minWidth + 'X' + this.minHeight + ')',
+                    'close',
+                    { duration: 3000 }
+                  );
+                  this.eventForm.controls['poster'].setErrors({'incorrect': true});
+                  this.currentTotalImageCount--;
+                  return;
+                }
+                this.urls.push(ev.target.result);
+                this.eventForm.controls['poster'].setErrors(null);
+              };
             };
             reader.readAsDataURL(event.target.files[i]);
             this.newlySelectedFileList.push(event.target.files[i]);
             this.currentTotalImageCount++;
           } else {
             this.snackBar.open(
-              'Upload valiid images. Only PNG, JPG and JPEG are allowed!',
+              'Upload valiid images. Only PNG, JPG or JPEG are allowed!',
               'close',
               { duration: 3000 }
             );

@@ -70,8 +70,6 @@ export class ClientUpdatePopupComponent implements OnInit {
   }
 
   submit() {
-    let surl: String = this.url;
-    // surl.slice(24)
     let forms = [this.itemForm.value,this.url];
     this.dialogRef.close(forms)
   }

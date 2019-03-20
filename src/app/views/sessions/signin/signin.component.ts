@@ -25,14 +25,14 @@ export class SigninComponent implements OnInit {
 
 
   // test
-  public userId
+  public userId;
   public counter = 0;
 
   constructor(
     private userService: UserService,
     private router: Router,
     private snack: MatSnackBar
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.signinForm = new FormGroup({
@@ -99,6 +99,8 @@ export class SigninComponent implements OnInit {
       );
   }
 
+
+
   getRefreshToken(refreshTime) {
     setTimeout(() => {
       console.log('Set Time out function');
@@ -114,10 +116,10 @@ export class SigninComponent implements OnInit {
           const expireInMilliSecond = (response.expires_in - 2) * 1000;
           this.getRefreshToken(expireInMilliSecond);
         },
-        error => {
-          console.log('Refresh Token Error');
-          this.getRefreshToken(refreshTime);
-        });
+          error => {
+            console.log('Refresh Token Error');
+            this.getRefreshToken(refreshTime);
+          });
     }, refreshTime);
   }
 }

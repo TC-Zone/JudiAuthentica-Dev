@@ -68,6 +68,7 @@ export class FutureSurveyViewComponent implements OnInit {
       }
     });
   }
+
   // ........... Survey Respond view should be re architecturing with following certin Angular techniquees .............
   viewSurvey() {
     const surveyModel = new Survey.Model(this.jsonContent);

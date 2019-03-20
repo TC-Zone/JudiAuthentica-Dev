@@ -154,30 +154,32 @@ export class CreatePromotionPopupComponent implements OnInit {
             reader.onload = (ev: any) => {
               const img = new Image();
               img.src = ev.target.result;
-              const widthReminder = img.width % 4;
-              const heightReminder = img.height % 3;
-              if (img.width < this.minWidth && img.height < this.minHeight) {
-                this.snackBar.open(
-                  'Image minimum dimension should be ' + this.minWidth + 'X' + this.minHeight,
-                  'close',
-                  { duration: 3000 }
-                );
-                this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
-                this.currentTotalImageCount--;
-                return;
-              }
-              if (widthReminder !== 0 || heightReminder !== 0) {
-                this.snackBar.open(
-                  'Image aspect ratio should be 4:3 (' + this.minWidth + 'X' + this.minHeight + ')' ,
-                  'close',
-                  { duration: 3000 }
-                );
-                this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
-                this.currentTotalImageCount--;
-                return;
-              }
-              this.urls.push(ev.target.result);
-              this.promotionForm.controls['promoPoster'].setErrors(null);
+              img.onload = () => {
+                const widthReminder = img.width % 4;
+                const heightReminder = img.height % 3;
+                if (img.width < this.minWidth && img.height < this.minHeight) {
+                  this.snackBar.open(
+                    'Image minimum dimension should be ' + this.minWidth + 'X' + this.minHeight,
+                    'close',
+                    { duration: 3000 }
+                  );
+                  this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
+                  this.currentTotalImageCount--;
+                  return;
+                }
+                if (widthReminder !== 0 || heightReminder !== 0) {
+                  this.snackBar.open(
+                    'Image aspect ratio should be 4:3 (' + this.minWidth + 'X' + this.minHeight + ')' ,
+                    'close',
+                    { duration: 3000 }
+                  );
+                  this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
+                  this.currentTotalImageCount--;
+                  return;
+                }
+                this.urls.push(ev.target.result);
+                this.promotionForm.controls['promoPoster'].setErrors(null);
+              };
             };
             reader.readAsDataURL(event.target.files[i]);
             this.newlySelectedFileList.push(event.target.files[i]);

@@ -37,8 +37,11 @@ export class ClientService {
   getCategory(): Observable<any> {
     return this.http.get(this.specsUrl + "/categories").pipe(catchError(this.handleError));
   }
-  getClientCategories(id){
+  getClientCategories(id): Observable<any> {
     return this.http.get(this.clientUrl + "/categories/" + id).pipe(catchError(this.handleError));
+  }
+  getClientCommunities(id): Observable<any> {
+    return this.http.get(environment.userApiUrl + "communities/client/" + id).pipe(catchError(this.handleError));
   }
 
 
@@ -74,6 +77,10 @@ export class ClientService {
       }),
       catchError(this.handleError)
     );
+  }
+
+  getUser(id): Observable<any> {
+    return this.http.get(this.userUrl + "/" + id).pipe(catchError(this.handleError));
   }
 
   updateUser(id, item): Observable<any> {
