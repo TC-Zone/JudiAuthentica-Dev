@@ -79,6 +79,18 @@ export class InviteeInteractionViewService {
         catchError(this.handleError));
   }
 
+  getAllLangs() {
+    return this.http
+      .get<any>(this.surveyApiUrl + "surveys/langs")
+      .pipe(catchError(this.handleError));
+  }
+
+  getInvitationByUrl(origin,url): Observable<any> {
+    return this.http
+      .get<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInvitation/" + origin + "/" + url)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);
   }

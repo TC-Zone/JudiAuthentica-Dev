@@ -25,12 +25,12 @@ export const rootRouterConfig: Routes = [
         data: { title: "Interaction View" }
       },
       {
-        path: "eVote",
+        path: "eVote/:uniqueName",
         loadChildren: "./views/invitee-interaction-view/invitee-interaction-view.module#InviteeInteractionViewModule",
         data: { title: "Invitee Interaction View" }
       },
       {
-        path: "Survey",
+        path: "Survey/:uniqueName",
         loadChildren: "./views/invitee-interaction-view/invitee-interaction-view.module#InviteeInteractionViewModule",
         data: { title: "Invitee Interaction View" }
       }
