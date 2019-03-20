@@ -14,9 +14,15 @@ import { FutureSurveyCommonConfigComponent } from "./future-survey-common-config
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { FutureSurveyService } from "../future-survey.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
-import { FSCreateRequest, FSUpdateRequest } from "../../../model/FSurveyConfigRequest.model";
-import { JsonContentPart } from "../../../model/FutureSurvey.model";
-import { ClientService } from '../../client/client.service';
+import {
+  FSCreateRequest,
+  FSUpdateRequest
+} from "../../../model/FSurveyConfigRequest.model";
+import {
+  JsonContentPart,
+  DefaultLangWrapper
+} from "../../../model/FutureSurvey.model";
+import { ClientService } from "../../client/client.service";
 
 @Component({
   selector: "app-future-survey-config-popup",
@@ -42,7 +48,6 @@ export class FutureSurveyConfigPopupComponent
   // survey status error msg status
   public statusError;
 
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<FutureSurveyConfigPopupComponent>,
@@ -58,6 +63,7 @@ export class FutureSurveyConfigPopupComponent
 
   ngOnInit() {
     this.getClientSuggestions();
+    this.getAllSurveyLangs();
     this.buildConfigForm(this.data.payload);
   }
 
@@ -65,11 +71,14 @@ export class FutureSurveyConfigPopupComponent
     if (this.getClientSub) {
       this.getClientSub.unsubscribe();
     }
+    if (this.getLangsSub) {
+      this.getLangsSub.unsubscribe();
+    }
   }
 
   buildConfigForm(fieldItem) {
-
-    let isDisabled1; let isDisabled2;
+    let isDisabled1;
+    let isDisabled2;
     this.statusError = false;
 
     if (this.data.isNew) {
@@ -84,13 +93,33 @@ export class FutureSurveyConfigPopupComponent
       isDisabled2 = true;
     }
 
-    this.configForm = this.fb.group({
-      client: new FormControl({ value: fieldItem.clientId || '', disabled: isDisabled1 }, Validators.required),
-      title: new FormControl({ value: fieldItem.title || '', disabled: isDisabled2 }, Validators.required),
-      origin: new FormControl({ value: +fieldItem.origin, disabled: isDisabled2 }, Validators.required),
-      channel: new FormControl({ value: fieldItem.channel, disabled: isDisabled1 }),
-    });
+    if (!this.data.isNew) {
+      const lang = JSON.parse(fieldItem.languageJson);
+      fieldItem.languageJson = lang.def;
+    }
 
+    this.configForm = this.fb.group({
+      client: new FormControl(
+        { value: fieldItem.clientId || "", disabled: isDisabled1 },
+        Validators.required
+      ),
+      title: new FormControl(
+        { value: fieldItem.title || "", disabled: isDisabled2 },
+        Validators.required
+      ),
+      origin: new FormControl(
+        { value: +fieldItem.origin, disabled: isDisabled2 },
+        Validators.required
+      ),
+      channel: new FormControl({
+        value: fieldItem.channel,
+        disabled: isDisabled1
+      }),
+      languageJson: new FormControl({
+        value: fieldItem.languageJson,
+        disabled: isDisabled1
+      })
+    });
   }
 
   submitNew(isNew) {
@@ -98,13 +127,17 @@ export class FutureSurveyConfigPopupComponent
     let client = this.configForm.get("client").value;
     let origin = this.configForm.get("origin").value;
     let channel = this.configForm.get("channel").value;
+    let lang = this.configForm.get("languageJson").value;
 
     let jsonContent: JsonContentPart = new JsonContentPart(
+      lang,
       title,
       client,
       this.pageItem
     );
     const jsonString = JSON.stringify(JSON.stringify(jsonContent));
+    const defaultLang: DefaultLangWrapper = new DefaultLangWrapper(lang);
+    const langString = JSON.stringify(defaultLang);
 
     let fsReq;
     if (isNew) {
@@ -113,78 +146,17 @@ export class FutureSurveyConfigPopupComponent
         client,
         origin,
         channel,
+        langString,
         this.pageItem,
         jsonString
       );
     } else {
-      fsReq = new FSUpdateRequest(
-        title,
-        origin,
-        channel
-      );
+      fsReq = new FSUpdateRequest(title, origin, channel);
     }
 
-
-    console.log("FInale REQUEST :");
+    console.log("FINALE SURVEY CREATION REQUEST:");
     console.log(fsReq);
 
     this.dialogRef.close(fsReq);
   }
 }
-
-
-//  Removing invite configuration section from future survey config popup - YS - The Flash Sprint
-
-// submit(isNew) {
-//   let title = this.configForm.get("title").value;
-//   let client = this.configForm.get("client").value;
-//   let sendingReq: any;
-
-//   let jsonContent: JsonContentPart = new JsonContentPart(
-//     title,
-//     client,
-//     this.pageItem
-//   );
-//   let jsonString = JSON.stringify(jsonContent);
-
-//   let stringfiedJson = JSON.stringify(jsonString);
-
-//   let commonRoot: FSurveyConfigRequest;
-
-//   commonRoot = new FSurveyConfigRequest(
-//     this.configForm.value,
-//     stringfiedJson,
-//     this.invitees
-//   );
-
-//   let publicRequest: PublicPart;
-//   let privateRequest: PrivatePart;
-//   if (commonRoot.channel === "1") {
-//     publicRequest = new PublicPart(
-//       commonRoot.title,
-//       commonRoot.clientId,
-//       commonRoot.channel,
-//       commonRoot.jsonContent,
-//       this.pageItem
-//     );
-//     sendingReq = publicRequest;
-//   }
-//   if (commonRoot.channel === "2") {
-//     privateRequest = new PrivatePart(
-//       commonRoot.title,
-//       commonRoot.clientId,
-//       commonRoot.channel,
-//       commonRoot.jsonContent,
-//       this.pageItem,
-//       commonRoot.isPreDefined,
-//       commonRoot.inviteeGroupId,
-//       commonRoot.inviteeGroupName,
-//       commonRoot.invitees
-//     );
-//     sendingReq = privateRequest;
-//   }
-
-//   console.log(sendingReq);
-
-//   this.dialogRef.close(sendingReq);
-// }

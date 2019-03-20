@@ -1,3 +1,4 @@
+
 // Removing invite configuration section from future survey config popup - YS - The Flash Sprint
 // export class FSurveyConfigRequest {
 //   title: string;
@@ -31,6 +32,7 @@ export class FSCreateRequest {
     public clientId: string,
     public origin: string,
     public channel: string,
+    public languageJson : string,
     public pages: any[],
     public jsonContent: string
   ) {}

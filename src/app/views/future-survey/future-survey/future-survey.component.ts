@@ -15,13 +15,15 @@ import { MatSnackBar } from "@angular/material";
 
 import { LocalizationService } from "../../../shared/services/localization.service";
 import { FutureSurveyOperationalService } from "../future-survey-operational.service";
-import { ClientService } from '../../client/client.service';
+import { ClientService } from "../../client/client.service";
 import {
   FutureSurveyRequest,
   ChoiceTypeEnum,
-  MatrixTypeEnum
+  MatrixTypeEnum,
+  LangJsonWrapper
 } from "../../../model/FutureSurvey.model";
 import { AppWarningService } from "app/shared/services/app-warning/app-warning.service";
+import { DefaultLangWrapper } from "../../../model/FutureSurvey.model";
 
 widgets.icheck(SurveyKo);
 widgets.select2(SurveyKo);
@@ -37,14 +39,14 @@ widgets.autocomplete(SurveyKo);
 widgets.bootstrapslider(SurveyKo);
 
 var CkEditor_ModalEditor = {
-  afterRender: function (modalEditor, htmlElement) {
+  afterRender: function(modalEditor, htmlElement) {
     var editor = window["CKEDITOR"].replace(htmlElement);
-    editor.on("change", function () {
+    editor.on("change", function() {
       modalEditor.editingValue = editor.getData();
     });
     editor.setData(modalEditor.editingValue);
   },
-  destroy: function (modalEditor, htmlElement) {
+  destroy: function(modalEditor, htmlElement) {
     var instance = window["CKEDITOR"].instances[htmlElement.id];
     if (instance) {
       instance.removeAllListeners();
@@ -83,7 +85,7 @@ export class FutureSurveyComponent implements OnInit {
     private loc: LocalizationService,
     private FSOperationalService: FutureSurveyOperationalService,
     private appWarning: AppWarningService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.loader.open();
@@ -164,6 +166,7 @@ export class FutureSurveyComponent implements OnInit {
     let editorOptions = {
       showEmbededSurveyTab: true,
       generateValidJSON: true,
+      showTranslationTab: true, // ADDED for enable language translation tab : YRS
       questionTypes: [
         "text",
         "radiogroup",
@@ -201,7 +204,7 @@ export class FutureSurveyComponent implements OnInit {
     // Set the name property different from the default value
     // and set the tag property to a generated GUID value.
 
-    this.editor.onQuestionAdded.add(function (sender, options) {
+    this.editor.onQuestionAdded.add(function(sender, options) {
       let q = options.question;
 
       let text = "";
@@ -258,15 +261,33 @@ export class FutureSurveyComponent implements OnInit {
   }
 
   saveMySurvey = () => {
-    console.log("...........plain text............");
-    console.log(this.editor.text);
+    // console.log("...........plain text............");
+    // console.log(this.editor.text);
 
     let jsonText = JSON.stringify(this.editor.text);
     let jsonObject = JSON.parse(this.editor.text);
 
     console.log("...........after json strigfy text............");
     console.log(jsonText);
+    console.log(jsonObject);
 
+    const defLang = jsonObject.locale;
+    const langArray: any[] = this.editor.translation.koLocales._latestValue;
+
+    const extraArray: any[] = [];
+    langArray.forEach(lang => {
+      const locale = lang.locale;
+      if (locale !== "" || locale.length !== 0) {
+        extraArray.push(locale);
+      }
+    });
+
+    let langJson: any;
+    if (extraArray.length != 0) {
+      langJson = new LangJsonWrapper(defLang, extraArray);
+    } else {
+      langJson = new DefaultLangWrapper(defLang);
+    }
 
     // ---------------------------------------------------------------------------------~ HBH ~------------------
     // if anywhere in the survey has been used another language, set selected language value to text directly instead of whole value array.
@@ -274,10 +295,11 @@ export class FutureSurveyComponent implements OnInit {
     // "text": "articolo1 A" instead of "text": { "default": "item1 A", "it": "articolo1 A" }.
     // --------------------------------------------------------------------------------------------------------
 
-    jsonObject = this.FSOperationalService.validateLocalizeSurveyRequest(jsonObject);
+    jsonObject = this.FSOperationalService.validateLocalizeSurveyRequest(
+      jsonObject
+    );
 
     // --------------------------------------------------------------------------------------------------------
-
 
     if (this.validateFutureSurveyRequest(jsonObject)) {
       return;
@@ -287,6 +309,7 @@ export class FutureSurveyComponent implements OnInit {
       jsonText,
       jsonObject.title,
       jsonObject.clientId,
+      JSON.stringify(langJson),
       jsonObject.pages
     );
     this.loader.open();
@@ -363,14 +386,13 @@ export class FutureSurveyComponent implements OnInit {
       const elements = page.elements;
       let lang = null;
 
-      console.log('local 0' + jsonRequest.locale);
+      console.log("local 0" + jsonRequest.locale);
 
       if (jsonRequest.locale) {
         lang = jsonRequest.locale;
       }
 
-      console.log('lang :......' + lang);
-
+      console.log("lang :......" + lang);
 
       if (!elements) {
         clientError = "Survey should have atleast one question!";
@@ -448,9 +470,10 @@ export class FutureSurveyComponent implements OnInit {
       }
     });
 
-    console.log('.......................AFTER VALIDATION........................');
+    console.log(
+      ".......................AFTER VALIDATION........................"
+    );
     console.log(jsonRequest);
-
 
     if (clientError) {
       const warningData = {

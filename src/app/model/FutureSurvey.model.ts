@@ -4,6 +4,7 @@ export class FutureSurveyRequest {
         public jsonContent: String,
         public title: string,
         public clientId: string,
+        public languageJson: string,
         public pages: any[]
     ) { }
 }
@@ -21,9 +22,20 @@ export enum MatrixTypeEnum {
     MATRIX_DYNAMIC = "matrixdynamic"
 }
 
+// DTO class for FutureSurvey Supported Language Wrapper
+export class LangJsonWrapper{
+  constructor(public def, public extra: any){ }
+}
+
+
+// DTO class for FutureSurvey Default Language Wrapper :YRS
+export class DefaultLangWrapper{
+  constructor(public def: string) { }
+}
+
 // DTO class for FutureSurvey Config Popup
 export class JsonContentPart {
-    constructor(public title, public clientId, public pages: any) { }
+    constructor(public locale, public title, public clientId, public pages: any) { }
 }
 
 // DTO class for FutureSurvey Invitation Dashboard
@@ -65,7 +77,8 @@ export class InviteRequest {
         public inviteeGroupName: string,
         public passwordStrategy: string,
         public customFields: any[],
-        public invitees: any[]
+        public invitees: any[],
+        public publishURL: string,
     ) { }
 }
 

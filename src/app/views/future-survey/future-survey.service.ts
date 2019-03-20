@@ -15,6 +15,7 @@ import { environment } from "environments/environment.prod";
 @Injectable()
 export class FutureSurveyService {
   surveyApiUrl: string = environment.surveyApiURL;
+  frontEndBaseUrl: string = environment.frontEndBaseUrl;
   private http: HttpClient;
 
   httpOptions = {
@@ -209,6 +210,13 @@ export class FutureSurveyService {
         catchError(this.handleError)
       );
   }
+
+  getAllLangs() {
+    return this.http
+      .get<any>(this.surveyApiUrl + "surveys/langs")
+      .pipe(catchError(this.handleError));
+  }
+
 
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);

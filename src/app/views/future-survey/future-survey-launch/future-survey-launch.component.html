@@ -88,8 +88,9 @@
         </div>
       </div>
     </div>
+
     <!-- Public Shareble Link -->
-    <div *ngIf="isPublic" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+    <!-- <div *ngIf="isPublic" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <mat-form-field class="full-width">
         <input #sharebleLink [formControl]="launchForm.controls['sharebleLink']" matInput [(ngModel)]="link"
           placeholder="Get Shareble Link" />
@@ -97,7 +98,8 @@
           <mat-icon>link</mat-icon>
         </a>
       </mat-form-field>
-    </div>
+    </div> -->
+
     <!-- Csv File Headers -->
     <div *ngIf="!isPublic && csvFile !== true" id="csvHeaders" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap"
       class="mt-1">
@@ -107,6 +109,19 @@
         </mat-form-field>
       </div>
     </div>
+
+    <!-- Publish URL of Survey -->
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+        <div fxFlex="100" class="pr-1">
+          <mat-form-field class="full-width">
+              <input [formControl]="launchForm.controls['publishUrl']" matInput
+                   placeholder="Set Publish URL : {{frontEndBase}}"  pattern="^([a-zA-Z0-9_-]){3,20}$" />
+          </mat-form-field>
+        </div>
+    </div>
+
+
+
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">

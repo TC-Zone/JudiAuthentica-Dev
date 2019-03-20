@@ -8,7 +8,13 @@ import {
   DateAdapter,
   MAT_DATE_LOCALE
 } from "@angular/material";
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from "@angular/forms";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  FormControl
+} from "@angular/forms";
 import { FutureSurveyService } from "../future-survey.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
@@ -17,6 +23,8 @@ import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import { AppDataConversionService } from "app/shared/services/data-conversion.service";
 import { LoginRequest } from "../../interaction-view/interaction-view.component";
 import * as moment from "moment";
+import { CustomValidator } from "../../../shared/validation/CustomValidator";
+
 import {
   Invitee,
   ValidateRequest,
@@ -67,6 +75,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
   // email regex
   // tslint:disable-next-line:max-line-length
   public emailPattern = /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  public urlPattern = /^([a-zA-Z0-9_-]){3,20}$/;
 
   public statusArray = [
     { id: 0, status: "On Premise", style: "accent" },
@@ -92,6 +101,8 @@ export class FutureSurveyLaunchComponent implements OnInit {
   public requiredFields2: any[] = ["name", "email", "username", "password"];
   public customFields: any[] = [];
 
+  public frontEndBase: string;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<FutureSurveyLaunchComponent>,
@@ -101,13 +112,13 @@ export class FutureSurveyLaunchComponent implements OnInit {
     private errDialog: AppErrorService,
     private conversionService: AppDataConversionService,
     private loader: AppLoaderService
-  ) { }
+  ) {}
 
   ngOnInit() {
     // build form group
     let data;
     let inviteeGroup;
-    if(this.data.payload.invitation !== null){
+    if (this.data.payload.invitation !== null) {
       data = this.data.payload.invitation;
       inviteeGroup = data.inviteeGroup;
     } else {
@@ -125,13 +136,13 @@ export class FutureSurveyLaunchComponent implements OnInit {
     const surveyStatus = this.surveyObj.status;
 
     // set which status can edit details
-    if(surveyStatus !== 0){
+    if (surveyStatus !== 0) {
       this.isDisabled = true;
     }
 
-    this.buildLaunchForm(data,inviteeGroup);
+    this.buildLaunchForm(data, inviteeGroup);
 
-    this.currentStatus = this.statusArray.filter(function (status) {
+    this.currentStatus = this.statusArray.filter(function(status) {
       console.log(status);
       return status.id === surveyStatus;
     });
@@ -140,7 +151,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
     console.log(this.currentStatus[0]);
 
     if (this.isPublic) {
-      this.buildLaunchForm(data,inviteeGroup);
+      this.buildLaunchForm(data, inviteeGroup);
       console.log("SURVEY ID : " + this.surveyObj.id);
       this.link = this.futureSurveyService.getPublicSurveyLink(
         this.surveyObj.id
@@ -148,26 +159,37 @@ export class FutureSurveyLaunchComponent implements OnInit {
       console.log("The link : " + this.link);
     }
 
-    // Manage validation when select predefine invitee group
-    // this.launchForm
-    //   .get("isPredefined")
-    //   .valueChanges.subscribe(value =>
-    //     this.predefineInviteeGroupValidation(value)
-    //   );
-    // validate expire Date
+    const origin = this.surveyObj.origin == 1 ? "Survey/" : "eVote/";
+    this.frontEndBase = this.futureSurveyService.frontEndBaseUrl + origin;
+
     this.launchForm
       .get("endDate")
       .valueChanges.subscribe(value => this.validateExpireDate(value));
   }
 
-  buildLaunchForm(fieldItem,inviteeGroup) {
+  buildLaunchForm(fieldItem, inviteeGroup) {
     this.launchForm = this.fb.group({
-      startDate: new FormControl({value: fieldItem.startDate || '', disabled: this.isDisabled}, Validators.required),
-      endDate: new FormControl({value: fieldItem.endDate || '', disabled: this.isDisabled}, Validators.required),
-      userNamePasswordType: new FormControl({value: '', disabled: this.isDisabled}),
-      inviteeGroupName: new FormControl({value: inviteeGroup.inviteeGroupName || '', disabled: this.isDisabled}, Validators.required),
+      startDate: new FormControl(
+        { value: fieldItem.startDate || "", disabled: this.isDisabled },
+        Validators.required
+      ),
+      endDate: new FormControl(
+        { value: fieldItem.endDate || "", disabled: this.isDisabled },
+        Validators.required
+      ),
+      userNamePasswordType: new FormControl({
+        value: "",
+        disabled: this.isDisabled
+      }),
+      inviteeGroupName: new FormControl(
+        {
+          value: inviteeGroup.inviteeGroupName || "",
+          disabled: this.isDisabled
+        },
+        Validators.required
+      ),
       uploadCsvFile: [fieldItem.uploadCsvFile, Validators.required],
-      sharebleLink: [fieldItem.sharebleLink || ""],
+      publishUrl: [fieldItem.publishURL, Validators.required],
       csvHeaders: this.fb.array([])
     });
     this.patch(fieldItem.csvHeaders);
@@ -182,6 +204,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
     const endDate = moment(formValue.get("endDate").value).format("YYYY-MM-DD");
     const inviteeGroupName = formValue.get("inviteeGroupName").value;
     const passwordStrategy = formValue.get("userNamePasswordType").value;
+    const publishUrl = formValue.get("publishUrl").value;
 
     const sendReq: InviteRequest = new InviteRequest(
       fsId,
@@ -190,7 +213,8 @@ export class FutureSurveyLaunchComponent implements OnInit {
       inviteeGroupName,
       passwordStrategy,
       this.customFields,
-      this.invitees
+      this.invitees,
+      publishUrl
     );
     console.log("FINALE REQUEST......................");
     console.log(sendReq);
@@ -260,13 +284,12 @@ export class FutureSurveyLaunchComponent implements OnInit {
             const headersJson = fullJson[0];
             if (headersJson.length <= 7) {
               if (!this.checkRequiredHeaderExist(headersJson)) {
-
-                let errorMsg = ""
+                let errorMsg = "";
                 let arrayLength = this.missingRequiredFields.length;
                 for (let i = 0; i < arrayLength; i++) {
                   if (i === 0) {
                     errorMsg += this.missingRequiredFields[i];
-                  } else if (i === (arrayLength - 1)) {
+                  } else if (i === arrayLength - 1) {
                     errorMsg += " & " + this.missingRequiredFields[i];
                   } else {
                     errorMsg += ", " + this.missingRequiredFields[i];
@@ -277,19 +300,22 @@ export class FutureSurveyLaunchComponent implements OnInit {
                 } else {
                   errorMsg += " field is missing!";
                 }
-                this.snack.open(errorMsg, 'close', {
+                this.snack.open(errorMsg, "close", {
                   duration: 2000
                 });
-
               } else {
                 const validationResult = this.validateCSVContent(jsonCsv);
                 this.invitees = validationResult.correctSet;
                 this.createCsvFileHeaders(headersJson);
               }
             } else {
-              this.snack.open('Maximum Custom Field Count is 3! Upload again!', 'close', {
-                duration: 2000
-              });
+              this.snack.open(
+                "Maximum Custom Field Count is 3! Upload again!",
+                "close",
+                {
+                  duration: 2000
+                }
+              );
             }
           }
           this.loader.close();
@@ -341,7 +367,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
         const customField2 = line.customField2;
         const customField3 = line.customField3;
 
-        if (email != null && email != '') {
+        if (email != null && email != "") {
           correctSet.push(
             new Invitee(
               name,
@@ -451,9 +477,9 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
   // validate expire date according to start date endDate
   validateExpireDate(endDate) {
-    const startDate = this.launchForm.get('startDate').value;
-    const constEndDate = this.launchForm.get('endDate');
-    const csvFile = this.launchForm.get('uploadCsvFile');
+    const startDate = this.launchForm.get("startDate").value;
+    const constEndDate = this.launchForm.get("endDate");
+    const csvFile = this.launchForm.get("uploadCsvFile");
     if (startDate >= endDate) {
       constEndDate.setErrors({ incorrect: true });
       this.snack.open(
@@ -473,9 +499,8 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
   // check required headers exist in the csv file
   checkRequiredHeaderExist(headersArray) {
-
     this.missingRequiredFields = [];
-    const csvFile = this.launchForm.get('uploadCsvFile')
+    const csvFile = this.launchForm.get("uploadCsvFile");
 
     for (let i = 0; i < this.requiredFields2.length; i++) {
       console.log("requiredFields - " + this.requiredFields2[i]);
@@ -490,28 +515,29 @@ export class FutureSurveyLaunchComponent implements OnInit {
       csvFile.setErrors(null);
       return true;
     }
-
   }
 
   // fetch invitee group by client id
   fetchGroupsByClient() {
-    this.futureSurveyService.fetchGroupsByClientId(this.surveyObj.clientId).subscribe(
-      response => {
-        console.log('.....INVITEE GROUP....');
-        this.inviteeGroups = response.content;
-        console.log(this.inviteeGroups);
-      },
-      error => {
-        // this.loader.close();
-        this.errDialog.showError(error);
-      }
-    );
+    this.futureSurveyService
+      .fetchGroupsByClientId(this.surveyObj.clientId)
+      .subscribe(
+        response => {
+          console.log(".....INVITEE GROUP....");
+          this.inviteeGroups = response.content;
+          console.log(this.inviteeGroups);
+        },
+        error => {
+          // this.loader.close();
+          this.errDialog.showError(error);
+        }
+      );
   }
 
   // copy private shareble link
   copyInputMessage(inputElement) {
     inputElement.select();
-    document.execCommand('copy');
+    document.execCommand("copy");
     inputElement.setSelectionRange(0, 0);
   }
 
@@ -523,6 +549,4 @@ export class FutureSurveyLaunchComponent implements OnInit {
       this.requiredFields2 = ["name", "email", "username", "password"];
     }
   }
-
 }
-

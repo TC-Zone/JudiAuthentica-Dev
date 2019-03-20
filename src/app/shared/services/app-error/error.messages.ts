@@ -42,6 +42,9 @@ export const errorMessages = {
     interactLoginPostCouldNotFindRecord : '"filename" not Found!',
     deleteInteractionBySurvey : 'The record cannot be deleted!'
   },
+  invitation : {
+    publishURLduplicate : 'Publish URL is already used!'
+  },
   interaction : {
     fetchAllInteractionsInteractionsNotExists : 'Interaction does not exist!',
     fetchGroupByClientIdGroupsNotExists : 'Group does not exist!',

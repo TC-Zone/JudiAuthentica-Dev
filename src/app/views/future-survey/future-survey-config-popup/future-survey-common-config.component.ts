@@ -6,7 +6,7 @@ import { AppErrorService } from "../../../shared/services/app-error/app-error.se
 import { MatSnackBar } from "@angular/material";
 import { FutureSurveyService } from "../future-survey.service";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
-import { ClientService } from '../../client/client.service';
+import { ClientService } from "../../client/client.service";
 
 @Component({
   selector: "app-future-survey-common-config",
@@ -23,9 +23,12 @@ export class FutureSurveyCommonConfigComponent implements OnInit {
   public inviteeGroups: any[];
 
   public getClientSub: Subscription;
+  public getLangsSub: Subscription;
 
   // store all the clients to assign client for survey - YRS
   public clients: any[];
+  // store all the languages supports future survey module - YRS
+  public langs: any[];
 
   public surveyOriginArr = [
     { id: 2, name: "E-Vote" },
@@ -58,6 +61,15 @@ export class FutureSurveyCommonConfigComponent implements OnInit {
       .getClientsSuggestions()
       .subscribe(data => {
         this.clients = data.content;
+      });
+  }
+
+  // load all the languages
+  getAllSurveyLangs() {
+    this.getLangsSub = this.futureSurveyService
+      .getAllLangs()
+      .subscribe(data => {
+        this.langs = data.content;
       });
   }
 }
