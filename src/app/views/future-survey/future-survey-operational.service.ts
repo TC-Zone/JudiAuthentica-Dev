@@ -28,7 +28,7 @@ export class FutureSurveyOperationalService {
     }
 
     if (jsonObject.title !== undefined && typeof (jsonObject.title) !== "string" && lang) {
-      this.checkLang(jsonObject.title);
+      this.checkLang(jsonObject.title, lang);
       if (jsonObject.title.hasOwnProperty(lang)) {
         jsonObject.title = jsonObject.title[lang];
       } else {
@@ -45,7 +45,7 @@ export class FutureSurveyOperationalService {
 
           // ...... Validation Rules for all  Question Type Titles
           if (element.title !== undefined && typeof (element.title) !== "string" && lang) {
-            this.checkLang(element.title);
+            this.checkLang(element.title, lang);
             if (element.title.hasOwnProperty(lang)) {
               element.title = element.title[lang];
             } else {
@@ -62,7 +62,7 @@ export class FutureSurveyOperationalService {
             if (choices) {
               choices.forEach(choice => {
                 if (choice.text !== undefined && typeof (choice.text) !== "string" && lang) {
-                  this.checkLang(choice.text);
+                  this.checkLang(choice.text, lang);
                   if (choice.text.hasOwnProperty(lang)) {
                     choice.text = choice.text[lang];
                   } else {
@@ -80,7 +80,7 @@ export class FutureSurveyOperationalService {
             if (columns) {
               columns.forEach(col => {
                 if (col.text !== undefined && typeof (col.text) !== "string" && lang) {
-                  this.checkLang(col.text);
+                  this.checkLang(col.text, lang);
                   if (col.text.hasOwnProperty(lang)) {
                     col.text = col.text[lang];
                   } else {
@@ -93,7 +93,7 @@ export class FutureSurveyOperationalService {
             if (rows) {
               rows.forEach(row => {
                 if (row.text !== undefined && typeof (row.text) !== "string" && lang) {
-                  this.checkLang(row.text);
+                  this.checkLang(row.text, lang);
                   if (row.text.hasOwnProperty(lang)) {
                     row.text = row.text[lang];
                   } else {
@@ -114,11 +114,19 @@ export class FutureSurveyOperationalService {
   }
 
 
-  checkLang(array) {
+  checkLang(array, lang) {
     for (const key in array) {
       if (key !== 'default' && (this.extraLang.indexOf(key) == -1)) {
         this.extraLang.push(key)
       }
+
+      // -------------------------------------------------------
+      // not tested properly 
+      else if (lang !== 'default' && key === 'default' && array.hasOwnProperty(lang)) {
+        this.extraLang.push('en')
+      }
+      // -------------------------------------------------------
+
     }
   }
 
