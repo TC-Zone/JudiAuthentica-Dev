@@ -44,6 +44,7 @@ export class InviteeInteractionViewComponent implements OnInit {
   public langs: surveyLanguage[] = [];
   public supportLangs: surveyLanguage[] = [];
   public defaultLang: surveyLanguage;
+  public currentLang: surveyLanguage;
 
   public getLangsSub: Subscription;
   public originMap = new Map();
@@ -68,6 +69,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     const currentUrl = this.route.url;
     const urlArr: any[] = currentUrl.substring(1).split("/", 2);
     const originStr = urlArr[0];
+    this.origin = originStr;
 
     this.inviteeInteractionViewService
       .getInvitationByUrl(this.originMap.get(originStr), this.publishUrl)
@@ -79,6 +81,7 @@ export class InviteeInteractionViewComponent implements OnInit {
         this.buildSupportLangArray(this.langJson);
         console.log(this.supportLangs);
         console.log(JSON.stringify(this.supportLangs));
+        this.changeDefaultLang();
       });
   }
 
@@ -102,6 +105,7 @@ export class InviteeInteractionViewComponent implements OnInit {
       if (this.langJson.extra.indexOf(element.code) > -1 || langJson.def === element.code) {
         if (langJson.def === element.code) {
           this.defaultLang = element;
+          this.currentLang = element;
         }
         if (this.supportLangs.indexOf(element) == -1) {
           this.supportLangs.push(element);
@@ -139,7 +143,7 @@ export class InviteeInteractionViewComponent implements OnInit {
   }
 
   changeDefaultLang() {
-    localStorage.setItem("surveySelectedLang", JSON.stringify(this.defaultLang));
+    localStorage.setItem("surveySelectedLang", JSON.stringify(this.currentLang));
   }
 
   doLog() {
@@ -189,14 +193,6 @@ export class InviteeInteractionViewComponent implements OnInit {
             });
             console.log(this.customFields);
             console.log(this.customField);
-
-            if (loggedInteraction.futureSurvey.origin === "1") {
-              this.origin = "Survey";
-              window.history.replaceState({}, "", "/Survey");
-            } else if (loggedInteraction.futureSurvey.origin === "2") {
-              this.origin = "E-Vote";
-              window.history.replaceState({}, "", "/eVote");
-            }
 
             this.getSurveyData(this.interactionId);
             // this.retrieveSurvey(this.surveyId);
@@ -273,6 +269,9 @@ export class InviteeInteractionViewComponent implements OnInit {
       });
     });
 
+    
+    
+
     console.log(
       "------------- After - jsonContentJSON.pages -----------------"
     );
@@ -282,6 +281,11 @@ export class InviteeInteractionViewComponent implements OnInit {
 
     this.surveyModel = new Survey.Model(jsonContent);
     Survey.StylesManager.applyTheme("bootstrap");
+
+    console.log(localStorage.getItem('surveySelectedLang'));
+    this.surveyModel.locale = JSON.parse(localStorage.getItem('surveySelectedLang')).code;
+   // console.log(this.surveyModel);
+    
 
     let resultArray = [];
     let interactionId = this.interactionId;
