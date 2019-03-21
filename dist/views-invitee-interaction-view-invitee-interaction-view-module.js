@@ -629,7 +629,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var InjectorInstance2;
 // AoT requires an exported function for factories
 function HttpLoaderFactory(httpClient) {
-    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_10__["TranslateHttpLoader"](httpClient, './../../../assets/i18n/interaction-view/');
+    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_10__["TranslateHttpLoader"](httpClient, './assets/i18n/interaction-view/', '.json');
 }
 var InviteeInteractionViewModule = /** @class */ (function () {
     function InviteeInteractionViewModule(injector) {
