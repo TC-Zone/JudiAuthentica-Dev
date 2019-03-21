@@ -4,9 +4,8 @@ import { InviteeInteractionViewService } from "./invitee-interaction-view.servic
 import * as Survey from "survey-angular";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AppErrorService } from "../../shared/services/app-error/app-error.service";
-import { element } from "protractor";
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { FutureSurveyService } from "../future-survey/future-survey.service";
+import { ActivatedRoute, Router } from "@angular/router";
+
 import { Subscription } from "rxjs";
 
 @Component({
@@ -43,8 +42,9 @@ export class InviteeInteractionViewComponent implements OnInit {
   public langs: any[];
   public getLangsSub: Subscription;
   public originMap = new Map();
-  public langJson : any;
-
+  public langJson: any;
+  public supportLangs: any[] = [];
+  public defaultLang: any;
 
   constructor(
     private inviteeInteractionViewService: InviteeInteractionViewService,
@@ -55,17 +55,16 @@ export class InviteeInteractionViewComponent implements OnInit {
   ) {
     this.originMap.set("Survey", "1");
     this.originMap.set("eVote", "2");
-  }
 
-  ngOnInit() {
     this.getAllSurveyLangs();
+
     this.activeRoute.params.subscribe(params => {
       this.publishUrl = params["uniqueName"];
     });
 
-    let currentUrl = this.route.url;
-    let urlArr: any[] = currentUrl.substring(1).split("/", 2);
-    let originStr = urlArr[0];
+    const currentUrl = this.route.url;
+    const urlArr: any[] = currentUrl.substring(1).split("/", 2);
+    const originStr = urlArr[0];
 
     this.inviteeInteractionViewService
       .getInvitationByUrl(this.originMap.get(originStr), this.publishUrl)
@@ -74,11 +73,17 @@ export class InviteeInteractionViewComponent implements OnInit {
         console.log(data.content);
         this.langJson = JSON.parse(data.content.futureSurvey.languageJson);
         console.log(this.langJson);
+        this.buildSupportLangArray(this.langJson);
+        console.log(this.supportLangs);
+        console.log(JSON.stringify(this.supportLangs));
       });
+  }
 
+  ngOnInit() {
     this.interactForm = this.fb.group({
       username: ["", Validators.required],
-      password: ["", Validators.required]
+      password: ["", Validators.required],
+      language: [""]
     });
     this.showLogin = true;
   }
@@ -87,6 +92,26 @@ export class InviteeInteractionViewComponent implements OnInit {
     if (this.getLangsSub) {
       this.getLangsSub.unsubscribe();
     }
+  }
+
+  buildSupportLangArray(langJson): any[] {
+    this.defaultLang = this.langs.filter(obj => {
+      return obj.code === langJson.def;
+    });
+
+    this.supportLangs.push(this.defaultLang);
+
+    if (langJson.extra) {
+      langJson.extra.forEach(langCode => {
+        const lang = this.langs.filter(obj => {
+          return obj.code === langCode;
+        });
+
+        this.supportLangs.push(lang);
+      });
+    }
+
+    return this.supportLangs;
   }
 
   // load all the languages

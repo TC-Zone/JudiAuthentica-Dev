@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { InviteeInteractionViewComponent } from "./invitee-interaction-view.component";
 import { RouterModule } from "@angular/router";
 import { InviteeInteractionViewRoute } from "./invitee-interaction-view.routing";
-import { MatCardModule, MatToolbarModule, MatFormFieldModule, MatInputModule, MatButtonModule } from "@angular/material";
+import { MatCardModule, MatToolbarModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule } from "@angular/material";
 import { InviteeInteractionViewService } from "./invitee-interaction-view.service";
 import { FutureSurveyService } from '../future-survey/future-survey.service';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -20,6 +20,7 @@ export let InjectorInstance2: Injector;
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
+    MatSelectModule,
     RouterModule.forChild(InviteeInteractionViewRoute)
   ],
   providers: [InviteeInteractionViewService, FutureSurveyService]
