@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 
 import { Subscription } from "rxjs";
 import { surveyLanguage } from "app/model/FutureSurvey.model";
+import { lang } from "moment";
 
 @Component({
   selector: "app-invitee-interaction-view",
@@ -41,14 +42,12 @@ export class InviteeInteractionViewComponent implements OnInit {
   // Initial Login Screen values store variables
   public publishUrl: string;
   public langs: surveyLanguage[] = [];
-  public supportLangsTest: surveyLanguage[] = [];
-  public defaultLangTest: surveyLanguage;
+  public supportLangs: surveyLanguage[] = [];
+  public defaultLang: surveyLanguage;
 
   public getLangsSub: Subscription;
   public originMap = new Map();
   public langJson: any;
-  public supportLangs: any[] = [];
-  public defaultLang: any;
 
   constructor(
     private inviteeInteractionViewService: InviteeInteractionViewService,
@@ -78,7 +77,6 @@ export class InviteeInteractionViewComponent implements OnInit {
         this.langJson = JSON.parse(data.content.futureSurvey.languageJson);
         console.log(this.langJson);
         this.buildSupportLangArray(this.langJson);
-        // this.buildSupportLangArrayTest(this.langJson);
         console.log(this.supportLangs);
         console.log(JSON.stringify(this.supportLangs));
       });
@@ -99,37 +97,37 @@ export class InviteeInteractionViewComponent implements OnInit {
     }
   }
 
-  buildSupportLangArray(langJson): any[] {
-    this.defaultLang = this.langs.filter(obj => {
-      return obj.code === langJson.def;
+  buildSupportLangArray(langJson) {
+    this.langs.forEach(element => {
+      if (this.langJson.extra.indexOf(element.code) > -1 || langJson.def === element.code) {
+        if (langJson.def === element.code) {
+          this.defaultLang = element;
+        }
+        if (this.supportLangs.indexOf(element) == -1) {
+          this.supportLangs.push(element);
+        }
+      }
     });
-
-    this.supportLangs.push(this.defaultLang);
-
-    if (langJson.extra) {
-      langJson.extra.forEach(langCode => {
-        const lang = this.langs.filter(obj => {
-          return obj.code === langCode;
-        });
-
-        this.supportLangs.push(lang);
-      });
-    }
-
-    return this.supportLangs;
   }
 
-
-  // buildSupportLangArrayTest(langJson) {
-  //   this.defaultLangTest = this.langs.filter(obj => {
+  // buildSupportLangArray(langJson): any[] {
+  //   this.defaultLang = this.langs.filter(obj => {
   //     return obj.code === langJson.def;
   //   });
+  //   this.supportLangs.push(this.defaultLang);
+  //   this.currentLang = this.defaultLang[0].id;
+  //   if (langJson.extra) {
+  //     langJson.extra.forEach(langCode => {
+  //       const lang = this.langs.filter(obj => {
+  //         return obj.code === langCode;
+  //       });
+  //       if (this.supportLangs.indexOf(lang) == -1) {
+  //         this.supportLangs.push(lang);
+  //       }
+  //     });
+  //   }
+  //   return this.supportLangs;
   // }
-
-  
-  private _filterLanguage(value: string): surveyLanguage[] {
-    return this.langs.filter(lang=> lang.code.indexOf(value) === 0);
-  }
 
   // load all the languages
   getAllSurveyLangs() {
@@ -138,7 +136,10 @@ export class InviteeInteractionViewComponent implements OnInit {
       .subscribe(data => {
         this.langs = JSON.parse(JSON.stringify(data.content));
       });
+  }
 
+  changeDefaultLang() {
+    localStorage.setItem("surveySelectedLang", JSON.stringify(this.defaultLang));
   }
 
   doLog() {

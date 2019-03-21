@@ -20,16 +20,17 @@
           <mat-card-content>
             <h6 *ngIf="loginError" class="m-1 form-error-msg"> {{loginErrorMsg}} </h6>
             <mat-form-field class="full-width">
-              <input type="text" name="username" matInput placeholder="Username" value="" [formControl]="interactForm.controls['username']"
-                required name="username">
+              <input type="text" name="username" matInput placeholder="Username" value=""
+                [formControl]="interactForm.controls['username']" required name="username">
             </mat-form-field>
 
             <mat-form-field class="full-width">
-              <input type="password" name="password" matInput placeholder="Password" value="" [formControl]="interactForm.controls['password']"
-                required name="password">
+              <input type="password" name="password" matInput placeholder="Password" value=""
+                [formControl]="interactForm.controls['password']" required name="password">
             </mat-form-field>
 
-            <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()" [disabled]="interactForm.invalid">Login
+            <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()"
+              [disabled]="interactForm.invalid">Login
               to Survey</button>
           </mat-card-content>
         </div>
@@ -42,9 +43,8 @@
                 <mat-label>Select your Language</mat-label>
               </div>
               <div class="col-sm-4">
-                <mat-select >
-                  <mat-option>English</mat-option>
-                  <mat-option *ngFor="let lang of supportLangs" >{{lang.name}}</mat-option>
+                <mat-select [(value)]="defaultLang" (selectionChange)='changeDefaultLang()'>
+                  <mat-option *ngFor="let lang of supportLangs" [value]="lang">{{lang.name}}</mat-option>
                 </mat-select>
               </div>
             </div>
