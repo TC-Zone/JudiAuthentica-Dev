@@ -14,5 +14,12 @@
   "SUBMITEVOTE": "提交電子投票",
   "ANSWERLATER": "稍後回答",
   "POWEREDBY": "供電",
-  "SELECTLANGUAGE": "選擇你的語言"
+  "SELECTLANGUAGE": "選擇你的語言",
+  "ANSWERLATERMSGSURVEY": "您正試圖稍後回答調查",
+  "ANSWERLATERMSGEVOTE": "您正試圖稍後回答電子投票",
+  "SUBMITMSGSURVEY": "您已完成調查",
+  "SUBMITMSGEVOTE": "您已完成電子投票",
+  "COMPLETEMSGSURVEY": "調查已完成，單擊“提交調查”以完成",
+  "COMPLETEMSGEVOTE": "電子投票已完成，點擊提交電子投票即可完成",
+  "THANKYOU": "謝謝"
 }

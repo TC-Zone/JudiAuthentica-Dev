@@ -14,5 +14,12 @@
   "SUBMITEVOTE": "提交电子投票",
   "ANSWERLATER": "稍后回答",
   "POWEREDBY": "稍后回答",
-  "SELECTLANGUAGE": "选择你的语言"
+  "SELECTLANGUAGE": "选择你的语言",
+  "ANSWERLATERMSGSURVEY": "您正试图稍后回答调查",
+  "ANSWERLATERMSGEVOTE": "您正试图稍后回答电子投票",
+  "SUBMITMSGSURVEY": "您已完成调查",
+  "SUBMITMSGEVOTE": "您已完成电子投票",
+  "COMPLETEMSGSURVEY": "调查已完成，单击“提交调查”以完成",
+  "COMPLETEMSGEVOTE": "电子投票已完成，点击提交电子投票即可完成",
+  "THANKYOU": "谢谢"
 }
