@@ -76,7 +76,8 @@
     <div class="survey-form-hold">
       <mat-card id="finishedSurveyMsg" class="survey-mat-card">
         <mat-card-content>
-          <h5>{{ 'THE' | translate }} {{origin}} {{ 'PRVSUB' | translate }} </h5>
+          <h5 *ngIf="origin === 'Survey'">{{ 'THESURVEYPRVSUB' | translate }}</h5>
+          <h5 *ngIf="origin !== 'Survey'">{{ 'THEEVOTEPRVSUB' | translate }}</h5>
           <h6>{{ 'SUMMERYTEXT' | translate }}</h6>
         </mat-card-content>
       </mat-card>
@@ -94,8 +95,8 @@
     <div class="pb-1" style="text-align: center">
       <a id="btnViewSummary" mat-raised-button class="mr-1" (click)="viewSummary()">{{ 'VIEWSUMMERY' | translate }}</a>
       <a id="btnViewSurvey" mat-raised-button class="mr-1" (click)="viewSurvey()">{{ 'EDIT' | translate }} {{origin}}</a>
-      <a id="btnSubmitSurvey" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">{{ 'SUBMIT' | translate }}
-        {{origin}}</a>
+      <a id="btnSubmitSurvey" *ngIf="origin ==='Survey'" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">{{ 'SUBMITSURVEY' | translate }}</a>
+      <a id="btnSubmitSurvey" *ngIf="origin !=='Survey'" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">{{ 'SUBMITEVOTE' | translate }}</a>
       <a id="btnAnswerLater" mat-raised-button color="primary" class="mr-1" (click)="answerLater()">{{ 'ANSWERLATER' | translate }}</a>
     </div>
 

@@ -273,8 +273,8 @@ export class InviteeInteractionViewComponent implements OnInit {
       });
     });
 
-    
-    
+
+
 
     console.log(
       "------------- After - jsonContentJSON.pages -----------------"
@@ -289,7 +289,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     console.log(localStorage.getItem('surveySelectedLang'));
     this.surveyModel.locale = JSON.parse(localStorage.getItem('surveySelectedLang')).code;
    // console.log(this.surveyModel);
-    
+
 
     let resultArray = [];
     let interactionId = this.interactionId;
