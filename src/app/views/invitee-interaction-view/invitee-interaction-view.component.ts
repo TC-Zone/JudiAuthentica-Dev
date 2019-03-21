@@ -147,6 +147,7 @@ export class InviteeInteractionViewComponent implements OnInit {
 
   changeDefaultLang() {
     localStorage.setItem("surveySelectedLang", JSON.stringify(this.currentLang));
+    this.translateService.use(this.currentLang.code);
   }
 
   doLog() {
