@@ -12,7 +12,7 @@ import { MatDialog, MatDialogRef, MatSnackBar } from "@angular/material";
 import { FutureSurveyConfigPopupComponent } from "../future-survey-config-popup/future-survey-config-popup.component";
 import { FutureSurveyLaunchComponent } from "../future-survey-launch/future-survey-launch.component";
 import { FutureSurveyInvitationLaunchComponent } from "../future-survey-invitation-launch/future-survey-invitation-launch.component";
-import { ClientService } from '../../client/client.service';
+import { ClientService } from "../../client/client.service";
 
 @Component({
   selector: "app-future-survey-list",
@@ -43,7 +43,7 @@ export class FutureSurveyListComponent implements OnInit {
     private errDialog: AppErrorService,
     private dialog: MatDialog,
     private snack: MatSnackBar
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getAllFutureSurveys();
@@ -126,7 +126,6 @@ export class FutureSurveyListComponent implements OnInit {
   }
 
   openInvitationPopup(data, channel?, isNew?) {
-
     console.log(isNew);
 
     let isPublic = channel == 1 ? true : false;
@@ -156,7 +155,7 @@ export class FutureSurveyListComponent implements OnInit {
         launchText = " Uploading Invitee Records....";
       }
 
-      // this.loader.open(launchText);
+      this.loader.open(launchText);
 
       if (isNew) {
         console.log("create NEW INVITE SETTING!");
@@ -246,7 +245,6 @@ export class FutureSurveyListComponent implements OnInit {
         this.futureSurveys = data.content;
       });
   }
-
 
   getAllClients() {
     this.getClientSub = this.clientService2.getClients().subscribe(data => {
