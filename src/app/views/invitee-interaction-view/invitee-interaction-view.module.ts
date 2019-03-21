@@ -7,8 +7,16 @@ import { MatCardModule, MatToolbarModule, MatFormFieldModule, MatInputModule, Ma
 import { InviteeInteractionViewService } from "./invitee-interaction-view.service";
 import { FutureSurveyService } from '../future-survey/future-survey.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 
 export let InjectorInstance2: Injector;
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(httpClient: HttpClient) {
+  return new TranslateHttpLoader(httpClient, './../../../assets/i18n/interaction-view/');
+}
 
 @NgModule({
   declarations: [InviteeInteractionViewComponent],
@@ -21,6 +29,14 @@ export let InjectorInstance2: Injector;
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     RouterModule.forChild(InviteeInteractionViewRoute)
   ],
   providers: [InviteeInteractionViewService, FutureSurveyService]

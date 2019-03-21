@@ -5,7 +5,7 @@ import { ChoiceTypeEnum, MatrixTypeEnum, LangJsonWrapper, ValidateLocalizeSurvey
 export class FutureSurveyOperationalService {
 
   public surveyLang;
-  public defLang = '';
+  public defLang = 'en';
   public extraLang = [];
 
   constructor() { }
@@ -24,7 +24,7 @@ export class FutureSurveyOperationalService {
       this.defLang = lang;
     } else {
       lang = "default";
-      this.defLang = '';
+      this.defLang = 'en';
     }
 
     if (jsonObject.title !== undefined && typeof (jsonObject.title) !== "string" && lang) {
