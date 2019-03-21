@@ -42,7 +42,7 @@
                 <mat-label>{{ 'SELECTLANGUAGE' | translate }}</mat-label>
               </div>
               <div class="col-sm-4">
-                <mat-select [(value)]="defaultLang" #langSelect (selectionChange)='changeDefaultLang(); translateService.use(langSelect.value.code)'>
+                <mat-select [(value)]="defaultLang" #langSelect (selectionChange)='changeDefaultLang(); this.translateService.use(langSelect.value.code)'>
                   <mat-option *ngFor="let lang of supportLangs" [value]="lang">{{lang.name}}</mat-option>
                 </mat-select>
               </div>
