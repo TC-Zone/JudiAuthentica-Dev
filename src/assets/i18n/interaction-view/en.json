@@ -1,15 +1,16 @@
 {
-  "SURVEYSIGNIFORMHEADER": "Welcome, Please Signin to your Account.",
+  "SURVEYSIGNIFORMHEADER": "Welcome, Please Sign Into your Account.",
   "USERNAME": "Username",
   "PASSWORD": "Password",
   "LOGINBUTTON": "Login to Survey",
   "HI": "Hi",
   "THE": "The",
   "PRVSUB": "is Previously Submitted ",
-  "SUMMERYTEXT": "Summary is provided bellow",
+  "SUMMERYTEXT": "Summary is provided below",
   "VIEWSUMMERY": "View Summary",
   "EDIT": "Edit",
   "SUBMIT": "Submit",
   "ANSWERLATER": "Answer Later",
-  "POWEREDBY": "Powered by"
+  "POWEREDBY": "Powered by",
+  "SELECTLANGUAGE": "Select your Language"
 }

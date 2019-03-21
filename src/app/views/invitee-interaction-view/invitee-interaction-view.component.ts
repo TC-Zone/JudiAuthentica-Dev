@@ -56,7 +56,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     private errDialog: AppErrorService,
     private activeRoute: ActivatedRoute,
     private route: Router,
-    private translateService: TranslateService
+    public translateService: TranslateService
   ) {
     this.originMap.set("Survey", "1");
     this.originMap.set("eVote", "2");
