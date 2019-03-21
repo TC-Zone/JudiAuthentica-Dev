@@ -93,9 +93,10 @@ export class FutureSurveyConfigPopupComponent
       isDisabled2 = true;
     }
 
+    let defLang = "";
     if (!this.data.isNew) {
       const lang = JSON.parse(fieldItem.languageJson);
-      fieldItem.languageJson = lang.def;
+      defLang = lang.def;
     }
 
     this.configForm = this.fb.group({
@@ -116,7 +117,7 @@ export class FutureSurveyConfigPopupComponent
         disabled: isDisabled1
       }),
       languageJson: new FormControl({
-        value: fieldItem.languageJson,
+        value: defLang,
         disabled: isDisabled1
       })
     });

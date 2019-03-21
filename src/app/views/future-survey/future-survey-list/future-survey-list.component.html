@@ -67,9 +67,9 @@
                 </button>
 
 
-                <button mat-menu-item (click)="openPopupValidator(row)">
-                  <mat-icon>flight_takeoff</mat-icon>Launch Pad
-                </button>
+              <button mat-icon-button mat-sm-button class="mr-1" (click)="openConfigPopup(row,false)">
+                <mat-icon>edit</mat-icon>
+              </button>
 
                 <button mat-menu-item (click)="openConfigPopup(row)">
                   <mat-icon>edit</mat-icon>Edit
