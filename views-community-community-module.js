@@ -13084,7 +13084,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"communityForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"communityForm.controls['name']\" letterOnly placeholder=\"Community Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"communityForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-slide-toggle [formControl]=\"communityForm.controls['status']\">Activate Community</mat-slide-toggle>\r\n      </div>\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" (click)=\"submitCommunityForm()\" [disabled]=\"communityForm.invalid\">Save</button>\r\n          <span fxFlex></span>\r\n          <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n        </div>\r\n      </div>\r\n  </mat-dialog-content>\r\n</form>\r\n"
+module.exports = "<form [formGroup]=\"communityForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"communityForm.controls['name']\" letterOnly placeholder=\"Community Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"communityForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\" *ngIf=\"!data.isNew\">\r\n        <mat-slide-toggle [formControl]=\"communityForm.controls['status']\">Activate Community</mat-slide-toggle>\r\n      </div>\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" (click)=\"submitCommunityForm()\" [disabled]=\"communityForm.invalid\">Save</button>\r\n          <span fxFlex></span>\r\n          <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n        </div>\r\n      </div>\r\n  </mat-dialog-content>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -13291,13 +13291,14 @@ var CommunityViewComponent = /** @class */ (function () {
     CommunityViewComponent.prototype.communityPopUp = function (data, isNew) {
         var _this = this;
         if (data === void 0) { data = {}; }
-        if (this.quotaExpire) {
+        if (this.quotaExpire && isNew) {
             var infoData = {
                 title: 'License',
-                message: 'Allocated Community Limit Exceded. Do you want to Activate More?',
+                message: 'You subscribed number of communities have expired!</br>' +
+                    '<small class="text-muted">Do you like to extend the plan?</small>',
                 linkData: {
-                    url: '#',
-                    buttonText: 'Activate'
+                    url: 'https://www.google.com/gmail/',
+                    buttonText: 'Extend'
                 }
             };
             this.appInfoService.showInfo(infoData);
@@ -13333,30 +13334,10 @@ var CommunityViewComponent = /** @class */ (function () {
                                 .subscribe(function (response) {
                                 var tempRes = response;
                                 _this.quotaExpire = tempRes.content.expired;
+                                _this.quota = tempRes.content.quota;
                                 if (!tempRes.content.expired) {
                                     _this.loader.close();
-                                    if (tempRes.content.usage < (tempRes.content.quota - 1) && (tempRes.content.quota - tempRes.content.usage) === 2) {
-                                        _this.appWarningService.showWarning({
-                                            title: 'License',
-                                            message: 'One Community Remaining!'
-                                        });
-                                        _this.createCommunity(res);
-                                    }
-                                    else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
-                                        var infoData = {
-                                            title: 'License',
-                                            message: 'Allocated communities are finished. Do you want to activate more?',
-                                            linkData: {
-                                                url: '#',
-                                                buttonText: 'Activate'
-                                            }
-                                        };
-                                        _this.appInfoService.showInfo(infoData);
-                                        _this.createCommunity(res);
-                                    }
-                                    else {
-                                        _this.createCommunity(res);
-                                    }
+                                    _this.createCommunity(res, tempRes.content.usage, tempRes.content.quota);
                                 }
                             });
                         }
@@ -13390,7 +13371,7 @@ var CommunityViewComponent = /** @class */ (function () {
     * 05-03-2019
     * Prasad Kumara
     */
-    CommunityViewComponent.prototype.createCommunity = function (res) {
+    CommunityViewComponent.prototype.createCommunity = function (res, usage, tempQuoata) {
         var _this = this;
         this.comunityService.createCommunity(res)
             .subscribe(function (response) {
@@ -13408,9 +13389,28 @@ var CommunityViewComponent = /** @class */ (function () {
                 _this.quotaExpire = true;
             }
             _this.loader.close();
+            if (usage < (tempQuoata - 1) && (tempQuoata - usage) === 2) {
+                _this.appWarningService.showWarning({
+                    title: 'License',
+                    message: 'Your subscription plan is about to expire!</br>One more community remaining!'
+                });
+            }
+            else if (usage < tempQuoata && (tempQuoata - usage) === 1) {
+                var infoData = {
+                    title: 'License',
+                    message: 'You subscribed number of communities have expired!</br>' +
+                        '<small class="text-muted">Do you like to extend the plan?</small>',
+                    linkData: {
+                        url: 'https://www.google.com/gmail/',
+                        buttonText: 'Extend'
+                    }
+                };
+                _this.appInfoService.showInfo(infoData);
+            } // else {
             _this.snack.open('New Community Created', 'close', {
                 duration: 2000
             });
+            // }
         }, function (error) {
             _this.loader.close();
             if (error.status !== 401) {
@@ -13846,6 +13846,14 @@ var ComunityService = /** @class */ (function () {
         this.userApiUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_1__["environment"].userApiUrl;
     }
     /*
+      * Get download url for events
+      * 18-03-2019
+      * Raveen Sankalpa
+      */
+    ComunityService.prototype.getPosterDownloadUrl = function () {
+        return this.userApiUrl + "downloads/event/";
+    };
+    /*
     * Create community
     * 05-03-2019
     * Prasad Kumara
@@ -14018,7 +14026,7 @@ var UserCommunityComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"eventForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"eventForm.controls['name']\" placeholder=\"Event Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"eventForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <!-- <input matInput name=\"startDateTime\" [min]=\"startDateMin\" [max]=\"startDateMax\" (dateChange)=\"validateDatePickerMinMax()\" [matDatepicker]=\"picker1\" [formControl]=\"eventForm.controls['startDateTime']\" required placeholder=\"Start Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker1\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker1></mat-datepicker> -->\r\n          <input matInput name=\"startDateTime\" [min]=\"startDateMin\" (ngModelChange)=\"validateDatePickerMinMax()\"\r\n            [max]=\"startDateMax\" [owlDateTime]=\"picker1\" [owlDateTimeTrigger]=\"picker1\"\r\n            [formControl]=\"eventForm.controls['startDateTime']\" required placeholder=\"Start Date\">\r\n          <button [owlDateTimeTrigger]=\"picker1\" mat-icon-button matSuffix>\r\n            <mat-icon>keyboard_arrow_down</mat-icon>\r\n          </button>\r\n          <owl-date-time #picker1></owl-date-time>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <!-- <input matInput name=\"endDateTime\" [min]=\"endDateMin\" [max]=\"endDateMax\" (dateChange)=\"validateDatePickerMinMax()\"  [matDatepicker]=\"picker2\" [formControl]=\"eventForm.controls['endDateTime']\" required placeholder=\"End Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker2\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker2></mat-datepicker> -->\r\n          <input matInput name=\"endDateTime\" [min]=\"endDateMin\" (ngModelChange)=\"validateDatePickerMinMax()\"\r\n            [max]=\"endDateMax\" [owlDateTime]=\"picker2\" [owlDateTimeTrigger]=\"picker2\"\r\n            [formControl]=\"eventForm.controls['endDateTime']\" required placeholder=\"End Date\">\r\n          <button [owlDateTimeTrigger]=\"picker2\" mat-icon-button matSuffix>\r\n            <mat-icon>keyboard_arrow_down</mat-icon>\r\n          </button>\r\n          <owl-date-time #picker2></owl-date-time>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-slide-toggle [formControl]=\"eventForm.controls['status']\">Activate Event</mat-slide-toggle>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <!-- --------- hidden file input --------- -->\r\n        <input (change)=\"onSelectFile($event)\" #eventImgs type=\"file\" [formControl]=\"eventForm.controls['poster']\"\r\n        multiple style=\"display: none\" />\r\n        <!-- --------- file input click button --------- -->\r\n        <div layout-margin layout-padding>\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"eventImgs.click()\"\r\n          [disabled]=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n          (false) :\r\n          (this.currentTotalImageCount === this.maxUploadableFileCount)\"\r\n            type=\"button\">\r\n            Browse Images\r\n            <span *ngIf=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n            (false) :\r\n            (this.currentTotalImageCount > 0)\"> ({{this.currentTotalImageCount}} / {{this.maxUploadableFileCount}})</span>\r\n          </button>\r\n        </div>\r\n      </div>\r\n      <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngFor='let url of urls; let i = index' fxFlex=\"100\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\" style=\"display: flex;\">\r\n        <mat-card class=\"p-0\">\r\n          <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"removeSelectedImg(i)\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n          <img [src]=\"url\">\r\n        </mat-card>\r\n      </div>\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" (click)=\"eventFormSubmit()\" [disabled]=\"eventForm.invalid\">Save</button>\r\n          <span fxFlex></span>\r\n          <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n        </div>\r\n      </div>\r\n  </mat-dialog-content>\r\n</form>\r\n"
+module.exports = "<form [formGroup]=\"eventForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"eventForm.controls['name']\" placeholder=\"Event Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"eventForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <!-- <input matInput name=\"startDateTime\" [min]=\"startDateMin\" [max]=\"startDateMax\" (dateChange)=\"validateDatePickerMinMax()\" [matDatepicker]=\"picker1\" [formControl]=\"eventForm.controls['startDateTime']\" required placeholder=\"Start Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker1\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker1></mat-datepicker> -->\r\n          <input matInput name=\"startDateTime\" [min]=\"startDateMin\" (ngModelChange)=\"validateDatePickerMinMax()\"\r\n            [max]=\"startDateMax\" [owlDateTime]=\"picker1\" [owlDateTimeTrigger]=\"picker1\"\r\n            [formControl]=\"eventForm.controls['startDateTime']\" required placeholder=\"Start Date\">\r\n          <button [owlDateTimeTrigger]=\"picker1\" mat-icon-button matSuffix>\r\n            <mat-icon>keyboard_arrow_down</mat-icon>\r\n          </button>\r\n          <owl-date-time #picker1></owl-date-time>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <!-- <input matInput name=\"endDateTime\" [min]=\"endDateMin\" [max]=\"endDateMax\" (dateChange)=\"validateDatePickerMinMax()\"  [matDatepicker]=\"picker2\" [formControl]=\"eventForm.controls['endDateTime']\" required placeholder=\"End Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker2\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker2></mat-datepicker> -->\r\n          <input matInput name=\"endDateTime\" [min]=\"endDateMin\" (ngModelChange)=\"validateDatePickerMinMax()\"\r\n            [max]=\"endDateMax\" [owlDateTime]=\"picker2\" [owlDateTimeTrigger]=\"picker2\"\r\n            [formControl]=\"eventForm.controls['endDateTime']\" required placeholder=\"End Date\">\r\n          <button [owlDateTimeTrigger]=\"picker2\" mat-icon-button matSuffix>\r\n            <mat-icon>keyboard_arrow_down</mat-icon>\r\n          </button>\r\n          <owl-date-time #picker2></owl-date-time>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <!-- --------- hidden file input --------- -->\r\n        <input (change)=\"onSelectFile($event)\" #eventImgs type=\"file\" [formControl]=\"eventForm.controls['poster']\"\r\n        multiple style=\"display: none\" />\r\n        <!-- --------- file input click button --------- -->\r\n        <div layout-margin layout-padding>\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"eventImgs.click()\"\r\n          [disabled]=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n          (false) :\r\n          (this.currentTotalImageCount === this.maxUploadableFileCount)\"\r\n            type=\"button\">\r\n            Browse Images\r\n            <span *ngIf=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n            (false) :\r\n            (this.currentTotalImageCount > 0)\"> ({{this.currentTotalImageCount}} / {{this.maxUploadableFileCount}})</span>\r\n          </button>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-slide-toggle *ngIf=\"!data.isNew\" [formControl]=\"eventForm.controls['status']\">Activate Event</mat-slide-toggle>\r\n      </div>\r\n      <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngFor='let url of urls; let i = index' fxFlex=\"100\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\" style=\"display: flex;\">\r\n        <mat-card class=\"p-0\">\r\n          <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"removeSelectedImg(i)\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n          <img [src]=\"url\">\r\n        </mat-card>\r\n      </div>\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" (click)=\"eventFormSubmit()\" [disabled]=\"eventForm.invalid\">Save</button>\r\n          <span fxFlex></span>\r\n          <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n        </div>\r\n      </div>\r\n  </mat-dialog-content>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -14199,26 +14207,32 @@ var CreateEventPopupComponent = /** @class */ (function () {
                         reader.onload = function (ev) {
                             var img = new Image();
                             img.src = ev.target.result;
-                            var widthReminder = img.width % 4;
-                            var heightReminder = img.height % 3;
-                            if (img.width < _this.minWidth && img.height < _this.minHeight) {
-                                _this.snackBar.open('Please upload' + _this.minWidth + ' X ' + _this.minHeight + ' size image files only', 'close', { duration: 3000 });
-                                _this.currentTotalImageCount--;
-                                return;
-                            }
-                            if (widthReminder !== 0 || heightReminder !== 0) {
-                                _this.snackBar.open('Please upload' + _this.minWidth + ' X ' + _this.minHeight + ' size image files only', 'close', { duration: 3000 });
-                                _this.currentTotalImageCount--;
-                                return;
-                            }
-                            _this.urls.push(ev.target.result);
+                            img.onload = function () {
+                                var widthReminder = img.width % 4;
+                                var heightReminder = img.height % 3;
+                                if (img.width < _this.minWidth || img.height < _this.minHeight) {
+                                    _this.snackBar.open('Image minimum dimension should be ' + _this.minWidth + 'X' + _this.minHeight, 'close', { duration: 3000 });
+                                    _this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
+                                    _this.currentTotalImageCount--;
+                                    return;
+                                }
+                                if (widthReminder !== 0 || heightReminder !== 0) {
+                                    _this.snackBar.open('Image aspect ratio should be 4:3 (' + _this.minWidth + 'X' + _this.minHeight + ')', 'close', { duration: 3000 });
+                                    _this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
+                                    _this.currentTotalImageCount--;
+                                    return;
+                                }
+                                _this.urls.push(ev.target.result);
+                                _this.eventForm.controls['poster'].setErrors(null);
+                            };
                         };
                         reader.readAsDataURL(event.target.files[i]);
                         this.newlySelectedFileList.push(event.target.files[i]);
                         this.currentTotalImageCount++;
                     }
                     else {
-                        this.snackBar.open('Invalid file type in ' + fileName + ', Please upload image files only', 'close', { duration: 3000 });
+                        this.snackBar.open('Upload valiid images. Only PNG, JPG or JPEG are allowed!', 'close', { duration: 3000 });
+                        this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
                         this.currentTotalImageCount--;
                         return;
                     }
@@ -14238,6 +14252,7 @@ var CreateEventPopupComponent = /** @class */ (function () {
     CreateEventPopupComponent.prototype.removeSelectedImg = function (index) {
         this.urls.splice(index, 1);
         this.currentTotalImageCount -= 1;
+        this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
         if (this.remainImagesID.length < index + 1) {
             this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
         }
@@ -14339,7 +14354,7 @@ var CreateEventPopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"messages-wrap\">\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\">\r\n    <!-- multiple events select and control -->\r\n    <mat-checkbox (change)=\"selectToggleAll($event)\" [indeterminate]=\"indeterminateState\" [checked]=\"selectAll\" class=\"inbox-toggle-all mr-1\"><small>All</small></mat-checkbox>\r\n    <button mat-icon-button matTooltip=\"Add event\" (click)=\"eventPopUp({}, true)\"><mat-icon>add_box</mat-icon></button>\r\n    <button mat-icon-button matTooltip=\"Delete\" *ngIf=\"indeterminateState || selectAll\" (click)=\"deleteSelectedEvents()\"><mat-icon>delete</mat-icon></button>\r\n    <span fxFlex></span>\r\n    <mat-form-field *ngIf=\"this.temEvents.length > 0\" style=\"font-size: 15px; width: 30%; margin-top: 10px;\">\r\n      <input matInput placeholder=\"Search\" value=\"\" (keyup)='updateFilter($event)'>\r\n    </mat-form-field>\r\n    <p *ngIf=\"this.temEvents.length > 0\" class=\"mat-select-lable\"> Page Size: </p>\r\n    <mat-select *ngIf=\"this.temEvents.length > 0\" class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n      <mat-option *ngFor=\"let item of pageSizeArray\" [value]=\"item\">{{item}}</mat-option>\r\n    </mat-select>\r\n  </mat-toolbar>\r\n  <mat-accordion>\r\n    <mat-expansion-panel *ngFor=\"let eventObj of events\" expanded=\"false\" hideToggle=\"true\">\r\n      <mat-expansion-panel-header>\r\n        <mat-panel-title>\r\n          <mat-checkbox (change)=\"selectToggleOne($event, eventObj)\" [checked]=\"eventObj.selected\" (click)=\"stopProp($event)\" class=\"mail-checkbox hide-on-open\"></mat-checkbox>\r\n          <span style=\"width: 130px; overflow: hidden;\r\n          white-space: nowrap;\r\n          text-overflow: ellipsis;\" class=\"hide-on-open\">{{ eventObj.name }}</span>\r\n          <div fxFlex=\"1 1 auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\" class=\"show-on-open\">\r\n            <!-- <img [src]=\"eventObj.file\" alt=\"\" class=\"inbox-face mr-1\"> -->\r\n            <div fxLayout=\"column\">\r\n              <span class=\"m-0\">{{ eventObj.name }}</span>\r\n              <small class=\"text-muted m-0\">Start Date : {{eventObj.startDateTime | date}}, End Date :\r\n                {{eventObj.endDateTime | date}}</small>\r\n            </div>\r\n          </div>\r\n        </mat-panel-title>\r\n        <mat-panel-description>\r\n          <span class=\"mail-subject text-sm mat-color-default hide-on-open\">\r\n            <mat-chip *ngIf=\"eventObj.status === 'ACTIVE'\" mat-sm-chip color=\"primary\" [selected]=\"true\">Active</mat-chip>\r\n            <mat-chip *ngIf=\"eventObj.status === 'INACTIVE'\" mat-sm-chip color=\"warn\" [selected]=\"true\">Inactive</mat-chip>\r\n          </span>\r\n          <span fxFlex></span>\r\n          <span class=\"text-sm\" fxHide.lt-sm=\"true\">{{eventObj.createdDate | relativeTime}}</span>\r\n          <button mat-icon-button [matMenuTriggerFor]=\"msgMenu\" (click)=\"stopProp($event)\" class=\"hidden-on-open\">\r\n            <mat-icon class=\"text-muted\">more_vert</mat-icon>\r\n          </button>\r\n          <mat-menu #msgMenu=\"matMenu\">\r\n            <button mat-menu-item (click)=\"eventPopUp(eventObj, false)\">\r\n              <mat-icon>edit</mat-icon> Edit\r\n            </button>\r\n            <button mat-menu-item (click)=\"deleteOneEvent(eventObj)\">\r\n              <mat-icon>delete</mat-icon> Delete\r\n            </button>\r\n          </mat-menu>\r\n        </mat-panel-description>\r\n      </mat-expansion-panel-header>\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"40\" class=\"pr-1\">\r\n          <mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n            <img style=\"padding: 10px;\" mat-card-image [src]=\"eventObj.poster\" alt=\"Photo of a Shiba Inu\">\r\n          </mat-card>\r\n        </div>\r\n        <div fxFlex=\"60\" class=\"pr-1\">\r\n          <mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n            <mat-card-content>\r\n              <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n                <small class=\"text-muted\">Event Description</small>\r\n              </div>\r\n              <p style=\"padding-top: 10px;\" class=\"md-body-1\">{{ eventObj.description }}</p>\r\n            </mat-card-content>\r\n          </mat-card>\r\n        </div>\r\n      </div>\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"50\" fxFlex.gt-sm=\"19.5\" fxFlex.sm=\"25\" class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n          <mat-card>\r\n            <mat-card-title fxLayoutAlign=\"start center\">\r\n              <small class=\"text-muted\">Start Date & Time</small>\r\n              <span fxFlex></span>\r\n              <mat-icon color=\"primary\">play_arrow</mat-icon>\r\n            </mat-card-title>\r\n            <mat-card-content>\r\n              <h6 class=\"m-0 font-normal\">{{ eventObj.startDateTime | date:'MMM d, y, h:mm a'}}</h6>\r\n            </mat-card-content>\r\n          </mat-card>\r\n        </div>\r\n        <div fxFlex=\"50\" fxFlex.gt-sm=\"19.5\" fxFlex.sm=\"25\" class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n          <mat-card>\r\n            <mat-card-title fxLayoutAlign=\"start center\">\r\n              <small class=\"text-muted\">End Date & Time</small>\r\n              <span fxFlex></span>\r\n              <mat-icon color=\"warn\">stop</mat-icon>\r\n            </mat-card-title>\r\n            <mat-card-content>\r\n              <h6 class=\"m-0 font-normal\">{{ eventObj.endDateTime | date:'MMM d, y, h:mm a'}}</h6>\r\n            </mat-card-content>\r\n          </mat-card>\r\n        </div>\r\n      </div>\r\n    </mat-expansion-panel>\r\n  </mat-accordion>\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\" *ngIf=\"this.events.length > 0\" style=\"font-size: 12px;\">\r\n    <div class=\"pagination\">{{totalRecords}} Created,</div>\r\n    <div class=\"pagination ml-1\">{{quota}} Quota</div>\r\n    <span fxFlex></span>\r\n    <ng-container>\r\n      <nav aria-label=\"Promotion Page Navigation\" style=\"color: black;\">\r\n        <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n          <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllEvents(pageNumber-1)\" aria-label=\"Previous\">\r\n              <span aria-hidden=\"true\">&laquo;</span>\r\n              <span class=\"sr-only\">Previous</span>\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllEvents(page)\">\r\n              {{page}}\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\"  [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllEvents(pageNumber+1)\" aria-label=\"Next\">\r\n              <span aria-hidden=\"true\">&raquo;</span>\r\n              <span class=\"sr-only\">Next</span>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      </nav>\r\n    </ng-container>\r\n  </mat-toolbar>\r\n  <div *ngIf=\"this.temEvents.length === 0 && this.events.length === 0\" fxLayout=\"row\" fxLayoutAlign=\"center\" style=\"margin-top: 10rem;\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h1 class=\"text-muted\">Create New Event</h1>\r\n    </div>\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h2 class=\"text-muted\">Click \"Add\" Button</h2>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"messages-wrap\">\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\">\r\n    <!-- multiple events select and control -->\r\n    <mat-checkbox (change)=\"selectToggleAll($event)\" [indeterminate]=\"indeterminateState\" [checked]=\"selectAll\" class=\"inbox-toggle-all mr-1\"><small>All</small></mat-checkbox>\r\n    <button mat-icon-button matTooltip=\"Add event\" (click)=\"eventPopUp({}, true)\"><mat-icon>add_box</mat-icon></button>\r\n    <button mat-icon-button matTooltip=\"Delete\" *ngIf=\"indeterminateState || selectAll\" (click)=\"deleteSelectedEvents()\"><mat-icon>delete</mat-icon></button>\r\n    <span fxFlex></span>\r\n    <mat-form-field *ngIf=\"this.temEvents.length > 0\" style=\"font-size: 15px; width: 30%; margin-top: 10px;\">\r\n      <input matInput placeholder=\"Search\" value=\"\" (keyup)='updateFilter($event)'>\r\n    </mat-form-field>\r\n    <p *ngIf=\"this.temEvents.length > 0\" class=\"mat-select-lable\"> Page Size: </p>\r\n    <mat-select *ngIf=\"this.temEvents.length > 0\" class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n      <mat-option *ngFor=\"let item of pageSizeArray\" [value]=\"item\">{{item}}</mat-option>\r\n    </mat-select>\r\n  </mat-toolbar>\r\n  <mat-accordion>\r\n    <mat-expansion-panel *ngFor=\"let eventObj of events\" expanded=\"false\" hideToggle=\"true\">\r\n      <mat-expansion-panel-header>\r\n        <mat-panel-title>\r\n          <mat-checkbox (change)=\"selectToggleOne($event, eventObj)\" [checked]=\"eventObj.selected\" (click)=\"stopProp($event)\" class=\"mail-checkbox hide-on-open\"></mat-checkbox>\r\n          <span style=\"width: 130px; overflow: hidden;\r\n          white-space: nowrap;\r\n          text-overflow: ellipsis;\" class=\"hide-on-open\">{{ eventObj.name }}</span>\r\n          <div fxFlex=\"1 1 auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\" class=\"show-on-open\">\r\n            <!-- <img [src]=\"eventObj.file\" alt=\"\" class=\"inbox-face mr-1\"> -->\r\n            <div fxLayout=\"column\">\r\n              <span class=\"m-0\">{{ eventObj.name }}</span>\r\n              <small class=\"text-muted m-0\">Start Date : {{eventObj.startDateTime | date}}, End Date :\r\n                {{eventObj.endDateTime | date}}</small>\r\n            </div>\r\n          </div>\r\n        </mat-panel-title>\r\n        <mat-panel-description>\r\n          <span class=\"mail-subject text-sm mat-color-default hide-on-open\">\r\n            <mat-chip *ngIf=\"eventObj.status === 'ACTIVE'\" mat-sm-chip color=\"primary\" [selected]=\"true\">Active</mat-chip>\r\n            <mat-chip *ngIf=\"eventObj.status === 'INACTIVE'\" mat-sm-chip color=\"warn\" [selected]=\"true\">Inactive</mat-chip>\r\n          </span>\r\n          <span fxFlex></span>\r\n          <span class=\"text-sm\" fxHide.lt-sm=\"true\">{{eventObj.createdDate | relativeTime}}</span>\r\n          <button mat-icon-button [matMenuTriggerFor]=\"msgMenu\" (click)=\"stopProp($event)\" class=\"hidden-on-open\">\r\n            <mat-icon class=\"text-muted\">more_vert</mat-icon>\r\n          </button>\r\n          <mat-menu #msgMenu=\"matMenu\">\r\n            <button mat-menu-item (click)=\"eventPopUp(eventObj, false)\">\r\n              <mat-icon>edit</mat-icon> Edit\r\n            </button>\r\n            <button mat-menu-item (click)=\"deleteOneEvent(eventObj)\">\r\n              <mat-icon>delete</mat-icon> Delete\r\n            </button>\r\n          </mat-menu>\r\n        </mat-panel-description>\r\n      </mat-expansion-panel-header>\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"40\" class=\"pr-1\">\r\n          <mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n            <img style=\"padding: 10px;\" mat-card-image [src]=\"eventPosterUrl+eventObj.id\" alt=\"Photo of a Shiba Inu\">\r\n          </mat-card>\r\n        </div>\r\n        <div fxFlex=\"60\" class=\"pr-1\">\r\n          <mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n            <mat-card-content>\r\n              <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n                <small class=\"text-muted\">Event Description</small>\r\n              </div>\r\n              <p style=\"padding-top: 10px;\" class=\"md-body-1\">{{ eventObj.description }}</p>\r\n            </mat-card-content>\r\n          </mat-card>\r\n        </div>\r\n      </div>\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"50\" fxFlex.gt-sm=\"19.5\" fxFlex.sm=\"25\" class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n          <mat-card>\r\n            <mat-card-title fxLayoutAlign=\"start center\">\r\n              <small class=\"text-muted\">Start Date & Time</small>\r\n              <span fxFlex></span>\r\n              <mat-icon color=\"primary\">play_arrow</mat-icon>\r\n            </mat-card-title>\r\n            <mat-card-content>\r\n              <h6 class=\"m-0 font-normal\">{{ eventObj.startDateTime | date:'MMM d, y, h:mm a'}}</h6>\r\n            </mat-card-content>\r\n          </mat-card>\r\n        </div>\r\n        <div fxFlex=\"50\" fxFlex.gt-sm=\"19.5\" fxFlex.sm=\"25\" class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n          <mat-card>\r\n            <mat-card-title fxLayoutAlign=\"start center\">\r\n              <small class=\"text-muted\">End Date & Time</small>\r\n              <span fxFlex></span>\r\n              <mat-icon color=\"warn\">stop</mat-icon>\r\n            </mat-card-title>\r\n            <mat-card-content>\r\n              <h6 class=\"m-0 font-normal\">{{ eventObj.endDateTime | date:'MMM d, y, h:mm a'}}</h6>\r\n            </mat-card-content>\r\n          </mat-card>\r\n        </div>\r\n      </div>\r\n    </mat-expansion-panel>\r\n  </mat-accordion>\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\" *ngIf=\"this.events.length > 0\" style=\"font-size: 12px;\">\r\n    <div class=\"pagination\">{{totalRecords}} Created,</div>\r\n    <div class=\"pagination ml-1\">{{quota}} Quota</div>\r\n    <span fxFlex></span>\r\n    <ng-container>\r\n      <nav aria-label=\"Promotion Page Navigation\" style=\"color: black;\">\r\n        <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n          <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllEvents(pageNumber-1)\" aria-label=\"Previous\">\r\n              <span aria-hidden=\"true\">&laquo;</span>\r\n              <span class=\"sr-only\">Previous</span>\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllEvents(page)\">\r\n              {{page}}\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\"  [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllEvents(pageNumber+1)\" aria-label=\"Next\">\r\n              <span aria-hidden=\"true\">&raquo;</span>\r\n              <span class=\"sr-only\">Next</span>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      </nav>\r\n    </ng-container>\r\n  </mat-toolbar>\r\n  <div *ngIf=\"this.temEvents.length === 0 && this.events.length === 0\" fxLayout=\"row\" fxLayoutAlign=\"center\" style=\"margin-top: 10rem;\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h1 class=\"text-muted\">Create New Event</h1>\r\n    </div>\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h2 class=\"text-muted\">Click \"Add\" Button</h2>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -14411,6 +14426,7 @@ var UserEventComponent = /** @class */ (function () {
         this.pageSizeArray = [];
         this.quota = 0;
         this.quotaExpire = false;
+        this.eventPosterUrl = this.comunityService.getPosterDownloadUrl();
     }
     UserEventComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -14443,13 +14459,14 @@ var UserEventComponent = /** @class */ (function () {
     UserEventComponent.prototype.eventPopUp = function (data, isNew) {
         var _this = this;
         if (data === void 0) { data = {}; }
-        if (this.quotaExpire) {
+        if (this.quotaExpire && isNew) {
             var infoData = {
                 title: 'License',
-                message: 'Allocated Event Limit Exceded. Do you want to activate more?',
+                message: 'You subscribed number of events have expired!</br>' +
+                    '<small class="text-muted">Do you like to extend the plan?</small>',
                 linkData: {
-                    url: '#',
-                    buttonText: 'Activate'
+                    url: 'https://www.google.com/gmail/',
+                    buttonText: 'Extend'
                 }
             };
             this.appInfoService.showInfo(infoData);
@@ -14483,30 +14500,10 @@ var UserEventComponent = /** @class */ (function () {
                                 .subscribe(function (response) {
                                 var tempRes = response;
                                 _this.quotaExpire = tempRes.content.expired;
+                                _this.quota = tempRes.content.quota;
                                 if (!tempRes.content.expired) {
                                     _this.loader.close();
-                                    if (tempRes.content.usage < (tempRes.content.quota - 1) && (tempRes.content.quota - tempRes.content.usage) === 2) {
-                                        _this.appWarningService.showWarning({
-                                            title: 'License',
-                                            message: 'One Event Remaining!'
-                                        });
-                                        _this.createEvent(res);
-                                    }
-                                    else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
-                                        var infoData = {
-                                            title: 'License',
-                                            message: 'Allocated events are finished. Do you want to activate more?',
-                                            linkData: {
-                                                url: '#',
-                                                buttonText: 'Activate'
-                                            }
-                                        };
-                                        _this.appInfoService.showInfo(infoData);
-                                        _this.createEvent(res);
-                                    }
-                                    else {
-                                        _this.createEvent(res);
-                                    }
+                                    _this.createEvent(res, tempRes.content.usage, tempRes.content.quota);
                                 }
                             });
                         }
@@ -14535,7 +14532,7 @@ var UserEventComponent = /** @class */ (function () {
             });
         }
     };
-    UserEventComponent.prototype.createEvent = function (res) {
+    UserEventComponent.prototype.createEvent = function (res, usage, tempQuoata) {
         var _this = this;
         this.userEventService.createEvent(res)
             .subscribe(function (response) {
@@ -14553,9 +14550,28 @@ var UserEventComponent = /** @class */ (function () {
                 _this.quotaExpire = true;
             }
             _this.loader.close();
+            if (usage < (tempQuoata - 1) && (tempQuoata - usage) === 2) {
+                _this.appWarningService.showWarning({
+                    title: 'License',
+                    message: 'Your subscription plan is about to expire!</br>One more event remaining!'
+                });
+            }
+            else if (usage < tempQuoata && (tempQuoata - usage) === 1) {
+                var infoData = {
+                    title: 'License',
+                    message: 'You subscribed number of events have expired!</br>' +
+                        '<small class="text-muted">Do you like to extend the plan?</small>',
+                    linkData: {
+                        url: 'https://www.google.com/gmail/',
+                        buttonText: 'Extend'
+                    }
+                };
+                _this.appInfoService.showInfo(infoData);
+            } // else {
             _this.snack.open('New Event Created', 'close', {
                 duration: 2000
             });
+            // }
         }, function (error) {
             _this.loader.close();
             if (error.status !== 401) {
@@ -15028,7 +15044,7 @@ var UserEventService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  user-feedback works!\r\n</p>\r\n<button mat-button style=\"background-color: #f0ad4e;\" type=\"button\" (click)=\"openWarning()\">Warning</button>\r\n<button mat-button style=\"background-color: #5bc0de;\" type=\"button\" (click)=\"openInfo()\">Infomation</button>\r\n<button mat-button style=\"background-color: #d9534f;\" type=\"button\" (click)=\"openError()\">Error</button>\r\n"
+module.exports = "<p>\r\n  user-feedback works!\r\n</p>\r\n<button mat-button style=\"background-color: #f0ad4e;\" type=\"button\" (click)=\"openWarning()\">Warning</button>\r\n<button mat-button style=\"background-color: #5bc0de;\" type=\"button\" (click)=\"openInfo()\">Infomation</button>\r\n<button mat-button style=\"background-color: #d9534f;\" type=\"button\" (click)=\"openError()\">Error</button>\r\n<button mat-button style=\"background-color: #ff0000;\" type=\"button\" (click)=\"openErrorSnack()\">Error Snack</button>\r\n"
 
 /***/ }),
 
@@ -15099,6 +15115,13 @@ var UserFeedbackComponent = /** @class */ (function () {
         };
         this.errDialog.showError(error);
     };
+    UserFeedbackComponent.prototype.openErrorSnack = function () {
+        var error = {
+            message: "This is error snack bar",
+            duration: 2000
+        };
+        this.errDialog.showErrorSnack(error);
+    };
     UserFeedbackComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-user-feedback',
@@ -15123,7 +15146,7 @@ var UserFeedbackComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"promotionForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"promotionForm.controls['name']\" placeholder=\"Promotion Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"promotionForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"start\" [min]=\"startDateMin\" [max]=\"startDateMax\" (dateChange)=\"validateDatePickerMinMax()\" [matDatepicker]=\"picker1\" [formControl]=\"promotionForm.controls['start']\" required placeholder=\"Start Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker1\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker1></mat-datepicker>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"end\" [min]=\"endDateMin\" [max]=\"endDateMax\" (dateChange)=\"validateDatePickerMinMax()\"  [matDatepicker]=\"picker2\" [formControl]=\"promotionForm.controls['end']\" required placeholder=\"End Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker2\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker2></mat-datepicker>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"percentage\" [formControl]=\"promotionForm.controls['percentage']\" positiveNumberOnly placeholder=\"Discount\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <!-- --------- hidden file input --------- -->\r\n        <input (change)=\"onSelectFile($event)\" #eventImgs type=\"file\" [formControl]=\"promotionForm.controls['promoPoster']\"\r\n        multiple style=\"display: none\" />\r\n        <!-- --------- file input click button --------- -->\r\n        <div layout-margin layout-padding>\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"eventImgs.click()\"\r\n          [disabled]=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n          (false) :\r\n          (this.currentTotalImageCount === this.maxUploadableFileCount)\"\r\n            type=\"button\">\r\n            Browse Images\r\n            <span *ngIf=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n            (false) :\r\n            (this.currentTotalImageCount > 0)\"> ({{this.currentTotalImageCount}} / {{this.maxUploadableFileCount}})</span>\r\n          </button>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-slide-toggle [formControl]=\"promotionForm.controls['status']\">Activate Event</mat-slide-toggle>\r\n      </div>\r\n      <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngFor='let url of urls; let i = index' fxFlex=\"100\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\" style=\"display: flex;\">\r\n        <mat-card class=\"p-0\">\r\n          <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"removeSelectedImg(i)\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n          <img [src]=\"url\">\r\n        </mat-card>\r\n      </div>\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" (click)=\"promotionFormSubmit()\" [disabled]=\"promotionForm.invalid\">Save</button>\r\n          <span fxFlex></span>\r\n          <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n        </div>\r\n      </div>\r\n  </mat-dialog-content>\r\n</form>\r\n"
+module.exports = "<form [formGroup]=\"promotionForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"promotionForm.controls['name']\" placeholder=\"Promotion Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"promotionForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"start\" [min]=\"startDateMin\" [max]=\"startDateMax\" (dateChange)=\"validateDatePickerMinMax()\" [matDatepicker]=\"picker1\" [formControl]=\"promotionForm.controls['start']\" required placeholder=\"Start Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker1\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker1></mat-datepicker>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"end\" [min]=\"endDateMin\" [max]=\"endDateMax\" (dateChange)=\"validateDatePickerMinMax()\"  [matDatepicker]=\"picker2\" [formControl]=\"promotionForm.controls['end']\" required placeholder=\"End Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker2\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker2></mat-datepicker>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"percentage\" [formControl]=\"promotionForm.controls['percentage']\" positiveNumberOnly placeholder=\"Discount\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <!-- --------- hidden file input --------- -->\r\n        <input (change)=\"onSelectFile($event)\" #eventImgs type=\"file\" [formControl]=\"promotionForm.controls['promoPoster']\"\r\n        multiple style=\"display: none\" />\r\n        <!-- --------- file input click button --------- -->\r\n        <div layout-margin layout-padding>\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"eventImgs.click()\"\r\n          [disabled]=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n          (false) :\r\n          (this.currentTotalImageCount === this.maxUploadableFileCount)\"\r\n            type=\"button\">\r\n            Browse Images\r\n            <span *ngIf=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n            (false) :\r\n            (this.currentTotalImageCount > 0)\"> ({{this.currentTotalImageCount}} / {{this.maxUploadableFileCount}})</span>\r\n          </button>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\" *ngIf=\"!data.isNew\">\r\n        <mat-slide-toggle [formControl]=\"promotionForm.controls['status']\">Activate Event</mat-slide-toggle>\r\n      </div>\r\n      <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngFor='let url of urls; let i = index' fxFlex=\"100\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\" style=\"display: flex;\">\r\n        <mat-card class=\"p-0\">\r\n          <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"removeSelectedImg(i)\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n          <img [src]=\"url\">\r\n        </mat-card>\r\n      </div>\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" (click)=\"promotionFormSubmit()\" [disabled]=\"promotionForm.invalid\">Save</button>\r\n          <span fxFlex></span>\r\n          <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n        </div>\r\n      </div>\r\n  </mat-dialog-content>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -15287,26 +15310,32 @@ var CreatePromotionPopupComponent = /** @class */ (function () {
                         reader.onload = function (ev) {
                             var img = new Image();
                             img.src = ev.target.result;
-                            var widthReminder = img.width % 4;
-                            var heightReminder = img.height % 3;
-                            if (img.width < _this.minWidth && img.height < _this.minHeight) {
-                                _this.snackBar.open('Please upload' + _this.minWidth + ' X ' + _this.minHeight + ' size image files only', 'close', { duration: 3000 });
-                                _this.currentTotalImageCount--;
-                                return;
-                            }
-                            if (widthReminder !== 0 || heightReminder !== 0) {
-                                _this.snackBar.open('Please upload' + _this.minWidth + ' X ' + _this.minHeight + ' size image files only', 'close', { duration: 3000 });
-                                _this.currentTotalImageCount--;
-                                return;
-                            }
-                            _this.urls.push(ev.target.result);
+                            img.onload = function () {
+                                var widthReminder = img.width % 4;
+                                var heightReminder = img.height % 3;
+                                if (img.width < _this.minWidth && img.height < _this.minHeight) {
+                                    _this.snackBar.open('Image minimum dimension should be ' + _this.minWidth + 'X' + _this.minHeight, 'close', { duration: 3000 });
+                                    _this.promotionForm.controls['promoPoster'].setErrors({ 'incorrect': true });
+                                    _this.currentTotalImageCount--;
+                                    return;
+                                }
+                                if (widthReminder !== 0 || heightReminder !== 0) {
+                                    _this.snackBar.open('Image aspect ratio should be 4:3 (' + _this.minWidth + 'X' + _this.minHeight + ')', 'close', { duration: 3000 });
+                                    _this.promotionForm.controls['promoPoster'].setErrors({ 'incorrect': true });
+                                    _this.currentTotalImageCount--;
+                                    return;
+                                }
+                                _this.urls.push(ev.target.result);
+                                _this.promotionForm.controls['promoPoster'].setErrors(null);
+                            };
                         };
                         reader.readAsDataURL(event.target.files[i]);
                         this.newlySelectedFileList.push(event.target.files[i]);
                         this.currentTotalImageCount++;
                     }
                     else {
-                        this.snackBar.open('Invalid file type in ' + fileName + ', Please upload image files only', 'close', { duration: 3000 });
+                        this.snackBar.open('Upload valiid images. Only PNG, JPG and JPEG are allowed!', 'close', { duration: 3000 });
+                        this.promotionForm.controls['promoPoster'].setErrors({ 'incorrect': true });
                         this.currentTotalImageCount--;
                         return;
                     }
@@ -15326,6 +15355,7 @@ var CreatePromotionPopupComponent = /** @class */ (function () {
     CreatePromotionPopupComponent.prototype.removeSelectedImg = function (index) {
         this.urls.splice(index, 1);
         this.currentTotalImageCount -= 1;
+        this.promotionForm.controls['promoPoster'].setErrors({ 'incorrect': true });
         if (this.remainImagesID.length < index + 1) {
             this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
         }
@@ -15545,13 +15575,14 @@ var UserPromotionComponent = /** @class */ (function () {
     UserPromotionComponent.prototype.promotionPopUp = function (data, isNew) {
         var _this = this;
         if (data === void 0) { data = {}; }
-        if (this.quotaExpire) {
+        if (this.quotaExpire && isNew) {
             var infoData = {
                 title: 'License',
-                message: 'Allocated Promotion Limit Exceded. Do you want to activate more?',
+                message: 'You subscribed number of promotions have expired!</br>' +
+                    '<small class="text-muted">Do you like to extend the plan?</small>',
                 linkData: {
-                    url: '#',
-                    buttonText: 'Activate'
+                    url: 'https://www.google.com/gmail/',
+                    buttonText: 'Extend'
                 }
             };
             this.appInfoService.showInfo(infoData);
@@ -15583,28 +15614,7 @@ var UserPromotionComponent = /** @class */ (function () {
                                 _this.quotaExpire = tempRes.content.expired;
                                 if (!tempRes.content.expired) {
                                     _this.loader.close();
-                                    if (tempRes.content.usage < (tempRes.content.quota - 1) && (tempRes.content.quota - tempRes.content.usage) === 2) {
-                                        _this.appWarningService.showWarning({
-                                            title: 'License',
-                                            message: 'One Event Remaining!'
-                                        });
-                                        _this.createPromotion(res);
-                                    }
-                                    else if (tempRes.content.usage < tempRes.content.quota && (tempRes.content.quota - tempRes.content.usage) === 1) {
-                                        var infoData = {
-                                            title: 'License',
-                                            message: 'Allocated promotions are finished. Do you want to activate more?',
-                                            linkData: {
-                                                url: '#',
-                                                buttonText: 'Activate'
-                                            }
-                                        };
-                                        _this.appInfoService.showInfo(infoData);
-                                        _this.createPromotion(res);
-                                    }
-                                    else {
-                                        _this.createPromotion(res);
-                                    }
+                                    _this.createPromotion(res, tempRes.content.usage, tempRes.content.quota);
                                 }
                             });
                             // this.createPromotion(res);
@@ -15634,7 +15644,7 @@ var UserPromotionComponent = /** @class */ (function () {
             });
         }
     };
-    UserPromotionComponent.prototype.createPromotion = function (res) {
+    UserPromotionComponent.prototype.createPromotion = function (res, usage, tempQuoata) {
         var _this = this;
         this.userPromotionService.createPromotion(res)
             .subscribe(function (response) {
@@ -15652,9 +15662,28 @@ var UserPromotionComponent = /** @class */ (function () {
                 _this.quotaExpire = true;
             }
             // this.fetchAllPromotions(this.pageNumber);
+            if (usage < (tempQuoata - 1) && (tempQuoata - usage) === 2) {
+                _this.appWarningService.showWarning({
+                    title: 'License',
+                    message: 'Your subscription plan is about to expire!</br>One more promotion remaining!'
+                });
+            }
+            else if (usage < tempQuoata && (tempQuoata - usage) === 1) {
+                var infoData = {
+                    title: 'License',
+                    message: 'You subscribed number of promotions have expired!</br>' +
+                        '<small class="text-muted">Do you like to extend the plan?</small>',
+                    linkData: {
+                        url: 'https://www.google.com/gmail/',
+                        buttonText: 'Extend'
+                    }
+                };
+                _this.appInfoService.showInfo(infoData);
+            } // else {
             _this.snack.open('New Promotion Created', 'close', {
                 duration: 2000
             });
+            // }
         }, function (error) {
             _this.loader.close();
             if (error.status !== 401) {

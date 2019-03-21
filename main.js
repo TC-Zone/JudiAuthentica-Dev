@@ -20,6 +20,7 @@ var map = {
 	"./views/client/client.module": [
 		"./src/app/views/client/client.module.ts",
 		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
+		"views-client-client-module~views-future-survey-future-survey-module~views-interaction-view-interacti~35e54c31",
 		"views-client-client-module~views-user-user-module",
 		"common",
 		"views-client-client-module"
@@ -47,6 +48,7 @@ var map = {
 		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
+		"views-client-client-module~views-future-survey-future-survey-module~views-interaction-view-interacti~35e54c31",
 		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
 		"common"
 	],
@@ -55,6 +57,7 @@ var map = {
 		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
+		"views-client-client-module~views-future-survey-future-survey-module~views-interaction-view-interacti~35e54c31",
 		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
 		"common",
 		"views-interaction-view-interaction-view-module"
@@ -64,6 +67,7 @@ var map = {
 		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
+		"views-client-client-module~views-future-survey-future-survey-module~views-interaction-view-interacti~35e54c31",
 		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
 		"common",
 		"views-invitee-interaction-view-invitee-interaction-view-module"
@@ -376,12 +380,12 @@ var rootRouterConfig = [
                 data: { title: "Interaction View" }
             },
             {
-                path: "eVote",
+                path: "eVote/:uniqueName",
                 loadChildren: "./views/invitee-interaction-view/invitee-interaction-view.module#InviteeInteractionViewModule",
                 data: { title: "Invitee Interaction View" }
             },
             {
-                path: "Survey",
+                path: "Survey/:uniqueName",
                 loadChildren: "./views/invitee-interaction-view/invitee-interaction-view.module#InviteeInteractionViewModule",
                 data: { title: "Invitee Interaction View" }
             }
@@ -1038,7 +1042,7 @@ var HeaderSideComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'compact'\" mat-icon-button id=\"sidenavToggle\" (click)=\"toggleSidenav()\"\r\n    matTooltip=\"Toggle Hide/Open\">\r\n    <mat-icon>menu</mat-icon>\r\n  </button>\r\n  <!-- Sidenav toggle collapse -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'closed'\" mat-icon-button id=\"collapseToggle\" fxHide.lt-md=\"true\"\r\n    (click)=\"toggleCollapse()\" matTooltip=\"Toggle Collapse\" class=\"toggle-collapsed\">\r\n    <mat-icon>chevron_left</mat-icon>\r\n  </button>\r\n  <!-- Search form -->\r\n  <!-- <div\r\n  fxFlex\r\n  fxHide.lt-sm=\"true\"\r\n  class=\"search-bar\">\r\n    <form class=\"top-search-form\">\r\n      <mat-icon role=\"img\">search</mat-icon>\r\n      <input autofocus=\"true\" placeholder=\"Search\" type=\"text\">\r\n    </form>\r\n  </div> -->\r\n  <span fxFlex></span>\r\n  <!-- Language Switcher -->\r\n  <!-- <mat-select\r\n  placeholder=\"\"\r\n  id=\"langToggle\"\r\n  [style.width]=\"'auto'\"\r\n  name=\"currentLang\"\r\n  [(ngModel)]=\"currentLang\"\r\n  (selectionChange)=\"setLang($event)\">\r\n    <mat-option\r\n    *ngFor=\"let lang of availableLangs\"\r\n    [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n  </mat-select> -->\r\n  <!-- Theme Switcher -->\r\n  <button mat-icon-button id=\"schemeToggle\" [style.overflow]=\"'visible'\" matTooltip=\"Color Schemes\"\r\n    [matMenuTriggerFor]=\"themeMenu\" class=\"topbar-button-right\">\r\n    <mat-icon>format_color_fill</mat-icon>\r\n  </button>\r\n  <mat-menu #themeMenu=\"matMenu\">\r\n    <mat-grid-list class=\"theme-list\" cols=\"2\" rowHeight=\"48px\">\r\n      <mat-grid-tile *ngFor=\"let theme of egretThemes\" (click)=\"changeTheme(theme)\">\r\n        <div mat-menu-item [title]=\"theme.name\">\r\n          <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n          <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n        </div>\r\n      </mat-grid-tile>\r\n    </mat-grid-list>\r\n  </mat-menu>\r\n  <!-- Notification toggle button -->\r\n  <button mat-icon-button matTooltip=\"Notifications\" (click)=\"toggleNotific()\" [style.overflow]=\"'visible'\"\r\n    class=\"topbar-button-right\">\r\n    <mat-icon>notifications</mat-icon>\r\n    <span class=\"notification-number mat-bg-warn\">3</span>\r\n  </button>\r\n  <!-- Top left user menu -->\r\n  <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right img-button\">\r\n    <img src=\"{{currentUser.image}}\" alt=\"\">\r\n  </button>\r\n  <mat-menu #accountMenu=\"matMenu\">\r\n    <button mat-menu-item [routerLink]=\"['/profile/']\">\r\n      <mat-icon>account_box</mat-icon>\r\n      <span>Profile</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/settings']\">\r\n      <mat-icon>settings</mat-icon>\r\n      <span>Account Settings</span>\r\n    </button>\r\n    <!-- <button mat-menu-item>\r\n      <mat-icon>notifications_off</mat-icon>\r\n      <span>Disable alerts</span>\r\n    </button> -->\r\n    <a mat-menu-item href=\"sessions/signin\" (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </a>\r\n    <!-- <button mat-menu-item (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </button> -->\r\n  </mat-menu>\r\n</mat-toolbar>"
+module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'compact'\" mat-icon-button id=\"sidenavToggle\" (click)=\"toggleSidenav()\"\r\n    matTooltip=\"Toggle Hide/Open\">\r\n    <mat-icon>menu</mat-icon>\r\n  </button>\r\n  <!-- Sidenav toggle collapse -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'closed'\" mat-icon-button id=\"collapseToggle\" fxHide.lt-md=\"true\"\r\n    (click)=\"toggleCollapse()\" matTooltip=\"Toggle Collapse\" class=\"toggle-collapsed\">\r\n    <mat-icon>chevron_left</mat-icon>\r\n  </button>\r\n  <!-- Search form -->\r\n  <!-- <div\r\n  fxFlex\r\n  fxHide.lt-sm=\"true\"\r\n  class=\"search-bar\">\r\n    <form class=\"top-search-form\">\r\n      <mat-icon role=\"img\">search</mat-icon>\r\n      <input autofocus=\"true\" placeholder=\"Search\" type=\"text\">\r\n    </form>\r\n  </div> -->\r\n  <span fxFlex></span>\r\n  <!-- Language Switcher -->\r\n  <!-- <mat-select\r\n  placeholder=\"\"\r\n  id=\"langToggle\"\r\n  [style.width]=\"'auto'\"\r\n  name=\"currentLang\"\r\n  [(ngModel)]=\"currentLang\"\r\n  (selectionChange)=\"setLang($event)\">\r\n    <mat-option\r\n    *ngFor=\"let lang of availableLangs\"\r\n    [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n  </mat-select> -->\r\n  <!-- Theme Switcher -->\r\n  <button mat-icon-button id=\"schemeToggle\" [style.overflow]=\"'visible'\" matTooltip=\"Color Schemes\"\r\n    [matMenuTriggerFor]=\"themeMenu\" class=\"topbar-button-right\">\r\n    <mat-icon>format_color_fill</mat-icon>\r\n  </button>\r\n  <mat-menu #themeMenu=\"matMenu\">\r\n    <mat-grid-list class=\"theme-list\" cols=\"2\" rowHeight=\"48px\">\r\n      <mat-grid-tile *ngFor=\"let theme of egretThemes\" (click)=\"changeTheme(theme)\">\r\n        <div mat-menu-item [title]=\"theme.name\">\r\n          <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n          <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n        </div>\r\n      </mat-grid-tile>\r\n    </mat-grid-list>\r\n  </mat-menu>\r\n  <!-- Notification toggle button -->\r\n  <button mat-icon-button matTooltip=\"Notifications\" (click)=\"toggleNotific()\" [style.overflow]=\"'visible'\"\r\n    class=\"topbar-button-right\">\r\n    <mat-icon>notifications</mat-icon>\r\n    <span class=\"notification-number mat-bg-warn\">3</span>\r\n  </button>\r\n  <!-- Top left user menu -->\r\n  <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right img-button\">\r\n    <img src=\"{{currentUser.image}}\" alt=\"\">\r\n  </button>\r\n  <mat-menu #accountMenu=\"matMenu\">\r\n    <button mat-menu-item [routerLink]=\"['/profile/profile-settings']\">\r\n      <mat-icon>portrait</mat-icon>\r\n      <span>Profile Settings</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/account-settings']\">\r\n      <mat-icon>work</mat-icon>\r\n      <span>Account Settings</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/general-settings']\">\r\n      <mat-icon>settings</mat-icon>\r\n      <span>General Settings</span>\r\n    </button>\r\n    <!-- <button mat-menu-item>\r\n      <mat-icon>notifications_off</mat-icon>\r\n      <span>Disable alerts</span>\r\n    </button> -->\r\n    <a mat-menu-item href=\"sessions/signin\" (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </a>\r\n    <!-- <button mat-menu-item (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </button> -->\r\n  </mat-menu>\r\n</mat-toolbar>"
 
 /***/ }),
 
@@ -1049,7 +1053,7 @@ module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header-topnav mat-elevation-z2\">\r\n  <div class=\"container\">\r\n    <div class=\"topnav\">\r\n      <!-- App Logo -->\r\n      <div class=\"topbar-branding\">\r\n        <!-- <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\"> -->\r\n        <img src=\"assets/images/truverus/TruVerus_Logo_short.png\" alt=\"\" class=\"app-logo\">\r\n      </div>\r\n\r\n      <ul class=\"menu\" *ngIf=\"!layoutConf.isMobile\">\r\n        <li *ngFor=\"let item of menuItems; let i = index;\">\r\n          <div *ngIf=\"item.type !== 'separator'\" routerLinkActive=\"open\">\r\n            <a matRipple routerLink=\"/{{item.state}}\" *ngIf=\"item.type === 'link'\">\r\n              <mat-icon>{{item.icon}}</mat-icon>\r\n              {{item.name | translate}}\r\n            </a>\r\n            <div *ngIf=\"item.type === 'dropDown'\">\r\n              <label matRipple for=\"drop-{{i}}\" class=\"toggle\"><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</label>\r\n              <a matRipple><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</a>\r\n              <input type=\"checkbox\" id=\"drop-{{i}}\" />\r\n              <ul>\r\n                <li *ngFor=\"let itemLvL2 of item.sub; let j = index;\" routerLinkActive=\"open\">\r\n                  <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\"\r\n                  *ngIf=\"itemLvL2.type !== 'dropDown'\">\r\n                    <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>\r\n                    {{itemLvL2.name | translate}}\r\n                  </a>\r\n\r\n                  <div *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n                    <label matRipple for=\"drop-{{i}}{{j}}\" class=\"toggle\">{{itemLvL2.name | translate}}</label>\r\n                    <a matRipple><mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>  {{itemLvL2.name | translate}}</a>\r\n                    <input type=\"checkbox\" id=\"drop-{{i}}{{j}}\" />\r\n                    <!-- Level 3 -->\r\n                    <ul>\r\n                      <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" routerLinkActive=\"open\">\r\n                        <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\">\r\n                          <mat-icon *ngIf=\"itemLvL3.icon\">{{itemLvL3.icon}}</mat-icon>\r\n                          {{itemLvL3.name | translate}}\r\n                        </a>\r\n                      </li>\r\n                    </ul>\r\n                  </div>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n      <span fxFlex></span>\r\n      <!-- End Navigation -->\r\n\r\n      <!-- Language Switcher -->\r\n      <mat-select\r\n      *ngIf=\"!layoutConf.isMobile\"\r\n      placeholder=\"\"\r\n      id=\"langToggle\"\r\n      [style.width]=\"'auto'\"\r\n      name=\"currentLang\"\r\n      [(ngModel)]=\"currentLang\"\r\n      (selectionChange)=\"setLang()\"\r\n      class=\"topbar-button-right\">\r\n        <mat-option\r\n        *ngFor=\"let lang of availableLangs\"\r\n        [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n      </mat-select>\r\n      <!-- Theme Switcher -->\r\n      <button\r\n      mat-icon-button\r\n      id=\"schemeToggle\"\r\n      [style.overflow]=\"'visible'\"\r\n      matTooltip=\"Color Schemes\"\r\n      [matMenuTriggerFor]=\"themeMenu\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>format_color_fill</mat-icon>\r\n      </button>\r\n      <mat-menu #themeMenu=\"matMenu\">\r\n        <mat-grid-list\r\n        class=\"theme-list\"\r\n        cols=\"2\"\r\n        rowHeight=\"48px\">\r\n          <mat-grid-tile\r\n          *ngFor=\"let theme of egretThemes\"\r\n          (click)=\"changeTheme(theme)\">\r\n            <div mat-menu-item [title]=\"theme.name\">\r\n              <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n              <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </mat-menu>\r\n      <!-- Notification toggle button -->\r\n      <button\r\n      mat-icon-button\r\n      matTooltip=\"Notifications\"\r\n      (click)=\"toggleNotific()\"\r\n      [style.overflow]=\"'visible'\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>notifications</mat-icon>\r\n        <span class=\"notification-number mat-bg-warn\">3</span>\r\n      </button>\r\n      <!-- Top left user menu -->\r\n      <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right mr-1 img-button\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </button>\r\n      <mat-menu #accountMenu=\"matMenu\">\r\n        <button mat-menu-item [routerLink]=\"['/profile/']\">\r\n          <mat-icon>account_box</mat-icon>\r\n          <span>Profile</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/settings']\">\r\n          <mat-icon>settings</mat-icon>\r\n          <span>Account Settings</span>\r\n        </button>\r\n        <!-- <button mat-menu-item>\r\n          <mat-icon>notifications_off</mat-icon>\r\n          <span>Disable alerts</span>\r\n        </button> -->\r\n        <button mat-menu-item (click)=\"signOut()\" >\r\n          <mat-icon>exit_to_app</mat-icon>\r\n          <span>Sign out</span>\r\n        </button>\r\n      </mat-menu>\r\n      <!-- Mobile screen menu toggle -->\r\n      <button\r\n      mat-icon-button\r\n      class=\"mr-1\"\r\n      (click)=\"toggleSidenav()\"\r\n      *ngIf=\"layoutConf.isMobile\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"header-topnav mat-elevation-z2\">\r\n  <div class=\"container\">\r\n    <div class=\"topnav\">\r\n      <!-- App Logo -->\r\n      <div class=\"topbar-branding\">\r\n        <!-- <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\"> -->\r\n        <img src=\"assets/images/truverus/TruVerus_Logo_short.png\" alt=\"\" class=\"app-logo\">\r\n      </div>\r\n\r\n      <ul class=\"menu\" *ngIf=\"!layoutConf.isMobile\">\r\n        <li *ngFor=\"let item of menuItems; let i = index;\">\r\n          <div *ngIf=\"item.type !== 'separator'\" routerLinkActive=\"open\">\r\n            <a matRipple routerLink=\"/{{item.state}}\" *ngIf=\"item.type === 'link'\">\r\n              <mat-icon>{{item.icon}}</mat-icon>\r\n              {{item.name | translate}}\r\n            </a>\r\n            <div *ngIf=\"item.type === 'dropDown'\">\r\n              <label matRipple for=\"drop-{{i}}\" class=\"toggle\"><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</label>\r\n              <a matRipple><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</a>\r\n              <input type=\"checkbox\" id=\"drop-{{i}}\" />\r\n              <ul>\r\n                <li *ngFor=\"let itemLvL2 of item.sub; let j = index;\" routerLinkActive=\"open\">\r\n                  <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\"\r\n                  *ngIf=\"itemLvL2.type !== 'dropDown'\">\r\n                    <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>\r\n                    {{itemLvL2.name | translate}}\r\n                  </a>\r\n\r\n                  <div *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n                    <label matRipple for=\"drop-{{i}}{{j}}\" class=\"toggle\">{{itemLvL2.name | translate}}</label>\r\n                    <a matRipple><mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>  {{itemLvL2.name | translate}}</a>\r\n                    <input type=\"checkbox\" id=\"drop-{{i}}{{j}}\" />\r\n                    <!-- Level 3 -->\r\n                    <ul>\r\n                      <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" routerLinkActive=\"open\">\r\n                        <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\">\r\n                          <mat-icon *ngIf=\"itemLvL3.icon\">{{itemLvL3.icon}}</mat-icon>\r\n                          {{itemLvL3.name | translate}}\r\n                        </a>\r\n                      </li>\r\n                    </ul>\r\n                  </div>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n      <span fxFlex></span>\r\n      <!-- End Navigation -->\r\n\r\n      <!-- Language Switcher -->\r\n      <mat-select\r\n      *ngIf=\"!layoutConf.isMobile\"\r\n      placeholder=\"\"\r\n      id=\"langToggle\"\r\n      [style.width]=\"'auto'\"\r\n      name=\"currentLang\"\r\n      [(ngModel)]=\"currentLang\"\r\n      (selectionChange)=\"setLang()\"\r\n      class=\"topbar-button-right\">\r\n        <mat-option\r\n        *ngFor=\"let lang of availableLangs\"\r\n        [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n      </mat-select>\r\n      <!-- Theme Switcher -->\r\n      <button\r\n      mat-icon-button\r\n      id=\"schemeToggle\"\r\n      [style.overflow]=\"'visible'\"\r\n      matTooltip=\"Color Schemes\"\r\n      [matMenuTriggerFor]=\"themeMenu\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>format_color_fill</mat-icon>\r\n      </button>\r\n      <mat-menu #themeMenu=\"matMenu\">\r\n        <mat-grid-list\r\n        class=\"theme-list\"\r\n        cols=\"2\"\r\n        rowHeight=\"48px\">\r\n          <mat-grid-tile\r\n          *ngFor=\"let theme of egretThemes\"\r\n          (click)=\"changeTheme(theme)\">\r\n            <div mat-menu-item [title]=\"theme.name\">\r\n              <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n              <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </mat-menu>\r\n      <!-- Notification toggle button -->\r\n      <button\r\n      mat-icon-button\r\n      matTooltip=\"Notifications\"\r\n      (click)=\"toggleNotific()\"\r\n      [style.overflow]=\"'visible'\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>notifications</mat-icon>\r\n        <span class=\"notification-number mat-bg-warn\">3</span>\r\n      </button>\r\n      <!-- Top left user menu -->\r\n      <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right mr-1 img-button\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </button>\r\n      <mat-menu #accountMenu=\"matMenu\">\r\n        <button mat-menu-item [routerLink]=\"['/profile/profile-settings']\">\r\n          <mat-icon>portrait</mat-icon>\r\n          <span>Profile Settings</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/account-settings']\">\r\n          <mat-icon>work</mat-icon>\r\n          <span>Account Settings</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/general-settings']\">\r\n          <mat-icon>settings</mat-icon>\r\n          <span>General Settings</span>\r\n        </button>\r\n        <!-- <button mat-menu-item>\r\n          <mat-icon>notifications_off</mat-icon>\r\n          <span>Disable alerts</span>\r\n        </button> -->\r\n        <button mat-menu-item (click)=\"signOut()\" >\r\n          <mat-icon>exit_to_app</mat-icon>\r\n          <span>Sign out</span>\r\n        </button>\r\n      </mat-menu>\r\n      <!-- Mobile screen menu toggle -->\r\n      <button\r\n      mat-icon-button\r\n      class=\"mr-1\"\r\n      (click)=\"toggleSidenav()\"\r\n      *ngIf=\"layoutConf.isMobile\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -2625,7 +2629,7 @@ var AppConfirmService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n  <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <img src=\"./../../../../assets/images/popup-window/error.png\">\r\n  </div>\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <h4 class=\"error-header\">{{ data.title }}!</h4>\r\n    </div>\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <p class=\"error-message\">{{ data.message }}</p>\r\n    </div>\r\n  </div>\r\n</mat-dialog-content>\r\n<mat-dialog-actions class=\"margin-top action-section\">\r\n  <span fxFlex></span>\r\n  <button mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(false)\">Dismiss</button>\r\n  <span fxFlex></span>\r\n</mat-dialog-actions>\r\n"
+module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n  <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <img src=\"./../../../../assets/images/popup-window/error.png\">\r\n  </div>\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <h4 class=\"error-header\">{{ data.title }}!</h4>\r\n    </div>\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <p class=\"error-message\" [innerHTML]=\"data.message\"></p>\r\n    </div>\r\n  </div>\r\n</mat-dialog-content>\r\n<mat-dialog-actions class=\"margin-top action-section\">\r\n  <span fxFlex></span>\r\n  <button mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(false)\">Dismiss</button>\r\n  <span fxFlex></span>\r\n</mat-dialog-actions>\r\n"
 
 /***/ }),
 
@@ -2720,8 +2724,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var AppErrorService = /** @class */ (function () {
-    function AppErrorService(dialog) {
+    function AppErrorService(dialog, snack) {
         this.dialog = dialog;
+        this.snack = snack;
     }
     AppErrorService.prototype.showHttpError = function (error) {
         if (error === void 0) { error = {}; }
@@ -2812,6 +2817,23 @@ var AppErrorService = /** @class */ (function () {
             });
         }
     };
+    // show error snack bar
+    AppErrorService.prototype.showErrorSnack = function (errorSnack) {
+        var message = errorSnack.error.error.validationFailures[0].code;
+        var stringArray = message.split('.');
+        var enumkey = '';
+        for (var i = 0; i < stringArray.length; i++) {
+            if (i === 0) {
+                enumkey += stringArray[i].substring(0, 1).toUpperCase() + stringArray[i].substring(1);
+            }
+            else {
+                enumkey += ' ' + stringArray[i].substring(0, 1).toUpperCase() + stringArray[i].substring(1);
+            }
+        }
+        this.snack.open(enumkey, 'close', {
+            duration: errorSnack.duration
+        });
+    };
     // convert error messages to camell case message (by prasad kumara)
     AppErrorService.prototype.getEnumKey = function (string) {
         var stringArray = string.split('.');
@@ -2848,7 +2870,7 @@ var AppErrorService = /** @class */ (function () {
     };
     AppErrorService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_node_modules_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"]])
+        __metadata("design:paramtypes", [_node_modules_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"], _node_modules_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSnackBar"]])
     ], AppErrorService);
     return AppErrorService;
 }());
@@ -2869,19 +2891,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "errorMessages", function() { return errorMessages; });
 var errorMessages = {
     name: {
-        answerTemplateCreateRequestNameDuplicate: 'Answer Name is Duplicated.'
+        answerTemplateCreateRequestNameDuplicate: 'Answer template name already exists!' +
+            '<small class="text-muted">Name you entered for the answer template already exists. Give a different name.</small>'
     },
     answerTemplate: {
-        answerTemplateUpdateRequestAnswerTemplateNotExist: 'Answer Template is not Found.',
-        answerTemplateDeleteRequestAnswerTemplateNotExist: 'Answer Template is not Found.'
+        answerTemplateUpdateRequestAnswerTemplateNotExist: 'Answer Template does not exist!',
+        answerTemplateDeleteRequestAnswerTemplateNotExist: 'Answer Template does not exist!'
     },
     votersZero: {
-        eVoteCreateRequestEVoteVotersNotExists: 'Evote Voters are not Found.'
+        eVoteCreateRequestEVoteVotersNotExists: 'E-voters not found!' +
+            '<small class="text-muted">Please create E-voters before creating an E-vote.</small>'
     },
     eVote: {
-        eVoteViewRequestEVoteNotExist: 'Evote is not Found.',
-        eVoteUpdateRequestEVoteNotExist: 'Evote is not Found.',
-        eVoteDeleteRequestEVoteNotExist: 'Evote is not Found.',
+        eVoteViewRequestEVoteNotExist: 'E-vote does not exist!',
+        eVoteUpdateRequestEVoteNotExist: 'E-vote does not exist!',
+        eVoteDeleteRequestEVoteNotExist: 'E-vote does not exist!',
         eVoteCreateRequestCanNotStoreFile: 'Canot Store File.',
         eVoteUpdateRequestCanNotStoreFile: 'Canot Store File.'
     },
@@ -2892,118 +2916,121 @@ var errorMessages = {
         ProductCreateRequestImageNameAlreadyExist: 'Image Name All Ready Exist.'
     },
     element: {
-        futureSurveyAnswerRequestQuestionElementDoesNotExists: 'Question Element is not Found.'
+        futureSurveyAnswerRequestQuestionElementDoesNotExists: 'Question Element could not Found!'
     },
     futureSurvey: {
         updateConfigErrorConfigUpdate: 'Error Configure Update.',
-        futureSurveytUpdateRequestFutureSurveyNotExist: 'Survey is not Exist.',
-        futureSurveyDeleteRequestFutureSurveyNotExist: 'Survey is not Exist.',
-        futureSurveyViewFutureSurveyNotExist: 'Survey is not Exist.',
-        futureSurveyViewInvalidId: 'Invalid Survey Id.'
+        futureSurveytUpdateRequestFutureSurveyNotExist: 'Survey does not exist!',
+        futureSurveyDeleteRequestFutureSurveyNotExist: 'Survey does not exist!',
+        futureSurveyViewFutureSurveyNotExist: 'Survey does not exist!',
+        futureSurveyViewInvalidId: 'Invalid Survey Id!'
     },
     futureSurveyInteraction: {
-        interactionViewInteractionDoesNotExists: 'Interaction is not Found.',
-        updateErrorWhenUpdate: 'Can not Update at this Time.',
-        interactLoginCouldNotFindrecord: 'Record is not Found.',
-        interactLoginPostCouldNotFindRecord: 'Record is not Found.',
-        deleteInteractionBySurvey: 'Can not Delete at this Time.'
+        interactionViewInteractionDoesNotExists: '"filename" not Found!',
+        updateErrorWhenUpdate: 'Could not updated!',
+        interactLoginCouldNotFindrecord: '"filename" not Found!',
+        interactLoginPostCouldNotFindRecord: '"filename" not Found!',
+        deleteInteractionBySurvey: 'The record cannot be deleted!'
+    },
+    invitation: {
+        publishURLduplicate: 'Publish URL is already used!'
     },
     interaction: {
-        fetchAllInteractionsInteractionsNotExists: 'Interaction is not Exist.',
-        fetchGroupByClientIdGroupsNotExists: 'Groups are not Exists.',
-        getAssignedInviteesGroupDetailsDoesNotExists: 'Group Details are not Exist.'
+        fetchAllInteractionsInteractionsNotExists: 'Interaction does not exist!',
+        fetchGroupByClientIdGroupsNotExists: 'Group does not exist!',
+        getAssignedInviteesGroupDetailsDoesNotExists: 'Can not retrieve group details!'
     },
     inviteeGroup: {
-        findGroupByIdInviteeGroupNotExist: 'Invitee Group is not Exist.'
+        findGroupByIdInviteeGroupNotExist: 'Invitee Group does not exist!'
     },
     question: {
-        questionViewRequestQuestionNotExist: 'Question is not Exist.',
-        questionUpdateRequestQuestionNotExist: 'Question is not Exist.',
-        questionDeleteRequestQuestionNotExist: 'Question is not Exist.'
+        questionViewRequestQuestionNotExist: 'Question does not exist!',
+        questionUpdateRequestQuestionNotExist: 'Question does not exist!',
+        questionDeleteRequestQuestionNotExist: 'Question does not exist!'
     },
     survey: {
-        surveyUpdateRequestSurveyNotExist: 'Survey is not Exist.',
+        surveyUpdateRequestSurveyNotExist: 'Survey does not exist!',
         EVoteCreateRequestSurveyInvalid: 'Invalid Survey.',
-        surveyViewRequestSurveyNotExist: 'Survey is not Exist.'
+        surveyViewRequestSurveyNotExist: 'Survey does not exist!'
     },
     client: {
-        EVoteCreateRequestClientEmpty: 'Invalid Client.',
-        EVoteCreateRequestClientInvalid: 'Invalid Client.',
-        EVoteRequestClientEmpty: 'Invalid Client.',
-        EVoteUpdateRequestClientEmpty: 'Invalid Client.',
-        productsCreateRequestClientInvalid: 'Invalid Client.',
-        clientViewRequestClientNotExist: 'Client is not Exist.',
-        clientUpdateRequestClientNotExist: 'Client is not Exist.',
-        clientDeleteRequestClientNotExist: 'Client is not Exist.',
-        productCreateRequestClientNotExist: 'Client is not Exist.'
+        EVoteCreateRequestClientEmpty: 'Invalid Client!',
+        EVoteCreateRequestClientInvalid: 'Invalid Client!',
+        EVoteRequestClientEmpty: 'Invalid Client!',
+        EVoteUpdateRequestClientEmpty: 'Invalid Client!',
+        productsCreateRequestClientInvalid: 'Invalid Client!',
+        clientViewRequestClientNotExist: 'Client does not exist!',
+        clientUpdateRequestClientNotExist: 'Client does not exist!',
+        clientDeleteRequestClientNotExist: 'Client does not exist!',
+        productCreateRequestClientNotExist: 'Client does not exist!'
     },
     answer: {
         platformAnswerSubmitRequestAnswerAlreadyExpired: 'Answers Expired.'
     },
     surveyId: {
-        productsCreateRequestSurveyIdInvalid: 'Invalid Survey.'
+        productsCreateRequestSurveyIdInvalid: 'Invalid Survey Id!'
     },
     product: {
-        productViewRequestProductNotExist: 'Product is not Exist.',
-        productUpdateRequestProductNotExist: 'Product is not Exist.'
+        productViewRequestProductNotExist: 'Product does not exist!',
+        productUpdateRequestProductNotExist: 'Product does not exist!'
     },
     product_image: {
-        productImageRetrieveProducImageNotExists: 'Product Image is not Exist.'
+        productImageRetrieveProducImageNotExists: 'Product Image does not exist!'
     },
     authority: {
         createAuthorityPersistError: 'Authority is not created.'
     },
     email: {
-        companyCreateRequestUserEmailDuplicate: 'Email allready exists.',
-        platformUserCreateRequestEmailDuplicate: 'Email allready exists.',
-        platformUserUpdateRequestEmailDuplicate: 'Email allready exists.'
+        companyCreateRequestUserEmailDuplicate: 'Email is already in use!',
+        platformUserCreateRequestEmailDuplicate: 'Email is already in use!',
+        platformUserUpdateRequestEmailDuplicate: 'Email is already in use!'
     },
     license: {
-        licenseViewLicenseNotExist: 'License is not exists.',
+        licenseViewLicenseNotExist: 'License does not exist!',
         licenseViewLicenseViewError: 'License view error.'
     },
     download: {
-        imageByteNullContext: 'Image is not exists.',
-        imageByteContextNotExists: 'Image is not exists.'
+        imageByteNullContext: 'Image does not exist!',
+        imageByteContextNotExists: 'Image does not exist!'
     },
     role: {
-        platformRoleViewRequestRoleNotExist: 'Role is not exists.',
-        platformRoleUpdateRequestRoleNotExist: 'Role is not exists.',
+        platformRoleViewRequestRoleNotExist: 'Role does not exist!',
+        platformRoleUpdateRequestRoleNotExist: 'Role does not exist!',
         retrievePredefinedRoleByNameFetchError: 'Role data view error.'
     },
     user: {
-        platformUserViewRequestUserNotExist: 'User is not exists.',
-        platformUserUpdateRequestUserNotExist: 'User is not exists.',
-        platformUserDeleteRequestUserDeleteFiledUserId: 'Unable to delete user account.',
-        platformUserDeleteRequestUserNotExis: 'User is not exists.'
+        platformUserViewRequestUserNotExist: 'User does not exist!',
+        platformUserUpdateRequestUserNotExist: 'User does not exist!',
+        platformUserDeleteRequestUserDeleteFiledUserId: 'Could not delete user account!',
+        platformUserDeleteRequestUserNotExis: 'User does not exist!'
     },
     status: {
-        platformUserUpdateRequestStatusCannotChange: 'Status can\'t change.'
+        platformUserUpdateRequestStatusCannotChange: 'You cannot change status! / The action cannot be completed!'
     },
     activationLink: {
-        userActivationRequestAlreadyActivated: 'Your account already activated.',
-        userActivationRequestUserNotFound: 'User is not exists.'
+        userActivationRequestAlreadyActivated: 'Your account is already activated!',
+        userActivationRequestUserNotFound: 'User does not exist!'
     },
     community: {
-        communityCreateCreateError: 'Unable to create community.',
-        communityUpdateUpdateError: 'Unable to update community.',
-        communityViewCommunityNotExists: 'Community is not exists.',
+        communityCreateCreateError: 'System cannot create community!',
+        communityUpdateUpdateError: 'System cannot update community!',
+        communityViewCommunityNotExists: 'Community does not exist!',
         getByClientFetchError: 'Community data view error.',
-        communityDeleteDeleteError: 'Unable to delete community.',
-        communitySearchFetchError: 'Community data search error.'
+        communityDeleteDeleteError: 'Could not delete community!',
+        communitySearchFetchError: 'Cannot retrieve searched record!'
     },
     event: {
-        createEventCreateError: 'Unable to create event.',
-        eventUpdateUpdateError: 'Unable to update event.',
-        eventViewEventNotExists: 'Event is not exists.',
-        eventSearchFetchError: 'Event data search error.',
+        createEventCreateError: 'System cannot create event!',
+        eventUpdateUpdateError: 'System cannot update event!',
+        eventViewEventNotExists: 'Event does not exist!',
+        eventSearchFetchError: 'Cannot retrieve searched record!',
         eventDeleteRequestDeleteError: 'Unable to delete event.',
         listDeleteRequestDeleteError: 'Unable to delete event list.',
         eventsByCommunitiesFetchError: 'Event data view error.'
     },
     promotion: {
         createPromotionCreateError: 'Unable to create promotion.',
-        promotionViewPromotionNotExists: 'Promotion is not exists.',
+        promotionViewPromotionNotExists: 'Promotion does not exist!',
         promotionUpdatePromotionError: 'Unable to update promotion.',
         promoSearchFetchError: 'Promotion data search error.',
         promoDeleteRequestDeleteError: 'Unable to delete promotion.',
@@ -3022,7 +3049,7 @@ var errorMessages = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <mat-toolbar matDialogTitle class=\"m-0 info-title\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">{{ data.title }} Information!</span>\r\n  </div>\r\n</mat-toolbar> -->\r\n<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n  <!-- <span class=\"info-font\">{{ data.message }}</span>\r\n  <div class=\"info-link\">\r\n    <a routerLink=\"{{ data.linkData.url }}\" (click)=\"dialogRef.close(false)\">{{ data.linkData.urlDescription }}</a>\r\n  </div> -->\r\n  <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <img src=\"./../../../../assets/images/popup-window/info.png\">\r\n  </div>\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <h4 class=\"info-header\">{{ data.title }}</h4>\r\n    </div>\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <p class=\"info-message\">{{ data.message }}</p>\r\n    </div>\r\n  </div>\r\n</mat-dialog-content>\r\n<mat-dialog-actions class=\"margin-top action-section\">\r\n  <a mat-button type=\"button\" class=\"ok-btn\" href=\"{{ data.linkData.url }}\" (click)=\"dialogRef.close(false)\">{{ data.linkData.buttonText }}</a>\r\n  <span fxFlex></span>\r\n  <button mat-button type=\"button\" class=\"close-btn\" (click)=\"dialogRef.close(false)\">Close</button>\r\n</mat-dialog-actions>\r\n"
+module.exports = "<!-- <mat-toolbar matDialogTitle class=\"m-0 info-title\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">{{ data.title }} Information!</span>\r\n  </div>\r\n</mat-toolbar> -->\r\n<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n  <!-- <span class=\"info-font\">{{ data.message }}</span>\r\n  <div class=\"info-link\">\r\n    <a routerLink=\"{{ data.linkData.url }}\" (click)=\"dialogRef.close(false)\">{{ data.linkData.urlDescription }}</a>\r\n  </div> -->\r\n  <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <img src=\"./../../../../assets/images/popup-window/info.png\">\r\n  </div>\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <h4 class=\"info-header\">{{ data.title }}</h4>\r\n    </div>\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <p class=\"info-message\" [innerHTML]=\"data.message\"></p>\r\n    </div>\r\n  </div>\r\n</mat-dialog-content>\r\n<mat-dialog-actions class=\"margin-top action-section\">\r\n  <a mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(true)\">{{ data.linkData.buttonText }}</a>\r\n  <span fxFlex></span>\r\n  <button mat-button type=\"button\" class=\"close-btn\" (click)=\"dialogRef.close(false)\">Close</button>\r\n</mat-dialog-actions>\r\n"
 
 /***/ }),
 
@@ -3125,7 +3152,15 @@ var AppInfoService = /** @class */ (function () {
             disableClose: false,
             data: infoData
         });
-        return dialogRef.afterClosed();
+        return dialogRef.afterClosed().subscribe(function (res) {
+            if (!res) {
+                return;
+            }
+            else {
+                window.open(infoData.linkData.url);
+                return;
+            }
+        });
     };
     AppInfoService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
@@ -3262,7 +3297,7 @@ var AppLoaderService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n    <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n      <img src=\"./../../../../assets/images/popup-window/warning.png\">\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n      <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n        <h4 class=\"warn-header\">{{ data.title }}</h4>\r\n      </div>\r\n      <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n        <p class=\"warn-message\">{{ data.message }}</p>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n  <mat-dialog-actions class=\"margin-top action-section\">\r\n    <button mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(false)\">OK</button>\r\n    <span fxFlex></span>\r\n    <button mat-button type=\"button\" class=\"close-btn\" (click)=\"dialogRef.close(false)\">Close</button>\r\n  </mat-dialog-actions>\r\n"
+module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n    <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n      <img src=\"./../../../../assets/images/popup-window/warning.png\">\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n      <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n        <h4 class=\"warn-header\">{{ data.title }}</h4>\r\n      </div>\r\n      <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n        <p class=\"warn-message\" [innerHTML]=\"data.message\"></p>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n  <mat-dialog-actions class=\"margin-top action-section\">\r\n    <button mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(false)\">OK</button>\r\n    <span fxFlex></span>\r\n    <button mat-button type=\"button\" class=\"close-btn\" (click)=\"dialogRef.close(false)\">Close</button>\r\n  </mat-dialog-actions>\r\n"
 
 /***/ }),
 
