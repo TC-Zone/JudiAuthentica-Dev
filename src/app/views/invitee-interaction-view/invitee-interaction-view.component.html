@@ -1,41 +1,60 @@
 <form [formGroup]="interactForm" id="invitee-interaction-view">
   <div class="page-wrap height-100 background-survey-signin" *ngIf="showLogin">
-    <div class="session-form-hold set-form-left">
-      <mat-card id="login-card">
-        <mat-card-content>
-          <div id="login-form">
-            <div class="text-center pb-1" id="login-form-logo">
-              <img src="assets/images/truverus/Tru-Verus-Logo.png" alt="">
-              <p class="text-muted m-0">Welcome, Please Signin to your Account.</p>
-              <h6 *ngIf="loginError" class="m-1 form-error-msg"> {{loginErrorMsg}} </h6>
+    <div id="login-view" layout="row" layout-align="center center">
+      <mat-card class="header">
+        <mat-card-header>
+          <div class="row">
+            <div class="col-sm-4">
+              <img class="logo" src="assets/images/truverus/fountainvest.png" alt="">
             </div>
-            <mat-form-field class="full-width">
-              <input type="text" name="username" matInput placeholder="Username" value="" [formControl]="interactForm.controls['username']"
-                required name="username">
-            </mat-form-field>
-
-            <mat-form-field class="full-width">
-              <input type="password" name="password" matInput placeholder="Password" value="" [formControl]="interactForm.controls['password']"
-                required name="password">
-            </mat-form-field>
-
-            <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()" [disabled]="interactForm.invalid">Login
-              to Survey</button>
+            <div class="col-sm-8">
+              <mat-card-title class="mat-title">
+                <h5>FountainVest Partners </h5>
+              </mat-card-title>
+            </div>
           </div>
-
-
-            <span *ngFor="let lang of langs">{{lang.name}}</span>
-
+        </mat-card-header>
+      </mat-card>
+      <mat-card style="margin-top:12px">
+        <div id="login-div">
+          <mat-card-content>
+            <h6 *ngIf="loginError" class="m-1 form-error-msg"> {{loginErrorMsg}} </h6>
             <mat-form-field class="full-width">
-              <mat-select [formControl]="interactForm.controls['language']" required placeholder="Select Language">
-                <mat-option>none</mat-option>
-                <mat-option *ngFor="let lang of supportLangs" [value]="lang">{{ lang.name }}</mat-option>
-              </mat-select>
+              <input type="text" name="username" matInput placeholder="Username" value=""
+                [formControl]="interactForm.controls['username']" required name="username">
             </mat-form-field>
 
+            <mat-form-field class="full-width">
+              <input type="password" name="password" matInput placeholder="Password" value=""
+                [formControl]="interactForm.controls['password']" required name="password">
+            </mat-form-field>
 
-        </mat-card-content>
+            <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()"
+              [disabled]="interactForm.invalid">Login
+              to Survey</button>
+          </mat-card-content>
+        </div>
       </mat-card>
+      <mat-card style="margin-top:12px">
+        <div id="language">
+          <mat-card-content>
+            <div>
+              <div class="col-sm-8">
+                <mat-label>Select your Language</mat-label>
+              </div>
+              <div class="col-sm-4">
+                <mat-select [(value)]="defaultLang" (selectionChange)='changeDefaultLang()'>
+                  <mat-option *ngFor="let lang of supportLangs" [value]="lang">{{lang.name}}</mat-option>
+                </mat-select>
+              </div>
+            </div>
+          </mat-card-content>
+        </div>
+      </mat-card>
+    </div>
+    <div class="footer">
+      <p class="powered">Powered By</p>
+      <img src="assets/images/truverus/Tru-Verus-Logo.png" alt="">
     </div>
   </div>
 </form>

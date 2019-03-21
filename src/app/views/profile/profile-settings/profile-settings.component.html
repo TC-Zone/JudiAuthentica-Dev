@@ -1,22 +1,22 @@
 <mat-card class="p-0">
   <mat-tab-group>
-    <mat-tab label="Account Settings">
+    <mat-tab label="Profile Settings">
       <mat-card-content class="mt-3">
-        <form [formGroup]="accountSettingsForm" (ngSubmit)="submit()" class="userProfileForm">
+        <form [formGroup]="profileSettingsForm" (ngSubmit)="submit()" class="userProfileForm">
           <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
             <div fxFlex="100" class="pr-1">
               <mat-form-field class="full-width">
-                <input matInput name="username" [formControl]="accountSettingsForm.controls['username']"
-                  positiveNumberAndLetterOnly placeholder="User Name">
+                <input matInput name="accountName" [formControl]="profileSettingsForm.controls['accountName']"
+                  positiveNumberAndLetterOnly placeholder="Account Name">
               </mat-form-field>
             </div>
             <div fxFlex="100" class="pr-1 mb-3">
               <mat-form-field class="full-width">
-                <input matInput name="email" [formControl]="accountSettingsForm.controls['email']" placeholder="Email">
+                <input matInput name="email" [formControl]="profileSettingsForm.controls['email']" placeholder="Email">
               </mat-form-field>
             </div>
           </div>
-          <button mat-raised-button color="primary" [disabled]="accountSettingsForm.invalid">Save</button>
+          <button mat-raised-button color="primary" [disabled]="profileSettingsForm.invalid">Save</button>
         </form>
       </mat-card-content>
     </mat-tab>

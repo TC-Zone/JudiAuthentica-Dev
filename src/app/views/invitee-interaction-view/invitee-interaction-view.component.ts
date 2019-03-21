@@ -7,6 +7,8 @@ import { AppErrorService } from "../../shared/services/app-error/app-error.servi
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { Subscription } from "rxjs";
+import { surveyLanguage } from "app/model/FutureSurvey.model";
+import { lang } from "moment";
 
 @Component({
   selector: "app-invitee-interaction-view",
@@ -39,12 +41,13 @@ export class InviteeInteractionViewComponent implements OnInit {
 
   // Initial Login Screen values store variables
   public publishUrl: string;
-  public langs: any[];
+  public langs: surveyLanguage[] = [];
+  public supportLangs: surveyLanguage[] = [];
+  public defaultLang: surveyLanguage;
+
   public getLangsSub: Subscription;
   public originMap = new Map();
   public langJson: any;
-  public supportLangs: any[] = [];
-  public defaultLang: any;
 
   constructor(
     private inviteeInteractionViewService: InviteeInteractionViewService,
@@ -94,33 +97,49 @@ export class InviteeInteractionViewComponent implements OnInit {
     }
   }
 
-  buildSupportLangArray(langJson): any[] {
-    this.defaultLang = this.langs.filter(obj => {
-      return obj.code === langJson.def;
+  buildSupportLangArray(langJson) {
+    this.langs.forEach(element => {
+      if (this.langJson.extra.indexOf(element.code) > -1 || langJson.def === element.code) {
+        if (langJson.def === element.code) {
+          this.defaultLang = element;
+        }
+        if (this.supportLangs.indexOf(element) == -1) {
+          this.supportLangs.push(element);
+        }
+      }
     });
-
-    this.supportLangs.push(this.defaultLang);
-
-    if (langJson.extra) {
-      langJson.extra.forEach(langCode => {
-        const lang = this.langs.filter(obj => {
-          return obj.code === langCode;
-        });
-
-        this.supportLangs.push(lang);
-      });
-    }
-
-    return this.supportLangs;
   }
+
+  // buildSupportLangArray(langJson): any[] {
+  //   this.defaultLang = this.langs.filter(obj => {
+  //     return obj.code === langJson.def;
+  //   });
+  //   this.supportLangs.push(this.defaultLang);
+  //   this.currentLang = this.defaultLang[0].id;
+  //   if (langJson.extra) {
+  //     langJson.extra.forEach(langCode => {
+  //       const lang = this.langs.filter(obj => {
+  //         return obj.code === langCode;
+  //       });
+  //       if (this.supportLangs.indexOf(lang) == -1) {
+  //         this.supportLangs.push(lang);
+  //       }
+  //     });
+  //   }
+  //   return this.supportLangs;
+  // }
 
   // load all the languages
   getAllSurveyLangs() {
     this.getLangsSub = this.inviteeInteractionViewService
       .getAllLangs()
       .subscribe(data => {
-        this.langs = data.content;
+        this.langs = JSON.parse(JSON.stringify(data.content));
       });
+  }
+
+  changeDefaultLang() {
+    localStorage.setItem("surveySelectedLang", JSON.stringify(this.defaultLang));
   }
 
   doLog() {
@@ -270,7 +289,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     localStorage.setItem("onCompleteStatus", "onComplete");
     let thankYouMsg = this.setThankYouMsg("DEFAULT_MSG");
 
-    this.surveyModel.onUpdateQuestionCssClasses.add(function(survey, options) {
+    this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
       var classes = options.cssClasses;
 
       if (options.question.getType() === "rating") {
@@ -315,7 +334,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     ];
 
     // .............. ON COMPLET START HERE ..........................
-    this.surveyModel.onComplete.add(function(result) {
+    this.surveyModel.onComplete.add(function (result) {
       if (localStorage.getItem("onCompleteStatus") === "onComplete") {
         localStorage.setItem("survey_currentPage_" + interactionId, lastPage);
       }
@@ -448,7 +467,7 @@ export class InviteeInteractionViewComponent implements OnInit {
 
     Survey.StylesManager.applyTheme("bootstrap");
 
-    this.surveyModel.onUpdateQuestionCssClasses.add(function(survey, options) {
+    this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
       var classes = options.cssClasses;
 
       if (options.question.getType() === "rating") {
@@ -614,15 +633,15 @@ export class InviteeInteractionViewComponent implements OnInit {
 }
 
 export class InviteePart {
-  constructor(public username, public password: string) {}
+  constructor(public username, public password: string) { }
 }
 
 export class ValueTemplate {
-  constructor(public value: any) {}
+  constructor(public value: any) { }
 }
 
 export class MatrixBaseTemplate {
-  constructor(public rowValue, public columnValue: any) {}
+  constructor(public rowValue, public columnValue: any) { }
 }
 
 export class FSAnswer {
@@ -630,5 +649,5 @@ export class FSAnswer {
     public interactionId: any,
     public futureSurveyAnswers: any,
     public originalResultArray: any
-  ) {}
+  ) { }
 }

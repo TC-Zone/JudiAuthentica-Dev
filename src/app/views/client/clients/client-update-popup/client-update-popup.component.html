@@ -60,7 +60,7 @@
         </mat-form-field>
       </div>
 
-      <div fxFlex="50" class="pr-1">
+      <!-- <div fxFlex="50" class="pr-1">
         <mat-form-field class="example-full-width">
           <input matInput [formControl]="itemForm.controls['country']" placeholder="Country" [matAutocomplete]="auto" (blur)="onBlurCountry()">
           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
@@ -69,7 +69,19 @@
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
-      </div>
+      </div> -->
+
+      <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input matInput [formControl]="itemForm.controls['country']" placeholder="Country"
+              [matAutocomplete]="auto" (blur)="onBlurCountry()">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredCountries | async" [value]="option.name">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
 
 
       <!-- --------- hidden file input --------- -->
@@ -116,7 +128,7 @@
   <mat-card-footer>
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <div fxFlex="100" class="mt-1">
-        <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
+        <button mat-raised-button color="primary" [disabled]="itemForm.invalid || !url">Save</button>
         <span fxFlex></span>
         <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
       </div>
