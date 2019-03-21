@@ -1,15 +1,15 @@
 {
-  "SURVEYSIGNIFORMHEADER": "Welcome, Please Signin to your Account.",
-  "USERNAME": "Username",
-  "PASSWORD": "Password",
-  "LOGINBUTTON": "Login to Survey",
-  "HI": "Hi",
-  "THE": "The",
-  "PRVSUB": "is Previously Submitted ",
-  "SUMMERYTEXT": "Summary is provided bellow",
-  "VIEWSUMMERY": "View Summary",
-  "EDIT": "Edit",
-  "SUBMIT": "Submit",
-  "ANSWERLATER": "Answer Later",
-  "POWEREDBY": "Powered by"
+  "SURVEYSIGNIFORMHEADER": "Bienvenue, veuillez vous connecter à votre compte.",
+  "USERNAME": "Nom d'utilisateur",
+  "PASSWORD": "Mot de passe",
+  "LOGINBUTTON": "Connectez-vous à l'enquête",
+  "HI": "Salut",
+  "THE": "Le",
+  "PRVSUB": "est déjà soumis ",
+  "SUMMERYTEXT": "Le résumé est fourni ci-dessous",
+  "VIEWSUMMERY": "Voir le résumé",
+  "EDIT": "Modifier",
+  "SUBMIT": "Soumettre",
+  "ANSWERLATER": "Répondre plus tard",
+  "POWEREDBY": "Alimenté par"
 }
