@@ -15385,7 +15385,7 @@ __export(__webpack_require__(/*! ./index */ "./node_modules/ng2-file-upload/inde
 /*!********************************************!*\
   !*** ./src/app/model/ClientModel.model.ts ***!
   \********************************************/
-/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
+/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, UserUpdateReq, UserCategoryUpdateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15397,6 +15397,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CountryData", function() { return CountryData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserData", function() { return UserData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCreateReq", function() { return UserCreateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserUpdateReq", function() { return UserUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCategoryUpdateReq", function() { return UserCategoryUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientData", function() { return ClientData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LicenseUpdateReq", function() { return LicenseUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleData", function() { return RoleData; });
@@ -15453,10 +15455,8 @@ var ClientUpdateReq = /** @class */ (function () {
 }());
 
 var CountryData = /** @class */ (function () {
-    function CountryData(id, name, code) {
+    function CountryData(id) {
         this.id = id;
-        this.name = name;
-        this.code = code;
     }
     return CountryData;
 }());
@@ -15480,6 +15480,25 @@ var UserCreateReq = /** @class */ (function () {
         this.categories = categories;
     }
     return UserCreateReq;
+}());
+
+var UserUpdateReq = /** @class */ (function () {
+    function UserUpdateReq(accountName, email, role) {
+        this.accountName = accountName;
+        this.email = email;
+        this.role = role;
+    }
+    return UserUpdateReq;
+}());
+
+var UserCategoryUpdateReq = /** @class */ (function () {
+    function UserCategoryUpdateReq(accountName, email, role, categories) {
+        this.accountName = accountName;
+        this.email = email;
+        this.role = role;
+        this.categories = categories;
+    }
+    return UserCategoryUpdateReq;
 }());
 
 var ClientData = /** @class */ (function () {
@@ -15543,6 +15562,267 @@ var profileUpdateReq = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/views/profile/account-settings/account-settings.component.html":
+/*!********************************************************************************!*\
+  !*** ./src/app/views/profile/account-settings/account-settings.component.html ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<mat-card class=\"p-0\">\r\n  <form [formGroup]=\"accountSettingsForm\" (ngSubmit)=\"submit()\">\r\n    <mat-card-title>\r\n      <div class=\"card-title-text\">Account Details</div>\r\n      <mat-divider></mat-divider>\r\n\r\n    </mat-card-title>\r\n    <mat-card-content class=\"mat-typography mt-2\">\r\n\r\n\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n        <div fxFlex=\"100\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"clientName\" [formControl]=\"accountSettingsForm.controls['name']\" letterOnly\r\n              placeholder=\"Name\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"100\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <textarea matInput name=\"description\" placeholder=\"Description\"\r\n              [formControl]=\"accountSettingsForm.controls['description']\"></textarea>\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"contactNo\" [formControl]=\"accountSettingsForm.controls['contactNo']\"\r\n              placeholder=\"Contact No\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"addressLine1\" [formControl]=\"accountSettingsForm.controls['addressLine1']\"\r\n              placeholder=\"Address Line 1\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"addressLine2\" [formControl]=\"accountSettingsForm.controls['addressLine2']\"\r\n              placeholder=\"Address Line 2\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"city\" [formControl]=\"accountSettingsForm.controls['city']\" letterOnly\r\n              placeholder=\"City\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"state\" [formControl]=\"accountSettingsForm.controls['state']\"\r\n              positiveNumberAndLetterOnly placeholder=\"State\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"zipCode\" [formControl]=\"accountSettingsForm.controls['zipCode']\" positiveNumberOnly\r\n              placeholder=\"ZipCode\" maxlength=\"6\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput [formControl]=\"accountSettingsForm.controls['country']\" placeholder=\"Country\"  (focus)='loadCountryDD()'\r\n              [matAutocomplete]=\"auto\" (blur)=\"onBlurCountry()\">\r\n            <mat-autocomplete autoActiveFirstOption #auto=\"matAutocomplete\">\r\n              <mat-option *ngFor=\"let option of filteredCountries | async\" [value]=\"option.name\">\r\n                {{option.name}}\r\n              </mat-option>\r\n            </mat-autocomplete>\r\n          </mat-form-field>\r\n        </div>\r\n\r\n\r\n        <!-- --------- hidden file input --------- -->\r\n        <input (change)=\"onSelectFile($event)\" #productImgs type=\"file\" style=\"display: none\"\r\n          [formControl]=\"accountSettingsForm.controls['profilePic']\" base-sixty-four-input>\r\n\r\n\r\n        <!-- --------- file input click button --------- -->\r\n        <!-- <div fxFlex=\"50\" class=\"pr-1\">\r\n          <div layout-margin layout-padding>\r\n            <button mat-raised-button class=\"mr-1 mb-1\" (click)=\"productImgs.click()\" type=\"button\">\r\n              Browse Images</button>\r\n          </div>\r\n        </div> -->\r\n\r\n        <div layout-margin layout-padding class=\"pr-1\">\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"productImgs.click()\" type=\"button\">\r\n            Browse Images</button>\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"removeSelectedImg()\" type=\"button\" *ngIf=\"url\">\r\n            Clear Images</button>\r\n        </div>\r\n\r\n\r\n        <!-- --------- start images preview container --------- -->\r\n        <div id=\"client_create_image_preview_container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\" layout-align=\"center\">\r\n\r\n          <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngIf=\"url\" fxFlex=\"100\" style=\"display: flex;\">\r\n\r\n            <img class=\"clientProfilePic\" [src]=\"url\" (error)=\"removeSelectedImg()\">\r\n\r\n          </div>\r\n\r\n        </div>\r\n        <!-- --------- end images preview container --------- -->\r\n\r\n\r\n      </div>\r\n\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <!-- <button mat-raised-button type=\"submit\" color=\"primary\" [disabled]=\"\">Save</button> -->\r\n          <button mat-raised-button type=\"submit\" color=\"primary\" [disabled]=\"accountSettingsForm.invalid || !url\">Save</button>\r\n        </div>\r\n      </div>\r\n\r\n    </mat-card-content>\r\n\r\n  </form>\r\n</mat-card>"
+
+/***/ }),
+
+/***/ "./src/app/views/profile/account-settings/account-settings.component.ts":
+/*!******************************************************************************!*\
+  !*** ./src/app/views/profile/account-settings/account-settings.component.ts ***!
+  \******************************************************************************/
+/*! exports provided: AccountSettingsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AccountSettingsComponent", function() { return AccountSettingsComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ng2-file-upload */ "./node_modules/ng2-file-upload/index.js");
+/* harmony import */ var ng2_file_upload__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(ng2_file_upload__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _profile_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../profile.service */ "./src/app/views/profile/profile.service.ts");
+/* harmony import */ var app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/model/ClientModel.model */ "./src/app/model/ClientModel.model.ts");
+/* harmony import */ var app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
+/* harmony import */ var app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/shared/services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/shared/animations/egret-animations */ "./src/app/shared/animations/egret-animations.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+
+
+
+
+var AccountSettingsComponent = /** @class */ (function () {
+    function AccountSettingsComponent(fb, profileService, loader, snack, errDialog, snackBar) {
+        this.fb = fb;
+        this.profileService = profileService;
+        this.loader = loader;
+        this.snack = snack;
+        this.errDialog = errDialog;
+        this.snackBar = snackBar;
+        this.uploader = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_1__["FileUploader"]({ url: 'upload_url' });
+        this.imgBaseURL = 'http://localhost:10000/api/downloads/client/';
+    }
+    AccountSettingsComponent.prototype.ngOnInit = function () {
+        var currentuser = JSON.parse(localStorage.getItem('currentUser'));
+        this.clientId = currentuser.userData.client.id;
+        this.buildItemForm();
+        this.getClient();
+        this.getCountry();
+    };
+    AccountSettingsComponent.prototype.buildItemForm = function () {
+        this.accountSettingsForm = this.fb.group({
+            name: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            description: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            profilePic: [''],
+            contactNo: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            addressLine1: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            addressLine2: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            city: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            state: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            zipCode: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            country: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+        });
+    };
+    AccountSettingsComponent.prototype.getClient = function () {
+        var _this = this;
+        this.profileService.getClient(this.clientId).subscribe(function (successResp) {
+            var data = successResp.content;
+            _this.accountSettingsForm.patchValue({
+                name: data.name,
+                description: data.description,
+                contactNo: data.primaryContactNo,
+                addressLine1: data.addressLine1,
+                addressLine2: data.addressLine2,
+                city: data.city,
+                state: data.state,
+                zipCode: data.zipCode,
+                country: data.country.name
+            });
+            _this.selectedCountry = data.country.id;
+            _this.onBlurCountry();
+            getBase64ImageFromUrl(_this.imgBaseURL + _this.clientId)
+                .then(function (result) { return _this.url = result; })
+                .catch(function (err) { return console.error(err); });
+        }, function (error) {
+            _this.errDialog.showError(error);
+        });
+    };
+    AccountSettingsComponent.prototype.getCountry = function () {
+        var _this = this;
+        this.profileService.getCountry().subscribe(function (successResp) {
+            _this.countries = successResp.content;
+            _this.filteredCountries = _this.accountSettingsForm.get("country").valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_9__["map"])(function (value) { return _this._filter(value); }));
+        }, function (error) {
+            _this.errDialog.showError(error);
+        });
+    };
+    AccountSettingsComponent.prototype.submit = function () {
+        var _this = this;
+        var country = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["CountryData"](this.selectedCountry);
+        var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["ClientUpdateReq"](this.accountSettingsForm.get('name').value, this.accountSettingsForm.get('description').value, this.url, this.accountSettingsForm.get('contactNo').value, this.accountSettingsForm.get('addressLine1').value, this.accountSettingsForm.get('addressLine2').value, this.accountSettingsForm.get('city').value, this.accountSettingsForm.get('state').value, this.accountSettingsForm.get('zipCode').value, country);
+        this.profileService.updateClientDetails(this.clientId, req).subscribe(function (response) {
+            _this.snack.open("Client Details Updated!", "OK", { duration: 4000 });
+        }, function (error) {
+            _this.loader.close();
+            _this.errDialog.showError(error);
+        });
+    };
+    //  ----------------------- Account Setting ---------------------------------------------------------
+    AccountSettingsComponent.prototype._filter = function (value) {
+        var filterValue = value.toLowerCase();
+        return this.countries.filter(function (option) { return option.name.toLowerCase().indexOf(filterValue) === 0; });
+    };
+    // File uploader validation and upload
+    AccountSettingsComponent.prototype.onSelectFile = function (event) {
+        var _this = this;
+        if (event.target.files && event.target.files[0]) {
+            var file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
+            var pattern = /image-*/;
+            var reader = new FileReader();
+            if (!file.type.match(pattern)) {
+                this.snackBar.open("Invalid Format!", "close", { duration: 2000 });
+                return;
+            }
+            reader.onload = function (event) {
+                _this.url = event.target.result;
+                console.log(_this.url);
+            };
+            reader.readAsDataURL(file);
+        }
+        else {
+            this.snackBar.open("Can't upload", "close", { duration: 2000 });
+        }
+    };
+    AccountSettingsComponent.prototype.removeSelectedImg = function () {
+        this.url = null;
+        this.accountSettingsForm.controls['profilePic'].setValue('');
+    };
+    AccountSettingsComponent.prototype.onBlurCountry = function () {
+        var _this = this;
+        var value = this.accountSettingsForm.get("country").value;
+        var status = true;
+        this.countries.forEach(function (element) {
+            if (element.name === value) {
+                _this.selectedCountry = element.id;
+                status = false;
+            }
+        });
+        if (status) {
+            this.selectedCountry = null;
+            this.accountSettingsForm.get("country").setValue("");
+        }
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('categoryInput'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], AccountSettingsComponent.prototype, "categoryInput", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('auto'),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatAutocomplete"])
+    ], AccountSettingsComponent.prototype, "matAutocomplete", void 0);
+    AccountSettingsComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-account-settings',
+            template: __webpack_require__(/*! ./account-settings.component.html */ "./src/app/views/profile/account-settings/account-settings.component.html"),
+            animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_8__["egretAnimations"],
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
+            _profile_service__WEBPACK_IMPORTED_MODULE_3__["ProfileService"],
+            app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_5__["AppLoaderService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSnackBar"],
+            app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_6__["AppErrorService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSnackBar"]])
+    ], AccountSettingsComponent);
+    return AccountSettingsComponent;
+}());
+
+function getBase64ImageFromUrl(imageUrl) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _this = this;
+        var res, blob;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch(imageUrl)];
+                case 1:
+                    res = _a.sent();
+                    return [4 /*yield*/, res.blob()];
+                case 2:
+                    blob = _a.sent();
+                    return [2 /*return*/, new Promise(function (resolve, reject) {
+                            var reader = new FileReader();
+                            reader.addEventListener("load", function () {
+                                resolve(reader.result);
+                            }, false);
+                            reader.onerror = function () {
+                                return reject(_this);
+                            };
+                            reader.readAsDataURL(blob);
+                        })];
+            }
+        });
+    });
+}
+
+
+/***/ }),
+
 /***/ "./src/app/views/profile/profile-blank/profile-blank.component.css":
 /*!*************************************************************************!*\
   !*** ./src/app/views/profile/profile-blank/profile-blank.component.css ***!
@@ -15600,6 +15880,251 @@ var ProfileBlankComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], ProfileBlankComponent);
     return ProfileBlankComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/views/profile/profile-license/profile-license.component.html":
+/*!******************************************************************************!*\
+  !*** ./src/app/views/profile/profile-license/profile-license.component.html ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<!-- <mat-card class=\"p-0\">\r\n  <form [formGroup]=\"licenseFormGroup\" (ngSubmit)=\"submitLicense()\" id=\"client-update\">\r\n    <mat-card-title>\r\n      <div class=\"card-title-text\">Update License</div>\r\n      <mat-divider></mat-divider>\r\n\r\n    </mat-card-title>\r\n    <mat-card-content class=\"mat-typography mt-2\">\r\n\r\n\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\" mt-1\">\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"tagCount\" placeholder=\"Tag Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['tagCount']\">\r\n          </mat-form-field>\r\n          <span *ngIf=\"licenseFormGroup.controls['tagCount'].hasError('max')\" class=\"form-error-msg\">\r\n            {{this.license.tagCount}} max ! </span>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"userCount\" placeholder=\"User Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['userCount']\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"communityCount\" placeholder=\"Community Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['communityCount']\" (blur)=\"validateLicense()\"\r\n              (focus)='setOldValue()'>\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"feedbackCount\" placeholder=\"Feedback Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['feedbackCount']\" (blur)=\"setDefaultValue('feedbackCount')\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"eventkCount\" placeholder=\"Event Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['eventCount']\" (blur)=\"setDefaultValue('eventCount')\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"promoCount\" placeholder=\"Promo Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['promoCount']\" (blur)=\"setDefaultValue('promoCount')\">\r\n          </mat-form-field>\r\n        </div>\r\n      </div>\r\n\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"licenseFormGroup.invalid\"\r\n            (click)=\"submit()\">Save</button>\r\n        </div>\r\n      </div>\r\n\r\n    </mat-card-content>\r\n\r\n    <mat-card-footer>\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"licenseFormGroup.invalid\">Save</button>\r\n          <span fxFlex></span>\r\n          <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n        </div>\r\n      </div>\r\n    </mat-card-footer>\r\n\r\n  </form>\r\n</mat-card> -->\r\n\r\n\r\n\r\n\r\n<mat-card class=\"p-0\">\r\n  <mat-tab-group>\r\n\r\n\r\n\r\n\r\n    <mat-tab label=\"Update License\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <!-- *ngIf=\"user | async; else loading\" -->\r\n        <form [formGroup]=\"licenseFormGroup\"  (ngSubmit)=\"submitLicense()\" class=\"\">\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\" mt-1\">\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"tagCount\" placeholder=\"Tag Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['tagCount']\">\r\n              </mat-form-field>\r\n              <span *ngIf=\"licenseFormGroup.controls['tagCount'].hasError('max')\" class=\"form-error-msg\">\r\n                {{this.license.tagCount}} max ! </span>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"userCount\" placeholder=\"User Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['userCount']\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"communityCount\" placeholder=\"Community Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['communityCount']\" (blur)=\"validateLicense()\"\r\n                  (focus)='setOldValue()'>\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"feedbackCount\" placeholder=\"Feedback Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['feedbackCount']\" (blur)=\"setDefaultValue('feedbackCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"eventkCount\" placeholder=\"Event Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['eventCount']\" (blur)=\"setDefaultValue('eventCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"promoCount\" placeholder=\"Promo Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['promoCount']\" (blur)=\"setDefaultValue('promoCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n          </div>\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"mt-1\">\r\n              <button mat-raised-button color=\"primary\" [disabled]=\"licenseFormGroup.invalid\"\r\n                (click)=\"submit()\">Save</button>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n\r\n    <mat-tab label=\"Category\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form [formGroup]=\"categoryFormGroup\">\r\n          <ng-template matStepLabel>Category</ng-template>\r\n\r\n          <mat-form-field class=\"matAutocomplete-chip-list\">\r\n            <mat-chip-list #chipList>\r\n              <mat-chip *ngFor=\"let category of categories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n                (removed)=\"remove(category)\">\r\n                {{category}}\r\n                <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n              </mat-chip>\r\n\r\n              <input placeholder=\"Select category...\" #categoryInput (focus)='loadCategoryDD()'\r\n                [formControl]=\"categoryFormGroup.controls['category']\" cont [matAutocomplete]=\"autoCategory\"\r\n                [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\"\r\n                (matChipInputTokenEnd)=\"add($event)\" [matChipInputAddOnBlur]=\"addOnBlur\"\r\n                [required]=\"categoryFormStatus\">\r\n            </mat-chip-list>\r\n            <mat-autocomplete #autoCategory=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n              <mat-option *ngFor=\"let category of filteredCategories | async; let i = index\"\r\n                [value]=\"categoriesObj[i].id\">\r\n                {{category}}\r\n              </mat-option>\r\n            </mat-autocomplete>\r\n          </mat-form-field>\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"mt-1\">\r\n              <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n              <button mat-raised-button color=\"primary\" matStepperNext [disabled]='categoryFormStatus'>Next</button>\r\n              <span fxFlex></span>\r\n              <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n\r\n\r\n\r\n\r\n  </mat-tab-group>\r\n</mat-card>"
+
+/***/ }),
+
+/***/ "./src/app/views/profile/profile-license/profile-license.component.ts":
+/*!****************************************************************************!*\
+  !*** ./src/app/views/profile/profile-license/profile-license.component.ts ***!
+  \****************************************************************************/
+/*! exports provided: ProfileLicenseComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfileLicenseComponent", function() { return ProfileLicenseComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _profile_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../profile.service */ "./src/app/views/profile/profile.service.ts");
+/* harmony import */ var app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/model/ClientModel.model */ "./src/app/model/ClientModel.model.ts");
+/* harmony import */ var app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
+/* harmony import */ var app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/cdk/keycodes */ "./node_modules/@angular/cdk/esm5/keycodes.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+var ProfileLicenseComponent = /** @class */ (function () {
+    function ProfileLicenseComponent(fb, snackBar, profileService, errDialog, loader, snack) {
+        var _this = this;
+        this.fb = fb;
+        this.snackBar = snackBar;
+        this.profileService = profileService;
+        this.errDialog = errDialog;
+        this.loader = loader;
+        this.snack = snack;
+        this.formStatus = false;
+        this.oldestValue = 0;
+        this.visible = true;
+        this.selectable = true;
+        this.removable = true;
+        this.addOnBlur = true;
+        this.separatorKeysCodes = [_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__["ENTER"], _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__["COMMA"]];
+        this.categoryCtrl = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"]();
+        this.categories = [];
+        this.categoriesValue = [];
+        this.allCategories = [];
+        this.categoryFormStatus = true;
+        this.filteredCategories = this.categoryCtrl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(function (category) { return category ? _this._filterCategory(category) : _this.allCategories.slice(); }));
+    }
+    ProfileLicenseComponent.prototype.ngOnInit = function () {
+        var currentuser = JSON.parse(localStorage.getItem('currentUser'));
+        this.clientId = currentuser.userData.id;
+        this.buildItemForm();
+        this.getCategory();
+        // this.buildItemForm(this.data.payload.license)
+    };
+    ProfileLicenseComponent.prototype.buildItemForm = function () {
+        this.licenseFormGroup = this.fb.group({
+            tagCount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            userCount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            communityCount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            feedbackCount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            eventCount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            promoCount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]
+        });
+        this.categoryFormGroup = this.fb.group({
+            category: this.categoryCtrl
+        });
+        this.getClient();
+    };
+    ProfileLicenseComponent.prototype.getCategory = function () {
+        var _this = this;
+        this.profileService.getCategory().subscribe(function (successResp) {
+            var categories = successResp.content;
+            console.log(categories);
+            _this.categoriesObj = successResp.content;
+            _this.categoriesObj.forEach(function (element) {
+                _this.allCategories.push(element.name);
+            });
+            // if (this.data.selectedCategory.length > 0) {
+            //   this.data.selectedCategory.forEach(element => {
+            //     this.addSelectedCategory(element.id)
+            //   });
+            // }
+        }, function (error) {
+            _this.errDialog.showError(error);
+        });
+    };
+    ProfileLicenseComponent.prototype.getClient = function () {
+        var _this = this;
+        this.getItemSub = this.profileService.getClient(this.clientId).subscribe(function (successResp) {
+            _this.license = successResp.content.license;
+            var form = _this.licenseFormGroup;
+            form.controls['tagCount'].setValue(_this.license.tagCount);
+            form.controls['userCount'].setValue(_this.license.userCount);
+            form.controls['communityCount'].setValue(_this.license.communityCount);
+            form.controls['feedbackCount'].setValue(_this.license.feedbackCount);
+            form.controls['eventCount'].setValue(_this.license.eventCount);
+            form.controls['promoCount'].setValue(_this.license.promoCount);
+        }, function (error) {
+            _this.errDialog.showError({
+                title: "Error",
+                status: error.status,
+                type: "http_error"
+            });
+        });
+    };
+    ProfileLicenseComponent.prototype.setOldValue = function () {
+        this.oldestValue = this.licenseFormGroup.controls['communityCount'].value;
+    };
+    ProfileLicenseComponent.prototype.validateLicense = function () {
+        var form = this.licenseFormGroup;
+        if (form.controls['communityCount'].value !== '') {
+            var value = form.controls['communityCount'].value;
+            var diff = void 0;
+            if (value > this.oldestValue) {
+                diff = value - this.oldestValue;
+                form.controls['feedbackCount'].setValue(+(form.get('feedbackCount').value) + diff);
+                form.controls['eventCount'].setValue(+(form.get('eventCount').value) + diff);
+                form.controls['promoCount'].setValue(+(form.get('promoCount').value) + diff);
+            }
+        }
+        else {
+            form.controls['communityCount'].setValue(1);
+            form.controls['feedbackCount'].setValue(1);
+            form.controls['eventCount'].setValue(1);
+            form.controls['promoCount'].setValue(1);
+        }
+    };
+    ProfileLicenseComponent.prototype.setDefaultValue = function (control) {
+        var form = this.licenseFormGroup;
+        if (form.controls[control].value === '') {
+            form.controls[control].setValue(1);
+        }
+    };
+    ProfileLicenseComponent.prototype.submit = function () {
+        var _this = this;
+        var form = this.licenseFormGroup;
+        var clientData = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_3__["ClientData"](this.clientId);
+        var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_3__["LicenseUpdateReq"](form.get('tagCount').value, form.get('userCount').value, form.get('communityCount').value, form.get('feedbackCount').value, form.get('eventCount').value, form.get('promoCount').value, clientData);
+        this.profileService.updateClientLicense(this.license.id, req).subscribe(function (response) {
+            _this.snack.open("License Data Updated !", "OK", { duration: 4000 });
+            // this.getClients();
+            // this.clients = response;
+            // this.loader.close();
+            // this.snack.open("License Data Updated !", "OK", { duration: 4000 });
+        }, function (error) {
+            _this.errDialog.showError({
+                title: "Error",
+                status: error.status,
+                type: "http_error"
+            });
+        });
+    };
+    //  ----------------------- Categoty Setting --------------------------------------------------------
+    ProfileLicenseComponent.prototype.loadCategoryDD = function () {
+        var _this = this;
+        this.filteredCategories = this.categoryCtrl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(function (category) { return category ? _this._filterCategory(category) : _this.allCategories.slice(); }));
+    };
+    ProfileLicenseComponent.prototype.add = function (event) {
+        if (!this.matAutocomplete.isOpen) {
+            var input = event.input;
+            var value = event.value;
+            // if we need to add custom texts as Chips,
+            // Add our category
+            // if ((value || '').trim()) {
+            //   this.categories.push(value.trim());
+            // }
+            // Reset the input value
+            if (input) {
+                input.value = '';
+            }
+            this.categoryCtrl.setValue(null);
+        }
+    };
+    ProfileLicenseComponent.prototype.remove = function (category) {
+        var index = this.categories.indexOf(category);
+        if (index >= 0) {
+            this.categories.splice(index, 1);
+            this.categoriesValue.splice(index, 1);
+        }
+        if (this.categoriesValue.length === 0) {
+            this.categoryFormStatus = true;
+        }
+    };
+    ProfileLicenseComponent.prototype.selected = function (event) {
+        this.categories.push(event.option.viewValue);
+        this.categoriesValue.push(event.option.value);
+        this.categoryInput.nativeElement.value = '';
+        this.categoryCtrl.setValue(null);
+        this.categoryFormStatus = false;
+    };
+    ProfileLicenseComponent.prototype._filterCategory = function (value) {
+        var filterValue = value.toLowerCase();
+        return this.allCategories.filter(function (category) { return category.toLowerCase().indexOf(filterValue) === 0; });
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('categoryInput'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], ProfileLicenseComponent.prototype, "categoryInput", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('auto'),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatAutocomplete"])
+    ], ProfileLicenseComponent.prototype, "matAutocomplete", void 0);
+    ProfileLicenseComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-profile-license',
+            template: __webpack_require__(/*! ./profile-license.component.html */ "./src/app/views/profile/profile-license/profile-license.component.html")
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatSnackBar"],
+            _profile_service__WEBPACK_IMPORTED_MODULE_2__["ProfileService"],
+            app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_5__["AppErrorService"],
+            app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_4__["AppLoaderService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_6__["MatSnackBar"]])
+    ], ProfileLicenseComponent);
+    return ProfileLicenseComponent;
 }());
 
 
@@ -15761,17 +16286,6 @@ var ProfileOverviewComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/views/profile/profile-settings/profile-settings.component.css":
-/*!*******************************************************************************!*\
-  !*** ./src/app/views/profile/profile-settings/profile-settings.component.css ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
 /***/ "./src/app/views/profile/profile-settings/profile-settings.component.html":
 /*!********************************************************************************!*\
   !*** ./src/app/views/profile/profile-settings/profile-settings.component.html ***!
@@ -15779,7 +16293,7 @@ module.exports = ""
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"p-0\">\r\n  <mat-tab-group>\r\n    <mat-tab label=\"Account Settings\">\r\n      <mat-card-content class=\"mt-1\">\r\n        <form [formGroup]=\"itemForm\" (ngSubmit)=\"submit()\">\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"username\" [formControl]=\"itemForm.controls['username']\"\r\n                  positiveNumberAndLetterOnly placeholder=\"User Name\">\r\n              </mat-form-field>\r\n            </div>\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"password\" type=\"password\" [formControl]=\"itemForm.controls['password']\"\r\n                  positiveNumberAndLetterOnly placeholder=\"Password\">\r\n              </mat-form-field>\r\n            </div>\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"email\" [formControl]=\"itemForm.controls['email']\" placeholder=\"Email\">\r\n              </mat-form-field>\r\n            </div>\r\n          </div>\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"itemForm.invalid\">Save</button>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n    <mat-tab label=\"Profile Picture\">\r\n      <mat-card-content>\r\n        <div class=\"mb-1 mt-1\">\r\n          <p>Upload a profile picture</p>\r\n          <input type=\"file\" ng2FileSelect [uploader]=\"uploader\" />\r\n        </div>\r\n\r\n        <div class=\"mb-1\">\r\n          <div ng2FileDrop [ngClass]=\"{'dz-file-over': hasBaseDropZoneOver}\" [uploader]=\"uploader\"\r\n            (fileOver)=\"fileOverBase($event)\" class=\"fileupload-drop-zone\">\r\n            Drop png/jpeg file here\r\n          </div>\r\n        </div>\r\n        <table class=\"default-table mat-box-shadow\" style=\"width: 100%\">\r\n          <thead>\r\n            <tr>\r\n              <th width=\"30%\">Name</th>\r\n              <th>Size</th>\r\n              <th>Progress</th>\r\n              <th>Status</th>\r\n              <th>Actions</th>\r\n            </tr>\r\n          </thead>\r\n          <tbody *ngIf=\"uploader.queue.length; else tableNoData\">\r\n            <tr *ngFor=\"let item of uploader.queue\">\r\n              <td>{{ item?.file?.name }}</td>\r\n              <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>\r\n              <td>\r\n                <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                  <div class=\"progress-bar\" role=\"progressbar\" [ngStyle]=\"{ 'width': item.progress + '%' }\"></div>\r\n                  <mat-progress-bar class=\"\" color=\"primary\" mode=\"determinate\" [value]=\"item.progress\">\r\n                  </mat-progress-bar>\r\n                </div>\r\n              </td>\r\n              <td class=\"\">\r\n                <mat-icon *ngIf=\"item.isSuccess\">check</mat-icon>\r\n                <mat-icon *ngIf=\"item.isCancel\" color=\"accent\">cancel</mat-icon>\r\n                <mat-icon *ngIf=\"item.isError\" color=\"warn\">error</mat-icon>\r\n              </td>\r\n              <td nowrap>\r\n                <button mat-raised-button class=\"mat-primary\" (click)=\"item.upload()\"\r\n                  [disabled]=\"item.isReady || item.isUploading || item.isSuccess\">Upload</button>\r\n                <button mat-raised-button class=\"mat-accent\" (click)=\"item.cancel()\"\r\n                  [disabled]=\"!item.isUploading\">Cancel</button>\r\n\r\n                <button mat-raised-button class=\"mat-warn\" (click)=\"item.remove()\">Remove</button>\r\n              </td>\r\n            </tr>\r\n          </tbody>\r\n          <ng-template #tableNoData>\r\n            <p [ngStyle]=\"{padding: '0 1.2rem'}\">Queue is empty</p>\r\n          </ng-template>\r\n        </table>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n    <mat-tab label=\"Privacy Settings\">\r\n      <mat-card-content>\r\n        <div class=\"mb-1 mt-1\">\r\n          <mat-checkbox> Get weekly news in your email.</mat-checkbox>\r\n        </div>\r\n        <div class=\"mb-1\">\r\n          <mat-checkbox> Get notification when someone follows you.</mat-checkbox>\r\n        </div>\r\n        <div class=\"mb-1\">\r\n          <mat-checkbox> Get email when someone follows you.</mat-checkbox>\r\n        </div>\r\n        <div class=\"mb-1\">\r\n          <p>Choose your admin panel color schemes.</p>\r\n          <mat-radio-group fxLayout=\"column\" fxLayoutGap=\"4px\">\r\n            <mat-radio-button value=\"indigo\">Indigo</mat-radio-button>\r\n            <mat-radio-button value=\"blue\">Blue</mat-radio-button>\r\n            <mat-radio-button value=\"pink\">Pink</mat-radio-button>\r\n            <mat-radio-button value=\"purple\">Purple</mat-radio-button>\r\n          </mat-radio-group>\r\n        </div>\r\n        <button mat-raised-button color=\"primary\">Save</button>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n  </mat-tab-group>\r\n</mat-card>"
+module.exports = "<mat-card class=\"p-0\">\r\n  <mat-tab-group>\r\n    <mat-tab label=\"Profile Settings\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form [formGroup]=\"profileSettingsForm\" (ngSubmit)=\"submit()\" class=\"userProfileForm\">\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"accountName\" [formControl]=\"profileSettingsForm.controls['accountName']\"\r\n                  positiveNumberAndLetterOnly placeholder=\"Account Name\">\r\n              </mat-form-field>\r\n            </div>\r\n            <div fxFlex=\"100\" class=\"pr-1 mb-3\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"email\" [formControl]=\"profileSettingsForm.controls['email']\" placeholder=\"Email\">\r\n              </mat-form-field>\r\n            </div>\r\n          </div>\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"profileSettingsForm.invalid\">Save</button>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n    <mat-tab label=\"Password Settings\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form [formGroup]=\"passwordSettingsForm\" (ngSubmit)=\"submit()\" class=\"userProfileForm\">\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"password\" type=\"currentPassword\"\r\n                  [formControl]=\"passwordSettingsForm.controls['currentPassword']\" positiveNumberAndLetterOnly\r\n                  placeholder=\"Current Password\">\r\n              </mat-form-field>\r\n            </div>\r\n            <div fxFlex=\"100\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"password\" type=\"password\"\r\n                  [formControl]=\"passwordSettingsForm.controls['password']\" positiveNumberAndLetterOnly\r\n                  placeholder=\"Password\">\r\n              </mat-form-field>\r\n            </div>\r\n            <div fxFlex=\"100\" class=\"pr-1 mb-3\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"confirmPassword\" type=\"password\"\r\n                  [formControl]=\"passwordSettingsForm.controls['confirmPassword']\" positiveNumberAndLetterOnly\r\n                  placeholder=\"Confirm Password\">\r\n              </mat-form-field>\r\n            </div>\r\n          </div>\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"passwordSettingsForm.invalid\">Save</button>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n\r\n    <mat-tab label=\"Profile Picture\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form class=\"userProfileForm\">\r\n          <div class=\"mb-1\">\r\n\r\n            <!-- --------- hidden file input --------- -->\r\n            <input (change)=\"onSelectFile($event)\" #productImgs type=\"file\" style=\"display: none\" base-sixty-four-input>\r\n\r\n            <!-- --------- file input click button --------- -->\r\n            <div layout-margin layout-padding class=\"mb-2\">\r\n              <button mat-raised-button class=\"mr-1\" (click)=\"productImgs.click()\" type=\"button\">\r\n                Browse Images</button>\r\n              <button mat-raised-button class=\"mr-1\" (click)=\"removeSelectedImg()\" type=\"button\" *ngIf=\"url\">\r\n                Clear Images</button>\r\n            </div>\r\n\r\n            <!-- --------- start images preview container --------- -->\r\n            <div id=\"client_create_image_preview_container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\" layout-align=\"center\">\r\n\r\n              <!-- --------- start card --------- -->\r\n              <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngIf=\"url\" fxFlex=\"100\"\r\n                style=\"display: flex;\">\r\n\r\n                <img id=\"userProfilePic\" [src]=\"url\">\r\n\r\n              </div>\r\n              <!-- --------- end card --------- -->\r\n\r\n            </div>\r\n            <!-- --------- end images preview container --------- -->\r\n\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n  </mat-tab-group>\r\n</mat-card>"
 
 /***/ }),
 
@@ -15802,6 +16316,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
 /* harmony import */ var app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/shared/services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/shared/animations/egret-animations */ "./src/app/shared/animations/egret-animations.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15819,38 +16334,62 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ProfileSettingsComponent = /** @class */ (function () {
-    function ProfileSettingsComponent(fb, profileService, loader, snack, errDialog) {
+    function ProfileSettingsComponent(fb, profileService, loader, snack, errDialog, snackBar) {
         this.fb = fb;
         this.profileService = profileService;
         this.loader = loader;
         this.snack = snack;
         this.errDialog = errDialog;
+        this.snackBar = snackBar;
         this.uploader = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_1__["FileUploader"]({ url: 'upload_url' });
         this.hasBaseDropZoneOver = false;
     }
     ProfileSettingsComponent.prototype.ngOnInit = function () {
         var currentuser = JSON.parse(localStorage.getItem('currentUser'));
         this.userId = currentuser.userData.id;
-        this.userName = currentuser.userData.userName;
-        this.email = currentuser.userData.email;
         this.buildItemForm(currentuser.userData);
     };
-    ProfileSettingsComponent.prototype.fileOverBase = function (e) {
-        this.hasBaseDropZoneOver = e;
-    };
     ProfileSettingsComponent.prototype.buildItemForm = function (data) {
-        this.itemForm = this.fb.group({
-            username: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](data.userName || '', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+        this.profileSettingsForm = this.fb.group({
+            accountName: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](data.accountName || '', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
             email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](data.email || '', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email]),
-            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
         });
+        this.passwordSettingsForm = this.fb.group({
+            currentPassword: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
+            confirmPassword: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
+        });
+    };
+    // File uploader validation and upload
+    ProfileSettingsComponent.prototype.onSelectFile = function (event) {
+        var _this = this;
+        if (event.target.files && event.target.files[0]) {
+            var file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
+            var pattern = /image-*/;
+            var reader = new FileReader();
+            if (!file.type.match(pattern)) {
+                this.snackBar.open("Invalid Format!", "close", { duration: 2000 });
+                return;
+            }
+            reader.onload = function (event) {
+                _this.url = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        else {
+            this.snackBar.open("Can't upload", "close", { duration: 2000 });
+        }
+    };
+    ProfileSettingsComponent.prototype.removeSelectedImg = function () {
+        this.url = null;
     };
     ProfileSettingsComponent.prototype.updateProfile = function () {
         var _this = this;
-        var itemForm = this.itemForm.value;
+        var itemForm = this.profileSettingsForm.value;
         var client = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["ClientData"](this.clientId);
-        var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["profileUpdateReq"](itemForm.username, itemForm.password, itemForm.email);
+        var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["profileUpdateReq"](itemForm.accountName, itemForm.password, itemForm.email);
         this.profileService.updateUser(this.userId, req).subscribe(function (response) {
             // this.getUsers();
             _this.loader.close();
@@ -15865,13 +16404,14 @@ var ProfileSettingsComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-profile-settings',
             template: __webpack_require__(/*! ./profile-settings.component.html */ "./src/app/views/profile/profile-settings/profile-settings.component.html"),
-            styles: [__webpack_require__(/*! ./profile-settings.component.css */ "./src/app/views/profile/profile-settings/profile-settings.component.css")]
+            animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_8__["egretAnimations"],
         }),
         __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
             _profile_service__WEBPACK_IMPORTED_MODULE_3__["ProfileService"],
             app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_5__["AppLoaderService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSnackBar"],
-            app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_6__["AppErrorService"]])
+            app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_6__["AppErrorService"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_7__["MatSnackBar"]])
     ], ProfileSettingsComponent);
     return ProfileSettingsComponent;
 }());
@@ -15887,7 +16427,7 @@ var ProfileSettingsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" fxFlex.gt-md=\"300px\" fxFlex.gt-sm=\"50\">\r\n    <mat-card class=\"profile-sidebar mb-1 pb-0\">\r\n      <div class=\"propic text-center\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\" />\r\n      </div>\r\n      <div class=\"profile-title text-center mb-1\">\r\n        <div class=\"main-title\">{{ currentUser.accountName }}</div>\r\n        <div class=\"subtitle mb-05\">{{ currentUser.company }}</div>\r\n        <div class=\"text-muted\">\r\n          Hi {{ currentUser.accountName }} ! Hope you are doing great at\r\n          {{ currentUser.company }}\r\n        </div>\r\n      </div>\r\n      <div class=\"profile-actions text-center mb-1\">\r\n        <button\r\n          color=\"primary\"\r\n          mat-raised-button=\"\"\r\n          class=\"mat-raised-button mat-primary mr-1\"\r\n        >\r\n          <span class=\"mat-button-wrapper\">Message</span>\r\n          <div class=\"mat-button-ripple mat-ripple\" matripple=\"\"></div>\r\n          <div class=\"mat-button-focus-overlay\"></div></button\r\n        ><button\r\n          color=\"accent\"\r\n          mat-raised-button=\"\"\r\n          class=\"mat-raised-button mat-accent\"\r\n        >\r\n          <span class=\"mat-button-wrapper\">Follow</span>\r\n          <div class=\"mat-button-ripple mat-ripple\" matripple=\"\"></div>\r\n          <div class=\"mat-button-focus-overlay\"></div>\r\n        </button>\r\n      </div>\r\n      <div class=\"profile-nav\">\r\n        <mat-nav-list>\r\n          <!--\r\n            <mat-list-item routerLink=\"/profile/overview\" routerLinkActive=\"list-item-active\">\r\n              <mat-icon>home</mat-icon>\r\n              Overview\r\n            </mat-list-item>\r\n            <mat-divider></mat-divider>\r\n          -->\r\n          <mat-list-item\r\n            routerLink=\"/profile/settings\"\r\n            routerLinkActive=\"list-item-active\"\r\n          >\r\n            <mat-icon>settings</mat-icon>\r\n            Settings\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <!--\r\n            <mat-list-item routerLink=\"/profile/blank\" routerLinkActive=\"list-item-active\">\r\n              <mat-icon>content_paste</mat-icon>\r\n              Blank\r\n            </mat-list-item>\r\n          -->\r\n        </mat-nav-list>\r\n      </div>\r\n    </mat-card>\r\n\r\n    <!-- Chart grid -->\r\n    <!--\r\n      <mat-card class=\"default\">\r\n        <mat-card-title>Summary</mat-card-title>\r\n        <mat-card-content>\r\n            <div fxLayout=\"row\" fxLayoutWrap=\"wrap\" class=\"doughnut-grid text-center\">\r\n                <div fxFlex=\"50\" class=\"doughnut-grid-item mat-bg-primary\">\r\n                    <canvas\r\n                    baseChart\r\n                    class=\"chart\"\r\n                    [data]=\"doughnutChartData1\"\r\n                    [options]=\"doughnutOptions\"\r\n                    [colors]=\"doughnutChartColors\"\r\n                    [chartType]=\"doughnutChartType\"></canvas>\r\n                    <small>Space: {{data1}}/{{total1}} GB</small>\r\n              </div>\r\n              <div fxFlex=\"50\" class=\"doughnut-grid-item light-gray\">\r\n                  <canvas\r\n                  baseChart\r\n                  class=\"chart\"\r\n                  [data]=\"doughnutChartData2\"\r\n                  [options]=\"doughnutOptions\"\r\n                  [colors]=\"doughnutChartColors\"\r\n                  [chartType]=\"doughnutChartType\"></canvas>\r\n                  <small>Sales: 450</small>\r\n            </div>\r\n            <div fxFlex=\"50\" class=\"doughnut-grid-item light-gray\">\r\n                <canvas\r\n                baseChart\r\n                class=\"chart\"\r\n                [data]=\"doughnutChartData2\"\r\n                [options]=\"doughnutOptions\"\r\n                [colors]=\"doughnutChartColors\"\r\n                [chartType]=\"doughnutChartType\"></canvas>\r\n                <small>Spent: $500</small>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"doughnut-grid-item mat-bg-primary\">\r\n              <canvas\r\n              baseChart\r\n              class=\"chart\"\r\n              [data]=\"doughnutChartData2\"\r\n              [options]=\"doughnutOptions\"\r\n              [colors]=\"doughnutChartColors\"\r\n              [chartType]=\"doughnutChartType\"></canvas>\r\n              <small>Follower: 2000</small>\r\n        </div>\r\n          </div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    -->\r\n    <!-- Contact Information -->\r\n    <!--\r\n      <mat-card class=\"default\">\r\n        <mat-card-title>Contact Information</mat-card-title>\r\n        <mat-card-content class=\"pt-0\">\r\n          <mat-list>\r\n            <mat-list-item><mat-icon class=\"mr-1\">public</mat-icon> www.mhrafi.com</mat-list-item>\r\n            <mat-list-item><mat-icon class=\"mr-1\">email</mat-icon> example@gmail.com</mat-list-item>\r\n            <mat-list-item><mat-icon class=\"mr-1\">phone</mat-icon> 8801822778800</mat-list-item>\r\n            <mat-list-item><mat-icon class=\"mr-1\">add_location</mat-icon> SUST, Sylhet, BD</mat-list-item>\r\n          </mat-list>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    -->\r\n  </div>\r\n\r\n  <!-- Profile Views -->\r\n  <div fxFlex=\"100\" fxFlex.gt-sm=\"50\" fxFlex.gt-md=\"calc(100% - 300px)\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" fxFlex.gt-md=\"300px\" fxFlex.gt-sm=\"50\">\r\n    <mat-card class=\"profile-sidebar mb-1 pb-0\">\r\n      <div class=\"propic text-center\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\" />\r\n      </div>\r\n      <div class=\"profile-title text-center mb-1\">\r\n        <div class=\"main-title\">{{ currentUser.accountName }}</div>\r\n        <div class=\"subtitle mb-05\">{{ currentUser.company }}</div>\r\n        <div class=\"text-muted\">\r\n          Hi {{ currentUser.accountName }} ! Hope you are doing great at\r\n          {{ currentUser.company }}\r\n        </div>\r\n      </div>\r\n      <div class=\"profile-actions text-center mb-1\">\r\n        <button color=\"primary\" mat-raised-button=\"\" class=\"mat-raised-button mat-primary mr-1\">\r\n          <span class=\"mat-button-wrapper\">Message</span>\r\n          <div class=\"mat-button-ripple mat-ripple\" matripple=\"\"></div>\r\n          <div class=\"mat-button-focus-overlay\"></div>\r\n        </button><button color=\"accent\" mat-raised-button=\"\" class=\"mat-raised-button mat-accent\">\r\n          <span class=\"mat-button-wrapper\">Follow</span>\r\n          <div class=\"mat-button-ripple mat-ripple\" matripple=\"\"></div>\r\n          <div class=\"mat-button-focus-overlay\"></div>\r\n        </button>\r\n      </div>\r\n      <div class=\"profile-nav\">\r\n        <mat-nav-list>\r\n          <!--\r\n            <mat-list-item routerLink=\"/profile/overview\" routerLinkActive=\"list-item-active\">\r\n              <mat-icon>home</mat-icon>\r\n              Overview\r\n            </mat-list-item>\r\n            <mat-divider></mat-divider>\r\n          -->\r\n          <mat-list-item routerLink=\"/profile/profile-settings\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>portrait</mat-icon>\r\n            Profile Settings\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"/profile/account-settings\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>work</mat-icon>\r\n            Account Settings\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n\r\n          <mat-list-item routerLink=\"/profile/general-settings\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>settings</mat-icon>\r\n            General Settings\r\n          </mat-list-item>\r\n          <!-- <mat-list-item routerLink=\"/profile/blank\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>content_paste</mat-icon>\r\n            Blank\r\n          </mat-list-item> -->\r\n\r\n        </mat-nav-list>\r\n      </div>\r\n    </mat-card>\r\n  </div>\r\n\r\n  <!-- Profile Views -->\r\n  <div fxFlex=\"100\" fxFlex.gt-sm=\"50\" fxFlex.gt-md=\"calc(100% - 300px)\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -16007,15 +16547,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _profile_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./profile.component */ "./src/app/views/profile/profile.component.ts");
 /* harmony import */ var _profile_overview_profile_overview_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./profile-overview/profile-overview.component */ "./src/app/views/profile/profile-overview/profile-overview.component.ts");
 /* harmony import */ var _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./profile-settings/profile-settings.component */ "./src/app/views/profile/profile-settings/profile-settings.component.ts");
-/* harmony import */ var _profile_blank_profile_blank_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./profile-blank/profile-blank.component */ "./src/app/views/profile/profile-blank/profile-blank.component.ts");
-/* harmony import */ var _profile_routing__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./profile.routing */ "./src/app/views/profile/profile.routing.ts");
-/* harmony import */ var _profile_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./profile.service */ "./src/app/views/profile/profile.service.ts");
+/* harmony import */ var _account_settings_account_settings_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./account-settings/account-settings.component */ "./src/app/views/profile/account-settings/account-settings.component.ts");
+/* harmony import */ var _profile_license_profile_license_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./profile-license/profile-license.component */ "./src/app/views/profile/profile-license/profile-license.component.ts");
+/* harmony import */ var _profile_blank_profile_blank_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./profile-blank/profile-blank.component */ "./src/app/views/profile/profile-blank/profile-blank.component.ts");
+/* harmony import */ var _profile_routing__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./profile.routing */ "./src/app/views/profile/profile.routing.ts");
+/* harmony import */ var _profile_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./profile.service */ "./src/app/views/profile/profile.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -16051,19 +16595,22 @@ var ProfileModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatGridListModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatChipsModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatDialogModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatRadioModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatTabsModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatInputModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatToolbarModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatProgressBarModule"],
                 _angular_flex_layout__WEBPACK_IMPORTED_MODULE_5__["FlexLayoutModule"],
                 _swimlane_ngx_datatable__WEBPACK_IMPORTED_MODULE_6__["NgxDatatableModule"],
                 ng2_charts_ng2_charts__WEBPACK_IMPORTED_MODULE_7__["ChartsModule"],
                 ng2_file_upload_ng2_file_upload__WEBPACK_IMPORTED_MODULE_8__["FileUploadModule"],
                 _shared_shared_module__WEBPACK_IMPORTED_MODULE_9__["SharedModule"],
-                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(_profile_routing__WEBPACK_IMPORTED_MODULE_14__["ProfileRoutes"])
+                _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatAutocompleteModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(_profile_routing__WEBPACK_IMPORTED_MODULE_16__["ProfileRoutes"])
             ],
-            providers: [_profile_service__WEBPACK_IMPORTED_MODULE_15__["ProfileService"]],
-            declarations: [_profile_component__WEBPACK_IMPORTED_MODULE_10__["ProfileComponent"], _profile_overview_profile_overview_component__WEBPACK_IMPORTED_MODULE_11__["ProfileOverviewComponent"], _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_12__["ProfileSettingsComponent"], _profile_blank_profile_blank_component__WEBPACK_IMPORTED_MODULE_13__["ProfileBlankComponent"]]
+            providers: [_profile_service__WEBPACK_IMPORTED_MODULE_17__["ProfileService"]],
+            declarations: [_profile_component__WEBPACK_IMPORTED_MODULE_10__["ProfileComponent"], _profile_overview_profile_overview_component__WEBPACK_IMPORTED_MODULE_11__["ProfileOverviewComponent"], _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_12__["ProfileSettingsComponent"], _account_settings_account_settings_component__WEBPACK_IMPORTED_MODULE_13__["AccountSettingsComponent"], _profile_license_profile_license_component__WEBPACK_IMPORTED_MODULE_14__["ProfileLicenseComponent"], _profile_blank_profile_blank_component__WEBPACK_IMPORTED_MODULE_15__["ProfileBlankComponent"]]
         })
     ], ProfileModule);
     return ProfileModule;
@@ -16086,7 +16633,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _profile_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./profile.component */ "./src/app/views/profile/profile.component.ts");
 /* harmony import */ var _profile_overview_profile_overview_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./profile-overview/profile-overview.component */ "./src/app/views/profile/profile-overview/profile-overview.component.ts");
 /* harmony import */ var _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./profile-settings/profile-settings.component */ "./src/app/views/profile/profile-settings/profile-settings.component.ts");
-/* harmony import */ var _profile_blank_profile_blank_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./profile-blank/profile-blank.component */ "./src/app/views/profile/profile-blank/profile-blank.component.ts");
+/* harmony import */ var _account_settings_account_settings_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./account-settings/account-settings.component */ "./src/app/views/profile/account-settings/account-settings.component.ts");
+/* harmony import */ var _profile_blank_profile_blank_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./profile-blank/profile-blank.component */ "./src/app/views/profile/profile-blank/profile-blank.component.ts");
+/* harmony import */ var _profile_license_profile_license_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./profile-license/profile-license.component */ "./src/app/views/profile/profile-license/profile-license.component.ts");
+
+
 
 
 
@@ -16101,13 +16652,23 @@ var ProfileRoutes = [
                 data: { title: 'Overview', breadcrumb: 'OVERVIEW' }
             },
             {
-                path: 'settings',
+                path: 'profile-settings',
                 component: _profile_settings_profile_settings_component__WEBPACK_IMPORTED_MODULE_2__["ProfileSettingsComponent"],
-                data: { title: 'Settings', breadcrumb: 'SETTINGS' }
+                data: { title: 'Profile Settings', breadcrumb: 'PROFILE SETTINGS' }
+            },
+            {
+                path: 'account-settings',
+                component: _account_settings_account_settings_component__WEBPACK_IMPORTED_MODULE_3__["AccountSettingsComponent"],
+                data: { title: 'Account Settings', breadcrumb: 'ACCOUNT SETTINGS' }
+            },
+            {
+                path: 'general-settings',
+                component: _profile_license_profile_license_component__WEBPACK_IMPORTED_MODULE_5__["ProfileLicenseComponent"],
+                data: { title: 'General Settings', breadcrumb: 'GENERAL SETTINGS' }
             },
             {
                 path: 'blank',
-                component: _profile_blank_profile_blank_component__WEBPACK_IMPORTED_MODULE_3__["ProfileBlankComponent"],
+                component: _profile_blank_profile_blank_component__WEBPACK_IMPORTED_MODULE_4__["ProfileBlankComponent"],
                 data: { title: 'Blank', breadcrumb: 'BLANK' }
             }]
     }
@@ -16149,11 +16710,38 @@ var ProfileService = /** @class */ (function () {
     function ProfileService(http) {
         this.http = http;
         this.userUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "platform-users";
+        this.clientUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "clients";
+        this.licenseUrl = this.clientUrl + "/license";
+        this.specsUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "spec";
+        this.geoUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "geo";
+        this.imgBaseURL = 'http://localhost:10000/api/downloads/client/';
     }
     ProfileService.prototype.updateUser = function (id, item) {
         return this.http
             .put(this.userUrl + "/" + id, item)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ProfileService.prototype.getClient = function (id) {
+        return this.http.get(this.clientUrl + "/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ProfileService.prototype.getCategory = function () {
+        return this.http.get(this.specsUrl + "/categories").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ProfileService.prototype.getCountry = function () {
+        return this.http.get(this.geoUrl + "/countries").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ProfileService.prototype.updateClientLicense = function (id, item) {
+        return this.http
+            .put(this.licenseUrl + "/" + id, item)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ProfileService.prototype.updateClientDetails = function (id, item) {
+        return this.http
+            .put(this.clientUrl + "/" + id, item)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ProfileService.prototype.getClientProfilePic = function (id) {
+        return this.http.get(this.imgBaseURL + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
     ProfileService.prototype.handleError = function (error) {
         console.log(error);

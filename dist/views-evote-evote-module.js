@@ -4,7 +4,7 @@
 /*!********************************************!*\
   !*** ./src/app/model/ClientModel.model.ts ***!
   \********************************************/
-/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
+/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, UserUpdateReq, UserCategoryUpdateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16,6 +16,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CountryData", function() { return CountryData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserData", function() { return UserData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCreateReq", function() { return UserCreateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserUpdateReq", function() { return UserUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCategoryUpdateReq", function() { return UserCategoryUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientData", function() { return ClientData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LicenseUpdateReq", function() { return LicenseUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleData", function() { return RoleData; });
@@ -72,10 +74,8 @@ var ClientUpdateReq = /** @class */ (function () {
 }());
 
 var CountryData = /** @class */ (function () {
-    function CountryData(id, name, code) {
+    function CountryData(id) {
         this.id = id;
-        this.name = name;
-        this.code = code;
     }
     return CountryData;
 }());
@@ -99,6 +99,25 @@ var UserCreateReq = /** @class */ (function () {
         this.categories = categories;
     }
     return UserCreateReq;
+}());
+
+var UserUpdateReq = /** @class */ (function () {
+    function UserUpdateReq(accountName, email, role) {
+        this.accountName = accountName;
+        this.email = email;
+        this.role = role;
+    }
+    return UserUpdateReq;
+}());
+
+var UserCategoryUpdateReq = /** @class */ (function () {
+    function UserCategoryUpdateReq(accountName, email, role, categories) {
+        this.accountName = accountName;
+        this.email = email;
+        this.role = role;
+        this.categories = categories;
+    }
+    return UserCategoryUpdateReq;
 }());
 
 var ClientData = /** @class */ (function () {
