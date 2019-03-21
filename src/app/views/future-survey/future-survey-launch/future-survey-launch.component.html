@@ -115,10 +115,12 @@
         <div fxFlex="100" class="pr-1">
           <mat-form-field class="full-width">
               <input [formControl]="launchForm.controls['publishUrl']" matInput
-                   placeholder="Set Publish URL : {{frontEndBase}}"  pattern="^([a-zA-Z0-9_-]){3,20}$" />
+                   placeholder="Set Publish URL : {{frontEndBase}}" pattern="^([a-zA-Z0-9_-]){3,20}$"  />
           </mat-form-field>
         </div>
     </div>
+
+     <!-- pattern="^([a-zA-Z0-9_-]){3,20}$" -->
 
 
 
