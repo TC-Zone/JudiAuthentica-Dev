@@ -189,7 +189,13 @@ export class FutureSurveyLaunchComponent implements OnInit {
         Validators.required
       ),
       uploadCsvFile: [fieldItem.uploadCsvFile, Validators.required],
-      publishUrl: [fieldItem.publishURL, Validators.required],
+      publishUrl: new FormControl(
+        {
+          value: fieldItem.publishURL || "",
+          disabled: this.isDisabled
+        },
+        Validators.required
+      ),
       csvHeaders: this.fb.array([])
     });
     this.patch(fieldItem.csvHeaders);
