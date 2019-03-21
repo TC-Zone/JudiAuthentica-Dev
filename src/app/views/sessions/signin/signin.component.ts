@@ -18,7 +18,7 @@ export class SigninComponent implements OnInit {
 
   signinForm: FormGroup;
 
-  successUrl: string = "profile";
+  successUrl: string = "profile/profile-settings";
   signInUrl: string = "sessions/signin";
   result: boolean = true;
   private storage_name = authProperties.storage_name;

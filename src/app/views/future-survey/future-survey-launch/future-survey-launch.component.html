@@ -7,7 +7,8 @@
   <!-- [selected]="true" -->
   <mat-dialog-content class="mat-typography mt-1" style="overflow: unset; max-height: unset;">
 
-    <mat-chip class="popup_alert_full_width" *ngIf="isDisabled" mat-chip color="accent" [selected]="true">Sorry this survey has already Launched!</mat-chip>
+    <mat-chip class="popup_alert_full_width" *ngIf="isDisabled" mat-chip color="accent" [selected]="true">Sorry this
+      survey has already Launched!</mat-chip>
 
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <!-- Survey Start Date -->
@@ -58,8 +59,8 @@
     <div *ngIf="!isPublic" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <div fxFlex="100" class="pr-1">
         <mat-form-field class="full-width">
-          <mat-select [formControl]="launchForm.controls['userNamePasswordType']" [(value)]="uNPT" placeholder="Select Password Strategy"
-            (selectionChange)="onChangeUNPT()">
+          <mat-select [formControl]="launchForm.controls['userNamePasswordType']" [(value)]="uNPT"
+            placeholder="Select Password Strategy" (selectionChange)="onChangeUNPT()">
             <mat-option [value]="1">System Generate Password</mat-option>
             <mat-option [value]="2">Author Provide Password</mat-option>
             <!-- <mat-option *ngIf="!launchForm.controls['isPredefined'].value" value="2">Author Provide Password</mat-option> -->
@@ -77,10 +78,11 @@
       </div>
       <div frFlex="20" class="pr-1">
         <div fxFlex="20" class="pr-1">
-          <input [formControl]="launchForm.controls['uploadCsvFile']" #userFile type="file" (change)="onFileChange($event)"
-            style="display: none;" />
+          <input [formControl]="launchForm.controls['uploadCsvFile']" #userFile type="file"
+            (change)="onFileChange($event)" style="display: none;" />
           <div layout-margin layout-padding>
-            <button mat-raised-button class="mr-1" (click)="userFile.click()" type="button" [disabled]="uNPT===undefined">
+            <button mat-raised-button class="mr-1" (click)="userFile.click()" type="button"
+              [disabled]="uNPT===undefined">
               <span *ngIf="csvFile == true">Browse Invitee File</span>
               <span *ngIf="csvFile !== true"> ({{ this.csvFileName }})</span>
             </button>
@@ -101,11 +103,12 @@
     </div> -->
 
     <!-- Csv File Headers -->
-    <div *ngIf="!isPublic && csvFile !== true" id="csvHeaders" fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap"
-      class="mt-1">
+    <div *ngIf="!isPublic && csvFile !== true" id="csvHeaders" fxLayout="row" fxLayout.lt-sm="column"
+      fxLayoutWrap="wrap" class="mt-1">
       <div *ngFor="let header of csvHeadersArray; let i=index" fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input [disabled]="header.headerDisabled" matInput value="{{header.headerName}}" placeholder="{{header.headerName}}" />
+          <input [disabled]="header.headerDisabled" matInput value="{{header.headerName}}"
+            placeholder="{{header.headerName}}" />
         </mat-form-field>
       </div>
     </div>
@@ -127,8 +130,8 @@
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
-    <button [disabled]="currentStatus[0].id == 1 || launchForm.invalid" mat-raised-button (click)="saveInvitationSetting()"
-      color="accent">
+    <button [disabled]="currentStatus[0].id == 1 || launchForm.invalid" mat-raised-button
+      (click)="saveInvitationSetting()" color="accent">
       Save Settings
     </button>
     <span fxFlex></span>

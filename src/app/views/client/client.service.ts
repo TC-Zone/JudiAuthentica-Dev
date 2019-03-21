@@ -16,6 +16,7 @@ export class ClientService {
   licenseUrl: string = this.clientUrl + "/license";
   userUrl: string = environment.userApiUrl + "platform-users";
   roleUrl: string = environment.userApiUrl + "platform-user-roles";
+  geoUrl: string = environment.userApiUrl + "geo";
 
   constructor(private http: HttpClient) { }
 
@@ -36,6 +37,9 @@ export class ClientService {
   }
   getCategory(): Observable<any> {
     return this.http.get(this.specsUrl + "/categories").pipe(catchError(this.handleError));
+  }
+  getCountry(): Observable<any> {
+    return this.http.get(this.geoUrl + "/countries").pipe(catchError(this.handleError));
   }
   getClientCategories(id): Observable<any> {
     return this.http.get(this.clientUrl + "/categories/" + id).pipe(catchError(this.handleError));
@@ -88,6 +92,7 @@ export class ClientService {
       .put<any>(this.userUrl + "/" + id, item)
       .pipe(catchError(this.handleError));
   }
+
 
 
 

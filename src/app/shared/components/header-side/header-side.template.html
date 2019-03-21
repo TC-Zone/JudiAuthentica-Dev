@@ -58,13 +58,17 @@
     <img src="{{currentUser.image}}" alt="">
   </button>
   <mat-menu #accountMenu="matMenu">
-    <button mat-menu-item [routerLink]="['/profile/']">
-      <mat-icon>account_box</mat-icon>
-      <span>Profile</span>
+    <button mat-menu-item [routerLink]="['/profile/profile-settings']">
+      <mat-icon>portrait</mat-icon>
+      <span>Profile Settings</span>
     </button>
-    <button mat-menu-item [routerLink]="['/profile/settings']">
-      <mat-icon>settings</mat-icon>
+    <button mat-menu-item [routerLink]="['/profile/account-settings']">
+      <mat-icon>work</mat-icon>
       <span>Account Settings</span>
+    </button>
+    <button mat-menu-item [routerLink]="['/profile/general-settings']">
+      <mat-icon>settings</mat-icon>
+      <span>General Settings</span>
     </button>
     <!-- <button mat-menu-item>
       <mat-icon>notifications_off</mat-icon>

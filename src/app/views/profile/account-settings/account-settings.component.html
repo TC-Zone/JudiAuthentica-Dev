@@ -1,0 +1,128 @@
+<mat-card class="p-0">
+  <form [formGroup]="accountSettingsForm" (ngSubmit)="submit()">
+    <mat-card-title>
+      <div class="card-title-text">Account Details</div>
+      <mat-divider></mat-divider>
+
+    </mat-card-title>
+    <mat-card-content class="mat-typography mt-2">
+
+
+      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+
+        <div fxFlex="100" class="pr-1">
+          <mat-form-field class="full-width">
+            <input matInput name="clientName" [formControl]="accountSettingsForm.controls['name']" letterOnly
+              placeholder="Name">
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="100" class="pr-1">
+          <mat-form-field class="full-width">
+            <textarea matInput name="description" placeholder="Description"
+              [formControl]="accountSettingsForm.controls['description']"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input matInput name="contactNo" [formControl]="accountSettingsForm.controls['contactNo']"
+              placeholder="Contact No">
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input matInput name="addressLine1" [formControl]="accountSettingsForm.controls['addressLine1']"
+              placeholder="Address Line 1">
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input matInput name="addressLine2" [formControl]="accountSettingsForm.controls['addressLine2']"
+              placeholder="Address Line 2">
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input matInput name="city" [formControl]="accountSettingsForm.controls['city']" letterOnly
+              placeholder="City">
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input matInput name="state" [formControl]="accountSettingsForm.controls['state']"
+              positiveNumberAndLetterOnly placeholder="State">
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input matInput name="zipCode" [formControl]="accountSettingsForm.controls['zipCode']" positiveNumberOnly
+              placeholder="ZipCode" maxlength="6">
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" class="pr-1">
+          <mat-form-field class="full-width">
+            <input matInput [formControl]="accountSettingsForm.controls['country']" placeholder="Country"  (focus)='loadCountryDD()'
+              [matAutocomplete]="auto" (blur)="onBlurCountry()">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredCountries | async" [value]="option.name">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+
+        <!-- --------- hidden file input --------- -->
+        <input (change)="onSelectFile($event)" #productImgs type="file" style="display: none"
+          [formControl]="accountSettingsForm.controls['profilePic']" base-sixty-four-input>
+
+
+        <!-- --------- file input click button --------- -->
+        <!-- <div fxFlex="50" class="pr-1">
+          <div layout-margin layout-padding>
+            <button mat-raised-button class="mr-1 mb-1" (click)="productImgs.click()" type="button">
+              Browse Images</button>
+          </div>
+        </div> -->
+
+        <div layout-margin layout-padding class="pr-1">
+          <button mat-raised-button class="mr-1" (click)="productImgs.click()" type="button">
+            Browse Images</button>
+          <button mat-raised-button class="mr-1" (click)="removeSelectedImg()" type="button" *ngIf="url">
+            Clear Images</button>
+        </div>
+
+
+        <!-- --------- start images preview container --------- -->
+        <div id="client_create_image_preview_container" fxLayout="row" fxLayoutWrap="wrap" layout-align="center">
+
+          <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngIf="url" fxFlex="100" style="display: flex;">
+
+            <img class="clientProfilePic" [src]="url" (error)="removeSelectedImg()">
+
+          </div>
+
+        </div>
+        <!-- --------- end images preview container --------- -->
+
+
+      </div>
+
+      <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+        <div fxFlex="100" class="mt-1">
+          <!-- <button mat-raised-button type="submit" color="primary" [disabled]="">Save</button> -->
+          <button mat-raised-button type="submit" color="primary" [disabled]="accountSettingsForm.invalid || !url">Save</button>
+        </div>
+      </div>
+
+    </mat-card-content>
+
+  </form>
+</mat-card>

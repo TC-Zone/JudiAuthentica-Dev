@@ -12,18 +12,15 @@ import { egretAnimations } from "app/shared/animations/egret-animations";
   selector: 'app-profile-settings',
   templateUrl: './profile-settings.component.html',
   animations: egretAnimations,
-  styleUrls: ['./profile-settings.component.css']
 })
 export class ProfileSettingsComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({ url: 'upload_url' });
   public hasBaseDropZoneOver: boolean = false;
   public clientId;
   public userId;
-  public userName;
-  public email;
   public url;
 
-  public accountSettingsForm: FormGroup;
+  public profileSettingsForm: FormGroup;
   public passwordSettingsForm: FormGroup;
 
   constructor(
@@ -40,20 +37,13 @@ export class ProfileSettingsComponent implements OnInit {
 
     let currentuser = JSON.parse(localStorage.getItem('currentUser'));
     this.userId = currentuser.userData.id;
-    this.userName = currentuser.userData.accountName;
-    this.email = currentuser.userData.email;
     this.buildItemForm(currentuser.userData);
-    
-  }
-
-  public fileOverBase(e: any): void {
-    this.hasBaseDropZoneOver = e;
   }
 
   buildItemForm(data) {
 
-    this.accountSettingsForm = this.fb.group({
-      username: new FormControl(data.accountName || '', Validators.required),
+    this.profileSettingsForm = this.fb.group({
+      accountName: new FormControl(data.accountName || '', Validators.required),
       email: new FormControl(data.email || '', [Validators.required, Validators.email]),
     })
 
@@ -103,9 +93,9 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   updateProfile() {
-    const itemForm = this.accountSettingsForm.value;
+    const itemForm = this.profileSettingsForm.value;
     const client: ClientData = new ClientData(this.clientId);
-    const req: profileUpdateReq = new profileUpdateReq(itemForm.username, itemForm.password, itemForm.email);
+    const req: profileUpdateReq = new profileUpdateReq(itemForm.accountName, itemForm.password, itemForm.email);
 
     this.profileService.updateUser(this.userId, req).subscribe(
       response => {

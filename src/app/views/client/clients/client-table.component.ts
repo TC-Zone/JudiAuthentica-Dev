@@ -4,7 +4,7 @@ import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 import { ClientUpdatePopupComponent } from "./client-update-popup/client-update-popup.component";
 import { ClientCreatePopupComponent } from "./client-create-popup/client-create-popup.component";
-import { Subscription } from "rxjs";
+import { Subscription, Observable } from "rxjs";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { NavigationExtras, Router } from "@angular/router";
@@ -22,6 +22,9 @@ import { ClientLicenseUpdatePopupComponent } from './client-license-update-popup
 
 export class ClientTableComponent implements OnInit, OnDestroy {
 
+  public countries;
+  filteredCountries: Observable<string[]>;
+  
   public clients: any[];
   public category: any[];
   public statusArray = {
@@ -44,6 +47,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getClients();
     this.getCategory();
+    this.getCountry()
   }
 
   ngOnDestroy() {
@@ -74,6 +78,22 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     );
   }
 
+  
+  getCountry() {
+    this.clientService.getCountry().subscribe(successResp => {
+      this.countries = successResp.content;
+      // this.filteredCountries = this.accountSettingsForm.get("country").valueChanges.pipe(
+      //   startWith(''),
+      //   map(value => this._filter(value))
+      // );
+    },
+      error => {
+        this.errDialog.showError(error);
+      }
+    );
+  }
+
+
   clientUpdatePopUp(data: any = {}) {
 
     this.clientService.getClient(data.id).subscribe(successResp => {
@@ -82,7 +102,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
         {
           width: "720px",
           disableClose: true,
-          data: { payload: successResp.content }
+          data: { payload: successResp.content, country: this.countries }
         }
       );
 
@@ -94,7 +114,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
         console.log(res);
 
         this.loader.open();
-        const country: CountryData = new CountryData('a65715e919d0995f361360cf0b8c2c03', 'Åland Islands', 'AX');
+        const country: CountryData = new CountryData(res[2]);
         const req: ClientUpdateReq = new ClientUpdateReq(
           res[0].name, res[0].description, res[1], res[0].contactNo, res[0].addressLine1, res[0].addressLine2, res[0].city, res[0].state, res[0].zipCode, country
         );

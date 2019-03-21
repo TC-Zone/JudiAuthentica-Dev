@@ -23,14 +23,18 @@ export enum MatrixTypeEnum {
 }
 
 // DTO class for FutureSurvey Supported Language Wrapper
-export class LangJsonWrapper{
-  constructor(public def, public extra: any){ }
+export class LangJsonWrapper {
+    constructor(public def, public extra: any) { }
 }
 
+// DTO class for FutureSurvey Supported Language Wrapper
+export class ValidateLocalizeSurveyRequestWrapper {
+    constructor(public validateLocalizeSurveyRequest, public surveyLang: LangJsonWrapper) { }
+}
 
 // DTO class for FutureSurvey Default Language Wrapper :YRS
-export class DefaultLangWrapper{
-  constructor(public def: string) { }
+export class DefaultLangWrapper {
+    constructor(public def: string) { }
 }
 
 // DTO class for FutureSurvey Config Popup
@@ -90,3 +94,10 @@ export class ValueTemplate {
 export class MatrixBaseTemplate {
     constructor(public rowValue, public columnValue: any) { }
 }
+
+
+export interface surveyLanguage {
+    id: string;
+    code: string;
+    name: string;
+  }
