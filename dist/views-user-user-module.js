@@ -1,5 +1,186 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-user-user-module"],{
 
+/***/ "./src/app/model/ClientModel.model.ts":
+/*!********************************************!*\
+  !*** ./src/app/model/ClientModel.model.ts ***!
+  \********************************************/
+/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, UserUpdateReq, UserCategoryUpdateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Content", function() { return Content; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientCreateReq", function() { return ClientCreateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientLicenseData", function() { return ClientLicenseData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientUpdateReq", function() { return ClientUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CountryData", function() { return CountryData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserData", function() { return UserData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCreateReq", function() { return UserCreateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserUpdateReq", function() { return UserUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCategoryUpdateReq", function() { return UserCategoryUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientData", function() { return ClientData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LicenseUpdateReq", function() { return LicenseUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleData", function() { return RoleData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommunityData", function() { return CommunityData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoryData", function() { return CategoryData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LicenseUpdateRequest", function() { return LicenseUpdateRequest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "profileUpdateReq", function() { return profileUpdateReq; });
+var Content = /** @class */ (function () {
+    function Content(id, name) {
+        this.id = id;
+        this.name = name;
+    }
+    return Content;
+}());
+
+var ClientCreateReq = /** @class */ (function () {
+    function ClientCreateReq(name, description, clientLogo, users, categories, license) {
+        this.name = name;
+        this.description = description;
+        this.clientLogo = clientLogo;
+        this.users = users;
+        this.categories = categories;
+        this.license = license;
+    }
+    return ClientCreateReq;
+}());
+
+var ClientLicenseData = /** @class */ (function () {
+    function ClientLicenseData(tagCount, userCount, communityCount, feedbackCount, eventCount, promoCount) {
+        this.tagCount = tagCount;
+        this.userCount = userCount;
+        this.communityCount = communityCount;
+        this.feedbackCount = feedbackCount;
+        this.eventCount = eventCount;
+        this.promoCount = promoCount;
+    }
+    return ClientLicenseData;
+}());
+
+var ClientUpdateReq = /** @class */ (function () {
+    function ClientUpdateReq(name, description, clientLogo, primaryContactNo, addressLine1, addressLine2, city, state, zipCode, country) {
+        this.name = name;
+        this.description = description;
+        this.clientLogo = clientLogo;
+        this.primaryContactNo = primaryContactNo;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+        this.country = country;
+    }
+    return ClientUpdateReq;
+}());
+
+var CountryData = /** @class */ (function () {
+    function CountryData(id) {
+        this.id = id;
+    }
+    return CountryData;
+}());
+
+var UserData = /** @class */ (function () {
+    function UserData(accountName, email) {
+        this.accountName = accountName;
+        this.email = email;
+    }
+    return UserData;
+}());
+
+var UserCreateReq = /** @class */ (function () {
+    function UserCreateReq(accountName, password, email, role, client, communities, categories) {
+        this.accountName = accountName;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.client = client;
+        this.communities = communities;
+        this.categories = categories;
+    }
+    return UserCreateReq;
+}());
+
+var UserUpdateReq = /** @class */ (function () {
+    function UserUpdateReq(accountName, email, role) {
+        this.accountName = accountName;
+        this.email = email;
+        this.role = role;
+    }
+    return UserUpdateReq;
+}());
+
+var UserCategoryUpdateReq = /** @class */ (function () {
+    function UserCategoryUpdateReq(accountName, email, role, categories) {
+        this.accountName = accountName;
+        this.email = email;
+        this.role = role;
+        this.categories = categories;
+    }
+    return UserCategoryUpdateReq;
+}());
+
+var ClientData = /** @class */ (function () {
+    function ClientData(id) {
+        this.id = id;
+    }
+    return ClientData;
+}());
+
+var LicenseUpdateReq = /** @class */ (function () {
+    function LicenseUpdateReq(tagCount, userCount, communityCount, feedbackCount, eventCount, promoCount, client) {
+        this.tagCount = tagCount;
+        this.userCount = userCount;
+        this.communityCount = communityCount;
+        this.feedbackCount = feedbackCount;
+        this.eventCount = eventCount;
+        this.promoCount = promoCount;
+        this.client = client;
+    }
+    return LicenseUpdateReq;
+}());
+
+var RoleData = /** @class */ (function () {
+    function RoleData(id) {
+        this.id = id;
+    }
+    return RoleData;
+}());
+
+var CommunityData = /** @class */ (function () {
+    function CommunityData(id) {
+        this.id = id;
+    }
+    return CommunityData;
+}());
+
+var CategoryData = /** @class */ (function () {
+    function CategoryData(id) {
+        this.id = id;
+    }
+    return CategoryData;
+}());
+
+var LicenseUpdateRequest = /** @class */ (function () {
+    function LicenseUpdateRequest(id) {
+        this.id = id;
+    }
+    return LicenseUpdateRequest;
+}());
+
+var profileUpdateReq = /** @class */ (function () {
+    function profileUpdateReq(userName, password, email) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+    }
+    return profileUpdateReq;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/views/user/roles/role-table-popup/role-table-popup.component.html":
 /*!***********************************************************************************!*\
   !*** ./src/app/views/user/roles/role-table-popup/role-table-popup.component.html ***!
@@ -154,6 +335,7 @@ var RoleTablePopupComponent = /** @class */ (function () {
         var _this = this;
         this.userService.getAllAuthorities()
             .subscribe(function (response) {
+            console.log(response);
             _this.createComponentArray(response.content);
         });
     };
@@ -241,7 +423,7 @@ var RoleTablePopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-title>\r\n    <div class=\"card-title-text\">Roles</div>\r\n    <mat-divider></mat-divider>\r\n\r\n    <div class=\"m-333\">\r\n      <button mat-raised-button class=\"mb-05 ml-05\" color=\"primary\" (click)=\"openPopUp({}, true)\">Add Role</button>\r\n      <span fxFlex></span>\r\n      <p class=\"mat-select-lable\"> Page Size: </p>\r\n      <mat-select class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\">\r\n        <mat-option [value]=\"10\">10</mat-option>\r\n        <mat-option [value]=\"20\">20</mat-option>\r\n      </mat-select>\r\n    </div>\r\n\r\n  </mat-card-title>\r\n  <mat-card-content class=\"p-0\">\r\n\r\n    <ngx-datatable class=\"material ml-0 mr-0\" [rows]=\"items\" [columnMode]=\"'flex'\" [headerHeight]=\"50\"\r\n      [footerHeight]=\"50\" [limit]=\"10\" [rowHeight]=\"'auto'\">\r\n      <ngx-datatable-column name=\"Role Name\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.name }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Role Description\" [flexGrow]=\"2\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.description }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Last Modified Date\" [flexGrow]=\"2\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.lastModifiedDate }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Actions\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <!-- <button mat-icon-button mat-sm-button color=\"primary\" class=\"mr-1\" (click)=\"editRole(row)\">\r\n            <mat-icon>edit</mat-icon>\r\n          </button>\r\n          <button mat-icon-button mat-sm-button color=\"warn\" (click)=\"deleteRole(row)\">\r\n            <mat-icon>delete</mat-icon>\r\n          </button> -->\r\n          <button mat-button [matMenuTriggerFor]=\"menu\">\r\n            <mat-icon>more_vert</mat-icon>\r\n          </button>\r\n          <mat-menu #menu=\"matMenu\">\r\n            <button mat-menu-item (click)=\"editRole(row)\"><mat-icon>edit</mat-icon>Edit</button>\r\n            <button mat-menu-item (click)=\"deleteRole(row)\"><mat-icon>delete</mat-icon>Delete</button>\r\n          </mat-menu>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n    </ngx-datatable>\r\n\r\n\r\n    <!-- <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th class=\"pl-1\">Feedback Topic</th>\r\n          <th>Feedback Type</th>\r\n          <th>Start Date</th>\r\n          <th>End Date</th>\r\n          <th width=\"150px\" class=\"\">Actions</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr *ngFor=\"let row of rows;\">\r\n          <td class=\"pt-1 pb-1 pl-1\">{{row?.topic}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.type =='P' ? 'Product' : 'E Vote'}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.startDate}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.endDate}}</td>\r\n          <td class=\"pt-1 pb-1 pr-1\">\r\n            <div class=\"pb-1\">\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)='navigateSurveyBuilder(row)' color=\"primary\" class=\"\">\r\n                  <mat-icon>view_headline</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)='openSurveyPopup(row,false)' color=\"primary\" class=\"\">\r\n                  <mat-icon>edit</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)=\"deleteSurvey(row)\" color=\"warn\" class=\"\">\r\n                  <mat-icon>delete</mat-icon>\r\n                </button>\r\n              </div>\r\n            </div>\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n      <tfoot>\r\n        <tr>\r\n          <td class=\"pt-1 pb-1 pl-1\">\r\n            <div class=\"pagination\">{{totalRecords}} Total</div>\r\n          </td>\r\n          <td colspan=\"4\">\r\n\r\n            <nav aria-label=\"Page navigation example\">\r\n              <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(pageNumber-1);\" aria-label=\"Previous\">\r\n                    <span aria-hidden=\"true\">&laquo;</span>\r\n                    <span class=\"sr-only\">Previous</span>\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(page);\">\r\n                    {{page}}\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(pageNumber+1);\" aria-label=\"Next\">\r\n                    <span aria-hidden=\"true\">&raquo;</span>\r\n                    <span class=\"sr-only\">Next</span>\r\n                  </a>\r\n                </li>\r\n              </ul>\r\n            </nav>\r\n          </td>\r\n        </tr>\r\n      </tfoot>\r\n    </table> -->\r\n\r\n  </mat-card-content>\r\n</mat-card>\r\n"
+module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-title>\r\n    <div class=\"card-title-text\">Roles</div>\r\n    <mat-divider></mat-divider>\r\n\r\n    <div class=\"m-333\">\r\n      <button mat-raised-button class=\"mb-05 ml-05\" color=\"primary\" (click)=\"openPopUp({}, true)\">Add Role</button>\r\n      <span fxFlex></span>\r\n      <p class=\"mat-select-lable\"> Page Size: </p>\r\n      <mat-select class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\">\r\n        <mat-option [value]=\"10\">10</mat-option>\r\n        <mat-option [value]=\"20\">20</mat-option>\r\n      </mat-select>\r\n    </div>\r\n\r\n  </mat-card-title>\r\n  <mat-card-content class=\"p-0\">\r\n\r\n    <ngx-datatable class=\"material ml-0 mr-0\" [rows]=\"items\" [columnMode]=\"'flex'\" [headerHeight]=\"50\"\r\n      [footerHeight]=\"50\" [limit]=\"10\" [rowHeight]=\"'auto'\">\r\n      <ngx-datatable-column name=\"Role Name\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.name }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Role Description\" [flexGrow]=\"2\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.description }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Last Modified Date\" [flexGrow]=\"2\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.lastModifiedDate }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Actions\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <!-- <button mat-icon-button mat-sm-button color=\"primary\" class=\"mr-1\" (click)=\"editRole(row)\">\r\n            <mat-icon>edit</mat-icon>\r\n          </button>\r\n          <button mat-icon-button mat-sm-button color=\"warn\" (click)=\"deleteRole(row)\">\r\n            <mat-icon>delete</mat-icon>\r\n          </button> -->\r\n          <button class=\"card-control\" mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n            <mat-icon>more_vert</mat-icon>\r\n          </button>\r\n          <mat-menu #menu=\"matMenu\">\r\n            <button mat-menu-item (click)=\"editRole(row)\"><mat-icon>edit</mat-icon>Edit</button>\r\n            <button mat-menu-item (click)=\"deleteRole(row)\"><mat-icon>delete</mat-icon>Delete</button>\r\n          </mat-menu>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n    </ngx-datatable>\r\n\r\n\r\n    <!-- <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th class=\"pl-1\">Feedback Topic</th>\r\n          <th>Feedback Type</th>\r\n          <th>Start Date</th>\r\n          <th>End Date</th>\r\n          <th width=\"150px\" class=\"\">Actions</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr *ngFor=\"let row of rows;\">\r\n          <td class=\"pt-1 pb-1 pl-1\">{{row?.topic}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.type =='P' ? 'Product' : 'E Vote'}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.startDate}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.endDate}}</td>\r\n          <td class=\"pt-1 pb-1 pr-1\">\r\n            <div class=\"pb-1\">\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)='navigateSurveyBuilder(row)' color=\"primary\" class=\"\">\r\n                  <mat-icon>view_headline</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)='openSurveyPopup(row,false)' color=\"primary\" class=\"\">\r\n                  <mat-icon>edit</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)=\"deleteSurvey(row)\" color=\"warn\" class=\"\">\r\n                  <mat-icon>delete</mat-icon>\r\n                </button>\r\n              </div>\r\n            </div>\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n      <tfoot>\r\n        <tr>\r\n          <td class=\"pt-1 pb-1 pl-1\">\r\n            <div class=\"pagination\">{{totalRecords}} Total</div>\r\n          </td>\r\n          <td colspan=\"4\">\r\n\r\n            <nav aria-label=\"Page navigation example\">\r\n              <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(pageNumber-1);\" aria-label=\"Previous\">\r\n                    <span aria-hidden=\"true\">&laquo;</span>\r\n                    <span class=\"sr-only\">Previous</span>\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(page);\">\r\n                    {{page}}\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(pageNumber+1);\" aria-label=\"Next\">\r\n                    <span aria-hidden=\"true\">&raquo;</span>\r\n                    <span class=\"sr-only\">Next</span>\r\n                  </a>\r\n                </li>\r\n              </ul>\r\n            </nav>\r\n          </td>\r\n        </tr>\r\n      </tfoot>\r\n    </table> -->\r\n\r\n  </mat-card-content>\r\n</mat-card>\r\n"
 
 /***/ }),
 
@@ -432,7 +614,7 @@ var RoleTableComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">Category</span>\r\n  </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\">\r\n\r\n  <mat-form-field class=\"matAutocomplete-chip-list\">\r\n    <mat-chip-list #chipList>\r\n      <mat-chip *ngFor=\"let category of categories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n        (removed)=\"remove(category)\">\r\n        {{category}}\r\n        <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n      </mat-chip>\r\n      <input placeholder=\"Select category...\" #categoryInput [formControl]=\"categoryCtrl\" [matAutocomplete]=\"auto\"\r\n        [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\" (matChipInputTokenEnd)=\"add($event)\"\r\n        [matChipInputAddOnBlur]=\"addOnBlur\">\r\n    </mat-chip-list>\r\n    <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n      <mat-option *ngFor=\"let category of filteredCategories | async\" [value]=\"category\">\r\n        {{category}}\r\n      </mat-option>\r\n    </mat-autocomplete>\r\n  </mat-form-field>\r\n\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n    <div fxFlex=\"100\" class=\"mt-1\">\r\n      <button mat-raised-button color=\"primary\">Save</button>\r\n      <span fxFlex></span>\r\n      <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n    </div>\r\n  </div>\r\n\r\n</mat-dialog-content>"
+module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">Category</span>\r\n  </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\">\r\n\r\n  <mat-form-field class=\"matAutocomplete-chip-list\">\r\n    <mat-chip-list #chipList>\r\n      <mat-chip *ngFor=\"let category of categories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n        (removed)=\"remove(category)\">\r\n        {{category}}\r\n        <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n      </mat-chip>\r\n      <input placeholder=\"Select category...\" #categoryInput [formControl]=\"categoryCtrl\" [matAutocomplete]=\"auto\"\r\n        [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\" (matChipInputTokenEnd)=\"add($event)\"\r\n        [matChipInputAddOnBlur]=\"addOnBlur\">\r\n    </mat-chip-list>\r\n    <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n      <mat-option *ngFor=\"let category of filteredCategories | async; let i = index\" [value]=\"categoriesObj[i].id\">\r\n        {{category}}\r\n      </mat-option>\r\n    </mat-autocomplete>\r\n  </mat-form-field>\r\n\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n    <div fxFlex=\"100\" class=\"mt-1\">\r\n      <button mat-raised-button color=\"primary\" (click)=\"submit()\">Save</button>\r\n      <span fxFlex></span>\r\n      <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n    </div>\r\n  </div>\r\n\r\n</mat-dialog-content>"
 
 /***/ }),
 
@@ -483,14 +665,24 @@ var UserCategoryPopupComponent = /** @class */ (function () {
         this.addOnBlur = true;
         this.separatorKeysCodes = [_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["ENTER"], _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["COMMA"]];
         this.categoryCtrl = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]();
-        this.categories = ['Lifestyle'];
-        this.allCategories = ['SNKRS Launch Calendar', 'Lifestyle', 'Running', 'Training & Gym', 'Basketball', 'Jordan', 'Football', 'Soccer', 'Baseball', 'Golf', 'Skateboarding', 'Tennis', 'Boots'];
+        this.categories = [];
+        this.categoriesValue = [];
+        this.allCategories = [];
         this.filteredCategories = this.categoryCtrl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (category) { return category ? _this._filter(category) : _this.allCategories.slice(); }));
     }
     UserCategoryPopupComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.categoriesObj = this.data.category;
+        this.categoriesObj.forEach(function (element) {
+            _this.allCategories.push(element.name);
+        });
+        this.data.selectedCategory.forEach(function (element) {
+            _this.categories.push(element.name);
+            _this.categoriesValue.push(element.id);
+        });
     };
     UserCategoryPopupComponent.prototype.submit = function () {
-        this.dialogRef.close(this.itemForm.value);
+        this.dialogRef.close(this.categoriesValue);
     };
     UserCategoryPopupComponent.prototype.add = function (event) {
         if (!this.matAutocomplete.isOpen) {
@@ -512,10 +704,12 @@ var UserCategoryPopupComponent = /** @class */ (function () {
         var index = this.categories.indexOf(category);
         if (index >= 0) {
             this.categories.splice(index, 1);
+            this.categoriesValue.splice(index, 1);
         }
     };
     UserCategoryPopupComponent.prototype.selected = function (event) {
         this.categories.push(event.option.viewValue);
+        this.categoriesValue.push(event.option.value);
         this.categoryInput.nativeElement.value = '';
         this.categoryCtrl.setValue(null);
     };
@@ -554,7 +748,7 @@ var UserCategoryPopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"itemForm\" (ngSubmit)=\"submit()\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">Community</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\" id=\"community-popup\">\r\n\r\n    <!-- <div class=\"example-container\">\r\n      <h2>To do</h2>\r\n\r\n      <div cdkDropList #todoList=\"cdkDropList\" [cdkDropListData]=\"todo\" [cdkDropListConnectedTo]=\"[doneList]\"\r\n        class=\"example-list\" (cdkDropListDropped)=\"drop($event)\">\r\n        <div class=\"example-box\" *ngFor=\"let item of todo\" cdkDrag>{{item}}</div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"example-container\">\r\n      <h2>Done</h2>\r\n\r\n      <div cdkDropList #doneList=\"cdkDropList\" [cdkDropListData]=\"done\" [cdkDropListConnectedTo]=\"[todoList]\"\r\n        class=\"example-list\" (cdkDropListDropped)=\"drop($event)\">\r\n        <div class=\"example-box\" *ngFor=\"let item of done\" cdkDrag>{{item}}</div>\r\n      </div>\r\n    </div> -->\r\n\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"mt-1\">\r\n        <button mat-raised-button color=\"primary\" [disabled]=\"itemForm.invalid\">Save</button>\r\n        <span fxFlex></span>\r\n        <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n\r\n  </mat-dialog-content>\r\n</form>"
+module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">Community</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\" style=\"overflow: unset; max-height: unset;\">\r\n  \r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-3\">\r\n      <div fxFlex=\"50\" class=\"pr-1\" *ngFor=\"let community of allCommunities\">\r\n        <mat-checkbox [checked]=\"community.isChecked\" (change)=\"onChange($event)\" class=\"full-width\" [value]=\"community.id\">\r\n          {{community.name}}</mat-checkbox>\r\n      </div>\r\n    </div>\r\n  \r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-2\">\r\n      <div fxFlex=\"100\" class=\"mt-1\">\r\n        <button mat-raised-button color=\"primary\" (click)=\"submit()\">Save</button>\r\n        <span fxFlex></span>\r\n        <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n  \r\n  </mat-dialog-content>"
 
 /***/ }),
 
@@ -591,34 +785,47 @@ var UserCommunityPopupComponent = /** @class */ (function () {
         this.data = data;
         this.dialogRef = dialogRef;
         this.fb = fb;
-        this.formStatus = false;
+        this.allCommunities = [];
+        this.selectedCommunities = [];
     }
     UserCommunityPopupComponent.prototype.ngOnInit = function () {
-        this.buildItemForm(this.data.payload);
-        this.roles = this.data.roles;
+        var _this = this;
+        this.allCommunities = JSON.parse(JSON.stringify(this.data.community));
+        this.selectedCommunities = [];
+        this.selectedCommunities = this.data.selectedCommunity;
+        this.allCommunities.forEach(function (element) {
+            if (_this.data.selectedCommunity.length > 0) {
+                if (_this.selectedCommunities.filter(function (community) { return community.id.indexOf(element.id) === 0; })) {
+                    console.log('true');
+                }
+                else {
+                    console.log('false');
+                }
+            }
+            else {
+                element['isChecked'] = false;
+            }
+        });
     };
-    UserCommunityPopupComponent.prototype.buildItemForm = function (item) {
-        console.log(item);
-        var role = null;
-        var userStatus = 0;
-        if (item.id === undefined) {
-            this.formStatus = true;
+    UserCommunityPopupComponent.prototype.onChange = function (event) {
+        var _this = this;
+        if (event.checked) {
+            this.allCommunities.forEach(function (item) {
+                if (item.id === event.source.value) {
+                    _this.selectedCommunities.push(item);
+                }
+            });
         }
         else {
-            role = item.roles[0].id;
-            if (item.status === "ACTIVE") {
-                userStatus = 1;
-            }
-        }
-        this.itemForm = this.fb.group({});
-        if (item.id !== undefined) {
-            role = item.roles[0].id;
-            this.itemForm.get('password').clearValidators();
-            this.itemForm.get('password').updateValueAndValidity();
+            this.selectedCommunities.forEach(function (item, index) {
+                if (item.id === event.source.value) {
+                    _this.selectedCommunities.splice(index, 1);
+                }
+            });
         }
     };
     UserCommunityPopupComponent.prototype.submit = function () {
-        this.dialogRef.close(this.itemForm.value);
+        this.dialogRef.close(this.selectedCommunities);
     };
     UserCommunityPopupComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -643,7 +850,7 @@ var UserCommunityPopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">Create Client</span>\r\n  </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\" id=\"client-create\">\r\n\r\n\r\n  <mat-horizontal-stepper [linear]=\"true\">\r\n\r\n    <mat-step [stepControl]=\"userFormGroup\">\r\n\r\n      <form [formGroup]=\"userFormGroup\">\r\n\r\n        <ng-template matStepLabel>Client</ng-template>\r\n\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" [formControl]=\"userFormGroup.controls['username']\" placeholder=\"User Name\">\r\n            </mat-form-field>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"password\" type=\"password\" [formControl]=\"userFormGroup.controls['password']\"\r\n                positiveNumberAndLetterOnly placeholder=\"Password\">\r\n            </mat-form-field>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"email\" [formControl]=\"userFormGroup.controls['email']\" placeholder=\"Email\">\r\n            </mat-form-field>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <mat-select [formControl]=\"userFormGroup.controls['role']\" placeholder=\"Select A User Role\">\r\n                <mat-option>none</mat-option>\r\n                <mat-option *ngFor=\"let roles of roles\" [value]=\"roles.id\">{{roles.name}}</mat-option>\r\n              </mat-select>\r\n            </mat-form-field>\r\n          </div>\r\n\r\n        </div>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"primary\" matStepperNext>Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n\r\n      </form>\r\n\r\n    </mat-step>\r\n\r\n\r\n    <mat-step [stepControl]=\"categoryFormGroup\">\r\n      <form [formGroup]=\"categoryFormGroup\">\r\n        <ng-template matStepLabel>Category</ng-template>\r\n\r\n        <mat-form-field class=\"matAutocomplete-chip-list\">\r\n          <mat-chip-list #chipList>\r\n            <mat-chip *ngFor=\"let category of categories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n              (removed)=\"remove(category)\">\r\n              {{category}}\r\n              <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n            </mat-chip>\r\n            <input placeholder=\"Select category...\" #categoryInput [formControl]=\"categoryFormGroup.controls['category']\" [matAutocomplete]=\"auto\"\r\n              [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\" (matChipInputTokenEnd)=\"add($event)\"\r\n              [matChipInputAddOnBlur]=\"addOnBlur\">\r\n          </mat-chip-list>\r\n          <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n            <mat-option *ngFor=\"let category of filteredCategories | async\" [value]=\"category\">\r\n              {{category}}\r\n            </mat-option>\r\n          </mat-autocomplete>\r\n        </mat-form-field>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" matStepperNext>Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n\r\n    <mat-step [stepControl]=\"communityFormGroup\">\r\n      <form [formGroup]=\"communityFormGroup\">\r\n        <ng-template matStepLabel>Community</ng-template>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n          <div fxFlex=\"100\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" positiveNumberAndLetterOnly placeholder=\"Username\"\r\n                [formControl]=\"communityFormGroup.controls['username']\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n        </div>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" (click)=\"submit()\">Submit</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n        \r\n      </form>\r\n    </mat-step>\r\n\r\n  </mat-horizontal-stepper>\r\n\r\n\r\n</mat-dialog-content>"
+module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">Create Client</span>\r\n  </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\" id=\"client-create\">\r\n\r\n\r\n  <mat-horizontal-stepper [linear]=\"true\">\r\n\r\n    <mat-step [stepControl]=\"userFormGroup\">\r\n\r\n      <form [formGroup]=\"userFormGroup\">\r\n\r\n        <ng-template matStepLabel>Client</ng-template>\r\n\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" [formControl]=\"userFormGroup.controls['username']\" placeholder=\"User Name\">\r\n            </mat-form-field>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"password\" type=\"password\" [formControl]=\"userFormGroup.controls['password']\"\r\n                positiveNumberAndLetterOnly placeholder=\"Password\">\r\n            </mat-form-field>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"email\" [formControl]=\"userFormGroup.controls['email']\" placeholder=\"Email\">\r\n            </mat-form-field>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <mat-select [formControl]=\"userFormGroup.controls['role']\" placeholder=\"Select A User Role\">\r\n                <mat-option>none</mat-option>\r\n                <mat-option *ngFor=\"let roles of roles\" [value]=\"roles.id\">{{roles.name}}</mat-option>\r\n              </mat-select>\r\n            </mat-form-field>\r\n          </div>\r\n\r\n        </div>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"primary\" matStepperNext>Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n\r\n      </form>\r\n\r\n    </mat-step>\r\n\r\n\r\n    <mat-step [stepControl]=\"categoryFormGroup\">\r\n      <form [formGroup]=\"categoryFormGroup\">\r\n        <ng-template matStepLabel>Category</ng-template>\r\n\r\n        <mat-form-field class=\"matAutocomplete-chip-list\">\r\n          <mat-chip-list #chipList>\r\n            <mat-chip *ngFor=\"let category of categories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n              (removed)=\"remove(category)\">\r\n              {{category}}\r\n              <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n            </mat-chip>\r\n            <input placeholder=\"Select category...\" #categoryInput [formControl]=\"categoryFormGroup.controls['category']\" [matAutocomplete]=\"auto\"\r\n              [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\" (matChipInputTokenEnd)=\"add($event)\"\r\n              [matChipInputAddOnBlur]=\"addOnBlur\">\r\n          </mat-chip-list>\r\n          <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n            <mat-option *ngFor=\"let category of filteredCategories | async; let i = index\" [value]=\"categoriesObj[i].id\">\r\n              {{category}}\r\n            </mat-option>\r\n          </mat-autocomplete>\r\n        </mat-form-field>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" matStepperNext>Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n\r\n    <mat-step [stepControl]=\"communityFormGroup\">\r\n      <form [formGroup]=\"communityFormGroup\">\r\n        <ng-template matStepLabel>Community</ng-template>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n          <div fxFlex=\"100\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" positiveNumberAndLetterOnly placeholder=\"Username\"\r\n                [formControl]=\"communityFormGroup.controls['username']\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n        </div>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" (click)=\"submit()\">Submit</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n        \r\n      </form>\r\n    </mat-step>\r\n\r\n  </mat-horizontal-stepper>\r\n\r\n\r\n</mat-dialog-content>"
 
 /***/ }),
 
@@ -699,12 +906,18 @@ var UserCreatePopupComponent = /** @class */ (function () {
         this.addOnBlur = true;
         this.separatorKeysCodes = [_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_6__["ENTER"], _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_6__["COMMA"]];
         this.categoryCtrl = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]();
-        this.categories = ['Lifestyle'];
-        this.allCategories = ['SNKRS Launch Calendar', 'Lifestyle', 'Running', 'Training & Gym', 'Basketball', 'Jordan', 'Football', 'Soccer', 'Baseball', 'Golf', 'Skateboarding', 'Tennis', 'Boots'];
+        this.categories = [];
+        this.categoriesValue = [];
+        this.allCategories = [];
         this.filteredCategories = this.categoryCtrl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (category) { return category ? _this._filter(category) : _this.allCategories.slice(); }));
     }
     UserCreatePopupComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.roles = this.data.roles;
+        this.categoriesObj = this.data.category;
+        this.categoriesObj.forEach(function (element) {
+            _this.allCategories.push(element.name);
+        });
         this.buildItemForm();
     };
     UserCreatePopupComponent.prototype.buildItemForm = function () {
@@ -915,6 +1128,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! app/model/ClientModel.model */ "./src/app/model/ClientModel.model.ts");
 /* harmony import */ var _user_category_popup_user_category_popup_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./user-category-popup/user-category-popup.component */ "./src/app/views/user/user-table/user-category-popup/user-category-popup.component.ts");
 /* harmony import */ var _user_community_popup_user_community_popup_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./user-community-popup/user-community-popup.component */ "./src/app/views/user/user-table/user-community-popup/user-community-popup.component.ts");
+// import { Component, OnInit } from '@angular/core';
+// import { UserService } from "../user.service";
+// import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
+// import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
+// import { UserCreatePopupComponent } from "../user-table/user-create-popup/user-create-popup.component";
+// import { UserTablePopupComponent } from "../user-table/user-table-popup/user-table-popup.component";
+// import { Subscription } from "rxjs";
+// import { egretAnimations } from "../../../shared/animations/egret-animations";
+// import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
+// import { ActivatedRoute } from '@angular/router';
+// import { UserCreateReq, ClientData, RoleData, CommunityData, CategoryData, UserUpdateReq } from 'app/model/ClientModel.model';
+// import { UserCategoryPopupComponent } from './user-category-popup/user-category-popup.component';
+// import { UserCommunityPopupComponent } from './user-community-popup/user-community-popup.component';
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -951,14 +1177,15 @@ var UserTableComponent = /** @class */ (function () {
         this.pageSize = 10;
     }
     UserTableComponent.prototype.ngOnInit = function () {
-        var user = JSON.parse(localStorage.getItem('currentUser'));
-        console.log(user);
-        this.clientId = user.userData.client.id;
-        this.name = user.userData.client.name;
+        var client = JSON.parse(localStorage.getItem('currentUser')).userData.client;
+        console.log(client);
+        this.clientId = client.id;
+        this.name = client.name;
         // this.url = client.clientLogo;
         this.getUsers();
         this.getUserRoles();
-        this.getCategory();
+        this.getClientCategories();
+        this.getClientCommunities();
     };
     UserTableComponent.prototype.ngOnDestroy = function () {
         if (this.getItemSub) {
@@ -969,6 +1196,11 @@ var UserTableComponent = /** @class */ (function () {
         var _this = this;
         this.getItemSub = this.userService.getUsers(this.clientId).subscribe(function (successResp) {
             _this.users = successResp.content.users;
+            _this.users.forEach(function (item, index) {
+                if (item.role.name === "Admin")
+                    _this.users.splice(index, 1);
+            });
+            // this.roles = successResp.content;
             console.log(_this.users);
         }, function (error) {
             _this.errDialog.showError(error);
@@ -978,22 +1210,40 @@ var UserTableComponent = /** @class */ (function () {
         var _this = this;
         this.getItemSub = this.userService.getRoles().subscribe(function (successResp) {
             successResp.content.forEach(function (item, index) {
-                if (item.name === "Super Administrator")
+                if (item.name === "Super Administrator") {
                     successResp.content.splice(index, 1);
+                }
+                ;
+            });
+            successResp.content.forEach(function (item, index) {
+                if (item.name === "Admin") {
+                    successResp.content.splice(index, 1);
+                }
+                ;
             });
             _this.roles = successResp.content;
         }, function (error) {
             _this.errDialog.showError(error);
         });
     };
-    UserTableComponent.prototype.getCategory = function () {
+    UserTableComponent.prototype.getClientCategories = function () {
         var _this = this;
-        this.getItemSub = this.userService.getRoles().subscribe(function (successResp) {
-            successResp.content.forEach(function (item, index) {
-                if (item.name === "Super Administrator")
-                    successResp.content.splice(index, 1);
+        this.getItemSub = this.userService.getClientCategories(this.clientId).subscribe(function (successResp) {
+            _this.clientCategory = successResp.content;
+            console.log(_this.clientCategory);
+        }, function (error) {
+            _this.errDialog.showError({
+                title: "Error",
+                status: error.status,
+                type: "http_error"
             });
-            _this.roles = successResp.content;
+        });
+    };
+    UserTableComponent.prototype.getClientCommunities = function () {
+        var _this = this;
+        this.getItemSub = this.userService.getClientCommunities(this.clientId).subscribe(function (successResp) {
+            _this.clientCommunity = successResp.content;
+            console.log(_this.clientCommunity);
         }, function (error) {
             _this.errDialog.showError(error);
         });
@@ -1003,7 +1253,7 @@ var UserTableComponent = /** @class */ (function () {
         var dialogRef = this.dialog.open(_user_table_user_create_popup_user_create_popup_component__WEBPACK_IMPORTED_MODULE_4__["UserCreatePopupComponent"], {
             width: "720px",
             disableClose: true,
-            data: { roles: this.roles }
+            data: { roles: this.roles, category: this.clientCategory }
         });
         dialogRef.afterClosed().subscribe(function (res) {
             console.log(res);
@@ -1012,22 +1262,17 @@ var UserTableComponent = /** @class */ (function () {
                 return;
             }
             _this.loader.open();
-            // let users: UserData[] = [];
-            // users.push(new UserData(res[2].username, res[2].email));
-            // let license: ClientLicenseData = new ClientLicenseData(res[3].tagCount, res[3].userCount, res[3].communityCount, res[3].feedbackCount, res[3].eventCount, res[3].promoCount);
-            // const req: ClientCreateReq = new ClientCreateReq(res[0].name, res[0].description, res[1], users, license);
-            // let roles: UserRole[] = [];
-            // roles.push(new UserRole(res[0].role));
             var role = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["RoleData"](res[0].role);
             var communities = [];
             // communities.push(new CommunityData(res[0].role));
             var categories = [];
-            categories.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["CategoryData"]('d36eeebd8b1f0cde16210339e97b9408'));
-            categories.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["CategoryData"]('ec21ff12b34a21bece175e48a059ec7f'));
+            res[1].forEach(function (element) {
+                categories.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["CategoryData"](element));
+            });
             var client = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["ClientData"](_this.clientId);
             var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["UserCreateReq"](res[0].username, res[0].password, res[0].email, role, client, communities, categories);
             _this.userService.addUser(req).subscribe(function (response) {
-                _this.getUsers;
+                _this.getUsers();
                 _this.users = response;
                 _this.loader.close();
                 _this.snack.open("New User added !", "OK", { duration: 4000 });
@@ -1037,166 +1282,122 @@ var UserTableComponent = /** @class */ (function () {
             });
         });
     };
-    UserTableComponent.prototype.openEditPopUp = function (data, isNew) {
+    UserTableComponent.prototype.openEditPopUp = function (data) {
+        var _this = this;
         if (data === void 0) { data = {}; }
-        var title = isNew ? "Add new User" : "Update User";
         var dialogRef = this.dialog.open(_user_table_user_table_popup_user_table_popup_component__WEBPACK_IMPORTED_MODULE_5__["UserTablePopupComponent"], {
             width: "720px",
             disableClose: true,
-            data: { title: title, payload: data, roles: this.roles }
+            data: { payload: data, roles: this.roles }
         });
         dialogRef.afterClosed().subscribe(function (res) {
             if (!res) {
                 // If user press cancel
                 return;
             }
-            // let roles: UserRole[] = [];
-            // roles.push(new UserRole(res.role));
-            // const client: ClientData = new ClientData(this.clientId);
-            // const req: UserCreateReq = new UserCreateReq(res.username, res.password, res.email, roles, client);
-            // this.loader.open();
-            // if (isNew) {
-            //   this.clientService.addUser(req).subscribe(
-            //     response => {
-            //       this.getUsers();
-            //       this.loader.close();
-            //       this.snack.open("New User added !", "OK", { duration: 4000 });
-            //     },
-            //     error => {
-            //       this.loader.close();
-            //       this.errDialog.showError({
-            //         title: "Error",
-            //         status: error.status,
-            //         type: "http_error"
-            //       });
-            //     }
-            //   );
-            // } else {
-            //   this.clientService.updateUser(data.id, req).subscribe(
-            //     response => {
-            //       this.getUsers();
-            //       this.loader.close();
-            //       this.snack.open("User Updated!", "OK", { duration: 4000 });
-            //       // return this.users.slice();
-            //     },
-            //     error => {
-            //       this.loader.close();
-            //       this.errDialog.showError({
-            //         title: "Error",
-            //         status: error.status,
-            //         type: "http_error"
-            //       });
-            //     }
-            //   );
-            // }
+            var role = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["RoleData"](res.role);
+            var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["UserUpdateReq"](res.username, res.email, role);
+            _this.loader.open();
+            _this.userService.updateUser(data.id, req).subscribe(function (response) {
+                _this.getUsers();
+                _this.loader.close();
+                _this.snack.open("User Updated!", "OK", { duration: 4000 });
+            }, function (error) {
+                _this.loader.close();
+                _this.errDialog.showError({
+                    title: "Error",
+                    status: error.status,
+                    type: "http_error"
+                });
+            });
         });
     };
-    UserTableComponent.prototype.openCommunityPopUp = function (data, isNew) {
+    UserTableComponent.prototype.openCommunityPopUp = function (data) {
+        var _this = this;
         if (data === void 0) { data = {}; }
-        var title = isNew ? "Add new User" : "Update User";
-        var dialogRef = this.dialog.open(_user_community_popup_user_community_popup_component__WEBPACK_IMPORTED_MODULE_11__["UserCommunityPopupComponent"], {
-            width: "720px",
-            disableClose: true,
-            data: { title: title, payload: data, roles: this.roles }
-        });
-        dialogRef.afterClosed().subscribe(function (res) {
-            if (!res) {
-                // If user press cancel
-                return;
-            }
-            // let roles: UserRole[] = [];
-            // roles.push(new UserRole(res.role));
-            // const client: ClientData = new ClientData(this.clientId);
-            // const req: UserCreateReq = new UserCreateReq(res.username, res.password, res.email, roles, client);
-            // this.loader.open();
-            // if (isNew) {
-            //   this.clientService.addUser(req).subscribe(
-            //     response => {
-            //       this.getUsers();
-            //       this.loader.close();
-            //       this.snack.open("New User added !", "OK", { duration: 4000 });
-            //     },
-            //     error => {
-            //       this.loader.close();
-            //       this.errDialog.showError({
-            //         title: "Error",
-            //         status: error.status,
-            //         type: "http_error"
-            //       });
-            //     }
-            //   );
-            // } else {
-            //   this.clientService.updateUser(data.id, req).subscribe(
-            //     response => {
-            //       this.getUsers();
-            //       this.loader.close();
-            //       this.snack.open("User Updated!", "OK", { duration: 4000 });
-            //       // return this.users.slice();
-            //     },
-            //     error => {
-            //       this.loader.close();
-            //       this.errDialog.showError({
-            //         title: "Error",
-            //         status: error.status,
-            //         type: "http_error"
-            //       });
-            //     }
-            //   );
-            // }
+        this.getItemSub = this.userService.getUser(data.id).subscribe(function (successResp) {
+            var dialogRef = _this.dialog.open(_user_community_popup_user_community_popup_component__WEBPACK_IMPORTED_MODULE_11__["UserCommunityPopupComponent"], {
+                width: "720px",
+                disableClose: true,
+                data: { community: _this.clientCommunity, selectedCommunity: successResp.content.communities }
+            });
+            dialogRef.afterClosed().subscribe(function (res) {
+                if (!res) {
+                    // If user press cancel
+                    return;
+                }
+                console.log(res);
+                // let role: RoleData = new RoleData(successResp.content.role.id);
+                // let categories: CategoryData[] = [];
+                // res.forEach(element => {
+                //   categories.push(new CategoryData(element));
+                // });
+                // const req: UserCategoryUpdateReq = new UserCategoryUpdateReq(successResp.content.accountName, successResp.content.email, role, categories);
+                // this.loader.open();
+                // this.clientService.updateUser(data.id, req).subscribe(
+                //   response => {
+                //     this.getUsers();
+                //     this.loader.close();
+                //     this.snack.open("User Category Updated!", "OK", { duration: 4000 });
+                //   },
+                //   error => {
+                //     this.loader.close();
+                //     this.errDialog.showError({
+                //       title: "Error",
+                //       status: error.status,
+                //       type: "http_error"
+                //     });
+                //   }
+                // );
+            });
+        }, function (error) {
+            _this.errDialog.showError({
+                title: "Error",
+                status: error.status,
+                type: "http_error"
+            });
         });
     };
-    UserTableComponent.prototype.openCategoryPopUp = function (data, isNew) {
+    UserTableComponent.prototype.openCategoryPopUp = function (data) {
+        var _this = this;
         if (data === void 0) { data = {}; }
-        var title = isNew ? "Add new User" : "Update User";
-        var dialogRef = this.dialog.open(_user_category_popup_user_category_popup_component__WEBPACK_IMPORTED_MODULE_10__["UserCategoryPopupComponent"], {
-            width: "720px",
-            disableClose: true,
-            data: { title: title, payload: data, roles: this.roles }
-        });
-        dialogRef.afterClosed().subscribe(function (res) {
-            if (!res) {
-                // If user press cancel
-                return;
-            }
-            // let roles: UserRole[] = [];
-            // roles.push(new UserRole(res.role));
-            // const client: ClientData = new ClientData(this.clientId);
-            // const req: UserCreateReq = new UserCreateReq(res.username, res.password, res.email, roles, client);
-            // this.loader.open();
-            // if (isNew) {
-            //   this.clientService.addUser(req).subscribe(
-            //     response => {
-            //       this.getUsers();
-            //       this.loader.close();
-            //       this.snack.open("New User added !", "OK", { duration: 4000 });
-            //     },
-            //     error => {
-            //       this.loader.close();
-            //       this.errDialog.showError({
-            //         title: "Error",
-            //         status: error.status,
-            //         type: "http_error"
-            //       });
-            //     }
-            //   );
-            // } else {
-            //   this.clientService.updateUser(data.id, req).subscribe(
-            //     response => {
-            //       this.getUsers();
-            //       this.loader.close();
-            //       this.snack.open("User Updated!", "OK", { duration: 4000 });
-            //       // return this.users.slice();
-            //     },
-            //     error => {
-            //       this.loader.close();
-            //       this.errDialog.showError({
-            //         title: "Error",
-            //         status: error.status,
-            //         type: "http_error"
-            //       });
-            //     }
-            //   );
-            // }
+        this.getItemSub = this.userService.getUser(data.id).subscribe(function (successResp) {
+            var dialogRef = _this.dialog.open(_user_category_popup_user_category_popup_component__WEBPACK_IMPORTED_MODULE_10__["UserCategoryPopupComponent"], {
+                width: "720px",
+                disableClose: true,
+                data: { category: _this.clientCategory, selectedCategory: successResp.content.categories }
+            });
+            dialogRef.afterClosed().subscribe(function (res) {
+                if (!res) {
+                    // If user press cancel
+                    return;
+                }
+                var role = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["RoleData"](successResp.content.role.id);
+                var categories = [];
+                res.forEach(function (element) {
+                    categories.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["CategoryData"](element));
+                });
+                var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["UserCategoryUpdateReq"](successResp.content.accountName, successResp.content.email, role, categories);
+                _this.loader.open();
+                _this.userService.updateUser(data.id, req).subscribe(function (response) {
+                    _this.getUsers();
+                    _this.loader.close();
+                    _this.snack.open("User Category Updated!", "OK", { duration: 4000 });
+                }, function (error) {
+                    _this.loader.close();
+                    _this.errDialog.showError({
+                        title: "Error",
+                        status: error.status,
+                        type: "http_error"
+                    });
+                });
+            });
+        }, function (error) {
+            _this.errDialog.showError({
+                title: "Error",
+                status: error.status,
+                type: "http_error"
+            });
         });
     };
     UserTableComponent = __decorate([
@@ -1226,7 +1427,7 @@ var UserTableComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" fxFlex.gt-md=\"300px\" fxFlex.gt-sm=\"50\">\r\n    <mat-card class=\"profile-sidebar mb-1 pb-0\">\r\n      <div class=\"propic text-center\">\r\n        <img src=\"assets/images/ui_icons/users.png\" alt=\"\">\r\n      </div>\r\n      <div class=\"profile-title text-center mb-1\">\r\n        <div class=\"main-title\">{{this.name}}</div>\r\n        <div class=\"subtitle mb-05\">ClearPicture</div>\r\n        <div class=\"text-muted\"> Provides the tools you need to easily manage Users.</div>\r\n      </div>\r\n\r\n      <div class=\"profile-nav\">\r\n        <mat-nav-list>\r\n          <mat-list-item routerLink=\"users/user-table\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>person</mat-icon>\r\n            Users\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"users/role-table\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>settings</mat-icon>\r\n            User Roles\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n        </mat-nav-list>\r\n      </div>\r\n    </mat-card>\r\n\r\n  </div>\r\n\r\n  <!-- Profile Views -->\r\n  <div fxFlex=\"100\" fxFlex.gt-sm=\"50\" fxFlex.gt-md=\"calc(100% - 300px)\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>"
+module.exports = "<div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" fxFlex.gt-md=\"300px\" fxFlex.gt-sm=\"50\">\r\n    <mat-card class=\"profile-sidebar mb-1 pb-0\">\r\n      <div class=\"propic text-center\">\r\n        <img src=\"assets/images/ui_icons/users.png\" alt=\"\">\r\n      </div>\r\n      <div class=\"profile-title text-center mb-1\">\r\n        <div class=\"main-title\">{{this.name}}</div>\r\n        <div class=\"subtitle mb-05\">ClearPicture</div>\r\n        <div class=\"text-muted\"> Provides the tools you need to easily manage Users.</div>\r\n      </div>\r\n\r\n      <div class=\"profile-nav\">\r\n        <mat-nav-list>\r\n          <mat-list-item routerLink=\"user-table\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>person</mat-icon>\r\n            Users\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"role-table\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>settings</mat-icon>\r\n            User Roles\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n        </mat-nav-list>\r\n      </div>\r\n    </mat-card>\r\n\r\n  </div>\r\n\r\n  <!-- Profile Views -->\r\n  <div fxFlex=\"100\" fxFlex.gt-sm=\"50\" fxFlex.gt-md=\"calc(100% - 300px)\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1483,10 +1684,19 @@ var UserService = /** @class */ (function () {
     UserService.prototype.getRoles = function () {
         return this.http.get(this.roleUrl + "/suggestions").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
+    UserService.prototype.getClientCategories = function (id) {
+        return this.http.get(this.clientUrl + "/categories/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    UserService.prototype.getClientCommunities = function (id) {
+        return this.http.get(environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "communities/client/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
     UserService.prototype.addUser = function (item) {
         return this.http.post(this.userUrl, item).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
             console.log(data);
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    UserService.prototype.getUser = function (id) {
+        return this.http.get(this.userUrl + "/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
     UserService.prototype.updateUser = function (id, item) {
         return this.http
