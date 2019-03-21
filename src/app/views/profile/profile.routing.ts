@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { ProfileComponent } from "./profile.component";
 import { ProfileOverviewComponent } from "./profile-overview/profile-overview.component";
 import { ProfileSettingsComponent } from "./profile-settings/profile-settings.component";
+import { AccountSettingsComponent } from "./account-settings/account-settings.component";
 import { ProfileBlankComponent } from "./profile-blank/profile-blank.component";
 import { ProfileLicenseComponent } from "./profile-license/profile-license.component";
 
@@ -16,14 +17,19 @@ export const ProfileRoutes: Routes = [
       data: { title: 'Overview', breadcrumb: 'OVERVIEW' }
     }, 
     {
-      path: 'settings',
+      path: 'profile-settings',
       component: ProfileSettingsComponent,
-      data: { title: 'Settings', breadcrumb: 'SETTINGS' }
+      data: { title: 'Profile Settings', breadcrumb: 'PROFILE SETTINGS' }
     }, 
     {
-      path: 'license',
+      path: 'account-settings',
+      component: AccountSettingsComponent,
+      data: { title: 'Account Settings', breadcrumb: 'ACCOUNT SETTINGS' }
+    }, 
+    {
+      path: 'general-settings',
       component: ProfileLicenseComponent,
-      data: { title: 'License', breadcrumb: 'LICENSE' }
+      data: { title: 'General Settings', breadcrumb: 'GENERAL SETTINGS' }
     }, 
     {
       path: 'blank',

@@ -20,7 +20,8 @@ import {
   FutureSurveyRequest,
   ChoiceTypeEnum,
   MatrixTypeEnum,
-  LangJsonWrapper
+  LangJsonWrapper,
+  ValidateLocalizeSurveyRequestWrapper
 } from "../../../model/FutureSurvey.model";
 import { AppWarningService } from "app/shared/services/app-warning/app-warning.service";
 import { DefaultLangWrapper } from "../../../model/FutureSurvey.model";
@@ -267,9 +268,6 @@ export class FutureSurveyComponent implements OnInit {
     let jsonText = JSON.stringify(this.editor.text);
     let jsonObject = JSON.parse(this.editor.text);
 
-    console.log("...........after json strigfy text............");
-    console.log(jsonText);
-    console.log(jsonObject);
 
     const defLang = jsonObject.locale;
     const langArray: any[] = this.editor.translation.koLocales._latestValue;
@@ -295,10 +293,10 @@ export class FutureSurveyComponent implements OnInit {
     // "text": "articolo1 A" instead of "text": { "default": "item1 A", "it": "articolo1 A" }.
     // --------------------------------------------------------------------------------------------------------
 
-    jsonObject = this.FSOperationalService.validateLocalizeSurveyRequest(
-      jsonObject
-    );
-
+    let req: ValidateLocalizeSurveyRequestWrapper = this.FSOperationalService.validateLocalizeSurveyRequest( jsonObject );
+    jsonObject = req.validateLocalizeSurveyRequest;
+    console.log(req.surveyLang);
+    
     // --------------------------------------------------------------------------------------------------------
 
     if (this.validateFutureSurveyRequest(jsonObject)) {
@@ -309,7 +307,8 @@ export class FutureSurveyComponent implements OnInit {
       jsonText,
       jsonObject.title,
       jsonObject.clientId,
-      JSON.stringify(langJson),
+      // JSON.stringify(langJson),
+      JSON.stringify(req.surveyLang),
       jsonObject.pages
     );
     this.loader.open();

@@ -14,13 +14,17 @@ import { egretAnimations } from "../../../../shared/animations/egret-animations"
 })
 export class ClientUpdatePopupComponent implements OnInit {
 
-  public countryDB: CountryDB = new CountryDB();
-  public countries = this.countryDB.countries;
-  filteredOptions: Observable<string[]>;
+  // public countryDB: CountryDB = new CountryDB();
+  // public countries = this.countryDB.countries;
+
+  public countries;
+  filteredCountries: Observable<string[]>;
+  public selectedCountry;
 
   public itemForm: FormGroup;
   public formStatus = false;
   public url;
+  imgBaseURL = 'http://localhost:10000/api/downloads/client/';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -30,24 +34,32 @@ export class ClientUpdatePopupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.countries = this.data.country;
+    console.log(this.countries);
+
     this.buildItemForm(this.data.payload)
+
+    this.filteredCountries = this.itemForm.get("country").valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+
   }
+
   buildItemForm(item) {
 
     console.log(item);
 
     let country = null;
-    if(item.country){
+    if (item.country) {
       country = item.country.name;
+      this.selectedCountry = item.country.id;
     }
-    this.url = item.clientLogo;
-    console.log(this.url);
-    
-    
+
     this.itemForm = this.fb.group({
       name: [item.name || '', Validators.required],
       description: [item.description || '', Validators.required],
-      profilePic: ['test', Validators.required],
+      profilePic: [''],
       contactNo: [item.primaryContactNo || '', Validators.required],
       addressLine1: [item.addressLine1 || '', Validators.required],
       addressLine2: [item.addressLine2 || '', Validators.required],
@@ -57,11 +69,10 @@ export class ClientUpdatePopupComponent implements OnInit {
       country: [country || '', Validators.required]
     })
 
-    this.filteredOptions = this.itemForm.get("country").valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
-    );
-
+    // this.onBlurCountry();
+    getBase64ImageFromUrl(this.imgBaseURL + item.id)
+      .then(result => this.url = result)
+      .catch(err => console.error(err));
   }
 
   private _filter(value: string): any {
@@ -70,10 +81,9 @@ export class ClientUpdatePopupComponent implements OnInit {
   }
 
   submit() {
-    let forms = [this.itemForm.value,this.url];
+    let forms = [this.itemForm.value, this.url, this.selectedCountry];
     this.dialogRef.close(forms)
   }
-
 
   // File uploader validation and upload
   onSelectFile(event) {
@@ -94,7 +104,7 @@ export class ClientUpdatePopupComponent implements OnInit {
       reader.onload = (event: any) => {
         this.url = event.target.result;
         console.log(this.url);
-        
+
       };
 
       reader.readAsDataURL(file);
@@ -113,18 +123,39 @@ export class ClientUpdatePopupComponent implements OnInit {
     this.url = null;
   }
 
+
   onBlurCountry(): void {
     let value = this.itemForm.get("country").value;
     let status = true;
     this.countries.forEach(element => {
-      if(element.name === value){
+      if (element.name === value) {
+        this.selectedCountry = element.id;
         status = false;
       }
     });
 
     if (status) {
+      this.selectedCountry = null;
       this.itemForm.get("country").setValue("");
     }
   }
 
+}
+
+
+async function getBase64ImageFromUrl(imageUrl) {
+  var res = await fetch(imageUrl);
+  var blob = await res.blob();
+
+  return new Promise((resolve, reject) => {
+    var reader = new FileReader();
+    reader.addEventListener("load", function () {
+      resolve(reader.result);
+    }, false);
+
+    reader.onerror = () => {
+      return reject(this);
+    };
+    reader.readAsDataURL(blob);
+  })
 }

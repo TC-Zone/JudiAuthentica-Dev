@@ -1,11 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef, MatSnackBar } from '@angular/material';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FileUploader } from 'ng2-file-upload';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ProfileService } from '../profile.service';
-import { Subscription } from 'rxjs';
-import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
-import { ClientData, LicenseUpdateReq } from 'app/model/ClientModel.model';
+import { ClientData, profileUpdateReq, autoCompletableCategory, LicenseUpdateReq } from 'app/model/ClientModel.model';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
+import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
+import { MatSnackBar, MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent } from '@angular/material';
+import { egretAnimations } from "app/shared/animations/egret-animations";
+import { Observable, Subscription } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+import { CountryDB } from 'app/shared/helpers/countries';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-profile-license',
@@ -25,6 +30,25 @@ export class ProfileLicenseComponent implements OnInit {
   public license;
   public getItemSub: Subscription;
 
+  public categoryFormGroup: FormGroup;
+
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  categoryCtrl = new FormControl();
+  filteredCategories: Observable<string[]>;
+  categories: string[] = [];
+  categoriesValue: string[] = [];
+  allCategories: string[] = [];
+  public categoriesObj;
+  public categoryFormStatus = true;
+
+
+  @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+
   constructor(
     private fb: FormBuilder,
     public snackBar: MatSnackBar,
@@ -32,13 +56,18 @@ export class ProfileLicenseComponent implements OnInit {
     private errDialog: AppErrorService,
     private loader: AppLoaderService,
     private snack: MatSnackBar
-  ) { }
+  ) { 
+    this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
+      startWith(null),
+      map((category: string | null) => category ? this._filterCategory(category) : this.allCategories.slice()));
+    }
 
 
   ngOnInit() {
     let currentuser = JSON.parse(localStorage.getItem('currentUser'));
     this.clientId = currentuser.userData.id;
     this.buildItemForm()
+    this.getCategory();
     // this.buildItemForm(this.data.payload.license)
   }
 
@@ -53,9 +82,35 @@ export class ProfileLicenseComponent implements OnInit {
       promoCount: ['', Validators.required]
     });
 
+    this.categoryFormGroup = this.fb.group({
+      category: this.categoryCtrl
+    });
+
+
     this.getClient();
   }
 
+  getCategory() {
+    this.profileService.getCategory().subscribe(successResp => {
+      let categories = successResp.content;
+      console.log(categories);
+      
+
+      this.categoriesObj = successResp.content;
+      this.categoriesObj.forEach(element => {
+        this.allCategories.push(element.name);
+      });
+      // if (this.data.selectedCategory.length > 0) {
+      //   this.data.selectedCategory.forEach(element => {
+      //     this.addSelectedCategory(element.id)
+      //   });
+      // }
+    },
+      error => {
+        this.errDialog.showError(error);
+      }
+    );
+  }
 
   getClient() {
     this.getItemSub = this.profileService.getClient(this.clientId).subscribe(successResp => {
@@ -115,7 +170,7 @@ export class ProfileLicenseComponent implements OnInit {
   submit() {
     let form = this.licenseFormGroup;
     let clientData: ClientData = new ClientData(this.clientId);
-    const req: LicenseUpdateReq = new LicenseUpdateReq(form.get('tagCount').value, form.get('userCount').value, form.get('communityCount').value, form.get('feedbackCount').value, form.get('eventCount').value, form.get('promoCount').value, clientData);
+    const req: LicenseUpdateReq= new LicenseUpdateReq(form.get('tagCount').value, form.get('userCount').value, form.get('communityCount').value, form.get('feedbackCount').value, form.get('eventCount').value, form.get('promoCount').value, clientData);
 
     this.profileService.updateClientLicense(this.license.id, req).subscribe(
       response => {
@@ -134,5 +189,63 @@ export class ProfileLicenseComponent implements OnInit {
       }
     );
   }
+
+
+  
+  //  ----------------------- Categoty Setting --------------------------------------------------------
+
+  loadCategoryDD(){
+    this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
+      startWith(null),
+      map((category: string | null) => category ? this._filterCategory(category) : this.allCategories.slice()));
+  }
+  
+  add(event: MatChipInputEvent): void {
+
+    if (!this.matAutocomplete.isOpen) {
+      const input = event.input;
+      const value = event.value;
+
+      // if we need to add custom texts as Chips,
+      // Add our category
+      // if ((value || '').trim()) {
+      //   this.categories.push(value.trim());
+      // }
+
+      // Reset the input value
+      if (input) {
+        input.value = '';
+      }
+
+      this.categoryCtrl.setValue(null);
+    }
+  }
+
+  remove(category: string): void {
+    const index = this.categories.indexOf(category);
+    if (index >= 0) {
+      this.categories.splice(index, 1);
+      this.categoriesValue.splice(index, 1);
+    }
+    if(this.categoriesValue.length === 0){
+      this.categoryFormStatus = true;
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.categories.push(event.option.viewValue);
+    this.categoriesValue.push(event.option.value);
+    this.categoryInput.nativeElement.value = '';
+    this.categoryCtrl.setValue(null);
+    this.categoryFormStatus = false;
+  }
+
+  private _filterCategory(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.allCategories.filter(category => category.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  //  -------------------------------------------------------------------------------------------------
+
 
 }
