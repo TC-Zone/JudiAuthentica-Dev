@@ -7,8 +7,9 @@
 
   <mat-dialog-content class="mat-typography mt-1">
 
-    <mat-chip class="popup_alert_full_width" *ngIf="statusError" mat-chip color="accent" [selected]="true">If You
-      want to change Survey Title or Origin, put the survey to Offline mode.</mat-chip>
+    <div class="alert alert-warning" *ngIf="statusError" role="alert">
+      If You want to change Survey Title or Origin, put the survey to Offline mode.
+    </div>
 
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <div fxFlex="50" class="pr-1">
