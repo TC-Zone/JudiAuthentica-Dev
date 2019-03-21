@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import {
   MatDialog,
-  MatDialogRef
+  MatDialogRef,
+  MatSnackBar,
+  MatSnackBarConfig
 } from "../../../../../node_modules/@angular/material";
 import { Observable } from "../../../../../node_modules/rxjs";
 import { AppErrorComponent } from "./app-error.component";
@@ -15,11 +17,16 @@ interface ErrorData {
   clientError?: string;
 }
 
+export interface errorSnack {
+  message?: string;
+  duration?: number;
+}
+
 @Injectable()
 export class AppErrorService {
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private snack: MatSnackBar) {}
 
-  showHttpError(error: ErrorData = {}): String {
+  private showHttpError(error: ErrorData = {}): String {
     console.log("error status : " + error.status);
     if (error.status == "400") {
       return "Error occured due to invalid inputs !";
@@ -53,7 +60,7 @@ export class AppErrorService {
   // }
 
   // show popup window for custom error message (by prasad kumara)
-  handleCustomError(error: ErrorData = {}): any {
+  private handleCustomError(error: ErrorData = {}): any {
     const errorTitle = this.removeUnderscore(error.title);
     if (error.type.match('pageSize') || error.type.match('entity IDs')) {
       this.openPopUpWindow('Oh Snap', 'Something went wrong.');
@@ -102,8 +109,16 @@ export class AppErrorService {
     }
   }
 
+  // show error snack bar
+  showErrorSnack(errorSnack: errorSnack) {
+    this.snack.open(errorSnack.message, 'close', {
+      duration: errorSnack.duration,
+      panelClass: ['style-error']
+    });
+  }
+
   // convert error messages to camell case message (by prasad kumara)
-  getEnumKey(string: string): string {
+  private getEnumKey(string: string): string {
     const stringArray = string.split('.');
     let enumkey = '';
     for (let i = 0; i < stringArray.length; i++) {
@@ -117,7 +132,7 @@ export class AppErrorService {
   }
 
   // Remove _ from Error Title
-  removeUnderscore(text: string): string {
+  private removeUnderscore(text: string): string {
     console.log(text);
     const stringArray = text.split('_');
     let errorTitle = '';
@@ -128,7 +143,7 @@ export class AppErrorService {
   }
 
   // open pop up window
-  openPopUpWindow(title, message): any{
+  private openPopUpWindow(title, message): any{
     let dialogRef: MatDialogRef<AppErrorComponent>;
       dialogRef = this.dialog.open(AppErrorComponent, {
         width: '480px',
