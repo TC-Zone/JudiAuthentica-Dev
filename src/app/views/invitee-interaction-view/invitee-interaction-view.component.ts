@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { surveyLanguage } from "app/model/FutureSurvey.model";
 import { lang } from "moment";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-invitee-interaction-view",
@@ -54,7 +55,8 @@ export class InviteeInteractionViewComponent implements OnInit {
     private fb: FormBuilder,
     private errDialog: AppErrorService,
     private activeRoute: ActivatedRoute,
-    private route: Router
+    private route: Router,
+    private translateService: TranslateService
   ) {
     this.originMap.set("Survey", "1");
     this.originMap.set("eVote", "2");
@@ -108,6 +110,7 @@ export class InviteeInteractionViewComponent implements OnInit {
         }
       }
     });
+    this.addTranslation();
   }
 
   // buildSupportLangArray(langJson): any[] {
@@ -629,6 +632,20 @@ export class InviteeInteractionViewComponent implements OnInit {
     ] = bodyContainerBackgroundColor;
 
     Survey.StylesManager.applyTheme();
+  }
+
+  // add tranlation for static element in the survey view
+  addTranslation() {
+    const languages = [];
+    this.supportLangs.forEach(element => {
+      languages.push(element.code);
+    });
+    this.translateService.addLangs(languages);
+    if (this.defaultLang) {
+      this.translateService.setDefaultLang(this.defaultLang.code);
+      this.translateService.use(this.defaultLang.code);
+    }
+    this.interactForm.controls['language'].setValue(this.defaultLang.code);
   }
 }
 
