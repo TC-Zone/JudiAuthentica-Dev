@@ -85,7 +85,7 @@
         <ngx-datatable class="material bg-white" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
           [rowHeight]="'auto'" [limit]="5" [rows]="allInvitations">
 
-          <ngx-datatable-column name="Group Name" [minWidth]="250" [flexGrow]="1">
+          <ngx-datatable-column name="Group Name" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
               {{ row?.inviteeGroup.inviteeGroupName}}
             </ng-template>
@@ -96,7 +96,7 @@
               {{ row?.endDate}}
             </ng-template>
           </ngx-datatable-column>
-          
+
           <ngx-datatable-column name="Custom Fields" [minWidth]="250" [flexGrow]="1">
             <ng-template let-row="row" ngx-datatable-cell-template>
               <mat-chip *ngFor="let customField of row?.inviteeGroup.customFields;" mat-sm-chip color="primary"
@@ -105,17 +105,20 @@
           </ngx-datatable-column>
 
 
-          <ngx-datatable-column name="Action" [flexGrow]="1">
+          <ngx-datatable-column name="Action" [flexGrow]="1" [minWidth]="150">
             <ng-template let-row="row" ngx-datatable-cell-template>
 
-              <button mat-icon-button mat-sm-button (click)="navigateInviteeGroupView(row?.futureSurvey.id)" color="primary"
-                class="mr-1">
-                <mat-icon>view_headline</mat-icon>
+              <button class="card-control" mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
               </button>
-              <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openPopupEditInvitationSetting(row?.id, row?.inviteeGroup.inviteeGroupName, row?.inviteeGroup.customFields, row?.endDate)">
-                <mat-icon>edit</mat-icon>
-              </button>
-
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="navigateInviteeGroupView(row?.futureSurvey.id)" color="primary" class="mr-1">
+                  <mat-icon>view_headline</mat-icon>Resend Dashboard
+                </button>
+                <button mat-menu-item color="primary" class="mr-1" (click)="openPopupEditInvitationSetting(row?.id, row?.inviteeGroup.inviteeGroupName, row?.inviteeGroup.customFields, row?.endDate)">
+                  <mat-icon>edit</mat-icon>Edit
+                </button>
+              </mat-menu>
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>
