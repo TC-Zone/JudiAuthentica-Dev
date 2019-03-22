@@ -23,9 +23,14 @@ export class InviteeInteractionViewComponent implements OnInit {
   public loginError = false;
   public loginErrorMsg;
   public newErrorMsg = false;
+  public errorBG;
 
   public surveyId;
   public interactionResponStatus;
+  public clientLogoURL;
+  imgBaseURL = 'http://localhost:10000/api/downloads/client/';
+  public clientId;
+  public clientTitle
 
   public loggedInviteeName;
   public surveyTitle;
@@ -81,8 +86,8 @@ export class InviteeInteractionViewComponent implements OnInit {
         console.log(data.content.futureSurvey.status);
 
         if (data.content.futureSurvey.status === 0) {
-          // set error msg for on premise surveys
-          this.newErrorMsg = true;
+          // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - ON_PREMISE");
+          this.setSurveyStatusErrorMsg("ON_PREMISE");
         } else if (data.content.futureSurvey.status === 1) {
           // This response will collect language json array for a SURVEY
           console.log(data.content);
@@ -92,11 +97,24 @@ export class InviteeInteractionViewComponent implements OnInit {
           console.log(this.supportLangs);
           console.log(JSON.stringify(this.supportLangs));
           this.changeDefaultLang();
+          this.clientId = data.content.futureSurvey.clientId;
+
+          getBase64ImageFromUrl(this.imgBaseURL + this.clientId)
+            .then(result => this.clientLogoURL = result)
+            .catch(err => this.clientLogoURL = null);
+        } else if (data.content.futureSurvey.status === 2) {
+          // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - FULFILLED");
+        } else if (data.content.futureSurvey.status === 3) {
+          // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - EXPIRED");
+          this.setSurveyStatusErrorMsg("EXPIRED");
+        } else if (data.content.futureSurvey.status === 4) {
+          // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - OFFLINE");
+          this.setSurveyStatusErrorMsg("OFFLINE");
         }
       },
         error => {
           if (error.error.validationFailures[0].code == 'getSurveyByUrl.notExist') {
-            console.log('notExist');
+            this.setSurveyStatusErrorMsg("INVALID_URL");
           } else {
             console.log(error);
             // this.errDialog.showError(error);
@@ -214,6 +232,14 @@ export class InviteeInteractionViewComponent implements OnInit {
                 header.fieldName
               ];
             });
+
+            // this.clientId = loggedInteraction.futureSurvey.clientId;
+            // this.clientLogoURL = null;
+
+            // getBase64ImageFromUrl(this.imgBaseURL + this.clientId)
+            // .then(result => this.clientLogoURL = result)
+            // .catch(err => this.clientLogoURL = null);
+
             console.log(this.customFields);
             console.log(this.customField);
 
@@ -229,14 +255,20 @@ export class InviteeInteractionViewComponent implements OnInit {
             this.setSurveyStatusErrorMsg("OFFLINE");
           }
         } else {
-          this.setSurveyStatusErrorMsg("INVALID");
+          this.setSurveyStatusErrorMsg("INVALID_CREDENTIALS");
         }
       },
       error => {
-        this.setSurveyStatusErrorMsg("INVALID");
+        this.setSurveyStatusErrorMsg("INVALID_CREDENTIALS");
       }
     );
   }
+
+  updateUrl() {
+    console.log("OKOKO");
+
+  }
+
 
   getSurveyData(interactionId) {
     this.inviteeInteractionViewService
@@ -253,6 +285,7 @@ export class InviteeInteractionViewComponent implements OnInit {
             localStorage.setItem("surveyResultId", null);
             localStorage.setItem("originalResultArray", null);
           }
+          document.getElementById("finishedSurveyMsg").style.display = "none";
 
           if (this.interactionResponStatus === 1) {
             document.getElementById("btnViewSummary").style.display = "none";
@@ -610,7 +643,7 @@ export class InviteeInteractionViewComponent implements OnInit {
         if (this.origin === 'Survey') {
           msgText = this.translateService.instant('THANKYOU') + '</br>' + this.translateService.instant('SUBMITMSGSURVEY');
         } else {
-          msgText = this.translateService.instant('THANKYOU') + '</br>' +this.translateService.instant('SUBMITMSGEVOTE');
+          msgText = this.translateService.instant('THANKYOU') + '</br>' + this.translateService.instant('SUBMITMSGEVOTE');
         }
         return (
           MSG_PART_1 +
@@ -636,17 +669,24 @@ export class InviteeInteractionViewComponent implements OnInit {
   setSurveyStatusErrorMsg(status) {
     this.loginError = true;
     switch (status) {
-      case "INVALID":
+      case "INVALID_CREDENTIALS":
         this.loginErrorMsg = "Invalid Credentials !";
         break;
       case "ON_PREMISE":
-        this.loginErrorMsg = "Survey/E-Vote is Coming soon!";
+        this.newErrorMsg = true;
+        this.errorBG = "assets/images/error_bg/ON_PREMISE.jpg"
         break;
       case "EXPIRED":
-        this.loginErrorMsg = "Sorry.. Survey/E-Vote is expired.!";
+      this.newErrorMsg = true;
+      this.errorBG = "assets/images/error_bg/EXPIRED.jpg"
         break;
       case "OFFLINE":
-        this.loginErrorMsg = "Survey/E-Vote is currently unavailable!";
+      this.newErrorMsg = true;
+      this.errorBG = "assets/images/error_bg/OFFLINE.jpg"
+        break;
+      case "INVALID_URL":
+      this.newErrorMsg = true;
+      this.errorBG = "assets/images/error_bg/INVALID_URL.jpg"
         break;
       default:
         this.loginError = false;
@@ -711,4 +751,22 @@ export class FSAnswer {
     public futureSurveyAnswers: any,
     public originalResultArray: any
   ) { }
+}
+
+
+async function getBase64ImageFromUrl(imageUrl) {
+  var res = await fetch(imageUrl);
+  var blob = await res.blob();
+
+  return new Promise((resolve, reject) => {
+    var reader = new FileReader();
+    reader.addEventListener("load", function () {
+      resolve(reader.result);
+    }, false);
+
+    reader.onerror = () => {
+      return reject(this);
+    };
+    reader.readAsDataURL(blob);
+  })
 }

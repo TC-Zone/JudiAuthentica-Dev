@@ -3,18 +3,21 @@
     <div class="page-wrap height-100 background-survey-signin" *ngIf="showLogin && !newErrorMsg">
       <div id="login-view" layout="row" layout-align="center center">
         <mat-card class="header">
-          <mat-card-header>
+          <!-- <mat-card-header> -->
+          <div class="container-fluid">
             <div class="row">
               <div class="col-sm-4">
-                <img class="logo" src="assets/images/truverus/fountainvest.png" alt="">
+                <img class="logo" [src]="clientLogoURL" alt="">
               </div>
               <div class="col-sm-8">
                 <mat-card-title class="mat-title">
-                  <h5>FountainVest Partners </h5>
+                  <h5>FountainVest Partners Fountain Vest Partners</h5>
                 </mat-card-title>
               </div>
             </div>
-          </mat-card-header>
+          </div>
+
+          <!-- </mat-card-header> -->
         </mat-card>
         <mat-card style="margin-top:12px">
           <div id="login-div">
@@ -39,7 +42,7 @@
         <mat-card style="margin-top:12px" *ngIf="this.supportLangs.length !== 1">
           <div id="language">
             <mat-card-content>
-              <div>
+              <div class="row">
                 <div class="col-sm-8">
                   <mat-label>{{ 'SELECTLANGUAGE' | translate }}</mat-label>
                 </div>
@@ -61,66 +64,76 @@
   </form>
 
   <!-- for invalid url error -->
-  <div class="page-wrap height-100 background-survey-signin" *ngIf="newErrorMsg"></div>
+  <div class="page-wrap height-100 background-survey-signin-error" *ngIf="newErrorMsg" [ngStyle]="{ 'background-image': 'url(' + errorBG + ')'}"></div>
   <!-- --------------------- -->
-</div>
 
 
-<div fxFlex="100" fxLayoutAlign="center center" id="survey-view-survey" class="background-survey-form">
+  <div fxFlex="100" fxLayoutAlign="center center" id="survey-view-survey" class="background-survey-form">
 
-  <header>
-    <mat-toolbar fxLayoutAlign="center center" matDialogTitle class="mat-primary m-0">
-      <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-        <div mat-card-avatar class="example-header-image"></div>
+    <header>
+      <mat-toolbar fxLayoutAlign="center center" matDialogTitle class="mat-primary m-0">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+          <div mat-card-avatar class="example-header-image"
+            [ngStyle]="{ 'background-image': 'url(' + clientLogoURL + ')'}"></div>
+        </div>
+        <!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
+        <!-- <span class="example-card-title hidden-xs">Clear Picture</span> -->
+        <span class="example-spacer"></span>
+        <span *ngIf="loggedInviteeName" class="example-invite">{{ 'HI' | translate }}, {{loggedInviteeName}}</span>
+      </mat-toolbar>
+    </header>
+
+    <div class="survey-page-wrap" *ngIf="!showLogin">
+      <div class="survey-form-hold">
+        <mat-card id="finishedSurveyMsg" class="survey-mat-card">
+          <mat-card-content>
+            <h5 *ngIf="origin === 'Survey'">{{ 'THESURVEYPRVSUB' | translate }}</h5>
+            <h5 *ngIf="origin !== 'Survey'">{{ 'THEEVOTEPRVSUB' | translate }}</h5>
+            <h6>{{ 'SUMMERYTEXT' | translate }}</h6>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="survey-mat-card">
+          <mat-card-content>
+            <div id="surveyElement"></div>
+            <div id="surveyResult"></div>
+          </mat-card-content>
+        </mat-card>
       </div>
-      <!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
-      <span class="example-card-title hidden-xs">Clear Picture</span>
-      <span class="example-spacer"></span>
-      <span *ngIf="loggedInviteeName" class="example-invite">{{ 'HI' | translate }}, {{loggedInviteeName}}</span>
-    </mat-toolbar>
-  </header>
-
-  <div class="survey-page-wrap" *ngIf="!showLogin">
-    <div class="survey-form-hold">
-      <mat-card id="finishedSurveyMsg" class="survey-mat-card">
-        <mat-card-content>
-          <h5 *ngIf="origin === 'Survey'">{{ 'THESURVEYPRVSUB' | translate }}</h5>
-          <h5 *ngIf="origin !== 'Survey'">{{ 'THEEVOTEPRVSUB' | translate }}</h5>
-          <h6>{{ 'SUMMERYTEXT' | translate }}</h6>
-        </mat-card-content>
-      </mat-card>
-      <mat-card class="survey-mat-card">
-        <mat-card-content>
-          <div id="surveyElement"></div>
-          <div id="surveyResult"></div>
-        </mat-card-content>
-      </mat-card>
     </div>
+
+    <mat-card-content>
+
+      <div class="pb-1" style="text-align: center">
+        <a id="btnViewSummary" mat-raised-button class="mr-1"
+          (click)="viewSummary()">{{ 'VIEWSUMMERY' | translate }}</a>
+        <a id="btnViewSurvey" *ngIf="origin ==='Survey'" mat-raised-button class="mr-1"
+          (click)="viewSurvey()">{{ 'EDITSURVEY' | translate }}</a>
+        <a id="btnViewSurvey" *ngIf="origin !=='Survey'" mat-raised-button class="mr-1"
+          (click)="viewSurvey()">{{ 'EDITEVOTE' | translate }}</a>
+        <a id="btnSubmitSurvey" *ngIf="origin ==='Survey'" mat-raised-button color="primary" class="mr-1"
+          (click)="submitSurvey()">{{ 'SUBMITSURVEY' | translate }}</a>
+        <a id="btnSubmitSurvey" *ngIf="origin !=='Survey'" mat-raised-button color="primary" class="mr-1"
+          (click)="submitSurvey()">{{ 'SUBMITEVOTE' | translate }}</a>
+        <a id="btnAnswerLater" mat-raised-button color="primary" class="mr-1"
+          (click)="answerLater()">{{ 'ANSWERLATER' | translate }}</a>
+      </div>
+
+    </mat-card-content>
+
+
+    <div id="survey-view-footer">
+      <div class="container custom-center">
+        <span>{{ 'POWEREDBY' | translate }}</span>
+        <!-- <img src="assets/images/cp_logo_text.png" alt=""> -->
+        <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="">
+      </div>
+    </div>
+
   </div>
-
-  <mat-card-content>
-
-    <div class="pb-1" style="text-align: center">
-      <a id="btnViewSummary" mat-raised-button class="mr-1" (click)="viewSummary()">{{ 'VIEWSUMMERY' | translate }}</a>
-      <a id="btnViewSurvey" *ngIf="origin ==='Survey'" mat-raised-button class="mr-1" (click)="viewSurvey()">{{ 'EDITSURVEY' | translate }}</a>
-      <a id="btnViewSurvey" *ngIf="origin !=='Survey'" mat-raised-button class="mr-1" (click)="viewSurvey()">{{ 'EDITEVOTE' | translate }}</a>
-      <a id="btnSubmitSurvey" *ngIf="origin ==='Survey'" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">{{ 'SUBMITSURVEY' | translate }}</a>
-      <a id="btnSubmitSurvey" *ngIf="origin !=='Survey'" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">{{ 'SUBMITEVOTE' | translate }}</a>
-      <a id="btnAnswerLater" mat-raised-button color="primary" class="mr-1" (click)="answerLater()">{{ 'ANSWERLATER' | translate }}</a>
-    </div>
-
-  </mat-card-content>
-
-
-  <div id="survey-view-footer">
-    <div class="container custom-center">
-      <span>{{ 'POWEREDBY' | translate }}</span>
-      <!-- <img src="assets/images/cp_logo_text.png" alt=""> -->
-      <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="">
-    </div>
-  </div>
-
 </div>
+
+
+
 
 <script>
   $.material.init();
