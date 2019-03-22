@@ -5,6 +5,7 @@ import { startWith, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { CountryDB } from "../../../../shared/helpers/countries";
 import { egretAnimations } from "../../../../shared/animations/egret-animations";
+import { ClientService } from '../../client.service';
 
 
 @Component({
@@ -24,16 +25,20 @@ export class ClientUpdatePopupComponent implements OnInit {
   public itemForm: FormGroup;
   public formStatus = false;
   public url;
-  imgBaseURL = 'http://localhost:10000/api/downloads/client/';
+  public imgBaseURL : string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ClientUpdatePopupComponent>,
+    public clientService : ClientService,
     private fb: FormBuilder,
     public snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
+
+    this.imgBaseURL = this.clientService.imageUrl;
+
     this.countries = this.data.country;
     console.log(this.countries);
 

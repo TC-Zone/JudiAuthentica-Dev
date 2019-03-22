@@ -10,6 +10,7 @@ import { Subscription } from "rxjs";
 import { surveyLanguage } from "app/model/FutureSurvey.model";
 import { lang } from "moment";
 import { TranslateService } from "@ngx-translate/core";
+import { ClientService } from "../client/client.service";
 
 @Component({
   selector: "app-invitee-interaction-view",
@@ -51,8 +52,11 @@ export class InviteeInteractionViewComponent implements OnInit {
   public originMap = new Map();
   public langJson: any;
 
+  public logoUrl: string;
+
   constructor(
     private inviteeInteractionViewService: InviteeInteractionViewService,
+    private clientService: ClientService,
     private fb: FormBuilder,
     private errDialog: AppErrorService,
     private activeRoute: ActivatedRoute,
@@ -61,6 +65,8 @@ export class InviteeInteractionViewComponent implements OnInit {
   ) {
     this.originMap.set("Survey", "1");
     this.originMap.set("eVote", "2");
+
+
 
     this.getAllSurveyLangs();
 
@@ -84,6 +90,9 @@ export class InviteeInteractionViewComponent implements OnInit {
         console.log(this.supportLangs);
         console.log(JSON.stringify(this.supportLangs));
         this.changeDefaultLang();
+        this.logoUrl = this.clientService.imageUrl + data.content.futureSurvey.clientId;
+        console.log(this.logoUrl);
+
       });
   }
 
@@ -104,7 +113,10 @@ export class InviteeInteractionViewComponent implements OnInit {
 
   buildSupportLangArray(langJson) {
     this.langs.forEach(element => {
-      if (this.langJson.extra.indexOf(element.code) > -1 || langJson.def === element.code) {
+      if (
+        this.langJson.extra.indexOf(element.code) > -1 ||
+        langJson.def === element.code
+      ) {
         if (langJson.def === element.code) {
           this.defaultLang = element;
           this.currentLang = element;
@@ -146,7 +158,10 @@ export class InviteeInteractionViewComponent implements OnInit {
   }
 
   changeDefaultLang() {
-    localStorage.setItem("surveySelectedLang", JSON.stringify(this.currentLang));
+    localStorage.setItem(
+      "surveySelectedLang",
+      JSON.stringify(this.currentLang)
+    );
     this.translateService.use(this.currentLang.code);
   }
 
@@ -240,6 +255,10 @@ export class InviteeInteractionViewComponent implements OnInit {
             document.getElementById("btnViewSurvey").style.display = "none";
             document.getElementById("btnSubmitSurvey").style.display = "none";
             document.getElementById("btnAnswerLater").style.display = "none";
+            console.log(
+              "THIS JSON : IN getSurveyData .......................... "
+            );
+            console.log(this.jsonContent);
             this.viewSummary();
           } else {
             this.viewSurvey();
@@ -273,9 +292,6 @@ export class InviteeInteractionViewComponent implements OnInit {
       });
     });
 
-    
-    
-
     console.log(
       "------------- After - jsonContentJSON.pages -----------------"
     );
@@ -286,10 +302,11 @@ export class InviteeInteractionViewComponent implements OnInit {
     this.surveyModel = new Survey.Model(jsonContent);
     Survey.StylesManager.applyTheme("bootstrap");
 
-    console.log(localStorage.getItem('surveySelectedLang'));
-    this.surveyModel.locale = JSON.parse(localStorage.getItem('surveySelectedLang')).code;
-   // console.log(this.surveyModel);
-    
+    console.log(localStorage.getItem("surveySelectedLang"));
+    this.surveyModel.locale = JSON.parse(
+      localStorage.getItem("surveySelectedLang")
+    ).code;
+    // console.log(this.surveyModel);
 
     let resultArray = [];
     let interactionId = this.interactionId;
@@ -297,7 +314,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     localStorage.setItem("onCompleteStatus", "onComplete");
     let thankYouMsg = this.setThankYouMsg("DEFAULT_MSG");
 
-    this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
+    this.surveyModel.onUpdateQuestionCssClasses.add(function(survey, options) {
       var classes = options.cssClasses;
 
       if (options.question.getType() === "rating") {
@@ -342,7 +359,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     ];
 
     // .............. ON COMPLET START HERE ..........................
-    this.surveyModel.onComplete.add(function (result) {
+    this.surveyModel.onComplete.add(function(result) {
       if (localStorage.getItem("onCompleteStatus") === "onComplete") {
         localStorage.setItem("survey_currentPage_" + interactionId, lastPage);
       }
@@ -467,7 +484,8 @@ export class InviteeInteractionViewComponent implements OnInit {
       document.getElementById("btnViewSurvey").style.display = "none";
     }
 
-    let jsonContent = this.jsonContentJSON;
+    // let jsonContent = this.jsonContentJSON;
+    let jsonContent = JSON.parse(this.jsonContent);
 
     jsonContent.title = "Summary of " + jsonContent.title;
 
@@ -475,7 +493,7 @@ export class InviteeInteractionViewComponent implements OnInit {
 
     Survey.StylesManager.applyTheme("bootstrap");
 
-    this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
+    this.surveyModel.onUpdateQuestionCssClasses.add(function(survey, options) {
       var classes = options.cssClasses;
 
       if (options.question.getType() === "rating") {
@@ -650,20 +668,20 @@ export class InviteeInteractionViewComponent implements OnInit {
       this.translateService.setDefaultLang(this.defaultLang.code);
       this.translateService.use(this.defaultLang.code);
     }
-    this.interactForm.controls['language'].setValue(this.defaultLang.code);
+    this.interactForm.controls["language"].setValue(this.defaultLang.code);
   }
 }
 
 export class InviteePart {
-  constructor(public username, public password: string) { }
+  constructor(public username, public password: string) {}
 }
 
 export class ValueTemplate {
-  constructor(public value: any) { }
+  constructor(public value: any) {}
 }
 
 export class MatrixBaseTemplate {
-  constructor(public rowValue, public columnValue: any) { }
+  constructor(public rowValue, public columnValue: any) {}
 }
 
 export class FSAnswer {
@@ -671,5 +689,5 @@ export class FSAnswer {
     public interactionId: any,
     public futureSurveyAnswers: any,
     public originalResultArray: any
-  ) { }
+  ) {}
 }
