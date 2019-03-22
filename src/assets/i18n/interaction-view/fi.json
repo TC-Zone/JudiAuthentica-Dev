@@ -24,5 +24,6 @@
   "THANKYOU": "Kiitos",
   "EDITSURVEY": "Muokkaa kyselyä",
   "EDITEVOTE": "Muokkaa sähköistä äänestystä",
-  "SUMMERYTITLE": "Yhteenveto"
+  "SUMMERYTITLE": "Yhteenveto",
+  "INVALIDCREDENTIAL": "Virheelliset tunnistetiedot"
 }

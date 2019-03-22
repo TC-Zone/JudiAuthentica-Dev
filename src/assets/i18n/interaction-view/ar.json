@@ -24,5 +24,6 @@
   "THANKYOU": "شكرا جزيلا",
   "EDITSURVEY": "تحرير المسح",
   "EDITEVOTE": "تحرير التصويت الإلكتروني",
-  "SUMMERYTITLE": "ملخص عن"
+  "SUMMERYTITLE": "ملخص عن",
+  "INVALIDCREDENTIAL": "بيانات الاعتماد غير صالحة"
 }

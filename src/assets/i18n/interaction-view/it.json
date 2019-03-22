@@ -24,5 +24,6 @@
   "THANKYOU": "Grazie",
   "EDITSURVEY": "Modifica sondaggio",
   "EDITEVOTE": "Modifica voto elettronico",
-  "SUMMERYTITLE": "Sintesi di"
+  "SUMMERYTITLE": "Sintesi di",
+  "INVALIDCREDENTIAL": "Credenziali non valide"
 }
