@@ -29,9 +29,9 @@ export class InviteeInteractionViewComponent implements OnInit {
   public surveyId;
   public interactionResponStatus;
   public clientLogoURL;
-  imgBaseURL = 'http://localhost:10000/api/downloads/client/';
+  public imgBaseURL: string;
   public clientId;
-  public clientTitle
+  public clientTitle;
 
   public loggedInviteeName;
   public surveyTitle;
@@ -59,7 +59,7 @@ export class InviteeInteractionViewComponent implements OnInit {
   public originMap = new Map();
   public langJson: any;
 
-  public logoUrl: string;
+  public surveyLoginTitle : string;
 
   constructor(
     private inviteeInteractionViewService: InviteeInteractionViewService,
@@ -73,7 +73,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     this.originMap.set("Survey", "1");
     this.originMap.set("eVote", "2");
 
-
+    this.imgBaseURL = this.clientService.imageUrl;
 
     this.getAllSurveyLangs();
 
@@ -88,38 +88,43 @@ export class InviteeInteractionViewComponent implements OnInit {
 
     this.inviteeInteractionViewService
       .getInvitationByUrl(this.originMap.get(originStr), this.publishUrl)
-      .subscribe(data => {
-        console.log(data.content.futureSurvey.status);
+      .subscribe(
+        data => {
+          console.log(data.content.futureSurvey.status);
 
-        if (data.content.futureSurvey.status === 0) {
-          // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - ON_PREMISE");
-          this.setSurveyStatusErrorMsg("ON_PREMISE");
-        } else if (data.content.futureSurvey.status === 1) {
-          // This response will collect language json array for a SURVEY
-          console.log(data.content);
-          this.langJson = JSON.parse(data.content.futureSurvey.languageJson);
-          console.log(this.langJson);
-          this.buildSupportLangArray(this.langJson);
-          console.log(this.supportLangs);
-          console.log(JSON.stringify(this.supportLangs));
-          this.changeDefaultLang();
-          this.clientId = data.content.futureSurvey.clientId;
+          if (data.content.futureSurvey.status === 0) {
+            // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - ON_PREMISE");
+            this.setSurveyStatusErrorMsg("ON_PREMISE");
+          } else if (data.content.futureSurvey.status === 1) {
+            // This response will collect language json array for a SURVEY
+            console.log(data.content);
+            this.langJson = JSON.parse(data.content.futureSurvey.languageJson);
+            console.log(this.langJson);
+            this.buildSupportLangArray(this.langJson);
+            console.log(this.supportLangs);
+            console.log(JSON.stringify(this.supportLangs));
+            this.changeDefaultLang();
+            this.clientId = data.content.futureSurvey.clientId;
+            this.surveyLoginTitle = data.content.futureSurvey.title;
+            console.log(this.imgBaseURL + this.clientId);
 
-          getBase64ImageFromUrl(this.imgBaseURL + this.clientId)
-            .then(result => this.clientLogoURL = result)
-            .catch(err => this.clientLogoURL = null);
-        } else if (data.content.futureSurvey.status === 2) {
-          // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - FULFILLED");
-        } else if (data.content.futureSurvey.status === 3) {
-          // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - EXPIRED");
-          this.setSurveyStatusErrorMsg("EXPIRED");
-        } else if (data.content.futureSurvey.status === 4) {
-          // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - OFFLINE");
-          this.setSurveyStatusErrorMsg("OFFLINE");
-        }
-      },
+            getBase64ImageFromUrl(this.imgBaseURL + this.clientId)
+              .then(result => (this.clientLogoURL = result))
+              .catch(err => (this.clientLogoURL = null));
+          } else if (data.content.futureSurvey.status === 2) {
+            // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - FULFILLED");
+          } else if (data.content.futureSurvey.status === 3) {
+            // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - EXPIRED");
+            this.setSurveyStatusErrorMsg("EXPIRED");
+          } else if (data.content.futureSurvey.status === 4) {
+            // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - OFFLINE");
+            this.setSurveyStatusErrorMsg("OFFLINE");
+          }
+        },
         error => {
-          if (error.error.validationFailures[0].code == 'getSurveyByUrl.notExist') {
+          if (
+            error.error.validationFailures[0].code == "getSurveyByUrl.notExist"
+          ) {
             this.setSurveyStatusErrorMsg("INVALID_URL");
           } else {
             console.log(error);
@@ -127,7 +132,6 @@ export class InviteeInteractionViewComponent implements OnInit {
           }
         }
       );
-
   }
 
   ngOnInit() {
@@ -147,7 +151,10 @@ export class InviteeInteractionViewComponent implements OnInit {
 
   buildSupportLangArray(langJson) {
     this.langs.forEach(element => {
-      if (langJson.extra.indexOf(element.code) > -1 || langJson.def === element.code) {
+      if (
+        langJson.extra.indexOf(element.code) > -1 ||
+        langJson.def === element.code
+      ) {
         if (langJson.def === element.code) {
           this.defaultLang = element;
           this.currentLang = element;
@@ -275,9 +282,7 @@ export class InviteeInteractionViewComponent implements OnInit {
 
   updateUrl() {
     console.log("OKOKO");
-
   }
-
 
   getSurveyData(interactionId) {
     this.inviteeInteractionViewService
@@ -338,9 +343,6 @@ export class InviteeInteractionViewComponent implements OnInit {
       });
     });
 
-
-
-
     console.log(
       "------------- After - jsonContentJSON.pages -----------------"
     );
@@ -351,8 +353,10 @@ export class InviteeInteractionViewComponent implements OnInit {
     this.surveyModel = new Survey.Model(jsonContent);
     Survey.StylesManager.applyTheme("bootstrap");
 
-    console.log(localStorage.getItem('surveySelectedLang'));
-    this.surveyModel.locale = JSON.parse(localStorage.getItem('surveySelectedLang')).code;
+    console.log(localStorage.getItem("surveySelectedLang"));
+    this.surveyModel.locale = JSON.parse(
+      localStorage.getItem("surveySelectedLang")
+    ).code;
 
     // console.log(this.surveyModel);
 
@@ -535,14 +539,21 @@ export class InviteeInteractionViewComponent implements OnInit {
     // let jsonContent = this.jsonContentJSON;
     let jsonContent = JSON.parse(this.jsonContent);
 
-    if (typeof (jsonContent.title) !== "string") {
+    if (typeof jsonContent.title !== "string") {
       if (jsonContent.title.hasOwnProperty(this.currentLang.code) > -1) {
-        jsonContent.title = this.translateService.instant('SUMMERYTITLE') + " " + jsonContent.title[this.currentLang.code];
+        jsonContent.title =
+          this.translateService.instant("SUMMERYTITLE") +
+          " " +
+          jsonContent.title[this.currentLang.code];
       } else {
-        jsonContent.title = this.translateService.instant('SUMMERYTITLE') + " " + jsonContent.title['default'];
+        jsonContent.title =
+          this.translateService.instant("SUMMERYTITLE") +
+          " " +
+          jsonContent.title["default"];
       }
     } else {
-      jsonContent.title = this.translateService.instant('SUMMERYTITLE') + " " + jsonContent.title;
+      jsonContent.title =
+        this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title;
     }
 
     this.surveyModel = new Survey.Model(jsonContent);
@@ -635,45 +646,36 @@ export class InviteeInteractionViewComponent implements OnInit {
     let MSG_PART_1 =
       '<div class="sv_main sv_bootstrap_css"><form><div class="sv_container"><div class="sv_body sv_completed_page"><h3>';
     let MSG_PART_2 = "</h3></div></div></form></div>";
-    let msgText = '';
+    let msgText = "";
 
     switch (msgType) {
       case "ANSWER_LATER_MSG":
-        if (this.origin === 'Survey') {
-          msgText = this.translateService.instant('ANSWERLATERMSGSURVEY');
+        if (this.origin === "Survey") {
+          msgText = this.translateService.instant("ANSWERLATERMSGSURVEY");
         } else {
-          msgText = this.translateService.instant('ANSWERLATERMSGEVOTE');
+          msgText = this.translateService.instant("ANSWERLATERMSGEVOTE");
         }
-        return (
-          MSG_PART_1 +
-          msgText +
-          "!" +
-          MSG_PART_2
-        );
+        return MSG_PART_1 + msgText + "!" + MSG_PART_2;
       case "SUBMIT_MSG":
-        if (this.origin === 'Survey') {
-          msgText = this.translateService.instant('THANKYOU') + '</br>' + this.translateService.instant('SUBMITMSGSURVEY');
+        if (this.origin === "Survey") {
+          msgText =
+            this.translateService.instant("THANKYOU") +
+            "</br>" +
+            this.translateService.instant("SUBMITMSGSURVEY");
         } else {
-          msgText = this.translateService.instant('THANKYOU') + '</br>' + this.translateService.instant('SUBMITMSGEVOTE');
+          msgText =
+            this.translateService.instant("THANKYOU") +
+            "</br>" +
+            this.translateService.instant("SUBMITMSGEVOTE");
         }
-        return (
-          MSG_PART_1 +
-          msgText +
-          "!" +
-          MSG_PART_2
-        );
+        return MSG_PART_1 + msgText + "!" + MSG_PART_2;
       default:
-        if (this.origin === 'Survey') {
-          msgText = this.translateService.instant('COMPLETEMSGSURVEY');
+        if (this.origin === "Survey") {
+          msgText = this.translateService.instant("COMPLETEMSGSURVEY");
         } else {
-          msgText = this.translateService.instant('COMPLETEMSGEVOTE');
+          msgText = this.translateService.instant("COMPLETEMSGEVOTE");
         }
-        return (
-          MSG_PART_1 +
-          msgText +
-          "!" +
-          MSG_PART_2
-        );
+        return MSG_PART_1 + msgText + "!" + MSG_PART_2;
     }
   }
 
@@ -681,23 +683,24 @@ export class InviteeInteractionViewComponent implements OnInit {
     this.loginError = true;
     switch (status) {
       case "INVALID_CREDENTIALS":
-        this.loginErrorMsg = this.translateService.instant('INVALIDCREDENTIAL') + " !";
+        this.loginErrorMsg =
+          this.translateService.instant("INVALIDCREDENTIAL") + " !";
         break;
       case "ON_PREMISE":
         this.newErrorMsg = true;
-        this.errorBG = "assets/images/error_bg/ON_PREMISE.jpg"
+        this.errorBG = "assets/images/error_bg/ON_PREMISE.jpg";
         break;
       case "EXPIRED":
-      this.newErrorMsg = true;
-      this.errorBG = "assets/images/error_bg/EXPIRED.jpg"
+        this.newErrorMsg = true;
+        this.errorBG = "assets/images/error_bg/EXPIRED.jpg";
         break;
       case "OFFLINE":
-      this.newErrorMsg = true;
-      this.errorBG = "assets/images/error_bg/OFFLINE.jpg"
+        this.newErrorMsg = true;
+        this.errorBG = "assets/images/error_bg/OFFLINE.jpg";
         break;
       case "INVALID_URL":
-      this.newErrorMsg = true;
-      this.errorBG = "assets/images/error_bg/INVALID_URL.jpg"
+        this.newErrorMsg = true;
+        this.errorBG = "assets/images/error_bg/INVALID_URL.jpg";
         break;
       default:
         this.loginError = false;
@@ -764,20 +767,23 @@ export class FSAnswer {
   ) {}
 }
 
-
 async function getBase64ImageFromUrl(imageUrl) {
   var res = await fetch(imageUrl);
   var blob = await res.blob();
 
   return new Promise((resolve, reject) => {
     var reader = new FileReader();
-    reader.addEventListener("load", function () {
-      resolve(reader.result);
-    }, false);
+    reader.addEventListener(
+      "load",
+      function() {
+        resolve(reader.result);
+      },
+      false
+    );
 
     reader.onerror = () => {
       return reject(this);
     };
     reader.readAsDataURL(blob);
-  })
+  });
 }
