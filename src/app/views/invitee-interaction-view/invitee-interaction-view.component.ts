@@ -307,9 +307,9 @@ export class InviteeInteractionViewComponent implements OnInit {
 
     console.log(localStorage.getItem('surveySelectedLang'));
     this.surveyModel.locale = JSON.parse(localStorage.getItem('surveySelectedLang')).code;
+
     // console.log(this.surveyModel);
-
-
+    
     let resultArray = [];
     let interactionId = this.interactionId;
     let lastPage = String(this.surveyModel.pages.length - 1);
@@ -489,9 +489,6 @@ export class InviteeInteractionViewComponent implements OnInit {
     // let jsonContent = this.jsonContentJSON;
     let jsonContent = JSON.parse(this.jsonContent);
 
-
-    console.log(jsonContent.title);
-
     if (typeof (jsonContent.title) !== "string") {
       if (jsonContent.title.hasOwnProperty(this.currentLang.code) > -1) {
         jsonContent.title = "Summary of " + jsonContent.title[this.currentLang.code];
@@ -501,9 +498,6 @@ export class InviteeInteractionViewComponent implements OnInit {
     } else {
       jsonContent.title = "Summary of " + jsonContent.title;
     }
-
-
-
 
     this.surveyModel = new Survey.Model(jsonContent);
 

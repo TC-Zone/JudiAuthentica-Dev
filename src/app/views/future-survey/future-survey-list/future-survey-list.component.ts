@@ -168,7 +168,11 @@ export class FutureSurveyListComponent implements OnInit {
           },
           error => {
             this.loader.close();
-            this.errDialog.showError(error);
+            const snacError = {
+              error: error,
+              duration: 3000
+            };
+            this.errDialog.showErrorSnack(snacError);
           }
         );
       }

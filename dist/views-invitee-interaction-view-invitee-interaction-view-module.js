@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"interactForm\" id=\"invitee-interaction-view\">\r\n  <div class=\"page-wrap height-100 background-survey-signin\" *ngIf=\"showLogin\">\r\n    <div class=\"session-form-hold set-form-left\">\r\n      <mat-card id=\"login-card\">\r\n        <mat-card-content>\r\n          <div id=\"login-form\">\r\n            <div class=\"text-center pb-1\" id=\"login-form-logo\">\r\n              <img src=\"assets/images/truverus/Tru-Verus-Logo.png\" alt=\"\">\r\n              <p class=\"text-muted m-0\">Welcome, Please Signin to your Account.</p>\r\n              <h6 *ngIf=\"loginError\" class=\"m-1 form-error-msg\"> {{loginErrorMsg}} </h6>\r\n            </div>\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"text\" name=\"username\" matInput placeholder=\"Username\" value=\"\" [formControl]=\"interactForm.controls['username']\"\r\n                required name=\"username\">\r\n            </mat-form-field>\r\n\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"password\" name=\"password\" matInput placeholder=\"Password\" value=\"\" [formControl]=\"interactForm.controls['password']\"\r\n                required name=\"password\">\r\n            </mat-form-field>\r\n\r\n            <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"doLog()\" [disabled]=\"interactForm.invalid\">Login\r\n              to Survey</button>\r\n          </div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>\r\n\r\n<div fxFlex=\"100\" fxLayoutAlign=\"center center\" id=\"survey-view-survey\" class=\"background-survey-form\">\r\n\r\n  <header>\r\n    <mat-toolbar fxLayoutAlign=\"center center\" matDialogTitle class=\"mat-primary m-0\">\r\n      <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <div mat-card-avatar class=\"example-header-image\"></div>\r\n      </div>\r\n      <!-- <mat-card-title class=\"example-card-title\">Nova Scotia Engineers</mat-card-title> -->\r\n      <span class=\"example-card-title hidden-xs\">Clear Picture</span>\r\n      <span class=\"example-spacer\"></span>\r\n      <span *ngIf=\"loggedInviteeName\" class=\"example-invite\">Hi, {{loggedInviteeName}}</span>\r\n    </mat-toolbar>\r\n  </header>\r\n\r\n  <div class=\"survey-page-wrap\" *ngIf=\"!showLogin\">\r\n    <div class=\"survey-form-hold\">\r\n      <mat-card id=\"finishedSurveyMsg\" class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <h5>The {{origin}} is Previously Submitted </h5>\r\n          <h6>Summary is provided bellow</h6>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <mat-card class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <div id=\"surveyElement\"></div>\r\n          <div id=\"surveyResult\"></div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n\r\n  <mat-card-content>\r\n\r\n    <div class=\"pb-1\" style=\"text-align: center\">\r\n      <a id=\"btnViewSummary\" mat-raised-button class=\"mr-1\" (click)=\"viewSummary()\">View Summary</a>\r\n      <a id=\"btnViewSurvey\" mat-raised-button class=\"mr-1\" (click)=\"viewSurvey()\">Edit {{origin}}</a>\r\n      <a id=\"btnSubmitSurvey\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"submitSurvey()\">Submit\r\n        {{origin}}</a>\r\n      <a id=\"btnAnswerLater\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"answerLater()\">Answer Later</a>\r\n    </div>\r\n\r\n  </mat-card-content>\r\n\r\n\r\n  <div id=\"survey-view-footer\">\r\n    <div class=\"container custom-center\">\r\n      <span>Powered by</span>\r\n      <!-- <img src=\"assets/images/cp_logo_text.png\" alt=\"\"> -->\r\n      <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\">\r\n    </div>\r\n  </div>\r\n\r\n</div>\r\n\r\n<script>\r\n  $.material.init();\r\n</script>"
+module.exports = "<form [formGroup]=\"interactForm\" id=\"invitee-interaction-view\">\r\n  <div class=\"page-wrap height-100 background-survey-signin\" *ngIf=\"showLogin\">\r\n    <div id=\"login-view\" layout=\"row\" layout-align=\"center center\">\r\n      <mat-card class=\"header\">\r\n        <mat-card-header>\r\n          <div class=\"row\">\r\n            <div class=\"col-sm-4\">\r\n              <img class=\"logo\" src=\"assets/images/truverus/fountainvest.png\" alt=\"\">\r\n            </div>\r\n            <div class=\"col-sm-8\">\r\n              <mat-card-title class=\"mat-title\">\r\n                <h5>FountainVest Partners </h5>\r\n              </mat-card-title>\r\n            </div>\r\n          </div>\r\n        </mat-card-header>\r\n      </mat-card>\r\n      <mat-card style=\"margin-top:12px\">\r\n        <div id=\"login-div\">\r\n          <mat-card-content>\r\n            <h6 *ngIf=\"loginError\" class=\"m-1 form-error-msg\"> {{loginErrorMsg}} </h6>\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"text\" name=\"username\" matInput placeholder=\"{{ 'USERNAME' | translate }}\" value=\"\"\r\n                [formControl]=\"interactForm.controls['username']\" required name=\"username\">\r\n            </mat-form-field>\r\n\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"password\" name=\"password\" matInput placeholder=\"{{ 'PASSWORD' | translate }}\" value=\"\"\r\n                [formControl]=\"interactForm.controls['password']\" required name=\"password\">\r\n            </mat-form-field>\r\n\r\n            <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"doLog()\"\r\n              [disabled]=\"interactForm.invalid\">{{ 'LOGINBUTTON' | translate }}</button>\r\n          </mat-card-content>\r\n        </div>\r\n      </mat-card>\r\n      <mat-card style=\"margin-top:12px\">\r\n        <div id=\"language\">\r\n          <mat-card-content>\r\n            <div>\r\n              <div class=\"col-sm-8\">\r\n                <mat-label>{{ 'SELECTLANGUAGE' | translate }}</mat-label>\r\n              </div>\r\n              <div class=\"col-sm-4\">\r\n                <mat-select [(value)]=\"currentLang\" (selectionChange)='changeDefaultLang()'>\r\n                  <mat-option *ngFor=\"let lang of supportLangs\" [value]=\"lang\">{{lang.name}}</mat-option>\r\n                </mat-select>\r\n              </div>\r\n            </div>\r\n          </mat-card-content>\r\n        </div>\r\n      </mat-card>\r\n    </div>\r\n    <div class=\"footer\">\r\n      <p class=\"powered\">{{ 'POWEREDBY' | translate }}</p>\r\n      <img src=\"assets/images/truverus/Tru-Verus-Logo.png\" alt=\"\">\r\n    </div>\r\n  </div>\r\n</form>\r\n\r\n<div fxFlex=\"100\" fxLayoutAlign=\"center center\" id=\"survey-view-survey\" class=\"background-survey-form\">\r\n\r\n  <header>\r\n    <mat-toolbar fxLayoutAlign=\"center center\" matDialogTitle class=\"mat-primary m-0\">\r\n      <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <div mat-card-avatar class=\"example-header-image\"></div>\r\n      </div>\r\n      <!-- <mat-card-title class=\"example-card-title\">Nova Scotia Engineers</mat-card-title> -->\r\n      <span class=\"example-card-title hidden-xs\">Clear Picture</span>\r\n      <span class=\"example-spacer\"></span>\r\n      <span *ngIf=\"loggedInviteeName\" class=\"example-invite\">{{ 'HI' | translate }}, {{loggedInviteeName}}</span>\r\n    </mat-toolbar>\r\n  </header>\r\n\r\n  <div class=\"survey-page-wrap\" *ngIf=\"!showLogin\">\r\n    <div class=\"survey-form-hold\">\r\n      <mat-card id=\"finishedSurveyMsg\" class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <h5>{{ 'THE' | translate }} {{origin}} {{ 'PRVSUB' | translate }} </h5>\r\n          <h6>{{ 'SUMMERYTEXT' | translate }}</h6>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <mat-card class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <div id=\"surveyElement\"></div>\r\n          <div id=\"surveyResult\"></div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n\r\n  <mat-card-content>\r\n\r\n    <div class=\"pb-1\" style=\"text-align: center\">\r\n      <a id=\"btnViewSummary\" mat-raised-button class=\"mr-1\" (click)=\"viewSummary()\">{{ 'VIEWSUMMERY' | translate }}</a>\r\n      <a id=\"btnViewSurvey\" mat-raised-button class=\"mr-1\" (click)=\"viewSurvey()\">{{ 'EDIT' | translate }} {{origin}}</a>\r\n      <a id=\"btnSubmitSurvey\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"submitSurvey()\">{{ 'SUBMIT' | translate }}\r\n        {{origin}}</a>\r\n      <a id=\"btnAnswerLater\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"answerLater()\">{{ 'ANSWERLATER' | translate }}</a>\r\n    </div>\r\n\r\n  </mat-card-content>\r\n\r\n\r\n  <div id=\"survey-view-footer\">\r\n    <div class=\"container custom-center\">\r\n      <span>{{ 'POWEREDBY' | translate }}</span>\r\n      <!-- <img src=\"assets/images/cp_logo_text.png\" alt=\"\"> -->\r\n      <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\">\r\n    </div>\r\n  </div>\r\n\r\n</div>\r\n\r\n<script>\r\n  $.material.init();\r\n</script>\r\n"
 
 /***/ }),
 
@@ -32,6 +32,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var survey_angular__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(survey_angular__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../shared/services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -47,29 +49,110 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var InviteeInteractionViewComponent = /** @class */ (function () {
-    function InviteeInteractionViewComponent(inviteeInteractionViewService, fb, errDialog) {
+    function InviteeInteractionViewComponent(inviteeInteractionViewService, fb, errDialog, activeRoute, route, translateService) {
+        var _this = this;
         this.inviteeInteractionViewService = inviteeInteractionViewService;
         this.fb = fb;
         this.errDialog = errDialog;
+        this.activeRoute = activeRoute;
+        this.route = route;
+        this.translateService = translateService;
         this.showLogin = false;
         this.loginError = false;
+        this.langs = [];
+        this.supportLangs = [];
+        this.originMap = new Map();
+        this.originMap.set("Survey", "1");
+        this.originMap.set("eVote", "2");
+        this.getAllSurveyLangs();
+        this.activeRoute.params.subscribe(function (params) {
+            _this.publishUrl = params["uniqueName"];
+        });
+        var currentUrl = this.route.url;
+        var urlArr = currentUrl.substring(1).split("/", 2);
+        var originStr = urlArr[0];
+        this.origin = originStr;
+        this.inviteeInteractionViewService
+            .getInvitationByUrl(this.originMap.get(originStr), this.publishUrl)
+            .subscribe(function (data) {
+            // This response will collect language json array for a SURVEY
+            console.log(data.content);
+            _this.langJson = JSON.parse(data.content.futureSurvey.languageJson);
+            console.log(_this.langJson);
+            _this.buildSupportLangArray(_this.langJson);
+            console.log(_this.supportLangs);
+            console.log(JSON.stringify(_this.supportLangs));
+            _this.changeDefaultLang();
+        });
     }
     InviteeInteractionViewComponent.prototype.ngOnInit = function () {
         this.interactForm = this.fb.group({
             username: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
-            password: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]
+            password: ["", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required],
+            language: [""]
         });
         this.showLogin = true;
+    };
+    InviteeInteractionViewComponent.prototype.ngOnDestroy = function () {
+        if (this.getLangsSub) {
+            this.getLangsSub.unsubscribe();
+        }
+    };
+    InviteeInteractionViewComponent.prototype.buildSupportLangArray = function (langJson) {
+        var _this = this;
+        this.langs.forEach(function (element) {
+            if (_this.langJson.extra.indexOf(element.code) > -1 || langJson.def === element.code) {
+                if (langJson.def === element.code) {
+                    _this.defaultLang = element;
+                    _this.currentLang = element;
+                }
+                if (_this.supportLangs.indexOf(element) == -1) {
+                    _this.supportLangs.push(element);
+                }
+            }
+        });
+        this.addTranslation();
+    };
+    // buildSupportLangArray(langJson): any[] {
+    //   this.defaultLang = this.langs.filter(obj => {
+    //     return obj.code === langJson.def;
+    //   });
+    //   this.supportLangs.push(this.defaultLang);
+    //   this.currentLang = this.defaultLang[0].id;
+    //   if (langJson.extra) {
+    //     langJson.extra.forEach(langCode => {
+    //       const lang = this.langs.filter(obj => {
+    //         return obj.code === langCode;
+    //       });
+    //       if (this.supportLangs.indexOf(lang) == -1) {
+    //         this.supportLangs.push(lang);
+    //       }
+    //     });
+    //   }
+    //   return this.supportLangs;
+    // }
+    // load all the languages
+    InviteeInteractionViewComponent.prototype.getAllSurveyLangs = function () {
+        var _this = this;
+        this.getLangsSub = this.inviteeInteractionViewService
+            .getAllLangs()
+            .subscribe(function (data) {
+            _this.langs = JSON.parse(JSON.stringify(data.content));
+        });
+    };
+    InviteeInteractionViewComponent.prototype.changeDefaultLang = function () {
+        localStorage.setItem("surveySelectedLang", JSON.stringify(this.currentLang));
+        this.translateService.use(this.currentLang.code);
     };
     InviteeInteractionViewComponent.prototype.doLog = function () {
         var _this = this;
         var username = this.interactForm.get("username").value;
         var password = this.interactForm.get("password").value;
         var inviteePart = new InviteePart(username, password);
-        this.inviteeInteractionViewService
-            .interactLoginPost(inviteePart)
-            .subscribe(function (response) {
+        this.inviteeInteractionViewService.interactLoginPost(inviteePart).subscribe(function (response) {
             var loggedInteraction = response;
             console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction : response (Json)");
             console.log(loggedInteraction);
@@ -88,7 +171,8 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
                     _this.surveyId = loggedInteraction.futureSurvey.id;
                     _this.surveyTitle = loggedInteraction.futureSurvey.title;
                     _this.loggedInviteeName = loggedInteraction.invitee.name;
-                    _this.customFields = loggedInteraction.futureSurvey.invitation.inviteeGroup.customFields;
+                    _this.customFields =
+                        loggedInteraction.futureSurvey.invitation.inviteeGroup.customFields;
                     _this.invitee = loggedInteraction.invitee;
                     _this.jsonContent = JSON.parse(loggedInteraction.futureSurvey.jsonContent);
                     _this.customField = {};
@@ -97,14 +181,6 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
                     });
                     console.log(_this.customFields);
                     console.log(_this.customField);
-                    if (loggedInteraction.futureSurvey.origin === "1") {
-                        _this.origin = "Survey";
-                        window.history.replaceState({}, '', '/Survey');
-                    }
-                    else if (loggedInteraction.futureSurvey.origin === "2") {
-                        _this.origin = "E-Vote";
-                        window.history.replaceState({}, '', '/eVote');
-                    }
                     _this.getSurveyData(_this.interactionId);
                     // this.retrieveSurvey(this.surveyId);
                 }
@@ -141,17 +217,19 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
                 localStorage.setItem("originalResultArray", null);
             }
             if (_this.interactionResponStatus === 1) {
-                document.getElementById('btnViewSummary').style.display = 'none';
-                document.getElementById('btnViewSurvey').style.display = 'none';
-                document.getElementById('btnSubmitSurvey').style.display = 'none';
-                document.getElementById('btnAnswerLater').style.display = 'none';
+                document.getElementById("btnViewSummary").style.display = "none";
+                document.getElementById("btnViewSurvey").style.display = "none";
+                document.getElementById("btnSubmitSurvey").style.display = "none";
+                document.getElementById("btnAnswerLater").style.display = "none";
                 _this.viewSummary();
             }
             else {
                 _this.viewSurvey();
             }
             _this.setuptheme();
-        }, function (error) { _this.errDialog.showError(error); });
+        }, function (error) {
+            _this.errDialog.showError(error);
+        });
     };
     InviteeInteractionViewComponent.prototype.viewSurvey = function () {
         var _this = this;
@@ -160,7 +238,7 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         console.log(this.jsonContentJSON.pages);
         this.jsonContentJSON.pages.forEach(function (element) {
             element.elements.forEach(function (element) {
-                if (element.customVisibleName !== 'null') {
+                if (element.customVisibleName !== "null") {
                     var header = element.customVisibleName;
                     if (_this.customField[header] === element.customVisibleValue) {
                         element.visible = true;
@@ -176,6 +254,9 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         var jsonContent = this.jsonContentJSON;
         this.surveyModel = new survey_angular__WEBPACK_IMPORTED_MODULE_3__["Model"](jsonContent);
         survey_angular__WEBPACK_IMPORTED_MODULE_3__["StylesManager"].applyTheme("bootstrap");
+        console.log(localStorage.getItem('surveySelectedLang'));
+        this.surveyModel.locale = JSON.parse(localStorage.getItem('surveySelectedLang')).code;
+        // console.log(this.surveyModel);
         var resultArray = [];
         var interactionId = this.interactionId;
         var lastPage = String(this.surveyModel.pages.length - 1);
@@ -183,35 +264,35 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         var thankYouMsg = this.setThankYouMsg("DEFAULT_MSG");
         this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
             var classes = options.cssClasses;
-            if (options.question.getType() === 'rating') {
-                classes.root = 'btn-group';
-                classes.item = 'btn btn-outline-secondary';
+            if (options.question.getType() === "rating") {
+                classes.root = "btn-group";
+                classes.item = "btn btn-outline-secondary";
             }
-            if (options.question.getType() === 'radiogroup') {
-                classes.root = 'sv_qcbc';
-                classes.item = 'sv-q-col-1';
+            if (options.question.getType() === "radiogroup") {
+                classes.root = "sv_qcbc";
+                classes.item = "sv-q-col-1";
             }
-            if (options.question.getType() === 'checkbox') {
-                classes.root = 'sv_qcbc sv_qcbx';
-                classes.item = 'sv-q-col-1';
+            if (options.question.getType() === "checkbox") {
+                classes.root = "sv_qcbc sv_qcbx";
+                classes.item = "sv-q-col-1";
             }
-            if (options.question.getType() === 'matrix') {
-                classes.root = 'table sv_q_matrix';
+            if (options.question.getType() === "matrix") {
+                classes.root = "table sv_q_matrix";
             }
             if (options.question.getType() === "comment") {
-                classes.root = 'form-control';
+                classes.root = "form-control";
             }
-            if (options.question.getType() === 'dropdown') {
-                classes.control = 'form-control';
+            if (options.question.getType() === "dropdown") {
+                classes.control = "form-control";
             }
-            if (options.question.getType() === 'text') {
-                classes.root = 'form-control';
+            if (options.question.getType() === "text") {
+                classes.root = "form-control";
             }
         });
-        document.getElementById('btnViewSummary').style.display = 'none';
-        document.getElementById('btnViewSurvey').style.display = 'none';
-        document.getElementById('btnSubmitSurvey').style.display = 'none';
-        document.getElementById('btnAnswerLater').style.display = 'inline-block';
+        document.getElementById("btnViewSummary").style.display = "none";
+        document.getElementById("btnViewSurvey").style.display = "none";
+        document.getElementById("btnSubmitSurvey").style.display = "none";
+        document.getElementById("btnAnswerLater").style.display = "inline-block";
         this.surveyModel.currentPage = this.surveyModel.pages[localStorage.getItem("survey_currentPage_" + interactionId)];
         // .............. ON COMPLET START HERE ..........................
         this.surveyModel.onComplete.add(function (result) {
@@ -219,10 +300,10 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
                 localStorage.setItem("survey_currentPage_" + interactionId, lastPage);
             }
             localStorage.setItem("originalResultArray", JSON.stringify(result.data));
-            document.getElementById('btnViewSummary').style.display = 'inline-block';
-            document.getElementById('btnSubmitSurvey').style.display = 'inline-block';
-            document.getElementById('btnViewSurvey').style.display = 'none';
-            document.getElementById('btnAnswerLater').style.display = 'none';
+            document.getElementById("btnViewSummary").style.display = "inline-block";
+            document.getElementById("btnSubmitSurvey").style.display = "inline-block";
+            document.getElementById("btnViewSurvey").style.display = "none";
+            document.getElementById("btnAnswerLater").style.display = "none";
             jsonContent.pages.forEach(function (element) {
                 element.elements.forEach(function (element) {
                     var elementArray = {};
@@ -274,7 +355,9 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
             var submitRequest = new FSAnswer(interactionId, resultArray, JSON.stringify(result.data));
             var interactService = new _invitee_interaction_view_service__WEBPACK_IMPORTED_MODULE_2__["InviteeInteractionViewService"]();
             if (localStorage.getItem("surveyResultId") !== "null") {
-                interactService.updateAnswers(submitRequest, localStorage.getItem('surveyResultId')).subscribe(function (response) {
+                interactService
+                    .updateAnswers(submitRequest, localStorage.getItem("surveyResultId"))
+                    .subscribe(function (response) {
                     console.log("SUCCESS");
                     console.log(response);
                 }, function (error) {
@@ -301,13 +384,13 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         survey_angular__WEBPACK_IMPORTED_MODULE_3__["SurveyNG"].render("surveyElement", { model: this.surveyModel });
     };
     InviteeInteractionViewComponent.prototype.viewSummary = function () {
-        document.getElementById('btnViewSummary').style.display = 'none';
+        document.getElementById("btnViewSummary").style.display = "none";
         if (this.interactionResponStatus === 0) {
-            document.getElementById('btnViewSurvey').style.display = 'inline-block';
+            document.getElementById("btnViewSurvey").style.display = "inline-block";
         }
         else if (this.interactionResponStatus === 1) {
-            document.getElementById('finishedSurveyMsg').style.display = 'block';
-            document.getElementById('btnViewSurvey').style.display = 'none';
+            document.getElementById("finishedSurveyMsg").style.display = "block";
+            document.getElementById("btnViewSurvey").style.display = "none";
         }
         var jsonContent = this.jsonContentJSON;
         jsonContent.title = "Summary of " + jsonContent.title;
@@ -343,7 +426,7 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
             }
         });
         this.surveyModel.data = JSON.parse(localStorage.getItem("originalResultArray"));
-        this.surveyModel.mode = 'display';
+        this.surveyModel.mode = "display";
         survey_angular__WEBPACK_IMPORTED_MODULE_3__["SurveyNG"].render("surveyElement", { model: this.surveyModel });
     };
     // Save current answers to DB. Also current page number save to "localStorage" with current "interactionId".
@@ -362,9 +445,10 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
             // localStorage.setItem("interactionResponStatus", response.content.responStatus);
             _this.interactionResponStatus = response.content.responStatus;
             document.getElementById("surveyElement").innerHTML = _this.setThankYouMsg("SUBMIT_MSG");
-            document.getElementById('btnSubmitSurvey').style.display = 'none';
-            document.getElementById('btnViewSummary').style.display = 'inline-block';
-            document.getElementById('btnViewSurvey').style.display = 'none';
+            document.getElementById("btnSubmitSurvey").style.display = "none";
+            document.getElementById("btnViewSummary").style.display =
+                "inline-block";
+            document.getElementById("btnViewSurvey").style.display = "none";
         }, function (error) {
             console.log("ERROR");
             console.log(error);
@@ -372,14 +456,28 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
     };
     InviteeInteractionViewComponent.prototype.setThankYouMsg = function (msgType) {
         var MSG_PART_1 = '<div class="sv_main sv_bootstrap_css"><form><div class="sv_container"><div class="sv_body sv_completed_page"><h3>';
-        var MSG_PART_2 = '</h3></div></div></form></div>';
+        var MSG_PART_2 = "</h3></div></div></form></div>";
         switch (msgType) {
             case "ANSWER_LATER_MSG":
-                return MSG_PART_1 + "You are Attempting to Answer Later to the " + this.origin + "!" + MSG_PART_2;
+                return (MSG_PART_1 +
+                    "You are Attempting to Answer Later to the " +
+                    this.origin +
+                    "!" +
+                    MSG_PART_2);
             case "SUBMIT_MSG":
-                return MSG_PART_1 + "Thank You </br> You have finished the " + this.origin + "!" + MSG_PART_2;
+                return (MSG_PART_1 +
+                    "Thank You </br> You have finished the " +
+                    this.origin +
+                    "!" +
+                    MSG_PART_2);
             default:
-                return MSG_PART_1 + "The " + this.origin + " is Completed, Click Submit " + this.origin + " to Finish!" + MSG_PART_2;
+                return (MSG_PART_1 +
+                    "The " +
+                    this.origin +
+                    " is Completed, Click Submit " +
+                    this.origin +
+                    " to Finish!" +
+                    MSG_PART_2);
         }
     };
     InviteeInteractionViewComponent.prototype.setSurveyStatusErrorMsg = function (status) {
@@ -418,6 +516,19 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         defaultThemeColorsSurvey["$body-container-background-color"] = bodyContainerBackgroundColor;
         survey_angular__WEBPACK_IMPORTED_MODULE_3__["StylesManager"].applyTheme();
     };
+    // add tranlation for static element in the survey view
+    InviteeInteractionViewComponent.prototype.addTranslation = function () {
+        var languages = [];
+        this.supportLangs.forEach(function (element) {
+            languages.push(element.code);
+        });
+        this.translateService.addLangs(languages);
+        if (this.defaultLang) {
+            this.translateService.setDefaultLang(this.defaultLang.code);
+            this.translateService.use(this.defaultLang.code);
+        }
+        this.interactForm.controls['language'].setValue(this.defaultLang.code);
+    };
     InviteeInteractionViewComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: "app-invitee-interaction-view",
@@ -426,7 +537,10 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_invitee_interaction_view_service__WEBPACK_IMPORTED_MODULE_2__["InviteeInteractionViewService"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"],
-            _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_5__["AppErrorService"]])
+            _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_5__["AppErrorService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateService"]])
     ], InviteeInteractionViewComponent);
     return InviteeInteractionViewComponent;
 }());
@@ -471,12 +585,13 @@ var FSAnswer = /** @class */ (function () {
 /*!***********************************************************************************!*\
   !*** ./src/app/views/invitee-interaction-view/invitee-interaction-view.module.ts ***!
   \***********************************************************************************/
-/*! exports provided: InjectorInstance2, InviteeInteractionViewModule */
+/*! exports provided: InjectorInstance2, HttpLoaderFactory, InviteeInteractionViewModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InjectorInstance2", function() { return InjectorInstance2; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HttpLoaderFactory", function() { return HttpLoaderFactory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InviteeInteractionViewModule", function() { return InviteeInteractionViewModule; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
@@ -487,6 +602,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _invitee_interaction_view_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./invitee-interaction-view.service */ "./src/app/views/invitee-interaction-view/invitee-interaction-view.service.ts");
 /* harmony import */ var _future_survey_future_survey_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../future-survey/future-survey.service */ "./src/app/views/future-survey/future-survey.service.ts");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ngx-translate/http-loader */ "./node_modules/@ngx-translate/http-loader/esm5/ngx-translate-http-loader.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -505,7 +623,14 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
 var InjectorInstance2;
+// AoT requires an exported function for factories
+function HttpLoaderFactory(httpClient) {
+    return new _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_10__["TranslateHttpLoader"](httpClient, './assets/i18n/interaction-view/', '.json');
+}
 var InviteeInteractionViewModule = /** @class */ (function () {
     function InviteeInteractionViewModule(injector) {
         this.injector = injector;
@@ -522,6 +647,15 @@ var InviteeInteractionViewModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_8__["ReactiveFormsModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatInputModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_5__["MatSelectModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClientModule"],
+                _ngx_translate_core__WEBPACK_IMPORTED_MODULE_11__["TranslateModule"].forRoot({
+                    loader: {
+                        provide: _ngx_translate_core__WEBPACK_IMPORTED_MODULE_11__["TranslateLoader"],
+                        useFactory: HttpLoaderFactory,
+                        deps: [_angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClient"]]
+                    }
+                }),
                 _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forChild(_invitee_interaction_view_routing__WEBPACK_IMPORTED_MODULE_4__["InviteeInteractionViewRoute"])
             ],
             providers: [_invitee_interaction_view_service__WEBPACK_IMPORTED_MODULE_6__["InviteeInteractionViewService"], _future_survey_future_survey_service__WEBPACK_IMPORTED_MODULE_7__["FutureSurveyService"]]
@@ -637,6 +771,16 @@ var InviteeInteractionViewService = /** @class */ (function () {
             console.log(data);
             return data;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+    };
+    InviteeInteractionViewService.prototype.getAllLangs = function () {
+        return this.http
+            .get(this.surveyApiUrl + "surveys/langs")
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+    };
+    InviteeInteractionViewService.prototype.getInvitationByUrl = function (origin, url) {
+        return this.http
+            .get(this.surveyApiUrl + "surveys" + "/futureSurveyInvitation/" + origin + "/" + url)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
     };
     InviteeInteractionViewService.prototype.handleError = function (error) {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(error);

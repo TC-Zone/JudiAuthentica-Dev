@@ -1,0 +1,16 @@
+{
+  "SURVEYSIGNIFORMHEADER": "ようこそ、アカウントにサインインしてください。",
+  "USERNAME": "ユーザー名",
+  "PASSWORD": "パスワード",
+  "LOGINBUTTON": "アンケートにログイン",
+  "HI": "こんにちは",
+  "THE": "の",
+  "PRVSUB": "は以前に送信されました ",
+  "SUMMERYTEXT": "概要は以下の通りです。",
+  "VIEWSUMMERY": "概要を見る",
+  "EDIT": "編集する",
+  "SUBMIT": "提出する",
+  "ANSWERLATER": "後で回答",
+  "POWEREDBY": "搭載",
+  "SELECTLANGUAGE": "あなたが使う言語を選んでください"
+}

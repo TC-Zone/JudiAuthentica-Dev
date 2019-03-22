@@ -17,8 +17,9 @@ interface ErrorData {
   clientError?: string;
 }
 
+// tslint:disable-next-line:class-name
 export interface errorSnack {
-  message?: string;
+  error?: any;
   duration?: number;
 }
 
@@ -111,9 +112,18 @@ export class AppErrorService {
 
   // show error snack bar
   showErrorSnack(errorSnack: errorSnack) {
-    this.snack.open(errorSnack.message, 'close', {
-      duration: errorSnack.duration,
-      panelClass: ['style-error']
+    const message = errorSnack.error.error.validationFailures[0].code;
+    const stringArray = message.split('.');
+    let enumkey = '';
+    for (let i = 0; i < stringArray.length; i++) {
+      if (i === 0) {
+        enumkey += stringArray[i].substring(0, 1).toUpperCase() + stringArray[i].substring(1);
+      } else {
+        enumkey += ' ' + stringArray[i].substring(0, 1).toUpperCase() + stringArray[i].substring(1);
+      }
+    }
+    this.snack.open(enumkey, 'close', {
+      duration: errorSnack.duration
     });
   }
 
