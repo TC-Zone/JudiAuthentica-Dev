@@ -14,5 +14,15 @@
   "SUBMITEVOTE": "Invia il voto elettronico",
   "ANSWERLATER": "Risposta più tardi",
   "POWEREDBY": "Offerto da",
-  "SELECTLANGUAGE": "Seleziona la tua lingua"
+  "SELECTLANGUAGE": "Seleziona la tua lingua",
+  "ANSWERLATERMSGSURVEY": "Stai tentando di rispondere più tardi al sondaggio",
+  "ANSWERLATERMSGEVOTE": "Stai tentando di rispondere più tardi al voto elettronico",
+  "SUBMITMSGSURVEY": "Hai finito il sondaggio",
+  "SUBMITMSGEVOTE": "Hai finito il voto elettronico",
+  "COMPLETEMSGSURVEY": "L'indagine è completata, fai clic su Invia sondaggio per finire",
+  "COMPLETEMSGEVOTE": "Il voto elettronico è completato, fai clic su Invia voto elettronico per finire",
+  "THANKYOU": "Grazie",
+  "EDITSURVEY": "Modifica sondaggio",
+  "EDITEVOTE": "Modifica voto elettronico",
+  "SUMMERYTITLE": "Sintesi di"
 }

@@ -14,5 +14,15 @@
   "SUBMITEVOTE": "שלח הצבעה אלקטרונית",
   "ANSWERLATER": "תשובה מאוחר יותר",
   "POWEREDBY": "מונע ע\"י",
-  "SELECTLANGUAGE": "בחר את השפה שלך"
+  "SELECTLANGUAGE": "בחר את השפה שלך",
+  "ANSWERLATERMSGSURVEY": "אתה מנסה לענות מאוחר יותר לסקר",
+  "ANSWERLATERMSGEVOTE": "אתה מנסה לענות מאוחר יותר להצביע אלקטרונית",
+  "SUBMITMSGSURVEY": "סיימת את הסקר",
+  "SUBMITMSGEVOTE": "סיימת את ההצבעה האלקטרונית",
+  "COMPLETEMSGSURVEY": "הסקר הושלם, לחץ על שלח סקר כדי לסיים",
+  "COMPLETEMSGEVOTE": "ההצבעה האלקטרונית הושלמה, לחץ על שלח הצעה אלקטרונית לסיום",
+  "THANKYOU": "תודה",
+  "EDITSURVEY": "עריכת סקר",
+  "EDITEVOTE": "עריכת הצבעה אלקטרונית",
+  "SUMMERYTITLE": "סיכום של"
 }

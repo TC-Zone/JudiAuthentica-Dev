@@ -14,5 +14,15 @@
   "SUBMITEVOTE": "Lähetä sähköinen äänestys",
   "ANSWERLATER": "Vastaus myöhemmin",
   "POWEREDBY": "Powered by",
-  "SELECTLANGUAGE": "Valitse kieli"
+  "SELECTLANGUAGE": "Valitse kieli",
+  "ANSWERLATERMSGSURVEY": "Yrität vastata myöhemmin kyselyyn",
+  "ANSWERLATERMSGEVOTE": "Yrität vastata myöhemmin sähköiseen äänestykseen",
+  "SUBMITMSGSURVEY": "Olet suorittanut tutkimuksen",
+  "SUBMITMSGEVOTE": "Olet suorittanut sähköisen äänestyksen",
+  "COMPLETEMSGSURVEY": "Tutkimus on valmis, napsauta Lähetä kysely loppuun",
+  "COMPLETEMSGEVOTE": "Sähköinen äänestys on valmis, napsauta Lähetä sähköinen ääni lopuksi",
+  "THANKYOU": "Kiitos",
+  "EDITSURVEY": "Muokkaa kyselyä",
+  "EDITEVOTE": "Muokkaa sähköistä äänestystä",
+  "SUMMERYTITLE": "Yhteenveto"
 }

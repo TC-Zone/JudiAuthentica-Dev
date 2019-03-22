@@ -14,5 +14,15 @@
   "SUBMITEVOTE": "Odeslat Elektronické hlasování",
   "ANSWERLATER": "Odpovědět Later",
   "POWEREDBY": "Poháněno",
-  "SELECTLANGUAGE": "Vyberte svůj jazyk"
+  "SELECTLANGUAGE": "Vyberte svůj jazyk",
+  "ANSWERLATERMSGSURVEY": "Pokoušíte se později odpovědět na dotazník",
+  "ANSWERLATERMSGEVOTE": "Pokoušíte se odpovědět později na elektronické hlasování",
+  "SUBMITMSGSURVEY": "Dokončili jste Průzkum",
+  "SUBMITMSGEVOTE": "Dokončili jste elektronické hlasování",
+  "COMPLETEMSGSURVEY": "Průzkum je dokončen, klepněte na tlačítko Odeslat průzkum do cíle",
+  "COMPLETEMSGEVOTE": "Elektronické hlasování je dokončeno, klepněte na tlačítko Odeslat elektronický hlas do cíle",
+  "THANKYOU": "Děkuji",
+  "EDITSURVEY": "Upravit průzkum",
+  "EDITEVOTE": "Upravit elektronické hlasování",
+  "SUMMERYTITLE": "Shrnutí"
 }

@@ -14,5 +14,15 @@
   "SUBMITEVOTE": "Send elektronisk stemme",
   "ANSWERLATER": "Svar senere",
   "POWEREDBY": "Drevet av",
-  "SELECTLANGUAGE": "Velg ditt språk"
+  "SELECTLANGUAGE": "Velg ditt språk",
+  "ANSWERLATERMSGSURVEY": "Du prøver å svare senere på undersøkelsen",
+  "ANSWERLATERMSGEVOTE": "Du forsøker å svare senere på den elektroniske avstemningen",
+  "SUBMITMSGSURVEY": "Du er ferdig med undersøkelsen",
+  "SUBMITMSGEVOTE": "Du er ferdig med den elektroniske avstemningen",
+  "COMPLETEMSGSURVEY": "Undersøkelsen er fullført, klikk på Send undersøkelse for å fullføre",
+  "COMPLETEMSGEVOTE": "Den elektroniske avstemningen er fullført, klikk Send elektronisk stemme til slutt",
+  "THANKYOU": "Takk skal du ha",
+  "EDITSURVEY": "Rediger undersøkelse",
+  "EDITEVOTE": "Rediger elektronisk stemme",
+  "SUMMERYTITLE": "Sammendrag av"
 }

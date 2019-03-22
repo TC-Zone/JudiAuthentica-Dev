@@ -14,5 +14,15 @@
   "SUBMITEVOTE": "Senda rafræna atkvæði",
   "ANSWERLATER": "Svaraðu síðar",
   "POWEREDBY": "Knúið af",
-  "SELECTLANGUAGE": "Veldu tungumálið þitt"
+  "SELECTLANGUAGE": "Veldu tungumálið þitt",
+  "ANSWERLATERMSGSURVEY": "Þú ert að reyna að svara síðar í könnuninni",
+  "ANSWERLATERMSGEVOTE": "Þú ert að reyna að svara seinna í rafrænu kosningunni",
+  "SUBMITMSGSURVEY": "Þú hefur lokið könnuninni",
+  "SUBMITMSGEVOTE": "Þú hefur lokið rafrænum kosningum",
+  "COMPLETEMSGSURVEY": "Könnunin er lokið, smelltu á Senda könnun til að ljúka",
+  "COMPLETEMSGEVOTE": "Rafrænt atkvæði er lokið, smelltu á Senda rafræna kosningu til að ljúka",
+  "THANKYOU": "Þakka þér fyrir",
+  "EDITSURVEY": "Breyta könnun",
+  "EDITEVOTE": "Breyta rafrænu atkvæði",
+  "SUMMERYTITLE": "Yfirlit yfir"
 }

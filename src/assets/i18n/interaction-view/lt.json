@@ -14,5 +14,15 @@
   "SUBMITEVOTE": "Pateikti elektroninį balsavimą",
   "ANSWERLATER": "Atsakymas vėliau",
   "POWEREDBY": "Powered by",
-  "SELECTLANGUAGE": "Pasirinkite kalbą"
+  "SELECTLANGUAGE": "Pasirinkite kalbą",
+  "ANSWERLATERMSGSURVEY": "Jūs bandote atsakyti vėliau į apklausą",
+  "ANSWERLATERMSGEVOTE": "Jūs bandote atsakyti vėliau į elektroninį balsavimą",
+  "SUBMITMSGSURVEY": "Baigėte tyrimą",
+  "SUBMITMSGEVOTE": "Baigėte elektroninį balsavimą",
+  "COMPLETEMSGSURVEY": "Apklausa baigta, spustelėkite Pateikti apklausą baigti",
+  "COMPLETEMSGEVOTE": "Elektroninis balsavimas baigtas, spustelėkite Pateikti elektroninį balsavimą baigti",
+  "THANKYOU": "Ačiū",
+  "EDITSURVEY": "Redaguoti apklausą",
+  "EDITEVOTE": "Redaguoti elektroninį balsavimą",
+  "SUMMERYTITLE": "Apibendrinimas"
 }

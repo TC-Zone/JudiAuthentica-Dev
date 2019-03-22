@@ -14,5 +14,15 @@
   "SUBMITEVOTE": "Elektronik oyu gönder",
   "ANSWERLATER": "Daha Sonra Cevapla",
   "POWEREDBY": "Tarafından desteklenmektedir",
-  "SELECTLANGUAGE": "Dilinizi seçiniz"
+  "SELECTLANGUAGE": "Dilinizi seçiniz",
+  "ANSWERLATERMSGSURVEY": "Daha Sonra Ankete Cevap Vermeye Çalışıyorsunuz",
+  "ANSWERLATERMSGEVOTE": "Elektronik Oylamaya Sonra Cevap Vermeye Çalışıyorsunuz",
+  "SUBMITMSGSURVEY": "Anketi bitirdiniz",
+  "SUBMITMSGEVOTE": "Elektronik Oyu bitirdiniz",
+  "COMPLETEMSGSURVEY": "Anket Tamamlandı, Bitirmek İçin Anket Gönder'i tıklayın.",
+  "COMPLETEMSGEVOTE": "Elektronik Oy Tamamlandı, Bitirmek İçin Elektronik Oy Verin",
+  "THANKYOU": "Teşekkür ederim",
+  "EDITSURVEY": "Anketi Düzenle",
+  "EDITEVOTE": "Elektronik Oylamayı Düzenle",
+  "SUMMERYTITLE": "Özeti"
 }
