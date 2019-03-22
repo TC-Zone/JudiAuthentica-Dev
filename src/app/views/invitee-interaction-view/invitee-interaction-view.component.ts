@@ -540,7 +540,11 @@ export class InviteeInteractionViewComponent implements OnInit {
     let jsonContent = JSON.parse(this.jsonContent);
 
     if (typeof jsonContent.title !== "string") {
-      if (jsonContent.title.hasOwnProperty(this.currentLang.code) > -1) {
+
+      console.log('jsonContent.title.hasOwnProperty(this.currentLang.code)');
+      console.log(jsonContent.title.hasOwnProperty(this.currentLang.code));
+
+      if (jsonContent.title.hasOwnProperty(this.currentLang.code)) {
         jsonContent.title =
           this.translateService.instant("SUMMERYTITLE") +
           " " +
