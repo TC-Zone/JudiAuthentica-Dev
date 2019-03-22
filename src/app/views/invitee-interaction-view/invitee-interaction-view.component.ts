@@ -668,7 +668,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     this.loginError = true;
     switch (status) {
       case "INVALID_CREDENTIALS":
-        this.loginErrorMsg = "Invalid Credentials !";
+        this.loginErrorMsg = this.translateService.instant('INVALIDCREDENTIAL') + " !";
         break;
       case "ON_PREMISE":
         this.newErrorMsg = true;
