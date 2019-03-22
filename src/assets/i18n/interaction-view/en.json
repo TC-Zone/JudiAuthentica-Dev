@@ -21,5 +21,7 @@
   "SUBMITMSGEVOTE": "You have finished the Electronic Vote",
   "COMPLETEMSGSURVEY": "The Survey is Completed, Click Submit Survey to Finish",
   "COMPLETEMSGEVOTE": "The Electronic Vote is Completed, Click Submit Electronic Vote to Finish",
-  "THANKYOU": "Thank You"
+  "THANKYOU": "Thank You",
+  "EDITSURVEY": "Edit Survey",
+  "EDITEVOTE": "Edit Electronic Vote"
 }

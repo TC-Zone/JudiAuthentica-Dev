@@ -21,5 +21,7 @@
   "SUBMITMSGEVOTE": "您已完成電子投票",
   "COMPLETEMSGSURVEY": "調查已完成，單擊“提交調查”以完成",
   "COMPLETEMSGEVOTE": "電子投票已完成，點擊提交電子投票即可完成",
-  "THANKYOU": "謝謝"
+  "THANKYOU": "謝謝",
+  "EDITSURVEY": "編輯調查",
+  "EDITEVOTE": "編輯電子投票"
 }

@@ -94,7 +94,8 @@
 
     <div class="pb-1" style="text-align: center">
       <a id="btnViewSummary" mat-raised-button class="mr-1" (click)="viewSummary()">{{ 'VIEWSUMMERY' | translate }}</a>
-      <a id="btnViewSurvey" mat-raised-button class="mr-1" (click)="viewSurvey()">{{ 'EDIT' | translate }} {{origin}}</a>
+      <a id="btnViewSurvey" *ngIf="origin ==='Survey'" mat-raised-button class="mr-1" (click)="viewSurvey()">{{ 'EDITSURVEY' | translate }}</a>
+      <a id="btnViewSurvey" *ngIf="origin !=='Survey'" mat-raised-button class="mr-1" (click)="viewSurvey()">{{ 'EDITEVOTE' | translate }}</a>
       <a id="btnSubmitSurvey" *ngIf="origin ==='Survey'" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">{{ 'SUBMITSURVEY' | translate }}</a>
       <a id="btnSubmitSurvey" *ngIf="origin !=='Survey'" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">{{ 'SUBMITEVOTE' | translate }}</a>
       <a id="btnAnswerLater" mat-raised-button color="primary" class="mr-1" (click)="answerLater()">{{ 'ANSWERLATER' | translate }}</a>
