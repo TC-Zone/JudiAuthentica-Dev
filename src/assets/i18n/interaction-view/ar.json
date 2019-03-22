@@ -14,5 +14,15 @@
   "SUBMITEVOTE": "إرسال التصويت الإلكتروني",
   "ANSWERLATER": "الإجابة لاحقًا",
   "POWEREDBY": "مشغل بواسطة",
-  "SELECTLANGUAGE": "اختر لغتك"
+  "SELECTLANGUAGE": "اختر لغتك",
+  "ANSWERLATERMSGSURVEY": "أنت تحاول الإجابة لاحقًا على الاستطلاع",
+  "ANSWERLATERMSGEVOTE": "أنت تحاول الإجابة لاحقًا على التصويت الإلكتروني",
+  "SUBMITMSGSURVEY": "لقد انتهيت من المسح",
+  "SUBMITMSGEVOTE": "لقد انتهيت من التصويت الإلكتروني",
+  "COMPLETEMSGSURVEY": "اكتمل الاستبيان ، انقر فوق إرسال الاستبيان لإنهاء",
+  "COMPLETEMSGEVOTE": "اكتمال التصويت الإلكتروني ، انقر فوق إرسال التصويت الإلكتروني لإنهاء",
+  "THANKYOU": "شكرا جزيلا",
+  "EDITSURVEY": "تحرير المسح",
+  "EDITEVOTE": "تحرير التصويت الإلكتروني",
+  "SUMMERYTITLE": "ملخص عن"
 }

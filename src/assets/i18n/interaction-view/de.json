@@ -14,5 +14,15 @@
   "SUBMITEVOTE": "Elektronische Abstimmung abgeben",
   "ANSWERLATER": "Später antworten",
   "POWEREDBY": "Unterstützt von",
-  "SELECTLANGUAGE": "Wähle deine Sprache"
+  "SELECTLANGUAGE": "Wähle deine Sprache",
+  "ANSWERLATERMSGSURVEY": "Sie versuchen, später auf die Umfrage zu antworten",
+  "ANSWERLATERMSGEVOTE": "Sie versuchen, später auf die elektronische Abstimmung zu antworten",
+  "SUBMITMSGSURVEY": "Sie haben die Umfrage beendet",
+  "SUBMITMSGEVOTE": "Sie haben die elektronische Abstimmung abgeschlossen",
+  "COMPLETEMSGSURVEY": "Die Umfrage ist abgeschlossen. Klicken Sie zum Abschließen auf Umfrage senden",
+  "COMPLETEMSGEVOTE": "Die elektronische Abstimmung ist abgeschlossen. Klicken Sie zum Abschließen der elektronischen Abstimmung auf Senden",
+  "THANKYOU": "Danke dir",
+  "EDITSURVEY": "Umfrage bearbeiten",
+  "EDITEVOTE": "Elektronische Abstimmung bearbeiten",
+  "SUMMERYTITLE": "Zusammenfassung von"
 }

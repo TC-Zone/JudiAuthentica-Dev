@@ -14,5 +14,15 @@
   "SUBMITEVOTE": "Iesniegt elektronisku balsojumu",
   "ANSWERLATER": "Atbildēt vēlāk",
   "POWEREDBY": "Darbina",
-  "SELECTLANGUAGE": "Izvēlieties valodu"
+  "SELECTLANGUAGE": "Izvēlieties valodu",
+  "ANSWERLATERMSGSURVEY": "Jūs mēģināt atbildēt vēlāk uz aptauju",
+  "ANSWERLATERMSGEVOTE": "Jūs mēģināt atbildēt vēlāk uz elektronisko balsojumu",
+  "SUBMITMSGSURVEY": "Jūs esat pabeidzis apsekojumu",
+  "SUBMITMSGEVOTE": "Jūs esat pabeidzis elektronisko balsojumu",
+  "COMPLETEMSGSURVEY": "Aptauja ir pabeigta, noklikšķiniet uz Iesniegt aptauju, lai pabeigtu",
+  "COMPLETEMSGEVOTE": "Elektroniskā balss ir pabeigta, noklikšķiniet uz Iesniegt elektronisko balsojumu, lai pabeigtu",
+  "THANKYOU": "Paldies",
+  "EDITSURVEY": "Rediģēt aptauju",
+  "EDITEVOTE": "Rediģēt elektronisko balsojumu",
+  "SUMMERYTITLE": "Kopsavilkums par"
 }

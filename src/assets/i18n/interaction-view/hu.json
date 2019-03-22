@@ -14,5 +14,15 @@
   "SUBMITEVOTE": "Elektronikus szavazás benyújtása",
   "ANSWERLATER": "Válasz később",
   "POWEREDBY": "Powered by",
-  "SELECTLANGUAGE": "Válaszd ki a nyelved"
+  "SELECTLANGUAGE": "Válaszd ki a nyelved",
+  "ANSWERLATERMSGSURVEY": "Ön megkísérli később megválaszolni a felmérést",
+  "ANSWERLATERMSGEVOTE": "Megpróbál választ később válaszolni az elektronikus szavazásra",
+  "SUBMITMSGSURVEY": "A felmérés befejeződött",
+  "SUBMITMSGEVOTE": "Elkészítette az elektronikus szavazást",
+  "COMPLETEMSGSURVEY": "A felmérés befejeződött, kattintson a Felmérés küldése gombra a befejezéshez",
+  "COMPLETEMSGEVOTE": "Az elektronikus szavazás befejeződött, kattintson az Elektronikus szavazás küldése befejezéséhez gombra",
+  "THANKYOU": "Köszönöm",
+  "EDITSURVEY": "Felmérés szerkesztése",
+  "EDITEVOTE": "Elektronikus szavazás szerkesztése",
+  "SUMMERYTITLE": "Összefoglaló a"
 }
