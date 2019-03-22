@@ -33,8 +33,8 @@
                   [formControl]="interactForm.controls['password']" required name="password">
               </mat-form-field>
 
-              <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()"
-                [disabled]="interactForm.invalid">{{ 'LOGINBUTTON' | translate }}</button>
+              <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()" [disabled]="interactForm.invalid">{{
+                'LOGINBUTTON' | translate }}</button>
             </mat-card-content>
           </div>
         </mat-card>
@@ -68,68 +68,68 @@
   <!-- --------------------- -->
 
 
-  <div fxFlex="100" fxLayoutAlign="center center" id="survey-view-survey" class="background-survey-form">
 
-    <header>
-      <mat-toolbar fxLayoutAlign="center center" matDialogTitle class="mat-primary m-0">
-        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-          <div mat-card-avatar class="example-header-image"
-            [ngStyle]="{ 'background-image': 'url(' + clientLogoURL + ')'}"></div>
-        </div>
-        <!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
-        <!-- <span class="example-card-title hidden-xs">Clear Picture</span> -->
-        <span class="example-spacer"></span>
-        <span *ngIf="loggedInviteeName" class="example-invite">{{ 'HI' | translate }}, {{loggedInviteeName}}</span>
-      </mat-toolbar>
-    </header>
+</div>
 
-    <div class="survey-page-wrap" *ngIf="!showLogin">
-      <div class="survey-form-hold">
-        <mat-card id="finishedSurveyMsg" class="survey-mat-card">
-          <mat-card-content>
-            <h5 *ngIf="origin === 'Survey'">{{ 'THESURVEYPRVSUB' | translate }}</h5>
-            <h5 *ngIf="origin !== 'Survey'">{{ 'THEEVOTEPRVSUB' | translate }}</h5>
-            <h6>{{ 'SUMMERYTEXT' | translate }}</h6>
-          </mat-card-content>
-        </mat-card>
-        <mat-card class="survey-mat-card">
-          <mat-card-content>
-            <div id="surveyElement"></div>
-            <div id="surveyResult"></div>
-          </mat-card-content>
-        </mat-card>
+<div fxFlex="100" fxLayoutAlign="center center" id="survey-view-survey" class="background-survey-form">
+
+  <header>
+    <mat-toolbar fxLayoutAlign="center center" matDialogTitle class="mat-primary m-0">
+      <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+        <div mat-card-avatar class="example-header-image" [ngStyle]="{ 'background-image': 'url(' + clientLogoURL + ')'}"></div>
       </div>
+      <!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
+      <!-- <span class="example-card-title hidden-xs">Clear Picture</span> -->
+      <span class="example-spacer"></span>
+      <span *ngIf="loggedInviteeName" class="example-invite">{{ 'HI' | translate }}, {{loggedInviteeName}}</span>
+    </mat-toolbar>
+  </header>
+
+  <div class="survey-page-wrap" *ngIf="!showLogin">
+    <div class="survey-form-hold">
+      <mat-card id="finishedSurveyMsg" class="survey-mat-card">
+        <mat-card-content>
+          <h5 *ngIf="origin === 'Survey'">{{ 'THESURVEYPRVSUB' | translate }}</h5>
+          <h5 *ngIf="origin !== 'Survey'">{{ 'THEEVOTEPRVSUB' | translate }}</h5>
+          <h6>{{ 'SUMMERYTEXT' | translate }}</h6>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="survey-mat-card">
+        <mat-card-content>
+          <div id="surveyElement"></div>
+          <div id="surveyResult"></div>
+        </mat-card-content>
+      </mat-card>
     </div>
-
-    <mat-card-content>
-
-      <div class="pb-1" style="text-align: center">
-        <a id="btnViewSummary" mat-raised-button class="mr-1"
-          (click)="viewSummary()">{{ 'VIEWSUMMERY' | translate }}</a>
-        <a id="btnViewSurvey" *ngIf="origin ==='Survey'" mat-raised-button class="mr-1"
-          (click)="viewSurvey()">{{ 'EDITSURVEY' | translate }}</a>
-        <a id="btnViewSurvey" *ngIf="origin !=='Survey'" mat-raised-button class="mr-1"
-          (click)="viewSurvey()">{{ 'EDITEVOTE' | translate }}</a>
-        <a id="btnSubmitSurvey" *ngIf="origin ==='Survey'" mat-raised-button color="primary" class="mr-1"
-          (click)="submitSurvey()">{{ 'SUBMITSURVEY' | translate }}</a>
-        <a id="btnSubmitSurvey" *ngIf="origin !=='Survey'" mat-raised-button color="primary" class="mr-1"
-          (click)="submitSurvey()">{{ 'SUBMITEVOTE' | translate }}</a>
-        <a id="btnAnswerLater" mat-raised-button color="primary" class="mr-1"
-          (click)="answerLater()">{{ 'ANSWERLATER' | translate }}</a>
-      </div>
-
-    </mat-card-content>
-
-
-    <div id="survey-view-footer">
-      <div class="container custom-center">
-        <span>{{ 'POWEREDBY' | translate }}</span>
-        <!-- <img src="assets/images/cp_logo_text.png" alt=""> -->
-        <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="">
-      </div>
-    </div>
-
   </div>
+
+  <mat-card-content>
+
+    <div class="pb-1" style="text-align: center">
+      <a id="btnViewSummary" mat-raised-button class="mr-1" (click)="viewSummary()">{{ 'VIEWSUMMERY' | translate }}</a>
+      <a id="btnViewSurvey" *ngIf="origin ==='Survey'" mat-raised-button class="mr-1" (click)="viewSurvey()">{{
+        'EDITSURVEY' | translate }}</a>
+      <a id="btnViewSurvey" *ngIf="origin !=='Survey'" mat-raised-button class="mr-1" (click)="viewSurvey()">{{
+        'EDITEVOTE' | translate }}</a>
+      <a id="btnSubmitSurvey" *ngIf="origin ==='Survey'" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">{{
+        'SUBMITSURVEY' | translate }}</a>
+      <a id="btnSubmitSurvey" *ngIf="origin !=='Survey'" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">{{
+        'SUBMITEVOTE' | translate }}</a>
+      <a id="btnAnswerLater" mat-raised-button color="primary" class="mr-1" (click)="answerLater()">{{ 'ANSWERLATER' |
+        translate }}</a>
+    </div>
+
+  </mat-card-content>
+
+
+  <div id="survey-view-footer">
+    <div class="container custom-center">
+      <span>{{ 'POWEREDBY' | translate }}</span>
+      <!-- <img src="assets/images/cp_logo_text.png" alt=""> -->
+      <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="">
+    </div>
+  </div>
+
 </div>
 
 
