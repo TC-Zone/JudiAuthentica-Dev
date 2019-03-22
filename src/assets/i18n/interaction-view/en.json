@@ -24,5 +24,6 @@
   "THANKYOU": "Thank You",
   "EDITSURVEY": "Edit Survey",
   "EDITEVOTE": "Edit Electronic Vote",
-  "SUMMERYTITLE": "Summary of"
+  "SUMMERYTITLE": "Summary of",
+  "INVALIDCREDENTIAL": "Invalid Credentials"
 }

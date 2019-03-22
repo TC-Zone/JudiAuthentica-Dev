@@ -24,5 +24,6 @@
   "THANKYOU": "Teşekkür ederim",
   "EDITSURVEY": "Anketi Düzenle",
   "EDITEVOTE": "Elektronik Oylamayı Düzenle",
-  "SUMMERYTITLE": "Özeti"
+  "SUMMERYTITLE": "Özeti",
+  "INVALIDCREDENTIAL": "Geçersiz kimlik bilgileri"
 }

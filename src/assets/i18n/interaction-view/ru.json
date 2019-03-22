@@ -24,5 +24,6 @@
   "THANKYOU": "Благодарю вас",
   "EDITSURVEY": "Редактировать опрос",
   "EDITEVOTE": "Изменить электронное голосование",
-  "SUMMERYTITLE": "Резюме"
+  "SUMMERYTITLE": "Резюме",
+  "INVALIDCREDENTIAL": "Неверные учетные данные"
 }
