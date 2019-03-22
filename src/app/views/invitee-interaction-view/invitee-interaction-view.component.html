@@ -1,62 +1,70 @@
-<form [formGroup]="interactForm" id="invitee-interaction-view">
-  <div class="page-wrap height-100 background-survey-signin" *ngIf="showLogin">
-    <div id="login-view" layout="row" layout-align="center center">
-      <mat-card class="header">
-        <mat-card-header>
-          <div class="row">
-            <div class="col-sm-4">
-              <img class="logo" src="assets/images/truverus/fountainvest.png" alt="">
-            </div>
-            <div class="col-sm-8">
-              <mat-card-title class="mat-title">
-                <h5>FountainVest Partners </h5>
-              </mat-card-title>
-            </div>
-          </div>
-        </mat-card-header>
-      </mat-card>
-      <mat-card style="margin-top:12px">
-        <div id="login-div">
-          <mat-card-content>
-            <h6 *ngIf="loginError" class="m-1 form-error-msg"> {{loginErrorMsg}} </h6>
-            <mat-form-field class="full-width">
-              <input type="text" name="username" matInput placeholder="{{ 'USERNAME' | translate }}" value=""
-                [formControl]="interactForm.controls['username']" required name="username">
-            </mat-form-field>
-
-            <mat-form-field class="full-width">
-              <input type="password" name="password" matInput placeholder="{{ 'PASSWORD' | translate }}" value=""
-                [formControl]="interactForm.controls['password']" required name="password">
-            </mat-form-field>
-
-            <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()"
-              [disabled]="interactForm.invalid">{{ 'LOGINBUTTON' | translate }}</button>
-          </mat-card-content>
-        </div>
-      </mat-card>
-      <mat-card style="margin-top:12px">
-        <div id="language">
-          <mat-card-content>
-            <div>
-              <div class="col-sm-8">
-                <mat-label>{{ 'SELECTLANGUAGE' | translate }}</mat-label>
-              </div>
+<div id="invitee-interaction-view">
+  <form [formGroup]="interactForm">
+    <div class="page-wrap height-100 background-survey-signin" *ngIf="showLogin && !newErrorMsg">
+      <div id="login-view" layout="row" layout-align="center center">
+        <mat-card class="header">
+          <mat-card-header>
+            <div class="row">
               <div class="col-sm-4">
-                <mat-select [(value)]="currentLang" (selectionChange)='changeDefaultLang()'>
-                  <mat-option *ngFor="let lang of supportLangs" [value]="lang">{{lang.name}}</mat-option>
-                </mat-select>
+                <img class="logo" src="assets/images/truverus/fountainvest.png" alt="">
+              </div>
+              <div class="col-sm-8">
+                <mat-card-title class="mat-title">
+                  <h5>FountainVest Partners </h5>
+                </mat-card-title>
               </div>
             </div>
-          </mat-card-content>
-        </div>
-      </mat-card>
+          </mat-card-header>
+        </mat-card>
+        <mat-card style="margin-top:12px">
+          <div id="login-div">
+            <mat-card-content>
+              <h6 *ngIf="loginError" class="m-1 form-error-msg"> {{loginErrorMsg}} </h6>
+              <mat-form-field class="full-width">
+                <input type="text" name="username" matInput placeholder="{{ 'USERNAME' | translate }}" value=""
+                  [formControl]="interactForm.controls['username']" required name="username">
+              </mat-form-field>
+
+              <mat-form-field class="full-width">
+                <input type="password" name="password" matInput placeholder="{{ 'PASSWORD' | translate }}" value=""
+                  [formControl]="interactForm.controls['password']" required name="password">
+              </mat-form-field>
+
+              <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()"
+                [disabled]="interactForm.invalid">{{ 'LOGINBUTTON' | translate }}</button>
+            </mat-card-content>
+          </div>
+        </mat-card>
+
+        <mat-card style="margin-top:12px" *ngIf="this.supportLangs.length !== 1">
+          <div id="language">
+            <mat-card-content>
+              <div>
+                <div class="col-sm-8">
+                  <mat-label>{{ 'SELECTLANGUAGE' | translate }}</mat-label>
+                </div>
+                <div class="col-sm-4">
+                  <mat-select [(value)]="currentLang" (selectionChange)='changeDefaultLang()'>
+                    <mat-option *ngFor="let lang of supportLangs" [value]="lang">{{lang.name}}</mat-option>
+                  </mat-select>
+                </div>
+              </div>
+            </mat-card-content>
+          </div>
+        </mat-card>
+      </div>
+      <div class="footer">
+        <p class="powered">{{ 'POWEREDBY' | translate }}</p>
+        <img src="assets/images/truverus/Tru-Verus-Logo.png" alt="">
+      </div>
     </div>
-    <div class="footer">
-      <p class="powered">{{ 'POWEREDBY' | translate }}</p>
-      <img src="assets/images/truverus/Tru-Verus-Logo.png" alt="">
-    </div>
-  </div>
-</form>
+  </form>
+
+  <!-- for invalid url error -->
+  <div class="page-wrap height-100 background-survey-signin" *ngIf="newErrorMsg"></div>
+  <!-- --------------------- -->
+</div>
+
 
 <div fxFlex="100" fxLayoutAlign="center center" id="survey-view-survey" class="background-survey-form">
 
@@ -93,10 +101,13 @@
 
     <div class="pb-1" style="text-align: center">
       <a id="btnViewSummary" mat-raised-button class="mr-1" (click)="viewSummary()">{{ 'VIEWSUMMERY' | translate }}</a>
-      <a id="btnViewSurvey" mat-raised-button class="mr-1" (click)="viewSurvey()">{{ 'EDIT' | translate }} {{origin}}</a>
-      <a id="btnSubmitSurvey" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">{{ 'SUBMIT' | translate }}
+      <a id="btnViewSurvey" mat-raised-button class="mr-1" (click)="viewSurvey()">{{ 'EDIT' | translate }}
         {{origin}}</a>
-      <a id="btnAnswerLater" mat-raised-button color="primary" class="mr-1" (click)="answerLater()">{{ 'ANSWERLATER' | translate }}</a>
+      <a id="btnSubmitSurvey" mat-raised-button color="primary" class="mr-1"
+        (click)="submitSurvey()">{{ 'SUBMIT' | translate }}
+        {{origin}}</a>
+      <a id="btnAnswerLater" mat-raised-button color="primary" class="mr-1"
+        (click)="answerLater()">{{ 'ANSWERLATER' | translate }}</a>
     </div>
 
   </mat-card-content>

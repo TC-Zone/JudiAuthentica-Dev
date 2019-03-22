@@ -168,7 +168,7 @@
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
           <div fxFlex="100" class="mt-1">
             <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
-            <button mat-raised-button color="primary" matStepperNext [disabled]='categoryFormStatus'>Next</button>
+            <button mat-raised-button color="primary" matStepperNext [disabled]='this.selectedCategories.length === 0'>Next</button>
             <span fxFlex></span>
             <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
           </div>

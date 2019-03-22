@@ -24,7 +24,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
   public countries;
   filteredCountries: Observable<string[]>;
-  
+
   public clients: any[];
   public category: any[];
   public statusArray = {
@@ -78,7 +78,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     );
   }
 
-  
+
   getCountry() {
     this.clientService.getCountry().subscribe(successResp => {
       this.countries = successResp.content;
@@ -167,7 +167,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
       let license: ClientLicenseData = new ClientLicenseData(res[3].tagCount, res[3].userCount, res[3].communityCount, res[3].feedbackCount, res[3].eventCount, res[3].promoCount);
 
       res[4].forEach(element => {
-        let category: CategoryData = new CategoryData(element);
+        let category: CategoryData = new CategoryData(element.id);
         categories.push(category);
       });
 
@@ -200,7 +200,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
         {
           width: "720px",
           disableClose: true,
-          data: { category: this.category, selectedCategory:  successResp}
+          data: { category: this.category, selectedCategory: successResp }
         }
       );
       dialogRef.afterClosed().subscribe(res => {
@@ -208,25 +208,25 @@ export class ClientTableComponent implements OnInit, OnDestroy {
           // If user press cancel
           return;
         }
-          console.log(res);
+        console.log(res);
 
-          // this.loader.open();
-          // const country: CountryData = new CountryData('a65715e919d0995f361360cf0b8c2c03', 'Åland Islands', 'AX');
-          // const req: ClientUpdateReq = new ClientUpdateReq(
-          //   res[0].name, res[0].description, res[1], res[0].contactNo, res[0].addressLine1, res[0].addressLine2, res[0].city, res[0].state, res[0].zipCode, country
-          // );
+        // this.loader.open();
+        // const country: CountryData = new CountryData('a65715e919d0995f361360cf0b8c2c03', 'Åland Islands', 'AX');
+        // const req: ClientUpdateReq = new ClientUpdateReq(
+        //   res[0].name, res[0].description, res[1], res[0].contactNo, res[0].addressLine1, res[0].addressLine2, res[0].city, res[0].state, res[0].zipCode, country
+        // );
 
-          // this.clientService.updateClient(data.id, req).subscribe(
-          //   response => {
-          //     this.getClients();
-          //     this.loader.close();
-          //     this.snack.open("Client Updated!", "OK", { duration: 4000 });
-          //   },
-          //   error => {
-          //     this.loader.close();
-          //     this.errDialog.showError(error);
-          //   }
-          // );
+        // this.clientService.updateClient(data.id, req).subscribe(
+        //   response => {
+        //     this.getClients();
+        //     this.loader.close();
+        //     this.snack.open("Client Updated!", "OK", { duration: 4000 });
+        //   },
+        //   error => {
+        //     this.loader.close();
+        //     this.errDialog.showError(error);
+        //   }
+        // );
 
       });
 

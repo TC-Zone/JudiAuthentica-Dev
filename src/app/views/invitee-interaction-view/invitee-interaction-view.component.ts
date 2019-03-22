@@ -22,6 +22,7 @@ export class InviteeInteractionViewComponent implements OnInit {
   public showLogin: boolean = false;
   public loginError = false;
   public loginErrorMsg;
+  public newErrorMsg = false;
 
   public surveyId;
   public interactionResponStatus;
@@ -46,6 +47,7 @@ export class InviteeInteractionViewComponent implements OnInit {
   public supportLangs: surveyLanguage[] = [];
   public defaultLang: surveyLanguage;
   public currentLang: surveyLanguage;
+  public langCardStatus = true;
 
   public getLangsSub: Subscription;
   public originMap = new Map();
@@ -76,15 +78,32 @@ export class InviteeInteractionViewComponent implements OnInit {
     this.inviteeInteractionViewService
       .getInvitationByUrl(this.originMap.get(originStr), this.publishUrl)
       .subscribe(data => {
-        // This response will collect language json array for a SURVEY
-        console.log(data.content);
-        this.langJson = JSON.parse(data.content.futureSurvey.languageJson);
-        console.log(this.langJson);
-        this.buildSupportLangArray(this.langJson);
-        console.log(this.supportLangs);
-        console.log(JSON.stringify(this.supportLangs));
-        this.changeDefaultLang();
-      });
+        console.log(data.content.futureSurvey.status);
+
+        if (data.content.futureSurvey.status === 0) {
+          // set error msg for on premise surveys
+          this.newErrorMsg = true;
+        } else if (data.content.futureSurvey.status === 1) {
+          // This response will collect language json array for a SURVEY
+          console.log(data.content);
+          this.langJson = JSON.parse(data.content.futureSurvey.languageJson);
+          console.log(this.langJson);
+          this.buildSupportLangArray(this.langJson);
+          console.log(this.supportLangs);
+          console.log(JSON.stringify(this.supportLangs));
+          this.changeDefaultLang();
+        }
+      },
+        error => {
+          if (error.error.validationFailures[0].code == 'getSurveyByUrl.notExist') {
+            console.log('notExist');
+          } else {
+            console.log(error);
+            // this.errDialog.showError(error);
+          }
+        }
+      );
+
   }
 
   ngOnInit() {
@@ -104,7 +123,7 @@ export class InviteeInteractionViewComponent implements OnInit {
 
   buildSupportLangArray(langJson) {
     this.langs.forEach(element => {
-      if (this.langJson.extra.indexOf(element.code) > -1 || langJson.def === element.code) {
+      if (langJson.extra.indexOf(element.code) > -1 || langJson.def === element.code) {
         if (langJson.def === element.code) {
           this.defaultLang = element;
           this.currentLang = element;
@@ -273,8 +292,8 @@ export class InviteeInteractionViewComponent implements OnInit {
       });
     });
 
-    
-    
+
+
 
     console.log(
       "------------- After - jsonContentJSON.pages -----------------"
@@ -288,8 +307,8 @@ export class InviteeInteractionViewComponent implements OnInit {
 
     console.log(localStorage.getItem('surveySelectedLang'));
     this.surveyModel.locale = JSON.parse(localStorage.getItem('surveySelectedLang')).code;
-   // console.log(this.surveyModel);
-    
+    // console.log(this.surveyModel);
+
 
     let resultArray = [];
     let interactionId = this.interactionId;
@@ -467,9 +486,24 @@ export class InviteeInteractionViewComponent implements OnInit {
       document.getElementById("btnViewSurvey").style.display = "none";
     }
 
-    let jsonContent = this.jsonContentJSON;
+    // let jsonContent = this.jsonContentJSON;
+    let jsonContent = JSON.parse(this.jsonContent);
 
-    jsonContent.title = "Summary of " + jsonContent.title;
+
+    console.log(jsonContent.title);
+
+    if (typeof (jsonContent.title) !== "string") {
+      if (jsonContent.title.hasOwnProperty(this.currentLang.code) > -1) {
+        jsonContent.title = "Summary of " + jsonContent.title[this.currentLang.code];
+      } else {
+        jsonContent.title = "Summary of " + jsonContent.title['default'];
+      }
+    } else {
+      jsonContent.title = "Summary of " + jsonContent.title;
+    }
+
+
+
 
     this.surveyModel = new Survey.Model(jsonContent);
 
