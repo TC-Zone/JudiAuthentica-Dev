@@ -309,7 +309,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     this.surveyModel.locale = JSON.parse(localStorage.getItem('surveySelectedLang')).code;
 
     // console.log(this.surveyModel);
-    
+
     let resultArray = [];
     let interactionId = this.interactionId;
     let lastPage = String(this.surveyModel.pages.length - 1);
@@ -591,32 +591,43 @@ export class InviteeInteractionViewComponent implements OnInit {
     let MSG_PART_1 =
       '<div class="sv_main sv_bootstrap_css"><form><div class="sv_container"><div class="sv_body sv_completed_page"><h3>';
     let MSG_PART_2 = "</h3></div></div></form></div>";
+    let msgText = '';
 
     switch (msgType) {
       case "ANSWER_LATER_MSG":
+        if (this.origin === 'Survey') {
+          msgText = this.translateService.instant('ANSWERLATERMSGSURVEY');
+        } else {
+          msgText = this.translateService.instant('ANSWERLATERMSGEVOTE');
+        }
         return (
           MSG_PART_1 +
-          "You are Attempting to Answer Later to the " +
-          this.origin +
+          msgText +
           "!" +
           MSG_PART_2
         );
       case "SUBMIT_MSG":
+        if (this.origin === 'Survey') {
+          msgText = this.translateService.instant('THANKYOU') + '</br>' + this.translateService.instant('SUBMITMSGSURVEY');
+        } else {
+          msgText = this.translateService.instant('THANKYOU') + '</br>' +this.translateService.instant('SUBMITMSGEVOTE');
+        }
         return (
           MSG_PART_1 +
-          "Thank You </br> You have finished the " +
-          this.origin +
+          msgText +
           "!" +
           MSG_PART_2
         );
       default:
+        if (this.origin === 'Survey') {
+          msgText = this.translateService.instant('COMPLETEMSGSURVEY');
+        } else {
+          msgText = this.translateService.instant('COMPLETEMSGEVOTE');
+        }
         return (
           MSG_PART_1 +
-          "The " +
-          this.origin +
-          " is Completed, Click Submit " +
-          this.origin +
-          " to Finish!" +
+          msgText +
+          "!" +
           MSG_PART_2
         );
     }
