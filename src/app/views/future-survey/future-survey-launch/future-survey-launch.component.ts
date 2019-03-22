@@ -71,7 +71,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
   public csvHeadersArray: any[];
   ansTemplateArray: FormArray;
   public inviteeGroups: any;
-  public isDisabled = false;
+  public isDisabled = true;
   // email regex
   // tslint:disable-next-line:max-line-length
   public emailPattern = /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -112,7 +112,7 @@ export class FutureSurveyLaunchComponent implements OnInit {
     private errDialog: AppErrorService,
     private conversionService: AppDataConversionService,
     private loader: AppLoaderService
-  ) {}
+  ) { }
 
   ngOnInit() {
     // build form group
@@ -136,13 +136,15 @@ export class FutureSurveyLaunchComponent implements OnInit {
     const surveyStatus = this.surveyObj.status;
 
     // set which status can edit details
-    if (surveyStatus !== 0) {
-      this.isDisabled = true;
+    console.log(surveyStatus);
+    
+    if (surveyStatus === 0 || surveyStatus === 4) {
+      this.isDisabled = false;
     }
 
     this.buildLaunchForm(data, inviteeGroup);
 
-    this.currentStatus = this.statusArray.filter(function(status) {
+    this.currentStatus = this.statusArray.filter(function (status) {
       console.log(status);
       return status.id === surveyStatus;
     });

@@ -74,7 +74,6 @@ export class ClientUpdatePopupComponent implements OnInit {
       country: [country || '', Validators.required]
     })
 
-    // this.onBlurCountry();
     getBase64ImageFromUrl(this.imgBaseURL + item.id)
       .then(result => this.url = result)
       .catch(err => console.error(err));

@@ -68,7 +68,6 @@ export class ClientCreatePopupComponent implements OnInit {
     //     this.addSelectedCategory(element.id)
     //   });
     // }
-
     this.buildItemForm()
   }
 
