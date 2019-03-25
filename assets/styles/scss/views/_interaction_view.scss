@@ -27,6 +27,7 @@
 #survey-view-survey {
   overflow: auto;
   height: 100%;
+  width: 100%;
 }
 
 #survey-view-footer {
@@ -34,6 +35,7 @@
   width: 100%;
   text-align: center;
   padding: 100px 20px 20px;
+  margin-bottom: 1px;
   img {
     display: block;
     margin: auto;

@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"invitee-interaction-view\">\r\n  <form [formGroup]=\"interactForm\">\r\n    <div class=\"page-wrap height-100 background-survey-signin\" *ngIf=\"showLogin && !newErrorMsg\">\r\n      <div id=\"login-view\" layout=\"row\" layout-align=\"center center\">\r\n        <mat-card class=\"header\">\r\n          <!-- <mat-card-header> -->\r\n          <div class=\"container-fluid\">\r\n            <div class=\"row\">\r\n              <div class=\"col-sm-4\">\r\n                <img class=\"logo\" [src]=\"clientLogoURL\" alt=\"\">\r\n              </div>\r\n              <div class=\"col-sm-8\">\r\n                <mat-card-title class=\"mat-title\">\r\n                  <h5>{{surveyLoginTitle}}</h5>\r\n                </mat-card-title>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n          <!-- </mat-card-header> -->\r\n        </mat-card>\r\n        <mat-card style=\"margin-top:12px\">\r\n          <div id=\"login-div\">\r\n            <mat-card-content>\r\n              <h6 *ngIf=\"loginError\" class=\"m-1 form-error-msg\"> {{loginErrorMsg}} </h6>\r\n              <mat-form-field class=\"full-width\">\r\n                <input type=\"text\" name=\"username\" matInput placeholder=\"{{ 'USERNAME' | translate }}\" value=\"\"\r\n                  [formControl]=\"interactForm.controls['username']\" required name=\"username\">\r\n              </mat-form-field>\r\n\r\n              <mat-form-field class=\"full-width\">\r\n                <input type=\"password\" name=\"password\" matInput placeholder=\"{{ 'PASSWORD' | translate }}\" value=\"\"\r\n                  [formControl]=\"interactForm.controls['password']\" required name=\"password\">\r\n              </mat-form-field>\r\n\r\n              <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"doLog()\" [disabled]=\"interactForm.invalid\">{{\r\n                'LOGINBUTTON' | translate }}</button>\r\n            </mat-card-content>\r\n          </div>\r\n        </mat-card>\r\n\r\n        <mat-card style=\"margin-top:12px\" *ngIf=\"this.supportLangs.length !== 1\">\r\n          <div id=\"language\">\r\n            <mat-card-content>\r\n              <div class=\"row\">\r\n                <div class=\"col-sm-8\">\r\n                  <mat-label>{{ 'SELECTLANGUAGE' | translate }}</mat-label>\r\n                </div>\r\n                <div class=\"col-sm-4\">\r\n                  <mat-select [(value)]=\"currentLang\" (selectionChange)='changeDefaultLang()'>\r\n                    <mat-option *ngFor=\"let lang of supportLangs\" [value]=\"lang\">{{lang.name}}</mat-option>\r\n                  </mat-select>\r\n                </div>\r\n              </div>\r\n            </mat-card-content>\r\n          </div>\r\n        </mat-card>\r\n      </div>\r\n      <div class=\"footer\">\r\n        <p class=\"powered\">{{ 'POWEREDBY' | translate }}</p>\r\n        <img src=\"assets/images/truverus/Tru-Verus-Logo.png\" alt=\"\">\r\n      </div>\r\n    </div>\r\n  </form>\r\n\r\n  <!-- for survey error -->\r\n  <div class=\"page-wrap height-100 background-survey-signin-error\" *ngIf=\"newErrorMsg\" [ngStyle]=\"{ 'background-image': 'url(' + errorBG + ')'}\"></div>\r\n  <!-- --------------------- -->\r\n\r\n\r\n\r\n</div>\r\n\r\n<div fxFlex=\"100\" fxLayoutAlign=\"center center\" id=\"survey-view-survey\" class=\"background-survey-form\">\r\n\r\n  <header>\r\n    <mat-toolbar fxLayoutAlign=\"center center\" matDialogTitle class=\"mat-primary m-0\">\r\n      <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <div mat-card-avatar class=\"example-header-image\" [ngStyle]=\"{ 'background-image': 'url(' + clientLogoURL + ')'}\"></div>\r\n      </div>\r\n      <!-- <mat-card-title class=\"example-card-title\">Nova Scotia Engineers</mat-card-title> -->\r\n      <!-- <span class=\"example-card-title hidden-xs\">Clear Picture</span> -->\r\n      <span class=\"example-spacer\"></span>\r\n      <span *ngIf=\"loggedInviteeName\" class=\"example-invite\">{{ 'HI' | translate }}, {{loggedInviteeName}}</span>\r\n    </mat-toolbar>\r\n  </header>\r\n\r\n  <div class=\"survey-page-wrap\" *ngIf=\"!showLogin\">\r\n    <div class=\"survey-form-hold\">\r\n      <mat-card id=\"finishedSurveyMsg\" class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <h5 *ngIf=\"origin === 'Survey'\">{{ 'THESURVEYPRVSUB' | translate }}</h5>\r\n          <h5 *ngIf=\"origin !== 'Survey'\">{{ 'THEEVOTEPRVSUB' | translate }}</h5>\r\n          <h6>{{ 'SUMMERYTEXT' | translate }}</h6>\r\n        </mat-card-content>\r\n      </mat-card>\r\n      <mat-card class=\"survey-mat-card\">\r\n        <mat-card-content>\r\n          <div id=\"surveyElement\"></div>\r\n          <div id=\"surveyResult\"></div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n\r\n  <mat-card-content>\r\n\r\n    <div class=\"pb-1\" style=\"text-align: center\">\r\n      <a id=\"btnViewSummary\" mat-raised-button class=\"mr-1\" (click)=\"viewSummary()\">{{ 'VIEWSUMMERY' | translate }}</a>\r\n      <a id=\"btnViewSurvey\" *ngIf=\"origin ==='Survey'\" mat-raised-button class=\"mr-1\" (click)=\"viewSurvey()\">{{\r\n        'EDITSURVEY' | translate }}</a>\r\n      <a id=\"btnViewSurvey\" *ngIf=\"origin !=='Survey'\" mat-raised-button class=\"mr-1\" (click)=\"viewSurvey()\">{{\r\n        'EDITEVOTE' | translate }}</a>\r\n      <a id=\"btnSubmitSurvey\" *ngIf=\"origin ==='Survey'\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"submitSurvey()\">{{\r\n        'SUBMITSURVEY' | translate }}</a>\r\n      <a id=\"btnSubmitSurvey\" *ngIf=\"origin !=='Survey'\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"submitSurvey()\">{{\r\n        'SUBMITEVOTE' | translate }}</a>\r\n      <a id=\"btnAnswerLater\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"answerLater()\">{{ 'ANSWERLATER' |\r\n        translate }}</a>\r\n    </div>\r\n\r\n  </mat-card-content>\r\n\r\n\r\n  <div id=\"survey-view-footer\">\r\n    <div class=\"container custom-center\">\r\n      <span>{{ 'POWEREDBY' | translate }}</span>\r\n      <!-- <img src=\"assets/images/cp_logo_text.png\" alt=\"\"> -->\r\n      <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\">\r\n    </div>\r\n  </div>\r\n\r\n</div>\r\n\r\n\r\n\r\n\r\n<script>\r\n  $.material.init();\r\n</script>"
+module.exports = "<div id=\"invitee-interaction-view\" *ngIf=\"isVisible\">\r\n  <form [formGroup]=\"interactForm\">\r\n    <div class=\"page-wrap height-100 background-survey-signin\" *ngIf=\"showLogin && !newErrorMsg\">\r\n      <div id=\"login-view\" layout=\"row\" layout-align=\"center center\">\r\n        <mat-card class=\"mat\">\r\n          <!-- <mat-card-header> -->\r\n          <div class=\"container-fluid\">\r\n            <div class=\"row\">\r\n              <div class=\"col-sm-4\">\r\n                <img class=\"logo\" [src]=\"clientLogoURL\" alt=\"\">\r\n              </div>\r\n              <div class=\"col-sm-8\">\r\n                <mat-card-title class=\"mat-title\">\r\n                  <h5>{{surveyLoginTitle}}</h5>\r\n                </mat-card-title>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n          <!-- </mat-card-header> -->\r\n        </mat-card>\r\n        <mat-card class=\"mat\">\r\n          <div id=\"login-div\">\r\n            <mat-card-content>\r\n              <h6 *ngIf=\"loginError\" class=\"m-1 form-error-msg\"> {{loginErrorMsg}} </h6>\r\n              <mat-form-field class=\"full-width\">\r\n                <input type=\"text\" name=\"username\" matInput placeholder=\"{{ 'USERNAME' | translate }}\" value=\"\"\r\n                  [formControl]=\"interactForm.controls['username']\" required name=\"username\">\r\n              </mat-form-field>\r\n\r\n              <mat-form-field class=\"full-width\">\r\n                <input type=\"password\" name=\"password\" matInput placeholder=\"{{ 'PASSWORD' | translate }}\" value=\"\"\r\n                  [formControl]=\"interactForm.controls['password']\" required name=\"password\">\r\n              </mat-form-field>\r\n\r\n              <button mat-raised-button class=\"mat-primary full-width mb-1\" (click)=\"doLog()\" [disabled]=\"interactForm.invalid\">{{\r\n                'LOGINBUTTON' | translate }}</button>\r\n            </mat-card-content>\r\n          </div>\r\n        </mat-card>\r\n\r\n        <mat-card class=\"mat\" *ngIf=\"this.supportLangs.length !== 1\">\r\n          <div id=\"language\">\r\n            <mat-card-content>\r\n              <div class=\"row\">\r\n                <div class=\"col-sm-7\">\r\n                  <mat-label>{{ 'SELECTLANGUAGE' | translate }}</mat-label>\r\n                </div>\r\n                <div class=\"col-sm-5\">\r\n                  <mat-select [(value)]=\"currentLang\" (selectionChange)='changeDefaultLang()'>\r\n                    <mat-option *ngFor=\"let lang of supportLangs\" [value]=\"lang\">{{lang.name}}</mat-option>\r\n                  </mat-select>\r\n                </div>\r\n              </div>\r\n            </mat-card-content>\r\n          </div>\r\n        </mat-card>\r\n        <div id=\"survey-login-footer\">\r\n          <div class=\"container custom-center\">\r\n            <span>{{ 'POWEREDBY' | translate }}</span>\r\n            <!-- <img src=\"assets/images/cp_logo_text.png\" alt=\"\"> -->\r\n            <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\">\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n    </div>\r\n  </form>\r\n\r\n  <!-- for survey error -->\r\n  <div class=\"page-wrap height-100 background-survey-signin-error\" *ngIf=\"newErrorMsg\" [ngStyle]=\"{ 'background-image': 'url(' + errorBG + ')'}\"></div>\r\n  <!-- --------------------- -->\r\n  <div class=\"page-wrap background-survey-form\">\r\n  <div id=\"survey-view-survey\" class=\"height-100\">\r\n\r\n    <header>\r\n      <mat-toolbar fxLayoutAlign=\"center center\" matDialogTitle class=\"mat-primary m-0\">\r\n        <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n          <div mat-card-avatar class=\"example-header-image\" [ngStyle]=\"{ 'background-image': 'url(' + clientLogoURL + ')'}\"></div>\r\n        </div>\r\n        <!-- <mat-card-title class=\"example-card-title\">Nova Scotia Engineers</mat-card-title> -->\r\n        <!-- <span class=\"example-card-title hidden-xs\">Clear Picture</span> -->\r\n        <span class=\"example-spacer\"></span>\r\n        <span *ngIf=\"loggedInviteeName\" class=\"example-invite\">{{ 'HI' | translate }}, {{loggedInviteeName}}</span>\r\n      </mat-toolbar>\r\n    </header>\r\n  \r\n    <div class=\"survey-page-wrap\" *ngIf=\"!showLogin\">\r\n      <div class=\"survey-form-hold\">\r\n        <mat-card id=\"finishedSurveyMsg\" class=\"survey-mat-card\">\r\n          <mat-card-content>\r\n            <h5 *ngIf=\"origin === 'Survey'\">{{ 'THESURVEYPRVSUB' | translate }}</h5>\r\n            <h5 *ngIf=\"origin !== 'Survey'\">{{ 'THEEVOTEPRVSUB' | translate }}</h5>\r\n            <h6>{{ 'SUMMERYTEXT' | translate }}</h6>\r\n          </mat-card-content>\r\n        </mat-card>\r\n        <mat-card class=\"survey-mat-card\">\r\n          <mat-card-content>\r\n            <div id=\"surveyElement\"></div>\r\n            <div id=\"surveyResult\"></div>\r\n          </mat-card-content>\r\n        </mat-card>\r\n      </div>\r\n    </div>\r\n  \r\n    <mat-card-content>\r\n  \r\n      <div class=\"pb-1\" style=\"text-align: center\">\r\n        <a id=\"btnViewSummary\" mat-raised-button class=\"mr-1\" (click)=\"viewSummary()\">{{ 'VIEWSUMMERY' | translate }}</a>\r\n        <a id=\"btnViewSurvey\" *ngIf=\"origin ==='Survey'\" mat-raised-button class=\"mr-1\" (click)=\"viewSurvey()\">{{\r\n          'EDITSURVEY' | translate }}</a>\r\n        <a id=\"btnViewSurvey\" *ngIf=\"origin !=='Survey'\" mat-raised-button class=\"mr-1\" (click)=\"viewSurvey()\">{{\r\n          'EDITEVOTE' | translate }}</a>\r\n        <a id=\"btnSubmitSurvey\" *ngIf=\"origin ==='Survey'\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"submitSurvey()\">{{\r\n          'SUBMITSURVEY' | translate }}</a>\r\n        <a id=\"btnSubmitSurvey\" *ngIf=\"origin !=='Survey'\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"submitSurvey()\">{{\r\n          'SUBMITEVOTE' | translate }}</a>\r\n        <a id=\"btnAnswerLater\" mat-raised-button color=\"primary\" class=\"mr-1\" (click)=\"answerLater()\">{{ 'ANSWERLATER' |\r\n          translate }}</a>\r\n      </div>\r\n  \r\n    </mat-card-content>\r\n  \r\n  \r\n    <div id=\"survey-view-footer\">\r\n      <div class=\"container custom-center\">\r\n        <span>{{ 'POWEREDBY' | translate }}</span>\r\n        <!-- <img src=\"assets/images/cp_logo_text.png\" alt=\"\"> -->\r\n        <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\">\r\n      </div>\r\n    </div>\r\n    \r\n\r\n</div>\r\n</div>\r\n\r\n\r\n</div>\r\n\r\n\r\n\r\n\r\n<script>\r\n  $.material.init();\r\n</script>"
 
 /***/ }),
 
@@ -35,6 +35,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
 /* harmony import */ var _client_client_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../client/client.service */ "./src/app/views/client/client.service.ts");
+/* harmony import */ var app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! app/shared/services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -88,8 +89,9 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
+
 var InviteeInteractionViewComponent = /** @class */ (function () {
-    function InviteeInteractionViewComponent(inviteeInteractionViewService, clientService, fb, errDialog, activeRoute, route, translateService) {
+    function InviteeInteractionViewComponent(inviteeInteractionViewService, clientService, fb, errDialog, activeRoute, route, translateService, loader) {
         var _this = this;
         this.inviteeInteractionViewService = inviteeInteractionViewService;
         this.clientService = clientService;
@@ -98,6 +100,7 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         this.activeRoute = activeRoute;
         this.route = route;
         this.translateService = translateService;
+        this.loader = loader;
         this.showLogin = false;
         this.loginError = false;
         this.newErrorMsg = false;
@@ -105,6 +108,9 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         this.supportLangs = [];
         this.langCardStatus = true;
         this.originMap = new Map();
+        this.isVisible = false;
+        this.titleJson = null;
+        this.loader.open();
         this.originMap.set("Survey", "1");
         this.originMap.set("eVote", "2");
         this.imgBaseURL = this.clientService.imageUrl;
@@ -125,6 +131,16 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
                 _this.setSurveyStatusErrorMsg("ON_PREMISE");
             }
             else if (data.content.futureSurvey.status === 1) {
+                console.log(data.content.futureSurvey.id);
+                var jsonContent = JSON.parse(data.content.futureSurvey.jsonContent);
+                console.log(JSON.parse(jsonContent).title);
+                if (typeof (JSON.parse(jsonContent).title) !== "string") {
+                    _this.titleJson = JSON.parse(jsonContent).title;
+                    _this.surveyLoginTitle = _this.titleJson['default'];
+                }
+                else {
+                    _this.surveyLoginTitle = JSON.parse(jsonContent).title;
+                }
                 // This response will collect language json array for a SURVEY
                 console.log(data.content);
                 _this.langJson = JSON.parse(data.content.futureSurvey.languageJson);
@@ -134,11 +150,13 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
                 console.log(JSON.stringify(_this.supportLangs));
                 _this.changeDefaultLang();
                 _this.clientId = data.content.futureSurvey.clientId;
-                _this.surveyLoginTitle = data.content.futureSurvey.title;
+                // this.surveyLoginTitle = data.content.futureSurvey.title;
                 console.log(_this.imgBaseURL + _this.clientId);
                 getBase64ImageFromUrl(_this.imgBaseURL + _this.clientId)
                     .then(function (result) { return (_this.clientLogoURL = result); })
                     .catch(function (err) { return (_this.clientLogoURL = null); });
+                _this.loader.close();
+                _this.isVisible = true;
             }
             else if (data.content.futureSurvey.status === 2) {
                 // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - FULFILLED");
@@ -159,6 +177,8 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
                 console.log(error);
                 // this.errDialog.showError(error);
             }
+            _this.loader.close();
+            _this.isVisible = true;
         });
     }
     InviteeInteractionViewComponent.prototype.ngOnInit = function () {
@@ -190,6 +210,8 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         });
         this.addTranslation();
     };
+    // setLogin(){
+    // }
     // buildSupportLangArray(langJson): any[] {
     //   this.defaultLang = this.langs.filter(obj => {
     //     return obj.code === langJson.def;
@@ -220,6 +242,19 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
     InviteeInteractionViewComponent.prototype.changeDefaultLang = function () {
         localStorage.setItem("surveySelectedLang", JSON.stringify(this.currentLang));
         this.translateService.use(this.currentLang.code);
+        if (this.titleJson !== null) {
+            if (typeof (this.titleJson) !== "string") {
+                if (this.titleJson.hasOwnProperty(this.currentLang.code)) {
+                    this.surveyLoginTitle = this.titleJson[this.currentLang.code];
+                }
+                else {
+                    this.surveyLoginTitle = this.titleJson["default"];
+                }
+            }
+            else {
+                // jsonContent.title = this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title;
+            }
+        }
     };
     InviteeInteractionViewComponent.prototype.doLog = function () {
         var _this = this;
@@ -281,9 +316,6 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         }, function (error) {
             _this.setSurveyStatusErrorMsg("INVALID_CREDENTIALS");
         });
-    };
-    InviteeInteractionViewComponent.prototype.updateUrl = function () {
-        console.log("OKOKO");
     };
     InviteeInteractionViewComponent.prototype.getSurveyData = function (interactionId) {
         var _this = this;
@@ -615,6 +647,8 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
                 this.loginError = false;
                 break;
         }
+        this.loader.close();
+        this.isVisible = true;
     };
     InviteeInteractionViewComponent.prototype.setuptheme = function () {
         var mainColor = "#0684C0";
@@ -657,7 +691,8 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
             _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_5__["AppErrorService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_6__["ActivatedRoute"],
             _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
-            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateService"]])
+            _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateService"],
+            app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_9__["AppLoaderService"]])
     ], InviteeInteractionViewComponent);
     return InviteeInteractionViewComponent;
 }());
@@ -921,6 +956,9 @@ var InviteeInteractionViewService = /** @class */ (function () {
         return this.http
             .get(this.surveyApiUrl + "surveys/langs")
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+    };
+    InviteeInteractionViewService.prototype.getSurveyByID = function (id) {
+        return this.http.get(this.surveyApiUrl + "surveys/futureSurvey/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
     };
     InviteeInteractionViewService.prototype.getInvitationByUrl = function (origin, url) {
         return this.http
