@@ -31,16 +31,6 @@
     background-repeat: no-repeat !important;
   }
   
-  .footer{
-  position: fixed;
-  left: 45%;
-  bottom: 5px;
-  width: 8%;
-  text-align: center;
-  }
-  .powered{
-    margin-bottom: 0px !important;
-  }
   .mat-card{
     padding: 0px;
   }
@@ -65,12 +55,9 @@
 }
 
  #login-view{
-  width: 33.3%;
-  position: fixed;
-  top: 45%;
-  left: 50%;
-  /* bring your own prefixes */
-  transform: translate(-50%, -50%);
+  margin-left: auto!important;
+  margin-right: auto!important;
+  
 
   .logo{
     padding: 20px 20px 20px 20px;
@@ -89,7 +76,7 @@
  }
 
  #login-div{
-  padding: 40px 90px 0px;
+  padding: 30px 30px 30px 30px;
   
  }
  #language{
@@ -101,6 +88,35 @@
     font-weight: bold;
   }
  }
+
+ .survey-login{
+   border-radius: 5px !important;
+   
+ }
+ .title{
+  padding: 20px 20px 20px 20px;
+ }
  
+ .mat{
+  margin-top:12px !important;
+  max-width:70% !important;
+  margin-left: auto!important;
+  margin-right: auto !important;
+ }
+
+ #survey-login-footer {
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 100px 0px 20px;
+  img {
+    display: block;
+    margin: auto;
+    width: 100px;
+  }
+  span {
+    font-size: 10px;
+  }
+}
  
 
