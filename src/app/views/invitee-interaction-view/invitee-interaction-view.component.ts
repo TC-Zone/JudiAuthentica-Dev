@@ -551,7 +551,17 @@ export class InviteeInteractionViewComponent implements OnInit {
       jsonContent.title = this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title;
     }
 
+    // ..................... TO BE SET SELECTED LANGUAGE INTO SUMMERY ........ YRS
+    console.log("START HERE");
+
+    let selectedL = JSON.parse(localStorage.getItem("surveySelectedLang"));
+    console.log(jsonContent);
+    jsonContent.locale = selectedL.code;
+    console.log(jsonContent);
+
     this.surveyModel = new Survey.Model(jsonContent);
+
+    // .......................................................................
 
     Survey.StylesManager.applyTheme("bootstrap");
 
