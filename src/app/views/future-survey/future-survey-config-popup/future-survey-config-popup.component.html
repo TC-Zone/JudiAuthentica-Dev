@@ -38,9 +38,9 @@
         </mat-form-field>
       </div>
 
-      <div fxFlex="50" class="pr-1">
+      <div *ngIf="false"  fxFlex="50" class="pr-1">
         <p>Choose the Default Language for future survey</p>
-        <mat-form-field class="full-width">
+        <mat-form-field  class="full-width">
           <mat-select [formControl]="configForm.controls['languageJson']" required placeholder="Select Default Language">
             <mat-option>none</mat-option>
             <mat-option *ngFor="let lang of langs" [value]="lang.code">{{ lang.name}}</mat-option>
