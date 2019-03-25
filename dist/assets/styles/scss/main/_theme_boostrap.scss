@@ -1,0 +1,89 @@
+.sv_main .sv_custom_header {
+    //  height: 25% !important;
+    max-height: 90px !important; 
+  }
+  .sv_main span {
+    word-break: break-all !important;
+  } 
+
+  // .btn-green {
+  //   background-color: #367BB5 !important;
+  //   color: #fff;
+  //   border-radius: 3px;
+  //   }
+  //   .btn-green:focus,
+  //   .btn-green:hover {
+  //       background-color: #18a689;
+  //       color: #fff;
+  //   }
+
+  .sv_main input[type="button"], .sv_main button{
+    color: white;
+    background-color: #3e86bd;
+    
+  }
+  .sv_main input[type="button"]:hover{
+    background-color: #339fd6;
+    color: #fff;
+  }
+
+
+  .sv_main .sv_body {
+    background-color: white;
+    border-top: 2px solid #3e86bd;
+
+  }
+  .sv_main.sv_main .sv_q_imgsel label > div {
+    // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    // max-width: 300px;
+    // margin: auto;
+    // text-align: center;
+    // font-family: arial;
+  }
+  .sv_main.sv_main .sv_q_imgsel.checked label > div {
+    // background-color: rgb(51,159,214);
+    background-color: #f4f4f4 !important;
+    -webkit-box-shadow: 0px 0px 10px 2px rgb(6,132,192);
+    -moz-box-shadow: 0px 0px 10px 2px rgb(6,132,192);
+    box-shadow: 0px 0px 10px 2px rgb(6,132,192);
+  }
+
+
+  .example-card {
+    max-width: 300px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px !important;
+    background-image: url("assets/images/survey_cover.png") !important;
+    font-family: "Poppins" !important;
+  }
+  
+  .example-header-image {
+    background-image: url('assets/images/cp_logo.png');
+    // background-image: url('assets/images/truverus/TruVerus_Logo_short.png');
+    background-color: #ffffff;
+    background-size: cover;
+    border-radius: 20px !important;
+    //margin-left: 60px;
+    margin-top: 60px !important;
+    width: 100px !important;
+    height: 100px !important;
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.3);
+    
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+  }
+  .example-card-title {
+    margin-left: 20px !important;
+  }
+  .example-spacer{
+    flex: 1 1 auto;
+  }
+  .survey-mat-card{
+    background: #048fc721 !important;
+    border-radius: 20px !important;
+  }
+  .example-invite{
+    font-size: 15px !important; 
+  }

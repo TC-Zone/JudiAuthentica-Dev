@@ -1,0 +1,154 @@
+.page-wrap {
+  display: flex;
+  padding: 0px;
+}
+
+// override to set invitee ininteraction login postion to left
+.session-form-hold.set-form-left{
+  margin-left: 0px;
+  max-width: 100%;
+  // width: 100%;
+}
+#invitee-interaction-view{
+
+  .background-survey-signin {
+    background-image: url("assets/images/survey_signin/FountainVest-Partners-Background.jpg") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+  }
+
+  .background-survey-form {
+    // background-image: url("assets/images/survey_background/Survey-Background-01_3.jpg") !important;
+    background-image: url("assets/images/survey_background/FountainVest-Survey-Background.jpg") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+  }
+
+  .background-survey-signin-error {
+    // background-image: url("assets/images/survey_background/Survey-Background-01_3.jpg") !important;
+    // background-image: url("assets/images/survey_background/FountainVest-Survey-Background.jpg") !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+  }
+  
+  .mat-card{
+    padding: 0px;
+  }
+
+  #survey-view-survey{
+    .mat-card:not([class*="mat-elevation-z"]) {
+      box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+    }
+    .mat-card {
+        transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+        display: block;
+        position: relative;
+        padding: 24px;
+        border-radius: 2px;
+    }
+    .survey-mat-card {
+        background: #048fc721 !important;
+        border-radius: 20px !important;
+    }
+  }
+
+}
+
+ #login-view{
+  margin-left: auto!important;
+  margin-right: auto!important;
+  
+
+  .logo{
+    padding: 20px 20px 20px 20px;
+    width: 120px;
+    height: 120px;
+    display: block;
+    margin: auto;
+   }
+   .mat-title{
+    padding: 30px 0px 0px;
+    text-align: center;
+   }
+   .header{
+     height: 120px;
+   }
+   
+ }
+
+ #login-div{
+  padding: 30px 30px 30px 30px;
+  
+ }
+ #language{
+  padding: 20px 20px 20px 70px;
+  .mat-select{
+    font-weight: bold;
+  }
+ }
+
+ .survey-login{
+   border-radius: 5px !important;
+   
+ }
+ .title{
+  padding: 20px 20px 20px 20px;
+ }
+ 
+ .mat{
+  margin-top:12px !important;
+  max-width:70% !important;
+  margin-left: auto!important;
+  margin-right: auto !important;
+ }
+
+ #survey-login-footer {
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 100px 0px 20px;
+  img {
+    display: block;
+    margin: auto;
+    width: 100px;
+  }
+  span {
+    font-size: 10px;
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  #login-view{
+    margin-left: auto!important;
+    margin-right: auto!important;
+    // background-color: aqua;
+    width: 700px;
+
+    #language{
+      padding: 20px 20px 20px 20px;
+      .mat-select{
+        font-weight: bold;
+      }
+     }
+    
+  
+    .logo{
+      padding: 20px 20px 20px 20px;
+      width: 120px;
+      height: 120px;
+      display: block;
+      margin: auto;
+     }
+     .mat-title{
+      padding: 30px 0px 0px;
+     }
+     .header{
+       height: 120px;
+     }
+     
+   }
+}
+ 
+ 
+

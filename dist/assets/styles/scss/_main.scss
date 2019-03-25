@@ -1,0 +1,33 @@
+/*
+* REQUIRED STYLES
+*/
+@import "main/scaffolding";
+@import "main/typography";
+@import "main/layout";
+@import "main/header";
+@import "main/sidenav";
+
+/*
+* ALTERNATIVE STYLES
+*/
+@import "main/breadcrumb"; // REQUIRED ONLY FOR BREADCRUMBS
+@import "main/notifications"; // REQUIRED ONLY FOR NOTIFICATIONS
+
+@import "main/sidebar"; // REQUIRED ONLY FOR SIDE NAVIGATION LAYOUT
+@import "main/header-side"; // REQUIRED ONLY FOR SIDE NAVIGATION LAYOUT
+
+@import "main/topnav"; // REQUIRED ONLY FOR TOP NAVIGATION LAYOUT
+@import "main/header-top"; // REQUIRED ONLY FOR TOP NAVIGATION LAYOUT
+
+
+/*
+* CUSTOMIZE STYLES
+*/
+@import "main/cp-common"; // CUSTOM COMMON SCSS
+@import "main/cp-popup"; // REQUIRED ONLY FOR POPUP, IMAGE PRIVIEW OF IMAGE UPLOADER
+@import "main/cp-table"; // REQUIRED ONLY FOR RESPONSIVE TABLE
+
+/*
+* THEME BOOSTRAP FOR SURVEYJS
+*/
+@import "main/theme_boostrap"; // REQUIRED ONLY FOR SURVEYJS BOOSTRAP THEME
