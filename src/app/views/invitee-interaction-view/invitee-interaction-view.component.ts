@@ -539,15 +539,12 @@ export class InviteeInteractionViewComponent implements OnInit {
     // let jsonContent = this.jsonContentJSON;
     let jsonContent = JSON.parse(this.jsonContent);
 
-    if (typeof jsonContent.title !== "string") {
-      console.log("jsonContent.title.hasOwnProperty(this.currentLang.code)");
-      console.log(jsonContent.title.hasOwnProperty(this.currentLang.code));
+    console.log(this.currentLang.code);
+    console.log(jsonContent.title);
 
+    if (typeof (jsonContent.title) !== "string") {
       if (jsonContent.title.hasOwnProperty(this.currentLang.code)) {
-        jsonContent.title =
-          this.translateService.instant("SUMMERYTITLE") +
-          " " +
-          jsonContent.title[this.currentLang.code];
+        jsonContent.title = this.translateService.instant('SUMMERYTITLE') + " " + jsonContent.title[this.currentLang.code];
       } else {
         jsonContent.title =
           this.translateService.instant("SUMMERYTITLE") +

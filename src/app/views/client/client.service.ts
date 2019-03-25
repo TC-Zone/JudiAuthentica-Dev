@@ -94,6 +94,11 @@ export class ClientService {
       .pipe(catchError(this.handleError));
   }
 
+  updateUserCategories(id, item): Observable<any> {
+    return this.http
+      .put<any>(this.userUrl + "/categories/" + id, item)
+      .pipe(catchError(this.handleError));
+  }
 
 
 

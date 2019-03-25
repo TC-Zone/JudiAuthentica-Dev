@@ -165,6 +165,9 @@ export class FutureSurveyListComponent implements OnInit {
             console.log(response);
             this.loader.close();
             this.getAllFutureSurveys();
+            this.snack.open("New Invitee seting created ! ", "close", {
+              duration: 3000
+            });
           },
           error => {
             this.loader.close();
@@ -229,6 +232,9 @@ export class FutureSurveyListComponent implements OnInit {
               console.log(response);
               this.getAllFutureSurveys();
               this.loader.close();
+              this.snack.open(`${res.title} Configurations Updated !`, "close", {
+                duration: 3000
+              });
             },
             error => {
               console.log("ERROR LOGESTERS");
@@ -287,6 +293,9 @@ export class FutureSurveyListComponent implements OnInit {
           this.loader.open();
           this.futureSurveyService.deleteFutureSurvey(row).subscribe(
             data => {
+              this.snack.open(`${row.title} Deleted !`, "close", {
+                duration: 3000
+              });
               this.getAllFutureSurveys();
               this.loader.close();
             },
