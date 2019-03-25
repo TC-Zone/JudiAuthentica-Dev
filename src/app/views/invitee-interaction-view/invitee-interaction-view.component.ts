@@ -112,7 +112,7 @@ export class InviteeInteractionViewComponent implements OnInit {
             getBase64ImageFromUrl(this.imgBaseURL + this.clientId)
               .then(result => (this.clientLogoURL = result))
               .catch(err => (this.clientLogoURL = null));
-              
+
           } else if (data.content.futureSurvey.status === 2) {
             // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - FULFILLED");
           } else if (data.content.futureSurvey.status === 3) {
@@ -551,19 +551,12 @@ export class InviteeInteractionViewComponent implements OnInit {
       jsonContent.title = this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title;
     }
 
-    // ..................... TO BE SET SELECTED LANGUAGE INTO SUMMERY ........ YRS
-    console.log("START HERE");
-
-    let selectedL = JSON.parse(localStorage.getItem("surveySelectedLang"));
-    console.log(jsonContent);
-    jsonContent.locale = selectedL.code;
-    console.log(jsonContent);
-
+    
+    // ............... Change Survey default Lang to Current Lang ............
     this.surveyModel = new Survey.Model(jsonContent);
-
-    // .......................................................................
-
     Survey.StylesManager.applyTheme("bootstrap");
+    this.surveyModel.locale = JSON.parse(localStorage.getItem("surveySelectedLang")).code;
+    // .......................................................................
 
     this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
       var classes = options.cssClasses;
