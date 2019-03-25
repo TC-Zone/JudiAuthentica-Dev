@@ -43,10 +43,10 @@
           <div id="language">
             <mat-card-content>
               <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                   <mat-label>{{ 'SELECTLANGUAGE' | translate }}</mat-label>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                   <mat-select [(value)]="currentLang" (selectionChange)='changeDefaultLang()'>
                     <mat-option *ngFor="let lang of supportLangs" [value]="lang">{{lang.name}}</mat-option>
                   </mat-select>
