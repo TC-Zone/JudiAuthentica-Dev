@@ -40,14 +40,14 @@ widgets.autocomplete(SurveyKo);
 widgets.bootstrapslider(SurveyKo);
 
 var CkEditor_ModalEditor = {
-  afterRender: function(modalEditor, htmlElement) {
+  afterRender: function (modalEditor, htmlElement) {
     var editor = window["CKEDITOR"].replace(htmlElement);
-    editor.on("change", function() {
+    editor.on("change", function () {
       modalEditor.editingValue = editor.getData();
     });
     editor.setData(modalEditor.editingValue);
   },
-  destroy: function(modalEditor, htmlElement) {
+  destroy: function (modalEditor, htmlElement) {
     var instance = window["CKEDITOR"].instances[htmlElement.id];
     if (instance) {
       instance.removeAllListeners();
@@ -86,7 +86,7 @@ export class FutureSurveyComponent implements OnInit {
     private loc: LocalizationService,
     private FSOperationalService: FutureSurveyOperationalService,
     private appWarning: AppWarningService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loader.open();
@@ -205,7 +205,7 @@ export class FutureSurveyComponent implements OnInit {
     // Set the name property different from the default value
     // and set the tag property to a generated GUID value.
 
-    this.editor.onQuestionAdded.add(function(sender, options) {
+    this.editor.onQuestionAdded.add(function (sender, options) {
       let q = options.question;
 
       let text = "";
@@ -269,23 +269,27 @@ export class FutureSurveyComponent implements OnInit {
     let jsonObject = JSON.parse(this.editor.text);
 
 
-    const defLang = jsonObject.locale;
-    const langArray: any[] = this.editor.translation.koLocales._latestValue;
 
-    const extraArray: any[] = [];
-    langArray.forEach(lang => {
-      const locale = lang.locale;
-      if (locale !== "" || locale.length !== 0) {
-        extraArray.push(locale);
-      }
-    });
+    // -------------------- old code for build langJson ---------------------------
+    // const defLang = jsonObject.locale;
+    // const langArray: any[] = this.editor.translation.koLocales._latestValue;
+    // const extraArray: any[] = [];
+    // langArray.forEach(lang => {
+    //   const locale = lang.locale;
+    //   if (locale !== "" || locale.length !== 0) {
+    //     extraArray.push(locale);
+    //   }
+    // });
+    // let langJson: any;
+    // if (extraArray.length != 0) {
+    //   langJson = new LangJsonWrapper(defLang, extraArray);
+    // } else {
+    //   langJson = new DefaultLangWrapper(defLang);
+    // }
+    // ----------------------------------------------------------------------------
 
-    let langJson: any;
-    if (extraArray.length != 0) {
-      langJson = new LangJsonWrapper(defLang, extraArray);
-    } else {
-      langJson = new DefaultLangWrapper(defLang);
-    }
+
+
 
     // ---------------------------------------------------------------------------------~ HBH ~------------------
     // if anywhere in the survey has been used another language, set selected language value to text directly instead of whole value array.
@@ -293,10 +297,10 @@ export class FutureSurveyComponent implements OnInit {
     // "text": "articolo1 A" instead of "text": { "default": "item1 A", "it": "articolo1 A" }.
     // --------------------------------------------------------------------------------------------------------
 
-    let req: ValidateLocalizeSurveyRequestWrapper = this.FSOperationalService.validateLocalizeSurveyRequest( jsonObject );
+    let req: ValidateLocalizeSurveyRequestWrapper = this.FSOperationalService.validateLocalizeSurveyRequest(jsonObject);
     jsonObject = req.validateLocalizeSurveyRequest;
     console.log(req.surveyLang);
-    
+
     // --------------------------------------------------------------------------------------------------------
 
     if (this.validateFutureSurveyRequest(jsonObject)) {
