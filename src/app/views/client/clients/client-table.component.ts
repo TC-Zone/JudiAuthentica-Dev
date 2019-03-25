@@ -164,7 +164,9 @@ export class ClientTableComponent implements OnInit, OnDestroy {
       let users: UserData[] = [];
       let categories: CategoryData[] = [];
       users.push(new UserData(res[2].username, res[2].email));
-      let license: ClientLicenseData = new ClientLicenseData(res[3].tagCount, res[3].userCount, res[3].communityCount, res[3].feedbackCount, res[3].eventCount, res[3].promoCount);
+      let license: ClientLicenseData = new ClientLicenseData(
+        res[3].tagCount, res[3].userCount, res[3].communityCount, res[3].feedbackCount, res[3].eventCount, res[3].promoCount
+        );
 
       res[4].forEach(element => {
         let category: CategoryData = new CategoryData(element.id);
@@ -263,7 +265,9 @@ export class ClientTableComponent implements OnInit, OnDestroy {
         this.loader.open();
 
         let clientData: ClientData = new ClientData(resClient.id);
-        const req: LicenseUpdateReq = new LicenseUpdateReq(res.tagCount, res.userCount, res.communityCount, res.feedbackCount, res.eventCount, res.promoCount, clientData);
+        const req: LicenseUpdateReq = new LicenseUpdateReq(
+          res.tagCount, res.userCount, res.communityCount, res.feedbackCount, res.eventCount, res.promoCount, clientData
+          );
 
         this.clientService.updateClientLicense(resClient.license.id, req).subscribe(
           response => {
