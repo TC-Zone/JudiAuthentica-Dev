@@ -55,7 +55,15 @@ export class UserFeedbackComponent implements OnInit {
 
   openErrorSnack() {
     const error = {
-      message: "This is error snack bar",
+      error: {
+        error: {
+          validationFailures:[
+            {
+              code: "This.is.error.snack.bar"
+            }
+          ]
+        }
+      },
       duration: 2000
     };
     this.errDialog.showErrorSnack(error);
