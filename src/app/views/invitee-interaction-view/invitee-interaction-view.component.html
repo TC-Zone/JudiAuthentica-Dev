@@ -70,8 +70,8 @@
   <!-- for survey error -->
   <div class="page-wrap height-100 background-survey-signin-error" *ngIf="newErrorMsg" [ngStyle]="{ 'background-image': 'url(' + errorBG + ')'}"></div>
   <!-- --------------------- -->
-
-  <div fxFlex="100" fxLayoutAlign="center center" id="survey-view-survey" class="background-survey-form">
+  <div class="page-wrap background-survey-form">
+  <div id="survey-view-survey" class="height-100">
 
     <header>
       <mat-toolbar fxLayoutAlign="center center" matDialogTitle class="mat-primary m-0">
@@ -132,7 +132,7 @@
     
 
 </div>
-
+</div>
 
 
 </div>

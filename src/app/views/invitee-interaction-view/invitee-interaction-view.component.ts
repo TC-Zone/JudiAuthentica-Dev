@@ -105,14 +105,14 @@ export class InviteeInteractionViewComponent implements OnInit {
           } else if (data.content.futureSurvey.status === 1) {
             console.log(data.content.futureSurvey.id);
 
-            let jsonContenttest = JSON.parse(data.content.futureSurvey.jsonContent);
-            console.log(JSON.parse(jsonContenttest).title);
+            let jsonContent = JSON.parse(data.content.futureSurvey.jsonContent);
+            console.log(JSON.parse(jsonContent).title);
 
-            if (typeof (JSON.parse(jsonContenttest).title) !== "string") {
-              this.titleJson = JSON.parse(jsonContenttest).title;
+            if (typeof (JSON.parse(jsonContent).title) !== "string") {
+              this.titleJson = JSON.parse(jsonContent).title;
               this.surveyLoginTitle = this.titleJson['default'];
             } else {
-              this.surveyLoginTitle = JSON.parse(jsonContenttest).title;
+              this.surveyLoginTitle = JSON.parse(jsonContent).title;
             }
 
             // This response will collect language json array for a SURVEY
