@@ -276,6 +276,11 @@ var ClientService = /** @class */ (function () {
             .put(this.userUrl + "/" + id, item)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
+    ClientService.prototype.updateUserCategories = function (id, item) {
+        return this.http
+            .put(this.userUrl + "/categories/" + id, item)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
     /*
     * Create New User Role
     * Created by Prasad Kumara

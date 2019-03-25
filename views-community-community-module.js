@@ -15117,7 +15117,15 @@ var UserFeedbackComponent = /** @class */ (function () {
     };
     UserFeedbackComponent.prototype.openErrorSnack = function () {
         var error = {
-            message: "This is error snack bar",
+            error: {
+                error: {
+                    validationFailures: [
+                        {
+                            code: "This.is.error.snack.bar"
+                        }
+                    ]
+                }
+            },
             duration: 2000
         };
         this.errDialog.showErrorSnack(error);

@@ -2629,7 +2629,7 @@ var AppConfirmService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n  <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <img src=\"./../../../../assets/images/popup-window/error.png\">\r\n  </div>\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <h4 class=\"error-header\">{{ data.title }}!</h4>\r\n    </div>\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <p class=\"error-message\" [innerHTML]=\"data.message\"></p>\r\n    </div>\r\n  </div>\r\n</mat-dialog-content>\r\n<mat-dialog-actions class=\"margin-top action-section\">\r\n  <span fxFlex></span>\r\n  <button mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(false)\">Dismiss</button>\r\n  <span fxFlex></span>\r\n</mat-dialog-actions>\r\n"
+module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n  <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <img src=\"./assets/images/popup-window/error.png\">\r\n  </div>\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <h4 class=\"error-header\">{{ data.title }}!</h4>\r\n    </div>\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <p class=\"error-message\" [innerHTML]=\"data.message\"></p>\r\n    </div>\r\n  </div>\r\n</mat-dialog-content>\r\n<mat-dialog-actions class=\"margin-top action-section\">\r\n  <span fxFlex></span>\r\n  <button mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(false)\">Dismiss</button>\r\n  <span fxFlex></span>\r\n</mat-dialog-actions>\r\n"
 
 /***/ }),
 
@@ -3036,6 +3036,23 @@ var errorMessages = {
         promoDeleteRequestDeleteError: 'Unable to delete promotion.',
         listDeleteRequestDeleteError: 'Unable to delete promotion list.',
         promosByCommunitiesFetchError: 'Promotion data view error.'
+    },
+    commonFile: {
+        fileUploadAwsError: 'Unable to Upload  File : Service Provider occurred error',
+        fileUploadSdkError: 'Unable to Upload  File : Service Provider occurred error',
+        readFileStrAwsError: 'Unable to Upload  File : Service Provider occurred error',
+        readFileStrSdkError: 'Unable to Upload  File : Service Provider occurred error',
+        deleteFileAwsError: 'Unable to Upload  File : Service Provider occurred error',
+        deleteFileSdkError: 'Unable to Upload  File : Service Provider occurred error',
+        b64ImageUploadAwsError: 'Unable to Upload  File : Service Provider occurred error',
+        b64ImageUploadSdkError: 'Unable to Upload  File : Service Provider occurred error',
+        commonImgDownloadIoError: 'Unable to Upload  File : Service Provider occurred error',
+        commonImgDownloadAwsError: 'Unable to Upload  File : Service Provider occurred error',
+        commonImgDownloadSdkError: 'Unable to Upload  File : Service Provider occurred error',
+        convertByteToString: 'Unable to Upload  File : Service Provider occurred error',
+        writeContentUnsupportedEncode: 'Unable to Upload  File : Service Provider occurred error',
+        writeContentIoError: 'Unable to Upload  File : Service Provider occurred error',
+        writeContentWriteError: 'Unable to Upload  File : Service Provider occurred error'
     }
 };
 
@@ -3049,7 +3066,7 @@ var errorMessages = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <mat-toolbar matDialogTitle class=\"m-0 info-title\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">{{ data.title }} Information!</span>\r\n  </div>\r\n</mat-toolbar> -->\r\n<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n  <!-- <span class=\"info-font\">{{ data.message }}</span>\r\n  <div class=\"info-link\">\r\n    <a routerLink=\"{{ data.linkData.url }}\" (click)=\"dialogRef.close(false)\">{{ data.linkData.urlDescription }}</a>\r\n  </div> -->\r\n  <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <img src=\"./../../../../assets/images/popup-window/info.png\">\r\n  </div>\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <h4 class=\"info-header\">{{ data.title }}</h4>\r\n    </div>\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <p class=\"info-message\" [innerHTML]=\"data.message\"></p>\r\n    </div>\r\n  </div>\r\n</mat-dialog-content>\r\n<mat-dialog-actions class=\"margin-top action-section\">\r\n  <a mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(true)\">{{ data.linkData.buttonText }}</a>\r\n  <span fxFlex></span>\r\n  <button mat-button type=\"button\" class=\"close-btn\" (click)=\"dialogRef.close(false)\">Close</button>\r\n</mat-dialog-actions>\r\n"
+module.exports = "<!-- <mat-toolbar matDialogTitle class=\"m-0 info-title\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">{{ data.title }} Information!</span>\r\n  </div>\r\n</mat-toolbar> -->\r\n<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n  <!-- <span class=\"info-font\">{{ data.message }}</span>\r\n  <div class=\"info-link\">\r\n    <a routerLink=\"{{ data.linkData.url }}\" (click)=\"dialogRef.close(false)\">{{ data.linkData.urlDescription }}</a>\r\n  </div> -->\r\n  <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <img src=\"./assets/images/popup-window/info.png\">\r\n  </div>\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <h4 class=\"info-header\">{{ data.title }}</h4>\r\n    </div>\r\n    <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n      <p class=\"info-message\" [innerHTML]=\"data.message\"></p>\r\n    </div>\r\n  </div>\r\n</mat-dialog-content>\r\n<mat-dialog-actions class=\"margin-top action-section\">\r\n  <a mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(true)\">{{ data.linkData.buttonText }}</a>\r\n  <span fxFlex></span>\r\n  <button mat-button type=\"button\" class=\"close-btn\" (click)=\"dialogRef.close(false)\">Close</button>\r\n</mat-dialog-actions>\r\n"
 
 /***/ }),
 
@@ -3297,7 +3314,7 @@ var AppLoaderService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n    <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n      <img src=\"./../../../../assets/images/popup-window/warning.png\">\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n      <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n        <h4 class=\"warn-header\">{{ data.title }}</h4>\r\n      </div>\r\n      <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n        <p class=\"warn-message\" [innerHTML]=\"data.message\"></p>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n  <mat-dialog-actions class=\"margin-top action-section\">\r\n    <button mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(false)\">OK</button>\r\n    <span fxFlex></span>\r\n    <button mat-button type=\"button\" class=\"close-btn\" (click)=\"dialogRef.close(false)\">Close</button>\r\n  </mat-dialog-actions>\r\n"
+module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n    <div fxLayout=\"row\" fxLayoutAlign=\"center\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n      <img src=\"./assets/images/popup-window/warning.png\">\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"margin-top\">\r\n      <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n        <h4 class=\"warn-header\">{{ data.title }}</h4>\r\n      </div>\r\n      <div fxFlex=\"100\" fxLayoutAlign=\"center\">\r\n        <p class=\"warn-message\" [innerHTML]=\"data.message\"></p>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n  <mat-dialog-actions class=\"margin-top action-section\">\r\n    <button mat-button type=\"button\" class=\"ok-btn\" (click)=\"dialogRef.close(false)\">OK</button>\r\n    <span fxFlex></span>\r\n    <button mat-button type=\"button\" class=\"close-btn\" (click)=\"dialogRef.close(false)\">Close</button>\r\n  </mat-dialog-actions>\r\n"
 
 /***/ }),
 
