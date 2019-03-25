@@ -146,5 +146,22 @@ export const errorMessages = {
     promoDeleteRequestDeleteError : 'Unable to delete promotion.',
     listDeleteRequestDeleteError : 'Unable to delete promotion list.',
     promosByCommunitiesFetchError : 'Promotion data view error.'
+  },
+  commonFile : {
+    fileUploadAwsError : 'Unale to Upload Image or File',
+    fileUploadSdkError : 'Unale to Upload Image or File',
+    readFileStrAwsError : 'Unale to Upload Image or File',
+    readFileStrSdkError : 'Unale to Upload Image or File',
+    deleteFileAwsError : 'Unale to Upload Image or File',
+    deleteFileSdkError : 'Unale to Upload Image or File',
+    b64ImageUploadAwsError : 'Unale to Upload Image or File',
+    b64ImageUploadSdkError : 'Unale to Upload Image or File',
+    commonImgDownloadIoError : 'Unale to Upload Image or File',
+    commonImgDownloadAwsError : 'Unale to Upload Image or File',
+    commonImgDownloadSdkError : 'Unale to Upload Image or File',
+    convertByteToString : 'Unale to Upload Image or File',
+    writeContentUnsupportedEncode : 'Unale to Upload Image or File',
+    writeContentIoError : 'Unale to Upload Image or File',
+    writeContentWriteError : 'Unale to Upload Image or File'
   }
 };
