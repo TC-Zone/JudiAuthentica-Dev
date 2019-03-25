@@ -272,29 +272,29 @@ export class UserTableComponent implements OnInit {
           return;
         }
 
-        // let role: RoleData = new RoleData(successResp.content.role.id);
-        // let categories: CategoryData[] = [];
-        // res.forEach(element => {
-        //   categories.push(new CategoryData(element));
-        // });
-        // const req: UserCategoryUpdateReq = new UserCategoryUpdateReq(successResp.content.accountName, successResp.content.email, role, categories);
+        console.log(res);
 
-        // this.loader.open();
-        // this.clientService.updateUser(data.id, req).subscribe(
-        //   response => {
-        //     this.getUsers();
-        //     this.loader.close();
-        //     this.snack.open("User Category Updated!", "OK", { duration: 4000 });
-        //   },
-        //   error => {
-        //     this.loader.close();
-        //     this.errDialog.showError({
-        //       title: "Error",
-        //       status: error.status,
-        //       type: "http_error"
-        //     });
-        //   }
-        // );
+        let categories: CategoryData[] = [];
+        res.forEach(element => {
+          let category: CategoryData = new CategoryData(element.id);
+          categories.push(category);
+        });
+        
+        this.loader.open();
+        this.clientService.updateUserCategories(data.id, categories).subscribe(
+          response => {
+            this.loader.close();
+            this.snack.open("User Category Updated!", "OK", { duration: 4000 });
+          },
+          error => {
+            this.loader.close();
+            this.errDialog.showError({
+              title: "Error",
+              status: error.status,
+              type: "http_error"
+            });
+          }
+        );
       });
     },
       error => {
