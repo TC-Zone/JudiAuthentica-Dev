@@ -17,6 +17,7 @@ export class ClientService {
   userUrl: string = environment.userApiUrl + "platform-users";
   roleUrl: string = environment.userApiUrl + "platform-user-roles";
   geoUrl: string = environment.userApiUrl + "geo";
+  imageUrl: string = environment.userApiUrl + 'downloads/client/';
 
   constructor(private http: HttpClient) { }
 

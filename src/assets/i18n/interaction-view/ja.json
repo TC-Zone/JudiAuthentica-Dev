@@ -24,5 +24,6 @@
   "THANKYOU": "ありがとうございました",
   "EDITSURVEY": "アンケートを編集",
   "EDITEVOTE": "電子投票を編集",
-  "SUMMERYTITLE": "のまとめ"
+  "SUMMERYTITLE": "のまとめ",
+  "INVALIDCREDENTIAL": "無効な資格情報"
 }

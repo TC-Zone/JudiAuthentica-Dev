@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { ClientService } from '../client/client.service';
 
 export let InjectorInstance2: Injector;
 
@@ -39,7 +40,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     }),
     RouterModule.forChild(InviteeInteractionViewRoute)
   ],
-  providers: [InviteeInteractionViewService, FutureSurveyService]
+  providers: [InviteeInteractionViewService, FutureSurveyService,ClientService]
 })
 export class InviteeInteractionViewModule {
   constructor(private injector: Injector) {
