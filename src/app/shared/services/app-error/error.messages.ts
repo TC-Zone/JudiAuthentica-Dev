@@ -148,20 +148,20 @@ export const errorMessages = {
     promosByCommunitiesFetchError : 'Promotion data view error.'
   },
   commonFile : {
-    fileUploadAwsError : 'Unale to Upload Image or File',
-    fileUploadSdkError : 'Unale to Upload Image or File',
-    readFileStrAwsError : 'Unale to Upload Image or File',
-    readFileStrSdkError : 'Unale to Upload Image or File',
-    deleteFileAwsError : 'Unale to Upload Image or File',
-    deleteFileSdkError : 'Unale to Upload Image or File',
-    b64ImageUploadAwsError : 'Unale to Upload Image or File',
-    b64ImageUploadSdkError : 'Unale to Upload Image or File',
-    commonImgDownloadIoError : 'Unale to Upload Image or File',
-    commonImgDownloadAwsError : 'Unale to Upload Image or File',
-    commonImgDownloadSdkError : 'Unale to Upload Image or File',
-    convertByteToString : 'Unale to Upload Image or File',
-    writeContentUnsupportedEncode : 'Unale to Upload Image or File',
-    writeContentIoError : 'Unale to Upload Image or File',
-    writeContentWriteError : 'Unale to Upload Image or File'
+    fileUploadAwsError : 'Unable to Upload  File : Service Provider occurred error',
+    fileUploadSdkError : 'Unable to Upload  File : Service Provider occurred error',
+    readFileStrAwsError : 'Unable to Upload  File : Service Provider occurred error',
+    readFileStrSdkError : 'Unable to Upload  File : Service Provider occurred error',
+    deleteFileAwsError : 'Unable to Upload  File : Service Provider occurred error',
+    deleteFileSdkError : 'Unable to Upload  File : Service Provider occurred error',
+    b64ImageUploadAwsError : 'Unable to Upload  File : Service Provider occurred error',
+    b64ImageUploadSdkError : 'Unable to Upload  File : Service Provider occurred error',
+    commonImgDownloadIoError : 'Unable to Upload  File : Service Provider occurred error',
+    commonImgDownloadAwsError : 'Unable to Upload  File : Service Provider occurred error',
+    commonImgDownloadSdkError : 'Unable to Upload  File : Service Provider occurred error',
+    convertByteToString : 'Unable to Upload  File : Service Provider occurred error',
+    writeContentUnsupportedEncode : 'Unable to Upload  File : Service Provider occurred error',
+    writeContentIoError : 'Unable to Upload  File : Service Provider occurred error',
+    writeContentWriteError : 'Unable to Upload  File : Service Provider occurred error'
   }
 };
