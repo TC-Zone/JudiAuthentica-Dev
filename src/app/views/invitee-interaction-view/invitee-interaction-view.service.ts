@@ -85,6 +85,10 @@ export class InviteeInteractionViewService {
       .pipe(catchError(this.handleError));
   }
 
+  getSurveyByID(id): Observable<any> {
+    return this.http.get(this.surveyApiUrl + "surveys/futureSurvey/" + id).pipe(catchError(this.handleError));
+  }
+
   getInvitationByUrl(origin,url): Observable<any> {
     return this.http
       .get<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInvitation/" + origin + "/" + url)

@@ -128,7 +128,9 @@ export class FutureSurveyConfigPopupComponent
     let client = this.configForm.get("client").value;
     let origin = this.configForm.get("origin").value;
     let channel = this.configForm.get("channel").value;
-    let lang = this.configForm.get("languageJson").value;
+    // let lang = this.configForm.get("languageJson").value;
+    let lang = "en";
+    
 
     let jsonContent: JsonContentPart = new JsonContentPart(
       lang,

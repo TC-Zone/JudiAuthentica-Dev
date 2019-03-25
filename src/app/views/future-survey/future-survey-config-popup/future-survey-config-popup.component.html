@@ -14,8 +14,8 @@
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput [formControl]="configForm.controls['title']" required name="title"
-            positiveNumberAndLetterOnly placeholder="Survey Title" />
+          <input matInput [formControl]="configForm.controls['title']" required name="title" positiveNumberAndLetterOnly
+            placeholder="Survey Title" />
         </mat-form-field>
       </div>
 
@@ -27,7 +27,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <!-- [(ngModel)]="selectedOrigin" -->
+
       <div fxFlex="50" class="pr-1">
         <p>Choose the Origin for future survey</p>
         <mat-form-field class="full-width">
@@ -38,17 +38,18 @@
         </mat-form-field>
       </div>
 
-      <div *ngIf="false"  fxFlex="50" class="pr-1">
+      <div *ngIf="false" fxFlex="50" class="pr-1">
         <p>Choose the Default Language for future survey</p>
-        <mat-form-field  class="full-width">
-          <mat-select [formControl]="configForm.controls['languageJson']" required placeholder="Select Default Language">
+        <mat-form-field class="full-width">
+          <mat-select [formControl]="configForm.controls['languageJson']" required
+            placeholder="Select Default Language">
             <mat-option>none</mat-option>
             <mat-option *ngFor="let lang of langs" [value]="lang.code">{{ lang.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
 
-      <div fxFlex="100" class="pr-1">
+      <div fxFlex="50" class="pr-1">
         <p>Choose the channel for future survey</p>
         <mat-radio-group ng-click [formControl]="configForm.controls['channel']" fxLayout="row" fxLayoutGap="100px">
           <mat-radio-button value="1">Public</mat-radio-button>

@@ -11,6 +11,7 @@ import { surveyLanguage } from "app/model/FutureSurvey.model";
 import { lang } from "moment";
 import { TranslateService } from "@ngx-translate/core";
 import { ClientService } from "../client/client.service";
+import { AppLoaderService } from "app/shared/services/app-loader/app-loader.service";
 
 @Component({
   selector: "app-invitee-interaction-view",
@@ -58,6 +59,8 @@ export class InviteeInteractionViewComponent implements OnInit {
   public getLangsSub: Subscription;
   public originMap = new Map();
   public langJson: any;
+  public isVisible = false;
+  public titleJson = null;
 
   public surveyLoginTitle: string;
 
@@ -68,8 +71,11 @@ export class InviteeInteractionViewComponent implements OnInit {
     private errDialog: AppErrorService,
     private activeRoute: ActivatedRoute,
     private route: Router,
-    public translateService: TranslateService
+    public translateService: TranslateService,
+    private loader: AppLoaderService,
   ) {
+
+    this.loader.open();
     this.originMap.set("Survey", "1");
     this.originMap.set("eVote", "2");
 
@@ -86,6 +92,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     const originStr = urlArr[0];
     this.origin = originStr;
 
+
     this.inviteeInteractionViewService
       .getInvitationByUrl(this.originMap.get(originStr), this.publishUrl)
       .subscribe(
@@ -96,6 +103,17 @@ export class InviteeInteractionViewComponent implements OnInit {
             // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - ON_PREMISE");
             this.setSurveyStatusErrorMsg("ON_PREMISE");
           } else if (data.content.futureSurvey.status === 1) {
+            console.log(data.content.futureSurvey.id);
+
+            let jsonContenttest = JSON.parse(data.content.futureSurvey.jsonContent);
+            console.log(JSON.parse(jsonContenttest).title);
+
+            if (typeof (JSON.parse(jsonContenttest).title) !== "string") {
+              this.titleJson = JSON.parse(jsonContenttest).title;
+              this.surveyLoginTitle = this.titleJson['default'];
+            } else {
+              this.surveyLoginTitle = JSON.parse(jsonContenttest).title;
+            }
 
             // This response will collect language json array for a SURVEY
             console.log(data.content);
@@ -106,12 +124,15 @@ export class InviteeInteractionViewComponent implements OnInit {
             console.log(JSON.stringify(this.supportLangs));
             this.changeDefaultLang();
             this.clientId = data.content.futureSurvey.clientId;
-            this.surveyLoginTitle = data.content.futureSurvey.title;
+            // this.surveyLoginTitle = data.content.futureSurvey.title;
             console.log(this.imgBaseURL + this.clientId);
 
             getBase64ImageFromUrl(this.imgBaseURL + this.clientId)
               .then(result => (this.clientLogoURL = result))
               .catch(err => (this.clientLogoURL = null));
+
+            this.loader.close();
+            this.isVisible = true;
 
           } else if (data.content.futureSurvey.status === 2) {
             // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - FULFILLED");
@@ -132,6 +153,8 @@ export class InviteeInteractionViewComponent implements OnInit {
             console.log(error);
             // this.errDialog.showError(error);
           }
+          this.loader.close();
+          this.isVisible = true;
         }
       );
   }
@@ -169,6 +192,10 @@ export class InviteeInteractionViewComponent implements OnInit {
     this.addTranslation();
   }
 
+
+  // setLogin(){
+  // }
+
   // buildSupportLangArray(langJson): any[] {
   //   this.defaultLang = this.langs.filter(obj => {
   //     return obj.code === langJson.def;
@@ -198,11 +225,20 @@ export class InviteeInteractionViewComponent implements OnInit {
   }
 
   changeDefaultLang() {
-    localStorage.setItem(
-      "surveySelectedLang",
-      JSON.stringify(this.currentLang)
-    );
+    localStorage.setItem("surveySelectedLang", JSON.stringify(this.currentLang));
     this.translateService.use(this.currentLang.code);
+
+    if (this.titleJson !== null) {
+      if (typeof (this.titleJson) !== "string") {
+        if (this.titleJson.hasOwnProperty(this.currentLang.code)) {
+          this.surveyLoginTitle = this.titleJson[this.currentLang.code];
+        } else {
+          this.surveyLoginTitle = this.titleJson["default"];
+        }
+      } else {
+        // jsonContent.title = this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title;
+      }
+    }
   }
 
   doLog() {
@@ -280,10 +316,6 @@ export class InviteeInteractionViewComponent implements OnInit {
         this.setSurveyStatusErrorMsg("INVALID_CREDENTIALS");
       }
     );
-  }
-
-  updateUrl() {
-    console.log("OKOKO");
   }
 
   getSurveyData(interactionId) {
@@ -551,7 +583,7 @@ export class InviteeInteractionViewComponent implements OnInit {
       jsonContent.title = this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title;
     }
 
-    
+
     // ............... Change Survey default Lang to Current Lang ............
     this.surveyModel = new Survey.Model(jsonContent);
     Survey.StylesManager.applyTheme("bootstrap");
@@ -704,6 +736,8 @@ export class InviteeInteractionViewComponent implements OnInit {
         this.loginError = false;
         break;
     }
+    this.loader.close();
+    this.isVisible = true;
   }
 
   setuptheme() {
