@@ -2,7 +2,7 @@
   <form [formGroup]="interactForm">
     <div class="page-wrap height-100 background-survey-signin" *ngIf="showLogin && !newErrorMsg">
       <div id="login-view" layout="row" layout-align="center center">
-        <mat-card class="header">
+        <mat-card class="mat">
           <!-- <mat-card-header> -->
           <div class="container-fluid">
             <div class="row">
@@ -19,7 +19,7 @@
 
           <!-- </mat-card-header> -->
         </mat-card>
-        <mat-card style="margin-top:12px">
+        <mat-card class="mat">
           <div id="login-div">
             <mat-card-content>
               <h6 *ngIf="loginError" class="m-1 form-error-msg"> {{loginErrorMsg}} </h6>
@@ -39,7 +39,7 @@
           </div>
         </mat-card>
 
-        <mat-card style="margin-top:12px" *ngIf="this.supportLangs.length !== 1">
+        <mat-card class="mat" *ngIf="this.supportLangs.length !== 1">
           <div id="language">
             <mat-card-content>
               <div class="row">
@@ -55,11 +55,15 @@
             </mat-card-content>
           </div>
         </mat-card>
+        <div id="survey-login-footer">
+          <div class="container custom-center">
+            <span>{{ 'POWEREDBY' | translate }}</span>
+            <!-- <img src="assets/images/cp_logo_text.png" alt=""> -->
+            <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="">
+          </div>
+        </div>
       </div>
-      <div class="footer">
-        <p class="powered">{{ 'POWEREDBY' | translate }}</p>
-        <img src="assets/images/truverus/Tru-Verus-Logo.png" alt="">
-      </div>
+
     </div>
   </form>
 
