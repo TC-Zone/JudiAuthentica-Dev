@@ -165,7 +165,7 @@ export class FutureSurveyListComponent implements OnInit {
             console.log(response);
             this.loader.close();
             this.getAllFutureSurveys();
-            this.snack.open("New Invitee setting created ! ", "close", {
+            this.snack.open("New Invitee Setings is Created ! ", "close", {
               duration: 3000
             });
           },
