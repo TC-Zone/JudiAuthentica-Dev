@@ -20,6 +20,7 @@
               "src/assets",
               "src/assets/i18n",
               "src/assets/i18n/interaction-view",
+              "src/assets/images/",
               "src/favicon.ico"
             ],
             "styles": [
@@ -83,6 +84,7 @@
               "src/assets",
               "src/assets/i18n",
               "src/assets/i18n/interaction-view",
+              "src/assets/images/",
               "src/favicon.ico"
             ]
           }
