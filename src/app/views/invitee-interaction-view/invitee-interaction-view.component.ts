@@ -59,7 +59,7 @@ export class InviteeInteractionViewComponent implements OnInit {
   public originMap = new Map();
   public langJson: any;
 
-  public surveyLoginTitle : string;
+  public surveyLoginTitle: string;
 
   constructor(
     private inviteeInteractionViewService: InviteeInteractionViewService,
@@ -540,8 +540,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     let jsonContent = JSON.parse(this.jsonContent);
 
     if (typeof jsonContent.title !== "string") {
-
-      console.log('jsonContent.title.hasOwnProperty(this.currentLang.code)');
+      console.log("jsonContent.title.hasOwnProperty(this.currentLang.code)");
       console.log(jsonContent.title.hasOwnProperty(this.currentLang.code));
 
       if (jsonContent.title.hasOwnProperty(this.currentLang.code)) {
@@ -560,7 +559,17 @@ export class InviteeInteractionViewComponent implements OnInit {
         this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title;
     }
 
+    // ..................... TO BE SET SELECTED LANGUAGE INTO SUMMERY ........ YRS
+    console.log("START HERE");
+
+    let selectedL = JSON.parse(localStorage.getItem("surveySelectedLang"));
+    console.log(jsonContent);
+    jsonContent.locale = selectedL.code;
+    console.log(jsonContent);
+
     this.surveyModel = new Survey.Model(jsonContent);
+
+    // .......................................................................
 
     Survey.StylesManager.applyTheme("bootstrap");
 
