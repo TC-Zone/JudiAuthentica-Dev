@@ -59,7 +59,7 @@ export class InviteeInteractionViewComponent implements OnInit {
   public originMap = new Map();
   public langJson: any;
 
-  public surveyLoginTitle : string;
+  public surveyLoginTitle: string;
 
   constructor(
     private inviteeInteractionViewService: InviteeInteractionViewService,
@@ -96,6 +96,7 @@ export class InviteeInteractionViewComponent implements OnInit {
             // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - ON_PREMISE");
             this.setSurveyStatusErrorMsg("ON_PREMISE");
           } else if (data.content.futureSurvey.status === 1) {
+
             // This response will collect language json array for a SURVEY
             console.log(data.content);
             this.langJson = JSON.parse(data.content.futureSurvey.languageJson);
@@ -111,6 +112,7 @@ export class InviteeInteractionViewComponent implements OnInit {
             getBase64ImageFromUrl(this.imgBaseURL + this.clientId)
               .then(result => (this.clientLogoURL = result))
               .catch(err => (this.clientLogoURL = null));
+              
           } else if (data.content.futureSurvey.status === 2) {
             // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - FULFILLED");
           } else if (data.content.futureSurvey.status === 3) {
@@ -366,7 +368,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     localStorage.setItem("onCompleteStatus", "onComplete");
     let thankYouMsg = this.setThankYouMsg("DEFAULT_MSG");
 
-    this.surveyModel.onUpdateQuestionCssClasses.add(function(survey, options) {
+    this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
       var classes = options.cssClasses;
 
       if (options.question.getType() === "rating") {
@@ -411,7 +413,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     ];
 
     // .............. ON COMPLET START HERE ..........................
-    this.surveyModel.onComplete.add(function(result) {
+    this.surveyModel.onComplete.add(function (result) {
       if (localStorage.getItem("onCompleteStatus") === "onComplete") {
         localStorage.setItem("survey_currentPage_" + interactionId, lastPage);
       }
@@ -539,28 +541,21 @@ export class InviteeInteractionViewComponent implements OnInit {
     // let jsonContent = this.jsonContentJSON;
     let jsonContent = JSON.parse(this.jsonContent);
 
-    console.log(this.currentLang.code);
-    console.log(jsonContent.title);
-
     if (typeof (jsonContent.title) !== "string") {
       if (jsonContent.title.hasOwnProperty(this.currentLang.code)) {
         jsonContent.title = this.translateService.instant('SUMMERYTITLE') + " " + jsonContent.title[this.currentLang.code];
       } else {
-        jsonContent.title =
-          this.translateService.instant("SUMMERYTITLE") +
-          " " +
-          jsonContent.title["default"];
+        jsonContent.title = this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title["default"];
       }
     } else {
-      jsonContent.title =
-        this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title;
+      jsonContent.title = this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title;
     }
 
     this.surveyModel = new Survey.Model(jsonContent);
 
     Survey.StylesManager.applyTheme("bootstrap");
 
-    this.surveyModel.onUpdateQuestionCssClasses.add(function(survey, options) {
+    this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
       var classes = options.cssClasses;
 
       if (options.question.getType() === "rating") {
@@ -748,15 +743,15 @@ export class InviteeInteractionViewComponent implements OnInit {
 }
 
 export class InviteePart {
-  constructor(public username, public password: string) {}
+  constructor(public username, public password: string) { }
 }
 
 export class ValueTemplate {
-  constructor(public value: any) {}
+  constructor(public value: any) { }
 }
 
 export class MatrixBaseTemplate {
-  constructor(public rowValue, public columnValue: any) {}
+  constructor(public rowValue, public columnValue: any) { }
 }
 
 export class FSAnswer {
@@ -764,7 +759,7 @@ export class FSAnswer {
     public interactionId: any,
     public futureSurveyAnswers: any,
     public originalResultArray: any
-  ) {}
+  ) { }
 }
 
 async function getBase64ImageFromUrl(imageUrl) {
@@ -775,7 +770,7 @@ async function getBase64ImageFromUrl(imageUrl) {
     var reader = new FileReader();
     reader.addEventListener(
       "load",
-      function() {
+      function () {
         resolve(reader.result);
       },
       false
