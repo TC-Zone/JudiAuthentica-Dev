@@ -3,14 +3,14 @@
     <div class="card-title-text">Clients</div>
     <mat-divider></mat-divider>
 
-    <div class="m-333">
-      <button mat-raised-button class="mb-05 ml-05" color="primary" (click)="clientCreatePopUp()">Add Client</button>
-      <span fxFlex></span>
+    <div class="m-333 mb-1 mt-1 mr-1">
       <p class="mat-select-lable"> Page Size: </p>
       <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()">
         <mat-option [value]="10">10</mat-option>
         <mat-option [value]="20">20</mat-option>
       </mat-select>
+      <span fxFlex></span>
+      <button mat-raised-button class="mb-05 ml-05" color="accent" (click)="clientCreatePopUp()">Add Client</button>
     </div>
 
   </mat-card-title>

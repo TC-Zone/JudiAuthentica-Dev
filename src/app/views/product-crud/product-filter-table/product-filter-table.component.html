@@ -7,13 +7,14 @@
 </mat-form-field>
 
 <div class="m-333">
-  <button mat-raised-button class="mb-05" color="primary" (click)="openProductPopup({}, true)">Add Product</button>
-  <span fxFlex></span>
   <p class="mat-select-lable"> Page Size: </p>
   <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()" placeholder="Favorite food">
     <mat-option [value]="10">10</mat-option>
     <mat-option [value]="20">20</mat-option>
   </mat-select>
+  <span fxFlex></span>
+  <button mat-raised-button class="mb-05" (click)="openProductPopup({}, true)" color="accent">Add Product</button>
+
 </div>
 
 
@@ -94,8 +95,8 @@
           <td class="pt-1 pb-1 text-cente">{{ row?.batchNumber }}</td>
           <td class="pt-1 pb-1">{{ row?.quantity }}</td>
           <td class="pt-1 pb-1">{{ row?.expireDate }}</td>
-          <td class="pt-1 pb-1 pr-1">
-            <div class="pb-1">
+          <td class="pt-1 pb-1">
+            <!-- <div class="pb-1">
               <div class="col-lg-4 col-sm-4 col-xs-4">
                 <button mat-icon-button mat-sm-button color="primary" class="" (click)="openProductPopup(row)">
                   <mat-icon>edit</mat-icon>
@@ -111,7 +112,26 @@
                   <mat-icon>file_download</mat-icon>
                 </button>
               </div>
-            </div>
+            </div> -->
+
+            <button class="card-control" mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="openProductPopup(row)">
+                <mat-icon>edit</mat-icon>Edit
+              </button>
+
+              <button mat-menu-item color="warn" (click)="deleteProduct(row)">
+                <mat-icon>delete</mat-icon>Delete
+              </button>
+
+              <button mat-menu-item (click)="downloadCsv(row)">
+                <mat-icon>file_download</mat-icon>Download CSV
+              </button>
+            </mat-menu>
+
           </td>
         </tr>
       </tbody>
@@ -134,7 +154,7 @@
                     {{page}}
                   </a>
                 </li>
-                <li class="page-item"  [ngClass]="{'disabled':pageNumber >= totalPages.length}">
+                <li class="page-item" [ngClass]="{'disabled':pageNumber >= totalPages.length}">
                   <a class="page-link" (click)="this.getPageProduct(pageNumber+1);" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                     <span class="sr-only">Next</span>
