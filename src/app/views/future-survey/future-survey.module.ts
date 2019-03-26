@@ -45,17 +45,9 @@ import { FutureSurveyInvitationDashboardComponent } from "./future-survey-invita
 import { EditMailPopupComponent } from "./edit-mail-popup/edit-mail-popup.component";
 import { EditInvitationSettingPopupComponent } from "./edit-invitation-setting-popup/edit-invitation-setting-popup.component";
 import { ClientService } from '../client/client.service';
-import { HttpClient, HttpClientModule } from "@angular/common/http";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 
 
 export let InjectorInstance: Injector;
-
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient, './assets/i18n/interaction-view/', '.json');
-}
 
 @NgModule({
   imports: [
@@ -82,15 +74,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     MatCheckboxModule,
     RouterModule.forChild(FutureSurveyRoutes),
     SharedModule,
-    MatDatepickerModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
+    MatDatepickerModule
   ],
   declarations: [
     FutureSurveyComponent,

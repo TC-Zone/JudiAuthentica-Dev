@@ -13,7 +13,6 @@ import {
   MatrixBaseTemplate
 } from "../../../model/FutureSurvey.model";
 import { FutureSurveyOperationalService } from "../future-survey-operational.service";
-import { TranslateService } from "@ngx-translate/core";
 
 widgets.icheck(Survey);
 widgets.select2(Survey);
@@ -53,8 +52,7 @@ export class FutureSurveyViewComponent implements OnInit {
     private fb: FormBuilder,
     private errDialog: AppErrorService,
     private http: HttpClient,
-    private fsOperationalService: FutureSurveyOperationalService,
-    public translateService: TranslateService
+    private fsOperationalService: FutureSurveyOperationalService
   ) {}
 
   ngOnInit() {
@@ -270,7 +268,6 @@ export class FutureSurveyViewComponent implements OnInit {
   // change language in survey preview window by prasad kumara
   changeDefaultLang() {
     this.viewSurvey();
-    this.translateService.use(this.currentLang.code);
   }
 
   // create survey support language array by prasad kumara
@@ -285,7 +282,6 @@ export class FutureSurveyViewComponent implements OnInit {
         }
       }
     });
-    this.addTranslation();
   }
 
   // get all survey support languages by prasad kumara
@@ -295,19 +291,6 @@ export class FutureSurveyViewComponent implements OnInit {
       .subscribe(data => {
         this.langs = data.content;
       });
-  }
-
-  // add tranlation for static element in the survey view
-  addTranslation() {
-    const languages = [];
-    this.supportLangs.forEach(element => {
-      languages.push(element.code);
-    });
-    this.translateService.addLangs(languages);
-    if (this.currentLang) {
-      this.translateService.setDefaultLang(this.currentLang.code);
-      this.translateService.use(this.currentLang.code);
-    }
   }
 }
 
