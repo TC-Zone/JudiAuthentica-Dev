@@ -12,6 +12,7 @@ import {
   ValueTemplate,
   MatrixBaseTemplate
 } from "../../../model/FutureSurvey.model";
+import { FutureSurveyOperationalService } from "../future-survey-operational.service";
 
 widgets.icheck(Survey);
 widgets.select2(Survey);
@@ -40,6 +41,9 @@ export class FutureSurveyViewComponent implements OnInit {
   pageJson;
   public surveyViewForm: FormGroup;
   public answerResult: any;
+  public currentLang: language;
+  public supportLangs: language[] = [];
+  public langs: language[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -47,21 +51,29 @@ export class FutureSurveyViewComponent implements OnInit {
     private furureSurveyService: FutureSurveyService,
     private fb: FormBuilder,
     private errDialog: AppErrorService,
-    private http: HttpClient
+    private http: HttpClient,
+    private fsOperationalService: FutureSurveyOperationalService
   ) {}
 
   ngOnInit() {
+    // get all survey supprt languages
+    this.getAllSurveyLangs();
     this.sub = this.route.queryParams.subscribe(params => {
       const surveyId = params["surveyId"];
       if (surveyId) {
         this.furureSurveyService
           .getFutureSurveyById(surveyId)
           .subscribe(response => {
-            this.jsonContent = JSON.parse(response.content.jsonContent);
+            const tempJson = JSON.parse(response.content.jsonContent);
+            const surveyJson = this.fsOperationalService.validateLocalizeSurveyRequest(JSON.parse(tempJson));
+            this.jsonContent = JSON.parse(tempJson);
             //console.log(this.jsonContent)
             //console.log(response.content.jsonContent);
 
-            this.pageJson = JSON.parse(this.jsonContent).pages;
+            // build survey support languages array
+            this.buildSupportLangArray(surveyJson.surveyLang);
+
+            this.pageJson = this.jsonContent.pages;
             this.viewSurvey();
             this.setuptheme();
           });
@@ -72,6 +84,8 @@ export class FutureSurveyViewComponent implements OnInit {
   // ........... Survey Respond view should be re architecturing with following certin Angular techniquees .............
   viewSurvey() {
     const surveyModel = new Survey.Model(this.jsonContent);
+    // set survey preview language by prasad kumara
+    surveyModel.locale = this.currentLang.code;
     let pageArray = this.pageJson;
     let resultArray = [];
 
@@ -250,4 +264,39 @@ export class FutureSurveyViewComponent implements OnInit {
 
     Survey.StylesManager.applyTheme();
   }
+
+  // change language in survey preview window by prasad kumara
+  changeDefaultLang() {
+    this.viewSurvey();
+  }
+
+  // create survey support language array by prasad kumara
+  buildSupportLangArray(langJson) {
+    this.langs.forEach(element => {
+      if (langJson.extra.indexOf(element.code) > -1 || langJson.def === element.code) {
+        if (langJson.def === element.code) {
+          this.currentLang = element;
+        }
+        if (this.supportLangs.indexOf(element) == -1) {
+          this.supportLangs.push(element);
+        }
+      }
+    });
+  }
+
+  // get all survey support languages by prasad kumara
+  getAllSurveyLangs() {
+    this.furureSurveyService
+      .getAllLangs()
+      .subscribe(data => {
+        this.langs = data.content;
+      });
+  }
+}
+
+// tslint:disable-next-line:class-name
+export interface language {
+  id: string;
+  code: string;
+  name: string;
 }

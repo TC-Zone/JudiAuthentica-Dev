@@ -8,7 +8,21 @@
   <div id="surveyElement"></div>
 </div> -->
 <div fxLayout="row" fxLayoutWrap="wrap" class="background-future-survey-view">
-  <div fxFlex="100" text-right class="pr-0">
+  <div fxFlex="20" text-left class="pr-0">
+    <div class="profile-actions text-left mb-1">
+      <div class="row">
+        <div class="col-sm-5">
+          <mat-label>Select Language</mat-label>
+        </div>
+        <div class="col-sm-4">
+          <mat-select [(value)]="currentLang" (selectionChange)='changeDefaultLang()'>
+            <mat-option *ngFor="let lang of supportLangs" [value]="lang">{{lang.name}}</mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxFlex="80" text-right class="pr-0">
     <div class="profile-actions text-right mb-1">
       <div class="m-333">
         <button mat-raised-button class="mb-05" (click)="navigateToSurveyEditor()" color="accent">
