@@ -8,21 +8,8 @@
   <div id="surveyElement"></div>
 </div> -->
 <div fxLayout="row" fxLayoutWrap="wrap" class="background-future-survey-view">
-  <div fxFlex="20" text-left class="pr-0">
-    <div class="profile-actions text-left mb-1">
-      <div class="row">
-        <div class="col-sm-5">
-          <mat-label>Select Language</mat-label>
-        </div>
-        <div class="col-sm-4">
-          <mat-select [(value)]="currentLang" (selectionChange)='changeDefaultLang()'>
-            <mat-option *ngFor="let lang of supportLangs" [value]="lang">{{lang.name}}</mat-option>
-          </mat-select>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div fxFlex="80" text-right class="pr-0">
+
+  <div fxFlex="100" text-right class="pr-0">
     <div class="profile-actions text-right mb-1">
       <div class="m-333">
         <button mat-raised-button class="mb-05" (click)="navigateToSurveyEditor()" color="accent">
@@ -30,6 +17,22 @@
         </button>
       </div>
     </div>
+  </div>
+
+  <div style="margin-left: auto;margin-right: auto;">
+    <mat-card layout-align="center center" style="width:350px;height:auto;border-radius: 7px;">
+      <!-- should be change as a different css files-->
+      <div class="row">
+        <div class="col-sm-5">
+          <mat-label>Select Language</mat-label>
+        </div>
+        <div class="col-sm-7">
+          <mat-select [(value)]="currentLang" (selectionChange)='changeDefaultLang()'>
+            <mat-option *ngFor="let lang of supportLangs" [value]="lang">{{lang.name}}</mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </mat-card>
   </div>
 
   <div fxFlex="100" fxLayoutAlign="center center">
@@ -43,7 +46,7 @@
       </mat-card>
       <div id="survey-view-footer">
         <div class="container custom-center">
-          <span>Powered by</span>
+          <span>{{ 'POWEREDBY' | translate }}</span>
           <!-- <img src="assets/images/cp_logo_text.png" alt=""> -->
           <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="">
         </div>
