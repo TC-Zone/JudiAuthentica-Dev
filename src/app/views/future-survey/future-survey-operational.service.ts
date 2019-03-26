@@ -111,19 +111,31 @@ export class FutureSurveyOperationalService {
     });
 
     this.surveyLang = new LangJsonWrapper(this.defLang, this.extraLang);
+    let returnVal: ValidateLocalizeSurveyRequestWrapper = new ValidateLocalizeSurveyRequestWrapper(jsonObject, this.surveyLang);
 
-    return new ValidateLocalizeSurveyRequestWrapper(jsonObject, this.surveyLang);
+    // ------------------ validateLocalizeSurveyRequest return -------------------------
+    console.log('-------------- validateLocalizeSurveyRequest return', returnVal);
+    // ---------------------------------------------------------------------------------
+
+    return returnVal;
   }
 
 
+  // not tested properly
+  // ------------------------------------------------------------------------------------------------
+
   checkLang(array, lang) {
+    console.log('-------------- checkLang', array);
     for (const key in array) {
       if (key !== 'default' && (this.extraLang.indexOf(key) == -1)) {
         this.extraLang.push(key);
-      } else if (lang !== 'default' && key === 'default' && array.hasOwnProperty(lang)) {
+      } else if (lang !== 'default' && key === 'default' && (this.extraLang.indexOf('en') == -1)) {
         this.extraLang.push('en');
       }
     }
+    console.log('-------------- extraLang array', this.extraLang);
   }
+  
+  // ------------------------------------------------------------------------------------------------
 
 }

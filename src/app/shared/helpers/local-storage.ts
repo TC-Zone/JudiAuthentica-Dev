@@ -3,7 +3,7 @@ export class LocalStorageHandler {
 
   constructor() {
     this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    console.log("current user obj : ");
-    console.log(this.currentUser);
+    // console.log("current user obj : ");
+    // console.log(this.currentUser);
   }
 }
