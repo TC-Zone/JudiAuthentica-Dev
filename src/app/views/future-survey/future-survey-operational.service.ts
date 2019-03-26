@@ -5,8 +5,8 @@ import { ChoiceTypeEnum, MatrixTypeEnum, LangJsonWrapper, ValidateLocalizeSurvey
 export class FutureSurveyOperationalService {
 
   public surveyLang;
-  public defLang = 'en';
-  public extraLang = [];
+  public defLang;
+  public extraLang;
 
   constructor() { }
 
@@ -18,6 +18,8 @@ export class FutureSurveyOperationalService {
     // --------------------------------------------------------------------------------------------------------
 
     let lang;
+    this.defLang = 'en';
+    this.extraLang = [];
 
     if (jsonObject.locale !== undefined) {
       lang = jsonObject.locale;
@@ -110,23 +112,17 @@ export class FutureSurveyOperationalService {
 
     this.surveyLang = new LangJsonWrapper(this.defLang, this.extraLang);
 
-    return new ValidateLocalizeSurveyRequestWrapper(jsonObject, this.surveyLang);;
+    return new ValidateLocalizeSurveyRequestWrapper(jsonObject, this.surveyLang);
   }
 
 
   checkLang(array, lang) {
     for (const key in array) {
       if (key !== 'default' && (this.extraLang.indexOf(key) == -1)) {
-        this.extraLang.push(key)
+        this.extraLang.push(key);
+      } else if (lang !== 'default' && key === 'default' && array.hasOwnProperty(lang)) {
+        this.extraLang.push('en');
       }
-
-      // -------------------------------------------------------
-      // not tested properly 
-      else if (lang !== 'default' && key === 'default' && array.hasOwnProperty(lang)) {
-        this.extraLang.push('en')
-      }
-      // -------------------------------------------------------
-
     }
   }
 
