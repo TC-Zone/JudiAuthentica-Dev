@@ -2332,8 +2332,8 @@ __webpack_require__.r(__webpack_exports__);
 var LocalStorageHandler = /** @class */ (function () {
     function LocalStorageHandler() {
         this.currentUser = JSON.parse(localStorage.getItem("currentUser"));
-        console.log("current user obj : ");
-        console.log(this.currentUser);
+        // console.log("current user obj : ");
+        // console.log(this.currentUser);
     }
     return LocalStorageHandler;
 }());
