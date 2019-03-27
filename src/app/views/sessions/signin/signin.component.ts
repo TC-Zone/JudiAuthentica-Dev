@@ -8,7 +8,8 @@ import { interval } from 'rxjs';
 
 @Component({
   selector: "app-signin",
-  templateUrl: "./signin.component.html"
+  templateUrl: "./signin.component.html",
+  styleUrls: ["./signin.component.scss"],
 })
 export class SigninComponent implements OnInit {
   @ViewChild(MatProgressBar)
@@ -68,7 +69,7 @@ export class SigninComponent implements OnInit {
 
         this.userService.getUserData(response.user_id)
           .subscribe(res => {
-            const viewData =  res.content;
+            const viewData = res.content;
             tempUser.username = viewData.userName;
             tempUser.accountName = viewData.accountName;
             tempUser.userData = res.content;

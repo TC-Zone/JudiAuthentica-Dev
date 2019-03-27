@@ -1,11 +1,11 @@
 <!-- ----------------------------- invitee-interaction-view login start ----------------------------- -->
-<div id="invitee-interaction-view" *ngIf="isVisible">
+<!-- <div id="invitee-interaction-view" *ngIf="isVisible">
   <form [formGroup]="interactForm" *ngIf="showLogin && !newErrorMsg">
     <div class="page-wrap height-100 background-survey-signin" [ngStyle]="{ 'background-image': 'url(' + loginBG + ')'}">
       <div id="login-view" layout="row" layout-align="center center">
-        <mat-card class="mat">
-          <!-- <mat-card-header> -->
-          <div class="container-fluid">
+        <mat-card class="mat"> -->
+<!-- <mat-card-header> -->
+<!-- <div class="container-fluid">
             <div class="row">
               <div class="col-sm-4" *ngIf="clientLogoURLStatus">
                 <img class="logo" [src]="imgBaseURL + clientId" alt="" (error)="clientLogoURL=false">
@@ -16,9 +16,9 @@
                 </mat-card-title>
               </div>
             </div>
-          </div>
-          <!-- </mat-card-header> -->
-        </mat-card>
+          </div> -->
+<!-- </mat-card-header> -->
+<!-- </mat-card>
         <mat-card class="mat">
           <div id="login-div">
             <mat-card-content>
@@ -58,28 +58,28 @@
         </mat-card>
         <div id="survey-login-footer">
           <div class="container custom-center">
-            <span>{{ 'POWEREDBY' | translate }}</span>
-            <!-- <img src="assets/images/cp_logo_text.png" alt=""> -->
-            <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="">
+            <span>{{ 'POWEREDBY' | translate }}</span> -->
+<!-- <img src="assets/images/cp_logo_text.png" alt=""> -->
+<!-- <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="">
           </div>
         </div>
       </div>
 
     </div>
-  </form>
-  <!-- ----------------------------- invitee-interaction-view login end -=----------------------------- -->
+  </form> -->
+<!-- ----------------------------- invitee-interaction-view login end -=----------------------------- -->
 
 
 
-  <!-- ----------------------------- invitee-interaction-view error start ----------------------------- -->
-  <div class="page-wrap height-100 background-survey-signin-error" *ngIf="newErrorMsg"
-    [ngStyle]="{ 'background-image': 'url(' + errorBG + ')'}"></div>
-  <!-- ----------------------------- invitee-interaction-view error end ------------------------------- -->
+<!-- ----------------------------- invitee-interaction-view error start ----------------------------- -->
+<!-- <div class="page-wrap height-100 background-survey-signin-error" *ngIf="newErrorMsg"
+    [ngStyle]="{ 'background-image': 'url(' + errorBG + ')'}"></div> -->
+<!-- ----------------------------- invitee-interaction-view error end ------------------------------- -->
 
 
 
-  <!-- ----------------------------- invitee-interaction-view survey start ----------------------------- -->
-  <div class="page-wrap background-survey-form" *ngIf="!showLogin">
+<!-- ----------------------------- invitee-interaction-view survey start ----------------------------- -->
+<!-- <div class="page-wrap background-survey-form" *ngIf="!showLogin">
     <div id="survey-view-survey" class="height-100">
 
       <header>
@@ -87,19 +87,19 @@
           <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
             <div mat-card-avatar class="example-header-image"
               [ngStyle]="{ 'background-image': 'url(' + imgBaseURL + clientId + ')'}"></div>
-          </div>
-          <!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
-          <!-- <span class="example-card-title hidden-xs">Clear Picture</span> -->
-          <span class="example-spacer"></span>
+          </div> -->
+<!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
+<!-- <span class="example-card-title hidden-xs">Clear Picture</span> -->
+<!-- <span class="example-spacer"></span> -->
 
 
-          <!-- this is the line that displayed loged user name with 'HI' -->
-          <!-- ----------------------------------------------------------------------------------------------------------- -->
-          <!-- <span *ngIf="loggedInviteeName" class="example-invite">{{ 'HI' | translate }}, {{loggedInviteeName}}</span> -->
-          <!-- ----------------------------------------------------------------------------------------------------------- -->
+<!-- this is the line that displayed loged user name with 'HI' -->
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+<!-- <span *ngIf="loggedInviteeName" class="example-invite">{{ 'HI' | translate }}, {{loggedInviteeName}}</span> -->
+<!-- ----------------------------------------------------------------------------------------------------------- -->
 
 
-        </mat-toolbar>
+<!-- </mat-toolbar>
       </header>
 
       <div class="survey-page-wrap">
@@ -144,6 +144,169 @@
 
       <div id="survey-view-footer">
         <div class="container custom-center">
+          <span>{{ 'POWEREDBY' | translate }}</span> -->
+<!-- <img src="assets/images/cp_logo_text.png" alt=""> -->
+<!-- <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="">
+        </div>
+      </div>
+
+
+    </div>
+  </div> -->
+<!-- ----------------------------- invitee-interaction-view survey end ------------------------------- -->
+
+
+<!-- </div>
+
+
+
+
+<script>
+  $.material.init();
+</script> -->
+
+
+<!-- ----------------------------- invitee-interaction-view login start ----------------------------- -->
+<div id="invitee-interaction-view-main" *ngIf="isVisible">
+  <form [formGroup]="interactForm" *ngIf="showLogin && !newErrorMsg">
+    <div class="page-wrap height-100 interaction-view-background-signin" [ngStyle]="{ 'background-image': 'url(' + loginBG + ')'}">
+      <div id="login" layout="row" layout-align="center center">
+        <mat-card class="mat-card-iiv">
+          <!-- <mat-card-header> -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-4" *ngIf="clientLogoURLStatus">
+                <img class="client_logo" [src]="imgBaseURL + clientId" alt="" (error)="clientLogoURL=false">
+              </div>
+              <div class="col-sm-8">
+                <mat-card-title class="mat-title-iiv">
+                  <h5>{{surveyLoginTitle}}</h5>
+                </mat-card-title>
+              </div>
+            </div>
+          </div>
+          <!-- </mat-card-header> -->
+        </mat-card>
+        <mat-card class="mat-card-iiv">
+          <div id="login-div">
+            <mat-card-content>
+              <h6 *ngIf="loginError" class="m-1 form-error-msg"> {{loginErrorMsg}} </h6>
+              <mat-form-field class="full-width">
+                <input type="text" name="username" matInput placeholder="{{ 'USERNAME' | translate }}" value=""
+                  [formControl]="interactForm.controls['username']" required name="username">
+              </mat-form-field>
+
+              <mat-form-field class="full-width">
+                <input type="password" name="password" matInput placeholder="{{ 'PASSWORD' | translate }}" value=""
+                  [formControl]="interactForm.controls['password']" required name="password">
+              </mat-form-field>
+
+              <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()" [disabled]="interactForm.invalid">{{
+                'LOGINBUTTON' | translate }}</button>
+            </mat-card-content>
+          </div>
+        </mat-card>
+
+        <mat-card class="mat-card-iiv" *ngIf="this.supportLangs.length !== 1">
+          <div id="language">
+            <mat-card-content>
+              <div class="row">
+                <div class="col-sm-7">
+                  <mat-label>{{ 'SELECTLANGUAGE' | translate }}</mat-label>
+                </div>
+                <div class="col-sm-5">
+                  <mat-select [(value)]="currentLang" (selectionChange)='changeDefaultLang()'>
+                    <mat-option *ngFor="let lang of supportLangs" [value]="lang">{{lang.name}}</mat-option>
+                  </mat-select>
+                </div>
+              </div>
+            </mat-card-content>
+          </div>
+        </mat-card>
+        <div id="survey-login-footer">
+          <div class="container custom-center">
+            <span>{{ 'POWEREDBY' | translate }}</span>
+            <!-- <img src="assets/images/cp_logo_text.png" alt=""> -->
+            <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+  <!-- ----------------------------- invitee-interaction-view login end -=----------------------------- -->
+
+
+
+  <!-- ----------------------------- invitee-interaction-view error start ----------------------------- -->
+  <div class="page-wrap height-100 interaction-view-background-signin-error" *ngIf="newErrorMsg" [ngStyle]="{ 'background-image': 'url(' + errorBG + ')'}"></div>
+  <!-- ----------------------------- invitee-interaction-view error end ------------------------------- -->
+
+
+
+  <!-- ----------------------------- invitee-interaction-view survey start ----------------------------- -->
+  <div class="page-wrap background-survey-form" *ngIf="!showLogin">
+    <div id="survey-view-survey" class="height-100">
+
+      <header>
+        <mat-toolbar fxLayoutAlign="center center" matDialogTitle class="mat-primary m-0">
+          <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <div mat-card-avatar class="header-image" [ngStyle]="{ 'background-image': 'url(' + imgBaseURL + clientId + ')'}"></div>
+          </div>
+          <!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
+          <!-- <span class="example-card-title hidden-xs">Clear Picture</span> -->
+          <!-- <span class="example-spacer"></span> -->
+
+
+          <!-- this is the line that displayed loged user name with 'HI' -->
+          <!-- ----------------------------------------------------------------------------------------------------------- -->
+          <!-- <span *ngIf="loggedInviteeName" class="example-invite">{{ 'HI' | translate }}, {{loggedInviteeName}}</span> -->
+          <!-- ----------------------------------------------------------------------------------------------------------- -->
+
+
+        </mat-toolbar>
+      </header>
+
+      <div class="survey-page-wrap-iiv">
+        <div class="survey-form-hold-iiv">
+          <mat-card id="finishedSurveyMsg-iiv" class="survey-mat-card mat-card">
+            <mat-card-content>
+              <h5 *ngIf="origin === 'Survey'">{{ 'THESURVEYPRVSUB' | translate }}</h5>
+              <h5 *ngIf="origin !== 'Survey'">{{ 'THEEVOTEPRVSUB' | translate }}</h5>
+              <h6>{{ 'SUMMERYTEXT' | translate }}</h6>
+            </mat-card-content>
+          </mat-card>
+          <mat-card class="survey-mat-card">
+            <mat-card-content>
+              <div id="surveyElement"></div>
+              <div id="surveyResult"></div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+
+      <mat-card-content>
+
+        <div class="pb-1" style="text-align: center">
+          <a id="btnViewSummary" mat-raised-button class="mr-1" (click)="viewSummary()">{{ 'VIEWSUMMERY' | translate }}</a>
+          <a id="btnViewSurvey" *ngIf="origin ==='Survey'" mat-raised-button class="mr-1" (click)="viewSurvey()">{{
+            'EDITSURVEY' | translate }}</a>
+          <a id="btnViewSurvey" *ngIf="origin !=='Survey'" mat-raised-button class="mr-1" (click)="viewSurvey()">{{
+            'EDITEVOTE' | translate }}</a>
+          <a id="btnSubmitSurvey" *ngIf="origin ==='Survey'" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">{{
+            'SUBMITSURVEY' | translate }}</a>
+          <a id="btnSubmitSurvey" *ngIf="origin !=='Survey'" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">{{
+            'SUBMITEVOTE' | translate }}</a>
+          <a id="btnAnswerLater" mat-raised-button color="primary" class="mr-1" (click)="answerLater()">{{
+            'ANSWERLATER' |
+            translate }}</a>
+        </div>
+
+      </mat-card-content>
+
+
+      <div id="survey-view-footer-iiv">
+        <div class="container custom-center">
           <span>{{ 'POWEREDBY' | translate }}</span>
           <!-- <img src="assets/images/cp_logo_text.png" alt=""> -->
           <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="">
@@ -155,12 +318,7 @@
   </div>
   <!-- ----------------------------- invitee-interaction-view survey end ------------------------------- -->
 
-
+  <script>
+    $.material.init();
+  </script> -->
 </div>
-
-
-
-
-<script>
-  $.material.init();
-</script>
