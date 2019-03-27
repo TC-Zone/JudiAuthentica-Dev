@@ -33,6 +33,12 @@ export class FutureSurveyListComponent implements OnInit {
     4: { id: 4, status: "Offline", style: "default" }
   };
 
+  // pagination
+  pageNumber = 1;
+  pageSize = 10;
+  totalPages = [];
+  totalRecords = 0;
+
   constructor(
     private futureSurveyService: FutureSurveyService,
     private clientService: CrudService,
@@ -43,7 +49,7 @@ export class FutureSurveyListComponent implements OnInit {
     private errDialog: AppErrorService,
     private dialog: MatDialog,
     private snack: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getAllFutureSurveys();
@@ -307,4 +313,41 @@ export class FutureSurveyListComponent implements OnInit {
         }
       });
   }
+
+  // --------- BH ----------
+  // getPageProduct(pageNumber) {
+  //   if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
+  //     this.pageNumber = pageNumber;
+
+  //     this.getProductsSub = this.prodService.getPageProducts(pageNumber, this.pageSize).subscribe(
+  //       successResp => {
+  //         this.rows = this.temp = successResp.content;
+  //         let totalPages = successResp.pagination.totalPages;
+  //         let totalPagesArray = [];
+
+  //         if (totalPages > 1) {
+  //           for (let i = 1; i <= totalPages; i++) {
+  //             totalPagesArray.push(i);
+  //           }
+  //         }
+  //         this.totalPages = totalPagesArray;
+  //         this.totalRecords = successResp.pagination.totalRecords;
+
+  //       },
+  //       error => {
+  //         this.loader.close();
+  //         console.log(error);
+  //         console.log(error.status);
+  //         this.errDialog.showError(error);
+  //       }
+  //     );
+  //   }
+  // }
+
+
+  // changeValue() {
+  //   this.pageNumber = 1;
+  //   this.getPageProduct(this.pageNumber);
+  // }
+  // --------- BH ----------
 }

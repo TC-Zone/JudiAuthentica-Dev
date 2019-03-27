@@ -8,15 +8,15 @@
     <mat-divider></mat-divider>
 
     <!-- <div class="profile-actions text-right mb-1"> -->
-      <div class="m-333">
-        <p class="mat-select-lable"> Page Size: </p>
-        <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()" placeholder="Favorite food">
-          <mat-option [value]="10">10</mat-option>
-          <mat-option [value]="20">20</mat-option>
-        </mat-select>
-        <span fxFlex></span>
-        <button mat-raised-button class="mb-05" (click)='openSurveyPopup({},true)' color="primary">Add Feedback</button>
-      </div>
+    <div class="m-333">
+      <p class="mat-select-lable"> Page Size: </p>
+      <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()" placeholder="Favorite food">
+        <mat-option [value]="10">10</mat-option>
+        <mat-option [value]="20">20</mat-option>
+      </mat-select>
+      <span fxFlex></span>
+      <button mat-raised-button class="mb-05" (click)='openSurveyPopup({},true)' color="accent">Add Feedback</button>
+    </div>
     <!-- </div> -->
 
 
