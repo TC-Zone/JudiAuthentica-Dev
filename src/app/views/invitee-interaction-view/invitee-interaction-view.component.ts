@@ -26,6 +26,7 @@ export class InviteeInteractionViewComponent implements OnInit {
   public loginErrorMsg;
   public newErrorMsg = false;
   public errorBG;
+  public loginBG;
 
   public surveyId;
   public interactionResponStatus;
@@ -86,6 +87,11 @@ export class InviteeInteractionViewComponent implements OnInit {
     this.activeRoute.params.subscribe(params => {
       this.publishUrl = params["uniqueName"];
     });
+
+    // --------------- invitee-interaction-view login background ------------------
+    // can be update
+    this.loginBG = "https://i.ibb.co/ng7GqvM/Survey-Gradient-Background.jpg";
+    // ----------------------------------------------------------------------------
 
     const currentUrl = this.route.url;
     const urlArr: any[] = currentUrl.substring(1).split("/", 2);

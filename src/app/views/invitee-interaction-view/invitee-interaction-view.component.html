@@ -1,13 +1,14 @@
+<!-- ----------------------------- invitee-interaction-view login start ----------------------------- -->
 <div id="invitee-interaction-view" *ngIf="isVisible">
-  <form [formGroup]="interactForm">
-    <div class="page-wrap height-100 background-survey-signin" *ngIf="showLogin && !newErrorMsg">
+  <form [formGroup]="interactForm" *ngIf="showLogin && !newErrorMsg">
+    <div class="page-wrap height-100 background-survey-signin" [ngStyle]="{ 'background-image': 'url(' + loginBG + ')'}">
       <div id="login-view" layout="row" layout-align="center center">
         <mat-card class="mat">
           <!-- <mat-card-header> -->
           <div class="container-fluid">
             <div class="row">
               <div class="col-sm-4" *ngIf="clientLogoURLStatus">
-                <img class="logo" [src]="this.imgBaseURL + loginErrorMsg" alt="" (error)="clientLogoURL=false">
+                <img class="logo" [src]="imgBaseURL + clientId" alt="" (error)="clientLogoURL=false">
               </div>
               <div class="col-sm-8">
                 <mat-card-title class="mat-title">
@@ -16,7 +17,6 @@
               </div>
             </div>
           </div>
-
           <!-- </mat-card-header> -->
         </mat-card>
         <mat-card class="mat">
@@ -67,28 +67,42 @@
 
     </div>
   </form>
+  <!-- ----------------------------- invitee-interaction-view login end -=----------------------------- -->
 
-  <!-- for survey error -->
+
+
+  <!-- ----------------------------- invitee-interaction-view error start ----------------------------- -->
   <div class="page-wrap height-100 background-survey-signin-error" *ngIf="newErrorMsg"
     [ngStyle]="{ 'background-image': 'url(' + errorBG + ')'}"></div>
-  <!-- --------------------- -->
-  <div class="page-wrap background-survey-form">
+  <!-- ----------------------------- invitee-interaction-view error end ------------------------------- -->
+
+
+
+  <!-- ----------------------------- invitee-interaction-view survey start ----------------------------- -->
+  <div class="page-wrap background-survey-form" *ngIf="!showLogin">
     <div id="survey-view-survey" class="height-100">
 
       <header>
         <mat-toolbar fxLayoutAlign="center center" matDialogTitle class="mat-primary m-0">
           <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
             <div mat-card-avatar class="example-header-image"
-              [ngStyle]="{ 'background-image': 'url(' + clientLogoURL + ')'}"></div>
+              [ngStyle]="{ 'background-image': 'url(' + imgBaseURL + clientId + ')'}"></div>
           </div>
           <!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
           <!-- <span class="example-card-title hidden-xs">Clear Picture</span> -->
           <span class="example-spacer"></span>
-          <span *ngIf="loggedInviteeName" class="example-invite">{{ 'HI' | translate }}, {{loggedInviteeName}}</span>
+
+
+          <!-- this is the line that displayed loged user name with 'HI' -->
+          <!-- ----------------------------------------------------------------------------------------------------------- -->
+          <!-- <span *ngIf="loggedInviteeName" class="example-invite">{{ 'HI' | translate }}, {{loggedInviteeName}}</span> -->
+          <!-- ----------------------------------------------------------------------------------------------------------- -->
+
+
         </mat-toolbar>
       </header>
 
-      <div class="survey-page-wrap" *ngIf="!showLogin">
+      <div class="survey-page-wrap">
         <div class="survey-form-hold">
           <mat-card id="finishedSurveyMsg" class="survey-mat-card">
             <mat-card-content>
@@ -139,6 +153,7 @@
 
     </div>
   </div>
+  <!-- ----------------------------- invitee-interaction-view survey end ------------------------------- -->
 
 
 </div>
