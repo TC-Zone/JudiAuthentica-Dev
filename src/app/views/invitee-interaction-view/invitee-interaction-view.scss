@@ -1,8 +1,11 @@
-
+.page-wrap {
+  display: flex;
+  padding: 0px;
+}
 #invitee-interaction-view-main{
 
     .interaction-view-background-signin {
-      background-image: url("assets/images/survey_signin/FountainVest-Partners-Background.jpg") !important;
+      background-image: url("assets/images/survey_signin/FountainVest-Partners-Background-gradient.jpg") !important;
       background-size: cover !important;
       background-repeat: no-repeat !important;
     }
@@ -111,11 +114,6 @@
     }
   }
 
-  mat-toolbar{
-    position: fixed;
-    z-index: 999;
-  }
-  
   
   @media screen and (min-width: 768px) {
     #login{
@@ -169,7 +167,13 @@
     // align-items: center;
     padding: 60px 1rem;
     // min-height: 733px;
-    margin-top: 60px !important;
+    margin-top: 60px !important; 
+  }
+ 
+  //fixed header
+  mat-toolbar{
+    position: fixed;
+    z-index: 999;
   }
 
   .survey-form-hold-iiv {
