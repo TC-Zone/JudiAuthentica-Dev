@@ -91,10 +91,8 @@ export class InviteeInteractionViewComponent implements OnInit {
     });
 
     // --------------- invitee-interaction-view login and survey background ------------------
-    // this can be update
-    // Currently use same img for loginBG and surveyBG.
-    this.loginBG = "https://i.ibb.co/ng7GqvM/Survey-Gradient-Background.jpg";
-    this.surveyBG = "https://i.ibb.co/ng7GqvM/Survey-Gradient-Background.jpg";
+    // this.loginBG = "";
+    // this.surveyBG = "";
     // ---------------------------------------------------------------------------------------
 
     const currentUrl = this.route.url;

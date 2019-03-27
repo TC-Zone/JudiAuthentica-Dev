@@ -5,14 +5,16 @@
 #invitee-interaction-view-main{
 
     .interaction-view-background-signin {
-      background-image: url("assets/images/survey_signin/FountainVest-Partners-Background-gradient.jpg") !important;
+      // background-image: url("assets/images/survey_signin/FountainVest-Partners-Background-gradient.jpg") !important;
+      background-image: url("https://s3-us-west-2.amazonaws.com/clear-picture/common/TruVerus-Survey-Background.jpg") !important;
       background-size: cover !important;
       background-repeat: no-repeat !important;
     }
   
     .background-survey-form {
       // background-image: url("assets/images/survey_background/Survey-Background-01_3.jpg") !important;
-      background-image: url("assets/images/survey_background/FountainVest-Survey-Background.jpg") !important;
+      // background-image: url("assets/images/survey_background/FountainVest-Survey-Background.jpg") !important;
+      background-image: url("https://s3-us-west-2.amazonaws.com/clear-picture/common/TruVerus-Survey-Background.jpg") !important;
       background-size: cover !important;
       background-repeat: no-repeat !important;
       overflow: auto;
@@ -20,8 +22,6 @@
     }
   
     .interaction-view-background-signin-error {
-      // background-image: url("assets/images/survey_background/Survey-Background-01_3.jpg") !important;
-      // background-image: url("assets/images/survey_background/FountainVest-Survey-Background.jpg") !important;
       background-size: cover !important;
       background-repeat: no-repeat !important;
     }

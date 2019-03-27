@@ -98,10 +98,10 @@
 <!-- <span *ngIf="loggedInviteeName" class="example-invite">{{ 'HI' | translate }}, {{loggedInviteeName}}</span> -->
 <!-- ----------------------------------------------------------------------------------------------------------- -->
 
-        <!-- this is the line that displayed loged user name with 'HI' -->
-        <!-- ----------------------------------------------------------------------------------------------------------- -->
-        <!-- <span *ngIf="loggedInviteeName" class="example-invite">{{ 'HI' | translate }}, {{loggedInviteeName}}</span> -->
-        <!-- ----------------------------------------------------------------------------------------------------------- -->
+<!-- this is the line that displayed loged user name with 'HI' -->
+<!-- ----------------------------------------------------------------------------------------------------------- -->
+<!-- <span *ngIf="loggedInviteeName" class="example-invite">{{ 'HI' | translate }}, {{loggedInviteeName}}</span> -->
+<!-- ----------------------------------------------------------------------------------------------------------- -->
 
 <!-- </mat-toolbar>
       </header>
@@ -173,7 +173,8 @@
 <!-- ----------------------------- invitee-interaction-view login start ----------------------------- -->
 <div id="invitee-interaction-view-main" *ngIf="isVisible">
   <form [formGroup]="interactForm" *ngIf="showLogin && !newErrorMsg">
-    <div class="page-wrap height-100 interaction-view-background-signin" [ngStyle]="{ 'background-image': 'url(' + loginBG + ')'}">
+    <div class="page-wrap height-100 interaction-view-background-signin"
+      [ngStyle]="{ 'background-image': 'url(' + loginBG + ')'}">
       <div id="login" layout="row" layout-align="center center">
         <mat-card class="mat-card-iiv">
           <!-- <mat-card-header> -->
@@ -205,7 +206,8 @@
                   [formControl]="interactForm.controls['password']" required name="password">
               </mat-form-field>
 
-              <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()" [disabled]="interactForm.invalid">{{
+              <button mat-raised-button class="mat-primary full-width mb-1" (click)="doLog()"
+                [disabled]="interactForm.invalid">{{
                 'LOGINBUTTON' | translate }}</button>
             </mat-card-content>
           </div>
@@ -243,18 +245,21 @@
 
 
   <!-- ----------------------------- invitee-interaction-view error start ----------------------------- -->
-  <div class="page-wrap height-100 interaction-view-background-signin-error" *ngIf="newErrorMsg" [ngStyle]="{ 'background-image': 'url(' + errorBG + ')'}"></div>
+  <div class="page-wrap height-100 interaction-view-background-signin-error" *ngIf="newErrorMsg"
+    [ngStyle]="{ 'background-image': 'url(' + errorBG + ')'}"></div>
   <!-- ----------------------------- invitee-interaction-view error end ------------------------------- -->
 
 
 
   <!-- ----------------------------- invitee-interaction-view survey start ----------------------------- -->
-  <div class="page-wrap background-survey-form" *ngIf="!showLogin"  [ngStyle]="{ 'background-image': 'url(' + surveyBG + ')'}">
+  <div class="page-wrap background-survey-form" *ngIf="!showLogin"
+    [ngStyle]="{ 'background-image': 'url(' + surveyBG + ')'}">
     <div id="survey-view-survey" class="height-100">
 
       <mat-toolbar fxLayoutAlign="center center" matDialogTitle class="mat-primary m-0">
         <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-          <div mat-card-avatar class="header-image" [ngStyle]="{ 'background-image': 'url(' + imgBaseURL + clientId + ')'}"></div>
+          <div mat-card-avatar class="header-image"
+            [ngStyle]="{ 'background-image': 'url(' + imgBaseURL + clientId + ')'}"></div>
         </div>
         <!-- <mat-card-title class="example-card-title">Nova Scotia Engineers</mat-card-title> -->
         <!-- <span class="example-card-title hidden-xs">Clear Picture</span> -->
@@ -282,6 +287,9 @@
             <mat-card-content>
               <div id="surveyElement"></div>
               <div id="surveyResult"></div>
+              <a id="surveyPrev" href="#" onclick="survey.prevPage();">Prev</a>
+              <a id="surveyNext" href="#" onclick="survey.nextPage();">Next</a>
+              <a id="surveyComplete" href="#" onclick="survey.completeLastPage();">Complete</a>
             </mat-card-content>
           </mat-card>
         </div>
@@ -290,14 +298,17 @@
       <mat-card-content>
 
         <div class="pb-1" style="text-align: center">
-          <a id="btnViewSummary" mat-raised-button class="mr-1" (click)="viewSummary()">{{ 'VIEWSUMMERY' | translate }}</a>
+          <a id="btnViewSummary" mat-raised-button class="mr-1"
+            (click)="viewSummary()">{{ 'VIEWSUMMERY' | translate }}</a>
           <a id="btnViewSurvey" *ngIf="origin ==='Survey'" mat-raised-button class="mr-1" (click)="viewSurvey()">{{
             'EDITSURVEY' | translate }}</a>
           <a id="btnViewSurvey" *ngIf="origin !=='Survey'" mat-raised-button class="mr-1" (click)="viewSurvey()">{{
             'EDITEVOTE' | translate }}</a>
-          <a id="btnSubmitSurvey" *ngIf="origin ==='Survey'" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">{{
+          <a id="btnSubmitSurvey" *ngIf="origin ==='Survey'" mat-raised-button color="primary" class="mr-1"
+            (click)="submitSurvey()">{{
             'SUBMITSURVEY' | translate }}</a>
-          <a id="btnSubmitSurvey" *ngIf="origin !=='Survey'" mat-raised-button color="primary" class="mr-1" (click)="submitSurvey()">{{
+          <a id="btnSubmitSurvey" *ngIf="origin !=='Survey'" mat-raised-button color="primary" class="mr-1"
+            (click)="submitSurvey()">{{
             'SUBMITEVOTE' | translate }}</a>
           <a id="btnAnswerLater" mat-raised-button color="primary" class="mr-1" (click)="answerLater()">{{
             'ANSWERLATER' |
