@@ -29,7 +29,7 @@ export class InviteeInteractionViewComponent implements OnInit {
 
   public surveyId;
   public interactionResponStatus;
-  public clientLogoURL;
+  public clientLogoURLStatus = true;
   public imgBaseURL: string;
   public clientId;
   public clientTitle;
@@ -125,11 +125,6 @@ export class InviteeInteractionViewComponent implements OnInit {
             this.changeDefaultLang();
             this.clientId = data.content.futureSurvey.clientId;
             // this.surveyLoginTitle = data.content.futureSurvey.title;
-            console.log(this.imgBaseURL + this.clientId);
-
-            getBase64ImageFromUrl(this.imgBaseURL + this.clientId)
-              .then(result => (this.clientLogoURL = result))
-              .catch(err => (this.clientLogoURL = null));
 
             this.loader.close();
             this.isVisible = true;
@@ -191,10 +186,6 @@ export class InviteeInteractionViewComponent implements OnInit {
     });
     this.addTranslation();
   }
-
-
-  // setLogin(){
-  // }
 
   // buildSupportLangArray(langJson): any[] {
   //   this.defaultLang = this.langs.filter(obj => {
@@ -286,13 +277,6 @@ export class InviteeInteractionViewComponent implements OnInit {
                 header.fieldName
               ];
             });
-
-            // this.clientId = loggedInteraction.futureSurvey.clientId;
-            // this.clientLogoURL = null;
-
-            // getBase64ImageFromUrl(this.imgBaseURL + this.clientId)
-            // .then(result => this.clientLogoURL = result)
-            // .catch(err => this.clientLogoURL = null);
 
             console.log(this.customFields);
             console.log(this.customField);

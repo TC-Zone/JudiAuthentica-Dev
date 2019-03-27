@@ -17,6 +17,11 @@ export class FutureSurveyOperationalService {
     // "text": "articolo1 A" instead of "text": { "default": "item1 A", "it": "articolo1 A" }.
     // --------------------------------------------------------------------------------------------------------
 
+    
+    // ------------------ validateLocalizeSurveyRequest input -------------------------
+    console.log('-------------- validateLocalizeSurveyRequest input', jsonObject);
+    // ---------------------------------------------------------------------------------
+
     let lang;
     this.defLang = 'en';
     this.extraLang = [];
@@ -125,7 +130,6 @@ export class FutureSurveyOperationalService {
   // ------------------------------------------------------------------------------------------------
 
   checkLang(array, lang) {
-    console.log('-------------- checkLang', array);
     for (const key in array) {
       if (key !== 'default' && (this.extraLang.indexOf(key) == -1)) {
         this.extraLang.push(key);
@@ -133,7 +137,6 @@ export class FutureSurveyOperationalService {
         this.extraLang.push('en');
       }
     }
-    console.log('-------------- extraLang array', this.extraLang);
   }
   
   // ------------------------------------------------------------------------------------------------
