@@ -15,6 +15,7 @@
   "ANSWERLATER": "後で回答",
   "POWEREDBY": "搭載",
   "SELECTLANGUAGE": "あなたが使う言語を選んでください",
+  "ANSWERLATERMSG": "あなたの回答は保存されました。電子メールの招待状に記載されているリンクと資格情報を使用して、いつでも調査に戻って調査を完了できます。",
   "ANSWERLATERMSGSURVEY": "後で調査に回答しようとしています",
   "ANSWERLATERMSGEVOTE": "後で電子投票に回答しようとしています",
   "SUBMITMSGSURVEY": "あなたは調査を終えました",

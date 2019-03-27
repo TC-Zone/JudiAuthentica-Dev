@@ -15,6 +15,7 @@
   "ANSWERLATER": "Válasz később",
   "POWEREDBY": "Powered by",
   "SELECTLANGUAGE": "Válaszd ki a nyelved",
+  "ANSWERLATERMSG": "A válaszok mentésre kerültek. Bármikor visszatérhet a felméréshez az e-mail meghívásban található link és hitelesítő adatok használatával.",
   "ANSWERLATERMSGSURVEY": "Ön megkísérli később megválaszolni a felmérést",
   "ANSWERLATERMSGEVOTE": "Megpróbál választ később válaszolni az elektronikus szavazásra",
   "SUBMITMSGSURVEY": "A felmérés befejeződött",

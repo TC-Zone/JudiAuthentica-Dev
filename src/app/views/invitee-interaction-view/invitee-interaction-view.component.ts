@@ -27,6 +27,7 @@ export class InviteeInteractionViewComponent implements OnInit {
   public newErrorMsg = false;
   public errorBG;
   public loginBG;
+  public surveyBG;
 
   public surveyId;
   public interactionResponStatus;
@@ -88,10 +89,12 @@ export class InviteeInteractionViewComponent implements OnInit {
       this.publishUrl = params["uniqueName"];
     });
 
-    // --------------- invitee-interaction-view login background ------------------
-    // can be update
+    // --------------- invitee-interaction-view login and survey background ------------------
+    // this can be update
+    // Currently use same img for loginBG and surveyBG.
     this.loginBG = "https://i.ibb.co/ng7GqvM/Survey-Gradient-Background.jpg";
-    // ----------------------------------------------------------------------------
+    this.surveyBG = "https://i.ibb.co/ng7GqvM/Survey-Gradient-Background.jpg";
+    // ---------------------------------------------------------------------------------------
 
     const currentUrl = this.route.url;
     const urlArr: any[] = currentUrl.substring(1).split("/", 2);
@@ -671,9 +674,9 @@ export class InviteeInteractionViewComponent implements OnInit {
     switch (msgType) {
       case "ANSWER_LATER_MSG":
         if (this.origin === "Survey") {
-          msgText = this.translateService.instant("ANSWERLATERMSGSURVEY");
+          msgText = this.translateService.instant("ANSWERLATERMSG");
         } else {
-          msgText = this.translateService.instant("ANSWERLATERMSGEVOTE");
+          msgText = this.translateService.instant("ANSWERLATERMSG");
         }
         return MSG_PART_1 + msgText + "!" + MSG_PART_2;
       case "SUBMIT_MSG":

@@ -9,6 +9,7 @@
   max-width: 100%;
   // width: 100%;
 }
+
 #invitee-interaction-view{
 
   .background-survey-signin {
@@ -52,6 +53,15 @@
         background: #048fc721 !important;
         border-radius: 20px !important;
     }
+  }
+
+  mat-toolbar{
+    position: fixed;
+    z-index: 400;
+  }
+
+  .survey-page-wrap{
+    margin-top: 60px !important;
   }
 
 }
