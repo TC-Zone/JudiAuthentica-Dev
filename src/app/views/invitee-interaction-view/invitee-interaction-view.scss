@@ -1,0 +1,210 @@
+.page-wrap {
+  display: flex;
+  padding: 0px;
+}
+#invitee-interaction-view-main{
+
+    .interaction-view-background-signin {
+      background-image: url("assets/images/survey_signin/FountainVest-Partners-Background-gradient.jpg") !important;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+    }
+  
+    .background-survey-form {
+      // background-image: url("assets/images/survey_background/Survey-Background-01_3.jpg") !important;
+      background-image: url("assets/images/survey_background/FountainVest-Survey-Background.jpg") !important;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+      overflow: auto;
+      height: 100vh;
+    }
+  
+    .interaction-view-background-signin-error {
+      // background-image: url("assets/images/survey_background/Survey-Background-01_3.jpg") !important;
+      // background-image: url("assets/images/survey_background/FountainVest-Survey-Background.jpg") !important;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+    }
+    
+    .mat-card{
+      padding: 0px;
+    }
+  
+    #survey-view-survey{
+        overflow: auto;
+        height: 100%;
+        width: 100%;
+      .mat-card:not([class*="mat-elevation-z"]) {
+        box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+      }
+      .mat-card {
+          transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+          display: block;
+          position: relative;
+          padding: 24px;
+          border-radius: 2px;
+      }
+      .survey-mat-card {
+          background: #048fc721 !important;
+          border-radius: 20px !important;
+      }
+    }
+  
+  }
+  #login{
+    margin-left: auto!important;
+    margin-right: auto!important;
+    
+  
+    .client_logo{
+      padding: 20px 20px 20px 20px;
+      width: 120px;
+      height: 120px;
+      display: block;
+      margin: auto;
+     }
+     .mat-title-iiv{
+      padding: 30px 0px 0px;
+      text-align: center;
+     }
+     .header{
+       height: 120px;
+     }
+     
+   }
+  
+   #login-div{
+    padding: 30px 30px 30px 30px;
+    
+   }
+   #language{
+    padding: 20px 20px 20px 70px;
+    .mat-select{
+      font-weight: bold;
+    }
+   }
+  
+   .survey-login{
+     border-radius: 5px !important;
+     
+   }
+   .title{
+    padding: 20px 20px 20px 20px;
+   }
+   
+   .mat-card-iiv{
+    margin-top:12px !important;
+    max-width:70% !important;
+    margin-left: auto!important;
+    margin-right: auto !important;
+   }
+  
+   #survey-login-footer {
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 100px 0px 20px;
+    img {
+      display: block;
+      margin: auto;
+      width: 100px;
+    }
+    span {
+      font-size: 10px;
+    }
+  }
+
+  
+  @media screen and (min-width: 768px) {
+    #login{
+      margin-left: auto!important;
+      margin-right: auto!important;
+      // background-color: aqua;
+      width: 700px;
+  
+      #language{
+        padding: 20px 20px 20px 20px;
+        .mat-select{
+          font-weight: bold;
+        }
+       }
+      
+    
+      .client_logo{
+        padding: 20px 20px 20px 20px;
+        width: 120px;
+        height: 120px;
+        display: block;
+        margin: auto;
+       }
+       .mat-title-iiv{
+        padding: 30px 0px 0px;
+       }
+       .header{
+         height: 120px;
+       }
+       
+     }
+  }
+
+  .header-image {
+    // background-image: url('assets/images/truverus/TruVerus_Logo_short.png');
+    background-color: #ffffff;
+    background-size: cover;
+    border-radius: 20px !important;
+    //margin-left: 60px;
+    margin-top: 60px !important;
+    width: 100px !important;
+    height: 100px !important;
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.3);
+    
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+  }
+
+  .survey-page-wrap-iiv {
+    display: flex;
+    // align-items: center;
+    padding: 60px 1rem;
+    // min-height: 733px;
+    margin-top: 60px !important; 
+  }
+ 
+  //fixed header
+  mat-toolbar{
+    position: fixed;
+    z-index: 999;
+  }
+
+  .survey-form-hold-iiv {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  #finishedSurveyMsg-iiv{
+    text-align: center;
+    margin-bottom: 18px;
+    padding: 10px;
+    display: none;
+    h5{
+      // color: #337ab7;
+      color: #000;
+    }
+  }
+
+  #survey-view-footer-iiv {
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 100px 20px 20px;
+    margin-bottom: 1px;
+    img {
+      display: block;
+      margin: auto;
+      width: 200px;
+    }
+    span {
+      font-size: 10px;
+    }
+  }

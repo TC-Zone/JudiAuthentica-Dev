@@ -16,6 +16,7 @@ import { AppLoaderService } from "app/shared/services/app-loader/app-loader.serv
 @Component({
   selector: "app-invitee-interaction-view",
   templateUrl: "./invitee-interaction-view.component.html",
+  styleUrls: ["./invitee-interaction-view.scss"],
   animations: egretAnimations
 })
 export class InviteeInteractionViewComponent implements OnInit {
@@ -326,7 +327,7 @@ export class InviteeInteractionViewComponent implements OnInit {
             localStorage.setItem("surveyResultId", null);
             localStorage.setItem("originalResultArray", null);
           }
-          document.getElementById("finishedSurveyMsg").style.display = "none";
+          document.getElementById("finishedSurveyMsg-iiv").style.display = "none";
 
           if (this.interactionResponStatus === 1) {
             document.getElementById("btnViewSummary").style.display = "none";
@@ -559,7 +560,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     if (this.interactionResponStatus === 0) {
       document.getElementById("btnViewSurvey").style.display = "inline-block";
     } else if (this.interactionResponStatus === 1) {
-      document.getElementById("finishedSurveyMsg").style.display = "block";
+      document.getElementById("finishedSurveyMsg-iiv").style.display = "block";
       document.getElementById("btnViewSurvey").style.display = "none";
     }
 
