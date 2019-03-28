@@ -15,6 +15,7 @@
   "ANSWERLATER": "Resposta més tard",
   "POWEREDBY": "Impulsat per",
   "SELECTLANGUAGE": "Seleccioneu el vostre idioma",
+  "ANSWERLATERMSG": "Les vostres respostes s’han desat. Podeu tornar a l’enquesta en qualsevol moment per completar-la mitjançant l’enllaç i les credencials de la vostra invitació per correu electrònic.",
   "ANSWERLATERMSGSURVEY": "Esteu intentant respondre posteriorment a l’enquesta",
   "ANSWERLATERMSGEVOTE": "Esteu intentant respondre més tard al vot electrònic",
   "SUBMITMSGSURVEY": "Has acabat l’enquesta",

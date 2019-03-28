@@ -1,153 +1,153 @@
-// for interaction view
-@import url("https://fonts.googleapis.com/css?family=Poppins");
+// // for interaction view
+// @import url("https://fonts.googleapis.com/css?family=Poppins");
 
-//  to be hide no commercial info div from survey designer
-.svd_commercial_container {
-  display: none;
-}
+// //  to be hide no commercial info div from survey designer
+// .svd_commercial_container {
+//   display: none;
+// }
 
-.background-survey-signin {
-  background-image: url("assets/images/survey_signin/Survey-User-Login-Background.jpg") !important;
-  // background-image: url("assets/images/survey_signin/test_bg2.jpg") !important;
-  // background-image: url("assets/images/signin/signinimg.jpg") !important;
-  background-size: cover !important;
-  background-repeat: no-repeat !important;
-}
+// .background-survey-signin {
+//   background-image: url("assets/images/survey_signin/Survey-User-Login-Background.jpg") !important;
+//   // background-image: url("assets/images/survey_signin/test_bg2.jpg") !important;
+//   // background-image: url("assets/images/signin/signinimg.jpg") !important;
+//   background-size: cover !important;
+//   background-repeat: no-repeat !important;
+// }
 
-.background-survey-form {
-  // background-image: url("assets/images/survey_background/Survey-Background-01_1.jpg") !important;
-  // background-image: url("assets/images/survey_background/Survey-Background-01_2.jpg") !important;
-  background-image: url("assets/images/survey_background/FountainVest-Survey-Background.jpg") !important;
-  // background-image: url("assets/images/survey_background/Survey-Background-02.jpg") !important;
-  // background-image: url("assets/images/survey_background/Survey-Background-03.jpg") !important;
-  background-size: cover !important;
-  background-repeat: no-repeat !important;
-}
+// .background-survey-form {
+//   // background-image: url("assets/images/survey_background/Survey-Background-01_1.jpg") !important;
+//   // background-image: url("assets/images/survey_background/Survey-Background-01_2.jpg") !important;
+//   background-image: url("assets/images/survey_background/FountainVest-Survey-Background.jpg") !important;
+//   // background-image: url("assets/images/survey_background/Survey-Background-02.jpg") !important;
+//   // background-image: url("assets/images/survey_background/Survey-Background-03.jpg") !important;
+//   background-size: cover !important;
+//   background-repeat: no-repeat !important;
+// }
 
-#survey-view-survey {
-  overflow: auto;
-  height: 100%;
-  width: 100%;
-}
+// #survey-view-survey {
+//   overflow: auto;
+//   height: 100%;
+//   width: 100%;
+// }
 
-#survey-view-footer {
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-  padding: 100px 20px 20px;
-  margin-bottom: 1px;
-  img {
-    display: block;
-    margin: auto;
-    width: 200px;
-  }
-  span {
-    font-size: 10px;
-  }
-}
+// #survey-view-footer {
+//   bottom: 0;
+//   width: 100%;
+//   text-align: center;
+//   padding: 100px 20px 20px;
+//   margin-bottom: 1px;
+//   img {
+//     display: block;
+//     margin: auto;
+//     width: 200px;
+//   }
+//   span {
+//     font-size: 10px;
+//   }
+// }
 
-.survey-page-wrap {
-  display: flex;
-  // align-items: center;
-  padding: 60px 1rem;
-  // min-height: 733px;
-}
+// .survey-page-wrap {
+//   display: flex;
+//   // align-items: center;
+//   padding: 60px 1rem;
+//   // min-height: 733px;
+// }
 
-.survey-form-hold {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+// .survey-form-hold {
+//   width: 100%;
+//   max-width: 1200px;
+//   margin: 0 auto;
+// }
 
-.sv_main .sv_p_root > .sv_row:nth-child(2n + 1) {
-  background-color: #f4f4f4;
-}
+// .sv_main .sv_p_root > .sv_row:nth-child(2n + 1) {
+//   background-color: #f4f4f4;
+// }
 
-.sv_container {
-  font-family: "Poppins", sans-serif !important;
-}
+// .sv_container {
+//   font-family: "Poppins", sans-serif !important;
+// }
 
-.sv_row h5 {
-  font-size: 1rem;
-}
+// .sv_row h5 {
+//   font-size: 1rem;
+// }
 
-.panel-footer.card-footer.survey-page-footer {
-  display: flex;
-  justify-content: center;
-  background-color: #fff !important;
-  padding: 50px 0px;
-  border: none;
-  border-bottom: 1px solid #ddd;
-}
+// .panel-footer.card-footer.survey-page-footer {
+//   display: flex;
+//   justify-content: center;
+//   background-color: #fff !important;
+//   padding: 50px 0px;
+//   border: none;
+//   border-bottom: 1px solid #ddd;
+// }
 
-.sv_container .sv_row {
-  text-align: left;
-  padding-top: 20px;
-}
+// .sv_container .sv_row {
+//   text-align: left;
+//   padding-top: 20px;
+// }
 
-.survey-form-question {
-  font-weight: bold;
-}
+// .survey-form-question {
+//   font-weight: bold;
+// }
 
-.survey-form-answer {
-  padding-left: 20px;
-}
+// .survey-form-answer {
+//   padding-left: 20px;
+// }
 
-.sv_bootstrap_css .sv_qstn {
-  padding: 0px 14px;
-}
+// .sv_bootstrap_css .sv_qstn {
+//   padding: 0px 14px;
+// }
 
-.sv_preview_btn {
-  background-color: #3e86bd;
-  color: #fff;
-  font-size: 0.85em;
-  font-weight: bold;
-  line-height: 2em;
-  border: none;
-  min-width: 100px;
-  cursor: pointer;
-  padding: 0 2em;
-  border-radius: 2px;
-}
+// .sv_preview_btn {
+//   background-color: #3e86bd;
+//   color: #fff;
+//   font-size: 0.85em;
+//   font-weight: bold;
+//   line-height: 2em;
+//   border: none;
+//   min-width: 100px;
+//   cursor: pointer;
+//   padding: 0 2em;
+//   border-radius: 2px;
+// }
 
-#finishedSurveyMsg{
-  text-align: center;
-  margin-bottom: 18px;
-  padding: 10px;
-  display: none;
-  h5{
-    // color: #337ab7;
-    color: #000;
-  }
-}
+// #finishedSurveyMsg{
+//   text-align: center;
+//   margin-bottom: 18px;
+//   padding: 10px;
+//   display: none;
+//   h5{
+//     // color: #337ab7;
+//     color: #000;
+//   }
+// }
 
-.sv_preview_btn:hover {
-  background-color: #339fd6;
-  color: #fff;
-}
+// .sv_preview_btn:hover {
+//   background-color: #339fd6;
+//   color: #fff;
+// }
 
-#surveyResult {
-  text-align: center;
-}
+// #surveyResult {
+//   text-align: center;
+// }
 
-.sv-q-col-1 label span{
-  font-weight: 400 !important;
-}
+// .sv-q-col-1 label span{
+//   font-weight: 400 !important;
+// }
 
-// for fix hasComment height issue : BUDDHI HASANKA - The flash sprint
-.height-auto {
-  min-height: 34px;
-  height: auto;
-}
+// // for fix hasComment height issue : BUDDHI HASANKA - The flash sprint
+// .height-auto {
+//   min-height: 34px;
+//   height: auto;
+// }
 
-// this css style added for manage to matrix table header column width : PRASAD KUMARA - the flash sprint
+// // this css style added for manage to matrix table header column width : PRASAD KUMARA - the flash sprint
 // .sv_q_matrix th {
 //   width: 10em;
 // }
 
-// override to set invitee ininteraction login postion to left
-.session-form-hold.set-form-left{
-  // width: 100%;
-  // max-width: 400px;
-  margin-left: 13%;
-}
+// // override to set invitee ininteraction login postion to left
+// .session-form-hold.set-form-left{
+//   // width: 100%;
+//   // max-width: 400px;
+//   margin-left: 13%;
+// }

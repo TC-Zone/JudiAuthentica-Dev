@@ -6725,6 +6725,17 @@ module.exports = "<!-- <div class=\"page-wrap height-100 comman-background\">\r\
 
 /***/ }),
 
+/***/ "./src/app/views/sessions/forgot-password/forgot-password.component.scss":
+/*!*******************************************************************************!*\
+  !*** ./src/app/views/sessions/forgot-password/forgot-password.component.scss ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".page-wrap {\n  display: flex;\n  padding: 0px; }\n\n.session-form-hold.set-form-left {\n  margin-left: 0px;\n  max-width: 100%; }\n"
+
+/***/ }),
+
 /***/ "./src/app/views/sessions/forgot-password/forgot-password.component.ts":
 /*!*****************************************************************************!*\
   !*** ./src/app/views/sessions/forgot-password/forgot-password.component.ts ***!
@@ -6768,7 +6779,8 @@ var ForgotPasswordComponent = /** @class */ (function () {
     ForgotPasswordComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-forgot-password',
-            template: __webpack_require__(/*! ./forgot-password.component.html */ "./src/app/views/sessions/forgot-password/forgot-password.component.html")
+            template: __webpack_require__(/*! ./forgot-password.component.html */ "./src/app/views/sessions/forgot-password/forgot-password.component.html"),
+            styles: [__webpack_require__(/*! ./forgot-password.component.scss */ "./src/app/views/sessions/forgot-password/forgot-password.component.scss")],
         }),
         __metadata("design:paramtypes", [])
     ], ForgotPasswordComponent);
@@ -7095,6 +7107,17 @@ module.exports = "<!-- <div class=\"page-wrap height-100 comman-background\">\r\
 
 /***/ }),
 
+/***/ "./src/app/views/sessions/signin/signin.component.scss":
+/*!*************************************************************!*\
+  !*** ./src/app/views/sessions/signin/signin.component.scss ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".page-wrap {\n  display: flex;\n  padding: 0px; }\n\n.session-form-hold.set-form-left {\n  margin-left: 0px;\n  max-width: 100%; }\n"
+
+/***/ }),
+
 /***/ "./src/app/views/sessions/signin/signin.component.ts":
 /*!***********************************************************!*\
   !*** ./src/app/views/sessions/signin/signin.component.ts ***!
@@ -7227,7 +7250,8 @@ var SigninComponent = /** @class */ (function () {
     SigninComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: "app-signin",
-            template: __webpack_require__(/*! ./signin.component.html */ "./src/app/views/sessions/signin/signin.component.html")
+            template: __webpack_require__(/*! ./signin.component.html */ "./src/app/views/sessions/signin/signin.component.html"),
+            styles: [__webpack_require__(/*! ./signin.component.scss */ "./src/app/views/sessions/signin/signin.component.scss")],
         }),
         __metadata("design:paramtypes", [_UserService_service__WEBPACK_IMPORTED_MODULE_3__["UserService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
