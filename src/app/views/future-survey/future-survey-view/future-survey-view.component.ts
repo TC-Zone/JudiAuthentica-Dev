@@ -33,7 +33,8 @@ Survey.JsonObject.metaData.addProperty("page", "popupdescription:text");
 
 @Component({
   selector: "app-future-survey-view",
-  templateUrl: "./future-survey-view.component.html"
+  templateUrl: "./future-survey-view.component.html",
+  styleUrls: ["./future-survey-view.component.scss"],
 })
 export class FutureSurveyViewComponent implements OnInit {
   jsonContent: any;
@@ -53,7 +54,7 @@ export class FutureSurveyViewComponent implements OnInit {
     private errDialog: AppErrorService,
     private http: HttpClient,
     private fsOperationalService: FutureSurveyOperationalService
-  ) {}
+  ) { }
 
   ngOnInit() {
     // get all survey supprt languages
@@ -97,7 +98,7 @@ export class FutureSurveyViewComponent implements OnInit {
       btn.className = "btn btn-info btn-xs";
       btn.innerHTML = "More Info";
 
-      btn.onclick = function() {
+      btn.onclick = function () {
         alert(options.question.popupdescription);
       };
       var header = options.htmlElement.querySelector("h5");
@@ -151,7 +152,7 @@ export class FutureSurveyViewComponent implements OnInit {
 
     Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 
-    surveyModel.onComplete.add(function(result) {
+    surveyModel.onComplete.add(function (result) {
       console.log("..............SURVEY ANSWER RESULR/.............");
       console.log(result);
 
