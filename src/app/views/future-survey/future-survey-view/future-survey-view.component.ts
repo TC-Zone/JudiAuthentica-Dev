@@ -155,6 +155,7 @@ export class FutureSurveyViewComponent implements OnInit {
     surveyModel.onComplete.add(function (result) {
       console.log("..............SURVEY ANSWER RESULR/.............");
       console.log(result);
+      document.getElementById("languageDD").style.display = "none";
 
       // ------- new start --------
       pageArray.forEach(element => {
@@ -283,6 +284,9 @@ export class FutureSurveyViewComponent implements OnInit {
         }
       }
     });
+    if (this.supportLangs.length > 1) {
+      document.getElementById("languageDD").style.display = "block";
+    }
   }
 
   // get all survey support languages by prasad kumara

@@ -8,7 +8,8 @@ import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-user-activation",
-  templateUrl: "./user-activation.component.html"
+  templateUrl: "./user-activation.component.html",
+  styleUrls: ["./user-activation.component.scss"]
 })
 export class UserActivationComponent implements OnInit {
   activationForm: FormGroup;

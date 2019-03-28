@@ -1,22 +1,36 @@
 .survey-form-hold-fsv {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  .survey-mat-card{
 
-  #survey-view-footer-fsv {
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    padding: 100px 20px 20px;
-    margin-bottom: 1px;
-    img {
-      display: block;
-      margin: auto;
-      width: 200px;
-    }
-    span {
-      font-size: 10px;
-    }
   }
+}
+
+#survey-view-footer-fsv {
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 100px 20px 20px;
+  margin-bottom: 1px;
+  img {
+    display: block;
+    margin: auto;
+    width: 200px;
+  }
+  span {
+    font-size: 10px;
+  }
+}
+
+#languageDD{
+  margin-left: auto;
+  margin-right: auto; 
+  display: none;
+  mat-card{
+    width:350px;
+    height:auto;
+    border-radius: 7px;
+  }
+}
   
