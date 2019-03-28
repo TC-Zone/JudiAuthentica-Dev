@@ -24,19 +24,33 @@
     // background-color: #e7e7e7;
     background-color: #f4f4f4;
   }
+
   .sv_q_matrix th {
     width: 10em;
   }
+
   .height-auto {
     min-height: 34px;
     height: auto;
   }
+
+  // --------------------- Font family for survey container
   .sv_container {
     font-family: "Poppins", sans-serif !important;
   }
-  // .btn.sv_next_btn{
-  //   float: right;
-  // }
+  // -------------------------------------------------------
+
+  
+  // --------------------- change survey bottom btn alignment 
+  .panel-footer.card-footer{
+    height: 50px;
+    .btn.sv_next_btn, .btn.sv_complete_btn{ 
+      float: right; 
+    }
+  }
+  // -------------------------------------------------
+
+
   // .sv-q-col-1 label span{
   //   font-weight: 400 !important;
   // }
