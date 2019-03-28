@@ -14,6 +14,60 @@
     margin: 0px auto;
 }
 
+.svd_commercial_container {
+  display: none;
+}
+
+.survey-view {
+
+  .sv_main .sv_p_root > .sv_row{
+    // background-color: #e7e7e7;
+    background-color: #f4f4f4;
+  }
+
+  .sv_q_matrix th {
+    width: 10em;
+  }
+
+  .height-auto {
+    min-height: 34px;
+    height: auto;
+  }
+
+  // --------------------- Font family for survey container
+  .sv_container {
+    font-family: "Poppins", sans-serif !important;
+  }
+  // -------------------------------------------------------
+
+  
+  // --------------------- change survey bottom btn alignment 
+  .panel-footer.card-footer{
+    height: 50px;
+    .btn.sv_next_btn, .btn.sv_complete_btn{ 
+      float: right; 
+    }
+  }
+  // -------------------------------------------------
+
+
+  // .sv-q-col-1 label span{
+  //   font-weight: 400 !important;
+  // }
+  // .sv_bootstrap_css .sv_qstn {
+  //   padding: 0px 14px;
+  // }
+  .sv_row h5 {
+    font-size: 1rem;
+  }
+}
+
+
+
+
+
+
+
 .app-toolbar-test {
     position: sticky;
     position: -webkit-sticky; /* For macOS/iOS Safari */

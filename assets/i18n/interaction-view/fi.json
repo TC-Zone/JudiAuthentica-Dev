@@ -15,6 +15,7 @@
   "ANSWERLATER": "Vastaus myöhemmin",
   "POWEREDBY": "Powered by",
   "SELECTLANGUAGE": "Valitse kieli",
+  "ANSWERLATERMSG": "Vastauksesi on tallennettu. Voit palata kyselyyn milloin tahansa täyttääkseen sen käyttämällä sähköpostikutsun linkkiä ja tunnistetietoja.",
   "ANSWERLATERMSGSURVEY": "Yrität vastata myöhemmin kyselyyn",
   "ANSWERLATERMSGEVOTE": "Yrität vastata myöhemmin sähköiseen äänestykseen",
   "SUBMITMSGSURVEY": "Olet suorittanut tutkimuksen",
