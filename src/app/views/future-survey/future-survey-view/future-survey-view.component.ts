@@ -156,6 +156,11 @@ export class FutureSurveyViewComponent implements OnInit {
       console.log("..............SURVEY ANSWER RESULR/.............");
       console.log(result);
       document.getElementById("languageDD").style.display = "none";
+      document.getElementById("background-image").style.height = "100vh";
+
+      // fixed scrolling issue on complete view
+      const removeElements = (elms) => elms.forEach(el => el.remove());
+      removeElements(document.querySelectorAll(".ps__rail-y"));
 
       // ------- new start --------
       pageArray.forEach(element => {
