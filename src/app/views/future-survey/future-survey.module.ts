@@ -29,7 +29,7 @@ import { FutureSurveyComponent } from "./future-survey/future-survey.component";
 import { CrudService } from "../cruds/crud.service";
 import { FutureSurveyViewComponent } from "./future-survey-view/future-survey-view.component";
 import { FutureSurveyService } from "./future-survey.service";
-import { FutureSurveyOperationalService } from "./future-survey-operational.service";
+import { FutureSurveyOperationalService } from "../../shared/services/survey/future-survey-operational.service";
 import { FutureSurveyRoutes } from "./future-survey.routing";
 import { FutureSurveyListComponent } from "./future-survey-list/future-survey-list.component";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";

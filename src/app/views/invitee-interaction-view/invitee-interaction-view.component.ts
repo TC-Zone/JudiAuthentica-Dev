@@ -12,6 +12,7 @@ import { lang } from "moment";
 import { TranslateService } from "@ngx-translate/core";
 import { ClientService } from "../client/client.service";
 import { AppLoaderService } from "app/shared/services/app-loader/app-loader.service";
+import { FutureSurveyOperationalService } from "../../shared/services/survey/future-survey-operational.service";
 
 @Component({
   selector: "app-invitee-interaction-view",
@@ -76,6 +77,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     private route: Router,
     public translateService: TranslateService,
     private loader: AppLoaderService,
+    private fsOperationalService: FutureSurveyOperationalService
   ) {
 
     this.loader.open();
@@ -349,6 +351,9 @@ export class InviteeInteractionViewComponent implements OnInit {
   }
 
   viewSurvey() {
+    
+    this.fsOperationalService.optionUnselect(Survey);
+    
     this.jsonContentJSON = JSON.parse(this.jsonContent);
 
     console.log(

@@ -11,6 +11,7 @@ import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { ClientService } from '../client/client.service';
+import { FutureSurveyOperationalService } from "../../shared/services/survey/future-survey-operational.service";
 
 export let InjectorInstance2: Injector;
 
@@ -40,7 +41,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     }),
     RouterModule.forChild(InviteeInteractionViewRoute)
   ],
-  providers: [InviteeInteractionViewService, FutureSurveyService,ClientService]
+  providers: [InviteeInteractionViewService, FutureSurveyService, ClientService, FutureSurveyOperationalService]
 })
 export class InviteeInteractionViewModule {
   constructor(private injector: Injector) {

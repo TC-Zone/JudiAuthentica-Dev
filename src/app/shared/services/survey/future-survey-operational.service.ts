@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ChoiceTypeEnum, MatrixTypeEnum, LangJsonWrapper, ValidateLocalizeSurveyRequestWrapper } from "../../model/FutureSurvey.model";
+import { ChoiceTypeEnum, MatrixTypeEnum, LangJsonWrapper, ValidateLocalizeSurveyRequestWrapper } from "../../../model/FutureSurvey.model";
 
 @Injectable()
 export class FutureSurveyOperationalService {
@@ -15,12 +15,12 @@ export class FutureSurveyOperationalService {
     // if anywhere in the survey has been used another language, set selected language value to text directly instead of whole value array.
     // ex: if selected language is italiano, change text values as shown below.
     // "text": "articolo1 A" instead of "text": { "default": "item1 A", "it": "articolo1 A" }.
-    // --------------------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------------------
 
-    
-    // ------------------ validateLocalizeSurveyRequest input -------------------------
+
+    // ------------------ validateLocalizeSurveyRequest input ---------------------------------------------------
     console.log('-------------- validateLocalizeSurveyRequest input', jsonObject);
-    // ---------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------------------
 
     let lang;
     this.defLang = 'en';
@@ -118,16 +118,16 @@ export class FutureSurveyOperationalService {
     this.surveyLang = new LangJsonWrapper(this.defLang, this.extraLang);
     let returnVal: ValidateLocalizeSurveyRequestWrapper = new ValidateLocalizeSurveyRequestWrapper(jsonObject, this.surveyLang);
 
-    // ------------------ validateLocalizeSurveyRequest return -------------------------
+    // ----------------------------------------------------------------------------------------------------------
     console.log('-------------- validateLocalizeSurveyRequest return', returnVal);
-    // ---------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------------------
 
     return returnVal;
   }
 
 
   // not tested properly
-  // ------------------------------------------------------------------------------------------------
+  // ------------------------------------------------------------------------------------------------------------
 
   checkLang(array, lang) {
     for (const key in array) {
@@ -138,7 +138,88 @@ export class FutureSurveyOperationalService {
       }
     }
   }
-  
-  // ------------------------------------------------------------------------------------------------
 
+  // ------------------------------------------------------------------------------------------------------------
+
+
+  optionUnselect(Survey) {
+    // ---------------------------------------------------------------------------------~ HBH ~------------------
+    // ---------------------------------------------------------------------------------- Option Unselect -------
+    // after add this widget to Survey, all the options can unselect
+    // ----------------------------------------------------------------------------------------------------------
+    var widget = {
+      name: "emptyRadio",
+      isFit: function (question) {
+        return question.getType() === 'radiogroup';
+      },
+      isDefaultRender: true,
+      afterRender: function (question, el) {
+        let lastValue = question.cachedValueForUrlRequests;
+        el.onclick = function (e) {
+          console.log(this);
+
+          if (e.originalTarget.value !== undefined) {
+            let id = e.originalTarget.id;
+            let cls: string = 'customChecked';
+            let checked = (<HTMLInputElement>document.getElementById(id)).classList.contains(cls);
+            console.log('--------------- checked', checked);
+            console.log('--------------- lastValue', lastValue);
+
+            if (checked) {
+              (<HTMLInputElement>document.getElementById(id)).checked = false;
+              (<HTMLInputElement>document.getElementById(id)).classList.remove(cls);
+            } else {
+              if (lastValue === null) {
+                (<HTMLInputElement>document.getElementById(id)).classList.add(cls);
+              } else {
+                (<HTMLInputElement>document.getElementById(id)).checked = false;
+                (<HTMLInputElement>document.getElementById(id)).classList.remove(cls);
+                lastValue = null;
+              }
+            }
+          }
+        }
+      }
+    };
+    Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+    // ----------------------------------------------------------------------------------------------------------
+
+    // ---------------------------- SurveyJS Library Example for Option Unselect --------------------------------
+    // var widget = {
+    //   name: "emptyRadio",
+    //   isFit: function (question) {
+    //     return question.getType() === 'radiogroup';
+    //   },
+    //   isDefaultRender: true,
+    //   afterRender: function (question, el) {
+
+    //     var $el = $(el);
+    //     var lastValue = question.cachedValueForUrlRequests;
+
+    //     $el.find("input:radio").click(function (event) {
+    //       var UnCheck = "UnCheck",
+    //         $clickedbox = $(this),
+    //         radioname = $clickedbox.prop("name"),
+    //         $group = $('input[name|="' + radioname + '"]'),
+    //         doUncheck = $clickedbox.hasClass(UnCheck),
+    //         isChecked = $clickedbox.is(':checked');
+
+    //       if (lastValue !== null) {
+    //         doUncheck = true;
+    //         lastValue = null;
+    //       }
+    //       if (doUncheck) {
+    //         $group.removeClass(UnCheck);
+    //         $clickedbox.prop('checked', false);
+    //         question.value = null;
+    //       } else if (isChecked) {
+    //         $group.removeClass(UnCheck);
+    //         $clickedbox.addClass(UnCheck);
+    //       }
+    //     });
+    //   }
+    // };
+    // Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
+    // ----------------------------------------------------------------------------------------------------------
+  }
 }
