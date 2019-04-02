@@ -436,7 +436,7 @@ export class NavigationService {
       disabled: false
     },
     {
-      name: "Future Survey",
+      name: "ClearPicture Survey",
       type: "link",
       tooltip: "Future Survey",
       icon: "language",
