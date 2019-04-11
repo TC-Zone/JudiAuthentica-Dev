@@ -7,20 +7,16 @@ import {
   MAT_DATE_LOCALE,
   MatSnackBar
 } from "@angular/material";
-import { CrudService } from "../../../cruds/crud.service";
 import { Subscription, Observable } from "rxjs";
-import { ResponseModel } from "../../../../model/ResponseModel.model";
-import { FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from "@angular/forms";
-import { MomentDateAdapter } from "@angular/material-moment-adapter";
-import {
-  debounceTime,
-  switchMap,
-  distinctUntilChanged,
-  startWith,
-  map
-} from "rxjs/operators";
-import { Clients, Content } from "./../../../../model/ClientModel.model";
 
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl
+} from "@angular/forms";
+import { MomentDateAdapter } from "@angular/material-moment-adapter";
+import { startWith, map } from "rxjs/operators";
 import { DateValidator } from "../../../../utility/dateValidator";
 
 import { FileUploader } from "ng2-file-upload";
@@ -29,6 +25,8 @@ import { SurveyService } from "../../../survey/survey.service";
 import { environment } from "environments/environment.prod";
 import { egretAnimations } from "../../../../shared/animations/egret-animations";
 import { ProductCommonComponent } from "../../product-crud-common.component";
+import { ClientService } from "../../../client/client.service";
+import { UserService } from "../../../sessions/UserService.service";
 
 export const MY_FORMATS = {
   parse: {
@@ -58,10 +56,6 @@ export const MY_FORMATS = {
 export class ProductCrudPopupComponent extends ProductCommonComponent
   implements OnInit {
   public productForm: FormGroup;
-  public clients: any[];
-  public getClientSub: Subscription;
-  public response: ResponseModel;
-  public filteredClient: Observable<Clients>;
   tomorrow: Date;
   imageUrl: any = "assets/images/placeholder.jpg";
 
@@ -76,13 +70,13 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
   remainImagesID = [];
   currentTotalImageCount: number = 0;
 
-  getAllSurveySub: Subscription;
-  surveyRows: any[];
+  public clientId: string;
 
-  surveyFilteredOptions: Observable<string[]>;
-  surveys: string[] = [];
-  surveyIDs: string[] = [];
-  selectedSurveyID: string;
+  public getClientCommunitySub: Subscription;
+  public communities: string[] = [];
+  public communityIDs: string[] = [];
+  public communityFilteredOption: Observable<string[]>;
+  public selectedCommunityId: string;
 
   // .............REGEX for Youtube link validation...............
   public youtubeRegex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
@@ -91,8 +85,9 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ProductCrudPopupComponent>,
-    public clientService: CrudService,
+    public clientService: ClientService,
     public surveyService: SurveyService,
+    public userService: UserService,
     private fb: FormBuilder,
     public snackBar: MatSnackBar
   ) {
@@ -102,6 +97,10 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
   ngOnInit() {
     // validate back dates
     this.tomorrow = DateValidator.getTomorrow();
+    const detailObj = this.userService.getLoggedUserDetail();
+    this.clientId = detailObj.userData.client.id;
+
+    this.getClientCategories(this.clientId);
 
     if (!this.data.isNew) {
       let images: any[] = this.data.payload.imageObjects;
@@ -114,82 +113,60 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
       this.currentTotalImageCount = this.remainImagesID.length;
     }
 
-    this.getAllSurvey();
-    this.getClientSuggestions();
+    this.getAllClientCommunities(this.clientId);
     this.buildProductForm(this.data.payload, this.data.isNew);
-    this.filteredClient = this.productForm.get("client").valueChanges.pipe(
-      debounceTime(200),
-      switchMap(value => this.clientService.search({ name: value }, 1))
-    );
   }
 
-  surveyOnChange() {
-    this.surveyFilteredOptions = this.productForm.controls[
-      "surveyId"
+  communityOnChange() {
+    this.communityFilteredOption = this.productForm.controls[
+      "communityId"
     ].valueChanges.pipe(
       startWith(""),
-      map(value => this._surveyFilter(value))
+      map(value => this._communityFilter(value))
     );
-    this.onSelectionChanged();
+    this.onCommunitySelectionChanged();
   }
 
-  private _surveyFilter(value: string): string[] {
+  private _communityFilter(value: string): string[] {
     if (value === "" || isNaN(Number(value))) {
       const filterValue = value.toLowerCase();
-      return this.surveys.filter(option =>
+      return this.communities.filter(option =>
         option.toLowerCase().includes(filterValue)
       );
     }
   }
 
-  onSelectionChanged() {
-    const input_value = this.productForm.controls["surveyId"].value;
-    const id = this.surveyIDs.indexOf(input_value);
+  onCommunitySelectionChanged() {
+    const inputVal = this.productForm.controls["communityId"].value;
+    const id = this.communityIDs.indexOf(inputVal);
     if (id > -1) {
-      this.productForm.controls["surveyId"].setValue(this.surveys[id]);
-      this.selectedSurveyID = input_value;
+      this.productForm.controls["communityId"].setValue(this.communities[id]);
+      this.selectedCommunityId = inputVal;
     } else {
       console.log("============ else ==================");
     }
   }
 
-  surveyOnFocusOut(event) {
-    if (!(this.surveys.indexOf(event.currentTarget.value) > -1)) {
-      this.productForm.controls["surveyId"].setValue("");
+  communityOnFocusOut(event) {
+    if (!(this.communities.indexOf(event.currentTarget.value) > -1)) {
+      this.productForm.controls["communityId"].setValue("");
     }
   }
 
-  getAllSurvey() {
-    this.getAllSurveySub = this.surveyService
-      .getAllSurveys()
-      .subscribe(successResp => {
-        successResp.content.forEach(element => {
-          this.surveys.push(element.topic);
-          this.surveyIDs.push(element.id);
-          this.surveyOnChange();
-        });
+  getAllClientCommunities(clientId) {
+    this.clientService.getClientCommunities(clientId).subscribe(data => {
+      const communities = data.content;
+      communities.forEach(element => {
+        this.communities.push(element.name);
+        this.communityIDs.push(element.id);
+        this.communityOnChange();
       });
-  }
-
-  getClientSuggestions() {
-    this.getClientSub = this.clientService
-      .getClientSuggestions()
-      .subscribe(data => {
-        this.response = data;
-        this.clients = this.response.content;
-      });
-  }
-
-  getAllClients() {
-    this.getClientSub = this.clientService.getItems().subscribe(data => {
-      this.response = data;
-      this.clients = this.response.content;
     });
   }
 
   buildProductForm(fieldItem, isNew) {
-    const client = fieldItem.client;
-    const clientId = client ? client.id : null;
+    // const client = fieldItem.client;
+    // const clientId = client ? client.id : null;
 
     const videoUrl = fieldItem.videoUrl;
     let youtubeUrl = null;
@@ -201,37 +178,33 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
     }
 
     this.productForm = this.fb.group({
-      client: new FormControl(clientId || ""),
-      code: new FormControl(fieldItem.code || "", Validators.required),
       name: new FormControl(fieldItem.name || "", Validators.required),
-      description: new FormControl(fieldItem.description || "", Validators.required),
-      batchNumber: new FormControl(fieldItem.batchNumber || "", Validators.required),
+      description: new FormControl(
+        fieldItem.description || "",
+        Validators.required
+      ),
+      batchNumber: new FormControl(
+        fieldItem.batchNumber || "",
+        Validators.required
+      ),
       quantity: new FormControl(fieldItem.quantity || "", Validators.required),
-      expireDate: new FormControl(fieldItem.expireDate || "", Validators.required),
-      surveyId: new FormControl(fieldItem.surveyId || "", Validators.required),
-      videoUrl: new FormControl(fieldItem.videoUrl || "", Validators.required),
-      file: new FormControl(fieldItem.file || "", Validators.required)
-      // client: [clientId || ""],
-      // code: [fieldItem.code || "", Validators.required],
-      // name: [fieldItem.name || "", Validators.required],
-      // description: [fieldItem.description || "", Validators.required],
-      // batchNumber: [fieldItem.batchNumber || "", Validators.required],
-      // quantity: [fieldItem.quantity || "", Validators.required],
-      // expireDate: [fieldItem.expireDate || "", Validators.required],
-      // surveyId: [fieldItem.surveyId || null],
-      // videoUrl: [fieldItem.videoUrl, Validators.pattern(this.youTubeIdRegex)],
-      // file: [fieldItem.file || ""]
+      expireDate: new FormControl(
+        fieldItem.expireDate || "",
+        Validators.required
+      ),
+
+      videoUrl: new FormControl(youtubeUrl || "", Validators.required),
+      file: new FormControl(fieldItem.file || "", Validators.required),
+      categoryId: new FormControl(
+        fieldItem.categoryId || "",
+        Validators.required
+      ),
+      communityId: new FormControl(
+        fieldItem.communityId || "",
+        Validators.required
+      )
     });
-
-
-    // if(DateValidator.getTomorrow()>fieldItem.expireDate){
-    //   const expireDate = this.productForm.get('expireDate');
-    //   expireDate.setErrors({ incorrect: true });
-    // }
   }
-
-
-
 
   submit() {
     let productRequest: ProductCreationRequest = new ProductCreationRequest(
@@ -256,7 +229,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
         this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1
           ? true
           : this.currentTotalImageCount + filesAmount <=
-          this.maxUploadableFileCount
+            this.maxUploadableFileCount
       ) {
         for (let i = 0; i < filesAmount; i++) {
           var reader = new FileReader();
@@ -293,8 +266,12 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
 
   prepareToSave(formvalue): FormData {
     let input: FormData = new FormData();
-    if (formvalue.surveyId) {
-      input.append("surveyId", this.selectedSurveyID);
+
+    // RAVEEN - 2014/04/04 : client id is no longer an input
+    input.append("client", this.clientId);
+
+    if (formvalue.communityId) {
+      input.append("communityId", this.selectedCommunityId);
     }
 
     let videoUrl = formvalue.videoUrl;
@@ -308,7 +285,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
 
     input.append("code", formvalue.code);
     input.append("quantity", formvalue.quantity);
-    input.append("client", formvalue.client.id);
+
     input.append(
       "expireDate",
       moment(formvalue.expireDate).format("YYYY-MM-DD")
@@ -316,6 +293,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
     input.append("name", formvalue.name);
     input.append("description", formvalue.description);
     input.append("batchNumber", formvalue.batchNumber);
+    input.append("categoryId", formvalue.categoryId);
 
     if (this.remainImagesID != null && this.remainImagesID.length > 0) {
       input.append("remainImagesID", this.remainImagesID.toString());
@@ -333,31 +311,27 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
 }
 
 export class ProductCreationRequest {
-  client: ClientSub;
   code: string;
   name: string;
   description: string;
   batchNumber: string;
   quantity: string;
   expireDate: string;
-  surveyId: string;
+  communityId: string;
+  categoryId: string;
   videoUrl: string;
   file: any;
 
   constructor(public formValue: any) {
-    this.client = new ClientSub(formValue.client);
     this.code = formValue.code;
     this.name = formValue.name;
     this.description = formValue.description;
     this.batchNumber = formValue.batchNumber;
     this.quantity = formValue.quantity;
     this.expireDate = formValue.expireDate;
-    this.surveyId = formValue.surveyId;
+    this.communityId = formValue.communityId;
+    this.categoryId = formValue.categoryId;
     this.file = formValue.file;
     this.videoUrl = formValue.videoUrl;
   }
-}
-
-class ClientSub {
-  constructor(public id: string) { }
 }

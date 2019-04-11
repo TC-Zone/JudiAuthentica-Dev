@@ -12,8 +12,8 @@ import { interval } from 'rxjs';
   styleUrls: ["./signin.component.scss"],
 })
 export class SigninComponent implements OnInit {
-  @ViewChild(MatProgressBar)
-  // progressBar: MatProgressBar;
+
+
   @ViewChild(MatButton)
   submitButton: MatButton;
 
@@ -69,7 +69,7 @@ export class SigninComponent implements OnInit {
         };
         localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
 
-        this.userService.getUserData(response.user_id)
+        this.userService.getLoggedUserData(response.user_id)
           .subscribe(res => {
             const viewData = res.content;
             tempUser.username = viewData.userName;

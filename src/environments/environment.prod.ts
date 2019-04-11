@@ -3,12 +3,12 @@ export const environment = {
   apiURL: "productionApi",
 
   // SAP NEW 64GB
-  productApiURL:'https://authentican60aazs63l.ca1.hana.ondemand.com/product/api/',
-  surveyApiURL : 'https://authentican60aazs63l.ca1.hana.ondemand.com/survey/api/',
-  productimageUrl :"https://authentican60aazs63l.ca1.hana.ondemand.com/product/",
-  evoteimageUrl: "https://authentican60aazs63l.ca1.hana.ondemand.com/survey/",
-  authTokenUrl: "https://authentican60aazs63l.ca1.hana.ondemand.com/user/",
-  userApiUrl: "https://authentican60aazs63l.ca1.hana.ondemand.com/user/api/",
+  // productApiURL:'https://authentican60aazs63l.ca1.hana.ondemand.com/product/api/',
+  // surveyApiURL : 'https://authentican60aazs63l.ca1.hana.ondemand.com/survey/api/',
+  // productimageUrl :"https://authentican60aazs63l.ca1.hana.ondemand.com/product/",
+  // evoteimageUrl: "https://authentican60aazs63l.ca1.hana.ondemand.com/survey/",
+  // authTokenUrl: "https://authentican60aazs63l.ca1.hana.ondemand.com/user/",
+  // userApiUrl: "https://authentican60aazs63l.ca1.hana.ondemand.com/user/api/",
 
   // SAP NEW 32GB -  DEV TEST
   // productApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/product/api/",
@@ -20,12 +20,12 @@ export const environment = {
 
 
   // LOCALE
-  // authTokenUrl:"http://localhost:10000/",
-  // userApiUrl: "http://localhost:10000/api/",
-  // productApiURL: "http://localhost:10001/api/",
-  // surveyApiURL: "http://localhost:10002/api/",
-  // productimageUrl: "http://localhost:10001/",
-  // evoteimageUrl: "http://localhost:10002/",
+  authTokenUrl:"http://localhost:10000/",
+  userApiUrl: "http://localhost:10000/api/",
+  productApiURL: "http://localhost:10001/api/",
+  surveyApiURL: "http://localhost:10002/api/",
+  productimageUrl: "http://localhost:10001/",
+  evoteimageUrl: "http://localhost:10002/",
 
   // authTokenUrl:"https://userk84f365ea.ca1.hana.ondemand.com/user/",
   // userApiUrl:"https://userk84f365ea.ca1.hana.ondemand.com/user/api/",
