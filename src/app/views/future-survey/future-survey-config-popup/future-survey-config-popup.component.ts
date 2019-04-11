@@ -130,7 +130,8 @@ export class FutureSurveyConfigPopupComponent
     let channel = this.configForm.get("channel").value;
     // let lang = this.configForm.get("languageJson").value;
     let lang = "en";
-    
+    // RAVEEN :  compatibility feature defines survey types for device : SPRINT 10 - APRIL
+    let compatibility = "1";
 
     let jsonContent: JsonContentPart = new JsonContentPart(
       lang,
@@ -150,6 +151,7 @@ export class FutureSurveyConfigPopupComponent
         origin,
         channel,
         langString,
+        compatibility,
         this.pageItem,
         jsonString
       );

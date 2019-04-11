@@ -7,10 +7,11 @@ import {
 import { CpUsersDB } from "../../shared/fake-db/cp-users";
 import * as jwt_decode from "jwt-decode";
 import { map, catchError, share } from "rxjs/operators";
-import { throwError, Observable } from 'rxjs';
+import { throwError, Observable } from "rxjs";
 import { environment } from "environments/environment.prod";
 import { authProperties } from "./../../shared/services/auth/auth-properties";
 import { json } from "body-parser";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class UserService {
@@ -21,7 +22,7 @@ export class UserService {
   private userApiUrl = environment.userApiUrl;
   public testValue;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     const user: CpUsersDB = new CpUsersDB();
     this.users = user.users;
   }
@@ -126,6 +127,22 @@ export class UserService {
   }
 
   /*
+   * Get Logged User and Details by User ID
+   * Created by Raveen Sankalpa
+   * 05/04/2019
+   */
+  getLoggedUserData(userId): any {
+    return this.http
+      .get(this.userApiUrl + "platform-users/current/" + userId)
+      .pipe(
+        map(data => {
+          return data;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  /*
    * Get Jwt refrsh token Expire or not
    * Created by Prasad Kumara
    * 15/02/2019
@@ -154,17 +171,17 @@ export class UserService {
     const userObj = JSON.parse(localStorage.getItem(this.storage_name));
     let arrayList = [];
     if (userObj) {
-      console.log('--------------- setComponetDisable ----------------');
+      console.log("--------------- setComponetDisable ----------------");
       console.log(userObj.userData.role.name);
       const roleName = userObj.userData.role.name;
-      if (roleName === 'Super Administrator') {
-        arrayList = ['User Management'];
+      if (roleName === "Super Administrator") {
+        arrayList = ["User Management"];
         return arrayList;
-      } else if (roleName === 'Admin') {
-        arrayList = ['Client Management'];
+      } else if (roleName === "Admin") {
+        arrayList = ["Client Management"];
         return arrayList;
       } else {
-        arrayList = ['Client Management', 'User Management'];
+        arrayList = ["Client Management", "User Management"];
         return arrayList;
       }
     }
@@ -176,6 +193,20 @@ export class UserService {
       return userObj.token;
     } else {
       return false;
+    }
+  }
+
+  /** RAVEEN - 2019/04/04
+   * Return detialed instance about current logged user.
+   */
+  getLoggedUserDetail(): any {
+    // Negotiating are we gonna use localstorage or cookie for this kind of repo function.
+    const userObj: any = JSON.parse(localStorage.getItem(this.storage_name));
+    if (userObj) {
+      return userObj;
+    } else {
+      console.log("............LOGGED USER NOT FOUND..............");
+      this.router.navigate(["sessions/signin"]);
     }
   }
 

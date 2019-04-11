@@ -15,8 +15,7 @@ import {
   MatAutocompleteModule,
   MatProgressBarModule,
   MatMenuModule,
-  MatToolbarModule,
-
+  MatToolbarModule
 } from "../../../../node_modules/@angular/material";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { ProductCrudService } from "./product-crud.service";
@@ -26,10 +25,11 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { CrudService } from "../cruds/crud.service";
 import { DateValidator } from "../../directives/DateValidator.directive";
 import { FileUploadModule } from "ng2-file-upload";
-import { SurveyService } from '../survey/survey.service';
-import { SharedModule } from '../../shared/shared.module';
-import { ProductCommonComponent } from './product-crud-common.component';
-
+import { SurveyService } from "../survey/survey.service";
+import { SharedModule } from "../../shared/shared.module";
+import { ProductCommonComponent } from "./product-crud-common.component";
+import { ClientService } from "../client/client.service";
+import { UserService } from "../sessions/UserService.service";
 
 @NgModule({
   imports: [
@@ -59,7 +59,7 @@ import { ProductCommonComponent } from './product-crud-common.component';
     DateValidator,
     ProductCommonComponent
   ],
-  providers: [ProductCrudService, CrudService, SurveyService],
+  providers: [ProductCrudService, ClientService, SurveyService, UserService],
   entryComponents: [ProductCrudPopupComponent]
 })
-export class ProductCrudModule { }
+export class ProductCrudModule {}

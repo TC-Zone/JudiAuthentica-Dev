@@ -3,55 +3,40 @@ import { ResponseModel } from "../../model/ResponseModel.model";
 import { Subscription } from "rxjs";
 import { SurveyService } from "../survey/survey.service";
 import { CrudService } from "../cruds/crud.service";
-
+import { ClientService } from "../client/client.service";
 
 // -----------------------------------------
 // Product Crud Common Function and Operator
 // -----------------------------------------
 
-
 @Component({
-    selector: "product-common",
-    template: ""
+  selector: "product-common",
+  template: ""
 })
 export class ProductCommonComponent {
-    public clients: any[];
-    public getClientSub: Subscription;
-    public response: ResponseModel;
+  public getCategoriesSub: Subscription;
 
-    getAllSurveySub: Subscription;
-    surveyRows: any[];
+  public categories: any[];
 
-    constructor(
-        public surveyService: SurveyService,
-        public clientService: CrudService,
-    ) { }
+  constructor(
+    public surveyService: SurveyService,
+    public clientService: ClientService
+  ) {}
 
-
-    //   getAllSurvey() {
-    //     this.getAllSurveySub = this.surveyService
-    //       .getAllSurveys()
-    //       .subscribe(successResp => {
-    //         this.surveyRows = successResp.content;
-    //       });
-    //   }
-
-
-    getClientSuggestions() {
-        this.getClientSub = this.clientService
-            .getClientSuggestions()
-            .subscribe(data => {
-                this.response = data;
-                this.clients = this.response.content;
-            });
-    }
-
-    getAllClients() {
-        this.getClientSub = this.clientService.getItems().subscribe(data => {
-            this.response = data;
-            this.clients = this.response.content;
-        });
-    }
-
-
+  /** RAVEEN - 2019/04/04
+   * Fetch All the categories bound to client
+   *
+   * TODO : if Super admin log into system, this service should fetch all the categories without client filtering.
+   * local storage way can be good for identify which user is logged into system and user's roles data
+   *
+   * @param clientId
+   *
+   */
+  getClientCategories(clientId) {
+    this.getCategoriesSub = this.clientService
+      .getClientCategories(clientId)
+      .subscribe(data => {
+        this.categories = data.content;
+      });
+  }
 }

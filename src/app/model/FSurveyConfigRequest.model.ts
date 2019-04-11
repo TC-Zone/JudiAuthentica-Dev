@@ -33,6 +33,7 @@ export class FSCreateRequest {
     public origin: string,
     public channel: string,
     public languageJson : string,
+    public compatibility : string,
     public pages: any[],
     public jsonContent: string
   ) {}

@@ -8,23 +8,7 @@
 
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
 
-      <div fxFlex="34" class="pr-1">
 
-        <mat-form-field class="full-width">
-          <mat-select [disabled]='!data.isNew' [formControl]="productForm.controls['client']" required placeholder="Select A Client">
-            <mat-option>none</mat-option>
-            <mat-option *ngFor="let client of clients" [value]="client.id">{{client.name}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-
-      <div fxFlex="33" class="pr-1">
-        <mat-form-field class="full-width">
-          <input matInput [formControl]="productForm.controls['code']" required name="proCode"
-            positiveNumberAndLetterOnly placeholder="Product Code">
-        </mat-form-field>
-      </div>
 
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
@@ -32,20 +16,18 @@
         </mat-form-field>
       </div>
 
+      <!-- Category dropdown -->
       <div fxFlex="34" class="pr-1">
+
         <mat-form-field class="full-width">
-          <input matInput name="desc" [formControl]="productForm.controls['description']" required name="description"
-            placeholder="Description">
+          <mat-select  [formControl]="productForm.controls['categoryId']" required placeholder="Select A Category">
+            <mat-option>none</mat-option>
+            <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+          </mat-select>
         </mat-form-field>
       </div>
 
-      <div fxFlex="33" class="pr-1">
-        <mat-form-field class="full-width">
-          <input matInput name="batchNumber" [formControl]="productForm.controls['batchNumber']"
-            positiveNumberAndLetterOnly required placeholder="Batch Number">
-        </mat-form-field>
-      </div>
-
+      <!-- Quantity Input -->
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
           <input type="number" matInput name="quantity" [formControl]="productForm.controls['quantity']"
@@ -53,6 +35,25 @@
         </mat-form-field>
       </div>
 
+
+      <!-- Description Input -->
+      <div fxFlex="34" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="desc" [formControl]="productForm.controls['description']" required name="description"
+            placeholder="Description">
+        </mat-form-field>
+      </div>
+
+      <!-- Batch Number Input -->
+      <div fxFlex="33" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="batchNumber" [formControl]="productForm.controls['batchNumber']"
+            positiveNumberAndLetterOnly required placeholder="Batch Number">
+        </mat-form-field>
+      </div>
+
+
+      <!-- Expire Date Input -->
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
           <input matInput name="expireDate" [min]="tomorrow" [matDatepicker]="picker" [formControl]="productForm.controls['expireDate']"
@@ -64,12 +65,13 @@
         </mat-form-field>
       </div>
 
-      <div fxFlex="33" class="pr-1">
 
+      <!-- Community AutoComplete box -->
+      <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
-          <input type="text" placeholder="Select A Feedback" matInput [formControl]="productForm.controls['surveyId']" [matAutocomplete]="auto" (focusout)="surveyOnFocusOut($event)">
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)">
-            <mat-option *ngFor="let option of surveyFilteredOptions | async; let i = index" [value]="surveyIDs[i]">
+          <input type="text" placeholder="Select A Community" matInput [formControl]="productForm.controls['communityId']" [matAutocomplete]="auto" (focusout)="communityOnFocusOut($event)">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onCommunitySelectionChanged($event)">
+            <mat-option *ngFor="let option of communityFilteredOption | async; let i = index" [value]="communityIDs[i]">
               {{option}}
             </mat-option>
           </mat-autocomplete>
@@ -77,11 +79,12 @@
 
       </div>
 
-
-
-
-
-
+      <!-- Youtube Video URL Input -->
+      <div fxFlex="33" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="videoUrl" [formControl]="productForm.controls['videoUrl']"  placeholder="Video URL" type="text"  >
+        </mat-form-field>
+      </div>
 
 
 
@@ -126,12 +129,7 @@
 
 
 
-      
-      <div fxFlex="33" class="pr-1">
-        <mat-form-field class="full-width">
-          <input matInput name="videoUrl" [formControl]="productForm.controls['videoUrl']"  placeholder="Video URL" type="text"  >
-        </mat-form-field>
-      </div>
+
 
 
     </div>
