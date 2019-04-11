@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import * as Survey from "survey-angular";
 import * as widgets from "surveyjs-widgets";
+import * as $ from "jquery";
 
 import "inputmask/dist/inputmask/phone-codes/phone.js";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -12,7 +13,7 @@ import {
   ValueTemplate,
   MatrixBaseTemplate
 } from "../../../model/FutureSurvey.model";
-import { FutureSurveyOperationalService } from "../future-survey-operational.service";
+import { FutureSurveyOperationalService } from "../../../shared/services/survey/future-survey-operational.service";
 
 widgets.icheck(Survey);
 widgets.select2(Survey);
@@ -84,29 +85,14 @@ export class FutureSurveyViewComponent implements OnInit {
 
   // ........... Survey Respond view should be re architecturing with following certin Angular techniquees .............
   viewSurvey() {
+
+    this.fsOperationalService.optionUnselect(Survey);
+
     const surveyModel = new Survey.Model(this.jsonContent);
     // set survey preview language by prasad kumara
     surveyModel.locale = this.currentLang.code;
     let pageArray = this.pageJson;
     let resultArray = [];
-
-    surveyModel.onAfterRenderQuestion.add((survey, options) => {
-      if (!options.question.popupdescription) return;
-
-      // Add a button;
-      var btn = document.createElement("button");
-      btn.className = "btn btn-info btn-xs";
-      btn.innerHTML = "More Info";
-
-      btn.onclick = function () {
-        alert(options.question.popupdescription);
-      };
-      var header = options.htmlElement.querySelector("h5");
-      var span = document.createElement("span");
-      span.innerHTML = "  ";
-      header.appendChild(span);
-      header.appendChild(btn);
-    });
 
     Survey.StylesManager.applyTheme("bootstrap");
 
@@ -156,6 +142,14 @@ export class FutureSurveyViewComponent implements OnInit {
       console.log("..............SURVEY ANSWER RESULR/.............");
       console.log(result);
       document.getElementById("languageDD").style.display = "none";
+
+      //fixed scrolling issue on complete view
+      document.getElementById("background-image").style.height = "100vh";
+      const removeElements = (elms) => elms.forEach(el => el.remove());
+      removeElements(document.querySelectorAll(".ps__rail-y"));
+      document.getElementById("languageDD").style.display = "none";
+      document.getElementById("main-survey-div").style.alignItems = "";
+      //---//
 
       // ------- new start --------
       pageArray.forEach(element => {
@@ -270,6 +264,7 @@ export class FutureSurveyViewComponent implements OnInit {
   // change language in survey preview window by prasad kumara
   changeDefaultLang() {
     this.viewSurvey();
+    this.setuptheme();
   }
 
   // create survey support language array by prasad kumara

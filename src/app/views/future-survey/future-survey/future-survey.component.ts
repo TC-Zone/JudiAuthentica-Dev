@@ -14,7 +14,7 @@ import { AppErrorService } from "../../../shared/services/app-error/app-error.se
 import { MatSnackBar } from "@angular/material";
 
 import { LocalizationService } from "../../../shared/services/localization.service";
-import { FutureSurveyOperationalService } from "../future-survey-operational.service";
+import { FutureSurveyOperationalService } from "../../../shared/services/survey/future-survey-operational.service";
 import { ClientService } from "../../client/client.service";
 import {
   FutureSurveyRequest,
@@ -161,6 +161,9 @@ export class FutureSurveyComponent implements OnInit {
     SurveyKo.JsonObject.metaData.addProperty("question", {
       name: "customVisibleValue"
     });
+    SurveyKo.JsonObject.metaData.addProperty("radiogroup", {
+      name: "unselectable:boolean",
+      default: 0});
   }
 
   loadSurveyEditor() {
