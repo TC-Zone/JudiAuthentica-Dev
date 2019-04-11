@@ -20,9 +20,9 @@ import { SignupComponent } from "./signup/signup.component";
 import { SessionsRoutes } from "./sessions.routing";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { ErrorComponent } from "./error/error.component";
-import { UserService } from "./UserService.service";
-import { UserActivationComponent } from './user-activation/user-activation.component';
-import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { AuthenticationService } from "./authentication.service";
+import { UserActivationComponent } from "./user-activation/user-activation.component";
+import { UnauthorizedComponent } from "./unauthorized/unauthorized.component";
 
 @NgModule({
   imports: [
@@ -48,6 +48,6 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
     UserActivationComponent,
     UnauthorizedComponent
   ],
-  providers: [UserService]
+  providers: [AuthenticationService]
 })
 export class SessionsModule {}

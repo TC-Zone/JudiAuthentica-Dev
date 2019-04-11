@@ -26,7 +26,7 @@ import { environment } from "environments/environment.prod";
 import { egretAnimations } from "../../../../shared/animations/egret-animations";
 import { ProductCommonComponent } from "../../product-crud-common.component";
 import { ClientService } from "../../../client/client.service";
-import { UserService } from "../../../sessions/UserService.service";
+import { AuthenticationService } from "../../../sessions/authentication.service";
 
 export const MY_FORMATS = {
   parse: {
@@ -87,7 +87,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
     public dialogRef: MatDialogRef<ProductCrudPopupComponent>,
     public clientService: ClientService,
     public surveyService: SurveyService,
-    public userService: UserService,
+    public authService: AuthenticationService,
     private fb: FormBuilder,
     public snackBar: MatSnackBar
   ) {
@@ -97,7 +97,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
   ngOnInit() {
     // validate back dates
     this.tomorrow = DateValidator.getTomorrow();
-    const detailObj = this.userService.getLoggedUserDetail();
+    const detailObj = this.authService.getLoggedUserDetail();
     this.clientId = detailObj.userData.client.id;
 
     this.getClientCategories(this.clientId);

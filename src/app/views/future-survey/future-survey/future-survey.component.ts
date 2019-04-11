@@ -40,14 +40,14 @@ widgets.autocomplete(SurveyKo);
 widgets.bootstrapslider(SurveyKo);
 
 var CkEditor_ModalEditor = {
-  afterRender: function (modalEditor, htmlElement) {
+  afterRender: function(modalEditor, htmlElement) {
     var editor = window["CKEDITOR"].replace(htmlElement);
-    editor.on("change", function () {
+    editor.on("change", function() {
       modalEditor.editingValue = editor.getData();
     });
     editor.setData(modalEditor.editingValue);
   },
-  destroy: function (modalEditor, htmlElement) {
+  destroy: function(modalEditor, htmlElement) {
     var instance = window["CKEDITOR"].instances[htmlElement.id];
     if (instance) {
       instance.removeAllListeners();
@@ -75,7 +75,6 @@ export class FutureSurveyComponent implements OnInit {
   jsonContent: any;
 
   constructor(
-    private clientService: CrudService,
     private clientService2: ClientService,
     private furureSurveyService: FutureSurveyService,
     private router: Router,
@@ -86,7 +85,7 @@ export class FutureSurveyComponent implements OnInit {
     private loc: LocalizationService,
     private FSOperationalService: FutureSurveyOperationalService,
     private appWarning: AppWarningService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.loader.open();
@@ -163,7 +162,8 @@ export class FutureSurveyComponent implements OnInit {
     });
     SurveyKo.JsonObject.metaData.addProperty("radiogroup", {
       name: "unselectable:boolean",
-      default: 0});
+      default: 0
+    });
   }
 
   loadSurveyEditor() {
@@ -208,7 +208,7 @@ export class FutureSurveyComponent implements OnInit {
     // Set the name property different from the default value
     // and set the tag property to a generated GUID value.
 
-    this.editor.onQuestionAdded.add(function (sender, options) {
+    this.editor.onQuestionAdded.add(function(sender, options) {
       let q = options.question;
 
       let text = "";
@@ -271,8 +271,6 @@ export class FutureSurveyComponent implements OnInit {
     let jsonText = JSON.stringify(this.editor.text);
     let jsonObject = JSON.parse(this.editor.text);
 
-
-
     // -------------------- old code for build langJson ---------------------------
     // const defLang = jsonObject.locale;
     // const langArray: any[] = this.editor.translation.koLocales._latestValue;
@@ -291,16 +289,15 @@ export class FutureSurveyComponent implements OnInit {
     // }
     // ----------------------------------------------------------------------------
 
-
-
-
     // ---------------------------------------------------------------------------------~ HBH ~------------------
     // if anywhere in the survey has been used another language, set selected language value to text directly instead of whole value array.
     // ex: if selected language is italiano, change text values as shown below.
     // "text": "articolo1 A" instead of "text": { "default": "item1 A", "it": "articolo1 A" }.
     // --------------------------------------------------------------------------------------------------------
 
-    let req: ValidateLocalizeSurveyRequestWrapper = this.FSOperationalService.validateLocalizeSurveyRequest(jsonObject);
+    let req: ValidateLocalizeSurveyRequestWrapper = this.FSOperationalService.validateLocalizeSurveyRequest(
+      jsonObject
+    );
     jsonObject = req.validateLocalizeSurveyRequest;
     console.log(req.surveyLang);
 

@@ -9,12 +9,12 @@ import * as jwt_decode from "jwt-decode";
 import { map, catchError, share } from "rxjs/operators";
 import { throwError, Observable } from "rxjs";
 import { environment } from "environments/environment.prod";
-import { authProperties } from "./../../shared/services/auth/auth-properties";
-import { json } from "body-parser";
+import { authProperties } from "../../shared/services/auth/auth-properties";
+
 import { Router } from "@angular/router";
 
 @Injectable()
-export class UserService {
+export class AuthenticationService {
   users: any[];
   private baseAuthUrl: String = environment.authTokenUrl;
   private storage_name = authProperties.storage_name;

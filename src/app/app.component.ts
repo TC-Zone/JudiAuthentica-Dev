@@ -11,7 +11,7 @@ import { RoutePartsService } from "./shared/services/route-parts.service";
 import { ThemeService } from "./shared/services/theme.service";
 
 import { filter } from "rxjs/operators";
-import { UserService } from "./views/sessions/UserService.service";
+import { AuthenticationService } from "./views/sessions/authentication.service";
 import { authProperties } from './shared/services/auth/auth-properties';
 import { DOCUMENT } from "@angular/common";
 import * as jwt_decode from "jwt-decode";
@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private routePartsService: RoutePartsService,
     private themeService: ThemeService,
     private renderer: Renderer2,
-    private userService: UserService,
+    private userService: AuthenticationService,
     @Inject(DOCUMENT) private document: Document
   ) {}
 
