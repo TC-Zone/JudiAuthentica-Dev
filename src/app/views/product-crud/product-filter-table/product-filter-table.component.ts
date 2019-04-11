@@ -25,11 +25,11 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
   temp = [];
 
 
-   // pagination
-   pageNumber = 1;
-   pageSize = 10;
-   totalPages = [];
-   totalRecords = 0;
+  // pagination
+  pageNumber = 1;
+  pageSize = 10;
+  totalPages = [];
+  totalRecords = 0;
 
 
   public getProductsSub: Subscription;
@@ -43,7 +43,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
     private confirmService: AppConfirmService,
     private downloadService: AppFileDownloadService,
     private conversionService: AppDataConversionService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getAllProduct();
@@ -84,7 +84,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
 
     if (!columns.length) return;
 
-    const rows = this.temp.filter(function(data) {
+    const rows = this.temp.filter(function (data) {
       for (let i = 0; i <= columns.length; i++) {
         let column = columns[i];
         if (
@@ -267,5 +267,5 @@ export class CSVDTO {
   productDetails: any;
   authenticationCode: any;
 
-  constructor(public proDetails: any, public authCodes: any) {}
+  constructor(public proDetails: any, public authCodes: any) { }
 }

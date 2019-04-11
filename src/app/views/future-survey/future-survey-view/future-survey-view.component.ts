@@ -86,6 +86,13 @@ export class FutureSurveyViewComponent implements OnInit {
   // ........... Survey Respond view should be re architecturing with following certin Angular techniquees .............
   viewSurvey() {
 
+    let jsonContentJSON = this.jsonContent;
+    jsonContentJSON.pages.forEach(element => {
+      element.elements.forEach(element => {
+        console.log('----------------------- element', element);
+      });
+    });
+
     this.fsOperationalService.optionUnselect(Survey);
 
     const surveyModel = new Survey.Model(this.jsonContent);
@@ -95,6 +102,8 @@ export class FutureSurveyViewComponent implements OnInit {
     let resultArray = [];
 
     Survey.StylesManager.applyTheme("bootstrap");
+
+    console.log(surveyModel);
 
 
     surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
