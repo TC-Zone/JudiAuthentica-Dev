@@ -220,6 +220,9 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   }
 
   openCategoryPopUp(data: any = {}) {
+    this.clientService.getClientCategories(data.id).subscribe(
+      successResp => {
+        console.log(successResp);
 
     this.clientService.getClientCategories(data.id).subscribe(successResp => {
       console.log(successResp);
@@ -265,7 +268,25 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
       });
 
-    },
+          // this.loader.open();
+          // const country: CountryData = new CountryData('a65715e919d0995f361360cf0b8c2c03', 'Åland Islands', 'AX');
+          // const req: ClientUpdateReq = new ClientUpdateReq(
+          //   res[0].name, res[0].description, res[1], res[0].contactNo, res[0].addressLine1, res[0].addressLine2, res[0].city, res[0].state, res[0].zipCode, country
+          // );
+
+          // this.clientService.updateClient(data.id, req).subscribe(
+          //   response => {
+          //     this.getClients();
+          //     this.loader.close();
+          //     this.snack.open("Client Updated!", "OK", { duration: 4000 });
+          //   },
+          //   error => {
+          //     this.loader.close();
+          //     this.errDialog.showError(error);
+          //   }
+          // );
+        });
+      },
       error => {
         this.errDialog.showError(error);
       }
@@ -330,18 +351,26 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   }
 
   navigateUserTable(res: any) {
-    this.clientService.getClient(res.id).subscribe(
-      successResp => {
-        console.log(successResp.content);
-        localStorage.setItem(
-          "currentClient",
-          JSON.stringify(successResp.content)
-        );
-        this.router.navigate(["clients/user/user-table"]);
-      },
-      error => {
-        this.errDialog.showError(error);
+    let extraParam: NavigationExtras = {
+      queryParams: {
+        clientId: res.id
       }
-    );
+    };
+    this.router.navigate(["clients/user/user-table"], extraParam);
   }
 }
+
+// Raveen : Buddi's code : 2019/04/11
+// this.clientService.getClient(res.id).subscribe(
+//     successResp => {
+//       console.log(successResp.content);
+//       localStorage.setItem(
+//         "currentClient",
+//         JSON.stringify(successResp.content)
+//       );
+//       this.router.navigate(["clients/user/user-table"]);
+//     },
+//     error => {
+//       this.errDialog.showError(error);
+//     }
+//   );

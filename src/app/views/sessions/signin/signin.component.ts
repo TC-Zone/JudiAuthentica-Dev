@@ -1,19 +1,17 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatProgressBar, MatButton, MatSnackBar } from "@angular/material";
 import { Validators, FormGroup, FormControl } from "@angular/forms";
-import { UserService } from "../UserService.service";
+import { AuthenticationService } from "../authentication.service";
 import { Router } from "@angular/router";
-import { authProperties } from './../../../shared/services/auth/auth-properties';
-import { interval } from 'rxjs';
+import { authProperties } from "./../../../shared/services/auth/auth-properties";
+import { interval } from "rxjs";
 
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
-  styleUrls: ["./signin.component.scss"],
+  styleUrls: ["./signin.component.scss"]
 })
 export class SigninComponent implements OnInit {
-
-
   @ViewChild(MatButton)
   submitButton: MatButton;
 
@@ -24,16 +22,15 @@ export class SigninComponent implements OnInit {
   result: boolean = true;
   private storage_name = authProperties.storage_name;
 
-
   // test
   public userId;
   public counter = 0;
 
   constructor(
-    private userService: UserService,
+    private authService: AuthenticationService,
     private router: Router,
     private snack: MatSnackBar
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.signinForm = new FormGroup({
@@ -52,25 +49,25 @@ export class SigninComponent implements OnInit {
 
     this.submitButton.disabled = true;
     // this.progressBar.mode = 'indeterminate';
-    this.userService.login(signinData)
+    this.authService.login(signinData)
       .subscribe(response => {
         console.log('---------------------------- response', response);
 
         const tempUser = {
           id: response.user_id,
-          username: 'contactpkumara@gmail.com',
-          accountName: 'Kushan Pabasara',
-          image: 'assets/images/cp_users/placeholder-user.png',
+          username: "contactpkumara@gmail.com",
+          accountName: "Kushan Pabasara",
+          image: "assets/images/cp_users/placeholder-user.png",
           token: response.access_token,
           refreshToken: response.refresh_token,
-          company: 'Kushan Pabasara',
+          company: "Kushan Pabasara",
           expires_in: response.expires_in,
-          userData: ''
+          userData: ""
         };
         localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
 
-        this.userService.getLoggedUserData(response.user_id)
-          .subscribe(res => {
+        this.authService.getLoggedUserData(response.user_id).subscribe(
+          res => {
             const viewData = res.content;
             tempUser.username = viewData.userName;
             tempUser.accountName = viewData.accountName;
@@ -83,25 +80,25 @@ export class SigninComponent implements OnInit {
             // this.getRefreshToken(expireInMilliSecond);
             // this.getRefreshToken(10000);
           },
-            error => {
-              this.result = false;
-              // this.progressBar.mode = 'determinate';
-              localStorage.removeItem(this.storage_name);
-            }
-          );
-      },
-        error => {
-          this.result = false;
-          if (error.status === 400) {
+          error => {
+            this.result = false;
             // this.progressBar.mode = 'determinate';
-            this.signinForm.reset();
-          } else {
-            // this.progressBar.mode = 'determinate';
-            this.signinForm.reset();
-            this.router.navigate([this.signInUrl]);
+            localStorage.removeItem(this.storage_name);
           }
+        );
+      },
+      error => {
+        this.result = false;
+        if (error.status === 400) {
+          // this.progressBar.mode = 'determinate';
+          this.signinForm.reset();
+        } else {
+          // this.progressBar.mode = 'determinate';
+          this.signinForm.reset();
+          this.router.navigate([this.signInUrl]);
         }
-      );
+      }
+    );
   }
 
   // getRefreshToken(refreshTime) {

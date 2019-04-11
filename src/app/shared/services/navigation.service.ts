@@ -419,20 +419,28 @@ export class NavigationService {
       state: "productCrud/show",
       disabled: false
     },
+    // {
+    //   name: "Instant Feedback",
+    //   type: "link",
+    //   tooltip: "Feedback Management",
+    //   icon: "feedback",
+    //   state: "surveys",
+    //   disabled: false
+    // },
+    // {
+    //   name: "E-Vote",
+    //   type: "link",
+    //   tooltip: "E-Vote",
+    //   icon: "thumbs_up_down",
+    //   state: "evote/showEvote",
+    //   disabled: false
+    // },
     {
-      name: "Instant Feedback",
+      name: "Community",
       type: "link",
-      tooltip: "Feedback Management",
-      icon: "feedback",
-      state: "surveys",
-      disabled: false
-    },
-    {
-      name: "E-Vote",
-      type: "link",
-      tooltip: "E-Vote",
-      icon: "thumbs_up_down",
-      state: "evote/showEvote",
+      tooltip: "Community",
+      icon: "group",
+      state: "community/community-view",
       disabled: false
     },
     {
@@ -443,14 +451,7 @@ export class NavigationService {
       state: "future-survey",
       disabled: false
     },
-    {
-      name: "Community",
-      type: "link",
-      tooltip: "Community",
-      icon: "group",
-      state: "community/community-view",
-      disabled: false
-    },
+
     // ,
     // {
     //   name: "Interaction View",

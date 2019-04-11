@@ -32,7 +32,7 @@ export const MY_FORMATS = {
   selector: 'app-create-event-popup',
   templateUrl: './create-event-popup.component.html',
   animations: egretAnimations,
-  providers: [ DatePipe ]
+  providers: [DatePipe]
 })
 export class CreateEventPopupComponent implements OnInit {
 
@@ -48,8 +48,11 @@ export class CreateEventPopupComponent implements OnInit {
   public remainImagesID = [];
   public comunityName: string;
   public comunityId: string;
-  public minHeight = 240;
-  public minWidth = 320;
+  public minHeight = 200;
+  public minWidth = 400;
+  public imgBaseURL: string;
+  public url;
+  public imageToShow: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -72,12 +75,17 @@ export class CreateEventPopupComponent implements OnInit {
       this.comunityName = params['name'];
     });
     this.setStartDateMin();
+    //edited by kushan
+    this.imgBaseURL = this.userEventService.imageUrl;
+
+
   }
 
   /*
   * Build Event Create and Update Form
   * 05-03-2019
   * Prasad Kumara
+  * Edited by Kushan Pabasara
   */
   buildEventForm(eventformdata) {
     this.eventForm = this.fb.group({
@@ -86,8 +94,15 @@ export class CreateEventPopupComponent implements OnInit {
       status: [eventformdata.status || false, Validators.required],
       startDateTime: [eventformdata.startDateTime, Validators.required],
       endDateTime: [eventformdata.endDateTime, Validators.required],
-      poster: [eventformdata.poster || '', Validators.required]
+      poster: ['']
     });
+
+    getBase64ImageFromUrl(this.imgBaseURL + eventformdata.id)
+      .then(result => this.url = result)
+      .catch(err => console.error(err));
+
+    console.log(this.eventForm);
+
   }
 
   /*
@@ -157,74 +172,128 @@ export class CreateEventPopupComponent implements OnInit {
   * Image file upload function
   * 05-03-2019
   * Prasad Kumara
+  * edited by kushan pabasara
   */
   onSelectFile(event) {
+    // if (event.target.files && event.target.files[0]) {
+    //   const filesAmount = event.target.files.length;
+    //   if (
+    //     this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1
+    //       ? true
+    //       : this.currentTotalImageCount + filesAmount <=
+    //       this.maxUploadableFileCount
+    //   ) {
+    //     for (let i = 0; i < filesAmount; i++) {
+    //       const fileName = event.target.files[i].name;
+    //       const fileExtension = fileName.replace(/^.*\./, '');
+    //       console.log(fileExtension);
+
+    //       if (fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'jpeg') {
+    //         const reader = new FileReader();
+    //         reader.onload = (ev: any) => {
+    //           const img = new Image();
+    //           img.src = ev.target.result;
+    //           img.onload = () => {
+    //             const widthReminder = img.width % 4;
+    //             const heightReminder = img.height % 3;
+    //             console.log(this.urls);
+    //             if (img.width < this.minWidth || img.height < this.minHeight) {
+    //               this.snackBar.open(
+    //                 'Image minimum dimension should be ' + this.minWidth + 'X' + this.minHeight,
+    //                 'close',
+    //                 { duration: 3000 }
+    //               );
+    //               this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
+    //               this.currentTotalImageCount--;
+    //               return;
+    //             }
+    //             if (widthReminder !== 0 || heightReminder !== 0) {
+    //               this.snackBar.open(
+    //                 'Image aspect ratio should be 4:3 (' + this.minWidth + 'X' + this.minHeight + ')',
+    //                 'close',
+    //                 { duration: 3000 }
+    //               );
+    //               this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
+    //               this.currentTotalImageCount--;
+    //               return;
+    //             }
+    //             console.log(this.urls);
+
+    //             this.urls.push(ev.target.result);
+    //             this.eventForm.controls['poster'].setErrors(null);
+
+    //           };
+    //         };
+
+    //         reader.readAsDataURL(event.target.files[i]);
+    //         this.newlySelectedFileList.push(event.target.files[i]);
+    //         this.currentTotalImageCount++;
+    //       } else {
+    //         this.snackBar.open(
+    //           'Upload valiid images. Only PNG, JPG or JPEG are allowed!',
+    //           'close',
+    //           { duration: 3000 }
+    //         );
+    //         this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
+    //         this.currentTotalImageCount--;
+    //         return;
+    //       }
+    //     }
+
+    //   } else {
+    //     // alert for file upload limit
+    //     this.snackBar.open(
+    //       'Can\'t upload more than ' + this.maxUploadableFileCount + ' photos',
+    //       'close',
+    //       { duration: 2000 }
+    //     );
+    //   }
+    // }
     if (event.target.files && event.target.files[0]) {
-      const filesAmount = event.target.files.length;
-      if (
-        this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1
-          ? true
-          : this.currentTotalImageCount + filesAmount <=
-          this.maxUploadableFileCount
-      ) {
-        for (let i = 0; i < filesAmount; i++) {
-          const fileName = event.target.files[i].name;
-          const fileExtension = fileName.replace(/^.*\./, '');
-          if (fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'jpeg') {
-            const reader = new FileReader();
-            reader.onload = (ev: any) => {
-              const img = new Image();
-              img.src = ev.target.result;
-              img.onload = () => {
-                const widthReminder = img.width % 4;
-                const heightReminder = img.height % 3;
-                if (img.width < this.minWidth || img.height < this.minHeight) {
-                  this.snackBar.open(
-                    'Image minimum dimension should be ' + this.minWidth + 'X' + this.minHeight,
-                    'close',
-                    { duration: 3000 }
-                  );
-                  this.eventForm.controls['poster'].setErrors({'incorrect': true});
-                  this.currentTotalImageCount--;
-                  return;
-                }
-                if (widthReminder !== 0 || heightReminder !== 0) {
-                  this.snackBar.open(
-                    'Image aspect ratio should be 4:3 (' + this.minWidth + 'X' + this.minHeight + ')',
-                    'close',
-                    { duration: 3000 }
-                  );
-                  this.eventForm.controls['poster'].setErrors({'incorrect': true});
-                  this.currentTotalImageCount--;
-                  return;
-                }
-                this.urls.push(ev.target.result);
-                this.eventForm.controls['poster'].setErrors(null);
-              };
-            };
-            reader.readAsDataURL(event.target.files[i]);
-            this.newlySelectedFileList.push(event.target.files[i]);
-            this.currentTotalImageCount++;
+
+      // const fileName = event.target.files[i].name;
+      // const fileExtension = fileName.replace(/^.*\./, '');
+
+      let file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
+      let pattern = /image-*/;
+      let reader = new FileReader();
+      if (!file.type.match(pattern)) {
+        this.snackBar.open(
+          "Invalid Format!",
+          "close",
+          { duration: 2000 }
+        );
+        return;
+      }
+      console.log(file);
+
+      reader.onload = (event: any) => {
+        const img = new Image();
+
+        img.src = event.target.result;
+        img.onload = () => {
+          if (img.width < this.minWidth || img.height < this.minHeight) {
+            this.url = event.target.result;
           } else {
             this.snackBar.open(
-              'Upload valiid images. Only PNG, JPG or JPEG are allowed!',
+              'Image minimum dimension should be ' + this.minWidth + 'X' + this.minHeight,
               'close',
               { duration: 3000 }
             );
-            this.eventForm.controls['poster'].setErrors({'incorrect': true});
-            this.currentTotalImageCount--;
+            this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
             return;
           }
         }
+      };
 
-      } else {
-        // alert for file upload limit
-        this.snackBar.open(
-          'Can\'t upload more than ' + this.maxUploadableFileCount + ' photos',
-          'close',
-          { duration: 2000 }
-        );
-      }
+      reader.readAsDataURL(file);
+
+    } else {
+      this.snackBar.open(
+        "Can't upload",
+        "close",
+        { duration: 2000 }
+      );
     }
   }
 
@@ -232,17 +301,19 @@ export class CreateEventPopupComponent implements OnInit {
   * Remove selected images
   * 05-03-2019
   * Prasad Kumara
+  * edited by kushan pabasara
   */
   removeSelectedImg(index: number) {
-    this.urls.splice(index, 1);
-    this.currentTotalImageCount -= 1;
-    this.eventForm.controls['poster'].setErrors({'incorrect': true});
+    // this.url.splice(index, 1);
+    // this.currentTotalImageCount -= 1;
+    // this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
 
-    if (this.remainImagesID.length < index + 1) {
-      this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
-    } else {
-      this.remainImagesID.splice(index, 1);
-    }
+    // if (this.remainImagesID.length < index + 1) {
+    //   this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
+    // } else {
+    //   this.remainImagesID.splice(index, 1);
+    // }
+    this.url = null;
   }
 
   /*
@@ -251,6 +322,7 @@ export class CreateEventPopupComponent implements OnInit {
   * Prasad Kumara
   */
   prepareEventFormData(formValues): FormData {
+
     const eventFormData: FormData = new FormData();
     eventFormData.append('communityId', this.comunityId);
     eventFormData.append('name', formValues.name);
@@ -259,12 +331,14 @@ export class CreateEventPopupComponent implements OnInit {
     eventFormData.append('endDateTime', formValues.endDateTime);
     eventFormData.append('status', formValues.status);
 
+
     for (let i = 0; i < this.newlySelectedFileList.length; i++) {
       const selectedFile: File = this.newlySelectedFileList[i];
       const type = selectedFile.type.split("/");
       const imageName = 'image_' + i + '.' + type[1];
       eventFormData.append('poster', selectedFile, imageName);
     }
+    console.log(eventFormData);
 
     return eventFormData;
   }
@@ -273,16 +347,32 @@ export class CreateEventPopupComponent implements OnInit {
   * Create and Update Event Submit function
   * 05-03-2019
   * Prasad Kumara
+  * edited by kushan pabasara
   */
   eventFormSubmit() {
     // const eventFormData = this.prepareEventFormData(this.eventForm.value);
     const eventFormData = this.eventForm.value;
-    eventFormData.poster = this.urls[0];
-    const startDateTime: string = this.datePipe.transform(this.eventForm.value.startDateTime, 'yyy-MM-dd HH:mm');
-    const endDateTime: string = this.datePipe.transform(this.eventForm.value.endDateTime, 'yyy-MM-dd HH:mm');
-    eventFormData.startDateTime = startDateTime;
-    eventFormData.endDateTime = endDateTime;
-    this.dialogRef.close(eventFormData);
+    console.log(eventFormData);
+
+    if (this.url) {
+      eventFormData.poster = this.url;
+
+      const startDateTime: string = this.datePipe.transform(this.eventForm.value.startDateTime, 'yyy-MM-dd HH:mm');
+      const endDateTime: string = this.datePipe.transform(this.eventForm.value.endDateTime, 'yyy-MM-dd HH:mm');
+      eventFormData.startDateTime = startDateTime;
+      eventFormData.endDateTime = endDateTime;
+      console.log(eventFormData);
+      this.dialogRef.close(eventFormData);
+    } else {
+      this.snackBar.open(
+        "Please upload image",
+        "close",
+        { duration: 2000 }
+      );
+      this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
+    }
+
+
   }
 
   /*
@@ -314,4 +404,23 @@ export class CreateEventPopupComponent implements OnInit {
     return event;
   }
 
+
+}
+/* created by kushan pabasara */
+async function getBase64ImageFromUrl(imageUrl) {
+  var res = await fetch(imageUrl);
+  var blob = await res.blob();
+
+  return new Promise((resolve, reject) => {
+    var reader = new FileReader();
+    reader.addEventListener("load", function () {
+      resolve(reader.result);
+
+    }, false);
+
+    reader.onerror = () => {
+      return reject(this);
+    };
+    reader.readAsDataURL(blob);
+  })
 }

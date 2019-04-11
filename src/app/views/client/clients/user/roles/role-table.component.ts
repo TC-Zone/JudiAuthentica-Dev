@@ -7,10 +7,11 @@ import { RoleTablePopupComponent } from "./role-table-popup/role-table-popup.com
 import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../../../shared/animations/egret-animations";
 import { AppErrorService } from "../../../../../shared/services/app-error/app-error.service";
-import { NavigationExtras, Router } from "@angular/router";
-import { UserService } from './../../../../sessions/UserService.service';
-import { authProperties } from './../../../../../shared/services/auth/auth-properties';
+
+import { AuthenticationService } from "../../../../sessions/authentication.service";
+import { authProperties } from "./../../../../../shared/services/auth/auth-properties";
 import * as jwt_decode from "jwt-decode";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-role-table",
@@ -33,9 +34,8 @@ export class RoleTableComponent implements OnInit, OnDestroy {
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
-    private router: Router,
-    private userService: UserService
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -82,7 +82,7 @@ export class RoleTableComponent implements OnInit, OnDestroy {
 
   openPopUp(data: any = {}, isNew?) {
     let title = isNew ? "Create New User Role" : "Update User Role";
-    data['isNew'] = isNew;
+    data["isNew"] = isNew;
     let dialogRef: MatDialogRef<any> = this.dialog.open(
       RoleTablePopupComponent,
       {
@@ -113,13 +113,13 @@ export class RoleTableComponent implements OnInit, OnDestroy {
           });
       } else {
         // console.log('------------ update user role object ---------------');
-        res['localizedName'] = '';
+        res["localizedName"] = "";
         // console.log(res);
-        this.clientService.updateRloe(this.editRoleId, res)
-          .subscribe(response => {
+        this.clientService.updateRloe(this.editRoleId, res).subscribe(
+          response => {
             // console.log('--------------- create user role response ----------------');
             // console.log(response);
-            this.snack.open('User Role Updated', 'close', {
+            this.snack.open("User Role Updated", "close", {
               duration: 2000
             });
             this.getClientRoles();
@@ -133,16 +133,16 @@ export class RoleTableComponent implements OnInit, OnDestroy {
   }
 
   /*
-  * Edit User Role
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
+   * Edit User Role
+   * Created by Prasad Kumara
+   * 14/02/2019
+   */
   editRole(role) {
     // console.log('------------- edit role ----------------');
     // console.log(role);
     this.editRoleId = role.id;
-    this.clientService.getOneRoleAuthorities(role.id)
-      .subscribe(response => {
+    this.clientService.getOneRoleAuthorities(role.id).subscribe(
+      response => {
         // console.log(response.content);
         const roleData = {
           name: response.content.name,
@@ -157,10 +157,10 @@ export class RoleTableComponent implements OnInit, OnDestroy {
   }
 
   /*
-  * Delete User Role
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
+   * Delete User Role
+   * Created by Prasad Kumara
+   * 14/02/2019
+   */
   deleteRole(row) {
     this.confirmService
       .confirm({ message: `Delete ${row.name}?` })
@@ -171,5 +171,4 @@ export class RoleTableComponent implements OnInit, OnDestroy {
         }
       });
   }
-
 }

@@ -23,9 +23,9 @@
             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
           </mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker> -->
-          <input matInput name="startDateTime" [min]="startDateMin" (ngModelChange)="validateDatePickerMinMax()"
-            [max]="startDateMax" [owlDateTime]="picker1" [owlDateTimeTrigger]="picker1"
-            [formControl]="eventForm.controls['startDateTime']" required placeholder="Start Date">
+          <input matInput name="startDateTime" [min]="startDateMin" (ngModelChange)="validateDatePickerMinMax()" [max]="startDateMax"
+            [owlDateTime]="picker1" [owlDateTimeTrigger]="picker1" [formControl]="eventForm.controls['startDateTime']"
+            required placeholder="Start Date">
           <button [owlDateTimeTrigger]="picker1" mat-icon-button matSuffix>
             <mat-icon>keyboard_arrow_down</mat-icon>
           </button>
@@ -39,9 +39,9 @@
             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
           </mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker> -->
-          <input matInput name="endDateTime" [min]="endDateMin" (ngModelChange)="validateDatePickerMinMax()"
-            [max]="endDateMax" [owlDateTime]="picker2" [owlDateTimeTrigger]="picker2"
-            [formControl]="eventForm.controls['endDateTime']" required placeholder="End Date">
+          <input matInput name="endDateTime" [min]="endDateMin" (ngModelChange)="validateDatePickerMinMax()" [max]="endDateMax"
+            [owlDateTime]="picker2" [owlDateTimeTrigger]="picker2" [formControl]="eventForm.controls['endDateTime']"
+            required placeholder="End Date">
           <button [owlDateTimeTrigger]="picker2" mat-icon-button matSuffix>
             <mat-icon>keyboard_arrow_down</mat-icon>
           </button>
@@ -51,39 +51,60 @@
       <div fxFlex="50" class="pr-1">
         <!-- --------- hidden file input --------- -->
         <input (change)="onSelectFile($event)" #eventImgs type="file" [formControl]="eventForm.controls['poster']"
-        multiple style="display: none" />
+          multiple style="display: none" />
         <!-- --------- file input click button --------- -->
         <div layout-margin layout-padding>
-          <button mat-raised-button class="mr-1" (click)="eventImgs.click()"
-          [disabled]="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
+          <button mat-raised-button class="mr-1" (click)="eventImgs.click()" [disabled]="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
           (false) :
           (this.currentTotalImageCount === this.maxUploadableFileCount)"
             type="button">
             Browse Images
             <span *ngIf="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
             (false) :
-            (this.currentTotalImageCount > 0)"> ({{this.currentTotalImageCount}} / {{this.maxUploadableFileCount}})</span>
+            (this.currentTotalImageCount > 0)">
+              ({{this.currentTotalImageCount}} / {{this.maxUploadableFileCount}})</span>
           </button>
         </div>
       </div>
       <div fxFlex="50" class="pr-1">
         <mat-slide-toggle *ngIf="!data.isNew" [formControl]="eventForm.controls['status']">Activate Event</mat-slide-toggle>
       </div>
-      <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngFor='let url of urls; let i = index' fxFlex="100" fxFlex.gt-sm="25" fxFlex.sm="50" style="display: flex;">
+      <!-- <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngFor='let url of urls; let i = index' fxFlex="100"
+        fxFlex.gt-sm="25" fxFlex.sm="50" style="display: flex;">
         <mat-card class="p-0">
           <button type="button" class="close" aria-label="Close" (click)="removeSelectedImg(i)">
             <span aria-hidden="true">&times;</span>
           </button>
           <img [src]="url">
         </mat-card>
+      </div> -->
+      <!-- --------- start images preview container --------- -->
+      <div id="event_update_image_preview_container" fxLayout="row" fxLayoutWrap="wrap" layout-align="center" class="mt-1">
+
+        <!-- --------- start card --------- -->
+        <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngIf="url" fxFlex="100" style="display: flex;max-height: 200px">
+          <mat-card class="p-0">
+
+            <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+              <span fxFlex></span>
+              <button type="button" class="close p-1" aria-label="Close" (click)="removeSelectedImg()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <img [src]="url">
+          </mat-card>
+        </div>
+        <!-- --------- end card --------- -->
+
       </div>
+      <!-- --------- end images preview container --------- -->
     </div>
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
-        <div fxFlex="100" class="mt-1">
-          <button mat-raised-button color="primary" (click)="eventFormSubmit()" [disabled]="eventForm.invalid">Save</button>
-          <span fxFlex></span>
-          <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
-        </div>
+      <div fxFlex="100" class="mt-1">
+        <button mat-raised-button color="primary" (click)="eventFormSubmit()" [disabled]="eventForm.invalid">Save</button>
+        <span fxFlex></span>
+        <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
       </div>
+    </div>
   </mat-dialog-content>
 </form>

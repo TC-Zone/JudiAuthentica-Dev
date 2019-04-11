@@ -1,30 +1,34 @@
-import { Component, OnInit, Input, OnDestroy, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Renderer2 } from "@angular/core";
 import { NavigationService } from "../../../shared/services/navigation.service";
-import { Subscription } from 'rxjs';
-import { ThemeService } from '../../../shared/services/theme.service';
-import { TranslateService } from '@ngx-translate/core';
-import { LayoutService } from '../../services/layout.service';
-import { UserService } from '../../../views/sessions/UserService.service';
-import { Router } from '@angular/router';
-import { LocalStorageHandler } from '../../helpers/local-storage';
+import { Subscription } from "rxjs";
+import { ThemeService } from "../../../shared/services/theme.service";
+import { TranslateService } from "@ngx-translate/core";
+import { LayoutService } from "../../services/layout.service";
+import { AuthenticationService } from "../../../views/sessions/authentication.service";
+import { Router } from "@angular/router";
+import { LocalStorageHandler } from "../../helpers/local-storage";
 
 @Component({
-  selector: 'app-header-top',
-  templateUrl: './header-top.component.html'
+  selector: "app-header-top",
+  templateUrl: "./header-top.component.html"
 })
-export class HeaderTopComponent extends LocalStorageHandler implements OnInit, OnDestroy {
+export class HeaderTopComponent extends LocalStorageHandler
+  implements OnInit, OnDestroy {
   layoutConf: any;
-  menuItems:any;
+  menuItems: any;
   menuItemSub: Subscription;
   egretThemes: any[] = [];
-  currentLang = 'en';
-  availableLangs = [{
-    name: 'English',
-    code: 'en',
-  }, {
-    name: 'Spanish',
-    code: 'es',
-  }]
+  currentLang = "en";
+  availableLangs = [
+    {
+      name: "English",
+      code: "en"
+    },
+    {
+      name: "Spanish",
+      code: "es"
+    }
+  ];
   @Input() notificPanel;
   constructor(
     private layout: LayoutService,
@@ -32,37 +36,40 @@ export class HeaderTopComponent extends LocalStorageHandler implements OnInit, O
     public themeService: ThemeService,
     public translate: TranslateService,
     private renderer: Renderer2,
-    private userService : UserService,
-    private router : Router
-  ) {super(); }
+    private authService: AuthenticationService,
+    private router: Router
+  ) {
+    super();
+  }
 
   ngOnInit() {
     this.layoutConf = this.layout.layoutConf;
     this.egretThemes = this.themeService.egretThemes;
-    this.menuItemSub = this.navService.menuItems$
-    .subscribe(res => {
-      res = res.filter(item => item.type !== 'icon' && item.type !== 'separator');
-      let limit = 4
-      let mainItems:any[] = res.slice(0, limit)
-      if(res.length <= limit) {
-        return this.menuItems = mainItems
+    this.menuItemSub = this.navService.menuItems$.subscribe(res => {
+      res = res.filter(
+        item => item.type !== "icon" && item.type !== "separator"
+      );
+      let limit = 4;
+      let mainItems: any[] = res.slice(0, limit);
+      if (res.length <= limit) {
+        return (this.menuItems = mainItems);
       }
-      let subItems:any[] = res.slice(limit, res.length - 1)
+      let subItems: any[] = res.slice(limit, res.length - 1);
       mainItems.push({
-        name: 'More',
-        type: 'dropDown',
-        tooltip: 'More',
-        icon: 'more_horiz',
+        name: "More",
+        type: "dropDown",
+        tooltip: "More",
+        icon: "more_horiz",
         sub: subItems
-      })
-      this.menuItems = mainItems
-    })
+      });
+      this.menuItems = mainItems;
+    });
   }
   ngOnDestroy() {
-    this.menuItemSub.unsubscribe()
+    this.menuItemSub.unsubscribe();
   }
   setLang() {
-    this.translate.use(this.currentLang)
+    this.translate.use(this.currentLang);
   }
   changeTheme(theme) {
     this.themeService.changeTheme(this.renderer, theme);
@@ -71,21 +78,21 @@ export class HeaderTopComponent extends LocalStorageHandler implements OnInit, O
     this.notificPanel.toggle();
   }
   toggleSidenav() {
-    if(this.layoutConf.sidebarStyle === 'closed') {
+    if (this.layoutConf.sidebarStyle === "closed") {
       return this.layout.publishLayoutChange({
-        sidebarStyle: 'full'
-      })
+        sidebarStyle: "full"
+      });
     }
     this.layout.publishLayoutChange({
-      sidebarStyle: 'closed'
-    })
+      sidebarStyle: "closed"
+    });
   }
 
-  signOut(){
-    console.log('sign out called HEADER TOP');
-    this.userService.logout();
-    if(localStorage.getItem('currentUser')){
-      console.log('NULL OI');
+  signOut() {
+    console.log("sign out called HEADER TOP");
+    this.authService.logout();
+    if (localStorage.getItem("currentUser")) {
+      console.log("NULL OI");
     }
 
     // this.router.navigate(['/sessions/signin']);

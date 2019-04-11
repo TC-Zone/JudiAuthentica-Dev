@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   HttpInterceptor,
   HttpRequest,
@@ -18,16 +18,18 @@ import { switchMap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { authProperties } from './auth-properties';
-import { UserService } from './../../../views/sessions/UserService.service';
+import { AuthenticationService } from './../../../views/sessions/authentication.service';
 import { st } from '@angular/core/src/render3';
 import { environment } from './../../../../environments/environment.prod';
 import { Router } from '@angular/router';
 import { AppLoaderService } from './../app-loader/app-loader.service';
 
+// import { environment } from "./../../../../environments/environment.prod";
+// import { Router } from "@angular/router";
+// import { AppLoaderService } from "./../app-loader/app-loader.service";
 
 @Injectable()
 export class AddHeaderInterceptor implements HttpInterceptor {
-
   private gloable_user = authProperties.gloable_user;
   private gloable_secret = authProperties.gloable_secret;
   private storage_name = authProperties.storage_name;
@@ -49,7 +51,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
   tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(
-    private userService: UserService,
+    private authService: AuthenticationService,
     private router: Router,
     private loader: AppLoaderService
   ) { }
@@ -76,7 +78,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
       if (token) {
         if (isTokenRequired) {
           request = request.clone({
-            headers: request.headers.set('Authorization', 'bearer ' + token)
+            headers: request.headers.set("Authorization", "bearer " + token)
           });
         }
       } else {
@@ -91,7 +93,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
 
-    return next.handle(this.getRequest(request, this.userService.getAuthToken()))
+    return next.handle(this.getRequest(request, this.authService.getAuthToken()))
       .catch(error => {
         console.log('--------------------------- error', error);
 
@@ -117,7 +119,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
       // comes back from the refreshToken call.
       this.tokenSubject.next(null);
 
-      return this.userService.getNewToken()
+      return this.authService.getNewToken()
         .switchMap((newToken: string) => {
           if (newToken) {
             this.tokenSubject.next(newToken);
@@ -145,7 +147,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
 
   logoutUser() {
     // Route to the login page
-    this.userService.logout();
+    this.authService.logout();
     return Observable.throw("");
   }
 

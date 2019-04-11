@@ -100,6 +100,8 @@ export class FutureSurveyViewComponent implements OnInit {
 
     Survey.StylesManager.applyTheme("bootstrap");
 
+    console.log(surveyModel);
+
 
     surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
       const classes = options.cssClasses;

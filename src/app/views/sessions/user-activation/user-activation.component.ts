@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { UserService } from "../UserService.service";
+import { AuthenticationService } from "../authentication.service";
 
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
@@ -20,10 +20,10 @@ export class UserActivationComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService,
+    private authService: AuthenticationService,
     private snack: MatSnackBar,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -40,25 +40,31 @@ export class UserActivationComponent implements OnInit {
   }
 
   activateUser() {
-    console.log('CALLED activate');
-    if (100 > this.activationForm.value.password.length && this.activationForm.value.password.length > 6) {
-      this.userService
+    console.log("CALLED activate");
+    if (
+      100 > this.activationForm.value.password.length &&
+      this.activationForm.value.password.length > 6
+    ) {
+      this.authService
         .activateUser(this.activationCode, this.activationForm.value)
         .subscribe(
           response => {
             console.log("SUCCESS ACTIVATION");
             this.result = false;
             this.snack.open("User Activated !", "OK", { duration: 3000 });
-            this.router.navigate(['sessions/signin']);
+            this.router.navigate(["sessions/signin"]);
           },
           error => {
             if (error.status === 500) {
               console.log("SUCCESS ACTIVATION With 500 Error");
               this.result = false;
               this.snack.open("User Activated !", "OK", { duration: 3000 });
-              this.router.navigate(['sessions/signin']);
+              this.router.navigate(["sessions/signin"]);
             } else {
-              if (error.error.validationFailures[0].code === "userActivationRequest.alreadyActivated") {
+              if (
+                error.error.validationFailures[0].code ===
+                "userActivationRequest.alreadyActivated"
+              ) {
                 this.errorMsg = "User Already Activated !";
                 this.result = true;
               }
@@ -72,6 +78,6 @@ export class UserActivationComponent implements OnInit {
   }
 
   submit() {
-    console.log('CALLED activate');
+    console.log("CALLED activate");
   }
 }

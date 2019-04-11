@@ -22,14 +22,13 @@ import { ProductCrudService } from "./product-crud.service";
 import { ProductCrudPopupComponent } from "./product-filter-table/product-crud-popup/product-crud-popup.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { CrudService } from "../cruds/crud.service";
 import { DateValidator } from "../../directives/DateValidator.directive";
 import { FileUploadModule } from "ng2-file-upload";
 import { SurveyService } from "../survey/survey.service";
 import { SharedModule } from "../../shared/shared.module";
 import { ProductCommonComponent } from "./product-crud-common.component";
 import { ClientService } from "../client/client.service";
-import { UserService } from "../sessions/UserService.service";
+import { AuthenticationService } from "../sessions/authentication.service";
 
 @NgModule({
   imports: [
@@ -59,7 +58,12 @@ import { UserService } from "../sessions/UserService.service";
     DateValidator,
     ProductCommonComponent
   ],
-  providers: [ProductCrudService, ClientService, SurveyService, UserService],
+  providers: [
+    ProductCrudService,
+    ClientService,
+    SurveyService,
+    AuthenticationService
+  ],
   entryComponents: [ProductCrudPopupComponent]
 })
 export class ProductCrudModule {}

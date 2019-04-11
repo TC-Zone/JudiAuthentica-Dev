@@ -1,31 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { egretAnimations } from '../../../../shared/animations/egret-animations';
-import { ActivatedRoute, NavigationExtras, Router } from "@angular/router";
-
+import { Component, OnInit } from "@angular/core";
+import { egretAnimations } from "../../../../shared/animations/egret-animations";
+import { Router } from "@angular/router";
+import { AuthenticationService } from "../../../sessions/authentication.service";
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
+  selector: "app-user",
+  templateUrl: "./user.component.html",
   animations: egretAnimations
 })
 export class UserComponent implements OnInit {
-
-  id; name; url;
+  public clientId: string;
+  public name: string;
 
   constructor(
     private router: Router,
-    private activeRoute: ActivatedRoute
-  ) { }
+    private authService: AuthenticationService
+  ) {}
 
   ngOnInit() {
-    if(JSON.parse(localStorage.getItem('currentClient'))){
-      const client = JSON.parse(localStorage.getItem('currentClient'));
-      this.id = client.id;
+    const currentUser = this.authService.getLoggedUserDetail();
+    if (currentUser) {
+      const client = currentUser.userData.client;
+      this.clientId = client.id;
       this.name = client.name;
-      this.url = client.clientLogo;
     } else {
       this.router.navigate(["clients/client-table"]);
     }
   }
-
 }

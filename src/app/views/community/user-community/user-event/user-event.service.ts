@@ -10,6 +10,8 @@ import { throwError } from 'rxjs';
 export class UserEventService {
 
   public userApiUrl = environment.userApiUrl;
+  //edited by kushan
+  imageUrl: string = environment.userApiUrl + 'downloads/event/';
 
   constructor(
     private http: HttpClient
@@ -39,7 +41,7 @@ export class UserEventService {
   fetchAllEvents(communityId, pageNumber, pageSize) {
     return this.http.
       get(this.userApiUrl + 'events/community/' + communityId + '?pageNumber=' +
-      pageNumber + '&pageSize=' + pageSize)
+        pageNumber + '&pageSize=' + pageSize)
       .pipe(
         map(data => {
           return data;

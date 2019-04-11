@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserCreateReq, ClientData, RoleData, CommunityData, CategoryData, UserUpdateReq, UserCategoryUpdateReq, UserCommunityUpdateRequest } from 'app/model/ClientModel.model';
 import { UserCategoryPopupComponent } from './user-category-popup/user-category-popup.component';
 import { UserCommunityPopupComponent } from './user-community-popup/user-community-popup.component';
+import { AuthenticationService } from 'app/views/sessions/authentication.service';
 
 @Component({
   selector: 'app-user-table',
@@ -41,20 +42,24 @@ export class UserTableComponent implements OnInit {
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
     private activeRoute: ActivatedRoute,
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit() {
+    this.activeRoute.queryParams.subscribe(params => {
+      this.clientId = params["clientId"];
 
-    const client = JSON.parse(localStorage.getItem('currentClient'));
+      // RAVEEN : 2014/04/11 - Handling situation when client id is not coming from quesry parameter
+      if (!this.clientId) {
+        const currentUser = this.authService.getLoggedUserDetail();
+        this.clientId = currentUser.userData.client.id;
+      }
 
-    this.clientId = client.id;
-    this.name = client.name;
-    this.url = client.clientLogo;
-
-    this.getUsers();
-    this.getUserRoles();
-    this.getClientCategories();
-    this.getClientCommunities();
+      this.getUsers();
+      this.getUserRoles();
+      this.getClientCategories();
+      this.getClientCommunities();
+    });
   }
 
   ngOnDestroy() {
@@ -236,14 +241,13 @@ export class UserTableComponent implements OnInit {
           community.push(new CommunityData(element));
         });
         const req: UserCommunityUpdateRequest = new UserCommunityUpdateRequest(community);
-        console.log(req);
-        
 
         this.loader.open();
-        this.clientService.updateUserCommunity(data.id, req).subscribe(
+        this.clientService.updateUser(data.id, req).subscribe(
           response => {
+            this.getUsers();
             this.loader.close();
-            this.snack.open("User Community Updated!", "OK", { duration: 4000 });
+            this.snack.open("User Category Updated!", "OK", { duration: 4000 });
           },
           error => {
             this.loader.close();
@@ -316,6 +320,229 @@ export class UserTableComponent implements OnInit {
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+// @Component({
+//   selector: "app-user-table",
+//   templateUrl: "./user-table.component.html",
+//   animations: egretAnimations
+// })
+// export class UserTableComponent implements OnInit, OnDestroy {
+//   public users: any[];
+//   public roles: any[] = [];
+//   public statusArray = {
+//     Active: "primary",
+//     Inactive: "accent"
+//   };
+//   public pageSize = 10;
+//   public clientId;
+//   public name;
+//   public url;
+
+//   public clientCategory;
+//   public clientCommunity;
+
+//   public getItemSub: Subscription;
+//   constructor(
+//     private dialog: MatDialog,
+//     private snack: MatSnackBar,
+//     private clientService: ClientService,
+//     private loader: AppLoaderService,
+//     private errDialog: AppErrorService,
+//     private authService: AuthenticationService,
+//     private route: ActivatedRoute
+//   ) {}
+
+//   ngOnInit() {
+//     this.route.queryParams.subscribe(params => {
+//       this.clientId = params["clientId"];
+
+//       // RAVEEN : 2014/04/11 - Handling situation when client id is not coming from quesry parameter
+//       if (!this.clientId) {
+//         const currentUser = this.authService.getLoggedUserDetail();
+//         this.clientId = currentUser.userData.client.id;
+//       }
+
+//       this.getUsersByClient(this.clientId);
+//       this.getUserRoles(this.clientId);
+//       this.getClientCategories();
+//       this.getClientCommunities();
+//     });
+//   }
+
+//   ngOnDestroy() {
+//     if (this.getItemSub) {
+//       this.getItemSub.unsubscribe();
+//     }
+//   }
+
+//   getUsers() {
+//     this.getItemSub = this.clientService.getClient(this.clientId).subscribe(successResp => {
+//       this.users = successResp.content.users;
+//       // this.roles = successResp.content.roles;
+//       successResp.content.roles.forEach((item) => {
+//         this.roles.push(item);
+//       });
+//     },
+//       error => {
+//         this.errDialog.showError(error);
+//       }
+//     );
+//   }
+
+//   // for get admin role ----------------------------------------------------------
+//   getUserRoles() {
+//     this.getItemSub = this.clientService.getRoles().subscribe(successResp => {
+//       successResp.content.forEach((item) => {
+//         if (item.name === "Admin") this.roles.push(item);
+//       });
+//     },
+//       error => {
+//         this.errDialog.showError(error);
+//       }
+//     );
+//   }
+
+//   // getUserRoles() {
+//   //   this.getItemSub = this.clientService.getRoles().subscribe(successResp => {
+//   //     successResp.content.forEach((item, index) => {
+//   //       if (item.name === "Super Administrator") successResp.content.splice(index, 1);
+//   //     });
+//   //     this.roles = successResp.content;
+//   //   },
+//   //     error => {
+//   //       this.errDialog.showError(error);
+//   //     }
+//   //   );
+//   // }
+
+//   getClientCategories() {
+//     this.getItemSub = this.clientService.getClientCategories(this.clientId).subscribe(successResp => {
+//       this.clientCategory = successResp.content;
+//       console.log(this.clientCategory);
+//     },
+//       error => {
+//         this.errDialog.showError(error);
+//       }
+//     );
+//   }
+
+//   getClientCommunities() {
+//     this.getItemSub = this.clientService
+//       .getClientCommunities(this.clientId)
+//       .subscribe(
+//         successResp => {
+//           this.clientCommunity = successResp.content;
+//           console.log(this.clientCommunity);
+//         },
+//         error => {
+//           this.errDialog.showError(error);
+//         }
+//       );
+//   }
+
+//   userCreatePopup() {
+//     let dialogRef: MatDialogRef<any> = this.dialog.open(
+//       UserCreatePopupComponent,
+//       {
+//         width: "720px",
+//         disableClose: true,
+//         data: { roles: this.roles, category: this.clientCategory }
+//       }
+//     );
+
+//     dialogRef.afterClosed().subscribe(res => {
+//       console.log(res);
+
+//       if (!res) {
+//         // If user press cancel
+//         return;
+//       }
+
+//       this.loader.open();
+//       let role: RoleData = new RoleData(res[0].role);
+
+//       let communities: CommunityData[] = [];
+//       // communities.push(new CommunityData(res[0].role));
+
+//       let categories: CategoryData[] = [];
+//       res[1].forEach(element => {
+//         categories.push(new CategoryData(element));
+//       });
+
+//       const client: ClientData = new ClientData(this.clientId);
+
+//       const req: UserCreateReq = new UserCreateReq(
+//         res[0].username,
+//         res[0].password,
+//         res[0].email,
+//         role,
+//         client,
+//         communities,
+//         categories
+//       );
+
+//       this.clientService.addUser(req).subscribe(
+//         response => {
+//           this.getUsersByClient(this.clientId);
+//           this.users = response;
+//           this.loader.close();
+//           this.snack.open("New User added !", "OK", { duration: 4000 });
+//         },
+//         error => {
+//           this.errDialog.showError(error);
+//         }
+//       );
+//     });
+//   }
+
+//   openEditPopUp(data: any = {}) {
+//     let dialogRef: MatDialogRef<any> = this.dialog.open(
+//       UserTablePopupComponent,
+//       {
+//         width: "720px",
+//         disableClose: true,
+//         data: { payload: data, roles: this.roles }
+//       }
+//     );
+
+//     dialogRef.afterClosed().subscribe(res => {
+//       if (!res) {
+//         // If user press cancel
+//         return;
+//       }
+
+//       let role: RoleData = new RoleData(res.role);
+//       const req: UserUpdateReq = new UserUpdateReq(
+//         res.username,
+//         res.email,
+//         role
+//       );
+
+//       this.loader.open();
+//       this.clientService.updateUser(data.id, req).subscribe(
+//         response => {
+//           this.getUsersByClient(this.clientId);
+//           this.loader.close();
+//           this.snack.open("User Updated!", "OK", { duration: 4000 });
+//         },
+//         error => {
+//           this.loader.close();
+//           this.errDialog.showError(error);
+//         }
+//       );
+//     });
+//   }
 
 
 
