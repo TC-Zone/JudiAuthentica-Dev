@@ -154,16 +154,14 @@ export class FutureSurveyOperationalService {
       },
       isDefaultRender: true,
       afterRender: function (question, el) {
+        
         let lastValue = question.cachedValueForUrlRequests;
         el.onclick = function (e) {
-          console.log(this);
-
+          
           if (e.originalTarget.value !== undefined) {
             let id = e.originalTarget.id;
             let cls: string = 'customChecked';
             let checked = (<HTMLInputElement>document.getElementById(id)).classList.contains(cls);
-            console.log('--------------- checked', checked);
-            console.log('--------------- lastValue', lastValue);
 
             if (checked) {
               (<HTMLInputElement>document.getElementById(id)).checked = false;
@@ -221,5 +219,6 @@ export class FutureSurveyOperationalService {
     // };
     // Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
     // ----------------------------------------------------------------------------------------------------------
+    
   }
 }

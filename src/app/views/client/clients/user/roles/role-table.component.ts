@@ -18,11 +18,12 @@ import * as jwt_decode from "jwt-decode";
   animations: egretAnimations
 })
 export class RoleTableComponent implements OnInit, OnDestroy {
-  public items: any[];
+  public roles: any[];
   public pageSize = 10;
 
   public componentList = [];
   public editRoleId: String;
+  public clientId;
 
   public getItemSub: Subscription;
   constructor(
@@ -37,7 +38,9 @@ export class RoleTableComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.getItems();
+    const client = JSON.parse(localStorage.getItem('currentClient'));
+    this.clientId = client.id;
+    this.getClientRoles();
   }
 
   ngOnDestroy() {
@@ -46,29 +49,35 @@ export class RoleTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  /*
-  * Get All Roles And Create to the Ngx table
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
-  getItems() {
-    this.getItemSub = this.clientService.getAllUserRoles().subscribe(
-      response => {
-        // console.log('-------------- get all roles response--------------');
-        // console.log(response);
-        this.items = response.content;
-      },
+
+  getClientRoles() {
+    this.getItemSub = this.clientService.getClient(this.clientId).subscribe(successResp => {
+      this.roles = successResp.content.roles;
+    },
       error => {
         this.errDialog.showError(error);
       }
     );
   }
 
+
+  // getItems() {
+  //   this.getItemSub = this.clientService.getAllUserRoles().subscribe(
+  //     response => {
+  //       this.items = response.content;
+  //     },
+  //     error => {
+  //       this.errDialog.showError(error);
+  //     }
+  //   );
+  // }
+
   /*
   * Open Create and Update Role popup window
   * Created by Prasad Kumara
   * 14/02/2019
   */
+
   openPopUp(data: any = {}, isNew?) {
     let title = isNew ? "Create New User Role" : "Update User Role";
     data['isNew'] = isNew;
@@ -77,7 +86,7 @@ export class RoleTableComponent implements OnInit, OnDestroy {
       {
         width: "900px",
         disableClose: true,
-        data: { title: title, payload: data }
+        data: { title: title, payload: data, clientID: this.clientId }
       }
     );
     dialogRef.afterClosed().subscribe(res => {
@@ -88,18 +97,18 @@ export class RoleTableComponent implements OnInit, OnDestroy {
       this.loader.open();
       if (isNew) {
         // console.log('------------ create user role object ---------------');
-        // console.log(res);
+        console.log(res);
         this.clientService.createNewRole(res).subscribe(response => {
           // console.log('--------------- create user role response ----------------');
           // console.log(response);
           this.snack.open('User Role Created', 'close', {
             duration: 2000
           });
-          this.getItems();
+          this.getClientRoles();
         },
-        error => {
-          this.errDialog.showError(error);
-        });
+          error => {
+            this.errDialog.showError(error);
+          });
       } else {
         // console.log('------------ update user role object ---------------');
         res['localizedName'] = '';
@@ -111,11 +120,11 @@ export class RoleTableComponent implements OnInit, OnDestroy {
             this.snack.open('User Role Updated', 'close', {
               duration: 2000
             });
-            this.getItems();
+            this.getClientRoles();
           },
-          error => {
-            this.errDialog.showError(error);
-          });
+            error => {
+              this.errDialog.showError(error);
+            });
       }
       this.loader.close();
     });
@@ -140,9 +149,9 @@ export class RoleTableComponent implements OnInit, OnDestroy {
         };
         this.openPopUp(roleData, false);
       },
-      error => {
-        this.errDialog.showError(error);
-      });
+        error => {
+          this.errDialog.showError(error);
+        });
   }
 
   /*
@@ -156,7 +165,7 @@ export class RoleTableComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         if (res) {
           // this.loader.open();
-          this.getItems();
+          this.getClientRoles();
         }
       });
   }

@@ -16,6 +16,7 @@ export class RoleTablePopupComponent implements OnInit {
   public componentList = [];
   public numberOfComponent = this.componentList.length - 1;
   public selectedAuthorities: Array<any> = [];
+  public clientID;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -25,6 +26,7 @@ export class RoleTablePopupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.clientID = this.data.clientID;
     this.buildRoleForms(this.data.payload);
     this.buildauthoritiesForm();
     this.getAllAuthorities();

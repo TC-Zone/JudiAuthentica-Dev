@@ -85,10 +85,14 @@ export class FutureSurveyViewComponent implements OnInit {
 
   // ........... Survey Respond view should be re architecturing with following certin Angular techniquees .............
   viewSurvey() {
-
+    
+    // --------------------- set radio button group unselectable --------------------------------------
     this.fsOperationalService.optionUnselect(Survey);
+    // ------------------------------------------------------------------------------------------------
 
     const surveyModel = new Survey.Model(this.jsonContent);
+    console.log('--------------- surveyModel', surveyModel);
+
     // set survey preview language by prasad kumara
     surveyModel.locale = this.currentLang.code;
     let pageArray = this.pageJson;
@@ -106,6 +110,8 @@ export class FutureSurveyViewComponent implements OnInit {
       }
 
       if (options.question.getType() === 'radiogroup') {
+        // console.log('--------------- survey', survey);
+        // console.log('--------------- options', options);
         classes.root = 'sv_qcbc';
         classes.item = 'sv-q-col-1';
       }
@@ -135,6 +141,9 @@ export class FutureSurveyViewComponent implements OnInit {
     //Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
     // console.log('.....bootstrap');
     // console.log(Survey.defaultBootstrapCss);
+
+    console.log(surveyModel);
+
 
     Survey.SurveyNG.render("surveyElement", { model: surveyModel });
 
@@ -206,7 +215,6 @@ export class FutureSurveyViewComponent implements OnInit {
           }
         });
       });
-
       // ------- new end --------
 
       console.log("...............ANSWER ARRAY.................");

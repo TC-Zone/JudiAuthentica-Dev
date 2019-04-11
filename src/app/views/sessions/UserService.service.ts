@@ -21,9 +21,12 @@ export class UserService {
   private userApiUrl = environment.userApiUrl;
   public testValue;
 
+  public currentToken: string;
+  public authRefreshToken: string;
+
+  public authTokenNew: string;
+
   constructor(private http: HttpClient) {
-    const user: CpUsersDB = new CpUsersDB();
-    this.users = user.users;
   }
 
   /*
@@ -56,42 +59,6 @@ export class UserService {
     localStorage.removeItem(this.componentList);
   }
 
-  /*
-   * Get Jwt token Expire date
-   * Created by Prasad Kumara
-   * 14/02/2019
-   */
-  getTokenExpirationDate(token: string): Date {
-    const decoded = jwt_decode(token);
-
-    if (decoded.exp === undefined) {
-      return null;
-    }
-
-    const date = new Date(0);
-    date.setUTCSeconds(1550476560);
-    return date;
-  }
-
-  /*
-   * Get Jwt token Expire or not
-   * Created by Prasad Kumara
-   * 14/02/2019
-   */
-  isTokenExpired(token?: string): boolean {
-    if (!token) {
-      token = "";
-    }
-    if (!token) {
-      return true;
-    }
-
-    const date = this.getTokenExpirationDate(token);
-    if (date === undefined || date === null) {
-      return false;
-    }
-    return !(date.valueOf() > new Date().valueOf());
-  }
 
   activateUser(code, password): Observable<any> {
     console.log("CALLED  service" + code);
@@ -125,24 +92,6 @@ export class UserService {
     );
   }
 
-  /*
-   * Get Jwt refrsh token Expire or not
-   * Created by Prasad Kumara
-   * 15/02/2019
-   */
-  getUserRefreshToken(refreshToken) {
-    const payload = new FormData();
-    payload.append("grant_type", "refresh_token");
-    payload.append("refresh_token", refreshToken);
-
-    return this.http.post<any>(this.baseAuthUrl + "oauth/token", payload).pipe(
-      share(),
-      map(data => {
-        return data;
-      }),
-      catchError(this.handleError)
-    );
-  }
 
   /*
    * Get Jwt refrsh token Expire or not
@@ -170,16 +119,112 @@ export class UserService {
     }
   }
 
-  getAuthToken(): any {
+  getAuthToken() {
     const userObj: any = JSON.parse(localStorage.getItem(this.storage_name));
     if (userObj) {
-      return userObj.token;
-    } else {
-      return false;
+      this.currentToken = userObj.token;
     }
+    console.log('---------------------------- currentToken', this.currentToken);
+    return this.currentToken;
   }
 
+  getNewToken(): Observable<string> {
+    const userObj: any = JSON.parse(localStorage.getItem(this.storage_name));
+    const payload = new FormData();
+    if (userObj) {
+      payload.append("grant_type", "refresh_token");
+      payload.append("refresh_token", userObj.refreshToken);
+    }
+
+    return this.http.post<any>(this.baseAuthUrl + "oauth/token", payload).pipe(
+      share(),
+      map(data => {
+        const userObj: any = JSON.parse(localStorage.getItem(this.storage_name));
+        userObj.refreshToken = data.refresh_token;
+        userObj.token = data.access_token;
+        userObj.expires_in = data.expires_in;
+        localStorage.setItem(this.storage_name, JSON.stringify(userObj));
+        console.log('---------------------------- refreshToken', data.refresh_token);
+        return data.access_token;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  /*
+   * Get Jwt token Expire date
+   * Created by Prasad Kumara
+   * 14/02/2019
+   */
+  // getTokenExpirationDate(token: string): Date {
+  //   const decoded = jwt_decode(token);
+
+  //   if (decoded.exp === undefined) {
+  //     return null;
+  //   }
+
+  //   const date = new Date(0);
+  //   date.setUTCSeconds(1550476560);
+  //   return date;
+  // }
+
+  /*
+   * Get Jwt token Expire or not
+   * Created by Prasad Kumara
+   * 14/02/2019
+   */
+  // isTokenExpired(token?: string): boolean {
+  //   if (!token) {
+  //     token = "";
+  //   }
+  //   if (!token) {
+  //     return true;
+  //   }
+
+  //   const date = this.getTokenExpirationDate(token);
+  //   if (date === undefined || date === null) {
+  //     return false;
+  //   }
+  //   return !(date.valueOf() > new Date().valueOf());
+  // }
+
+  /*
+   * Get Jwt refrsh token Expire or not
+   * Created by Prasad Kumara
+   * 15/02/2019
+   */
+  // getUserRefreshToken(refreshToken) {
+  //   const payload = new FormData();
+  //   payload.append("grant_type", "refresh_token");
+  //   payload.append("refresh_token", refreshToken);
+
+  //   return this.http.post<any>(this.baseAuthUrl + "oauth/token", payload).pipe(
+  //     share(),
+  //     map(data => {
+  //       return data;
+  //     }),
+  //     catchError(this.handleError)
+  //   );
+  // }
+
 }

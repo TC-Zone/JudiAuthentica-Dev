@@ -24,15 +24,12 @@ export class ClientService {
   getClients(): Observable<any> {
     return this.http.get(this.clientUrl).pipe(catchError(this.handleError));
   }
-
-  getClientsSuggestions() : Observable<any>{
+  getClientsSuggestions(): Observable<any> {
     return this.http.get(this.clientUrl + "/suggestions").pipe(catchError(this.handleError));
   }
-
   getUsers(id): Observable<any> {
     return this.http.get(this.clientUrl + "/" + id).pipe(catchError(this.handleError));
   }
-
   getRoles(): Observable<any> {
     return this.http.get(this.roleUrl + "/suggestions").pipe(catchError(this.handleError));
   }
@@ -72,6 +69,12 @@ export class ClientService {
   updateClientLicense(id, item): Observable<any> {
     return this.http
       .put<any>(this.licenseUrl + "/" + id, item)
+      .pipe(catchError(this.handleError));
+  }
+
+  updateClientCategory(id, item): Observable<any> {
+    return this.http
+      .put<any>(this.clientUrl + "/categories/" + id, item)
       .pipe(catchError(this.handleError));
   }
 

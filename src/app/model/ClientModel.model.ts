@@ -82,9 +82,21 @@ export class UserUpdateReq {
 
 export class UserCategoryUpdateReq {
   constructor(
-    public accountName: string,
-    public email: string,
-    public role: RoleData,
+    public categories: CategoryData[]
+  ) { }
+}
+
+// export class UserCategoryUpdateReq {
+//   constructor(
+//     public accountName: string,
+//     public email: string,
+//     public role: RoleData,
+//     public categories: CategoryData[]
+//   ) { }
+// }
+
+export class ClientCategoryUpdateReq {
+  constructor(
     public categories: CategoryData[]
   ) { }
 }

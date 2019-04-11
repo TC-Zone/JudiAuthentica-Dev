@@ -20,7 +20,7 @@ import { UserCommunityPopupComponent } from './user-community-popup/user-communi
 export class UserTableComponent implements OnInit {
 
   public users: any[];
-  public roles: any[];
+  public roles: any[] = [];
   public statusArray = {
     'Active': "primary",
     'Inactive': "accent"
@@ -46,7 +46,6 @@ export class UserTableComponent implements OnInit {
   ngOnInit() {
 
     const client = JSON.parse(localStorage.getItem('currentClient'));
-    console.log(client);
 
     this.clientId = client.id;
     this.name = client.name;
@@ -67,11 +66,10 @@ export class UserTableComponent implements OnInit {
   getUsers() {
     this.getItemSub = this.clientService.getClient(this.clientId).subscribe(successResp => {
       this.users = successResp.content.users;
-      // successResp.content.forEach((item, index) => {
-      //   if (item.name === "Super Administrator") successResp.content.splice(index, 1);
-      // });
-      // this.roles = successResp.content;
-      console.log(successResp);
+      // this.roles = successResp.content.roles;
+      successResp.content.roles.forEach((item) => {
+        this.roles.push(item);
+      });
     },
       error => {
         this.errDialog.showError(error);
@@ -79,24 +77,36 @@ export class UserTableComponent implements OnInit {
     );
   }
 
+  // for get admin role ----------------------------------------------------------
   getUserRoles() {
     this.getItemSub = this.clientService.getRoles().subscribe(successResp => {
-      successResp.content.forEach((item, index) => {
-        if (item.name === "Super Administrator") successResp.content.splice(index, 1);
+      successResp.content.forEach((item) => {
+        if (item.name === "Admin") this.roles.push(item);
       });
-      this.roles = successResp.content;
     },
       error => {
         this.errDialog.showError(error);
       }
     );
   }
+
+  // getUserRoles() {
+  //   this.getItemSub = this.clientService.getRoles().subscribe(successResp => {
+  //     successResp.content.forEach((item, index) => {
+  //       if (item.name === "Super Administrator") successResp.content.splice(index, 1);
+  //     });
+  //     this.roles = successResp.content;
+  //   },
+  //     error => {
+  //       this.errDialog.showError(error);
+  //     }
+  //   );
+  // }
 
   getClientCategories() {
     this.getItemSub = this.clientService.getClientCategories(this.clientId).subscribe(successResp => {
       this.clientCategory = successResp.content;
       console.log(this.clientCategory);
-
     },
       error => {
         this.errDialog.showError(error);
@@ -155,9 +165,9 @@ export class UserTableComponent implements OnInit {
           this.loader.close();
           this.snack.open("New User added !", "OK", { duration: 4000 });
         },
-          error => {
-            this.errDialog.showError(error);
-          }
+        error => {
+          this.errDialog.showError(error);
+        }
       );
 
     });
@@ -203,6 +213,9 @@ export class UserTableComponent implements OnInit {
 
     this.getItemSub = this.clientService.getUser(data.id).subscribe(successResp => {
 
+      console.log(successResp);
+      
+
       let dialogRef: MatDialogRef<any> = this.dialog.open(
         UserCommunityPopupComponent,
         {
@@ -216,7 +229,6 @@ export class UserTableComponent implements OnInit {
           // If user press cancel
           return;
         }
-
         console.log(res);
 
 
@@ -276,12 +288,13 @@ export class UserTableComponent implements OnInit {
 
         let categories: CategoryData[] = [];
         res.forEach(element => {
-          let category: CategoryData = new CategoryData(element.id);
-          categories.push(category);
+          categories.push(new CategoryData(element.id));
         });
-        
+
+        const req: UserCategoryUpdateReq = new UserCategoryUpdateReq(categories);
+
         this.loader.open();
-        this.clientService.updateUserCategories(data.id, categories).subscribe(
+        this.clientService.updateUserCategories(data.id, req).subscribe(
           response => {
             this.loader.close();
             this.snack.open("User Category Updated!", "OK", { duration: 4000 });

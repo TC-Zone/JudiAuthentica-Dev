@@ -54,6 +54,8 @@ export class SigninComponent implements OnInit {
     // this.progressBar.mode = 'indeterminate';
     this.userService.login(signinData)
       .subscribe(response => {
+        console.log('---------------------------- response', response);
+
         const tempUser = {
           id: response.user_id,
           username: 'contactpkumara@gmail.com',
@@ -74,10 +76,12 @@ export class SigninComponent implements OnInit {
             tempUser.accountName = viewData.accountName;
             tempUser.userData = res.content;
             localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
+            console.log('---------------------------- tempUser', tempUser);
             // this.progressBar.mode = 'determinate';
             this.router.navigate([this.successUrl]);
-            const expireInMilliSecond = (response.expires_in - 2) * 1000;
-            this.getRefreshToken(expireInMilliSecond);
+            // const expireInMilliSecond = (response.expires_in - 2) * 1000;
+            // this.getRefreshToken(expireInMilliSecond);
+            // this.getRefreshToken(10000);
           },
             error => {
               this.result = false;
@@ -100,27 +104,25 @@ export class SigninComponent implements OnInit {
       );
   }
 
-
-
-  getRefreshToken(refreshTime) {
-    setTimeout(() => {
-      console.log('Set Time out function');
-      const tempUser = JSON.parse(localStorage.getItem(this.storage_name));
-      this.userService.getUserRefreshToken(tempUser.refreshToken)
-        .subscribe(response => {
-          this.counter += 1;
-          console.log('Refresh count = ' + this.counter);
-          tempUser.token = response.access_token;
-          tempUser.refreshToken = response.refresh_token;
-          tempUser.expires_in = response.expires_in;
-          localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
-          const expireInMilliSecond = (response.expires_in - 2) * 1000;
-          this.getRefreshToken(expireInMilliSecond);
-        },
-          error => {
-            console.log('Refresh Token Error');
-            this.getRefreshToken(refreshTime);
-          });
-    }, refreshTime);
-  }
+  // getRefreshToken(refreshTime) {
+  //   setTimeout(() => {
+  //     console.log('Set Time out function');
+  //     const tempUser = JSON.parse(localStorage.getItem(this.storage_name));
+  //     this.userService.getUserRefreshToken(tempUser.refreshToken)
+  //       .subscribe(response => {
+  //         this.counter += 1;
+  //         console.log('Refresh count = ' + this.counter);
+  //         tempUser.token = response.access_token;
+  //         tempUser.refreshToken = response.refresh_token;
+  //         tempUser.expires_in = response.expires_in;
+  //         localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
+  //         const expireInMilliSecond = (response.expires_in - 2) * 1000;
+  //         this.getRefreshToken(expireInMilliSecond);
+  //       },
+  //         error => {
+  //           console.log('Refresh Token Error');
+  //           this.getRefreshToken(refreshTime);
+  //         });
+  //   }, refreshTime);
+  // }
 }

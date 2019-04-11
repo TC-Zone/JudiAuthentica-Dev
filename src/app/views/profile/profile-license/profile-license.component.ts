@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ProfileService } from '../profile.service';
-import { ClientData, profileUpdateReq, autoCompletableCategory, LicenseUpdateReq } from 'app/model/ClientModel.model';
+import { ClientData, LicenseUpdateReq, ClientCategoryUpdateReq, CategoryData, autoCompletableCategory } from 'app/model/ClientModel.model';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
 import { MatSnackBar, MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent } from '@angular/material';
@@ -32,19 +32,14 @@ export class ProfileLicenseComponent implements OnInit {
 
   public categoryFormGroup: FormGroup;
 
-  visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   categoryCtrl = new FormControl();
-  filteredCategories: Observable<string[]>;
-  categories: string[] = [];
-  categoriesValue: string[] = [];
-  allCategories: string[] = [];
-  public categoriesObj;
-  public categoryFormStatus = true;
-
+  allCategories: autoCompletableCategory[] = [];
+  filteredCategories: Observable<autoCompletableCategory[]>;
+  selectedCategories: autoCompletableCategory[] = [];
 
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -57,17 +52,22 @@ export class ProfileLicenseComponent implements OnInit {
     private loader: AppLoaderService,
     private snack: MatSnackBar
   ) { 
-    this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
-      startWith(null),
-      map((category: string | null) => category ? this._filterCategory(category) : this.allCategories.slice()));
-    }
+    
+    this.filteredCategories = this.categoryCtrl.valueChanges
+      .pipe(
+        startWith(null),
+        map(category => category ? this._filterCategories(category) : this.allCategories.slice())
+      );
+  }
 
 
   ngOnInit() {
     let currentuser = JSON.parse(localStorage.getItem('currentUser'));
-    this.clientId = currentuser.userData.id;
+    this.clientId = currentuser.userData.client.id;
     this.buildItemForm()
     this.getCategory();
+    this.getClientCategory();
+
     // this.buildItemForm(this.data.payload.license)
   }
 
@@ -92,37 +92,38 @@ export class ProfileLicenseComponent implements OnInit {
 
   getCategory() {
     this.profileService.getCategory().subscribe(successResp => {
-      let categories = successResp.content;
-      console.log(categories);
-      
-
-      this.categoriesObj = successResp.content;
-      this.categoriesObj.forEach(element => {
-        this.allCategories.push(element.name);
-      });
-      // if (this.data.selectedCategory.length > 0) {
-      //   this.data.selectedCategory.forEach(element => {
-      //     this.addSelectedCategory(element.id)
-      //   });
-      // }
+      this.allCategories = successResp.content;
     },
       error => {
         this.errDialog.showError(error);
       }
     );
   }
+  
+  getClientCategory() {
+    this.profileService.getClientCategories(this.clientId).subscribe(successResp => {
+      successResp.content.forEach(element => {
+        this.addSelectedCategory(element.id);
+      });
+    },
+      error => {
+        this.errDialog.showError(error);
+      });
+  }
 
   getClient() {
     this.getItemSub = this.profileService.getClient(this.clientId).subscribe(successResp => {
+
       this.license = successResp.content.license;
 
-      let form = this.licenseFormGroup;
-      form.controls['tagCount'].setValue(this.license.tagCount);
-      form.controls['userCount'].setValue(this.license.userCount);
-      form.controls['communityCount'].setValue(this.license.communityCount);
-      form.controls['feedbackCount'].setValue(this.license.feedbackCount);
-      form.controls['eventCount'].setValue(this.license.eventCount);
-      form.controls['promoCount'].setValue(this.license.promoCount);
+      this.licenseFormGroup.patchValue({
+        tagCount: this.license.tagCount,
+        userCount: this.license.userCount,
+        communityCount: this.license.communityCount,
+        feedbackCount: this.license.feedbackCount,
+        eventCount: this.license.eventCount,
+        promoCount: this.license.promoCount
+      });
 
     },
       error => {
@@ -167,10 +168,10 @@ export class ProfileLicenseComponent implements OnInit {
     }
   }
 
-  submit() {
+  updateLicense() {
     let form = this.licenseFormGroup;
     let clientData: ClientData = new ClientData(this.clientId);
-    const req: LicenseUpdateReq= new LicenseUpdateReq(form.get('tagCount').value, form.get('userCount').value, form.get('communityCount').value, form.get('feedbackCount').value, form.get('eventCount').value, form.get('promoCount').value, clientData);
+    const req: LicenseUpdateReq = new LicenseUpdateReq(form.get('tagCount').value, form.get('userCount').value, form.get('communityCount').value, form.get('feedbackCount').value, form.get('eventCount').value, form.get('promoCount').value, clientData);
 
     this.profileService.updateClientLicense(this.license.id, req).subscribe(
       response => {
@@ -191,15 +192,38 @@ export class ProfileLicenseComponent implements OnInit {
   }
 
 
-  
+
+
   //  ----------------------- Categoty Setting --------------------------------------------------------
 
-  loadCategoryDD(){
-    this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
-      startWith(null),
-      map((category: string | null) => category ? this._filterCategory(category) : this.allCategories.slice()));
+
+  updateCategory() {
+    console.log('---------------------- Category ', this.selectedCategories);
+
+    let categories: CategoryData[] = [];
+    this.selectedCategories.forEach(element => {
+      categories.push(new CategoryData(element.id));
+    });
+
+    const req: ClientCategoryUpdateReq = new ClientCategoryUpdateReq(categories);
+
+    this.loader.open();
+    this.profileService.updateClientCategory(this.clientId, req).subscribe(
+      response => {
+        this.loader.close();
+        this.snack.open("Client Category Updated!", "OK", { duration: 4000 });
+      },
+      error => {
+        this.loader.close();
+        this.errDialog.showError({
+          title: "Error",
+          status: error.status,
+          type: "http_error"
+        });
+      }
+    );
   }
-  
+
   add(event: MatChipInputEvent): void {
 
     if (!this.matAutocomplete.isOpen) {
@@ -221,28 +245,33 @@ export class ProfileLicenseComponent implements OnInit {
     }
   }
 
-  remove(category: string): void {
-    const index = this.categories.indexOf(category);
-    if (index >= 0) {
-      this.categories.splice(index, 1);
-      this.categoriesValue.splice(index, 1);
-    }
-    if(this.categoriesValue.length === 0){
-      this.categoryFormStatus = true;
-    }
-  }
-
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.categories.push(event.option.viewValue);
-    this.categoriesValue.push(event.option.value);
+    this.addSelectedCategory(event.option.value);
     this.categoryInput.nativeElement.value = '';
     this.categoryCtrl.setValue(null);
-    this.categoryFormStatus = false;
   }
 
-  private _filterCategory(value: string): string[] {
+  addSelectedCategory(id) {
+    this.allCategories.forEach((item, index) => {
+      if (item.id === id) {
+        this.selectedCategories.push(item);
+        this.allCategories.splice(index, 1);
+      }
+    });
+  }
+
+  remove(category: autoCompletableCategory): void {
+    this.selectedCategories.forEach((item, index) => {
+      if (item.id === category.id) {
+        this.allCategories.push(category);
+        this.selectedCategories.splice(index, 1);
+      }
+    });
+  }
+
+  private _filterCategories(value: string): autoCompletableCategory[] {
     const filterValue = value.toLowerCase();
-    return this.allCategories.filter(category => category.toLowerCase().indexOf(filterValue) === 0);
+    return this.allCategories.filter(category => category.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
   //  -------------------------------------------------------------------------------------------------

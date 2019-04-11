@@ -16,7 +16,8 @@ import {
   CountryData,
   ClientData,
   LicenseUpdateReq,
-  CategoryData
+  CategoryData,
+  ClientCategoryUpdateReq
 } from "app/model/ClientModel.model";
 import { authProperties } from "./../../../shared/services/auth/auth-properties";
 import * as jwt_decode from "jwt-decode";
@@ -32,6 +33,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   public countries;
   filteredCountries: Observable<string[]>;
 
+  public clientId;
   public clients: any[];
   public category: any[];
   public statusArray = {
@@ -52,6 +54,8 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    let currentuser = JSON.parse(localStorage.getItem('currentUser'));
+    this.clientId = currentuser.userData.client.id;
     this.getClients();
     this.getCategory();
     this.getCountry();
@@ -235,23 +239,29 @@ export class ClientTableComponent implements OnInit, OnDestroy {
         }
         console.log(res);
 
-        // this.loader.open();
-        // const country: CountryData = new CountryData('a65715e919d0995f361360cf0b8c2c03', 'Åland Islands', 'AX');
-        // const req: ClientUpdateReq = new ClientUpdateReq(
-        //   res[0].name, res[0].description, res[1], res[0].contactNo, res[0].addressLine1, res[0].addressLine2, res[0].city, res[0].state, res[0].zipCode, country
-        // );
+        let categories: CategoryData[] = [];
+        res.forEach(element => {
+          categories.push(new CategoryData(element.id));
+        });
 
-        // this.clientService.updateClient(data.id, req).subscribe(
-        //   response => {
-        //     this.getClients();
-        //     this.loader.close();
-        //     this.snack.open("Client Updated!", "OK", { duration: 4000 });
-        //   },
-        //   error => {
-        //     this.loader.close();
-        //     this.errDialog.showError(error);
-        //   }
-        // );
+
+        const req: ClientCategoryUpdateReq = new ClientCategoryUpdateReq(categories);
+
+        this.loader.open();
+        this.clientService.updateClientCategory(this.clientId, req).subscribe(
+          response => {
+            this.loader.close();
+            this.snack.open("Client Category Updated!", "OK", { duration: 4000 });
+          },
+          error => {
+            this.loader.close();
+            this.errDialog.showError({
+              title: "Error",
+              status: error.status,
+              type: "http_error"
+            });
+          }
+        );
 
       });
 
