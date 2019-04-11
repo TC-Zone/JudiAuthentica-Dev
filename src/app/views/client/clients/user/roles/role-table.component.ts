@@ -38,8 +38,10 @@ export class RoleTableComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    const client = JSON.parse(localStorage.getItem('currentClient'));
-    this.clientId = client.id;
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if(currentUser){
+      this.clientId = currentUser.userData.client.id;
+    } else {}
     this.getClientRoles();
   }
 

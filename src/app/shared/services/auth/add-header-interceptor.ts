@@ -58,7 +58,13 @@ export class AddHeaderInterceptor implements HttpInterceptor {
 
   getRequest(request: HttpRequest<any>, token: string): HttpRequest<any> {
     const isAuthToken = this.oauthTokenUrlValidate(request.url);
+    console.log(token);
 
+    console.log(this.gloable_user);
+    console.log(this.gloable_secret);
+    
+    
+    
     if (isAuthToken) {
       request = request.clone({
         headers: request.headers.set('Authorization', 'Basic ' + btoa(this.gloable_user + ':' + this.gloable_secret))

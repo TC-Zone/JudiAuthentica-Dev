@@ -91,6 +91,7 @@ export class UserService {
     );
   }
 
+
   /*
    * Get Logged User and Details by User ID
    * Created by Raveen Sankalpa
@@ -164,7 +165,7 @@ export class UserService {
       catchError(this.handleError)
     );
   }
-  
+ 
   /** RAVEEN - 2019/04/04
    * Return detialed instance about current logged user.
    */
@@ -178,6 +179,7 @@ export class UserService {
       this.router.navigate(["sessions/signin"]);
     }
   }
+  
   
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);

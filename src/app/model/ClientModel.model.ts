@@ -86,6 +86,12 @@ export class UserCategoryUpdateReq {
   ) { }
 }
 
+export class UserCommunityUpdateRequest {
+  constructor(
+    public categories: CommunityData[]
+  ) { }
+}
+
 // export class UserCategoryUpdateReq {
 //   constructor(
 //     public accountName: string,

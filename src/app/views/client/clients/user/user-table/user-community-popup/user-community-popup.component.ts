@@ -22,6 +22,8 @@ export class UserCommunityPopupComponent implements OnInit {
   ngOnInit() {
 
     this.allCommunities = JSON.parse(JSON.stringify(this.data.community));
+    console.log(this.allCommunities);
+    
     
     // this.selectedCommunities = [];
     this.selectedCommunities = this.data.selectedCommunity;

@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, Validators, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { ClientService } from '../../../../client.service';
+import { ClientData } from 'app/model/ClientModel.model';
 
 
 @Component({
@@ -65,7 +66,8 @@ export class RoleTablePopupComponent implements OnInit {
     const roleData = {
       name: roleFormValue.name,
       description: roleFormValue.description,
-      authorities: this.selectedAuthorities
+      authorities: this.selectedAuthorities,
+      client: new ClientData(this.clientID)
     };
     this.dialogRef.close(roleData);
   }

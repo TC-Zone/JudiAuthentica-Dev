@@ -8,7 +8,7 @@ import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../../../shared/animations/egret-animations";
 import { AppErrorService } from "../../../../../shared/services/app-error/app-error.service";
 import { ActivatedRoute } from '@angular/router';
-import { UserCreateReq, ClientData, RoleData, CommunityData, CategoryData, UserUpdateReq, UserCategoryUpdateReq } from 'app/model/ClientModel.model';
+import { UserCreateReq, ClientData, RoleData, CommunityData, CategoryData, UserUpdateReq, UserCategoryUpdateReq, UserCommunityUpdateRequest } from 'app/model/ClientModel.model';
 import { UserCategoryPopupComponent } from './user-category-popup/user-category-popup.component';
 import { UserCommunityPopupComponent } from './user-community-popup/user-community-popup.component';
 
@@ -231,30 +231,29 @@ export class UserTableComponent implements OnInit {
         }
         console.log(res);
 
+        let community: CommunityData[] = [];
+        res.forEach(element => {
+          community.push(new CommunityData(element));
+        });
+        const req: UserCommunityUpdateRequest = new UserCommunityUpdateRequest(community);
+        console.log(req);
+        
 
-        // let role: RoleData = new RoleData(successResp.content.role.id);
-        // let categories: CategoryData[] = [];
-        // res.forEach(element => {
-        //   categories.push(new CategoryData(element));
-        // });
-        // const req: UserCategoryUpdateReq = new UserCategoryUpdateReq(successResp.content.accountName, successResp.content.email, role, categories);
-
-        // this.loader.open();
-        // this.clientService.updateUser(data.id, req).subscribe(
-        //   response => {
-        //     this.getUsers();
-        //     this.loader.close();
-        //     this.snack.open("User Category Updated!", "OK", { duration: 4000 });
-        //   },
-        //   error => {
-        //     this.loader.close();
-        //     this.errDialog.showError({
-        //       title: "Error",
-        //       status: error.status,
-        //       type: "http_error"
-        //     });
-        //   }
-        // );
+        this.loader.open();
+        this.clientService.updateUserCommunity(data.id, req).subscribe(
+          response => {
+            this.loader.close();
+            this.snack.open("User Community Updated!", "OK", { duration: 4000 });
+          },
+          error => {
+            this.loader.close();
+            this.errDialog.showError({
+              title: "Error",
+              status: error.status,
+              type: "http_error"
+            });
+          }
+        );
       });
     },
       error => {

@@ -103,6 +103,14 @@ export class ClientService {
       .pipe(catchError(this.handleError));
   }
 
+  updateUserCommunity(id, item): Observable<any> {
+    console.log(this.userUrl + "/communities/" + id);
+    
+    return this.http
+      .put<any>(this.userUrl + "/communities/" + id, item)
+      .pipe(catchError(this.handleError));
+  }
+
 
 
   /*
