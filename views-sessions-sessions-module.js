@@ -6721,7 +6721,7 @@ var ErrorComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <div class=\"page-wrap height-100 comman-background\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-progress-bar mode=\"determinate\" class=\"session-progress\"></mat-progress-bar>\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" style=\"width: 300px;\">\r\n          <p class=\"text-muted m-0\">New password will be sent to your email address</p>\r\n        </div>\r\n        <form #fpForm=\"ngForm\" (ngSubmit)=\"submitEmail()\">\r\n\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"email\" required [(ngModel)]=\"userEmail\" #email=\"ngModel\" placeholder=\"Email\"\r\n                value=\"\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"fpForm.invalid\">Submit</button>\r\n          <div class=\"text-center\">\r\n            <a [routerLink]=\"'/sessions/signin'\" class=\"mat-primary text-center full-width\">Sign in</a>\r\n            <span fxFlex></span>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div> -->\r\n\r\n<form id=\"user-login-view\">\r\n  <div class=\"page-wrap height-100 signin-background\">\r\n    <div class=\"session-form-hold set-form-left\">\r\n      <mat-card id=\"login-card\">\r\n        <mat-card-content>\r\n          <div id=\"login-form\">\r\n\r\n\r\n            <div class=\"text-center pb-1\" id=\"login-form-logo\">\r\n              <img src=\"assets/images/truverus/Tru-Verus-Logo.png\" alt=\"\">\r\n              <p class=\"text-muted m-0\">Enter your email address and we will send you a link to reset it.</p>\r\n              <!-- <small *ngIf=\"!result\" class=\" m-0 form-error-msg\"> Invalid Login Credentials ! </small> -->\r\n            </div>\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"email\" placeholder=\"Email\" value=\"\">\r\n            </mat-form-field>\r\n            <!-- <small\r\n              *ngIf=\"signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched\"\r\n              class=\"form-error-msg\">\r\n              Username is required </small> -->\r\n\r\n\r\n            <button mat-raised-button class=\"mat-primary full-width mb-1\">Resend A Email</button>\r\n            <div>\r\n              <a [routerLink]=\"'/sessions/signin'\" class=\"mat-primary text-center full-width\">Sign in</a>\r\n              <span fxFlex></span>\r\n            </div>\r\n\r\n\r\n          </div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>"
+module.exports = "<!-- <div class=\"page-wrap height-100 comman-background\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-progress-bar mode=\"determinate\" class=\"session-progress\"></mat-progress-bar>\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" style=\"width: 300px;\">\r\n          <p class=\"text-muted m-0\">New password will be sent to your email address</p>\r\n        </div>\r\n        <form #fpForm=\"ngForm\" (ngSubmit)=\"submitEmail()\">\r\n\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"email\" required [(ngModel)]=\"userEmail\" #email=\"ngModel\" placeholder=\"Email\"\r\n                value=\"\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"fpForm.invalid\">Submit</button>\r\n          <div class=\"text-center\">\r\n            <a [routerLink]=\"'/sessions/signin'\" class=\"mat-primary text-center full-width\">Sign in</a>\r\n            <span fxFlex></span>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div> -->\r\n\r\n<form id=\"user-forgot-password-view\">\r\n  <div class=\"page-wrap height-100 signin-background\">\r\n    <div class=\"session-form-hold set-form-left\">\r\n      <mat-card id=\"login-card\">\r\n        <mat-card-content>\r\n          <div id=\"login-form\">\r\n\r\n\r\n            <div class=\"text-center pb-1\" id=\"login-form-logo\">\r\n              <img src=\"assets/images/truverus/Tru-Verus-Logo.png\" alt=\"\">\r\n              <p class=\"text-muted m-0\">Enter your email address and we will send you a link to reset it.</p>\r\n              <!-- <small *ngIf=\"!result\" class=\" m-0 form-error-msg\"> Invalid Login Credentials ! </small> -->\r\n            </div>\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"email\" placeholder=\"Email\" value=\"\">\r\n            </mat-form-field>\r\n            <!-- <small\r\n              *ngIf=\"signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched\"\r\n              class=\"form-error-msg\">\r\n              Username is required </small> -->\r\n\r\n\r\n            <button mat-raised-button class=\"mat-primary full-width mb-1\">Resend A Email</button>\r\n            <div>\r\n              <a [routerLink]=\"'/sessions/signin'\" class=\"mat-primary text-center full-width\">Sign in</a>\r\n              <span fxFlex></span>\r\n            </div>\r\n\r\n\r\n          </div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>"
 
 /***/ }),
 
@@ -6732,7 +6732,7 @@ module.exports = "<!-- <div class=\"page-wrap height-100 comman-background\">\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".page-wrap {\n  display: flex;\n  padding: 0px; }\n\n.session-form-hold.set-form-left {\n  margin-left: 0px;\n  max-width: 100%; }\n"
+module.exports = ".page-wrap {\n  display: flex;\n  padding: 0px; }\n\n.session-form-hold.set-form-left {\n  margin-left: 0px;\n  max-width: 100%; }\n\n#user-forgot-password-view .signin-background {\n  background-image: url('Truverus-Login-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n\n#user-forgot-password-view #login-card {\n  height: 100vh;\n  width: 33.3%;\n  opacity: 0.8;\n  background-color: #f1fcfe; }\n\n#user-forgot-password-view #login-card #login-form, #user-forgot-password-view #login-card #signin-form {\n    padding: 0px 90px 0px;\n    margin: 0;\n    position: absolute;\n    top: 20%; }\n\n#user-forgot-password-view #login-card #login-form #login-form-logo, #user-forgot-password-view #login-card #signin-form #login-form-logo {\n      padding: 30px 0px 50px !important;\n      max-width: 80%;\n      margin: auto; }\n\n#user-forgot-password-view .mat-card {\n  padding: 0px; }\n"
 
 /***/ }),
 
@@ -6964,7 +6964,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sessions_routing__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./sessions.routing */ "./src/app/views/sessions/sessions.routing.ts");
 /* harmony import */ var _not_found_not_found_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./not-found/not-found.component */ "./src/app/views/sessions/not-found/not-found.component.ts");
 /* harmony import */ var _error_error_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./error/error.component */ "./src/app/views/sessions/error/error.component.ts");
-/* harmony import */ var _UserService_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _authentication_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _user_activation_user_activation_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./user-activation/user-activation.component */ "./src/app/views/sessions/user-activation/user-activation.component.ts");
 /* harmony import */ var _unauthorized_unauthorized_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./unauthorized/unauthorized.component */ "./src/app/views/sessions/unauthorized/unauthorized.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -7018,7 +7018,7 @@ var SessionsModule = /** @class */ (function () {
                 _user_activation_user_activation_component__WEBPACK_IMPORTED_MODULE_14__["UserActivationComponent"],
                 _unauthorized_unauthorized_component__WEBPACK_IMPORTED_MODULE_15__["UnauthorizedComponent"]
             ],
-            providers: [_UserService_service__WEBPACK_IMPORTED_MODULE_13__["UserService"]]
+            providers: [_authentication_service__WEBPACK_IMPORTED_MODULE_13__["AuthenticationService"]]
         })
     ], SessionsModule);
     return SessionsModule;
@@ -7114,7 +7114,7 @@ module.exports = "<!-- <div class=\"page-wrap height-100 comman-background\">\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".page-wrap {\n  display: flex;\n  padding: 0px; }\n\n.session-form-hold.set-form-left {\n  margin-left: 0px;\n  max-width: 100%; }\n"
+module.exports = ".page-wrap {\n  display: flex;\n  padding: 0px; }\n\n.session-form-hold.set-form-left {\n  margin-left: 0px;\n  max-width: 100%; }\n\n#user-login-view .signin-background {\n  background-image: url('Truverus-Login-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n\n#user-login-view #login-card {\n  height: 100vh;\n  width: 33.3%;\n  opacity: 0.8;\n  background-color: #f1fcfe; }\n\n#user-login-view #login-card #login-form, #user-login-view #login-card #signin-form {\n    padding: 0px 90px 0px;\n    margin: 0;\n    position: absolute;\n    top: 20%; }\n\n#user-login-view #login-card #login-form #login-form-logo, #user-login-view #login-card #signin-form #login-form-logo {\n      padding: 30px 0px 50px !important;\n      max-width: 80%;\n      margin: auto; }\n\n#user-login-view .mat-card {\n  padding: 0px; }\n"
 
 /***/ }),
 
@@ -7131,7 +7131,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _UserService_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../shared/services/auth/auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -7150,8 +7150,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var SigninComponent = /** @class */ (function () {
-    function SigninComponent(userService, router, snack) {
-        this.userService = userService;
+    function SigninComponent(authService, router, snack) {
+        this.authService = authService;
         this.router = router;
         this.snack = snack;
         this.successUrl = "profile/profile-settings";
@@ -7176,31 +7176,33 @@ var SigninComponent = /** @class */ (function () {
         var signinData = this.signinForm.value;
         this.submitButton.disabled = true;
         // this.progressBar.mode = 'indeterminate';
-        this.userService.login(signinData)
+        this.authService.login(signinData)
             .subscribe(function (response) {
+            console.log('---------------------------- response', response);
             var tempUser = {
                 id: response.user_id,
-                username: 'contactpkumara@gmail.com',
-                accountName: 'Kushan Pabasara',
-                image: 'assets/images/cp_users/placeholder-user.png',
+                username: "contactpkumara@gmail.com",
+                accountName: "Kushan Pabasara",
+                image: "assets/images/cp_users/placeholder-user.png",
                 token: response.access_token,
                 refreshToken: response.refresh_token,
-                company: 'Kushan Pabasara',
+                company: "Kushan Pabasara",
                 expires_in: response.expires_in,
-                userData: ''
+                userData: ""
             };
             localStorage.setItem(_this.storage_name, JSON.stringify(tempUser));
-            _this.userService.getUserData(response.user_id)
-                .subscribe(function (res) {
+            _this.authService.getLoggedUserData(response.user_id).subscribe(function (res) {
                 var viewData = res.content;
                 tempUser.username = viewData.userName;
                 tempUser.accountName = viewData.accountName;
                 tempUser.userData = res.content;
                 localStorage.setItem(_this.storage_name, JSON.stringify(tempUser));
+                console.log('---------------------------- tempUser', tempUser);
                 // this.progressBar.mode = 'determinate';
                 _this.router.navigate([_this.successUrl]);
-                var expireInMilliSecond = (response.expires_in - 2) * 1000;
-                _this.getRefreshToken(expireInMilliSecond);
+                // const expireInMilliSecond = (response.expires_in - 2) * 1000;
+                // this.getRefreshToken(expireInMilliSecond);
+                // this.getRefreshToken(10000);
             }, function (error) {
                 _this.result = false;
                 // this.progressBar.mode = 'determinate';
@@ -7219,31 +7221,7 @@ var SigninComponent = /** @class */ (function () {
             }
         });
     };
-    SigninComponent.prototype.getRefreshToken = function (refreshTime) {
-        var _this = this;
-        setTimeout(function () {
-            console.log('Set Time out function');
-            var tempUser = JSON.parse(localStorage.getItem(_this.storage_name));
-            _this.userService.getUserRefreshToken(tempUser.refreshToken)
-                .subscribe(function (response) {
-                _this.counter += 1;
-                console.log('Refresh count = ' + _this.counter);
-                tempUser.token = response.access_token;
-                tempUser.refreshToken = response.refresh_token;
-                tempUser.expires_in = response.expires_in;
-                localStorage.setItem(_this.storage_name, JSON.stringify(tempUser));
-                var expireInMilliSecond = (response.expires_in - 2) * 1000;
-                _this.getRefreshToken(expireInMilliSecond);
-            }, function (error) {
-                console.log('Refresh Token Error');
-                _this.getRefreshToken(refreshTime);
-            });
-        }, refreshTime);
-    };
     __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatProgressBar"])
-        // progressBar: MatProgressBar;
-        ,
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatButton"]),
         __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatButton"])
     ], SigninComponent.prototype, "submitButton", void 0);
@@ -7251,9 +7229,9 @@ var SigninComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: "app-signin",
             template: __webpack_require__(/*! ./signin.component.html */ "./src/app/views/sessions/signin/signin.component.html"),
-            styles: [__webpack_require__(/*! ./signin.component.scss */ "./src/app/views/sessions/signin/signin.component.scss")],
+            styles: [__webpack_require__(/*! ./signin.component.scss */ "./src/app/views/sessions/signin/signin.component.scss")]
         }),
-        __metadata("design:paramtypes", [_UserService_service__WEBPACK_IMPORTED_MODULE_3__["UserService"],
+        __metadata("design:paramtypes", [_authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
             _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSnackBar"]])
     ], SigninComponent);
@@ -7430,6 +7408,17 @@ module.exports = "<div class=\"page-wrap height-100 comman-background\">\r\n  <d
 
 /***/ }),
 
+/***/ "./src/app/views/sessions/user-activation/user-activation.component.scss":
+/*!*******************************************************************************!*\
+  !*** ./src/app/views/sessions/user-activation/user-activation.component.scss ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".comman-background {\n  background-image: url('Truverus-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n"
+
+/***/ }),
+
 /***/ "./src/app/views/sessions/user-activation/user-activation.component.ts":
 /*!*****************************************************************************!*\
   !*** ./src/app/views/sessions/user-activation/user-activation.component.ts ***!
@@ -7443,7 +7432,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _UserService_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7461,9 +7450,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var UserActivationComponent = /** @class */ (function () {
-    function UserActivationComponent(route, userService, snack, router) {
+    function UserActivationComponent(route, authService, snack, router) {
         this.route = route;
-        this.userService = userService;
+        this.authService = authService;
         this.snack = snack;
         this.router = router;
         this.result = false;
@@ -7484,24 +7473,26 @@ var UserActivationComponent = /** @class */ (function () {
     };
     UserActivationComponent.prototype.activateUser = function () {
         var _this = this;
-        console.log('CALLED activate');
-        if (100 > this.activationForm.value.password.length && this.activationForm.value.password.length > 6) {
-            this.userService
+        console.log("CALLED activate");
+        if (100 > this.activationForm.value.password.length &&
+            this.activationForm.value.password.length > 6) {
+            this.authService
                 .activateUser(this.activationCode, this.activationForm.value)
                 .subscribe(function (response) {
                 console.log("SUCCESS ACTIVATION");
                 _this.result = false;
                 _this.snack.open("User Activated !", "OK", { duration: 3000 });
-                _this.router.navigate(['sessions/signin']);
+                _this.router.navigate(["sessions/signin"]);
             }, function (error) {
                 if (error.status === 500) {
                     console.log("SUCCESS ACTIVATION With 500 Error");
                     _this.result = false;
                     _this.snack.open("User Activated !", "OK", { duration: 3000 });
-                    _this.router.navigate(['sessions/signin']);
+                    _this.router.navigate(["sessions/signin"]);
                 }
                 else {
-                    if (error.error.validationFailures[0].code === "userActivationRequest.alreadyActivated") {
+                    if (error.error.validationFailures[0].code ===
+                        "userActivationRequest.alreadyActivated") {
                         _this.errorMsg = "User Already Activated !";
                         _this.result = true;
                     }
@@ -7514,15 +7505,16 @@ var UserActivationComponent = /** @class */ (function () {
         }
     };
     UserActivationComponent.prototype.submit = function () {
-        console.log('CALLED activate');
+        console.log("CALLED activate");
     };
     UserActivationComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: "app-user-activation",
-            template: __webpack_require__(/*! ./user-activation.component.html */ "./src/app/views/sessions/user-activation/user-activation.component.html")
+            template: __webpack_require__(/*! ./user-activation.component.html */ "./src/app/views/sessions/user-activation/user-activation.component.html"),
+            styles: [__webpack_require__(/*! ./user-activation.component.scss */ "./src/app/views/sessions/user-activation/user-activation.component.scss")]
         }),
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"],
-            _UserService_service__WEBPACK_IMPORTED_MODULE_3__["UserService"],
+            _authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"],
             _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSnackBar"],
             _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], UserActivationComponent);

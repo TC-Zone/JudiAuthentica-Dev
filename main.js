@@ -20,7 +20,6 @@ var map = {
 	"./views/client/client.module": [
 		"./src/app/views/client/client.module.ts",
 		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
-		"views-client-client-module~views-future-survey-future-survey-module~views-interaction-view-interacti~35e54c31",
 		"views-client-client-module~views-user-user-module",
 		"common",
 		"views-client-client-module"
@@ -48,7 +47,6 @@ var map = {
 		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
-		"views-client-client-module~views-future-survey-future-survey-module~views-interaction-view-interacti~35e54c31",
 		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
 		"common"
 	],
@@ -57,7 +55,6 @@ var map = {
 		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
-		"views-client-client-module~views-future-survey-future-survey-module~views-interaction-view-interacti~35e54c31",
 		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
 		"common",
 		"views-interaction-view-interaction-view-module"
@@ -67,7 +64,6 @@ var map = {
 		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
-		"views-client-client-module~views-future-survey-future-survey-module~views-interaction-view-interacti~35e54c31",
 		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
 		"common",
 		"views-invitee-interaction-view-invitee-interaction-view-module"
@@ -169,7 +165,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_route_parts_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shared/services/route-parts.service */ "./src/app/shared/services/route-parts.service.ts");
 /* harmony import */ var _shared_services_theme_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./shared/services/theme.service */ "./src/app/shared/services/theme.service.ts");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./shared/services/auth/auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
@@ -248,7 +244,7 @@ var AppComponent = /** @class */ (function () {
             _shared_services_route_parts_service__WEBPACK_IMPORTED_MODULE_3__["RoutePartsService"],
             _shared_services_theme_service__WEBPACK_IMPORTED_MODULE_4__["ThemeService"],
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"],
-            _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_6__["UserService"],
+            _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_6__["AuthenticationService"],
             Document])
     ], AppComponent);
     return AppComponent;
@@ -280,7 +276,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
 /* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ngx-translate/http-loader */ "./node_modules/@ngx-translate/http-loader/esm5/ngx-translate-http-loader.js");
-/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _shared_services_auth_add_header_interceptor__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./shared/services/auth/add-header-interceptor */ "./src/app/shared/services/auth/add-header-interceptor.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -331,7 +327,7 @@ var AppModule = /** @class */ (function () {
                 // ANGULAR MATERIAL SLIDER FIX
                 { provide: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["HAMMER_GESTURE_CONFIG"], useClass: _angular_material__WEBPACK_IMPORTED_MODULE_4__["GestureConfig"] },
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HTTP_INTERCEPTORS"], useClass: _shared_services_auth_add_header_interceptor__WEBPACK_IMPORTED_MODULE_12__["AddHeaderInterceptor"], multi: true },
-                _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_11__["UserService"]
+                _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_11__["AuthenticationService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         })
@@ -444,7 +440,7 @@ var rootRouterConfig = [
             {
                 path: "community",
                 loadChildren: "./views/community/community.module#CommunityModule",
-                data: { title: "Comunity", breadcrumb: "Comunity" }
+                data: { title: "Community", breadcrumb: "Community" }
             }
         ]
     },
@@ -916,7 +912,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_theme_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/theme.service */ "./src/app/shared/services/theme.service.ts");
 /* harmony import */ var _services_layout_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/layout.service */ "./src/app/shared/services/layout.service.ts");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
-/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../views/sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _helpers_local_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../helpers/local-storage */ "./src/app/shared/helpers/local-storage.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
@@ -947,22 +943,25 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var HeaderSideComponent = /** @class */ (function (_super) {
     __extends(HeaderSideComponent, _super);
-    function HeaderSideComponent(themeService, layout, translate, renderer, userService, router) {
+    function HeaderSideComponent(themeService, layout, translate, renderer, authService, router) {
         var _this = _super.call(this) || this;
         _this.themeService = themeService;
         _this.layout = layout;
         _this.translate = translate;
         _this.renderer = renderer;
-        _this.userService = userService;
+        _this.authService = authService;
         _this.router = router;
-        _this.currentLang = 'en';
-        _this.availableLangs = [{
-                name: 'English',
-                code: 'en',
-            }, {
-                name: 'Spanish',
-                code: 'es',
-            }];
+        _this.currentLang = "en";
+        _this.availableLangs = [
+            {
+                name: "English",
+                code: "en"
+            },
+            {
+                name: "Spanish",
+                code: "es"
+            }
+        ];
         return _this;
     }
     HeaderSideComponent.prototype.ngOnInit = function () {
@@ -981,34 +980,34 @@ var HeaderSideComponent = /** @class */ (function (_super) {
         this.notificPanel.toggle();
     };
     HeaderSideComponent.prototype.toggleSidenav = function () {
-        console.log('TOGGLE NAV');
-        if (this.layoutConf.sidebarStyle === 'closed') {
+        console.log("TOGGLE NAV");
+        if (this.layoutConf.sidebarStyle === "closed") {
             return this.layout.publishLayoutChange({
-                sidebarStyle: 'full'
+                sidebarStyle: "full"
             });
         }
         this.layout.publishLayoutChange({
-            sidebarStyle: 'closed'
+            sidebarStyle: "closed"
         });
     };
     HeaderSideComponent.prototype.toggleCollapse = function () {
-        console.log('TOGGLE CLSPS');
+        console.log("TOGGLE CLSPS");
         // compact --> full
-        if (this.layoutConf.sidebarStyle === 'compact') {
+        if (this.layoutConf.sidebarStyle === "compact") {
             return this.layout.publishLayoutChange({
-                sidebarStyle: 'full'
+                sidebarStyle: "full"
             }, { transitionClass: true });
         }
         // * --> compact
         this.layout.publishLayoutChange({
-            sidebarStyle: 'compact'
+            sidebarStyle: "compact"
         }, { transitionClass: true });
     };
     HeaderSideComponent.prototype.signOut = function () {
-        console.log('sign out called HEADER SIDE');
-        this.userService.logout();
-        if (localStorage.getItem('currentUser')) {
-            console.log('NULL OI');
+        console.log("sign out called HEADER SIDE");
+        this.authService.logout();
+        if (localStorage.getItem("currentUser")) {
+            console.log("NULL OI");
         }
         // this.router.navigate(['/sessions/signin']);
     };
@@ -1018,14 +1017,14 @@ var HeaderSideComponent = /** @class */ (function (_super) {
     ], HeaderSideComponent.prototype, "notificPanel", void 0);
     HeaderSideComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-header-side',
+            selector: "app-header-side",
             template: __webpack_require__(/*! ./header-side.template.html */ "./src/app/shared/components/header-side/header-side.template.html")
         }),
         __metadata("design:paramtypes", [_services_theme_service__WEBPACK_IMPORTED_MODULE_1__["ThemeService"],
             _services_layout_service__WEBPACK_IMPORTED_MODULE_2__["LayoutService"],
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"],
-            _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_4__["UserService"],
+            _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
     ], HeaderSideComponent);
     return HeaderSideComponent;
@@ -1072,7 +1071,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_theme_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../shared/services/theme.service */ "./src/app/shared/services/theme.service.ts");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
 /* harmony import */ var _services_layout_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/layout.service */ "./src/app/shared/services/layout.service.ts");
-/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../views/sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _helpers_local_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../helpers/local-storage */ "./src/app/shared/helpers/local-storage.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
@@ -1104,44 +1103,46 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var HeaderTopComponent = /** @class */ (function (_super) {
     __extends(HeaderTopComponent, _super);
-    function HeaderTopComponent(layout, navService, themeService, translate, renderer, userService, router) {
+    function HeaderTopComponent(layout, navService, themeService, translate, renderer, authService, router) {
         var _this = _super.call(this) || this;
         _this.layout = layout;
         _this.navService = navService;
         _this.themeService = themeService;
         _this.translate = translate;
         _this.renderer = renderer;
-        _this.userService = userService;
+        _this.authService = authService;
         _this.router = router;
         _this.egretThemes = [];
-        _this.currentLang = 'en';
-        _this.availableLangs = [{
-                name: 'English',
-                code: 'en',
-            }, {
-                name: 'Spanish',
-                code: 'es',
-            }];
+        _this.currentLang = "en";
+        _this.availableLangs = [
+            {
+                name: "English",
+                code: "en"
+            },
+            {
+                name: "Spanish",
+                code: "es"
+            }
+        ];
         return _this;
     }
     HeaderTopComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.layoutConf = this.layout.layoutConf;
         this.egretThemes = this.themeService.egretThemes;
-        this.menuItemSub = this.navService.menuItems$
-            .subscribe(function (res) {
-            res = res.filter(function (item) { return item.type !== 'icon' && item.type !== 'separator'; });
+        this.menuItemSub = this.navService.menuItems$.subscribe(function (res) {
+            res = res.filter(function (item) { return item.type !== "icon" && item.type !== "separator"; });
             var limit = 4;
             var mainItems = res.slice(0, limit);
             if (res.length <= limit) {
-                return _this.menuItems = mainItems;
+                return (_this.menuItems = mainItems);
             }
             var subItems = res.slice(limit, res.length - 1);
             mainItems.push({
-                name: 'More',
-                type: 'dropDown',
-                tooltip: 'More',
-                icon: 'more_horiz',
+                name: "More",
+                type: "dropDown",
+                tooltip: "More",
+                icon: "more_horiz",
                 sub: subItems
             });
             _this.menuItems = mainItems;
@@ -1160,20 +1161,20 @@ var HeaderTopComponent = /** @class */ (function (_super) {
         this.notificPanel.toggle();
     };
     HeaderTopComponent.prototype.toggleSidenav = function () {
-        if (this.layoutConf.sidebarStyle === 'closed') {
+        if (this.layoutConf.sidebarStyle === "closed") {
             return this.layout.publishLayoutChange({
-                sidebarStyle: 'full'
+                sidebarStyle: "full"
             });
         }
         this.layout.publishLayoutChange({
-            sidebarStyle: 'closed'
+            sidebarStyle: "closed"
         });
     };
     HeaderTopComponent.prototype.signOut = function () {
-        console.log('sign out called HEADER TOP');
-        this.userService.logout();
-        if (localStorage.getItem('currentUser')) {
-            console.log('NULL OI');
+        console.log("sign out called HEADER TOP");
+        this.authService.logout();
+        if (localStorage.getItem("currentUser")) {
+            console.log("NULL OI");
         }
         // this.router.navigate(['/sessions/signin']);
     };
@@ -1183,7 +1184,7 @@ var HeaderTopComponent = /** @class */ (function (_super) {
     ], HeaderTopComponent.prototype, "notificPanel", void 0);
     HeaderTopComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-header-top',
+            selector: "app-header-top",
             template: __webpack_require__(/*! ./header-top.component.html */ "./src/app/shared/components/header-top/header-top.component.html")
         }),
         __metadata("design:paramtypes", [_services_layout_service__WEBPACK_IMPORTED_MODULE_4__["LayoutService"],
@@ -1191,7 +1192,7 @@ var HeaderTopComponent = /** @class */ (function (_super) {
             _shared_services_theme_service__WEBPACK_IMPORTED_MODULE_2__["ThemeService"],
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"],
-            _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__["UserService"],
+            _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]])
     ], HeaderTopComponent);
     return HeaderTopComponent;
@@ -1528,7 +1529,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_theme_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/theme.service */ "./src/app/shared/services/theme.service.ts");
 /* harmony import */ var perfect_scrollbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! perfect-scrollbar */ "./node_modules/perfect-scrollbar/dist/perfect-scrollbar.esm.js");
 /* harmony import */ var _helpers_local_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/local-storage */ "./src/app/shared/helpers/local-storage.ts");
-/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
+/* harmony import */ var _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../views/sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _services_layout_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services/layout.service */ "./src/app/shared/services/layout.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1558,11 +1559,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var SidebarSideComponent = /** @class */ (function (_super) {
     __extends(SidebarSideComponent, _super);
-    function SidebarSideComponent(navService, themeService, userService, layout) {
+    function SidebarSideComponent(navService, themeService, authService, layout) {
         var _this = _super.call(this) || this;
         _this.navService = navService;
         _this.themeService = themeService;
-        _this.userService = userService;
+        _this.authService = authService;
         _this.layout = layout;
         return _this;
     }
@@ -1572,23 +1573,23 @@ var SidebarSideComponent = /** @class */ (function (_super) {
         this.iconTypeMenuTitle = this.navService.iconTypeMenuTitle;
         this.menuItemsSub = this.navService.menuItems$.subscribe(function (menuItem) {
             _this.menuItems = menuItem;
-            var removeItemList = _this.userService.setComponetDisable();
+            var removeItemList = _this.authService.setComponetDisable();
             removeItemList.forEach(function (element) {
                 var index = _this.menuItems.findIndex(function (x) { return x.name === element; });
                 if (index >= 0) {
                     _this.menuItems[index].disabled = true;
                 }
             });
-            console.log('=====================================');
+            console.log("=====================================");
             console.log(_this.menuItems);
             //Checks item list has any icon type.
-            _this.hasIconTypeMenuItem = !!_this.menuItems.filter(function (item) { return item.type === 'icon'; }).length;
+            _this.hasIconTypeMenuItem = !!_this.menuItems.filter(function (item) { return item.type === "icon"; }).length;
         });
     };
     SidebarSideComponent.prototype.ngAfterViewInit = function () {
         var _this = this;
         setTimeout(function () {
-            _this.sidebarPS = new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_3__["default"]('#scroll-area', {
+            _this.sidebarPS = new perfect_scrollbar__WEBPACK_IMPORTED_MODULE_3__["default"]("#scroll-area", {
                 suppressScrollX: true
             });
         });
@@ -1603,12 +1604,12 @@ var SidebarSideComponent = /** @class */ (function (_super) {
     };
     SidebarSideComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-sidebar-side',
+            selector: "app-sidebar-side",
             template: __webpack_require__(/*! ./sidebar-side.component.html */ "./src/app/shared/components/sidebar-side/sidebar-side.component.html")
         }),
         __metadata("design:paramtypes", [_shared_services_navigation_service__WEBPACK_IMPORTED_MODULE_1__["NavigationService"],
             _services_theme_service__WEBPACK_IMPORTED_MODULE_2__["ThemeService"],
-            _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__["UserService"],
+            _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"],
             _services_layout_service__WEBPACK_IMPORTED_MODULE_6__["LayoutService"]])
     ], SidebarSideComponent);
     return SidebarSideComponent;
@@ -2196,123 +2197,6 @@ var ScrollToDirective = /** @class */ (function () {
         __metadata("design:paramtypes", [String, _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
     ], ScrollToDirective);
     return ScrollToDirective;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/shared/fake-db/cp-users.ts":
-/*!********************************************!*\
-  !*** ./src/app/shared/fake-db/cp-users.ts ***!
-  \********************************************/
-/*! exports provided: CpUsersDB */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CpUsersDB", function() { return CpUsersDB; });
-var CpUsersDB = /** @class */ (function () {
-    function CpUsersDB() {
-        this.users = [
-            {
-                id: "1",
-                user_name: "judec",
-                profile_name: "Jude Cedric",
-                password: "jude123",
-                image: "assets/images/cp_users/Jude-Weerasekara.jpg",
-                company: "Clear Picture - Canada",
-                position: "Product Owner"
-            },
-            {
-                id: "2",
-                user_name: "shalindraw",
-                profile_name: "Shalindra Weliwita",
-                password: "shalindra123",
-                image: "assets/images/cp_users/cp_user_1.jpg",
-                company: "Clear Picture - Sri Lanka",
-                position: "Project Manager"
-            },
-            {
-                id: "3",
-                user_name: "raveens",
-                profile_name: "Yasas Ravindu",
-                password: "raveen123",
-                image: "assets/images/cp_users/raveen sankalpa.jpg",
-                company: "Clear Picture - Sri Lanka",
-                position: "Senior Software Engineer"
-            },
-            {
-                id: "4",
-                user_name: "kushanp",
-                profile_name: "Kushan Pabasara",
-                password: "kushan123",
-                image: "assets/images/cp_users/kushan pabasara.jpg",
-                company: "Clear Picture - Sri Lanka",
-                position: "UI/UX Engineer"
-            },
-            {
-                id: "5",
-                user_name: "nuwanp",
-                profile_name: "Nuwan Prasanna",
-                password: "nuwan123",
-                image: "assets/images/cp_users/nuwan prasanna.jpg",
-                company: "Clear Picture - Sri Lanka",
-                position: "Tech Lead"
-            },
-            {
-                id: "6",
-                user_name: "amilaj",
-                profile_name: "Amila Jayanga",
-                password: "amila123",
-                image: "assets/images/cp_users/amila ayya.jpg",
-                company: "Clear Picture - Sri Lanka",
-                position: "Android Developer"
-            },
-            {
-                id: "7",
-                user_name: "buddhi",
-                profile_name: "Buddhi Hasanka",
-                password: "hbh123",
-                image: "assets/images/cp_users/buddhi_hasanka.jpg",
-                company: "Clear Picture - Sri Lanka",
-                position: "Software Engineer"
-            }, {
-                id: "8",
-                user_name: "scottm",
-                profile_name: "Scott Murray",
-                password: "scott123",
-                image: "assets/images/cp_users/scott.jpg",
-                company: "Clear Picture - Global",
-                position: "President & Chief Executive Officer"
-            }, {
-                id: "9",
-                user_name: "hasitham",
-                profile_name: "Hasitha De Mel",
-                password: "hasitha123",
-                image: "assets/images/cp_users/hasitha.jpg",
-                company: "Clear Picture - Sri Lanka",
-                position: "iOS Development"
-            }, {
-                id: "10",
-                user_name: "andrewf",
-                profile_name: "Andrew Fraser",
-                password: "andrew123",
-                image: "assets/images/cp_users/andrew_replace.png",
-                company: "Clear Picture - Global",
-                position: "Service Delivery"
-            }, {
-                id: "11",
-                user_name: "rashmid",
-                profile_name: "Rashmi Deldeniya",
-                password: "rashmi123",
-                image: "assets/images/cp_users/rashmi.jpg",
-                company: "Clear Picture - Sri Lanka",
-                position: "Quality Assurance"
-            }
-        ];
-    }
-    return CpUsersDB;
 }());
 
 
@@ -3442,13 +3326,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddHeaderInterceptor", function() { return AddHeaderInterceptor; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _auth_properties__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
-/* harmony import */ var _views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../views/sessions/UserService.service */ "./src/app/views/sessions/UserService.service.ts");
-/* harmony import */ var _environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../../../environments/environment.prod */ "./src/environments/environment.prod.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
+/* harmony import */ var rxjs_add_operator_catch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/add/operator/catch */ "./node_modules/rxjs-compat/_esm5/add/operator/catch.js");
+/* harmony import */ var rxjs_add_operator_switchMap__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/add/operator/switchMap */ "./node_modules/rxjs-compat/_esm5/add/operator/switchMap.js");
+/* harmony import */ var rxjs_Rx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/Rx */ "./node_modules/rxjs-compat/_esm5/Rx.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _auth_properties__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
+/* harmony import */ var _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../../views/sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
+/* harmony import */ var _environments_environment_prod__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../../../../environments/environment.prod */ "./src/environments/environment.prod.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3467,85 +3353,118 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+// import { environment } from "./../../../../environments/environment.prod";
+// import { Router } from "@angular/router";
+// import { AppLoaderService } from "./../app-loader/app-loader.service";
 var AddHeaderInterceptor = /** @class */ (function () {
-    function AddHeaderInterceptor(userService, router, loader) {
-        this.userService = userService;
+    function AddHeaderInterceptor(authService, router, loader) {
+        this.authService = authService;
         this.router = router;
         this.loader = loader;
-        this.gloable_user = _auth_properties__WEBPACK_IMPORTED_MODULE_4__["authProperties"].gloable_user;
-        this.gloable_secret = _auth_properties__WEBPACK_IMPORTED_MODULE_4__["authProperties"].gloable_secret;
-        this.storage_name = _auth_properties__WEBPACK_IMPORTED_MODULE_4__["authProperties"].storage_name;
-        this.whiteListUrls = [
-            _environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].userApiUrl
+        this.gloable_user = _auth_properties__WEBPACK_IMPORTED_MODULE_6__["authProperties"].gloable_user;
+        this.gloable_secret = _auth_properties__WEBPACK_IMPORTED_MODULE_6__["authProperties"].gloable_secret;
+        this.storage_name = _auth_properties__WEBPACK_IMPORTED_MODULE_6__["authProperties"].storage_name;
+        this.whiteListUrls = [_environments_environment_prod__WEBPACK_IMPORTED_MODULE_8__["environment"].userApiUrl];
+        this.userServiceblackListUrls = ["platform-users/activations/"];
+        this.whiteListUrl = [
+            { url: _environments_environment_prod__WEBPACK_IMPORTED_MODULE_8__["environment"].authTokenUrl + "oauth/token", type: "oauthToken" },
+            { url: _environments_environment_prod__WEBPACK_IMPORTED_MODULE_8__["environment"].userApiUrl, type: "userApiUrl" }
         ];
-        this.userServiceblackListUrls = [
-            'platform-users/activations/'
-        ];
+        this.isRefreshingToken = false;
+        this.tokenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["BehaviorSubject"](null);
     }
-    AddHeaderInterceptor.prototype.intercept = function (request, next) {
-        var _this = this;
-        var token = this.userService.getAuthToken();
+    AddHeaderInterceptor.prototype.getRequest = function (request, token) {
         var isAuthToken = this.oauthTokenUrlValidate(request.url);
-        if (token !== false) {
-            if (isAuthToken) {
-                request = request.clone({
-                    headers: request.headers.set('Authorization', 'Basic ' + btoa(this.gloable_user + ':' + this.gloable_secret))
-                });
-            }
-            else {
-                var isTokenRequired = this.getWhiteListUrl(request.url);
-                if (isTokenRequired) {
-                    request = request.clone({
-                        headers: request.headers.set('Authorization', 'bearer ' + token)
-                    });
-                }
-            }
+        // console.log(token);
+        if (isAuthToken) {
+            request = request.clone({
+                headers: request.headers.set("Authorization", "Basic " + btoa(this.gloable_user + ":" + this.gloable_secret))
+            });
         }
         else {
-            if (isAuthToken) {
-                request = request.clone({
-                    headers: request.headers.set('Authorization', 'Basic ' + btoa(this.gloable_user + ':' + this.gloable_secret))
-                });
+            var isTokenRequired = this.getWhiteListUrl(request.url);
+            // console.log('------------------------------- isTokenRequired', isTokenRequired);
+            if (token) {
+                if (isTokenRequired) {
+                    request = request.clone({
+                        headers: request.headers.set("Authorization", "bearer " + token)
+                    });
+                }
+            }
+            else {
+                // this.userService.logout();
             }
         }
-        return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (event) {
-            if (event instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpResponse"]) {
-                // console.log('event--->>>', event);
-                // this.errorDialogService.openDialog(event);
-            }
-            return event;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (error) {
-            console.log('---------------------- response error code ---------------------');
-            if (error.status === 401) {
-                var isFromRefreshTokenEndpoint = !!error.headers.get('unableToRefreshToken');
-                if (isFromRefreshTokenEndpoint) {
-                    localStorage.clear();
-                    _this.router.navigate(['sessions/signin']);
-                    return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(error);
+        return request;
+    };
+    AddHeaderInterceptor.prototype.intercept = function (request, next) {
+        var _this = this;
+        return next
+            .handle(this.getRequest(request, this.authService.getAuthToken()))
+            .catch(function (error) {
+            console.log("--------------------------- error", error);
+            if (error instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpErrorResponse"]) {
+                switch (error.status) {
+                    case 401:
+                        return _this.handle401Error(request, next);
+                    default:
+                        return rxjs_Rx__WEBPACK_IMPORTED_MODULE_4__["Observable"].throw(error);
                 }
-                var userObj_1 = JSON.parse(localStorage.getItem(_this.storage_name));
-                _this.loader.open();
-                _this.userService.getUserRefreshToken(userObj_1.refreshToken)
-                    .subscribe(function (response) {
-                    userObj_1.refreshToken = response.refresh_token;
-                    userObj_1.token = response.access_token;
-                    userObj_1.expires_in = response.expires_in;
-                    localStorage.setItem(_this.storage_name, JSON.stringify(userObj_1));
-                    var reRequest = request.clone({
-                        headers: request.headers.set('Authorization', 'bearer ' + response.access_token)
-                    });
-                    _this.loader.close();
-                    window.location.reload();
-                    return next.handle(reRequest);
-                }, function (err) {
-                    localStorage.clear();
-                    _this.router.navigate(['sessions/signin']);
-                    return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(err);
-                });
-                _this.loader.close();
             }
-            return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(error);
-        }));
+            else {
+                return rxjs_Rx__WEBPACK_IMPORTED_MODULE_4__["Observable"].throw(error);
+            }
+        });
+    };
+    AddHeaderInterceptor.prototype.handle401Error = function (req, next) {
+        var _this = this;
+        if (!this.isRefreshingToken) {
+            this.isRefreshingToken = true;
+            // Reset here so that the following requests wait until the token
+            // comes back from the refreshToken call.
+            this.tokenSubject.next(null);
+            return this.authService
+                .getNewToken()
+                .switchMap(function (newToken) {
+                if (newToken) {
+                    _this.tokenSubject.next(newToken);
+                    return next.handle(_this.getRequest(req, newToken));
+                }
+                // If we don't get a new token, we are in trouble so logout.
+                return _this.logoutUser();
+            })
+                .catch(function (error) {
+                // If there is an exception calling 'refreshToken', bad news so logout.
+                return _this.logoutUser();
+            })
+                .finally(function () {
+                _this.isRefreshingToken = false;
+            });
+        }
+        else {
+            return this.tokenSubject
+                .filter(function (token) { return token != null; })
+                .take(1)
+                .switchMap(function (token) {
+                return next.handle(_this.getRequest(req, token));
+            });
+        }
+    };
+    AddHeaderInterceptor.prototype.logoutUser = function () {
+        // Route to the login page
+        this.authService.logout();
+        return rxjs_Rx__WEBPACK_IMPORTED_MODULE_4__["Observable"].throw("");
+    };
+    AddHeaderInterceptor.prototype.oauthTokenUrlValidate = function (url) {
+        var authTokenUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_8__["environment"].authTokenUrl + "oauth/token";
+        if (authTokenUrl === url) {
+            return true;
+        }
+        else {
+            return false;
+        }
     };
     AddHeaderInterceptor.prototype.getWhiteListUrl = function (url) {
         for (var i = 0; i < this.whiteListUrls.length; i++) {
@@ -3562,20 +3481,11 @@ var AddHeaderInterceptor = /** @class */ (function () {
         }
         return false;
     };
-    AddHeaderInterceptor.prototype.oauthTokenUrlValidate = function (url) {
-        var authTokenUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].authTokenUrl + 'oauth/token';
-        if (authTokenUrl === url) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    };
     AddHeaderInterceptor = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_views_sessions_UserService_service__WEBPACK_IMPORTED_MODULE_5__["UserService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"],
-            _app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_8__["AppLoaderService"]])
+        __metadata("design:paramtypes", [_views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_7__["AuthenticationService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_9__["Router"],
+            _app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_10__["AppLoaderService"]])
     ], AddHeaderInterceptor);
     return AddHeaderInterceptor;
 }());
@@ -4443,36 +4353,36 @@ var NavigationService = /** @class */ (function () {
                 state: "productCrud/show",
                 disabled: false
             },
-            {
-                name: "Instant Feedback",
-                type: "link",
-                tooltip: "Feedback Management",
-                icon: "feedback",
-                state: "surveys",
-                disabled: false
-            },
-            {
-                name: "E-Vote",
-                type: "link",
-                tooltip: "E-Vote",
-                icon: "thumbs_up_down",
-                state: "evote/showEvote",
-                disabled: false
-            },
-            {
-                name: "Future Survey",
-                type: "link",
-                tooltip: "Future Survey",
-                icon: "language",
-                state: "future-survey",
-                disabled: false
-            },
+            // {
+            //   name: "Instant Feedback",
+            //   type: "link",
+            //   tooltip: "Feedback Management",
+            //   icon: "feedback",
+            //   state: "surveys",
+            //   disabled: false
+            // },
+            // {
+            //   name: "E-Vote",
+            //   type: "link",
+            //   tooltip: "E-Vote",
+            //   icon: "thumbs_up_down",
+            //   state: "evote/showEvote",
+            //   disabled: false
+            // },
             {
                 name: "Community",
                 type: "link",
                 tooltip: "Community",
                 icon: "group",
                 state: "community/community-view",
+                disabled: false
+            },
+            {
+                name: "ClearPicture Survey",
+                type: "link",
+                tooltip: "Future Survey",
+                icon: "language",
+                state: "future-survey",
                 disabled: false
             },
             // ,
@@ -5234,25 +5144,23 @@ var Localization = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/views/sessions/UserService.service.ts":
-/*!*******************************************************!*\
-  !*** ./src/app/views/sessions/UserService.service.ts ***!
-  \*******************************************************/
-/*! exports provided: UserService */
+/***/ "./src/app/views/sessions/authentication.service.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/views/sessions/authentication.service.ts ***!
+  \**********************************************************/
+/*! exports provided: AuthenticationService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return UserService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthenticationService", function() { return AuthenticationService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _shared_fake_db_cp_users__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../shared/fake-db/cp-users */ "./src/app/shared/fake-db/cp-users.ts");
-/* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jwt-decode */ "./node_modules/jwt-decode/lib/index.js");
-/* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jwt_decode__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! environments/environment.prod */ "./src/environments/environment.prod.ts");
-/* harmony import */ var _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../shared/services/auth/auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! environments/environment.prod */ "./src/environments/environment.prod.ts");
+/* harmony import */ var _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../shared/services/auth/auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5269,105 +5177,70 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
-var UserService = /** @class */ (function () {
-    function UserService(http) {
+var AuthenticationService = /** @class */ (function () {
+    function AuthenticationService(http, router) {
         this.http = http;
-        this.baseAuthUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].authTokenUrl;
-        this.storage_name = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__["authProperties"].storage_name;
-        this.componentList = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__["authProperties"].componentList;
-        this.userApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_6__["environment"].userApiUrl;
-        var user = new _shared_fake_db_cp_users__WEBPACK_IMPORTED_MODULE_2__["CpUsersDB"]();
-        this.users = user.users;
+        this.router = router;
+        this.baseAuthUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].authTokenUrl;
+        this.storage_name = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__["authProperties"].storage_name;
+        this.componentList = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__["authProperties"].componentList;
+        this.userApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl;
     }
     /*
      * User Login function
      * Created by Prasad Kumara
      * 14/02/2019
      */
-    UserService.prototype.login = function (signinFormData) {
+    AuthenticationService.prototype.login = function (signinFormData) {
         var payload = new FormData();
         payload.append("grant_type", "password");
         payload.append("username", signinFormData.username);
         payload.append("password", signinFormData.password);
-        return this.http.post(this.baseAuthUrl + "oauth/token", payload).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) {
+        return this.http.post(this.baseAuthUrl + "oauth/token", payload).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
             return data;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
     /*
      * User Log out function
      * Created by Prasad Kumara
      * 14/02/2019
      */
-    UserService.prototype.logout = function () {
+    AuthenticationService.prototype.logout = function () {
         // remove user from local storage to log user out
         localStorage.removeItem(this.storage_name);
         localStorage.removeItem(this.componentList);
     };
-    /*
-     * Get Jwt token Expire date
-     * Created by Prasad Kumara
-     * 14/02/2019
-     */
-    UserService.prototype.getTokenExpirationDate = function (token) {
-        var decoded = jwt_decode__WEBPACK_IMPORTED_MODULE_3__(token);
-        if (decoded.exp === undefined) {
-            return null;
-        }
-        var date = new Date(0);
-        date.setUTCSeconds(1550476560);
-        return date;
-    };
-    /*
-     * Get Jwt token Expire or not
-     * Created by Prasad Kumara
-     * 14/02/2019
-     */
-    UserService.prototype.isTokenExpired = function (token) {
-        if (!token) {
-            token = "";
-        }
-        if (!token) {
-            return true;
-        }
-        var date = this.getTokenExpirationDate(token);
-        if (date === undefined || date === null) {
-            return false;
-        }
-        return !(date.valueOf() > new Date().valueOf());
-    };
-    UserService.prototype.activateUser = function (code, password) {
+    AuthenticationService.prototype.activateUser = function (code, password) {
         console.log("CALLED  service" + code);
         console.log(password);
         return this.http
             .post(this.userApiUrl + "platform-users/activations/" + code, password)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) {
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
             console.log("SUCESS");
             console.log(data);
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
     /*
      * Get User data using user id
      * Created by Prasad Kumara
      * 14/02/2019
      */
-    UserService.prototype.getUserData = function (userId) {
-        return this.http.get(this.userApiUrl + "platform-users/" + userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) {
+    AuthenticationService.prototype.getUserData = function (userId) {
+        return this.http.get(this.userApiUrl + "platform-users/" + userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
             return data;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
     /*
-     * Get Jwt refrsh token Expire or not
-     * Created by Prasad Kumara
-     * 15/02/2019
+     * Get Logged User and Details by User ID
+     * Created by Raveen Sankalpa
+     * 05/04/2019
      */
-    UserService.prototype.getUserRefreshToken = function (refreshToken) {
-        var payload = new FormData();
-        payload.append("grant_type", "refresh_token");
-        payload.append("refresh_token", refreshToken);
-        return this.http.post(this.baseAuthUrl + "oauth/token", payload).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["share"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) {
+    AuthenticationService.prototype.getLoggedUserData = function (userId) {
+        return this.http
+            .get(this.userApiUrl + "platform-users/current/" + userId)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
             return data;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["catchError"])(this.handleError));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
     /*
      * Get Jwt refrsh token Expire or not
@@ -5375,44 +5248,75 @@ var UserService = /** @class */ (function () {
      * 15/02/2019
      * Not working properly. Still lokking for solution
      */
-    UserService.prototype.setComponetDisable = function () {
+    AuthenticationService.prototype.setComponetDisable = function () {
         var userObj = JSON.parse(localStorage.getItem(this.storage_name));
         var arrayList = [];
         if (userObj) {
-            console.log('--------------- setComponetDisable ----------------');
+            console.log("--------------- setComponetDisable ----------------");
             console.log(userObj.userData.role.name);
             var roleName = userObj.userData.role.name;
-            if (roleName === 'Super Administrator') {
-                arrayList = ['User Management'];
+            if (roleName === "Super Administrator") {
+                arrayList = ["User Management"];
                 return arrayList;
             }
-            else if (roleName === 'Admin') {
-                arrayList = ['Client Management'];
+            else if (roleName === "Admin") {
+                arrayList = ["Client Management"];
                 return arrayList;
             }
             else {
-                arrayList = ['Client Management', 'User Management'];
+                arrayList = ["Client Management", "User Management"];
                 return arrayList;
             }
         }
     };
-    UserService.prototype.getAuthToken = function () {
+    AuthenticationService.prototype.getAuthToken = function () {
         var userObj = JSON.parse(localStorage.getItem(this.storage_name));
         if (userObj) {
-            return userObj.token;
+            this.currentToken = userObj.token;
+        }
+        // console.log('---------------------------- currentToken', this.currentToken);
+        return this.currentToken;
+    };
+    AuthenticationService.prototype.getNewToken = function () {
+        var _this = this;
+        var userObj = JSON.parse(localStorage.getItem(this.storage_name));
+        var payload = new FormData();
+        if (userObj) {
+            payload.append("grant_type", "refresh_token");
+            payload.append("refresh_token", userObj.refreshToken);
+        }
+        return this.http.post(this.baseAuthUrl + "oauth/token", payload).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["share"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
+            var userObj = JSON.parse(localStorage.getItem(_this.storage_name));
+            userObj.refreshToken = data.refresh_token;
+            userObj.token = data.access_token;
+            userObj.expires_in = data.expires_in;
+            localStorage.setItem(_this.storage_name, JSON.stringify(userObj));
+            console.log('---------------------------- refreshToken', data.refresh_token);
+            return data.access_token;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    /** RAVEEN - 2019/04/04
+     * Return detialed instance about current logged user.
+     */
+    AuthenticationService.prototype.getLoggedUserDetail = function () {
+        // Negotiating are we gonna use localstorage or cookie for this kind of repo function.
+        var userObj = JSON.parse(localStorage.getItem(this.storage_name));
+        if (userObj) {
+            return userObj;
         }
         else {
-            return false;
+            console.log("............LOGGED USER NOT FOUND..............");
+            // this.router.navigate(["sessions/signin"]);
         }
     };
-    UserService.prototype.handleError = function (error) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_5__["throwError"])(error);
+    AuthenticationService.prototype.handleError = function (error) {
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(error);
     };
-    UserService = __decorate([
+    AuthenticationService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
-    ], UserService);
-    return UserService;
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]])
+    ], AuthenticationService);
+    return AuthenticationService;
 }());
 
 
@@ -5437,6 +5341,8 @@ var environment = {
     // surveyApiURL : 'https://authentican60aazs63l.ca1.hana.ondemand.com/survey/api/',
     // productimageUrl :"https://authentican60aazs63l.ca1.hana.ondemand.com/product/",
     // evoteimageUrl: "https://authentican60aazs63l.ca1.hana.ondemand.com/survey/",
+    // authTokenUrl: "https://authentican60aazs63l.ca1.hana.ondemand.com/user/",
+    // userApiUrl: "https://authentican60aazs63l.ca1.hana.ondemand.com/user/api/",
     // SAP NEW 32GB -  DEV TEST
     productApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/product/api/",
     surveyApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey/api/",
