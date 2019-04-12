@@ -26,8 +26,8 @@
             <!-- <img [src]="promoObj.file" alt="" class="inbox-face mr-1"> -->
             <div fxLayout="column">
               <span class="m-0">{{ promoObj.name }}</span>
-              <small class="text-muted m-0">Start Date : {{promoObj.start | date}}, End Date :
-                {{promoObj.end | date}}</small>
+              <small class="text-muted m-0">Start Date : {{promoObj.startDate | date}}, End Date :
+                {{promoObj.endDate | date}}</small>
             </div>
           </div>
           <span fxFlex></span>
@@ -55,7 +55,7 @@
       <div fxLayout="row" fxLayoutWrap="wrap" class="mt-1">
         <div fxFlex="40" class="pr-1">
           <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
-            <img style="padding: 10px;" mat-card-image [src]="promoObj.promoPoster" alt="Photo of a Shiba Inu">
+            <img style="padding: 10px;" mat-card-image [src]="promoPosterUrl+promoObj.id" alt="promoObj.name">
           </mat-card>
         </div>
         <div fxFlex="60" class="pr-1">
@@ -80,7 +80,7 @@
                       <mat-icon color="primary">play_arrow</mat-icon>
                     </mat-card-title>
                     <mat-card-content>
-                      <h6 class="m-0 font-normal">{{ promoObj.start | date:'MMM d, y, h:mm a'}}</h6>
+                      <h6 class="m-0 font-normal">{{ promoObj.startDate | date:'MMM d, y, h:mm a'}}</h6>
                     </mat-card-content>
                   </mat-card>
                 </div>
@@ -92,7 +92,7 @@
                       <mat-icon color="warn">stop</mat-icon>
                     </mat-card-title>
                     <mat-card-content>
-                      <h6 class="m-0 font-normal">{{ promoObj.end | date:'MMM d, y, h:mm a'}}</h6>
+                      <h6 class="m-0 font-normal">{{ promoObj.endDate | date:'MMM d, y, h:mm a'}}</h6>
                     </mat-card-content>
                   </mat-card>
                 </div>

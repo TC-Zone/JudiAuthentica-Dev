@@ -139,7 +139,7 @@ export class AuthenticationService {
     if (userObj) {
       this.currentToken = userObj.token;
     }
-    console.log('---------------------------- currentToken', this.currentToken);
+    // console.log('---------------------------- currentToken', this.currentToken);
     return this.currentToken;
   }
 
@@ -165,7 +165,7 @@ export class AuthenticationService {
       catchError(this.handleError)
     );
   }
- 
+
   /** RAVEEN - 2019/04/04
    * Return detialed instance about current logged user.
    */
@@ -179,8 +179,8 @@ export class AuthenticationService {
       // this.router.navigate(["sessions/signin"]);
     }
   }
-  
-  
+
+
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);
   }
@@ -199,7 +199,7 @@ export class AuthenticationService {
 
 
 
-  
+
   /*
    * Get Jwt token Expire date
    * Created by Prasad Kumara

@@ -1,38 +1,41 @@
-import { Injectable } from '@angular/core';
-import { environment } from './../../../environments/environment.prod';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { environment } from "./../../../environments/environment.prod";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { map, catchError } from "rxjs/operators";
+import { throwError } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class ComunityService {
-
   public userApiUrl = environment.userApiUrl;
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) {}
 
-/*
-  * Get download url for events
-  * 18-03-2019
-  * Raveen Sankalpa
-  */
+  /*
+   * Get download url for events,promotion posters
+   * 12-04-2019
+   * Raveen Sankalpa
+   */
 
-  getPosterDownloadUrl(){
-    return this.userApiUrl + "downloads/event/";
+  getPosterDownloadUrl(context) {
+    const commonUrl = this.userApiUrl + "downloads/";
+    if (context === "event") {
+      return commonUrl + "event/";
+    }
+    if (context === "promo") {
+      return commonUrl + "promo/";
+    }
   }
 
   /*
-  * Create community
-  * 05-03-2019
-  * Prasad Kumara
-  */
+   * Create community
+   * 05-03-2019
+   * Prasad Kumara
+   */
   createCommunity(createCommunityData) {
-    return this.http.
-      post(this.userApiUrl + 'communities', createCommunityData)
+    return this.http
+      .post(this.userApiUrl + "communities", createCommunityData)
       .pipe(
         map(data => {
           return data;
@@ -42,14 +45,21 @@ export class ComunityService {
   }
 
   /*
-  * Fetch all communities
-  * 05-03-2019
-  * Prasad Kumara
-  */
+   * Fetch all communities
+   * 05-03-2019
+   * Prasad Kumara
+   */
   fetchAllComunities(clientId, pageNumber, pageSize) {
-    return this.http.
-      get(this.userApiUrl + 'communities/client/' + clientId + '?pageNumber=' +
-      pageNumber + '&pageSize=' + pageSize)
+    return this.http
+      .get(
+        this.userApiUrl +
+          "communities/client/" +
+          clientId +
+          "?pageNumber=" +
+          pageNumber +
+          "&pageSize=" +
+          pageSize
+      )
       .pipe(
         map(data => {
           return data;
@@ -59,30 +69,28 @@ export class ComunityService {
   }
 
   /*
-  * get community using community id
-  * 05-03-2019
-  * Prasad Kumara
-  */
+   * get community using community id
+   * 05-03-2019
+   * Prasad Kumara
+   */
   getCommunityById(communityId) {
-    return this.http.
-      get(this.userApiUrl + 'communities/' + communityId)
-      .pipe(
-        map(data => {
-          const resData: any = data;
-          return resData.content;
-        }),
-        catchError(this.handleError)
-      );
+    return this.http.get(this.userApiUrl + "communities/" + communityId).pipe(
+      map(data => {
+        const resData: any = data;
+        return resData.content;
+      }),
+      catchError(this.handleError)
+    );
   }
 
   /*
-  * Update community using community id
-  * 05-03-2019
-  * Prasad Kumara
-  */
+   * Update community using community id
+   * 05-03-2019
+   * Prasad Kumara
+   */
   updateCommunityById(communityId, communityData) {
-    return this.http.
-      put(this.userApiUrl + 'communities/' + communityId, communityData)
+    return this.http
+      .put(this.userApiUrl + "communities/" + communityId, communityData)
       .pipe(
         map(data => {
           return data;
@@ -92,13 +100,13 @@ export class ComunityService {
   }
 
   /*
-  * Delete community using community id
-  * 05-03-2019
-  * Prasad Kumara
-  */
+   * Delete community using community id
+   * 05-03-2019
+   * Prasad Kumara
+   */
   deleteCommunityById(communityId) {
-    return this.http.
-      delete(this.userApiUrl + 'communities/' + communityId)
+    return this.http
+      .delete(this.userApiUrl + "communities/" + communityId)
       .pipe(
         map(data => {
           return data;
@@ -108,8 +116,8 @@ export class ComunityService {
   }
 
   licenseExpireState(clientId, moduleName) {
-    return this.http.
-      get(this.userApiUrl + 'clients/license/' + clientId + '/' + moduleName)
+    return this.http
+      .get(this.userApiUrl + "clients/license/" + clientId + "/" + moduleName)
       .pipe(
         map(data => {
           return data;
@@ -119,10 +127,10 @@ export class ComunityService {
   }
 
   /*
-  * Handle http response error
-  * 05-03-2019
-  * Prasad Kumara
-  */
+   * Handle http response error
+   * 05-03-2019
+   * Prasad Kumara
+   */
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);
   }
