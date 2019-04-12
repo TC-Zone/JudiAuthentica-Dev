@@ -285,11 +285,12 @@ export class UserTableComponent implements OnInit {
       }
     );
   }
-
-
+  
   openCategoryPopUp(data: any = {}) {
 
     this.getItemSub = this.userService.getUser(data.id).subscribe(successResp => {
+      console.log(successResp);
+      console.log(successResp.content.role.id);
 
       let dialogRef: MatDialogRef<any> = this.dialog.open(
         UserCategoryPopupComponent,
@@ -305,19 +306,18 @@ export class UserTableComponent implements OnInit {
           return;
         }
 
-        let role: RoleData = new RoleData(successResp.content.role.id);
+        console.log(res);
 
         let categories: CategoryData[] = [];
         res.forEach(element => {
-          categories.push(new CategoryData(element));
+          categories.push(new CategoryData(element.id));
         });
 
-        const req: UserCategoryUpdateReq = new UserCategoryUpdateReq(successResp.content.accountName, successResp.content.email, role, categories);
+        const req: UserCategoryUpdateReq = new UserCategoryUpdateReq(categories);
 
         this.loader.open();
-        this.userService.updateUser(data.id, req).subscribe(
+        this.userService.updateUserCategories(data.id, req).subscribe(
           response => {
-            this.getUsers();
             this.loader.close();
             this.snack.open("User Category Updated!", "OK", { duration: 4000 });
           },
@@ -331,18 +331,10 @@ export class UserTableComponent implements OnInit {
           }
         );
       });
-
-
-
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
-
   }
 }

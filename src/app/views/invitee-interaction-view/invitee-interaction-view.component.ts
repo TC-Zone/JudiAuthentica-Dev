@@ -351,9 +351,9 @@ export class InviteeInteractionViewComponent implements OnInit {
   }
 
   viewSurvey() {
-    
+
     this.fsOperationalService.optionUnselect(Survey);
-    
+
     this.jsonContentJSON = JSON.parse(this.jsonContent);
 
     console.log(

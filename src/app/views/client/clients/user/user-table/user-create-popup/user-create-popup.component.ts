@@ -6,6 +6,7 @@ import { GlobalVariable } from "../../../../../../shared/helpers/global-variable
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { autoCompletableCategory } from 'app/model/ClientModel.model';
 
 
 @Component({
@@ -27,17 +28,14 @@ export class UserCreatePopupComponent implements OnInit {
 
   public roles;
 
-  visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   categoryCtrl = new FormControl();
-  filteredCategories: Observable<string[]>;
-  categories: string[] = [];
-  categoriesValue: string[] = [];
-  allCategories: string[] = [];
-  public categoriesObj;
+  allCategories: autoCompletableCategory[] = [];
+  filteredCategories: Observable<autoCompletableCategory[]>;
+  selectedCategories: autoCompletableCategory[] = [];
 
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -48,17 +46,16 @@ export class UserCreatePopupComponent implements OnInit {
     private fb: FormBuilder,
     public snackBar: MatSnackBar
   ) {
-    this.filteredCategories = this.categoryCtrl.valueChanges.pipe(
-      startWith(null),
-      map((category: string | null) => category ? this._filter(category) : this.allCategories.slice()));
+    this.filteredCategories = this.categoryCtrl.valueChanges
+      .pipe(
+        startWith(null),
+        map(category => category ? this._filterCategories(category) : this.allCategories.slice())
+      );
   }
 
   ngOnInit() {
     this.roles = this.data.roles;
-    this.categoriesObj = this.data.category;
-    this.categoriesObj.forEach(element => {
-      this.allCategories.push(element.name);
-    });
+    this.allCategories = JSON.parse(JSON.stringify(this.data.category));
     this.buildItemForm()
   }
 
@@ -86,7 +83,7 @@ export class UserCreatePopupComponent implements OnInit {
   }
 
   submit() {
-    let forms = [this.userFormGroup.value, this.categoriesValue, this.communityFormGroup.value];
+    let forms = [this.userFormGroup.value, this.selectedCategories, this.communityFormGroup.value];
     this.dialogRef.close(forms);
   }
 
@@ -111,26 +108,33 @@ export class UserCreatePopupComponent implements OnInit {
     }
   }
 
-  remove(category: string): void {
-    const index = this.categories.indexOf(category);
-
-    if (index >= 0) {
-      this.categories.splice(index, 1);
-      this.categoriesValue.splice(index, 1);
-    }
-  }
-
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.categories.push(event.option.viewValue);
-    this.categoriesValue.push(event.option.value);
+    this.addSelectedCategory(event.option.value);
     this.categoryInput.nativeElement.value = '';
     this.categoryCtrl.setValue(null);
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  addSelectedCategory(id) {
+    this.allCategories.forEach((item, index) => {
+      if (item.id === id) {
+        this.selectedCategories.push(item);
+        this.allCategories.splice(index, 1);
+      }
+    });
+  }
 
-    return this.allCategories.filter(category => category.toLowerCase().indexOf(filterValue) === 0);
+  remove(category: autoCompletableCategory): void {
+    this.selectedCategories.forEach((item, index) => {
+      if (item.id === category.id) {
+        this.allCategories.push(category);
+        this.selectedCategories.splice(index, 1);
+      }
+    });
+  }
+
+  private _filterCategories(value: string): autoCompletableCategory[] {
+    const filterValue = value.toLowerCase();
+    return this.allCategories.filter(category => category.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
 }

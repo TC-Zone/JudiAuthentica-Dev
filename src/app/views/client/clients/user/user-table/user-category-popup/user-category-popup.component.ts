@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -7,14 +7,16 @@ import { ElementRef, ViewChild } from '@angular/core';
 import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { autoCompletableCategory } from 'app/model/ClientModel.model';
+import { autoCompletableCategory, CategoryData, ClientCategoryUpdateReq } from 'app/model/ClientModel.model';
+import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
+import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
 
 @Component({
   selector: 'app-user-category-popup',
   templateUrl: './user-category-popup.component.html'
 })
 export class UserCategoryPopupComponent implements OnInit {
-  // visible = true;
+
   selectable = true;
   removable = true;
   addOnBlur = true;
@@ -23,8 +25,6 @@ export class UserCategoryPopupComponent implements OnInit {
   allCategories: autoCompletableCategory[] = [];
   filteredCategories: Observable<autoCompletableCategory[]>;
   selectedCategories: autoCompletableCategory[] = [];
-  categories: string[] = [];
-  categoriesValue: string[] = [];
 
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -33,14 +33,17 @@ export class UserCategoryPopupComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<UserCategoryPopupComponent>,
     private fb: FormBuilder,
+    private errDialog: AppErrorService,
+    private loader: AppLoaderService,
+    private snack: MatSnackBar
   ) {
     this.filteredCategories = this.categoryCtrl.valueChanges
       .pipe(
-        startWith(''),
+        startWith(null),
         map(category => category ? this._filterCategories(category) : this.allCategories.slice())
       );
   }
-  
+
   ngOnInit() {
 
     this.allCategories = JSON.parse(JSON.stringify(this.data.category));
@@ -56,7 +59,6 @@ export class UserCategoryPopupComponent implements OnInit {
   submit() {
     this.dialogRef.close(this.selectedCategories);
   }
-
 
   add(event: MatChipInputEvent): void {
 
@@ -85,7 +87,7 @@ export class UserCategoryPopupComponent implements OnInit {
     this.categoryCtrl.setValue(null);
   }
 
-  addSelectedCategory(id){
+  addSelectedCategory(id) {
     this.allCategories.forEach((item, index) => {
       if (item.id === id) {
         this.selectedCategories.push(item);
@@ -107,5 +109,6 @@ export class UserCategoryPopupComponent implements OnInit {
     const filterValue = value.toLowerCase();
     return this.allCategories.filter(category => category.name.toLowerCase().indexOf(filterValue) === 0);
   }
+
 }
 

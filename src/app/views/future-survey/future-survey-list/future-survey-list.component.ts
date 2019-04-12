@@ -41,8 +41,7 @@ export class FutureSurveyListComponent implements OnInit {
 
   constructor(
     private futureSurveyService: FutureSurveyService,
-    private clientService: CrudService,
-    private clientService2: ClientService,
+    private clientService: ClientService,
     private router: Router,
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
@@ -263,7 +262,7 @@ export class FutureSurveyListComponent implements OnInit {
   }
 
   getAllClients() {
-    this.getClientSub = this.clientService2.getClients().subscribe(data => {
+    this.getClientSub = this.clientService.getClients().subscribe(data => {
       this.response = data;
       this.clients = this.response.content;
     });

@@ -38,10 +38,23 @@ export class ProfileService {
   getCountry(): Observable<any> {
     return this.http.get(this.geoUrl + "/countries").pipe(catchError(this.handleError));
   }
+  getClientProfilePic(id):Observable<any> {
+    return this.http.get(this.imgBaseURL+id).pipe(catchError(this.handleError));
+  }
+  
+  getClientCategories(id): Observable<any> {
+    return this.http.get(this.clientUrl + "/categories/" + id).pipe(catchError(this.handleError));
+  }
   
   updateClientLicense(id, item): Observable<any> {
     return this.http
       .put<any>(this.licenseUrl + "/" + id, item)
+      .pipe(catchError(this.handleError));
+  }
+  
+  updateClientCategory(id, item): Observable<any> {
+    return this.http
+      .put<any>(this.clientUrl + "/categories/" + id, item)
       .pipe(catchError(this.handleError));
   }
   
@@ -52,9 +65,6 @@ export class ProfileService {
   }
 
   
-  getClientProfilePic(id):Observable<any> {
-    return this.http.get(this.imgBaseURL+id).pipe(catchError(this.handleError));
-  }
 
   private handleError(error: HttpErrorResponse | any) {
     console.log(error);

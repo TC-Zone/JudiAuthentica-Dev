@@ -142,8 +142,7 @@
 
           <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
             <div fxFlex="100" class="mt-1">
-              <button mat-raised-button color="primary" [disabled]="licenseFormGroup.invalid"
-                (click)="submit()">Save</button>
+              <button mat-raised-button color="primary" [disabled]="licenseFormGroup.invalid" (click)="updateLicense()">Save</button>
             </div>
           </div>
         </form>
@@ -157,31 +156,29 @@
           <ng-template matStepLabel>Category</ng-template>
 
           <mat-form-field class="matAutocomplete-chip-list">
+
             <mat-chip-list #chipList>
-              <mat-chip *ngFor="let category of categories" [selectable]="selectable" [removable]="removable"
+              <mat-chip *ngFor="let category of selectedCategories" [selectable]="selectable" [removable]="removable"
                 (removed)="remove(category)">
-                {{category}}
+                {{category.name}}
                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
               </mat-chip>
-
-              <input placeholder="Select category..." #categoryInput (focus)='loadCategoryDD()'
-                [formControl]="categoryFormGroup.controls['category']" cont [matAutocomplete]="autoCategory"
+              <input matInput placeholder="Select category..." #categoryInput [formControl]="categoryCtrl" [matAutocomplete]="auto"
                 [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                (matChipInputTokenEnd)="add($event)" [matChipInputAddOnBlur]="addOnBlur"
-                [required]="categoryFormStatus">
-            </mat-chip-list>
-            <mat-autocomplete #autoCategory="matAutocomplete" (optionSelected)="selected($event)">
-              <mat-option *ngFor="let category of filteredCategories | async; let i = index"
-                [value]="categoriesObj[i].id">
-                {{category}}
+                (matChipInputTokenEnd)="add($event)" [matChipInputAddOnBlur]="addOnBlur" aria-label="Category">
+            </mat-chip-list>    
+        
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let category of filteredCategories | async" [value]="category.id">
+                <span>{{category.name}}</span>
               </mat-option>
             </mat-autocomplete>
+        
           </mat-form-field>
 
           <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
             <div fxFlex="100" class="mt-1">
-              <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
-              <button mat-raised-button color="primary" matStepperNext [disabled]='categoryFormStatus'>Next</button>
+              <button mat-raised-button color="primary" matStepperNext [disabled]='categoryFormStatus' (click)="updateCategory()">Save</button>
               <span fxFlex></span>
               <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
             </div>

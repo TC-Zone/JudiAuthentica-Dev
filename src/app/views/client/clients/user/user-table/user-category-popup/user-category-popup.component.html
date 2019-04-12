@@ -5,7 +5,9 @@
 </mat-toolbar>
 <mat-dialog-content class="mat-typography mt-1">
 
+
   <mat-form-field class="matAutocomplete-chip-list">
+
     <mat-chip-list #chipList>
       <mat-chip *ngFor="let category of selectedCategories" [selectable]="selectable" [removable]="removable"
         (removed)="remove(category)">
@@ -14,7 +16,8 @@
       </mat-chip>
       <input matInput placeholder="Select category..." #categoryInput [formControl]="categoryCtrl"
         [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        (matChipInputTokenEnd)="add($event)" [matChipInputAddOnBlur]="addOnBlur" aria-label="Category">
+        (matChipInputTokenEnd)="add($event)" [matChipInputAddOnBlur]="addOnBlur"
+        aria-label="Category">
     </mat-chip-list>
 
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
@@ -22,6 +25,7 @@
         <span>{{category.name}}</span>
       </mat-option>
     </mat-autocomplete>
+
   </mat-form-field>
 
   <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
