@@ -176,7 +176,7 @@ export class AuthenticationService {
       return userObj;
     } else {
       console.log("............LOGGED USER NOT FOUND..............");
-      this.router.navigate(["sessions/signin"]);
+      // this.router.navigate(["sessions/signin"]);
     }
   }
   

@@ -51,7 +51,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     let currentuser = JSON.parse(localStorage.getItem('currentUser'));
@@ -224,49 +224,49 @@ export class ClientTableComponent implements OnInit, OnDestroy {
       successResp => {
         console.log(successResp);
 
-    this.clientService.getClientCategories(data.id).subscribe(successResp => {
-      console.log(successResp);
+        this.clientService.getClientCategories(data.id).subscribe(successResp => {
+          console.log(successResp);
 
-      let dialogRef: MatDialogRef<any> = this.dialog.open(
-        ClientCategoryPopupComponent,
-        {
-          width: "720px",
-          disableClose: true,
-          data: { category: this.category, selectedCategory: successResp }
-        }
-      );
-      dialogRef.afterClosed().subscribe(res => {
-        if (!res) {
-          // If user press cancel
-          return;
-        }
-        console.log(res);
+          let dialogRef: MatDialogRef<any> = this.dialog.open(
+            ClientCategoryPopupComponent,
+            {
+              width: "720px",
+              disableClose: true,
+              data: { category: this.category, selectedCategory: successResp }
+            }
+          );
+          dialogRef.afterClosed().subscribe(res => {
+            if (!res) {
+              // If user press cancel
+              return;
+            }
+            console.log(res);
 
-        let categories: CategoryData[] = [];
-        res.forEach(element => {
-          categories.push(new CategoryData(element.id));
-        });
-
-
-        const req: ClientCategoryUpdateReq = new ClientCategoryUpdateReq(categories);
-
-        this.loader.open();
-        this.clientService.updateClientCategory(this.clientId, req).subscribe(
-          response => {
-            this.loader.close();
-            this.snack.open("Client Category Updated!", "OK", { duration: 4000 });
-          },
-          error => {
-            this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
+            let categories: CategoryData[] = [];
+            res.forEach(element => {
+              categories.push(new CategoryData(element.id));
             });
-          }
-        );
 
-      });
+
+            const req: ClientCategoryUpdateReq = new ClientCategoryUpdateReq(categories);
+
+            this.loader.open();
+            this.clientService.updateClientCategory(this.clientId, req).subscribe(
+              response => {
+                this.loader.close();
+                this.snack.open("Client Category Updated!", "OK", { duration: 4000 });
+              },
+              error => {
+                this.loader.close();
+                this.errDialog.showError({
+                  title: "Error",
+                  status: error.status,
+                  type: "http_error"
+                });
+              }
+            );
+
+          });
 
           // this.loader.open();
           // const country: CountryData = new CountryData('a65715e919d0995f361360cf0b8c2c03', 'Åland Islands', 'AX');
@@ -351,12 +351,27 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   }
 
   navigateUserTable(res: any) {
-    let extraParam: NavigationExtras = {
-      queryParams: {
-        clientId: res.id
+    
+    // let extraParam: NavigationExtras = {
+    //   queryParams: {
+    //     clientId: res.id,
+    //     clientName: res.name
+    //   }
+    // };
+    // this.router.navigate(["clients/user/user-table"], extraParam);
+    // this.router.navigate(["clients/user/user-table;clientId=" + res.id]);
+
+    this.clientService.getClient(res.id).subscribe(
+      successResp => {
+        console.log(successResp.content);
+        localStorage.setItem("currentClient",JSON.stringify(successResp.content));
+        this.router.navigate(["clients/user/user-table"]);
+      },
+      error => {
+        this.errDialog.showError(error);
       }
-    };
-    this.router.navigate(["clients/user/user-table"], extraParam);
+    );
+
   }
 }
 

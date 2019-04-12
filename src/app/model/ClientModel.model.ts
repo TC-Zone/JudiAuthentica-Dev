@@ -88,7 +88,7 @@ export class UserCategoryUpdateReq {
 
 export class UserCommunityUpdateRequest {
   constructor(
-    public categories: CommunityData[]
+    public communities: CommunityData[]
   ) { }
 }
 

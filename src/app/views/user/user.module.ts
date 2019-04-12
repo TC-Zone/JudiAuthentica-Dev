@@ -32,6 +32,7 @@ import { UserCategoryPopupComponent } from './user-table/user-category-popup/use
 import { UserCommunityPopupComponent } from './user-table/user-community-popup/user-community-popup.component';
 import { RoleTableComponent } from './roles/role-table.component';
 import { RoleTablePopupComponent } from './roles/role-table-popup/role-table-popup.component';
+import { ClientService } from "../client/client.service";
 
 import { UserRoutes } from './user.routing';
 import { UserService } from './user.service';
@@ -78,7 +79,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     RoleTableComponent, 
     RoleTablePopupComponent
   ],
-  providers: [UserService],
+  providers: [UserService, ClientService],
   entryComponents: [
     UserTablePopupComponent,
     UserCreatePopupComponent,

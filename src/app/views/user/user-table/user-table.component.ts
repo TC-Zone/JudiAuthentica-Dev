@@ -1,21 +1,6 @@
-// import { Component, OnInit } from '@angular/core';
-// import { UserService } from "../user.service";
-// import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
-// import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
-// import { UserCreatePopupComponent } from "../user-table/user-create-popup/user-create-popup.component";
-// import { UserTablePopupComponent } from "../user-table/user-table-popup/user-table-popup.component";
-// import { Subscription } from "rxjs";
-// import { egretAnimations } from "../../../shared/animations/egret-animations";
-// import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
-// import { ActivatedRoute } from '@angular/router';
-// import { UserCreateReq, ClientData, RoleData, CommunityData, CategoryData, UserUpdateReq } from 'app/model/ClientModel.model';
-// import { UserCategoryPopupComponent } from './user-category-popup/user-category-popup.component';
-// import { UserCommunityPopupComponent } from './user-community-popup/user-community-popup.component';
-
-
-
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "../user.service";
+import { ClientService } from "../../client/client.service";
 import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 import { UserCreatePopupComponent } from "../user-table/user-create-popup/user-create-popup.component";
@@ -24,9 +9,10 @@ import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../shared/animations/egret-animations";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { ActivatedRoute } from '@angular/router';
-import { UserCreateReq, ClientData, RoleData, CommunityData, CategoryData, UserUpdateReq, UserCategoryUpdateReq } from 'app/model/ClientModel.model';
+import { UserCreateReq, ClientData, RoleData, CommunityData, CategoryData, UserUpdateReq, UserCategoryUpdateReq, UserCommunityUpdateRequest } from 'app/model/ClientModel.model';
 import { UserCategoryPopupComponent } from './user-category-popup/user-category-popup.component';
 import { UserCommunityPopupComponent } from './user-community-popup/user-community-popup.component';
+import { AuthenticationService } from 'app/views/sessions/authentication.service';
 
 @Component({
   selector: 'app-user-table',
@@ -53,20 +39,24 @@ export class UserTableComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    private userService: UserService,
+    // private userService: UserService,
+    private clientService: ClientService,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
     private activeRoute: ActivatedRoute,
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit() {
 
-    const client = JSON.parse(localStorage.getItem('currentUser')).userData.client;
-    console.log(client);
+    // const client = JSON.parse(localStorage.getItem('currentUser')).userData.client;
+    // console.log(client);
+    // this.clientId = client.id;
+    // this.name = client.name;
 
-    this.clientId = client.id;
-    this.name = client.name;
-    // this.url = client.clientLogo;
+    const currentUser = this.authService.getLoggedUserDetail();
+    this.clientId = currentUser.userData.client.id;
+    this.name = currentUser.userData.client.name;
 
     this.getUsers();
     this.getUserRoles();
@@ -81,11 +71,15 @@ export class UserTableComponent implements OnInit {
   }
 
   getUsers() {
-    this.getItemSub = this.userService.getUsers(this.clientId).subscribe(successResp => {
+    this.getItemSub = this.clientService.getUsers(this.clientId).subscribe(successResp => {
       this.users = successResp.content.users;
 
       this.users.forEach((item, index) => {
         if (item.role.name === "Admin") this.users.splice(index, 1);
+      });
+
+      this.users.forEach((item, index) => {
+        if (item.role.name === "Super Administrator") this.users.splice(index, 1);
       });
 
       // this.roles = successResp.content;
@@ -99,7 +93,7 @@ export class UserTableComponent implements OnInit {
   }
 
   getUserRoles() {
-    this.getItemSub = this.userService.getRoles().subscribe(successResp => {
+    this.getItemSub = this.clientService.getRoles().subscribe(successResp => {
       successResp.content.forEach((item, index) => {
         if (item.name === "Super Administrator") { successResp.content.splice(index, 1) };
       });
@@ -115,7 +109,7 @@ export class UserTableComponent implements OnInit {
   }
 
   getClientCategories() {
-    this.getItemSub = this.userService.getClientCategories(this.clientId).subscribe(successResp => {
+    this.getItemSub = this.clientService.getClientCategories(this.clientId).subscribe(successResp => {
       this.clientCategory = successResp.content;
       console.log(this.clientCategory);
 
@@ -129,9 +123,9 @@ export class UserTableComponent implements OnInit {
       }
     );
   }
-  
+
   getClientCommunities() {
-    this.getItemSub = this.userService.getClientCommunities(this.clientId).subscribe(successResp => {
+    this.getItemSub = this.clientService.getClientCommunities(this.clientId).subscribe(successResp => {
       this.clientCommunity = successResp.content;
       console.log(this.clientCommunity);
     },
@@ -174,7 +168,7 @@ export class UserTableComponent implements OnInit {
 
       const req: UserCreateReq = new UserCreateReq(res[0].username, res[0].password, res[0].email, role, client, communities, categories);
 
-      this.userService.addUser(req).subscribe(
+      this.clientService.addUser(req).subscribe(
         response => {
           this.getUsers();
           this.users = response;
@@ -210,7 +204,7 @@ export class UserTableComponent implements OnInit {
       const req: UserUpdateReq = new UserUpdateReq(res.username, res.email, role);
 
       this.loader.open();
-      this.userService.updateUser(data.id, req).subscribe(
+      this.clientService.updateUser(data.id, req).subscribe(
         response => {
           this.getUsers();
           this.loader.close();
@@ -231,8 +225,13 @@ export class UserTableComponent implements OnInit {
 
 
   openCommunityPopUp(data: any = {}) {
+    console.log();
+    
 
-    this.getItemSub = this.userService.getUser(data.id).subscribe(successResp => {
+    this.getItemSub = this.clientService.getUser(data.id).subscribe(successResp => {
+
+      console.log(successResp);
+
 
       let dialogRef: MatDialogRef<any> = this.dialog.open(
         UserCommunityPopupComponent,
@@ -247,48 +246,41 @@ export class UserTableComponent implements OnInit {
           // If user press cancel
           return;
         }
-
         console.log(res);
-        
 
-        // let role: RoleData = new RoleData(successResp.content.role.id);
-        // let categories: CategoryData[] = [];
-        // res.forEach(element => {
-        //   categories.push(new CategoryData(element));
-        // });
-        // const req: UserCategoryUpdateReq = new UserCategoryUpdateReq(successResp.content.accountName, successResp.content.email, role, categories);
+        let community: CommunityData[] = [];
+        res.forEach(element => {
+          community.push(new CommunityData(element.id));
+        });
+        const req: UserCommunityUpdateRequest = new UserCommunityUpdateRequest(community);
 
-        // this.loader.open();
-        // this.clientService.updateUser(data.id, req).subscribe(
-        //   response => {
-        //     this.getUsers();
-        //     this.loader.close();
-        //     this.snack.open("User Category Updated!", "OK", { duration: 4000 });
-        //   },
-        //   error => {
-        //     this.loader.close();
-        //     this.errDialog.showError({
-        //       title: "Error",
-        //       status: error.status,
-        //       type: "http_error"
-        //     });
-        //   }
-        // );
+        this.loader.open();
+        this.clientService.updateUserCommunity(data.id, req).subscribe(
+          response => {
+            this.getUsers();
+            this.loader.close();
+            this.snack.open("User Community Updated!", "OK", { duration: 4000 });
+          },
+          error => {
+            this.loader.close();
+            this.errDialog.showError({
+              title: "Error",
+              status: error.status,
+              type: "http_error"
+            });
+          }
+        );
       });
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
-  
+
   openCategoryPopUp(data: any = {}) {
 
-    this.getItemSub = this.userService.getUser(data.id).subscribe(successResp => {
+    this.getItemSub = this.clientService.getUser(data.id).subscribe(successResp => {
       console.log(successResp);
       console.log(successResp.content.role.id);
 
@@ -316,7 +308,7 @@ export class UserTableComponent implements OnInit {
         const req: UserCategoryUpdateReq = new UserCategoryUpdateReq(categories);
 
         this.loader.open();
-        this.userService.updateUserCategories(data.id, req).subscribe(
+        this.clientService.updateUserCategories(data.id, req).subscribe(
           response => {
             this.loader.close();
             this.snack.open("User Category Updated!", "OK", { duration: 4000 });

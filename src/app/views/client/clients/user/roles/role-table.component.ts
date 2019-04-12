@@ -11,7 +11,7 @@ import { AppErrorService } from "../../../../../shared/services/app-error/app-er
 import { AuthenticationService } from "../../../../sessions/authentication.service";
 import { authProperties } from "./../../../../../shared/services/auth/auth-properties";
 import * as jwt_decode from "jwt-decode";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-role-table",
@@ -34,15 +34,16 @@ export class RoleTableComponent implements OnInit, OnDestroy {
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
-    private router: Router
-  ) {}
+    private activeRoute: ActivatedRoute,
+    private authService: AuthenticationService
+  ) { }
 
   ngOnInit() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if(currentUser){
-      this.clientId = currentUser.userData.client.id;
-    } else {}
-    this.getClientRoles();
+    const currentClient = JSON.parse(localStorage.getItem('currentClient'));
+    if (currentClient) {
+      this.clientId = currentClient.id;
+      this.getClientRoles();
+    }
   }
 
   ngOnDestroy() {
@@ -124,9 +125,9 @@ export class RoleTableComponent implements OnInit, OnDestroy {
             });
             this.getClientRoles();
           },
-            error => {
-              this.errDialog.showError(error);
-            });
+          error => {
+            this.errDialog.showError(error);
+          });
       }
       this.loader.close();
     });
@@ -151,9 +152,9 @@ export class RoleTableComponent implements OnInit, OnDestroy {
         };
         this.openPopUp(roleData, false);
       },
-        error => {
-          this.errDialog.showError(error);
-        });
+      error => {
+        this.errDialog.showError(error);
+      });
   }
 
   /*

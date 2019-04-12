@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, Validators, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { UserService } from '../../user.service';
+import { ClientService } from '../../../client/client.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class RoleTablePopupComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<RoleTablePopupComponent>,
     private fb: FormBuilder,
-    private userService: UserService,
+    // private userService: UserService,
+    private clientService: ClientService,
   ) { }
 
   ngOnInit() {
@@ -126,7 +128,7 @@ export class RoleTablePopupComponent implements OnInit {
   * 14/02/2019
   */
   getAllAuthorities() {
-    this.userService.getAllAuthorities()
+    this.clientService.getAllAuthorities()
       .subscribe(
         response => {
           console.log(response);

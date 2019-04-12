@@ -26,7 +26,17 @@ export const ClientRoute: Routes = [
             data: { title: "Users", breadcrumb: "Users" }
           },
           {
+            path: "user-table/:clientId",
+            component: UserTableComponent,
+            data: { title: "Users", breadcrumb: "Users" }
+          },
+          {
             path: "role-table",
+            component: RoleTableComponent,
+            data: { title: "Roles", breadcrumb: "Roles" }
+          },
+          {
+            path: "role-table/:clientId",
             component: RoleTableComponent,
             data: { title: "Roles", breadcrumb: "Roles" }
           }

@@ -1,23 +1,28 @@
 <mat-toolbar matDialogTitle class="mat-primary m-0">
-    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-      <span class="title dialog-title">Community</span>
+  <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+    <span class="title dialog-title">Community</span>
+  </div>
+</mat-toolbar>
+<mat-dialog-content class="mat-typography mt-1" style="overflow: unset; max-height: unset;">
+
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-3" *ngIf="allCommunities.length !== 0">
+    <div fxFlex="50" class="pr-1" *ngFor="let community of allCommunities">
+      <mat-checkbox [checked]="community.isChecked" (change)="onChange($event)" class="full-width"
+        [value]="community.id">
+        {{community.name}}</mat-checkbox>
     </div>
-  </mat-toolbar>
-  <mat-dialog-content class="mat-typography mt-1" style="overflow: unset; max-height: unset;">
-  
-    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-3">
-      <div fxFlex="50" class="pr-1" *ngFor="let community of allCommunities">
-        <mat-checkbox [checked]="community.isChecked" (change)="onChange($event)" class="full-width" [value]="community.id">
-          {{community.name}}</mat-checkbox>
-      </div>
+  </div>
+
+  <div class="alert alert-warning" role="alert" *ngIf="allCommunities.length === 0">
+    Client has no any assigned communities.!
+  </div>
+
+  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-2">
+    <div fxFlex="100" class="mt-1">
+      <button mat-raised-button color="primary" (click)="submit()" *ngIf="allCommunities.length !== 0">Save</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
     </div>
-  
-    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-2">
-      <div fxFlex="100" class="mt-1">
-        <button mat-raised-button color="primary" (click)="submit()">Save</button>
-        <span fxFlex></span>
-        <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
-      </div>
-    </div>
-  
-  </mat-dialog-content>
+  </div>
+
+</mat-dialog-content>
