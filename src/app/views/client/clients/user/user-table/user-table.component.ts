@@ -64,6 +64,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
       }
 
       this.getUsersByClient(this.clientId);
+      // RAVEEN - 2014/04/11: THESE THREE SHOULD BE REMOVED - BUDDHI
       this.getUserRoles(this.clientId);
       this.getClientCategories();
       this.getClientCommunities();
