@@ -49,7 +49,7 @@ export class UserTableComponent implements OnInit {
     const currentClient = JSON.parse(localStorage.getItem('currentClient'));
     if (currentClient) {
       this.clientId = currentClient.id;
-      this.getUsers();
+      this.getUsersByClient();
       this.getUserRoles();
       this.getClientCategories();
       this.getClientCommunities();
@@ -79,7 +79,7 @@ export class UserTableComponent implements OnInit {
     }
   }
 
-  getUsers() {
+  getUsersByClient() {
     this.getItemSub = this.clientService.getClient(this.clientId).subscribe(successResp => {
       this.users = successResp.content.users;
       // this.roles = successResp.content.roles;
@@ -176,7 +176,7 @@ export class UserTableComponent implements OnInit {
 
       this.clientService.addUser(req).subscribe(
         response => {
-          this.getUsers();
+          this.getUsersByClient();
           this.users = response;
           this.loader.close();
           this.snack.open("New User added !", "OK", { duration: 4000 });
@@ -211,7 +211,7 @@ export class UserTableComponent implements OnInit {
       this.loader.open();
       this.clientService.updateUser(data.id, req).subscribe(
         response => {
-          this.getUsers();
+          this.getUsersByClient();
           this.loader.close();
           this.snack.open("User Updated!", "OK", { duration: 4000 });
         },
@@ -258,7 +258,7 @@ export class UserTableComponent implements OnInit {
         this.loader.open();
         this.clientService.updateUserCommunity(data.id, req).subscribe(
           response => {
-            this.getUsers();
+            this.getUsersByClient();
             this.loader.close();
             this.snack.open("User Community Updated!", "OK", { duration: 4000 });
           },

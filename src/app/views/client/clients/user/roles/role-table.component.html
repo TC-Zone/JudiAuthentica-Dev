@@ -24,7 +24,7 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Role Description" [flexGrow]="2">
+      <!-- <ngx-datatable-column name="Role Description" [flexGrow]="2">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{ row?.description }}
         </ng-template>
@@ -34,7 +34,7 @@
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{ row?.lastModifiedDate }}
         </ng-template>
-      </ngx-datatable-column>
+      </ngx-datatable-column> -->
 
       <ngx-datatable-column name="Actions" [flexGrow]="1">
         <ng-template let-row="row" ngx-datatable-cell-template>
@@ -44,12 +44,18 @@
           <button mat-icon-button mat-sm-button color="warn" (click)="deleteRole(row)">
             <mat-icon>delete</mat-icon>
           </button> -->
+
+          <span fxFlex></span>
           <button class="card-control" mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="editRole(row)"><mat-icon>edit</mat-icon>Edit</button>
-            <button mat-menu-item (click)="deleteRole(row)"><mat-icon>delete</mat-icon>Delete</button>
+            <button mat-menu-item (click)="editRole(row)">
+              <mat-icon>edit</mat-icon>Edit
+            </button>
+            <button mat-menu-item (click)="deleteRole(row)">
+              <mat-icon>delete</mat-icon>Delete
+            </button>
           </mat-menu>
         </ng-template>
       </ngx-datatable-column>
