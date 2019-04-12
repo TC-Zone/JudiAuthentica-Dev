@@ -10,6 +10,9 @@ import { throwError } from 'rxjs';
 export class UserPromotionService {
 
   public userApiUrl = environment.userApiUrl;
+  //edited by kushan
+  imageUrl: string = environment.userApiUrl + 'downloads/promo/';
+
 
   constructor(
     private http: HttpClient

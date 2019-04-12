@@ -49,8 +49,10 @@ export class CreatePromotionPopupComponent implements OnInit {
   public remainImagesID = [];
   public comunityName: string;
   public comunityId: string;
-  public minHeight = 240;
-  public minWidth = 320;
+  public minHeight = 200;
+  public minWidth = 400;
+  public imgBaseURL: string;
+  public url;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -73,6 +75,9 @@ export class CreatePromotionPopupComponent implements OnInit {
       this.comunityName = params['name'];
     });
     this.setStartDateMin();
+    //edited by kushan
+    this.imgBaseURL = this.userPromotionService.imageUrl;
+
   }
 
   /*
@@ -86,10 +91,14 @@ export class CreatePromotionPopupComponent implements OnInit {
       description: [promotionFormData.description || '', Validators.required],
       status: [promotionFormData.status || false, Validators.required],
       percentage: [promotionFormData.percentage || '', Validators.required],
-      start: [promotionFormData.start, Validators.required],
-      end: [promotionFormData.end, Validators.required],
-      promoPoster: [promotionFormData.promoPoster || '', Validators.required]
+      startDate: [promotionFormData.startDate, Validators.required],
+      endDate: [promotionFormData.endDate, Validators.required],
+      promoPoster: ['']
     });
+
+    getBase64ImageFromUrl(this.imgBaseURL + promotionFormData.id)
+      .then(result => this.url = result)
+      .catch(err => console.error(err));
   }
 
   /*
@@ -116,8 +125,8 @@ export class CreatePromotionPopupComponent implements OnInit {
   * Prasad Kumara
   */
   validateDatePickerMinMax() {
-    const startDateValue = this.promotionForm.get('start').value;
-    const endDateValue = this.promotionForm.get('end').value;
+    const startDateValue = this.promotionForm.get('startDate').value;
+    const endDateValue = this.promotionForm.get('endDate').value;
 
     if (startDateValue == null && endDateValue == null) {
       this.startDateMin = DateValidator.getToday();
@@ -138,72 +147,118 @@ export class CreatePromotionPopupComponent implements OnInit {
   * Prasad Kumara
   */
   onSelectFile(event) {
+    // if (event.target.files && event.target.files[0]) {
+    //   const filesAmount = event.target.files.length;
+    //   if (
+    //     this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1
+    //       ? true
+    //       : this.currentTotalImageCount + filesAmount <=
+    //       this.maxUploadableFileCount
+    //   ) {
+    //     for (let i = 0; i < filesAmount; i++) {
+    //       const fileName = event.target.files[i].name;
+    //       const fileExtension = fileName.replace(/^.*\./, '');
+    //       if (fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'jpeg') {
+    //         const reader = new FileReader();
+    //         reader.onload = (ev: any) => {
+    //           const img = new Image();
+    //           img.src = ev.target.result;
+    //           img.onload = () => {
+    //             const widthReminder = img.width % 4;
+    //             const heightReminder = img.height % 3;
+    //             if (img.width < this.minWidth && img.height < this.minHeight) {
+    //               this.snackBar.open(
+    //                 'Image minimum dimension should be ' + this.minWidth + 'X' + this.minHeight,
+    //                 'close',
+    //                 { duration: 3000 }
+    //               );
+    //               this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
+    //               this.currentTotalImageCount--;
+    //               return;
+    //             }
+    //             if (widthReminder !== 0 || heightReminder !== 0) {
+    //               this.snackBar.open(
+    //                 'Image aspect ratio should be 4:3 (' + this.minWidth + 'X' + this.minHeight + ')' ,
+    //                 'close',
+    //                 { duration: 3000 }
+    //               );
+    //               this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
+    //               this.currentTotalImageCount--;
+    //               return;
+    //             }
+    //             this.urls.push(ev.target.result);
+    //             this.promotionForm.controls['promoPoster'].setErrors(null);
+    //           };
+    //         };
+    //         reader.readAsDataURL(event.target.files[i]);
+    //         this.newlySelectedFileList.push(event.target.files[i]);
+    //         this.currentTotalImageCount++;
+    //       } else {
+    //         this.snackBar.open(
+    //           'Upload valiid images. Only PNG, JPG and JPEG are allowed!',
+    //           'close',
+    //           { duration: 3000 }
+    //         );
+    //         this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
+    //         this.currentTotalImageCount--;
+    //         return;
+    //       }
+    //     }
+
+    //   } else {
+    //     // alert for file upload limit
+    //     this.snackBar.open(
+    //       'Can\'t upload more than ' + this.maxUploadableFileCount + ' photos',
+    //       'close',
+    //       { duration: 2000 }
+    //     );
+    //   }
+    // }
     if (event.target.files && event.target.files[0]) {
-      const filesAmount = event.target.files.length;
-      if (
-        this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1
-          ? true
-          : this.currentTotalImageCount + filesAmount <=
-          this.maxUploadableFileCount
-      ) {
-        for (let i = 0; i < filesAmount; i++) {
-          const fileName = event.target.files[i].name;
-          const fileExtension = fileName.replace(/^.*\./, '');
-          if (fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'jpeg') {
-            const reader = new FileReader();
-            reader.onload = (ev: any) => {
-              const img = new Image();
-              img.src = ev.target.result;
-              img.onload = () => {
-                const widthReminder = img.width % 4;
-                const heightReminder = img.height % 3;
-                if (img.width < this.minWidth && img.height < this.minHeight) {
-                  this.snackBar.open(
-                    'Image minimum dimension should be ' + this.minWidth + 'X' + this.minHeight,
-                    'close',
-                    { duration: 3000 }
-                  );
-                  this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
-                  this.currentTotalImageCount--;
-                  return;
-                }
-                if (widthReminder !== 0 || heightReminder !== 0) {
-                  this.snackBar.open(
-                    'Image aspect ratio should be 4:3 (' + this.minWidth + 'X' + this.minHeight + ')' ,
-                    'close',
-                    { duration: 3000 }
-                  );
-                  this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
-                  this.currentTotalImageCount--;
-                  return;
-                }
-                this.urls.push(ev.target.result);
-                this.promotionForm.controls['promoPoster'].setErrors(null);
-              };
-            };
-            reader.readAsDataURL(event.target.files[i]);
-            this.newlySelectedFileList.push(event.target.files[i]);
-            this.currentTotalImageCount++;
+
+      // const fileName = event.target.files[i].name;
+      // const fileExtension = fileName.replace(/^.*\./, '');
+
+      let file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
+      let pattern = /image-*/;
+      let reader = new FileReader();
+      if (!file.type.match(pattern)) {
+        this.snackBar.open(
+          "Invalid Format!",
+          "close",
+          { duration: 2000 }
+        );
+        return;
+      }
+      console.log(file);
+
+      reader.onload = (event: any) => {
+        const img = new Image();
+
+        img.src = event.target.result;
+        img.onload = () => {
+          if (img.width < this.minWidth || img.height < this.minHeight) {
+            this.url = event.target.result;
           } else {
             this.snackBar.open(
-              'Upload valiid images. Only PNG, JPG and JPEG are allowed!',
+              'Image minimum dimension should be ' + this.minWidth + 'X' + this.minHeight,
               'close',
               { duration: 3000 }
             );
-            this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
-            this.currentTotalImageCount--;
+            this.promotionForm.controls['poster'].setErrors({ 'incorrect': true });
             return;
           }
         }
+      };
 
-      } else {
-        // alert for file upload limit
-        this.snackBar.open(
-          'Can\'t upload more than ' + this.maxUploadableFileCount + ' photos',
-          'close',
-          { duration: 2000 }
-        );
-      }
+      reader.readAsDataURL(file);
+
+    } else {
+      this.snackBar.open(
+        "Can't upload",
+        "close",
+        { duration: 2000 }
+      );
     }
   }
 
@@ -213,15 +268,16 @@ export class CreatePromotionPopupComponent implements OnInit {
   * Prasad Kumara
   */
   removeSelectedImg(index: number) {
-    this.urls.splice(index, 1);
-    this.currentTotalImageCount -= 1;
-    this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
+    // this.urls.splice(index, 1);
+    // this.currentTotalImageCount -= 1;
+    // this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
 
-    if (this.remainImagesID.length < index + 1) {
-      this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
-    } else {
-      this.remainImagesID.splice(index, 1);
-    }
+    // if (this.remainImagesID.length < index + 1) {
+    //   this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
+    // } else {
+    //   this.remainImagesID.splice(index, 1);
+    // }
+    this.url = null;
   }
 
   /*
@@ -234,8 +290,8 @@ export class CreatePromotionPopupComponent implements OnInit {
     promotionFormData.append('communityId', this.comunityId);
     promotionFormData.append('name', formValues.name);
     promotionFormData.append('description', formValues.description);
-    promotionFormData.append('start', formValues.start);
-    promotionFormData.append('end', formValues.end);
+    promotionFormData.append('startDate', formValues.startDate);
+    promotionFormData.append('endDate', formValues.endDate);
     promotionFormData.append('status', formValues.status);
     promotionFormData.append('percentage', formValues.percentage);
 
@@ -257,10 +313,25 @@ export class CreatePromotionPopupComponent implements OnInit {
   promotionFormSubmit() {
     // const promotionFormData = this.prepareOfferFormData(this.promotionForm.value);
     const promotionFormData = this.promotionForm.value;
-    promotionFormData.promoPoster = this.urls[0];
-    promotionFormData.start = this.datePipe.transform(this.promotionForm.value.start, 'yyy-MM-dd');
-    promotionFormData.end = this.datePipe.transform(this.promotionForm.value.end, 'yyy-MM-dd');
-    this.dialogRef.close(promotionFormData);
+    if (this.url) {
+
+      promotionFormData.promoPoster = this.url;
+      const startDate: string = this.datePipe.transform(this.promotionForm.value.startDate, 'yyy-MM-dd');
+      const endDate: string = this.datePipe.transform(this.promotionForm.value.endDate, 'yyy-MM-dd');
+      promotionFormData.startDate = startDate;
+      promotionFormData.endDate = endDate;
+      console.log(promotionFormData);
+
+      this.dialogRef.close(promotionFormData);
+    } else {
+      this.snackBar.open(
+        "Please upload image",
+        "close",
+        { duration: 2000 }
+      );
+      this.promotionForm.controls['poster'].setErrors({ 'incorrect': true });
+    }
+
   }
 
   /*
@@ -301,4 +372,23 @@ export class CreatePromotionPopupComponent implements OnInit {
       );
   }
 
+}
+
+/* created by kushan pabasara */
+async function getBase64ImageFromUrl(imageUrl) {
+  var res = await fetch(imageUrl);
+  var blob = await res.blob();
+
+  return new Promise((resolve, reject) => {
+    var reader = new FileReader();
+    reader.addEventListener("load", function () {
+      resolve(reader.result);
+
+    }, false);
+
+    reader.onerror = () => {
+      return reject(this);
+    };
+    reader.readAsDataURL(blob);
+  })
 }
