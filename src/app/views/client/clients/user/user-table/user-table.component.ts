@@ -82,10 +82,6 @@ export class UserTableComponent implements OnInit {
   getUsers() {
     this.getItemSub = this.clientService.getClient(this.clientId).subscribe(successResp => {
       this.users = successResp.content.users;
-      
-      this.users.forEach((item, index) => {
-        if (item.role.name === "Super Administrator") this.users.splice(index, 1);
-      });
       // this.roles = successResp.content.roles;
       successResp.content.roles.forEach((item) => {
         this.roles.push(item);

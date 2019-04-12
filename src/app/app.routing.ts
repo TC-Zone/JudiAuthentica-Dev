@@ -93,7 +93,7 @@ export const rootRouterConfig: Routes = [
       {
         path: "community",
         loadChildren: "./views/community/community.module#CommunityModule",
-        data: { title: "Comunity", breadcrumb: "Comunity" }
+        data: { title: "Community", breadcrumb: "Community" }
       }
 
     ]
