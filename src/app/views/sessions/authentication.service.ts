@@ -138,7 +138,7 @@ export class AuthenticationService {
     if (userObj) {
       this.currentToken = userObj.token;
     }
-    console.log('---------------------------- currentToken', this.currentToken);
+    // console.log('---------------------------- currentToken', this.currentToken);
     return this.currentToken;
   }
 

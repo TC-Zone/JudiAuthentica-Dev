@@ -4,7 +4,7 @@
 /*!********************************************!*\
   !*** ./src/app/model/ClientModel.model.ts ***!
   \********************************************/
-/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, UserUpdateReq, UserCategoryUpdateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
+/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, UserUpdateReq, UserCategoryUpdateReq, UserCommunityUpdateRequest, ClientCategoryUpdateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18,6 +18,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCreateReq", function() { return UserCreateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserUpdateReq", function() { return UserUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCategoryUpdateReq", function() { return UserCategoryUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCommunityUpdateRequest", function() { return UserCommunityUpdateRequest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientCategoryUpdateReq", function() { return ClientCategoryUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientData", function() { return ClientData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LicenseUpdateReq", function() { return LicenseUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleData", function() { return RoleData; });
@@ -111,13 +113,32 @@ var UserUpdateReq = /** @class */ (function () {
 }());
 
 var UserCategoryUpdateReq = /** @class */ (function () {
-    function UserCategoryUpdateReq(accountName, email, role, categories) {
-        this.accountName = accountName;
-        this.email = email;
-        this.role = role;
+    function UserCategoryUpdateReq(categories) {
         this.categories = categories;
     }
     return UserCategoryUpdateReq;
+}());
+
+var UserCommunityUpdateRequest = /** @class */ (function () {
+    function UserCommunityUpdateRequest(communities) {
+        this.communities = communities;
+    }
+    return UserCommunityUpdateRequest;
+}());
+
+// export class UserCategoryUpdateReq {
+//   constructor(
+//     public accountName: string,
+//     public email: string,
+//     public role: RoleData,
+//     public categories: CategoryData[]
+//   ) { }
+// }
+var ClientCategoryUpdateReq = /** @class */ (function () {
+    function ClientCategoryUpdateReq(categories) {
+        this.categories = categories;
+    }
+    return ClientCategoryUpdateReq;
 }());
 
 var ClientData = /** @class */ (function () {

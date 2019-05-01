@@ -13846,93 +13846,102 @@ var ComunityService = /** @class */ (function () {
         this.userApiUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_1__["environment"].userApiUrl;
     }
     /*
-      * Get download url for events
-      * 18-03-2019
-      * Raveen Sankalpa
-      */
-    ComunityService.prototype.getPosterDownloadUrl = function () {
-        return this.userApiUrl + "downloads/event/";
+     * Get download url for events,promotion posters
+     * 12-04-2019
+     * Raveen Sankalpa
+     */
+    ComunityService.prototype.getPosterDownloadUrl = function (context) {
+        var commonUrl = this.userApiUrl + "downloads/";
+        if (context === "event") {
+            return commonUrl + "event/";
+        }
+        if (context === "promo") {
+            return commonUrl + "promo/";
+        }
     };
     /*
-    * Create community
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Create community
+     * 05-03-2019
+     * Prasad Kumara
+     */
     ComunityService.prototype.createCommunity = function (createCommunityData) {
-        return this.http.
-            post(this.userApiUrl + 'communities', createCommunityData)
+        return this.http
+            .post(this.userApiUrl + "communities", createCommunityData)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
             return data;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     };
     /*
-    * Fetch all communities
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Fetch all communities
+     * 05-03-2019
+     * Prasad Kumara
+     */
     ComunityService.prototype.fetchAllComunities = function (clientId, pageNumber, pageSize) {
-        return this.http.
-            get(this.userApiUrl + 'communities/client/' + clientId + '?pageNumber=' +
-            pageNumber + '&pageSize=' + pageSize)
+        return this.http
+            .get(this.userApiUrl +
+            "communities/client/" +
+            clientId +
+            "?pageNumber=" +
+            pageNumber +
+            "&pageSize=" +
+            pageSize)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
             return data;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     };
     /*
-    * get community using community id
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * get community using community id
+     * 05-03-2019
+     * Prasad Kumara
+     */
     ComunityService.prototype.getCommunityById = function (communityId) {
-        return this.http.
-            get(this.userApiUrl + 'communities/' + communityId)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
+        return this.http.get(this.userApiUrl + "communities/" + communityId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
             var resData = data;
             return resData.content;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     };
     /*
-    * Update community using community id
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Update community using community id
+     * 05-03-2019
+     * Prasad Kumara
+     */
     ComunityService.prototype.updateCommunityById = function (communityId, communityData) {
-        return this.http.
-            put(this.userApiUrl + 'communities/' + communityId, communityData)
+        return this.http
+            .put(this.userApiUrl + "communities/" + communityId, communityData)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
             return data;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     };
     /*
-    * Delete community using community id
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Delete community using community id
+     * 05-03-2019
+     * Prasad Kumara
+     */
     ComunityService.prototype.deleteCommunityById = function (communityId) {
-        return this.http.
-            delete(this.userApiUrl + 'communities/' + communityId)
+        return this.http
+            .delete(this.userApiUrl + "communities/" + communityId)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
             return data;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     };
     ComunityService.prototype.licenseExpireState = function (clientId, moduleName) {
-        return this.http.
-            get(this.userApiUrl + 'clients/license/' + clientId + '/' + moduleName)
+        return this.http
+            .get(this.userApiUrl + "clients/license/" + clientId + "/" + moduleName)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
             return data;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     };
     /*
-    * Handle http response error
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Handle http response error
+     * 05-03-2019
+     * Prasad Kumara
+     */
     ComunityService.prototype.handleError = function (error) {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(error);
     };
     ComunityService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
-            providedIn: 'root'
+            providedIn: "root"
         }),
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], ComunityService);
@@ -13950,7 +13959,7 @@ var ComunityService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"row\" fxLayoutWrap=\"wrap\" class=\"community-background\">\r\n  <div fxFlex=\"100\">\r\n    <div class=\"m-333\">\r\n      <span class=\"card-title-text\">{{ comunityName }}</span>\r\n      <span fxFlex></span>\r\n      <button mat-raised-button class=\"mb-05 ml-05\" color=\"accent\" (click)=\"backToComunityView()\">Back</button>\r\n    </div>\r\n    <mat-divider></mat-divider>\r\n    <nav mat-tab-nav-bar>\r\n      <a mat-tab-link routerLink=\"/community/user-community/user-feedback\" [queryParams]=\"queryParams\" routerLinkActive #rla1=\"routerLinkActive\" [active]=\"rla1.isActive\">\r\n        <mat-icon class=\"icon-mr\">feedback</mat-icon>Feedbacks\r\n      </a>\r\n      <a mat-tab-link routerLink=\"/community/user-community/user-event\" [queryParams]=\"queryParams\" routerLinkActive #rla2=\"routerLinkActive\" [active]=\"rla2.isActive\">\r\n        <mat-icon class=\"icon-mr\">event</mat-icon>Events\r\n      </a>\r\n      <a mat-tab-link routerLink=\"/community/user-community/user-offer\" [queryParams]=\"queryParams\" routerLinkActive #rla3=\"routerLinkActive\" [active]=\"rla3.isActive\">\r\n        <mat-icon class=\"icon-mr\">local_offer</mat-icon>Promotions\r\n      </a>\r\n    </nav>\r\n  </div>\r\n  <div fxFlex=\"100\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div fxLayout=\"row\" fxLayoutWrap=\"wrap\" class=\"community-background\">\r\n  <div fxFlex=\"100\">\r\n    <div class=\"m-333\">\r\n      <b class=\"ml-50\">{{ comunityName }}</b>\r\n      <span fxFlex></span>\r\n      <button mat-raised-button class=\"mb-05 ml-05\" color=\"accent\" (click)=\"backToComunityView()\">Back</button>\r\n    </div>\r\n    <mat-divider></mat-divider>\r\n    <nav mat-tab-nav-bar>\r\n      <a mat-tab-link routerLink=\"/community/user-community/user-feedback\" [queryParams]=\"queryParams\" routerLinkActive\r\n        #rla1=\"routerLinkActive\" [active]=\"rla1.isActive\">\r\n        <mat-icon class=\"icon-mr\">feedback</mat-icon>Feedbacks\r\n      </a>\r\n      <a mat-tab-link routerLink=\"/community/user-community/user-event\" [queryParams]=\"queryParams\" routerLinkActive\r\n        #rla2=\"routerLinkActive\" [active]=\"rla2.isActive\">\r\n        <mat-icon class=\"icon-mr\">event</mat-icon>Events\r\n      </a>\r\n      <a mat-tab-link routerLink=\"/community/user-community/user-offer\" [queryParams]=\"queryParams\" routerLinkActive\r\n        #rla3=\"routerLinkActive\" [active]=\"rla3.isActive\">\r\n        <mat-icon class=\"icon-mr\">local_offer</mat-icon>Promotions\r\n      </a>\r\n    </nav>\r\n  </div>\r\n  <div fxFlex=\"100\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -14026,7 +14035,7 @@ var UserCommunityComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"eventForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"eventForm.controls['name']\" placeholder=\"Event Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"eventForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <!-- <input matInput name=\"startDateTime\" [min]=\"startDateMin\" [max]=\"startDateMax\" (dateChange)=\"validateDatePickerMinMax()\" [matDatepicker]=\"picker1\" [formControl]=\"eventForm.controls['startDateTime']\" required placeholder=\"Start Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker1\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker1></mat-datepicker> -->\r\n          <input matInput name=\"startDateTime\" [min]=\"startDateMin\" (ngModelChange)=\"validateDatePickerMinMax()\"\r\n            [max]=\"startDateMax\" [owlDateTime]=\"picker1\" [owlDateTimeTrigger]=\"picker1\"\r\n            [formControl]=\"eventForm.controls['startDateTime']\" required placeholder=\"Start Date\">\r\n          <button [owlDateTimeTrigger]=\"picker1\" mat-icon-button matSuffix>\r\n            <mat-icon>keyboard_arrow_down</mat-icon>\r\n          </button>\r\n          <owl-date-time #picker1></owl-date-time>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <!-- <input matInput name=\"endDateTime\" [min]=\"endDateMin\" [max]=\"endDateMax\" (dateChange)=\"validateDatePickerMinMax()\"  [matDatepicker]=\"picker2\" [formControl]=\"eventForm.controls['endDateTime']\" required placeholder=\"End Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker2\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker2></mat-datepicker> -->\r\n          <input matInput name=\"endDateTime\" [min]=\"endDateMin\" (ngModelChange)=\"validateDatePickerMinMax()\"\r\n            [max]=\"endDateMax\" [owlDateTime]=\"picker2\" [owlDateTimeTrigger]=\"picker2\"\r\n            [formControl]=\"eventForm.controls['endDateTime']\" required placeholder=\"End Date\">\r\n          <button [owlDateTimeTrigger]=\"picker2\" mat-icon-button matSuffix>\r\n            <mat-icon>keyboard_arrow_down</mat-icon>\r\n          </button>\r\n          <owl-date-time #picker2></owl-date-time>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <!-- --------- hidden file input --------- -->\r\n        <input (change)=\"onSelectFile($event)\" #eventImgs type=\"file\" [formControl]=\"eventForm.controls['poster']\"\r\n        multiple style=\"display: none\" />\r\n        <!-- --------- file input click button --------- -->\r\n        <div layout-margin layout-padding>\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"eventImgs.click()\"\r\n          [disabled]=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n          (false) :\r\n          (this.currentTotalImageCount === this.maxUploadableFileCount)\"\r\n            type=\"button\">\r\n            Browse Images\r\n            <span *ngIf=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n            (false) :\r\n            (this.currentTotalImageCount > 0)\"> ({{this.currentTotalImageCount}} / {{this.maxUploadableFileCount}})</span>\r\n          </button>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-slide-toggle *ngIf=\"!data.isNew\" [formControl]=\"eventForm.controls['status']\">Activate Event</mat-slide-toggle>\r\n      </div>\r\n      <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngFor='let url of urls; let i = index' fxFlex=\"100\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\" style=\"display: flex;\">\r\n        <mat-card class=\"p-0\">\r\n          <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"removeSelectedImg(i)\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n          <img [src]=\"url\">\r\n        </mat-card>\r\n      </div>\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" (click)=\"eventFormSubmit()\" [disabled]=\"eventForm.invalid\">Save</button>\r\n          <span fxFlex></span>\r\n          <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n        </div>\r\n      </div>\r\n  </mat-dialog-content>\r\n</form>\r\n"
+module.exports = "<form [formGroup]=\"eventForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"eventForm.controls['name']\" placeholder=\"Event Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"eventForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <!-- <input matInput name=\"startDateTime\" [min]=\"startDateMin\" [max]=\"startDateMax\" (dateChange)=\"validateDatePickerMinMax()\" [matDatepicker]=\"picker1\" [formControl]=\"eventForm.controls['startDateTime']\" required placeholder=\"Start Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker1\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker1></mat-datepicker> -->\r\n          <input matInput name=\"startDateTime\" [min]=\"startDateMin\" (ngModelChange)=\"validateDatePickerMinMax()\" [max]=\"startDateMax\"\r\n            [owlDateTime]=\"picker1\" [owlDateTimeTrigger]=\"picker1\" [formControl]=\"eventForm.controls['startDateTime']\"\r\n            required placeholder=\"Start Date\">\r\n          <button [owlDateTimeTrigger]=\"picker1\" mat-icon-button matSuffix>\r\n            <mat-icon>keyboard_arrow_down</mat-icon>\r\n          </button>\r\n          <owl-date-time #picker1></owl-date-time>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <!-- <input matInput name=\"endDateTime\" [min]=\"endDateMin\" [max]=\"endDateMax\" (dateChange)=\"validateDatePickerMinMax()\"  [matDatepicker]=\"picker2\" [formControl]=\"eventForm.controls['endDateTime']\" required placeholder=\"End Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker2\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker2></mat-datepicker> -->\r\n          <input matInput name=\"endDateTime\" [min]=\"endDateMin\" (ngModelChange)=\"validateDatePickerMinMax()\" [max]=\"endDateMax\"\r\n            [owlDateTime]=\"picker2\" [owlDateTimeTrigger]=\"picker2\" [formControl]=\"eventForm.controls['endDateTime']\"\r\n            required placeholder=\"End Date\">\r\n          <button [owlDateTimeTrigger]=\"picker2\" mat-icon-button matSuffix>\r\n            <mat-icon>keyboard_arrow_down</mat-icon>\r\n          </button>\r\n          <owl-date-time #picker2></owl-date-time>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <!-- --------- hidden file input --------- -->\r\n        <input (change)=\"onSelectFile($event)\" #eventImgs type=\"file\" [formControl]=\"eventForm.controls['poster']\"\r\n          multiple style=\"display: none\" />\r\n        <!-- --------- file input click button --------- -->\r\n        <div layout-margin layout-padding>\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"eventImgs.click()\" [disabled]=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n          (false) :\r\n          (this.currentTotalImageCount === this.maxUploadableFileCount)\"\r\n            type=\"button\">\r\n            Browse Images\r\n            <span *ngIf=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n            (false) :\r\n            (this.currentTotalImageCount > 0)\">\r\n              ({{this.currentTotalImageCount}} / {{this.maxUploadableFileCount}})</span>\r\n          </button>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-slide-toggle *ngIf=\"!data.isNew\" [formControl]=\"eventForm.controls['status']\">Activate Event</mat-slide-toggle>\r\n      </div>\r\n      <!-- <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngFor='let url of urls; let i = index' fxFlex=\"100\"\r\n        fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\" style=\"display: flex;\">\r\n        <mat-card class=\"p-0\">\r\n          <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"removeSelectedImg(i)\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n          <img [src]=\"url\">\r\n        </mat-card>\r\n      </div> -->\r\n      <!-- --------- start images preview container --------- -->\r\n      <div id=\"event_update_image_preview_container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\" layout-align=\"center\" class=\"mt-1\">\r\n\r\n        <!-- --------- start card --------- -->\r\n        <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngIf=\"url\" fxFlex=\"100\" style=\"display: flex;max-height: 200px\">\r\n          <mat-card class=\"p-0\">\r\n\r\n            <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n              <span fxFlex></span>\r\n              <button type=\"button\" class=\"close p-1\" aria-label=\"Close\" (click)=\"removeSelectedImg()\">\r\n                <span aria-hidden=\"true\">&times;</span>\r\n              </button>\r\n            </div>\r\n            <img [src]=\"url\">\r\n          </mat-card>\r\n        </div>\r\n        <!-- --------- end card --------- -->\r\n\r\n      </div>\r\n      <!-- --------- end images preview container --------- -->\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"mt-1\">\r\n        <button mat-raised-button color=\"primary\" (click)=\"eventFormSubmit()\" [disabled]=\"eventForm.invalid\">Save</button>\r\n        <span fxFlex></span>\r\n        <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n</form>"
 
 /***/ }),
 
@@ -14061,6 +14070,41 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
 };
 
 
@@ -14097,8 +14141,8 @@ var CreateEventPopupComponent = /** @class */ (function () {
         this.newlySelectedFileList = [];
         this.urls = [];
         this.remainImagesID = [];
-        this.minHeight = 240;
-        this.minWidth = 320;
+        this.minHeight = 200;
+        this.minWidth = 400;
     }
     CreateEventPopupComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -14111,21 +14155,29 @@ var CreateEventPopupComponent = /** @class */ (function () {
             _this.comunityName = params['name'];
         });
         this.setStartDateMin();
+        //edited by kushan
+        this.imgBaseURL = this.userEventService.imageUrl;
     };
     /*
     * Build Event Create and Update Form
     * 05-03-2019
     * Prasad Kumara
+    * Edited by Kushan Pabasara
     */
     CreateEventPopupComponent.prototype.buildEventForm = function (eventformdata) {
+        var _this = this;
         this.eventForm = this.fb.group({
             name: [eventformdata.name || '', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             description: [eventformdata.description || '', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             status: [eventformdata.status || false, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             startDateTime: [eventformdata.startDateTime, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             endDateTime: [eventformdata.endDateTime, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
-            poster: [eventformdata.poster || '', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
+            poster: ['']
         });
+        getBase64ImageFromUrl(this.imgBaseURL + eventformdata.id)
+            .then(function (result) { return _this.url = result; })
+            .catch(function (err) { return console.error(err); });
+        console.log(this.eventForm);
     };
     /*
     * Get event data by event id
@@ -14190,75 +14242,126 @@ var CreateEventPopupComponent = /** @class */ (function () {
     * Image file upload function
     * 05-03-2019
     * Prasad Kumara
+    * edited by kushan pabasara
     */
     CreateEventPopupComponent.prototype.onSelectFile = function (event) {
+        // if (event.target.files && event.target.files[0]) {
+        //   const filesAmount = event.target.files.length;
+        //   if (
+        //     this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1
+        //       ? true
+        //       : this.currentTotalImageCount + filesAmount <=
+        //       this.maxUploadableFileCount
+        //   ) {
+        //     for (let i = 0; i < filesAmount; i++) {
+        //       const fileName = event.target.files[i].name;
+        //       const fileExtension = fileName.replace(/^.*\./, '');
+        //       console.log(fileExtension);
         var _this = this;
+        //       if (fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'jpeg') {
+        //         const reader = new FileReader();
+        //         reader.onload = (ev: any) => {
+        //           const img = new Image();
+        //           img.src = ev.target.result;
+        //           img.onload = () => {
+        //             const widthReminder = img.width % 4;
+        //             const heightReminder = img.height % 3;
+        //             console.log(this.urls);
+        //             if (img.width < this.minWidth || img.height < this.minHeight) {
+        //               this.snackBar.open(
+        //                 'Image minimum dimension should be ' + this.minWidth + 'X' + this.minHeight,
+        //                 'close',
+        //                 { duration: 3000 }
+        //               );
+        //               this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
+        //               this.currentTotalImageCount--;
+        //               return;
+        //             }
+        //             if (widthReminder !== 0 || heightReminder !== 0) {
+        //               this.snackBar.open(
+        //                 'Image aspect ratio should be 4:3 (' + this.minWidth + 'X' + this.minHeight + ')',
+        //                 'close',
+        //                 { duration: 3000 }
+        //               );
+        //               this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
+        //               this.currentTotalImageCount--;
+        //               return;
+        //             }
+        //             console.log(this.urls);
+        //             this.urls.push(ev.target.result);
+        //             this.eventForm.controls['poster'].setErrors(null);
+        //           };
+        //         };
+        //         reader.readAsDataURL(event.target.files[i]);
+        //         this.newlySelectedFileList.push(event.target.files[i]);
+        //         this.currentTotalImageCount++;
+        //       } else {
+        //         this.snackBar.open(
+        //           'Upload valiid images. Only PNG, JPG or JPEG are allowed!',
+        //           'close',
+        //           { duration: 3000 }
+        //         );
+        //         this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
+        //         this.currentTotalImageCount--;
+        //         return;
+        //       }
+        //     }
+        //   } else {
+        //     // alert for file upload limit
+        //     this.snackBar.open(
+        //       'Can\'t upload more than ' + this.maxUploadableFileCount + ' photos',
+        //       'close',
+        //       { duration: 2000 }
+        //     );
+        //   }
+        // }
         if (event.target.files && event.target.files[0]) {
-            var filesAmount = event.target.files.length;
-            if (this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1
-                ? true
-                : this.currentTotalImageCount + filesAmount <=
-                    this.maxUploadableFileCount) {
-                for (var i = 0; i < filesAmount; i++) {
-                    var fileName = event.target.files[i].name;
-                    var fileExtension = fileName.replace(/^.*\./, '');
-                    if (fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'jpeg') {
-                        var reader = new FileReader();
-                        reader.onload = function (ev) {
-                            var img = new Image();
-                            img.src = ev.target.result;
-                            img.onload = function () {
-                                var widthReminder = img.width % 4;
-                                var heightReminder = img.height % 3;
-                                if (img.width < _this.minWidth || img.height < _this.minHeight) {
-                                    _this.snackBar.open('Image minimum dimension should be ' + _this.minWidth + 'X' + _this.minHeight, 'close', { duration: 3000 });
-                                    _this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
-                                    _this.currentTotalImageCount--;
-                                    return;
-                                }
-                                if (widthReminder !== 0 || heightReminder !== 0) {
-                                    _this.snackBar.open('Image aspect ratio should be 4:3 (' + _this.minWidth + 'X' + _this.minHeight + ')', 'close', { duration: 3000 });
-                                    _this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
-                                    _this.currentTotalImageCount--;
-                                    return;
-                                }
-                                _this.urls.push(ev.target.result);
-                                _this.eventForm.controls['poster'].setErrors(null);
-                            };
-                        };
-                        reader.readAsDataURL(event.target.files[i]);
-                        this.newlySelectedFileList.push(event.target.files[i]);
-                        this.currentTotalImageCount++;
+            // const fileName = event.target.files[i].name;
+            // const fileExtension = fileName.replace(/^.*\./, '');
+            var file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
+            var pattern = /image-*/;
+            var reader = new FileReader();
+            if (!file.type.match(pattern)) {
+                this.snackBar.open("Invalid Format!", "close", { duration: 2000 });
+                return;
+            }
+            console.log(file);
+            reader.onload = function (event) {
+                var img = new Image();
+                img.src = event.target.result;
+                img.onload = function () {
+                    if (img.width < _this.minWidth || img.height < _this.minHeight) {
+                        _this.url = event.target.result;
                     }
                     else {
-                        this.snackBar.open('Upload valiid images. Only PNG, JPG or JPEG are allowed!', 'close', { duration: 3000 });
-                        this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
-                        this.currentTotalImageCount--;
+                        _this.snackBar.open('Image minimum dimension should be ' + _this.minWidth + 'X' + _this.minHeight, 'close', { duration: 3000 });
+                        _this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
                         return;
                     }
-                }
-            }
-            else {
-                // alert for file upload limit
-                this.snackBar.open('Can\'t upload more than ' + this.maxUploadableFileCount + ' photos', 'close', { duration: 2000 });
-            }
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+        else {
+            this.snackBar.open("Can't upload", "close", { duration: 2000 });
         }
     };
     /*
     * Remove selected images
     * 05-03-2019
     * Prasad Kumara
+    * edited by kushan pabasara
     */
     CreateEventPopupComponent.prototype.removeSelectedImg = function (index) {
-        this.urls.splice(index, 1);
-        this.currentTotalImageCount -= 1;
-        this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
-        if (this.remainImagesID.length < index + 1) {
-            this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
-        }
-        else {
-            this.remainImagesID.splice(index, 1);
-        }
+        // this.url.splice(index, 1);
+        // this.currentTotalImageCount -= 1;
+        // this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
+        // if (this.remainImagesID.length < index + 1) {
+        //   this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
+        // } else {
+        //   this.remainImagesID.splice(index, 1);
+        // }
+        this.url = null;
     };
     /*
     * Convert Json Event data to formData
@@ -14279,22 +14382,32 @@ var CreateEventPopupComponent = /** @class */ (function () {
             var imageName = 'image_' + i + '.' + type[1];
             eventFormData.append('poster', selectedFile, imageName);
         }
+        console.log(eventFormData);
         return eventFormData;
     };
     /*
     * Create and Update Event Submit function
     * 05-03-2019
     * Prasad Kumara
+    * edited by kushan pabasara
     */
     CreateEventPopupComponent.prototype.eventFormSubmit = function () {
         // const eventFormData = this.prepareEventFormData(this.eventForm.value);
         var eventFormData = this.eventForm.value;
-        eventFormData.poster = this.urls[0];
-        var startDateTime = this.datePipe.transform(this.eventForm.value.startDateTime, 'yyy-MM-dd HH:mm');
-        var endDateTime = this.datePipe.transform(this.eventForm.value.endDateTime, 'yyy-MM-dd HH:mm');
-        eventFormData.startDateTime = startDateTime;
-        eventFormData.endDateTime = endDateTime;
-        this.dialogRef.close(eventFormData);
+        console.log(eventFormData);
+        if (this.url) {
+            eventFormData.poster = this.url;
+            var startDateTime = this.datePipe.transform(this.eventForm.value.startDateTime, 'yyy-MM-dd HH:mm');
+            var endDateTime = this.datePipe.transform(this.eventForm.value.endDateTime, 'yyy-MM-dd HH:mm');
+            eventFormData.startDateTime = startDateTime;
+            eventFormData.endDateTime = endDateTime;
+            console.log(eventFormData);
+            this.dialogRef.close(eventFormData);
+        }
+        else {
+            this.snackBar.open("Please upload image", "close", { duration: 2000 });
+            this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
+        }
     };
     /*
     * Create image Urls from bite array
@@ -14343,6 +14456,33 @@ var CreateEventPopupComponent = /** @class */ (function () {
     return CreateEventPopupComponent;
 }());
 
+/* created by kushan pabasara */
+function getBase64ImageFromUrl(imageUrl) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _this = this;
+        var res, blob;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch(imageUrl)];
+                case 1:
+                    res = _a.sent();
+                    return [4 /*yield*/, res.blob()];
+                case 2:
+                    blob = _a.sent();
+                    return [2 /*return*/, new Promise(function (resolve, reject) {
+                            var reader = new FileReader();
+                            reader.addEventListener("load", function () {
+                                resolve(reader.result);
+                            }, false);
+                            reader.onerror = function () {
+                                return reject(_this);
+                            };
+                            reader.readAsDataURL(blob);
+                        })];
+            }
+        });
+    });
+}
 
 
 /***/ }),
@@ -14426,17 +14566,18 @@ var UserEventComponent = /** @class */ (function () {
         this.pageSizeArray = [];
         this.quota = 0;
         this.quotaExpire = false;
-        this.eventPosterUrl = this.comunityService.getPosterDownloadUrl();
+        this.eventPosterUrl = this.comunityService.getPosterDownloadUrl("event");
     }
     UserEventComponent.prototype.ngOnInit = function () {
         var _this = this;
         var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__["authProperties"].storage_name));
         this.activeRoute.queryParams.subscribe(function (params) {
-            _this.comunityId = params['id'];
-            _this.comunityName = params['name'];
+            _this.comunityId = params["id"];
+            _this.comunityName = params["name"];
         });
         this.fetchAllEvents(this.pageNumber);
-        this.comunityService.licenseExpireState(userObj.userData.client.id, 'events')
+        this.comunityService
+            .licenseExpireState(userObj.userData.client.id, "events")
             .subscribe(function (response) {
             var tempRes = response;
             _this.quotaExpire = tempRes.content.expired;
@@ -14444,37 +14585,37 @@ var UserEventComponent = /** @class */ (function () {
         });
     };
     /*
-    * expantion pannel prevent expantion
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * expantion pannel prevent expantion
+     * 05-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.stopProp = function (event) {
         event.stopPropagation();
     };
     /*
-    * Event create and update popup window
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Event create and update popup window
+     * 05-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.eventPopUp = function (data, isNew) {
         var _this = this;
         if (data === void 0) { data = {}; }
         if (this.quotaExpire && isNew) {
             var infoData = {
-                title: 'License',
-                message: 'You subscribed number of events have expired!</br>' +
+                title: "License",
+                message: "You subscribed number of events have expired!</br>" +
                     '<small class="text-muted">Do you like to extend the plan?</small>',
                 linkData: {
-                    url: 'https://www.google.com/gmail/',
-                    buttonText: 'Extend'
+                    url: "https://www.google.com/gmail/",
+                    buttonText: "Extend"
                 }
             };
             this.appInfoService.showInfo(infoData);
         }
         else {
-            var title = isNew ? 'Create New Event' : 'Update Event';
+            var title = isNew ? "Create New Event" : "Update Event";
             var dialogRef = this.dialog.open(_create_event_popup_create_event_popup_component__WEBPACK_IMPORTED_MODULE_3__["CreateEventPopupComponent"], {
-                width: '720px',
+                width: "720px",
                 disableClose: true,
                 data: { title: title, payload: data, isNew: isNew }
             });
@@ -14487,16 +14628,17 @@ var UserEventComponent = /** @class */ (function () {
                     var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__["authProperties"].storage_name));
                     if (userObj) {
                         if (isNew) {
-                            res['createdUserId'] = userObj.id;
-                            res['client'] = {
+                            res["createdUserId"] = userObj.id;
+                            res["client"] = {
                                 id: userObj.userData.client.id
                             };
-                            res['community'] = {
+                            res["community"] = {
                                 id: _this.comunityId
                             };
                             var clientId = userObj.userData.client.id;
                             res.status = _this.getEventStatus(res.status);
-                            _this.comunityService.licenseExpireState(clientId, 'events')
+                            _this.comunityService
+                                .licenseExpireState(clientId, "events")
                                 .subscribe(function (response) {
                                 var tempRes = response;
                                 _this.quotaExpire = tempRes.content.expired;
@@ -14508,16 +14650,15 @@ var UserEventComponent = /** @class */ (function () {
                             });
                         }
                         else {
-                            res['lastModifiedUserId'] = userObj.id;
+                            res["lastModifiedUserId"] = userObj.id;
                             res.status = _this.getEventStatus(res.status);
-                            _this.userEventService.eventUpdateById(data.id, res)
-                                .subscribe(function (response) {
+                            _this.userEventService.eventUpdateById(data.id, res).subscribe(function (response) {
                                 var temData = response;
                                 var i = _this.events.indexOf(data);
                                 _this.events[i] = temData.content;
                                 _this.temEvents = _this.events;
                                 _this.loader.close();
-                                _this.snack.open('Event Updated', 'close', {
+                                _this.snack.open("Event Updated", "close", {
                                     duration: 2000
                                 });
                             }, function (error) {
@@ -14534,8 +14675,7 @@ var UserEventComponent = /** @class */ (function () {
     };
     UserEventComponent.prototype.createEvent = function (res, usage, tempQuoata) {
         var _this = this;
-        this.userEventService.createEvent(res)
-            .subscribe(function (response) {
+        this.userEventService.createEvent(res).subscribe(function (response) {
             var temData = response;
             if (_this.events.length === _this.pageSize) {
                 _this.appendNewlyCreatedEvent(temData.content);
@@ -14550,25 +14690,25 @@ var UserEventComponent = /** @class */ (function () {
                 _this.quotaExpire = true;
             }
             _this.loader.close();
-            if (usage < (tempQuoata - 1) && (tempQuoata - usage) === 2) {
+            if (usage < tempQuoata - 1 && tempQuoata - usage === 2) {
                 _this.appWarningService.showWarning({
-                    title: 'License',
-                    message: 'Your subscription plan is about to expire!</br>One more event remaining!'
+                    title: "License",
+                    message: "Your subscription plan is about to expire!</br>One more event remaining!"
                 });
             }
-            else if (usage < tempQuoata && (tempQuoata - usage) === 1) {
+            else if (usage < tempQuoata && tempQuoata - usage === 1) {
                 var infoData = {
-                    title: 'License',
-                    message: 'You subscribed number of events have expired!</br>' +
+                    title: "License",
+                    message: "You subscribed number of events have expired!</br>" +
                         '<small class="text-muted">Do you like to extend the plan?</small>',
                     linkData: {
-                        url: 'https://www.google.com/gmail/',
-                        buttonText: 'Extend'
+                        url: "https://www.google.com/gmail/",
+                        buttonText: "Extend"
                     }
                 };
                 _this.appInfoService.showInfo(infoData);
             } // else {
-            _this.snack.open('New Event Created', 'close', {
+            _this.snack.open("New Event Created", "close", {
                 duration: 2000
             });
             // }
@@ -14580,10 +14720,10 @@ var UserEventComponent = /** @class */ (function () {
         });
     };
     /*
-    * set selected status of one event
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * set selected status of one event
+     * 05-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.selectToggleOne = function (event, data) {
         var i = this.events.indexOf(data);
         if (event.checked) {
@@ -14596,10 +14736,10 @@ var UserEventComponent = /** @class */ (function () {
         this.checkAllSelectedState();
     };
     /*
-    * set selectd status of all events
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * set selectd status of all events
+     * 05-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.checkAllSelectedState = function () {
         var numOfSelectedEvent = 0;
         this.events.forEach(function (data) {
@@ -14622,10 +14762,10 @@ var UserEventComponent = /** @class */ (function () {
         }
     };
     /*
-    * Select toggle events status
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Select toggle events status
+     * 05-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.selectToggleAll = function (event) {
         if (event.checked) {
             this.events.forEach(function (data) {
@@ -14643,15 +14783,15 @@ var UserEventComponent = /** @class */ (function () {
         }
     };
     /*
-    * Delete Selected events
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Delete Selected events
+     * 05-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.deleteSelectedEvents = function () {
         var _this = this;
         var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__["authProperties"].storage_name));
         this.confirmService
-            .confirm({ message: 'Do You want to Delete Selected Events?' })
+            .confirm({ message: "Do You want to Delete Selected Events?" })
             .subscribe(function (res) {
             if (res) {
                 _this.loader.open();
@@ -14660,11 +14800,11 @@ var UserEventComponent = /** @class */ (function () {
                     events: selectedEvents
                 };
                 var tempPN_1 = _this.setPageNumber(selectedEvents.length);
-                _this.userEventService.deleteEventList(idArray)
-                    .subscribe(function (response) {
+                _this.userEventService.deleteEventList(idArray).subscribe(function (response) {
                     _this.selectAll = false;
                     _this.indeterminateState = false;
-                    _this.comunityService.licenseExpireState(userObj.userData.client.id, 'events')
+                    _this.comunityService
+                        .licenseExpireState(userObj.userData.client.id, "events")
                         .subscribe(function (resData) {
                         var tempRes = resData;
                         _this.quotaExpire = tempRes.content.expired;
@@ -14672,7 +14812,7 @@ var UserEventComponent = /** @class */ (function () {
                     });
                     _this.fetchAllEvents(tempPN_1);
                     _this.loader.close();
-                    _this.snack.open('Selected Events Deleted', 'close', {
+                    _this.snack.open("Selected Events Deleted", "close", {
                         duration: 2000
                     });
                 }, function (error) {
@@ -14685,10 +14825,10 @@ var UserEventComponent = /** @class */ (function () {
         });
     };
     /*
-    * Delete one event
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Delete one event
+     * 05-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.deleteOneEvent = function (data) {
         var _this = this;
         var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__["authProperties"].storage_name));
@@ -14698,9 +14838,9 @@ var UserEventComponent = /** @class */ (function () {
             if (res) {
                 _this.loader.open();
                 var tempPN_2 = _this.setPageNumber(1);
-                _this.userEventService.eventDeleteById(data.id)
-                    .subscribe(function (response) {
-                    _this.comunityService.licenseExpireState(userObj.userData.client.id, 'events')
+                _this.userEventService.eventDeleteById(data.id).subscribe(function (response) {
+                    _this.comunityService
+                        .licenseExpireState(userObj.userData.client.id, "events")
                         .subscribe(function (resData) {
                         var tempRes = resData;
                         _this.quotaExpire = tempRes.content.expired;
@@ -14708,7 +14848,7 @@ var UserEventComponent = /** @class */ (function () {
                     });
                     _this.fetchAllEvents(tempPN_2);
                     _this.loader.close();
-                    _this.snack.open(data.name + " Deleted", 'close', {
+                    _this.snack.open(data.name + " Deleted", "close", {
                         duration: 2000
                     });
                 }, function (error) {
@@ -14721,10 +14861,10 @@ var UserEventComponent = /** @class */ (function () {
         });
     };
     /*
-    * Get Selected events
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Get Selected events
+     * 05-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.getSelectedEvents = function () {
         var selectedEvents = [];
         this.events.forEach(function (data) {
@@ -14735,13 +14875,14 @@ var UserEventComponent = /** @class */ (function () {
         return selectedEvents;
     };
     /*
-    * Fetch all events using community id
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Fetch all events using community id
+     * 05-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.fetchAllEvents = function (pageNumber) {
         var _this = this;
-        this.userEventService.fetchAllEvents(this.comunityId, pageNumber, this.pageSize)
+        this.userEventService
+            .fetchAllEvents(this.comunityId, pageNumber, this.pageSize)
             .subscribe(function (response) {
             var tempResponse = response;
             var tempEvents = _this.createDateTimeObject(tempResponse.content);
@@ -14757,10 +14898,10 @@ var UserEventComponent = /** @class */ (function () {
         });
     };
     /*
-    * Convert String date to Date Time Object
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Convert String date to Date Time Object
+     * 05-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.createDateTimeObject = function (eventsArray) {
         eventsArray.forEach(function (event) {
             event.startDateTime = new Date(event.startDateTime);
@@ -14772,23 +14913,23 @@ var UserEventComponent = /** @class */ (function () {
         return eventsArray;
     };
     /*
-    * Convert boolean event status to string status
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Convert boolean event status to string status
+     * 05-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.getEventStatus = function (eventStatus) {
         if (eventStatus) {
-            return 'ACTIVE';
+            return "ACTIVE";
         }
         else {
-            return 'INACTIVE';
+            return "INACTIVE";
         }
     };
     /*
-    * Create pagination page size element array
-    * 07-03-2019
-    * Prasad Kumara
-    */
+     * Create pagination page size element array
+     * 07-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.createPaginationPageSizeArray = function () {
         var totalRec = this.totalRecords;
         var tempArray = [];
@@ -14808,10 +14949,10 @@ var UserEventComponent = /** @class */ (function () {
         this.pageSizeArray = tempArray;
     };
     /*
-    * Search Event in viewed event list
-    * 07-03-2019
-    * Prasad Kumara
-    */
+     * Search Event in viewed event list
+     * 07-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.updateFilter = function (event) {
         var val = event.target.value.toLowerCase();
         var columns = Object.keys(this.temEvents[0]);
@@ -14822,7 +14963,11 @@ var UserEventComponent = /** @class */ (function () {
         var rows = this.temEvents.filter(function (data) {
             for (var i = 0; i <= columns.length; i++) {
                 var col = columns[i];
-                if (data[col] && data[col].toString().toLowerCase().indexOf(val) > -1) {
+                if (data[col] &&
+                    data[col]
+                        .toString()
+                        .toLowerCase()
+                        .indexOf(val) > -1) {
                     return true;
                 }
             }
@@ -14830,19 +14975,19 @@ var UserEventComponent = /** @class */ (function () {
         this.events = rows;
     };
     /*
-    * Page size change and update event list according to the page size
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Page size change and update event list according to the page size
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.changeValue = function () {
         this.pageNumber = 1;
         this.fetchAllEvents(this.pageNumber);
     };
     /*
-    * Append newly created event to the event array
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Append newly created event to the event array
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.appendNewlyCreatedEvent = function (event) {
         var tempArray = [];
         for (var i = this.events.length; i >= 1; i--) {
@@ -14858,10 +15003,10 @@ var UserEventComponent = /** @class */ (function () {
         this.createPageNavigationBar();
     };
     /*
-    * Create pagination bottom navigation bar
-    * 07-03-2019
-    * Prasad Kumara
-    */
+     * Create pagination bottom navigation bar
+     * 07-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.createPageNavigationBar = function () {
         var devider = this.totalRecords / this.pageSize;
         var numOfPage = Math.ceil(devider);
@@ -14877,10 +15022,10 @@ var UserEventComponent = /** @class */ (function () {
         }
     };
     /*
-    * Set page number according to the total records
-    * 07-03-2019
-    * Prasad Kumara
-    */
+     * Set page number according to the total records
+     * 07-03-2019
+     * Prasad Kumara
+     */
     UserEventComponent.prototype.setPageNumber = function (numOfPromo) {
         var tempTR = this.totalRecords - numOfPromo;
         var devider = tempTR / this.pageSize;
@@ -14893,7 +15038,7 @@ var UserEventComponent = /** @class */ (function () {
     };
     UserEventComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-user-event',
+            selector: "app-user-event",
             template: __webpack_require__(/*! ./user-event.component.html */ "./src/app/views/community/user-community/user-event/user-event.component.html"),
             animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"]
         }),
@@ -14948,6 +15093,8 @@ var UserEventService = /** @class */ (function () {
     function UserEventService(http) {
         this.http = http;
         this.userApiUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_1__["environment"].userApiUrl;
+        //edited by kushan
+        this.imageUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_1__["environment"].userApiUrl + 'downloads/event/';
     }
     /*
     * Create new Event
@@ -15044,7 +15191,7 @@ var UserEventService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  user-feedback works!\r\n</p>\r\n<button mat-button style=\"background-color: #f0ad4e;\" type=\"button\" (click)=\"openWarning()\">Warning</button>\r\n<button mat-button style=\"background-color: #5bc0de;\" type=\"button\" (click)=\"openInfo()\">Infomation</button>\r\n<button mat-button style=\"background-color: #d9534f;\" type=\"button\" (click)=\"openError()\">Error</button>\r\n<button mat-button style=\"background-color: #ff0000;\" type=\"button\" (click)=\"openErrorSnack()\">Error Snack</button>\r\n"
+module.exports = "<p>\r\n  Instant Feedbacks Section is under development.\r\n</p>\r\n<!-- <button mat-button style=\"background-color: #f0ad4e;\" type=\"button\" (click)=\"openWarning()\">Warning</button>\r\n<button mat-button style=\"background-color: #5bc0de;\" type=\"button\" (click)=\"openInfo()\">Infomation</button>\r\n<button mat-button style=\"background-color: #d9534f;\" type=\"button\" (click)=\"openError()\">Error</button>\r\n<button mat-button style=\"background-color: #ff0000;\" type=\"button\" (click)=\"openErrorSnack()\">Error Snack</button> -->\r\n"
 
 /***/ }),
 
@@ -15154,7 +15301,7 @@ var UserFeedbackComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"promotionForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"promotionForm.controls['name']\" placeholder=\"Promotion Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"promotionForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"start\" [min]=\"startDateMin\" [max]=\"startDateMax\" (dateChange)=\"validateDatePickerMinMax()\" [matDatepicker]=\"picker1\" [formControl]=\"promotionForm.controls['start']\" required placeholder=\"Start Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker1\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker1></mat-datepicker>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"end\" [min]=\"endDateMin\" [max]=\"endDateMax\" (dateChange)=\"validateDatePickerMinMax()\"  [matDatepicker]=\"picker2\" [formControl]=\"promotionForm.controls['end']\" required placeholder=\"End Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker2\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker2></mat-datepicker>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"percentage\" [formControl]=\"promotionForm.controls['percentage']\" positiveNumberOnly placeholder=\"Discount\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <!-- --------- hidden file input --------- -->\r\n        <input (change)=\"onSelectFile($event)\" #eventImgs type=\"file\" [formControl]=\"promotionForm.controls['promoPoster']\"\r\n        multiple style=\"display: none\" />\r\n        <!-- --------- file input click button --------- -->\r\n        <div layout-margin layout-padding>\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"eventImgs.click()\"\r\n          [disabled]=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n          (false) :\r\n          (this.currentTotalImageCount === this.maxUploadableFileCount)\"\r\n            type=\"button\">\r\n            Browse Images\r\n            <span *ngIf=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n            (false) :\r\n            (this.currentTotalImageCount > 0)\"> ({{this.currentTotalImageCount}} / {{this.maxUploadableFileCount}})</span>\r\n          </button>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\" *ngIf=\"!data.isNew\">\r\n        <mat-slide-toggle [formControl]=\"promotionForm.controls['status']\">Activate Event</mat-slide-toggle>\r\n      </div>\r\n      <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngFor='let url of urls; let i = index' fxFlex=\"100\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\" style=\"display: flex;\">\r\n        <mat-card class=\"p-0\">\r\n          <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"removeSelectedImg(i)\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n          <img [src]=\"url\">\r\n        </mat-card>\r\n      </div>\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" (click)=\"promotionFormSubmit()\" [disabled]=\"promotionForm.invalid\">Save</button>\r\n          <span fxFlex></span>\r\n          <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n        </div>\r\n      </div>\r\n  </mat-dialog-content>\r\n</form>\r\n"
+module.exports = "<form [formGroup]=\"promotionForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"promotionForm.controls['name']\" placeholder=\"Promotion Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"promotionForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"start\" [min]=\"startDateMin\" [max]=\"startDateMax\" (dateChange)=\"validateDatePickerMinMax()\"\r\n            [matDatepicker]=\"picker1\" [formControl]=\"promotionForm.controls['startDate']\" required placeholder=\"Start Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker1\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker1></mat-datepicker>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"end\" [min]=\"endDateMin\" [max]=\"endDateMax\" (dateChange)=\"validateDatePickerMinMax()\"\r\n            [matDatepicker]=\"picker2\" [formControl]=\"promotionForm.controls['endDate']\" required placeholder=\"End Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker2\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker2></mat-datepicker>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"percentage\" [formControl]=\"promotionForm.controls['percentage']\" positiveNumberOnly\r\n            placeholder=\"Discount\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <!-- --------- hidden file input --------- -->\r\n        <input (change)=\"onSelectFile($event)\" #eventImgs type=\"file\" [formControl]=\"promotionForm.controls['promoPoster']\"\r\n          multiple style=\"display: none\" />\r\n        <!-- --------- file input click button --------- -->\r\n        <div layout-margin layout-padding>\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"eventImgs.click()\" [disabled]=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n          (false) :\r\n          (this.currentTotalImageCount === this.maxUploadableFileCount)\"\r\n            type=\"button\">\r\n            Browse Images\r\n            <span *ngIf=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n            (false) :\r\n            (this.currentTotalImageCount > 0)\">\r\n              ({{this.currentTotalImageCount}} / {{this.maxUploadableFileCount}})</span>\r\n          </button>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\" *ngIf=\"!data.isNew\">\r\n        <mat-slide-toggle [formControl]=\"promotionForm.controls['status']\">Activate Event</mat-slide-toggle>\r\n      </div>\r\n      <!-- <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngFor='let url of urls; let i = index' fxFlex=\"100\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\" style=\"display: flex;\">\r\n        <mat-card class=\"p-0\">\r\n          <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"removeSelectedImg(i)\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n          <img [src]=\"url\">\r\n        </mat-card>\r\n      </div> -->\r\n      <!-- --------- start images preview container --------- -->\r\n      <div id=\"event_update_image_preview_container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\" layout-align=\"center\" class=\"mt-1\">\r\n\r\n        <!-- --------- start card --------- -->\r\n        <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngIf=\"url\" fxFlex=\"100\" style=\"display: flex;max-height: 200px\">\r\n          <mat-card class=\"p-0\">\r\n\r\n            <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n              <span fxFlex></span>\r\n              <button type=\"button\" class=\"close p-1\" aria-label=\"Close\" (click)=\"removeSelectedImg()\">\r\n                <span aria-hidden=\"true\">&times;</span>\r\n              </button>\r\n            </div>\r\n            <img [src]=\"url\">\r\n          </mat-card>\r\n        </div>\r\n        <!-- --------- end card --------- -->\r\n\r\n      </div>\r\n      <!-- --------- end images preview container --------- -->\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"mt-1\">\r\n        <button mat-raised-button color=\"primary\" (click)=\"promotionFormSubmit()\" [disabled]=\"promotionForm.invalid\">Save</button>\r\n        <span fxFlex></span>\r\n        <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n</form>"
 
 /***/ }),
 
@@ -15190,6 +15337,41 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
 };
 
 
@@ -15227,8 +15409,8 @@ var CreatePromotionPopupComponent = /** @class */ (function () {
         this.newlySelectedFileList = [];
         this.urls = [];
         this.remainImagesID = [];
-        this.minHeight = 240;
-        this.minWidth = 320;
+        this.minHeight = 200;
+        this.minWidth = 400;
     }
     CreatePromotionPopupComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -15241,6 +15423,8 @@ var CreatePromotionPopupComponent = /** @class */ (function () {
             _this.comunityName = params['name'];
         });
         this.setStartDateMin();
+        //edited by kushan
+        this.imgBaseURL = this.userPromotionService.imageUrl;
     };
     /*
     * Build promotion create and update form
@@ -15248,15 +15432,19 @@ var CreatePromotionPopupComponent = /** @class */ (function () {
     * Prasad Kumara
     */
     CreatePromotionPopupComponent.prototype.buildPromotionForm = function (promotionFormData) {
+        var _this = this;
         this.promotionForm = this.fb.group({
             name: [promotionFormData.name || '', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             description: [promotionFormData.description || '', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             status: [promotionFormData.status || false, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             percentage: [promotionFormData.percentage || '', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            start: [promotionFormData.start, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            end: [promotionFormData.end, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
-            promoPoster: [promotionFormData.promoPoster || '', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
+            startDate: [promotionFormData.startDate, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            endDate: [promotionFormData.endDate, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+            promoPoster: ['']
         });
+        getBase64ImageFromUrl(this.imgBaseURL + promotionFormData.id)
+            .then(function (result) { return _this.url = result; })
+            .catch(function (err) { return console.error(err); });
     };
     /*
     * Set start date min value
@@ -15282,8 +15470,8 @@ var CreatePromotionPopupComponent = /** @class */ (function () {
     * Prasad Kumara
     */
     CreatePromotionPopupComponent.prototype.validateDatePickerMinMax = function () {
-        var startDateValue = this.promotionForm.get('start').value;
-        var endDateValue = this.promotionForm.get('end').value;
+        var startDateValue = this.promotionForm.get('startDate').value;
+        var endDateValue = this.promotionForm.get('endDate').value;
         if (startDateValue == null && endDateValue == null) {
             this.startDateMin = app_utility_dateValidator__WEBPACK_IMPORTED_MODULE_5__["DateValidator"].getToday();
             this.endDateMin = app_utility_dateValidator__WEBPACK_IMPORTED_MODULE_5__["DateValidator"].getToday();
@@ -15303,56 +15491,102 @@ var CreatePromotionPopupComponent = /** @class */ (function () {
     * Prasad Kumara
     */
     CreatePromotionPopupComponent.prototype.onSelectFile = function (event) {
+        // if (event.target.files && event.target.files[0]) {
+        //   const filesAmount = event.target.files.length;
+        //   if (
+        //     this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1
+        //       ? true
+        //       : this.currentTotalImageCount + filesAmount <=
+        //       this.maxUploadableFileCount
+        //   ) {
+        //     for (let i = 0; i < filesAmount; i++) {
+        //       const fileName = event.target.files[i].name;
+        //       const fileExtension = fileName.replace(/^.*\./, '');
+        //       if (fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'jpeg') {
+        //         const reader = new FileReader();
+        //         reader.onload = (ev: any) => {
+        //           const img = new Image();
+        //           img.src = ev.target.result;
+        //           img.onload = () => {
+        //             const widthReminder = img.width % 4;
+        //             const heightReminder = img.height % 3;
+        //             if (img.width < this.minWidth && img.height < this.minHeight) {
+        //               this.snackBar.open(
+        //                 'Image minimum dimension should be ' + this.minWidth + 'X' + this.minHeight,
+        //                 'close',
+        //                 { duration: 3000 }
+        //               );
+        //               this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
+        //               this.currentTotalImageCount--;
+        //               return;
+        //             }
+        //             if (widthReminder !== 0 || heightReminder !== 0) {
+        //               this.snackBar.open(
+        //                 'Image aspect ratio should be 4:3 (' + this.minWidth + 'X' + this.minHeight + ')' ,
+        //                 'close',
+        //                 { duration: 3000 }
+        //               );
+        //               this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
+        //               this.currentTotalImageCount--;
+        //               return;
+        //             }
+        //             this.urls.push(ev.target.result);
+        //             this.promotionForm.controls['promoPoster'].setErrors(null);
+        //           };
+        //         };
+        //         reader.readAsDataURL(event.target.files[i]);
+        //         this.newlySelectedFileList.push(event.target.files[i]);
+        //         this.currentTotalImageCount++;
+        //       } else {
+        //         this.snackBar.open(
+        //           'Upload valiid images. Only PNG, JPG and JPEG are allowed!',
+        //           'close',
+        //           { duration: 3000 }
+        //         );
+        //         this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
+        //         this.currentTotalImageCount--;
+        //         return;
+        //       }
+        //     }
         var _this = this;
+        //   } else {
+        //     // alert for file upload limit
+        //     this.snackBar.open(
+        //       'Can\'t upload more than ' + this.maxUploadableFileCount + ' photos',
+        //       'close',
+        //       { duration: 2000 }
+        //     );
+        //   }
+        // }
         if (event.target.files && event.target.files[0]) {
-            var filesAmount = event.target.files.length;
-            if (this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1
-                ? true
-                : this.currentTotalImageCount + filesAmount <=
-                    this.maxUploadableFileCount) {
-                for (var i = 0; i < filesAmount; i++) {
-                    var fileName = event.target.files[i].name;
-                    var fileExtension = fileName.replace(/^.*\./, '');
-                    if (fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'jpeg') {
-                        var reader = new FileReader();
-                        reader.onload = function (ev) {
-                            var img = new Image();
-                            img.src = ev.target.result;
-                            img.onload = function () {
-                                var widthReminder = img.width % 4;
-                                var heightReminder = img.height % 3;
-                                if (img.width < _this.minWidth && img.height < _this.minHeight) {
-                                    _this.snackBar.open('Image minimum dimension should be ' + _this.minWidth + 'X' + _this.minHeight, 'close', { duration: 3000 });
-                                    _this.promotionForm.controls['promoPoster'].setErrors({ 'incorrect': true });
-                                    _this.currentTotalImageCount--;
-                                    return;
-                                }
-                                if (widthReminder !== 0 || heightReminder !== 0) {
-                                    _this.snackBar.open('Image aspect ratio should be 4:3 (' + _this.minWidth + 'X' + _this.minHeight + ')', 'close', { duration: 3000 });
-                                    _this.promotionForm.controls['promoPoster'].setErrors({ 'incorrect': true });
-                                    _this.currentTotalImageCount--;
-                                    return;
-                                }
-                                _this.urls.push(ev.target.result);
-                                _this.promotionForm.controls['promoPoster'].setErrors(null);
-                            };
-                        };
-                        reader.readAsDataURL(event.target.files[i]);
-                        this.newlySelectedFileList.push(event.target.files[i]);
-                        this.currentTotalImageCount++;
+            // const fileName = event.target.files[i].name;
+            // const fileExtension = fileName.replace(/^.*\./, '');
+            var file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
+            var pattern = /image-*/;
+            var reader = new FileReader();
+            if (!file.type.match(pattern)) {
+                this.snackBar.open("Invalid Format!", "close", { duration: 2000 });
+                return;
+            }
+            console.log(file);
+            reader.onload = function (event) {
+                var img = new Image();
+                img.src = event.target.result;
+                img.onload = function () {
+                    if (img.width < _this.minWidth || img.height < _this.minHeight) {
+                        _this.url = event.target.result;
                     }
                     else {
-                        this.snackBar.open('Upload valiid images. Only PNG, JPG and JPEG are allowed!', 'close', { duration: 3000 });
-                        this.promotionForm.controls['promoPoster'].setErrors({ 'incorrect': true });
-                        this.currentTotalImageCount--;
+                        _this.snackBar.open('Image minimum dimension should be ' + _this.minWidth + 'X' + _this.minHeight, 'close', { duration: 3000 });
+                        _this.promotionForm.controls['promoPoster'].setErrors({ 'incorrect': true });
                         return;
                     }
-                }
-            }
-            else {
-                // alert for file upload limit
-                this.snackBar.open('Can\'t upload more than ' + this.maxUploadableFileCount + ' photos', 'close', { duration: 2000 });
-            }
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+        else {
+            this.snackBar.open("Can't upload", "close", { duration: 2000 });
         }
     };
     /*
@@ -15361,15 +15595,15 @@ var CreatePromotionPopupComponent = /** @class */ (function () {
     * Prasad Kumara
     */
     CreatePromotionPopupComponent.prototype.removeSelectedImg = function (index) {
-        this.urls.splice(index, 1);
-        this.currentTotalImageCount -= 1;
-        this.promotionForm.controls['promoPoster'].setErrors({ 'incorrect': true });
-        if (this.remainImagesID.length < index + 1) {
-            this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
-        }
-        else {
-            this.remainImagesID.splice(index, 1);
-        }
+        // this.urls.splice(index, 1);
+        // this.currentTotalImageCount -= 1;
+        // this.promotionForm.controls['promoPoster'].setErrors({'incorrect': true});
+        // if (this.remainImagesID.length < index + 1) {
+        //   this.newlySelectedFileList.splice(index - this.remainImagesID.length, 1);
+        // } else {
+        //   this.remainImagesID.splice(index, 1);
+        // }
+        this.url = null;
     };
     /*
     * Convert Json to form data
@@ -15381,8 +15615,8 @@ var CreatePromotionPopupComponent = /** @class */ (function () {
         promotionFormData.append('communityId', this.comunityId);
         promotionFormData.append('name', formValues.name);
         promotionFormData.append('description', formValues.description);
-        promotionFormData.append('start', formValues.start);
-        promotionFormData.append('end', formValues.end);
+        promotionFormData.append('startDate', formValues.startDate);
+        promotionFormData.append('endDate', formValues.endDate);
         promotionFormData.append('status', formValues.status);
         promotionFormData.append('percentage', formValues.percentage);
         for (var i = 0; i < this.newlySelectedFileList.length; i++) {
@@ -15401,10 +15635,19 @@ var CreatePromotionPopupComponent = /** @class */ (function () {
     CreatePromotionPopupComponent.prototype.promotionFormSubmit = function () {
         // const promotionFormData = this.prepareOfferFormData(this.promotionForm.value);
         var promotionFormData = this.promotionForm.value;
-        promotionFormData.promoPoster = this.urls[0];
-        promotionFormData.start = this.datePipe.transform(this.promotionForm.value.start, 'yyy-MM-dd');
-        promotionFormData.end = this.datePipe.transform(this.promotionForm.value.end, 'yyy-MM-dd');
-        this.dialogRef.close(promotionFormData);
+        if (this.url) {
+            promotionFormData.promoPoster = this.url;
+            var startDate = this.datePipe.transform(this.promotionForm.value.startDate, 'yyy-MM-dd');
+            var endDate = this.datePipe.transform(this.promotionForm.value.endDate, 'yyy-MM-dd');
+            promotionFormData.startDate = startDate;
+            promotionFormData.endDate = endDate;
+            console.log(promotionFormData);
+            this.dialogRef.close(promotionFormData);
+        }
+        else {
+            this.snackBar.open("Please upload image", "close", { duration: 2000 });
+            this.promotionForm.controls['poster'].setErrors({ 'incorrect': true });
+        }
     };
     /*
     * Create image url
@@ -15468,6 +15711,33 @@ var CreatePromotionPopupComponent = /** @class */ (function () {
     return CreatePromotionPopupComponent;
 }());
 
+/* created by kushan pabasara */
+function getBase64ImageFromUrl(imageUrl) {
+    return __awaiter(this, void 0, void 0, function () {
+        var _this = this;
+        var res, blob;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, fetch(imageUrl)];
+                case 1:
+                    res = _a.sent();
+                    return [4 /*yield*/, res.blob()];
+                case 2:
+                    blob = _a.sent();
+                    return [2 /*return*/, new Promise(function (resolve, reject) {
+                            var reader = new FileReader();
+                            reader.addEventListener("load", function () {
+                                resolve(reader.result);
+                            }, false);
+                            reader.onerror = function () {
+                                return reject(_this);
+                            };
+                            reader.readAsDataURL(blob);
+                        })];
+            }
+        });
+    });
+}
 
 
 /***/ }),
@@ -15479,7 +15749,7 @@ var CreatePromotionPopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"messages-wrap\">\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\">\r\n    <!-- multiple promotions select and control -->\r\n    <mat-checkbox (change)=\"selectToggleAll($event)\" [indeterminate]=\"indeterminateState\" [checked]=\"selectAll\" class=\"inbox-toggle-all mr-1\"><small>All</small></mat-checkbox>\r\n    <button mat-icon-button matTooltip=\"Add Promotion\" (click)=\"promotionPopUp({}, true)\"><mat-icon>add_box</mat-icon></button>\r\n    <button mat-icon-button matTooltip=\"Delete\" *ngIf=\"indeterminateState || selectAll\" (click)=\"deleteSelectedPromotions()\"><mat-icon>delete</mat-icon></button>\r\n    <span fxFlex></span>\r\n    <mat-form-field *ngIf=\"this.temPromotions.length > 0\" style=\"font-size: 15px; width: 30%; margin-top: 10px;\">\r\n      <input matInput placeholder=\"Search\" value=\"\" (keyup)='updateFilter($event)'>\r\n    </mat-form-field>\r\n    <p *ngIf=\"this.temPromotions.length > 0\" class=\"mat-select-lable\"> Page Size: </p>\r\n    <mat-select *ngIf=\"this.temPromotions.length > 0\" class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n      <mat-option *ngFor=\"let item of pageSizeArray\" [value]=\"item\">{{item}}</mat-option>\r\n      <!-- <mat-option [value]=\"20\">20</mat-option> -->\r\n    </mat-select>\r\n  </mat-toolbar>\r\n  <mat-accordion>\r\n    <mat-expansion-panel *ngFor=\"let promoObj of promotions\" expanded=\"false\" hideToggle=\"true\">\r\n      <mat-expansion-panel-header>\r\n        <mat-panel-title>\r\n          <mat-checkbox (change)=\"selectToggleOne($event, promoObj)\" [checked]=\"promoObj.selected\" (click)=\"stopProp($event)\" class=\"mail-checkbox hide-on-open\"></mat-checkbox>\r\n          <span style=\"width: 130px; overflow: hidden;\r\n          white-space: nowrap;\r\n          text-overflow: ellipsis;\" class=\"hide-on-open\">{{ promoObj.name }}</span>\r\n          <div fxFlex=\"1 1 auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\" class=\"show-on-open\">\r\n            <!-- <img [src]=\"promoObj.file\" alt=\"\" class=\"inbox-face mr-1\"> -->\r\n            <div fxLayout=\"column\">\r\n              <span class=\"m-0\">{{ promoObj.name }}</span>\r\n              <small class=\"text-muted m-0\">Start Date : {{promoObj.start | date}}, End Date :\r\n                {{promoObj.end | date}}</small>\r\n            </div>\r\n          </div>\r\n          <span fxFlex></span>\r\n        </mat-panel-title>\r\n        <mat-panel-description>\r\n          <span class=\"mail-subject text-sm mat-color-default hide-on-open\">\r\n            <mat-chip *ngIf=\"promoObj.status === 'ACTIVE'\" mat-sm-chip color=\"primary\" [selected]=\"true\">Active</mat-chip>\r\n            <mat-chip *ngIf=\"promoObj.status === 'INACTIVE'\" mat-sm-chip color=\"warn\" [selected]=\"true\">Inactive</mat-chip>\r\n          </span>\r\n          <span fxFlex></span>\r\n          <span class=\"text-sm\" fxHide.lt-sm=\"true\">{{promoObj.createdDate | relativeTime}}</span>\r\n          <button mat-icon-button [matMenuTriggerFor]=\"msgMenu\" (click)=\"stopProp($event)\" class=\"hidden-on-open\">\r\n            <mat-icon class=\"text-muted\">more_vert</mat-icon>\r\n          </button>\r\n          <mat-menu #msgMenu=\"matMenu\">\r\n            <button mat-menu-item (click)=\"promotionPopUp(promoObj, false)\">\r\n              <mat-icon>edit</mat-icon> Edit\r\n            </button>\r\n            <button mat-menu-item (click)=\"deletePromotion(promoObj)\">\r\n              <mat-icon>delete</mat-icon> Delete\r\n            </button>\r\n          </mat-menu>\r\n        </mat-panel-description>\r\n      </mat-expansion-panel-header>\r\n      <div fxLayout=\"row\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"40\" class=\"pr-1\">\r\n          <mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n            <img style=\"padding: 10px;\" mat-card-image [src]=\"promoObj.promoPoster\" alt=\"Photo of a Shiba Inu\">\r\n          </mat-card>\r\n        </div>\r\n        <div fxFlex=\"60\" class=\"pr-1\">\r\n          <div fxLayout=\"row\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\">\r\n              <mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n                <mat-card-content>\r\n                  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n                    <small class=\"text-muted\">Event Description</small>\r\n                  </div>\r\n                  <p style=\"padding-top: 10px;\" class=\"md-body-1\">{{ promoObj.description }}</p>\r\n                </mat-card-content>\r\n              </mat-card>\r\n            </div>\r\n            <div fxFlex=\"100\">\r\n              <div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n                <div fxFlex=\"30\">\r\n                  <mat-card>\r\n                    <mat-card-title fxLayoutAlign=\"start center\">\r\n                      <small class=\"text-muted\">Start Date & Time</small>\r\n                      <span fxFlex></span>\r\n                      <mat-icon color=\"primary\">play_arrow</mat-icon>\r\n                    </mat-card-title>\r\n                    <mat-card-content>\r\n                      <h6 class=\"m-0 font-normal\">{{ promoObj.start | date:'MMM d, y, h:mm a'}}</h6>\r\n                    </mat-card-content>\r\n                  </mat-card>\r\n                </div>\r\n                <div fxFlex=\"30\">\r\n                  <mat-card>\r\n                    <mat-card-title fxLayoutAlign=\"start center\">\r\n                      <small class=\"text-muted\">End Date & Time</small>\r\n                      <span fxFlex></span>\r\n                      <mat-icon color=\"warn\">stop</mat-icon>\r\n                    </mat-card-title>\r\n                    <mat-card-content>\r\n                      <h6 class=\"m-0 font-normal\">{{ promoObj.end | date:'MMM d, y, h:mm a'}}</h6>\r\n                    </mat-card-content>\r\n                  </mat-card>\r\n                </div>\r\n                <div fxFlex=\"40\">\r\n                  <mat-card>\r\n                    <mat-card-content>\r\n                      <div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n                        <div fxFlex=\"40\" >\r\n                          <small class=\"text-muted discount-mt\">DISCOUNT</small>\r\n                        </div>\r\n                        <div fxFlex=\"60\">\r\n                          <h6 class=\"m-0 discount-font\">{{ promoObj.percentage }} %</h6>\r\n                        </div>\r\n                      </div>\r\n                    </mat-card-content>\r\n                  </mat-card>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </mat-expansion-panel>\r\n  </mat-accordion>\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\" *ngIf=\"this.temPromotions.length > 0\" style=\"font-size: 12px;\">\r\n    <div class=\"pagination\">{{totalRecords}} Created,</div>\r\n    <div class=\"pagination ml-1\">{{quota}} Quota</div>\r\n    <span fxFlex></span>\r\n    <ng-container>\r\n      <nav aria-label=\"Promotion Page Navigation\" style=\"color: black;\">\r\n        <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n          <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllPromotions(pageNumber-1)\" aria-label=\"Previous\">\r\n              <span aria-hidden=\"true\">&laquo;</span>\r\n              <span class=\"sr-only\">Previous</span>\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllPromotions(page)\">\r\n              {{page}}\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\"  [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllPromotions(pageNumber+1)\" aria-label=\"Next\">\r\n              <span aria-hidden=\"true\">&raquo;</span>\r\n              <span class=\"sr-only\">Next</span>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      </nav>\r\n    </ng-container>\r\n  </mat-toolbar>\r\n  <div *ngIf=\"this.temPromotions.length === 0 && this.promotions.length === 0\" fxLayout=\"row\" fxLayoutAlign=\"center\" style=\"margin-top: 10rem;\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h1 class=\"text-muted\">Create New Promotion</h1>\r\n    </div>\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h2 class=\"text-muted\">Click \"Add\" Button</h2>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"messages-wrap\">\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\">\r\n    <!-- multiple promotions select and control -->\r\n    <mat-checkbox (change)=\"selectToggleAll($event)\" [indeterminate]=\"indeterminateState\" [checked]=\"selectAll\" class=\"inbox-toggle-all mr-1\"><small>All</small></mat-checkbox>\r\n    <button mat-icon-button matTooltip=\"Add Promotion\" (click)=\"promotionPopUp({}, true)\"><mat-icon>add_box</mat-icon></button>\r\n    <button mat-icon-button matTooltip=\"Delete\" *ngIf=\"indeterminateState || selectAll\" (click)=\"deleteSelectedPromotions()\"><mat-icon>delete</mat-icon></button>\r\n    <span fxFlex></span>\r\n    <mat-form-field *ngIf=\"this.temPromotions.length > 0\" style=\"font-size: 15px; width: 30%; margin-top: 10px;\">\r\n      <input matInput placeholder=\"Search\" value=\"\" (keyup)='updateFilter($event)'>\r\n    </mat-form-field>\r\n    <p *ngIf=\"this.temPromotions.length > 0\" class=\"mat-select-lable\"> Page Size: </p>\r\n    <mat-select *ngIf=\"this.temPromotions.length > 0\" class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n      <mat-option *ngFor=\"let item of pageSizeArray\" [value]=\"item\">{{item}}</mat-option>\r\n      <!-- <mat-option [value]=\"20\">20</mat-option> -->\r\n    </mat-select>\r\n  </mat-toolbar>\r\n  <mat-accordion>\r\n    <mat-expansion-panel *ngFor=\"let promoObj of promotions\" expanded=\"false\" hideToggle=\"true\">\r\n      <mat-expansion-panel-header>\r\n        <mat-panel-title>\r\n          <mat-checkbox (change)=\"selectToggleOne($event, promoObj)\" [checked]=\"promoObj.selected\" (click)=\"stopProp($event)\" class=\"mail-checkbox hide-on-open\"></mat-checkbox>\r\n          <span style=\"width: 130px; overflow: hidden;\r\n          white-space: nowrap;\r\n          text-overflow: ellipsis;\" class=\"hide-on-open\">{{ promoObj.name }}</span>\r\n          <div fxFlex=\"1 1 auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\" class=\"show-on-open\">\r\n            <!-- <img [src]=\"promoObj.file\" alt=\"\" class=\"inbox-face mr-1\"> -->\r\n            <div fxLayout=\"column\">\r\n              <span class=\"m-0\">{{ promoObj.name }}</span>\r\n              <small class=\"text-muted m-0\">Start Date : {{promoObj.startDate | date}}, End Date :\r\n                {{promoObj.endDate | date}}</small>\r\n            </div>\r\n          </div>\r\n          <span fxFlex></span>\r\n        </mat-panel-title>\r\n        <mat-panel-description>\r\n          <span class=\"mail-subject text-sm mat-color-default hide-on-open\">\r\n            <mat-chip *ngIf=\"promoObj.status === 'ACTIVE'\" mat-sm-chip color=\"primary\" [selected]=\"true\">Active</mat-chip>\r\n            <mat-chip *ngIf=\"promoObj.status === 'INACTIVE'\" mat-sm-chip color=\"warn\" [selected]=\"true\">Inactive</mat-chip>\r\n          </span>\r\n          <span fxFlex></span>\r\n          <span class=\"text-sm\" fxHide.lt-sm=\"true\">{{promoObj.createdDate | relativeTime}}</span>\r\n          <button mat-icon-button [matMenuTriggerFor]=\"msgMenu\" (click)=\"stopProp($event)\" class=\"hidden-on-open\">\r\n            <mat-icon class=\"text-muted\">more_vert</mat-icon>\r\n          </button>\r\n          <mat-menu #msgMenu=\"matMenu\">\r\n            <button mat-menu-item (click)=\"promotionPopUp(promoObj, false)\">\r\n              <mat-icon>edit</mat-icon> Edit\r\n            </button>\r\n            <button mat-menu-item (click)=\"deletePromotion(promoObj)\">\r\n              <mat-icon>delete</mat-icon> Delete\r\n            </button>\r\n          </mat-menu>\r\n        </mat-panel-description>\r\n      </mat-expansion-panel-header>\r\n      <div fxLayout=\"row\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"40\" class=\"pr-1\">\r\n          <mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n            <img style=\"padding: 10px;\" mat-card-image [src]=\"promoPosterUrl+promoObj.id\" alt=\"promoObj.name\">\r\n          </mat-card>\r\n        </div>\r\n        <div fxFlex=\"60\" class=\"pr-1\">\r\n          <div fxLayout=\"row\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\">\r\n              <mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n                <mat-card-content>\r\n                  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n                    <small class=\"text-muted\">Event Description</small>\r\n                  </div>\r\n                  <p style=\"padding-top: 10px;\" class=\"md-body-1\">{{ promoObj.description }}</p>\r\n                </mat-card-content>\r\n              </mat-card>\r\n            </div>\r\n            <div fxFlex=\"100\">\r\n              <div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n                <div fxFlex=\"30\">\r\n                  <mat-card>\r\n                    <mat-card-title fxLayoutAlign=\"start center\">\r\n                      <small class=\"text-muted\">Start Date & Time</small>\r\n                      <span fxFlex></span>\r\n                      <mat-icon color=\"primary\">play_arrow</mat-icon>\r\n                    </mat-card-title>\r\n                    <mat-card-content>\r\n                      <h6 class=\"m-0 font-normal\">{{ promoObj.startDate | date:'MMM d, y, h:mm a'}}</h6>\r\n                    </mat-card-content>\r\n                  </mat-card>\r\n                </div>\r\n                <div fxFlex=\"30\">\r\n                  <mat-card>\r\n                    <mat-card-title fxLayoutAlign=\"start center\">\r\n                      <small class=\"text-muted\">End Date & Time</small>\r\n                      <span fxFlex></span>\r\n                      <mat-icon color=\"warn\">stop</mat-icon>\r\n                    </mat-card-title>\r\n                    <mat-card-content>\r\n                      <h6 class=\"m-0 font-normal\">{{ promoObj.endDate | date:'MMM d, y, h:mm a'}}</h6>\r\n                    </mat-card-content>\r\n                  </mat-card>\r\n                </div>\r\n                <div fxFlex=\"40\">\r\n                  <mat-card>\r\n                    <mat-card-content>\r\n                      <div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n                        <div fxFlex=\"40\" >\r\n                          <small class=\"text-muted discount-mt\">DISCOUNT</small>\r\n                        </div>\r\n                        <div fxFlex=\"60\">\r\n                          <h6 class=\"m-0 discount-font\">{{ promoObj.percentage }} %</h6>\r\n                        </div>\r\n                      </div>\r\n                    </mat-card-content>\r\n                  </mat-card>\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </mat-expansion-panel>\r\n  </mat-accordion>\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\" *ngIf=\"this.temPromotions.length > 0\" style=\"font-size: 12px;\">\r\n    <div class=\"pagination\">{{totalRecords}} Created,</div>\r\n    <div class=\"pagination ml-1\">{{quota}} Quota</div>\r\n    <span fxFlex></span>\r\n    <ng-container>\r\n      <nav aria-label=\"Promotion Page Navigation\" style=\"color: black;\">\r\n        <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n          <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllPromotions(pageNumber-1)\" aria-label=\"Previous\">\r\n              <span aria-hidden=\"true\">&laquo;</span>\r\n              <span class=\"sr-only\">Previous</span>\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllPromotions(page)\">\r\n              {{page}}\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\"  [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllPromotions(pageNumber+1)\" aria-label=\"Next\">\r\n              <span aria-hidden=\"true\">&raquo;</span>\r\n              <span class=\"sr-only\">Next</span>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      </nav>\r\n    </ng-container>\r\n  </mat-toolbar>\r\n  <div *ngIf=\"this.temPromotions.length === 0 && this.promotions.length === 0\" fxLayout=\"row\" fxLayoutAlign=\"center\" style=\"margin-top: 10rem;\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h1 class=\"text-muted\">Create New Promotion</h1>\r\n    </div>\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h2 class=\"text-muted\">Click \"Add\" Button</h2>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -15551,16 +15821,18 @@ var UserPromotionComponent = /** @class */ (function () {
         this.pageSizeArray = [];
         this.quota = 0;
         this.quotaExpire = false;
+        this.promoPosterUrl = this.comunityService.getPosterDownloadUrl("promo");
     }
     UserPromotionComponent.prototype.ngOnInit = function () {
         var _this = this;
         var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__["authProperties"].storage_name));
         this.activeRoute.queryParams.subscribe(function (params) {
-            _this.comunityId = params['id'];
-            _this.comunityName = params['name'];
+            _this.comunityId = params["id"];
+            _this.comunityName = params["name"];
         });
         this.fetchAllPromotions(this.pageNumber, true);
-        this.comunityService.licenseExpireState(userObj.userData.client.id, 'promos')
+        this.comunityService
+            .licenseExpireState(userObj.userData.client.id, "promos")
             .subscribe(function (response) {
             var tempRes = response;
             _this.quotaExpire = tempRes.content.expired;
@@ -15568,37 +15840,37 @@ var UserPromotionComponent = /** @class */ (function () {
         });
     };
     /*
-    * Expantion pannel prevent expantion
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Expantion pannel prevent expantion
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.stopProp = function (event) {
         event.stopPropagation();
     };
     /*
-    * Promotion Create and Update popup window
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Promotion Create and Update popup window
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.promotionPopUp = function (data, isNew) {
         var _this = this;
         if (data === void 0) { data = {}; }
         if (this.quotaExpire && isNew) {
             var infoData = {
-                title: 'License',
-                message: 'You subscribed number of promotions have expired!</br>' +
+                title: "License",
+                message: "You subscribed number of promotions have expired!</br>" +
                     '<small class="text-muted">Do you like to extend the plan?</small>',
                 linkData: {
-                    url: 'https://www.google.com/gmail/',
-                    buttonText: 'Extend'
+                    url: "https://www.google.com/gmail/",
+                    buttonText: "Extend"
                 }
             };
             this.appInfoService.showInfo(infoData);
         }
         else {
-            var title = isNew ? 'Create New Promotion' : 'Update Promotion';
+            var title = isNew ? "Create New Promotion" : "Update Promotion";
             var dialogRef = this.dialog.open(_create_promotion_popup_create_promotion_popup_component__WEBPACK_IMPORTED_MODULE_4__["CreatePromotionPopupComponent"], {
-                width: '720px',
+                width: "720px",
                 disableClose: true,
                 data: { title: title, payload: data, isNew: isNew }
             });
@@ -15611,12 +15883,13 @@ var UserPromotionComponent = /** @class */ (function () {
                     var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__["authProperties"].storage_name));
                     if (userObj) {
                         if (isNew) {
-                            res['community'] = {
+                            res["community"] = {
                                 id: _this.comunityId
                             };
                             var clientId = userObj.userData.client.id;
                             res.status = _this.getPromotionStatus(res.status);
-                            _this.comunityService.licenseExpireState(clientId, 'promos')
+                            _this.comunityService
+                                .licenseExpireState(clientId, "promos")
                                 .subscribe(function (response) {
                                 var tempRes = response;
                                 _this.quotaExpire = tempRes.content.expired;
@@ -15628,16 +15901,17 @@ var UserPromotionComponent = /** @class */ (function () {
                             // this.createPromotion(res);
                         }
                         else {
-                            res['lastModifiedUserId'] = userObj.id;
+                            res["lastModifiedUserId"] = userObj.id;
                             res.status = _this.getPromotionStatus(res.status);
-                            _this.userPromotionService.updatePromotionById(data.id, res)
+                            _this.userPromotionService
+                                .updatePromotionById(data.id, res)
                                 .subscribe(function (response) {
                                 var temData = response;
                                 var i = _this.promotions.indexOf(data);
                                 _this.promotions[i] = temData.content;
                                 _this.temPromotions = _this.promotions;
                                 _this.loader.close();
-                                _this.snack.open('Promotion Updated', 'close', {
+                                _this.snack.open("Promotion Updated", "close", {
                                     duration: 2000
                                 });
                             }, function (error) {
@@ -15654,8 +15928,7 @@ var UserPromotionComponent = /** @class */ (function () {
     };
     UserPromotionComponent.prototype.createPromotion = function (res, usage, tempQuoata) {
         var _this = this;
-        this.userPromotionService.createPromotion(res)
-            .subscribe(function (response) {
+        this.userPromotionService.createPromotion(res).subscribe(function (response) {
             var temData = response;
             if (_this.promotions.length === _this.pageSize) {
                 _this.appendNewlyCreatedPromotion(temData.content);
@@ -15670,25 +15943,25 @@ var UserPromotionComponent = /** @class */ (function () {
                 _this.quotaExpire = true;
             }
             // this.fetchAllPromotions(this.pageNumber);
-            if (usage < (tempQuoata - 1) && (tempQuoata - usage) === 2) {
+            if (usage < tempQuoata - 1 && tempQuoata - usage === 2) {
                 _this.appWarningService.showWarning({
-                    title: 'License',
-                    message: 'Your subscription plan is about to expire!</br>One more promotion remaining!'
+                    title: "License",
+                    message: "Your subscription plan is about to expire!</br>One more promotion remaining!"
                 });
             }
-            else if (usage < tempQuoata && (tempQuoata - usage) === 1) {
+            else if (usage < tempQuoata && tempQuoata - usage === 1) {
                 var infoData = {
-                    title: 'License',
-                    message: 'You subscribed number of promotions have expired!</br>' +
+                    title: "License",
+                    message: "You subscribed number of promotions have expired!</br>" +
                         '<small class="text-muted">Do you like to extend the plan?</small>',
                     linkData: {
-                        url: 'https://www.google.com/gmail/',
-                        buttonText: 'Extend'
+                        url: "https://www.google.com/gmail/",
+                        buttonText: "Extend"
                     }
                 };
                 _this.appInfoService.showInfo(infoData);
             } // else {
-            _this.snack.open('New Promotion Created', 'close', {
+            _this.snack.open("New Promotion Created", "close", {
                 duration: 2000
             });
             // }
@@ -15700,10 +15973,10 @@ var UserPromotionComponent = /** @class */ (function () {
         });
     };
     /*
-    * Set Selected status in one promotion
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Set Selected status in one promotion
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.selectToggleOne = function (event, data) {
         var i = this.promotions.indexOf(data);
         if (event.checked) {
@@ -15716,10 +15989,10 @@ var UserPromotionComponent = /** @class */ (function () {
         this.checkAllSelectedState();
     };
     /*
-    * Set selectd status of all promotions
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Set selectd status of all promotions
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.checkAllSelectedState = function () {
         var numOfSelectedEvent = 0;
         this.promotions.forEach(function (data) {
@@ -15742,10 +16015,10 @@ var UserPromotionComponent = /** @class */ (function () {
         }
     };
     /*
-    * Select toggle promotions status
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Select toggle promotions status
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.selectToggleAll = function (event) {
         if (event.checked) {
             this.promotions.forEach(function (data) {
@@ -15763,15 +16036,15 @@ var UserPromotionComponent = /** @class */ (function () {
         }
     };
     /*
-    * Delete selected events
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Delete selected events
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.deleteSelectedPromotions = function () {
         var _this = this;
         var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__["authProperties"].storage_name));
         this.confirmService
-            .confirm({ message: 'Do You want to Delete Selected Promotions?' })
+            .confirm({ message: "Do You want to Delete Selected Promotions?" })
             .subscribe(function (res) {
             if (res) {
                 _this.loader.open();
@@ -15780,19 +16053,19 @@ var UserPromotionComponent = /** @class */ (function () {
                     promos: selectedEvents
                 };
                 var tempPN_1 = _this.setPageNumber(selectedEvents.length);
-                _this.userPromotionService.deletePromotionList(idArray)
-                    .subscribe(function (response) {
+                _this.userPromotionService.deletePromotionList(idArray).subscribe(function (response) {
                     _this.loader.close();
                     _this.selectAll = false;
                     _this.indeterminateState = false;
                     _this.fetchAllPromotions(tempPN_1);
-                    _this.comunityService.licenseExpireState(userObj.userData.client.id, 'promos')
+                    _this.comunityService
+                        .licenseExpireState(userObj.userData.client.id, "promos")
                         .subscribe(function (resData) {
                         var tempRes = resData;
                         _this.quotaExpire = tempRes.content.expired;
                         _this.quota = tempRes.content.quota;
                     });
-                    _this.snack.open('Selected Promotions Deleted', 'close', {
+                    _this.snack.open("Selected Promotions Deleted", "close", {
                         duration: 2000
                     });
                 }, function (error) {
@@ -15805,10 +16078,10 @@ var UserPromotionComponent = /** @class */ (function () {
         });
     };
     /*
-    * Delete one promotion
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Delete one promotion
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.deletePromotion = function (data) {
         var _this = this;
         var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__["authProperties"].storage_name));
@@ -15818,9 +16091,9 @@ var UserPromotionComponent = /** @class */ (function () {
             if (res) {
                 _this.loader.open();
                 var tempPN_2 = _this.setPageNumber(1);
-                _this.userPromotionService.deletePromotionById(data.id)
-                    .subscribe(function (response) {
-                    _this.comunityService.licenseExpireState(userObj.userData.client.id, 'promos')
+                _this.userPromotionService.deletePromotionById(data.id).subscribe(function (response) {
+                    _this.comunityService
+                        .licenseExpireState(userObj.userData.client.id, "promos")
                         .subscribe(function (resData) {
                         var tempRes = resData;
                         _this.quotaExpire = tempRes.content.expired;
@@ -15828,7 +16101,7 @@ var UserPromotionComponent = /** @class */ (function () {
                     });
                     _this.fetchAllPromotions(tempPN_2);
                     _this.loader.close();
-                    _this.snack.open(data.name + " Deleted", 'close', {
+                    _this.snack.open(data.name + " Deleted", "close", {
                         duration: 2000
                     });
                 }, function (error) {
@@ -15841,10 +16114,10 @@ var UserPromotionComponent = /** @class */ (function () {
         });
     };
     /*
-    * Return all selected promotions id list
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Return all selected promotions id list
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.getSelectedPromotions = function () {
         var selectedEvents = [];
         this.promotions.forEach(function (data) {
@@ -15855,15 +16128,17 @@ var UserPromotionComponent = /** @class */ (function () {
         return selectedEvents;
     };
     /*
-    * Search all events with pagination
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Search all events with pagination
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.fetchAllPromotions = function (pageNumber, firstTime) {
         var _this = this;
         if (firstTime === void 0) { firstTime = false; }
-        if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
-            this.userPromotionService.fetchAllPromotions(this.comunityId, pageNumber, this.pageSize)
+        if (pageNumber === 1 ||
+            (0 < pageNumber && pageNumber <= this.totalPages.length)) {
+            this.userPromotionService
+                .fetchAllPromotions(this.comunityId, pageNumber, this.pageSize)
                 .subscribe(function (response) {
                 var resData = response;
                 _this.promotions = _this.temPromotions = resData.content;
@@ -15875,10 +16150,10 @@ var UserPromotionComponent = /** @class */ (function () {
         }
     };
     /*
-    * Search Promotions in viewed promotion list
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Search Promotions in viewed promotion list
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.updateFilter = function (event) {
         var val = event.target.value.toLowerCase();
         var columns = Object.keys(this.temPromotions[0]);
@@ -15889,7 +16164,11 @@ var UserPromotionComponent = /** @class */ (function () {
         var rows = this.temPromotions.filter(function (data) {
             for (var i = 0; i <= columns.length; i++) {
                 var col = columns[i];
-                if (data[col] && data[col].toString().toLowerCase().indexOf(val) > -1) {
+                if (data[col] &&
+                    data[col]
+                        .toString()
+                        .toLowerCase()
+                        .indexOf(val) > -1) {
                     return true;
                 }
             }
@@ -15897,19 +16176,19 @@ var UserPromotionComponent = /** @class */ (function () {
         this.promotions = rows;
     };
     /*
-    * Page size change and update promotion list according to the page size
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Page size change and update promotion list according to the page size
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.changeValue = function () {
         this.pageNumber = 1;
         this.fetchAllPromotions(this.pageNumber);
     };
     /*
-    * Create pagination page size element array
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Create pagination page size element array
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.createPaginationPageSizeArray = function () {
         var totalRec = this.totalRecords;
         var tempArray = [];
@@ -15929,10 +16208,10 @@ var UserPromotionComponent = /** @class */ (function () {
         this.pageSizeArray = tempArray;
     };
     /*
-    * Append newly created promotion to the promotion array
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Append newly created promotion to the promotion array
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.appendNewlyCreatedPromotion = function (promotion) {
         var tempArray = [];
         for (var i = 1; i <= this.promotions.length; i++) {
@@ -15948,10 +16227,10 @@ var UserPromotionComponent = /** @class */ (function () {
         this.createPageNavigationBar();
     };
     /*
-    * Create pagination bottom navigation bar
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Create pagination bottom navigation bar
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.createPageNavigationBar = function () {
         var devider = this.totalRecords / this.pageSize;
         var numOfPage = Math.ceil(devider);
@@ -15967,10 +16246,10 @@ var UserPromotionComponent = /** @class */ (function () {
         }
     };
     /*
-    * Set page number according to the total records
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Set page number according to the total records
+     * 06-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.setPageNumber = function (numOfPromo) {
         var tempTR = this.totalRecords - numOfPromo;
         var devider = tempTR / this.pageSize;
@@ -15982,21 +16261,21 @@ var UserPromotionComponent = /** @class */ (function () {
         }
     };
     /*
-    * Convert boolean event status to string status
-    * 07-03-2019
-    * Prasad Kumara
-    */
+     * Convert boolean event status to string status
+     * 07-03-2019
+     * Prasad Kumara
+     */
     UserPromotionComponent.prototype.getPromotionStatus = function (eventStatus) {
         if (eventStatus) {
-            return 'ACTIVE';
+            return "ACTIVE";
         }
         else {
-            return 'INACTIVE';
+            return "INACTIVE";
         }
     };
     UserPromotionComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-user-promotion',
+            selector: "app-user-promotion",
             template: __webpack_require__(/*! ./user-promotion.component.html */ "./src/app/views/community/user-community/user-promotion/user-promotion.component.html"),
             animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"]
         }),
@@ -16051,6 +16330,8 @@ var UserPromotionService = /** @class */ (function () {
     function UserPromotionService(http) {
         this.http = http;
         this.userApiUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_1__["environment"].userApiUrl;
+        //edited by kushan
+        this.imageUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_1__["environment"].userApiUrl + 'downloads/promo/';
     }
     /*
     * Create Promotion

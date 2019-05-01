@@ -36,6 +36,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
 /* harmony import */ var _client_client_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../client/client.service */ "./src/app/views/client/client.service.ts");
 /* harmony import */ var app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! app/shared/services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
+/* harmony import */ var _shared_services_survey_future_survey_operational_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../shared/services/survey/future-survey-operational.service */ "./src/app/shared/services/survey/future-survey-operational.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -90,8 +91,9 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
+
 var InviteeInteractionViewComponent = /** @class */ (function () {
-    function InviteeInteractionViewComponent(inviteeInteractionViewService, clientService, fb, errDialog, activeRoute, route, translateService, loader) {
+    function InviteeInteractionViewComponent(inviteeInteractionViewService, clientService, fb, errDialog, activeRoute, route, translateService, loader, fsOperationalService) {
         var _this = this;
         this.inviteeInteractionViewService = inviteeInteractionViewService;
         this.clientService = clientService;
@@ -101,6 +103,7 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         this.route = route;
         this.translateService = translateService;
         this.loader = loader;
+        this.fsOperationalService = fsOperationalService;
         this.showLogin = false;
         this.loginError = false;
         this.newErrorMsg = false;
@@ -344,6 +347,7 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
     };
     InviteeInteractionViewComponent.prototype.viewSurvey = function () {
         var _this = this;
+        this.fsOperationalService.optionUnselect(survey_angular__WEBPACK_IMPORTED_MODULE_3__);
         this.jsonContentJSON = JSON.parse(this.jsonContent);
         console.log("-------------  Before - jsonContentJSON.pages -----------------");
         console.log(this.jsonContentJSON.pages);
@@ -687,7 +691,8 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
             _angular_router__WEBPACK_IMPORTED_MODULE_6__["ActivatedRoute"],
             _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_7__["TranslateService"],
-            app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_9__["AppLoaderService"]])
+            app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_9__["AppLoaderService"],
+            _shared_services_survey_future_survey_operational_service__WEBPACK_IMPORTED_MODULE_10__["FutureSurveyOperationalService"]])
     ], InviteeInteractionViewComponent);
     return InviteeInteractionViewComponent;
 }());
@@ -779,6 +784,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ngx-translate/http-loader */ "./node_modules/@ngx-translate/http-loader/esm5/ngx-translate-http-loader.js");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/esm5/ngx-translate-core.js");
 /* harmony import */ var _client_client_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../client/client.service */ "./src/app/views/client/client.service.ts");
+/* harmony import */ var _shared_services_survey_future_survey_operational_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../shared/services/survey/future-survey-operational.service */ "./src/app/shared/services/survey/future-survey-operational.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -788,6 +794,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -833,7 +840,7 @@ var InviteeInteractionViewModule = /** @class */ (function () {
                 }),
                 _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"].forChild(_invitee_interaction_view_routing__WEBPACK_IMPORTED_MODULE_4__["InviteeInteractionViewRoute"])
             ],
-            providers: [_invitee_interaction_view_service__WEBPACK_IMPORTED_MODULE_6__["InviteeInteractionViewService"], _future_survey_future_survey_service__WEBPACK_IMPORTED_MODULE_7__["FutureSurveyService"], _client_client_service__WEBPACK_IMPORTED_MODULE_12__["ClientService"]]
+            providers: [_invitee_interaction_view_service__WEBPACK_IMPORTED_MODULE_6__["InviteeInteractionViewService"], _future_survey_future_survey_service__WEBPACK_IMPORTED_MODULE_7__["FutureSurveyService"], _client_client_service__WEBPACK_IMPORTED_MODULE_12__["ClientService"], _shared_services_survey_future_survey_operational_service__WEBPACK_IMPORTED_MODULE_13__["FutureSurveyOperationalService"]]
         }),
         __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injector"]])
     ], InviteeInteractionViewModule);

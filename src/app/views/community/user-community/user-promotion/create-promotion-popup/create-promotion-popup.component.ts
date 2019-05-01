@@ -245,7 +245,7 @@ export class CreatePromotionPopupComponent implements OnInit {
               'close',
               { duration: 3000 }
             );
-            this.promotionForm.controls['poster'].setErrors({ 'incorrect': true });
+            this.promotionForm.controls['promoPoster'].setErrors({ 'incorrect': true });
             return;
           }
         }

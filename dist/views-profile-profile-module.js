@@ -15385,7 +15385,7 @@ __export(__webpack_require__(/*! ./index */ "./node_modules/ng2-file-upload/inde
 /*!********************************************!*\
   !*** ./src/app/model/ClientModel.model.ts ***!
   \********************************************/
-/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, UserUpdateReq, UserCategoryUpdateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
+/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, UserUpdateReq, UserCategoryUpdateReq, UserCommunityUpdateRequest, ClientCategoryUpdateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15399,6 +15399,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCreateReq", function() { return UserCreateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserUpdateReq", function() { return UserUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCategoryUpdateReq", function() { return UserCategoryUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCommunityUpdateRequest", function() { return UserCommunityUpdateRequest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientCategoryUpdateReq", function() { return ClientCategoryUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientData", function() { return ClientData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LicenseUpdateReq", function() { return LicenseUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleData", function() { return RoleData; });
@@ -15492,13 +15494,32 @@ var UserUpdateReq = /** @class */ (function () {
 }());
 
 var UserCategoryUpdateReq = /** @class */ (function () {
-    function UserCategoryUpdateReq(accountName, email, role, categories) {
-        this.accountName = accountName;
-        this.email = email;
-        this.role = role;
+    function UserCategoryUpdateReq(categories) {
         this.categories = categories;
     }
     return UserCategoryUpdateReq;
+}());
+
+var UserCommunityUpdateRequest = /** @class */ (function () {
+    function UserCommunityUpdateRequest(communities) {
+        this.communities = communities;
+    }
+    return UserCommunityUpdateRequest;
+}());
+
+// export class UserCategoryUpdateReq {
+//   constructor(
+//     public accountName: string,
+//     public email: string,
+//     public role: RoleData,
+//     public categories: CategoryData[]
+//   ) { }
+// }
+var ClientCategoryUpdateReq = /** @class */ (function () {
+    function ClientCategoryUpdateReq(categories) {
+        this.categories = categories;
+    }
+    return ClientCategoryUpdateReq;
 }());
 
 var ClientData = /** @class */ (function () {
@@ -15893,7 +15914,7 @@ var ProfileBlankComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <mat-card class=\"p-0\">\r\n  <form [formGroup]=\"licenseFormGroup\" (ngSubmit)=\"submitLicense()\" id=\"client-update\">\r\n    <mat-card-title>\r\n      <div class=\"card-title-text\">Update License</div>\r\n      <mat-divider></mat-divider>\r\n\r\n    </mat-card-title>\r\n    <mat-card-content class=\"mat-typography mt-2\">\r\n\r\n\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\" mt-1\">\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"tagCount\" placeholder=\"Tag Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['tagCount']\">\r\n          </mat-form-field>\r\n          <span *ngIf=\"licenseFormGroup.controls['tagCount'].hasError('max')\" class=\"form-error-msg\">\r\n            {{this.license.tagCount}} max ! </span>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"userCount\" placeholder=\"User Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['userCount']\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"communityCount\" placeholder=\"Community Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['communityCount']\" (blur)=\"validateLicense()\"\r\n              (focus)='setOldValue()'>\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"feedbackCount\" placeholder=\"Feedback Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['feedbackCount']\" (blur)=\"setDefaultValue('feedbackCount')\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"eventkCount\" placeholder=\"Event Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['eventCount']\" (blur)=\"setDefaultValue('eventCount')\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"promoCount\" placeholder=\"Promo Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['promoCount']\" (blur)=\"setDefaultValue('promoCount')\">\r\n          </mat-form-field>\r\n        </div>\r\n      </div>\r\n\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"licenseFormGroup.invalid\"\r\n            (click)=\"submit()\">Save</button>\r\n        </div>\r\n      </div>\r\n\r\n    </mat-card-content>\r\n\r\n    <mat-card-footer>\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"licenseFormGroup.invalid\">Save</button>\r\n          <span fxFlex></span>\r\n          <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n        </div>\r\n      </div>\r\n    </mat-card-footer>\r\n\r\n  </form>\r\n</mat-card> -->\r\n\r\n\r\n\r\n\r\n<mat-card class=\"p-0\">\r\n  <mat-tab-group>\r\n\r\n\r\n\r\n\r\n    <mat-tab label=\"Update License\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <!-- *ngIf=\"user | async; else loading\" -->\r\n        <form [formGroup]=\"licenseFormGroup\"  (ngSubmit)=\"submitLicense()\" class=\"\">\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\" mt-1\">\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"tagCount\" placeholder=\"Tag Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['tagCount']\">\r\n              </mat-form-field>\r\n              <span *ngIf=\"licenseFormGroup.controls['tagCount'].hasError('max')\" class=\"form-error-msg\">\r\n                {{this.license.tagCount}} max ! </span>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"userCount\" placeholder=\"User Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['userCount']\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"communityCount\" placeholder=\"Community Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['communityCount']\" (blur)=\"validateLicense()\"\r\n                  (focus)='setOldValue()'>\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"feedbackCount\" placeholder=\"Feedback Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['feedbackCount']\" (blur)=\"setDefaultValue('feedbackCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"eventkCount\" placeholder=\"Event Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['eventCount']\" (blur)=\"setDefaultValue('eventCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"promoCount\" placeholder=\"Promo Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['promoCount']\" (blur)=\"setDefaultValue('promoCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n          </div>\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"mt-1\">\r\n              <button mat-raised-button color=\"primary\" [disabled]=\"licenseFormGroup.invalid\"\r\n                (click)=\"submit()\">Save</button>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n\r\n    <mat-tab label=\"Category\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form [formGroup]=\"categoryFormGroup\">\r\n          <ng-template matStepLabel>Category</ng-template>\r\n\r\n          <mat-form-field class=\"matAutocomplete-chip-list\">\r\n            <mat-chip-list #chipList>\r\n              <mat-chip *ngFor=\"let category of categories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n                (removed)=\"remove(category)\">\r\n                {{category}}\r\n                <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n              </mat-chip>\r\n\r\n              <input placeholder=\"Select category...\" #categoryInput (focus)='loadCategoryDD()'\r\n                [formControl]=\"categoryFormGroup.controls['category']\" cont [matAutocomplete]=\"autoCategory\"\r\n                [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\"\r\n                (matChipInputTokenEnd)=\"add($event)\" [matChipInputAddOnBlur]=\"addOnBlur\"\r\n                [required]=\"categoryFormStatus\">\r\n            </mat-chip-list>\r\n            <mat-autocomplete #autoCategory=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n              <mat-option *ngFor=\"let category of filteredCategories | async; let i = index\"\r\n                [value]=\"categoriesObj[i].id\">\r\n                {{category}}\r\n              </mat-option>\r\n            </mat-autocomplete>\r\n          </mat-form-field>\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"mt-1\">\r\n              <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n              <button mat-raised-button color=\"primary\" matStepperNext [disabled]='categoryFormStatus'>Next</button>\r\n              <span fxFlex></span>\r\n              <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n\r\n\r\n\r\n\r\n  </mat-tab-group>\r\n</mat-card>"
+module.exports = "<!-- <mat-card class=\"p-0\">\r\n  <form [formGroup]=\"licenseFormGroup\" (ngSubmit)=\"submitLicense()\" id=\"client-update\">\r\n    <mat-card-title>\r\n      <div class=\"card-title-text\">Update License</div>\r\n      <mat-divider></mat-divider>\r\n\r\n    </mat-card-title>\r\n    <mat-card-content class=\"mat-typography mt-2\">\r\n\r\n\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\" mt-1\">\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"tagCount\" placeholder=\"Tag Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['tagCount']\">\r\n          </mat-form-field>\r\n          <span *ngIf=\"licenseFormGroup.controls['tagCount'].hasError('max')\" class=\"form-error-msg\">\r\n            {{this.license.tagCount}} max ! </span>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"userCount\" placeholder=\"User Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['userCount']\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"communityCount\" placeholder=\"Community Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['communityCount']\" (blur)=\"validateLicense()\"\r\n              (focus)='setOldValue()'>\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"feedbackCount\" placeholder=\"Feedback Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['feedbackCount']\" (blur)=\"setDefaultValue('feedbackCount')\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"eventkCount\" placeholder=\"Event Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['eventCount']\" (blur)=\"setDefaultValue('eventCount')\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"promoCount\" placeholder=\"Promo Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['promoCount']\" (blur)=\"setDefaultValue('promoCount')\">\r\n          </mat-form-field>\r\n        </div>\r\n      </div>\r\n\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"licenseFormGroup.invalid\"\r\n            (click)=\"submit()\">Save</button>\r\n        </div>\r\n      </div>\r\n\r\n    </mat-card-content>\r\n\r\n    <mat-card-footer>\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"licenseFormGroup.invalid\">Save</button>\r\n          <span fxFlex></span>\r\n          <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n        </div>\r\n      </div>\r\n    </mat-card-footer>\r\n\r\n  </form>\r\n</mat-card> -->\r\n\r\n\r\n\r\n\r\n<mat-card class=\"p-0\">\r\n  <mat-tab-group>\r\n\r\n\r\n\r\n\r\n    <mat-tab label=\"Update License\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <!-- *ngIf=\"user | async; else loading\" -->\r\n        <form [formGroup]=\"licenseFormGroup\"  (ngSubmit)=\"submitLicense()\" class=\"\">\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\" mt-1\">\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"tagCount\" placeholder=\"Tag Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['tagCount']\">\r\n              </mat-form-field>\r\n              <span *ngIf=\"licenseFormGroup.controls['tagCount'].hasError('max')\" class=\"form-error-msg\">\r\n                {{this.license.tagCount}} max ! </span>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"userCount\" placeholder=\"User Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['userCount']\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"communityCount\" placeholder=\"Community Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['communityCount']\" (blur)=\"validateLicense()\"\r\n                  (focus)='setOldValue()'>\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"feedbackCount\" placeholder=\"Feedback Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['feedbackCount']\" (blur)=\"setDefaultValue('feedbackCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"eventkCount\" placeholder=\"Event Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['eventCount']\" (blur)=\"setDefaultValue('eventCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"promoCount\" placeholder=\"Promo Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['promoCount']\" (blur)=\"setDefaultValue('promoCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n          </div>\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"mt-1\">\r\n              <button mat-raised-button color=\"primary\" [disabled]=\"licenseFormGroup.invalid\" (click)=\"updateLicense()\">Save</button>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n\r\n    <mat-tab label=\"Category\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form [formGroup]=\"categoryFormGroup\">\r\n          <ng-template matStepLabel>Category</ng-template>\r\n\r\n          <mat-form-field class=\"matAutocomplete-chip-list\">\r\n\r\n            <mat-chip-list #chipList>\r\n              <mat-chip *ngFor=\"let category of selectedCategories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n                (removed)=\"remove(category)\">\r\n                {{category.name}}\r\n                <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n              </mat-chip>\r\n              <input matInput placeholder=\"Select category...\" #categoryInput [formControl]=\"categoryCtrl\" [matAutocomplete]=\"auto\"\r\n                [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\"\r\n                (matChipInputTokenEnd)=\"add($event)\" [matChipInputAddOnBlur]=\"addOnBlur\" aria-label=\"Category\">\r\n            </mat-chip-list>    \r\n        \r\n            <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n              <mat-option *ngFor=\"let category of filteredCategories | async\" [value]=\"category.id\">\r\n                <span>{{category.name}}</span>\r\n              </mat-option>\r\n            </mat-autocomplete>\r\n        \r\n          </mat-form-field>\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"mt-1\">\r\n              <button mat-raised-button color=\"primary\" matStepperNext [disabled]='categoryFormStatus' (click)=\"updateCategory()\">Save</button>\r\n              <span fxFlex></span>\r\n              <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n\r\n\r\n\r\n\r\n  </mat-tab-group>\r\n</mat-card>"
 
 /***/ }),
 
@@ -15945,23 +15966,22 @@ var ProfileLicenseComponent = /** @class */ (function () {
         this.snack = snack;
         this.formStatus = false;
         this.oldestValue = 0;
-        this.visible = true;
         this.selectable = true;
         this.removable = true;
         this.addOnBlur = true;
         this.separatorKeysCodes = [_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__["ENTER"], _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_8__["COMMA"]];
         this.categoryCtrl = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"]();
-        this.categories = [];
-        this.categoriesValue = [];
         this.allCategories = [];
-        this.categoryFormStatus = true;
-        this.filteredCategories = this.categoryCtrl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(function (category) { return category ? _this._filterCategory(category) : _this.allCategories.slice(); }));
+        this.selectedCategories = [];
+        this.filteredCategories = this.categoryCtrl.valueChanges
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(function (category) { return category ? _this._filterCategories(category) : _this.allCategories.slice(); }));
     }
     ProfileLicenseComponent.prototype.ngOnInit = function () {
         var currentuser = JSON.parse(localStorage.getItem('currentUser'));
-        this.clientId = currentuser.userData.id;
+        this.clientId = currentuser.userData.client.id;
         this.buildItemForm();
         this.getCategory();
+        this.getClientCategory();
         // this.buildItemForm(this.data.payload.license)
     };
     ProfileLicenseComponent.prototype.buildItemForm = function () {
@@ -15981,17 +16001,17 @@ var ProfileLicenseComponent = /** @class */ (function () {
     ProfileLicenseComponent.prototype.getCategory = function () {
         var _this = this;
         this.profileService.getCategory().subscribe(function (successResp) {
-            var categories = successResp.content;
-            console.log(categories);
-            _this.categoriesObj = successResp.content;
-            _this.categoriesObj.forEach(function (element) {
-                _this.allCategories.push(element.name);
+            _this.allCategories = successResp.content;
+        }, function (error) {
+            _this.errDialog.showError(error);
+        });
+    };
+    ProfileLicenseComponent.prototype.getClientCategory = function () {
+        var _this = this;
+        this.profileService.getClientCategories(this.clientId).subscribe(function (successResp) {
+            successResp.content.forEach(function (element) {
+                _this.addSelectedCategory(element.id);
             });
-            // if (this.data.selectedCategory.length > 0) {
-            //   this.data.selectedCategory.forEach(element => {
-            //     this.addSelectedCategory(element.id)
-            //   });
-            // }
         }, function (error) {
             _this.errDialog.showError(error);
         });
@@ -16000,13 +16020,14 @@ var ProfileLicenseComponent = /** @class */ (function () {
         var _this = this;
         this.getItemSub = this.profileService.getClient(this.clientId).subscribe(function (successResp) {
             _this.license = successResp.content.license;
-            var form = _this.licenseFormGroup;
-            form.controls['tagCount'].setValue(_this.license.tagCount);
-            form.controls['userCount'].setValue(_this.license.userCount);
-            form.controls['communityCount'].setValue(_this.license.communityCount);
-            form.controls['feedbackCount'].setValue(_this.license.feedbackCount);
-            form.controls['eventCount'].setValue(_this.license.eventCount);
-            form.controls['promoCount'].setValue(_this.license.promoCount);
+            _this.licenseFormGroup.patchValue({
+                tagCount: _this.license.tagCount,
+                userCount: _this.license.userCount,
+                communityCount: _this.license.communityCount,
+                feedbackCount: _this.license.feedbackCount,
+                eventCount: _this.license.eventCount,
+                promoCount: _this.license.promoCount
+            });
         }, function (error) {
             _this.errDialog.showError({
                 title: "Error",
@@ -16043,7 +16064,7 @@ var ProfileLicenseComponent = /** @class */ (function () {
             form.controls[control].setValue(1);
         }
     };
-    ProfileLicenseComponent.prototype.submit = function () {
+    ProfileLicenseComponent.prototype.updateLicense = function () {
         var _this = this;
         var form = this.licenseFormGroup;
         var clientData = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_3__["ClientData"](this.clientId);
@@ -16063,9 +16084,26 @@ var ProfileLicenseComponent = /** @class */ (function () {
         });
     };
     //  ----------------------- Categoty Setting --------------------------------------------------------
-    ProfileLicenseComponent.prototype.loadCategoryDD = function () {
+    ProfileLicenseComponent.prototype.updateCategory = function () {
         var _this = this;
-        this.filteredCategories = this.categoryCtrl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(function (category) { return category ? _this._filterCategory(category) : _this.allCategories.slice(); }));
+        console.log('---------------------- Category ', this.selectedCategories);
+        var categories = [];
+        this.selectedCategories.forEach(function (element) {
+            categories.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_3__["CategoryData"](element.id));
+        });
+        var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_3__["ClientCategoryUpdateReq"](categories);
+        this.loader.open();
+        this.profileService.updateClientCategory(this.clientId, req).subscribe(function (response) {
+            _this.loader.close();
+            _this.snack.open("Client Category Updated!", "OK", { duration: 4000 });
+        }, function (error) {
+            _this.loader.close();
+            _this.errDialog.showError({
+                title: "Error",
+                status: error.status,
+                type: "http_error"
+            });
+        });
     };
     ProfileLicenseComponent.prototype.add = function (event) {
         if (!this.matAutocomplete.isOpen) {
@@ -16083,26 +16121,32 @@ var ProfileLicenseComponent = /** @class */ (function () {
             this.categoryCtrl.setValue(null);
         }
     };
-    ProfileLicenseComponent.prototype.remove = function (category) {
-        var index = this.categories.indexOf(category);
-        if (index >= 0) {
-            this.categories.splice(index, 1);
-            this.categoriesValue.splice(index, 1);
-        }
-        if (this.categoriesValue.length === 0) {
-            this.categoryFormStatus = true;
-        }
-    };
     ProfileLicenseComponent.prototype.selected = function (event) {
-        this.categories.push(event.option.viewValue);
-        this.categoriesValue.push(event.option.value);
+        this.addSelectedCategory(event.option.value);
         this.categoryInput.nativeElement.value = '';
         this.categoryCtrl.setValue(null);
-        this.categoryFormStatus = false;
     };
-    ProfileLicenseComponent.prototype._filterCategory = function (value) {
+    ProfileLicenseComponent.prototype.addSelectedCategory = function (id) {
+        var _this = this;
+        this.allCategories.forEach(function (item, index) {
+            if (item.id === id) {
+                _this.selectedCategories.push(item);
+                _this.allCategories.splice(index, 1);
+            }
+        });
+    };
+    ProfileLicenseComponent.prototype.remove = function (category) {
+        var _this = this;
+        this.selectedCategories.forEach(function (item, index) {
+            if (item.id === category.id) {
+                _this.allCategories.push(category);
+                _this.selectedCategories.splice(index, 1);
+            }
+        });
+    };
+    ProfileLicenseComponent.prototype._filterCategories = function (value) {
         var filterValue = value.toLowerCase();
-        return this.allCategories.filter(function (category) { return category.toLowerCase().indexOf(filterValue) === 0; });
+        return this.allCategories.filter(function (category) { return category.name.toLowerCase().indexOf(filterValue) === 0; });
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('categoryInput'),
@@ -16730,18 +16774,26 @@ var ProfileService = /** @class */ (function () {
     ProfileService.prototype.getCountry = function () {
         return this.http.get(this.geoUrl + "/countries").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
+    ProfileService.prototype.getClientProfilePic = function (id) {
+        return this.http.get(this.imgBaseURL + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ProfileService.prototype.getClientCategories = function (id) {
+        return this.http.get(this.clientUrl + "/categories/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
     ProfileService.prototype.updateClientLicense = function (id, item) {
         return this.http
             .put(this.licenseUrl + "/" + id, item)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ProfileService.prototype.updateClientCategory = function (id, item) {
+        return this.http
+            .put(this.clientUrl + "/categories/" + id, item)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
     ProfileService.prototype.updateClientDetails = function (id, item) {
         return this.http
             .put(this.clientUrl + "/" + id, item)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    ProfileService.prototype.getClientProfilePic = function (id) {
-        return this.http.get(this.imgBaseURL + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
     ProfileService.prototype.handleError = function (error) {
         console.log(error);

@@ -1,186 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["views-user-user-module"],{
 
-/***/ "./src/app/model/ClientModel.model.ts":
-/*!********************************************!*\
-  !*** ./src/app/model/ClientModel.model.ts ***!
-  \********************************************/
-/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, UserUpdateReq, UserCategoryUpdateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Content", function() { return Content; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientCreateReq", function() { return ClientCreateReq; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientLicenseData", function() { return ClientLicenseData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientUpdateReq", function() { return ClientUpdateReq; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CountryData", function() { return CountryData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserData", function() { return UserData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCreateReq", function() { return UserCreateReq; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserUpdateReq", function() { return UserUpdateReq; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCategoryUpdateReq", function() { return UserCategoryUpdateReq; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientData", function() { return ClientData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LicenseUpdateReq", function() { return LicenseUpdateReq; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleData", function() { return RoleData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommunityData", function() { return CommunityData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CategoryData", function() { return CategoryData; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LicenseUpdateRequest", function() { return LicenseUpdateRequest; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "profileUpdateReq", function() { return profileUpdateReq; });
-var Content = /** @class */ (function () {
-    function Content(id, name) {
-        this.id = id;
-        this.name = name;
-    }
-    return Content;
-}());
-
-var ClientCreateReq = /** @class */ (function () {
-    function ClientCreateReq(name, description, clientLogo, users, categories, license) {
-        this.name = name;
-        this.description = description;
-        this.clientLogo = clientLogo;
-        this.users = users;
-        this.categories = categories;
-        this.license = license;
-    }
-    return ClientCreateReq;
-}());
-
-var ClientLicenseData = /** @class */ (function () {
-    function ClientLicenseData(tagCount, userCount, communityCount, feedbackCount, eventCount, promoCount) {
-        this.tagCount = tagCount;
-        this.userCount = userCount;
-        this.communityCount = communityCount;
-        this.feedbackCount = feedbackCount;
-        this.eventCount = eventCount;
-        this.promoCount = promoCount;
-    }
-    return ClientLicenseData;
-}());
-
-var ClientUpdateReq = /** @class */ (function () {
-    function ClientUpdateReq(name, description, clientLogo, primaryContactNo, addressLine1, addressLine2, city, state, zipCode, country) {
-        this.name = name;
-        this.description = description;
-        this.clientLogo = clientLogo;
-        this.primaryContactNo = primaryContactNo;
-        this.addressLine1 = addressLine1;
-        this.addressLine2 = addressLine2;
-        this.city = city;
-        this.state = state;
-        this.zipCode = zipCode;
-        this.country = country;
-    }
-    return ClientUpdateReq;
-}());
-
-var CountryData = /** @class */ (function () {
-    function CountryData(id) {
-        this.id = id;
-    }
-    return CountryData;
-}());
-
-var UserData = /** @class */ (function () {
-    function UserData(accountName, email) {
-        this.accountName = accountName;
-        this.email = email;
-    }
-    return UserData;
-}());
-
-var UserCreateReq = /** @class */ (function () {
-    function UserCreateReq(accountName, password, email, role, client, communities, categories) {
-        this.accountName = accountName;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-        this.client = client;
-        this.communities = communities;
-        this.categories = categories;
-    }
-    return UserCreateReq;
-}());
-
-var UserUpdateReq = /** @class */ (function () {
-    function UserUpdateReq(accountName, email, role) {
-        this.accountName = accountName;
-        this.email = email;
-        this.role = role;
-    }
-    return UserUpdateReq;
-}());
-
-var UserCategoryUpdateReq = /** @class */ (function () {
-    function UserCategoryUpdateReq(accountName, email, role, categories) {
-        this.accountName = accountName;
-        this.email = email;
-        this.role = role;
-        this.categories = categories;
-    }
-    return UserCategoryUpdateReq;
-}());
-
-var ClientData = /** @class */ (function () {
-    function ClientData(id) {
-        this.id = id;
-    }
-    return ClientData;
-}());
-
-var LicenseUpdateReq = /** @class */ (function () {
-    function LicenseUpdateReq(tagCount, userCount, communityCount, feedbackCount, eventCount, promoCount, client) {
-        this.tagCount = tagCount;
-        this.userCount = userCount;
-        this.communityCount = communityCount;
-        this.feedbackCount = feedbackCount;
-        this.eventCount = eventCount;
-        this.promoCount = promoCount;
-        this.client = client;
-    }
-    return LicenseUpdateReq;
-}());
-
-var RoleData = /** @class */ (function () {
-    function RoleData(id) {
-        this.id = id;
-    }
-    return RoleData;
-}());
-
-var CommunityData = /** @class */ (function () {
-    function CommunityData(id) {
-        this.id = id;
-    }
-    return CommunityData;
-}());
-
-var CategoryData = /** @class */ (function () {
-    function CategoryData(id) {
-        this.id = id;
-    }
-    return CategoryData;
-}());
-
-var LicenseUpdateRequest = /** @class */ (function () {
-    function LicenseUpdateRequest(id) {
-        this.id = id;
-    }
-    return LicenseUpdateRequest;
-}());
-
-var profileUpdateReq = /** @class */ (function () {
-    function profileUpdateReq(userName, password, email) {
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-    }
-    return profileUpdateReq;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/views/user/roles/role-table-popup/role-table-popup.component.html":
 /*!***********************************************************************************!*\
   !*** ./src/app/views/user/roles/role-table-popup/role-table-popup.component.html ***!
@@ -205,7 +24,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../user.service */ "./src/app/views/user/user.service.ts");
+/* harmony import */ var _client_client_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../client/client.service */ "./src/app/views/client/client.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -223,11 +42,13 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 
 
 var RoleTablePopupComponent = /** @class */ (function () {
-    function RoleTablePopupComponent(data, dialogRef, fb, userService) {
+    function RoleTablePopupComponent(data, dialogRef, fb, 
+    // private userService: UserService,
+    clientService) {
         this.data = data;
         this.dialogRef = dialogRef;
         this.fb = fb;
-        this.userService = userService;
+        this.clientService = clientService;
         //Raveen : need to implement a custom directive for the pattern validation
         //public codeRegex = '/^-?[0-9]+(\.[0-9]*){0,1}$/g';
         this.componentList = [];
@@ -333,7 +154,7 @@ var RoleTablePopupComponent = /** @class */ (function () {
     */
     RoleTablePopupComponent.prototype.getAllAuthorities = function () {
         var _this = this;
-        this.userService.getAllAuthorities()
+        this.clientService.getAllAuthorities()
             .subscribe(function (response) {
             console.log(response);
             _this.createComponentArray(response.content);
@@ -407,7 +228,7 @@ var RoleTablePopupComponent = /** @class */ (function () {
         __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
         __metadata("design:paramtypes", [Object, _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
-            _user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"]])
+            _client_client_service__WEBPACK_IMPORTED_MODULE_3__["ClientService"]])
     ], RoleTablePopupComponent);
     return RoleTablePopupComponent;
 }());
@@ -423,7 +244,7 @@ var RoleTablePopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-title>\r\n    <div class=\"card-title-text\">Roles</div>\r\n    <mat-divider></mat-divider>\r\n\r\n    <div class=\"m-333\">\r\n      <button mat-raised-button class=\"mb-05 ml-05\" color=\"primary\" (click)=\"openPopUp({}, true)\">Add Role</button>\r\n      <span fxFlex></span>\r\n      <p class=\"mat-select-lable\"> Page Size: </p>\r\n      <mat-select class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\">\r\n        <mat-option [value]=\"10\">10</mat-option>\r\n        <mat-option [value]=\"20\">20</mat-option>\r\n      </mat-select>\r\n    </div>\r\n\r\n  </mat-card-title>\r\n  <mat-card-content class=\"p-0\">\r\n\r\n    <ngx-datatable class=\"material ml-0 mr-0\" [rows]=\"items\" [columnMode]=\"'flex'\" [headerHeight]=\"50\"\r\n      [footerHeight]=\"50\" [limit]=\"10\" [rowHeight]=\"'auto'\">\r\n      <ngx-datatable-column name=\"Role Name\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.name }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Role Description\" [flexGrow]=\"2\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.description }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Last Modified Date\" [flexGrow]=\"2\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.lastModifiedDate }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Actions\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <!-- <button mat-icon-button mat-sm-button color=\"primary\" class=\"mr-1\" (click)=\"editRole(row)\">\r\n            <mat-icon>edit</mat-icon>\r\n          </button>\r\n          <button mat-icon-button mat-sm-button color=\"warn\" (click)=\"deleteRole(row)\">\r\n            <mat-icon>delete</mat-icon>\r\n          </button> -->\r\n          <button class=\"card-control\" mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n            <mat-icon>more_vert</mat-icon>\r\n          </button>\r\n          <mat-menu #menu=\"matMenu\">\r\n            <button mat-menu-item (click)=\"editRole(row)\"><mat-icon>edit</mat-icon>Edit</button>\r\n            <button mat-menu-item (click)=\"deleteRole(row)\"><mat-icon>delete</mat-icon>Delete</button>\r\n          </mat-menu>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n    </ngx-datatable>\r\n\r\n\r\n    <!-- <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th class=\"pl-1\">Feedback Topic</th>\r\n          <th>Feedback Type</th>\r\n          <th>Start Date</th>\r\n          <th>End Date</th>\r\n          <th width=\"150px\" class=\"\">Actions</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr *ngFor=\"let row of rows;\">\r\n          <td class=\"pt-1 pb-1 pl-1\">{{row?.topic}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.type =='P' ? 'Product' : 'E Vote'}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.startDate}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.endDate}}</td>\r\n          <td class=\"pt-1 pb-1 pr-1\">\r\n            <div class=\"pb-1\">\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)='navigateSurveyBuilder(row)' color=\"primary\" class=\"\">\r\n                  <mat-icon>view_headline</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)='openSurveyPopup(row,false)' color=\"primary\" class=\"\">\r\n                  <mat-icon>edit</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)=\"deleteSurvey(row)\" color=\"warn\" class=\"\">\r\n                  <mat-icon>delete</mat-icon>\r\n                </button>\r\n              </div>\r\n            </div>\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n      <tfoot>\r\n        <tr>\r\n          <td class=\"pt-1 pb-1 pl-1\">\r\n            <div class=\"pagination\">{{totalRecords}} Total</div>\r\n          </td>\r\n          <td colspan=\"4\">\r\n\r\n            <nav aria-label=\"Page navigation example\">\r\n              <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(pageNumber-1);\" aria-label=\"Previous\">\r\n                    <span aria-hidden=\"true\">&laquo;</span>\r\n                    <span class=\"sr-only\">Previous</span>\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(page);\">\r\n                    {{page}}\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(pageNumber+1);\" aria-label=\"Next\">\r\n                    <span aria-hidden=\"true\">&raquo;</span>\r\n                    <span class=\"sr-only\">Next</span>\r\n                  </a>\r\n                </li>\r\n              </ul>\r\n            </nav>\r\n          </td>\r\n        </tr>\r\n      </tfoot>\r\n    </table> -->\r\n\r\n  </mat-card-content>\r\n</mat-card>\r\n"
+module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-title>\r\n    <div class=\"card-title-text\">Roles</div>\r\n    <mat-divider></mat-divider>\r\n\r\n    <div class=\"m-333\">\r\n      <button mat-raised-button class=\"mb-05 ml-05\" color=\"primary\" (click)=\"openPopUp({}, true)\">Add Role</button>\r\n      <span fxFlex></span>\r\n      <p class=\"mat-select-lable\"> Page Size: </p>\r\n      <mat-select class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\">\r\n        <mat-option [value]=\"10\">10</mat-option>\r\n        <mat-option [value]=\"20\">20</mat-option>\r\n      </mat-select>\r\n    </div>\r\n\r\n  </mat-card-title>\r\n  <mat-card-content class=\"p-0\">\r\n\r\n    <ngx-datatable class=\"material ml-0 mr-0\" [rows]=\"roles\" [columnMode]=\"'flex'\" [headerHeight]=\"50\"\r\n      [footerHeight]=\"50\" [limit]=\"10\" [rowHeight]=\"'auto'\">\r\n      <ngx-datatable-column name=\"Role Name\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.name }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <!-- <ngx-datatable-column name=\"Role Description\" [flexGrow]=\"2\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.description }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Last Modified Date\" [flexGrow]=\"2\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.lastModifiedDate }}\r\n        </ng-template>\r\n      </ngx-datatable-column> -->\r\n\r\n      <ngx-datatable-column name=\"Actions\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <!-- <button mat-icon-button mat-sm-button color=\"primary\" class=\"mr-1\" (click)=\"editRole(row)\">\r\n            <mat-icon>edit</mat-icon>\r\n          </button>\r\n          <button mat-icon-button mat-sm-button color=\"warn\" (click)=\"deleteRole(row)\">\r\n            <mat-icon>delete</mat-icon>\r\n          </button> -->\r\n          <span fxFlex></span>\r\n          <button class=\"card-control\" mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n            <mat-icon>more_vert</mat-icon>\r\n          </button>\r\n          <mat-menu #menu=\"matMenu\">\r\n            <button mat-menu-item (click)=\"editRole(row)\"><mat-icon>edit</mat-icon>Edit</button>\r\n            <button mat-menu-item (click)=\"deleteRole(row)\"><mat-icon>delete</mat-icon>Delete</button>\r\n          </mat-menu>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n    </ngx-datatable>\r\n\r\n\r\n    <!-- <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th class=\"pl-1\">Feedback Topic</th>\r\n          <th>Feedback Type</th>\r\n          <th>Start Date</th>\r\n          <th>End Date</th>\r\n          <th width=\"150px\" class=\"\">Actions</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr *ngFor=\"let row of rows;\">\r\n          <td class=\"pt-1 pb-1 pl-1\">{{row?.topic}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.type =='P' ? 'Product' : 'E Vote'}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.startDate}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.endDate}}</td>\r\n          <td class=\"pt-1 pb-1 pr-1\">\r\n            <div class=\"pb-1\">\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)='navigateSurveyBuilder(row)' color=\"primary\" class=\"\">\r\n                  <mat-icon>view_headline</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)='openSurveyPopup(row,false)' color=\"primary\" class=\"\">\r\n                  <mat-icon>edit</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)=\"deleteSurvey(row)\" color=\"warn\" class=\"\">\r\n                  <mat-icon>delete</mat-icon>\r\n                </button>\r\n              </div>\r\n            </div>\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n      <tfoot>\r\n        <tr>\r\n          <td class=\"pt-1 pb-1 pl-1\">\r\n            <div class=\"pagination\">{{totalRecords}} Total</div>\r\n          </td>\r\n          <td colspan=\"4\">\r\n\r\n            <nav aria-label=\"Page navigation example\">\r\n              <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(pageNumber-1);\" aria-label=\"Previous\">\r\n                    <span aria-hidden=\"true\">&laquo;</span>\r\n                    <span class=\"sr-only\">Previous</span>\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(page);\">\r\n                    {{page}}\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(pageNumber+1);\" aria-label=\"Next\">\r\n                    <span aria-hidden=\"true\">&raquo;</span>\r\n                    <span class=\"sr-only\">Next</span>\r\n                  </a>\r\n                </li>\r\n              </ul>\r\n            </nav>\r\n          </td>\r\n        </tr>\r\n      </tfoot>\r\n    </table> -->\r\n\r\n  </mat-card-content>\r\n</mat-card>\r\n"
 
 /***/ }),
 
@@ -438,14 +259,14 @@ module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50p
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleTableComponent", function() { return RoleTableComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../user.service */ "./src/app/views/user/user.service.ts");
+/* harmony import */ var _client_client_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../client/client.service */ "./src/app/views/client/client.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _shared_services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared/services/app-confirm/app-confirm.service */ "./src/app/shared/services/app-confirm/app-confirm.service.ts");
 /* harmony import */ var _shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../shared/services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
 /* harmony import */ var _role_table_popup_role_table_popup_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./role-table-popup/role-table-popup.component */ "./src/app/views/user/roles/role-table-popup/role-table-popup.component.ts");
 /* harmony import */ var _shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../shared/animations/egret-animations */ "./src/app/shared/animations/egret-animations.ts");
 /* harmony import */ var _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../shared/services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var app_views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/views/sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -465,40 +286,47 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var RoleTableComponent = /** @class */ (function () {
-    function RoleTableComponent(dialog, snack, userService, confirmService, loader, errDialog, router) {
+    function RoleTableComponent(dialog, snack, clientService, confirmService, loader, errDialog, authService) {
         this.dialog = dialog;
         this.snack = snack;
-        this.userService = userService;
+        this.clientService = clientService;
         this.confirmService = confirmService;
         this.loader = loader;
         this.errDialog = errDialog;
-        this.router = router;
+        this.authService = authService;
         this.pageSize = 10;
         this.componentList = [];
     }
     RoleTableComponent.prototype.ngOnInit = function () {
-        this.getItems();
+        var currentUser = this.authService.getLoggedUserDetail();
+        if (currentUser) {
+            this.clientId = currentUser.userData.client.id;
+            this.getClientRoles();
+        }
     };
     RoleTableComponent.prototype.ngOnDestroy = function () {
         if (this.getItemSub) {
             this.getItemSub.unsubscribe();
         }
     };
-    /*
-    * Get All Roles And Create to the Ngx table
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    RoleTableComponent.prototype.getItems = function () {
+    RoleTableComponent.prototype.getClientRoles = function () {
         var _this = this;
-        this.getItemSub = this.userService.getAllUserRoles().subscribe(function (response) {
-            // console.log('-------------- get all roles response--------------');
-            // console.log(response);
-            _this.items = response.content;
+        this.getItemSub = this.clientService.getClient(this.clientId).subscribe(function (successResp) {
+            _this.roles = successResp.content.roles;
         }, function (error) {
             _this.errDialog.showError(error);
         });
     };
+    // getItems() {
+    //   this.getItemSub = this.clientService.getAllUserRoles().subscribe(
+    //     response => {
+    //       this.items = response.content;
+    //     },
+    //     error => {
+    //       this.errDialog.showError(error);
+    //     }
+    //   );
+    // }
     /*
     * Open Create and Update Role popup window
     * Created by Prasad Kumara
@@ -508,11 +336,11 @@ var RoleTableComponent = /** @class */ (function () {
         var _this = this;
         if (data === void 0) { data = {}; }
         var title = isNew ? "Create New User Role" : "Update User Role";
-        data['isNew'] = isNew;
+        data["isNew"] = isNew;
         var dialogRef = this.dialog.open(_role_table_popup_role_table_popup_component__WEBPACK_IMPORTED_MODULE_5__["RoleTablePopupComponent"], {
             width: "900px",
             disableClose: true,
-            data: { title: title, payload: data }
+            data: { title: title, payload: data, clientID: this.clientId }
         });
         dialogRef.afterClosed().subscribe(function (res) {
             if (!res) {
@@ -522,45 +350,47 @@ var RoleTableComponent = /** @class */ (function () {
             _this.loader.open();
             if (isNew) {
                 // console.log('------------ create user role object ---------------');
-                // console.log(res);
-                _this.userService.createNewRole(res).subscribe(function (response) {
+                console.log(res);
+                _this.clientService.createNewRole(res).subscribe(function (response) {
                     // console.log('--------------- create user role response ----------------');
                     // console.log(response);
                     _this.snack.open('User Role Created', 'close', {
                         duration: 2000
                     });
-                    _this.getItems();
+                    _this.getClientRoles();
+                }, function (error) {
+                    _this.errDialog.showError(error);
                 });
             }
             else {
                 // console.log('------------ update user role object ---------------');
-                res['localizedName'] = '';
+                res["localizedName"] = "";
                 // console.log(res);
-                _this.userService.updateRloe(_this.editRoleId, res)
-                    .subscribe(function (response) {
+                _this.clientService.updateRloe(_this.editRoleId, res).subscribe(function (response) {
                     // console.log('--------------- create user role response ----------------');
                     // console.log(response);
-                    _this.snack.open('User Role Updated', 'close', {
+                    _this.snack.open("User Role Updated", "close", {
                         duration: 2000
                     });
-                    _this.getItems();
+                    _this.getClientRoles();
+                }, function (error) {
+                    _this.errDialog.showError(error);
                 });
             }
             _this.loader.close();
         });
     };
     /*
-    * Edit User Role
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
+     * Edit User Role
+     * Created by Prasad Kumara
+     * 14/02/2019
+     */
     RoleTableComponent.prototype.editRole = function (role) {
         var _this = this;
         // console.log('------------- edit role ----------------');
         // console.log(role);
         this.editRoleId = role.id;
-        this.userService.getOneRoleAuthorities(role.id)
-            .subscribe(function (response) {
+        this.clientService.getOneRoleAuthorities(role.id).subscribe(function (response) {
             // console.log(response.content);
             var roleData = {
                 name: response.content.name,
@@ -568,13 +398,15 @@ var RoleTableComponent = /** @class */ (function () {
                 authorities: response.content.authorities
             };
             _this.openPopUp(roleData, false);
+        }, function (error) {
+            _this.errDialog.showError(error);
         });
     };
     /*
-    * Delete User Role
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
+     * Delete User Role
+     * Created by Prasad Kumara
+     * 14/02/2019
+     */
     RoleTableComponent.prototype.deleteRole = function (row) {
         var _this = this;
         this.confirmService
@@ -582,7 +414,7 @@ var RoleTableComponent = /** @class */ (function () {
             .subscribe(function (res) {
             if (res) {
                 // this.loader.open();
-                _this.getItems();
+                _this.getClientRoles();
             }
         });
     };
@@ -594,11 +426,11 @@ var RoleTableComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"],
             _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"],
-            _user_service__WEBPACK_IMPORTED_MODULE_1__["UserService"],
+            _client_client_service__WEBPACK_IMPORTED_MODULE_1__["ClientService"],
             _shared_services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_3__["AppConfirmService"],
             _shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_4__["AppLoaderService"],
             _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_7__["AppErrorService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]])
+            app_views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_8__["AuthenticationService"]])
     ], RoleTableComponent);
     return RoleTableComponent;
 }());
@@ -614,7 +446,7 @@ var RoleTableComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">Category</span>\r\n  </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\">\r\n\r\n  <mat-form-field class=\"matAutocomplete-chip-list\">\r\n    <mat-chip-list #chipList>\r\n      <mat-chip *ngFor=\"let category of categories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n        (removed)=\"remove(category)\">\r\n        {{category}}\r\n        <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n      </mat-chip>\r\n      <input placeholder=\"Select category...\" #categoryInput [formControl]=\"categoryCtrl\" [matAutocomplete]=\"auto\"\r\n        [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\" (matChipInputTokenEnd)=\"add($event)\"\r\n        [matChipInputAddOnBlur]=\"addOnBlur\">\r\n    </mat-chip-list>\r\n    <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n      <mat-option *ngFor=\"let category of filteredCategories | async; let i = index\" [value]=\"categoriesObj[i].id\">\r\n        {{category}}\r\n      </mat-option>\r\n    </mat-autocomplete>\r\n  </mat-form-field>\r\n\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n    <div fxFlex=\"100\" class=\"mt-1\">\r\n      <button mat-raised-button color=\"primary\" (click)=\"submit()\">Save</button>\r\n      <span fxFlex></span>\r\n      <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n    </div>\r\n  </div>\r\n\r\n</mat-dialog-content>"
+module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">Category</span>\r\n  </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\">\r\n\r\n  <mat-form-field class=\"matAutocomplete-chip-list\">\r\n\r\n    <mat-chip-list #chipList>\r\n      <mat-chip *ngFor=\"let category of selectedCategories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n        (removed)=\"remove(category)\">\r\n        {{category.name}}\r\n        <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n      </mat-chip>\r\n      <input matInput placeholder=\"Select category...\" #categoryInput [formControl]=\"categoryCtrl\"\r\n        [matAutocomplete]=\"auto\" [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\"\r\n        (matChipInputTokenEnd)=\"add($event)\" [matChipInputAddOnBlur]=\"addOnBlur\"\r\n        aria-label=\"Category\">\r\n    </mat-chip-list>\r\n\r\n    <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n      <mat-option *ngFor=\"let category of filteredCategories | async\" [value]=\"category.id\">\r\n        <span>{{category.name}}</span>\r\n      </mat-option>\r\n    </mat-autocomplete>\r\n\r\n  </mat-form-field>\r\n\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n    <div fxFlex=\"100\" class=\"mt-1\">\r\n      <button mat-raised-button color=\"primary\" (click)=\"submit()\">Save</button>\r\n      <span fxFlex></span>\r\n      <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n    </div>\r\n  </div>\r\n\r\n</mat-dialog-content>"
 
 /***/ }),
 
@@ -658,31 +490,28 @@ var UserCategoryPopupComponent = /** @class */ (function () {
         this.data = data;
         this.dialogRef = dialogRef;
         this.fb = fb;
-        this.formStatus = false;
-        this.visible = true;
         this.selectable = true;
         this.removable = true;
         this.addOnBlur = true;
         this.separatorKeysCodes = [_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["ENTER"], _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_3__["COMMA"]];
         this.categoryCtrl = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]();
-        this.categories = [];
-        this.categoriesValue = [];
         this.allCategories = [];
-        this.filteredCategories = this.categoryCtrl.valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (category) { return category ? _this._filter(category) : _this.allCategories.slice(); }));
+        this.selectedCategories = [];
+        this.filteredCategories = this.categoryCtrl.valueChanges
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (category) { return category ? _this._filterCategories(category) : _this.allCategories.slice(); }));
     }
     UserCategoryPopupComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.categoriesObj = this.data.category;
-        this.categoriesObj.forEach(function (element) {
-            _this.allCategories.push(element.name);
-        });
-        this.data.selectedCategory.forEach(function (element) {
-            _this.categories.push(element.name);
-            _this.categoriesValue.push(element.id);
-        });
+        this.allCategories = JSON.parse(JSON.stringify(this.data.category));
+        this.selectedCategories = [];
+        if (this.data.selectedCategory.length > 0) {
+            this.data.selectedCategory.forEach(function (element) {
+                _this.addSelectedCategory(element.id);
+            });
+        }
     };
     UserCategoryPopupComponent.prototype.submit = function () {
-        this.dialogRef.close(this.categoriesValue);
+        this.dialogRef.close(this.selectedCategories);
     };
     UserCategoryPopupComponent.prototype.add = function (event) {
         if (!this.matAutocomplete.isOpen) {
@@ -700,22 +529,32 @@ var UserCategoryPopupComponent = /** @class */ (function () {
             this.categoryCtrl.setValue(null);
         }
     };
-    UserCategoryPopupComponent.prototype.remove = function (category) {
-        var index = this.categories.indexOf(category);
-        if (index >= 0) {
-            this.categories.splice(index, 1);
-            this.categoriesValue.splice(index, 1);
-        }
-    };
     UserCategoryPopupComponent.prototype.selected = function (event) {
-        this.categories.push(event.option.viewValue);
-        this.categoriesValue.push(event.option.value);
+        this.addSelectedCategory(event.option.value);
         this.categoryInput.nativeElement.value = '';
         this.categoryCtrl.setValue(null);
     };
-    UserCategoryPopupComponent.prototype._filter = function (value) {
+    UserCategoryPopupComponent.prototype.addSelectedCategory = function (id) {
+        var _this = this;
+        this.allCategories.forEach(function (item, index) {
+            if (item.id === id) {
+                _this.selectedCategories.push(item);
+                _this.allCategories.splice(index, 1);
+            }
+        });
+    };
+    UserCategoryPopupComponent.prototype.remove = function (category) {
+        var _this = this;
+        this.selectedCategories.forEach(function (item, index) {
+            if (item.id === category.id) {
+                _this.allCategories.push(category);
+                _this.selectedCategories.splice(index, 1);
+            }
+        });
+    };
+    UserCategoryPopupComponent.prototype._filterCategories = function (value) {
         var filterValue = value.toLowerCase();
-        return this.allCategories.filter(function (category) { return category.toLowerCase().indexOf(filterValue) === 0; });
+        return this.allCategories.filter(function (category) { return category.name.toLowerCase().indexOf(filterValue) === 0; });
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('categoryInput'),
@@ -748,7 +587,7 @@ var UserCategoryPopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">Community</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\" style=\"overflow: unset; max-height: unset;\">\r\n  \r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-3\">\r\n      <div fxFlex=\"50\" class=\"pr-1\" *ngFor=\"let community of allCommunities\">\r\n        <mat-checkbox [checked]=\"community.isChecked\" (change)=\"onChange($event)\" class=\"full-width\" [value]=\"community.id\">\r\n          {{community.name}}</mat-checkbox>\r\n      </div>\r\n    </div>\r\n  \r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-2\">\r\n      <div fxFlex=\"100\" class=\"mt-1\">\r\n        <button mat-raised-button color=\"primary\" (click)=\"submit()\">Save</button>\r\n        <span fxFlex></span>\r\n        <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n  \r\n  </mat-dialog-content>"
+module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">Community</span>\r\n  </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\" style=\"overflow: unset; max-height: unset;\">\r\n\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-3\" *ngIf=\"allCommunities.length !== 0\">\r\n    <div fxFlex=\"50\" class=\"pr-1\" *ngFor=\"let community of allCommunities\">\r\n      <mat-checkbox [checked]=\"community.isChecked\" (change)=\"onChange($event)\" class=\"full-width\"\r\n        [value]=\"community.id\">\r\n        {{community.name}}</mat-checkbox>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"alert alert-warning\" role=\"alert\" *ngIf=\"allCommunities.length === 0\">\r\n    Client has no any assigned communities.!\r\n  </div>\r\n\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-2\">\r\n    <div fxFlex=\"100\" class=\"mt-1\">\r\n      <button mat-raised-button color=\"primary\" (click)=\"submit()\" *ngIf=\"allCommunities.length !== 0\">Save</button>\r\n      <span fxFlex></span>\r\n      <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n    </div>\r\n  </div>\r\n\r\n</mat-dialog-content>"
 
 /***/ }),
 
@@ -791,19 +630,17 @@ var UserCommunityPopupComponent = /** @class */ (function () {
     UserCommunityPopupComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.allCommunities = JSON.parse(JSON.stringify(this.data.community));
-        this.selectedCommunities = [];
+        console.log(this.allCommunities);
+        // this.selectedCommunities = [];
         this.selectedCommunities = this.data.selectedCommunity;
         this.allCommunities.forEach(function (element) {
-            if (_this.data.selectedCommunity.length > 0) {
+            if (_this.selectedCommunities.length > 0) {
                 if (_this.selectedCommunities.filter(function (community) { return community.id.indexOf(element.id) === 0; })) {
-                    console.log('true');
+                    element['isChecked'] = true;
                 }
                 else {
-                    console.log('false');
+                    element['isChecked'] = false;
                 }
-            }
-            else {
-                element['isChecked'] = false;
             }
         });
     };
@@ -1117,7 +954,7 @@ module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50p
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserTableComponent", function() { return UserTableComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../user.service */ "./src/app/views/user/user.service.ts");
+/* harmony import */ var _client_client_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../client/client.service */ "./src/app/views/client/client.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../shared/services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
 /* harmony import */ var _user_table_user_create_popup_user_create_popup_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../user-table/user-create-popup/user-create-popup.component */ "./src/app/views/user/user-table/user-create-popup/user-create-popup.component.ts");
@@ -1128,19 +965,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! app/model/ClientModel.model */ "./src/app/model/ClientModel.model.ts");
 /* harmony import */ var _user_category_popup_user_category_popup_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./user-category-popup/user-category-popup.component */ "./src/app/views/user/user-table/user-category-popup/user-category-popup.component.ts");
 /* harmony import */ var _user_community_popup_user_community_popup_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./user-community-popup/user-community-popup.component */ "./src/app/views/user/user-table/user-community-popup/user-community-popup.component.ts");
-// import { Component, OnInit } from '@angular/core';
-// import { UserService } from "../user.service";
-// import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
-// import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
-// import { UserCreatePopupComponent } from "../user-table/user-create-popup/user-create-popup.component";
-// import { UserTablePopupComponent } from "../user-table/user-table-popup/user-table-popup.component";
-// import { Subscription } from "rxjs";
-// import { egretAnimations } from "../../../shared/animations/egret-animations";
-// import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
-// import { ActivatedRoute } from '@angular/router';
-// import { UserCreateReq, ClientData, RoleData, CommunityData, CategoryData, UserUpdateReq } from 'app/model/ClientModel.model';
-// import { UserCategoryPopupComponent } from './user-category-popup/user-category-popup.component';
-// import { UserCommunityPopupComponent } from './user-community-popup/user-community-popup.component';
+/* harmony import */ var app_views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! app/views/sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1162,14 +987,18 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UserTableComponent = /** @class */ (function () {
-    function UserTableComponent(dialog, snack, userService, loader, errDialog, activeRoute) {
+    function UserTableComponent(dialog, snack, 
+    // private userService: UserService,
+    clientService, loader, errDialog, activeRoute, authService) {
         this.dialog = dialog;
         this.snack = snack;
-        this.userService = userService;
+        this.clientService = clientService;
         this.loader = loader;
         this.errDialog = errDialog;
         this.activeRoute = activeRoute;
+        this.authService = authService;
         this.statusArray = {
             'Active': "primary",
             'Inactive': "accent"
@@ -1177,11 +1006,13 @@ var UserTableComponent = /** @class */ (function () {
         this.pageSize = 10;
     }
     UserTableComponent.prototype.ngOnInit = function () {
-        var client = JSON.parse(localStorage.getItem('currentUser')).userData.client;
-        console.log(client);
-        this.clientId = client.id;
-        this.name = client.name;
-        // this.url = client.clientLogo;
+        // const client = JSON.parse(localStorage.getItem('currentUser')).userData.client;
+        // console.log(client);
+        // this.clientId = client.id;
+        // this.name = client.name;
+        var currentUser = this.authService.getLoggedUserDetail();
+        this.clientId = currentUser.userData.client.id;
+        this.name = currentUser.userData.client.name;
         this.getUsers();
         this.getUserRoles();
         this.getClientCategories();
@@ -1194,10 +1025,14 @@ var UserTableComponent = /** @class */ (function () {
     };
     UserTableComponent.prototype.getUsers = function () {
         var _this = this;
-        this.getItemSub = this.userService.getUsers(this.clientId).subscribe(function (successResp) {
+        this.getItemSub = this.clientService.getUsers(this.clientId).subscribe(function (successResp) {
             _this.users = successResp.content.users;
             _this.users.forEach(function (item, index) {
                 if (item.role.name === "Admin")
+                    _this.users.splice(index, 1);
+            });
+            _this.users.forEach(function (item, index) {
+                if (item.role.name === "Super Administrator")
                     _this.users.splice(index, 1);
             });
             // this.roles = successResp.content;
@@ -1208,7 +1043,7 @@ var UserTableComponent = /** @class */ (function () {
     };
     UserTableComponent.prototype.getUserRoles = function () {
         var _this = this;
-        this.getItemSub = this.userService.getRoles().subscribe(function (successResp) {
+        this.getItemSub = this.clientService.getRoles().subscribe(function (successResp) {
             successResp.content.forEach(function (item, index) {
                 if (item.name === "Super Administrator") {
                     successResp.content.splice(index, 1);
@@ -1228,7 +1063,7 @@ var UserTableComponent = /** @class */ (function () {
     };
     UserTableComponent.prototype.getClientCategories = function () {
         var _this = this;
-        this.getItemSub = this.userService.getClientCategories(this.clientId).subscribe(function (successResp) {
+        this.getItemSub = this.clientService.getClientCategories(this.clientId).subscribe(function (successResp) {
             _this.clientCategory = successResp.content;
             console.log(_this.clientCategory);
         }, function (error) {
@@ -1241,7 +1076,7 @@ var UserTableComponent = /** @class */ (function () {
     };
     UserTableComponent.prototype.getClientCommunities = function () {
         var _this = this;
-        this.getItemSub = this.userService.getClientCommunities(this.clientId).subscribe(function (successResp) {
+        this.getItemSub = this.clientService.getClientCommunities(this.clientId).subscribe(function (successResp) {
             _this.clientCommunity = successResp.content;
             console.log(_this.clientCommunity);
         }, function (error) {
@@ -1271,7 +1106,7 @@ var UserTableComponent = /** @class */ (function () {
             });
             var client = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["ClientData"](_this.clientId);
             var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["UserCreateReq"](res[0].username, res[0].password, res[0].email, role, client, communities, categories);
-            _this.userService.addUser(req).subscribe(function (response) {
+            _this.clientService.addUser(req).subscribe(function (response) {
                 _this.getUsers();
                 _this.users = response;
                 _this.loader.close();
@@ -1298,7 +1133,7 @@ var UserTableComponent = /** @class */ (function () {
             var role = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["RoleData"](res.role);
             var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["UserUpdateReq"](res.username, res.email, role);
             _this.loader.open();
-            _this.userService.updateUser(data.id, req).subscribe(function (response) {
+            _this.clientService.updateUser(data.id, req).subscribe(function (response) {
                 _this.getUsers();
                 _this.loader.close();
                 _this.snack.open("User Updated!", "OK", { duration: 4000 });
@@ -1315,7 +1150,9 @@ var UserTableComponent = /** @class */ (function () {
     UserTableComponent.prototype.openCommunityPopUp = function (data) {
         var _this = this;
         if (data === void 0) { data = {}; }
-        this.getItemSub = this.userService.getUser(data.id).subscribe(function (successResp) {
+        console.log();
+        this.getItemSub = this.clientService.getUser(data.id).subscribe(function (successResp) {
+            console.log(successResp);
             var dialogRef = _this.dialog.open(_user_community_popup_user_community_popup_component__WEBPACK_IMPORTED_MODULE_11__["UserCommunityPopupComponent"], {
                 width: "720px",
                 disableClose: true,
@@ -1327,41 +1164,35 @@ var UserTableComponent = /** @class */ (function () {
                     return;
                 }
                 console.log(res);
-                // let role: RoleData = new RoleData(successResp.content.role.id);
-                // let categories: CategoryData[] = [];
-                // res.forEach(element => {
-                //   categories.push(new CategoryData(element));
-                // });
-                // const req: UserCategoryUpdateReq = new UserCategoryUpdateReq(successResp.content.accountName, successResp.content.email, role, categories);
-                // this.loader.open();
-                // this.clientService.updateUser(data.id, req).subscribe(
-                //   response => {
-                //     this.getUsers();
-                //     this.loader.close();
-                //     this.snack.open("User Category Updated!", "OK", { duration: 4000 });
-                //   },
-                //   error => {
-                //     this.loader.close();
-                //     this.errDialog.showError({
-                //       title: "Error",
-                //       status: error.status,
-                //       type: "http_error"
-                //     });
-                //   }
-                // );
+                var community = [];
+                res.forEach(function (element) {
+                    community.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["CommunityData"](element.id));
+                });
+                var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["UserCommunityUpdateRequest"](community);
+                _this.loader.open();
+                _this.clientService.updateUserCommunity(data.id, req).subscribe(function (response) {
+                    _this.getUsers();
+                    _this.loader.close();
+                    _this.snack.open("User Community Updated!", "OK", { duration: 4000 });
+                }, function (error) {
+                    _this.loader.close();
+                    _this.errDialog.showError({
+                        title: "Error",
+                        status: error.status,
+                        type: "http_error"
+                    });
+                });
             });
         }, function (error) {
-            _this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-            });
+            _this.errDialog.showError(error);
         });
     };
     UserTableComponent.prototype.openCategoryPopUp = function (data) {
         var _this = this;
         if (data === void 0) { data = {}; }
-        this.getItemSub = this.userService.getUser(data.id).subscribe(function (successResp) {
+        this.getItemSub = this.clientService.getUser(data.id).subscribe(function (successResp) {
+            console.log(successResp);
+            console.log(successResp.content.role.id);
             var dialogRef = _this.dialog.open(_user_category_popup_user_category_popup_component__WEBPACK_IMPORTED_MODULE_10__["UserCategoryPopupComponent"], {
                 width: "720px",
                 disableClose: true,
@@ -1372,15 +1203,14 @@ var UserTableComponent = /** @class */ (function () {
                     // If user press cancel
                     return;
                 }
-                var role = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["RoleData"](successResp.content.role.id);
+                console.log(res);
                 var categories = [];
                 res.forEach(function (element) {
-                    categories.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["CategoryData"](element));
+                    categories.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["CategoryData"](element.id));
                 });
-                var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["UserCategoryUpdateReq"](successResp.content.accountName, successResp.content.email, role, categories);
+                var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["UserCategoryUpdateReq"](categories);
                 _this.loader.open();
-                _this.userService.updateUser(data.id, req).subscribe(function (response) {
-                    _this.getUsers();
+                _this.clientService.updateUserCategories(data.id, req).subscribe(function (response) {
                     _this.loader.close();
                     _this.snack.open("User Category Updated!", "OK", { duration: 4000 });
                 }, function (error) {
@@ -1393,11 +1223,7 @@ var UserTableComponent = /** @class */ (function () {
                 });
             });
         }, function (error) {
-            _this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-            });
+            _this.errDialog.showError(error);
         });
     };
     UserTableComponent = __decorate([
@@ -1408,10 +1234,11 @@ var UserTableComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"],
             _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"],
-            _user_service__WEBPACK_IMPORTED_MODULE_1__["UserService"],
+            _client_client_service__WEBPACK_IMPORTED_MODULE_1__["ClientService"],
             _shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_3__["AppLoaderService"],
             _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_7__["AppErrorService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_8__["ActivatedRoute"],
+            app_views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_12__["AuthenticationService"]])
     ], UserTableComponent);
     return UserTableComponent;
 }());
@@ -1444,6 +1271,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../shared/animations/egret-animations */ "./src/app/shared/animations/egret-animations.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1456,19 +1284,24 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UserComponent = /** @class */ (function () {
-    function UserComponent(router, activeRoute) {
+    function UserComponent(router, activeRoute, authService) {
         this.router = router;
         this.activeRoute = activeRoute;
+        this.authService = authService;
     }
     UserComponent.prototype.ngOnInit = function () {
-        if (JSON.parse(localStorage.getItem('currentUser'))) {
-            var user = JSON.parse(localStorage.getItem('currentUser'));
-            console.log(user);
-            // this.id = user.client.id;
-            // this.name = user.client.name;
-            // this.url = client.clientLogo;
-        }
+        // if(JSON.parse(localStorage.getItem('currentUser'))){
+        //   const user = JSON.parse(localStorage.getItem('currentUser'));
+        //   console.log(user);
+        //   // this.id = user.client.id;
+        //   // this.name = user.client.name;
+        //   // this.url = client.clientLogo;
+        // }
+        var currentUser = this.authService.getLoggedUserDetail();
+        this.clientId = currentUser.userData.client.id;
+        this.name = currentUser.userData.client.name;
     };
     UserComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1477,7 +1310,8 @@ var UserComponent = /** @class */ (function () {
             animations: _shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"]
         }),
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_3__["AuthenticationService"]])
     ], UserComponent);
     return UserComponent;
 }());
@@ -1512,10 +1346,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _user_table_user_community_popup_user_community_popup_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./user-table/user-community-popup/user-community-popup.component */ "./src/app/views/user/user-table/user-community-popup/user-community-popup.component.ts");
 /* harmony import */ var _roles_role_table_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./roles/role-table.component */ "./src/app/views/user/roles/role-table.component.ts");
 /* harmony import */ var _roles_role_table_popup_role_table_popup_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./roles/role-table-popup/role-table-popup.component */ "./src/app/views/user/roles/role-table-popup/role-table-popup.component.ts");
-/* harmony import */ var _user_routing__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./user.routing */ "./src/app/views/user/user.routing.ts");
-/* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./user.service */ "./src/app/views/user/user.service.ts");
-/* harmony import */ var _user_table_user_table_popup_user_table_popup_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./user-table/user-table-popup/user-table-popup.component */ "./src/app/views/user/user-table/user-table-popup/user-table-popup.component.ts");
-/* harmony import */ var ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ngx-intl-tel-input */ "./node_modules/ngx-intl-tel-input/fesm5/ngx-intl-tel-input.js");
+/* harmony import */ var _client_client_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../client/client.service */ "./src/app/views/client/client.service.ts");
+/* harmony import */ var _user_routing__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./user.routing */ "./src/app/views/user/user.routing.ts");
+/* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./user.service */ "./src/app/views/user/user.service.ts");
+/* harmony import */ var _user_table_user_table_popup_user_table_popup_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./user-table/user-table-popup/user-table-popup.component */ "./src/app/views/user/user-table/user-table-popup/user-table-popup.component.ts");
+/* harmony import */ var ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ngx-intl-tel-input */ "./node_modules/ngx-intl-tel-input/fesm5/ngx-intl-tel-input.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1531,6 +1366,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 // import { UserTableComponent } from './users/user-table.component';
+
 
 
 
@@ -1566,11 +1402,11 @@ var UserModule = /** @class */ (function () {
                 _shared_shared_module__WEBPACK_IMPORTED_MODULE_7__["SharedModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatToolbarModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSelectModule"],
-                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(_user_routing__WEBPACK_IMPORTED_MODULE_15__["UserRoutes"]),
+                _angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(_user_routing__WEBPACK_IMPORTED_MODULE_16__["UserRoutes"]),
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatSlideToggleModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatMenuModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatAutocompleteModule"],
-                ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_18__["NgxIntlTelInputModule"],
+                ngx_intl_tel_input__WEBPACK_IMPORTED_MODULE_19__["NgxIntlTelInputModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatStepperModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatToolbarModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_4__["MatTabsModule"],
@@ -1579,16 +1415,16 @@ var UserModule = /** @class */ (function () {
             declarations: [
                 _user_component__WEBPACK_IMPORTED_MODULE_8__["UserComponent"],
                 _user_table_user_table_component__WEBPACK_IMPORTED_MODULE_9__["UserTableComponent"],
-                _user_table_user_table_popup_user_table_popup_component__WEBPACK_IMPORTED_MODULE_17__["UserTablePopupComponent"],
+                _user_table_user_table_popup_user_table_popup_component__WEBPACK_IMPORTED_MODULE_18__["UserTablePopupComponent"],
                 _user_table_user_create_popup_user_create_popup_component__WEBPACK_IMPORTED_MODULE_10__["UserCreatePopupComponent"],
                 _user_table_user_community_popup_user_community_popup_component__WEBPACK_IMPORTED_MODULE_12__["UserCommunityPopupComponent"],
                 _user_table_user_category_popup_user_category_popup_component__WEBPACK_IMPORTED_MODULE_11__["UserCategoryPopupComponent"],
                 _roles_role_table_component__WEBPACK_IMPORTED_MODULE_13__["RoleTableComponent"],
                 _roles_role_table_popup_role_table_popup_component__WEBPACK_IMPORTED_MODULE_14__["RoleTablePopupComponent"]
             ],
-            providers: [_user_service__WEBPACK_IMPORTED_MODULE_16__["UserService"]],
+            providers: [_user_service__WEBPACK_IMPORTED_MODULE_17__["UserService"], _client_client_service__WEBPACK_IMPORTED_MODULE_15__["ClientService"]],
             entryComponents: [
-                _user_table_user_table_popup_user_table_popup_component__WEBPACK_IMPORTED_MODULE_17__["UserTablePopupComponent"],
+                _user_table_user_table_popup_user_table_popup_component__WEBPACK_IMPORTED_MODULE_18__["UserTablePopupComponent"],
                 _user_table_user_create_popup_user_create_popup_component__WEBPACK_IMPORTED_MODULE_10__["UserCreatePopupComponent"],
                 _user_table_user_community_popup_user_community_popup_component__WEBPACK_IMPORTED_MODULE_12__["UserCommunityPopupComponent"],
                 _user_table_user_category_popup_user_category_popup_component__WEBPACK_IMPORTED_MODULE_11__["UserCategoryPopupComponent"],
@@ -1638,137 +1474,6 @@ var UserRoutes = [
         ]
     }
 ];
-
-
-/***/ }),
-
-/***/ "./src/app/views/user/user.service.ts":
-/*!********************************************!*\
-  !*** ./src/app/views/user/user.service.ts ***!
-  \********************************************/
-/*! exports provided: UserService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return UserService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! environments/environment.prod */ "./src/environments/environment.prod.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var UserService = /** @class */ (function () {
-    function UserService(http) {
-        this.http = http;
-        this.clientUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "clients";
-        this.userUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "platform-users";
-        this.roleUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "platform-user-roles";
-    }
-    UserService.prototype.getUsers = function (id) {
-        return this.http.get(this.clientUrl + "/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    UserService.prototype.getRoles = function () {
-        return this.http.get(this.roleUrl + "/suggestions").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    UserService.prototype.getClientCategories = function (id) {
-        return this.http.get(this.clientUrl + "/categories/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    UserService.prototype.getClientCommunities = function (id) {
-        return this.http.get(environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "communities/client/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    UserService.prototype.addUser = function (item) {
-        return this.http.post(this.userUrl, item).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
-            console.log(data);
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    UserService.prototype.getUser = function (id) {
-        return this.http.get(this.userUrl + "/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    UserService.prototype.updateUser = function (id, item) {
-        return this.http
-            .put(this.userUrl + "/" + id, item)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    /*
-    * Create New User Role
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    UserService.prototype.createNewRole = function (roleObj) {
-        return this.http.post(this.roleUrl, roleObj)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
-            return data;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    /*
-    * Update New User Role
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    UserService.prototype.updateRloe = function (roleId, roleObj) {
-        return this.http.put(this.roleUrl + '/' + roleId, roleObj)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
-            return data;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    /*
-    * Get All User Role From Data Base
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    UserService.prototype.getAllUserRoles = function () {
-        return this.http.get(this.roleUrl)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
-            return data;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    /*
-    * Get All Authorities From Data Base
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    UserService.prototype.getAllAuthorities = function () {
-        return this.http.get(environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + 'platform-authorities')
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
-            return data;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    /*
-    * Get Role Assign Authorities
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    UserService.prototype.getOneRoleAuthorities = function (roleId) {
-        return this.http.get(this.roleUrl + '/' + roleId)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
-            return data;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    UserService.prototype.handleError = function (error) {
-        console.log(error);
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(error);
-    };
-    UserService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
-    ], UserService);
-    return UserService;
-}());
-
 
 
 /***/ })
