@@ -26,7 +26,7 @@ export class AuthenticationService {
   public authRefreshToken: string;
 
   public authTokenNew: string;
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   /*
    * User Login function
@@ -90,7 +90,6 @@ export class AuthenticationService {
       catchError(this.handleError)
     );
   }
-
 
   /*
    * Get Logged User and Details by User ID
@@ -165,7 +164,7 @@ export class AuthenticationService {
       catchError(this.handleError)
     );
   }
- 
+
   /** RAVEEN - 2019/04/04
    * Return detialed instance about current logged user.
    */
@@ -179,10 +178,18 @@ export class AuthenticationService {
       // this.router.navigate(["sessions/signin"]);
     }
   }
-  
-  
+
+
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);
+  }
+
+
+  decodedAuthToken() {
+    console.log('-----------------------------------------');
+    const decoded = jwt_decode(this.getAuthToken());
+    console.log('---------------------- decoded', decoded);
+    console.log('---------------------- decoded', decoded.authorities);
   }
 
 
@@ -199,7 +206,6 @@ export class AuthenticationService {
 
 
 
-  
   /*
    * Get Jwt token Expire date
    * Created by Prasad Kumara
@@ -207,11 +213,9 @@ export class AuthenticationService {
    */
   // getTokenExpirationDate(token: string): Date {
   //   const decoded = jwt_decode(token);
-
   //   if (decoded.exp === undefined) {
   //     return null;
   //   }
-
   //   const date = new Date(0);
   //   date.setUTCSeconds(1550476560);
   //   return date;

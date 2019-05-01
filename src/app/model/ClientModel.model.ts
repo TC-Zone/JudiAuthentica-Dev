@@ -56,7 +56,22 @@ export class CountryData {
 export class UserData {
   constructor(
     public accountName: string,
-    public email: string
+    public email: string,
+    public role: AdminRoleData,
+  ) { }
+}
+
+export class AdminRoleData {
+  constructor(
+    public name: string,
+    public description: string,
+    public authorities: AuthorityData[],
+  ) { }
+}
+
+export class AuthorityData {
+  constructor(
+    public id: string
   ) { }
 }
 
@@ -160,4 +175,10 @@ export class profileUpdateReq {
 export interface autoCompletableCategory {
   id: string;
   name: string;
+}
+
+export interface roleAuthority {
+  id: string;
+  name: string;
+  code: string;
 }

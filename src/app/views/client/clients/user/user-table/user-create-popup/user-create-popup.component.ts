@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent, MatCheckboxChange } from '@angular/material';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { egretAnimations } from "../../../../../../shared/animations/egret-animations";
 import { GlobalVariable } from "../../../../../../shared/helpers/global-variable";
@@ -37,6 +37,9 @@ export class UserCreatePopupComponent implements OnInit {
   filteredCategories: Observable<autoCompletableCategory[]>;
   selectedCategories: autoCompletableCategory[] = [];
 
+  allCommunities = [];
+  selectedCommunities = [];
+
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
@@ -56,6 +59,8 @@ export class UserCreatePopupComponent implements OnInit {
   ngOnInit() {
     this.roles = this.data.roles;
     this.allCategories = JSON.parse(JSON.stringify(this.data.category));
+
+    this.allCommunities = JSON.parse(JSON.stringify(this.data.community));
     this.buildItemForm()
   }
 
@@ -78,12 +83,12 @@ export class UserCreatePopupComponent implements OnInit {
       category: this.categoryCtrl
     });
     this.communityFormGroup = this.fb.group({
-      username: [''],
+      username: ['', Validators.required]
     });
   }
 
   submit() {
-    let forms = [this.userFormGroup.value, this.selectedCategories, this.communityFormGroup.value];
+    let forms = [this.userFormGroup.value, this.selectedCategories, this.selectedCommunities];
     this.dialogRef.close(forms);
   }
 
@@ -130,6 +135,23 @@ export class UserCreatePopupComponent implements OnInit {
         this.selectedCategories.splice(index, 1);
       }
     });
+  }
+
+  // Community checkbox onchange event
+  onChange(event: MatCheckboxChange): void {
+    if (event.checked) {
+      this.allCommunities.forEach((item) => {
+        if (item.id === event.source.value) {
+          this.selectedCommunities.push(item);
+        }
+      });
+    } else {
+      this.selectedCommunities.forEach((item, index) => {
+        if (item.id === event.source.value) {
+          this.selectedCommunities.splice(index, 1);
+        }
+      });
+    }
   }
 
   private _filterCategories(value: string): autoCompletableCategory[] {

@@ -10,7 +10,7 @@ import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms'
 export class UserTablePopupComponent implements OnInit {
   public itemForm: FormGroup;
   public roles: any[];
-  public formStatus = false;
+  public roleStatus = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<UserTablePopupComponent>,
@@ -19,38 +19,31 @@ export class UserTablePopupComponent implements OnInit {
 
   ngOnInit() {
     this.buildItemForm(this.data.payload);
-    console.log(this.data);
-    
     this.roles = this.data.roles;
-
   }
 
   buildItemForm(item) {
-    let role = null;
-    let userStatus = 0;
-    if (item.id === undefined) {
-      this.formStatus = true;
-    } else {
-      role = item.role.id;
-      if(item.status==="ACTIVE"){
-        userStatus = 1;
-      }
-    }
 
+    let role = null;
+    if (item.id !== undefined) {
+      if (item.role.predefined === 1) {
+        this.roles.push(item.role);
+        this.roleStatus = true;
+      } else {
+        this.roles.forEach((item, index) => {
+          if (item.role.predefined === 1) this.roles.splice(index, 1);
+        });
+      }
+      role = item.role.id;
+    }
 
     this.itemForm = this.fb.group({
       username: new FormControl(item.userName || '', Validators.required),
-      password: new FormControl(item.password || '', Validators.required),
       email: new FormControl(item.email || '', [Validators.required, Validators.email]),
       role: new FormControl(role, Validators.required),
       // isActive: new FormControl(userStatus)
     })
 
-    if (item.id !== undefined) {
-      // role = item.role.id;
-      this.itemForm.get('password').clearValidators();
-      this.itemForm.get('password').updateValueAndValidity();
-    }
   }
 
   submit() {

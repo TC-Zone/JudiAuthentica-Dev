@@ -82,6 +82,7 @@ export class RoleTableComponent implements OnInit, OnDestroy {
   */
 
   openPopUp(data: any = {}, isNew?) {
+    
     let title = isNew ? "Create New User Role" : "Update User Role";
     data["isNew"] = isNew;
     let dialogRef: MatDialogRef<any> = this.dialog.open(

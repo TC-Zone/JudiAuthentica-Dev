@@ -50,7 +50,6 @@ export class UserTableComponent implements OnInit {
     if (currentClient) {
       this.clientId = currentClient.id;
       this.getUsersByClient();
-      this.getUserRoles();
       this.getClientCategories();
       this.getClientCommunities();
     }
@@ -82,7 +81,9 @@ export class UserTableComponent implements OnInit {
   getUsersByClient() {
     this.getItemSub = this.clientService.getClient(this.clientId).subscribe(successResp => {
       this.users = successResp.content.users;
-      // this.roles = successResp.content.roles;
+      this.users.forEach((item, index) => {
+        if (item.role.name === "Super Administrator") this.users.splice(index, 1);
+      });
       successResp.content.roles.forEach((item) => {
         this.roles.push(item);
       });
@@ -105,19 +106,6 @@ export class UserTableComponent implements OnInit {
       }
     );
   }
-
-  // getUserRoles() {
-  //   this.getItemSub = this.clientService.getRoles().subscribe(successResp => {
-  //     successResp.content.forEach((item, index) => {
-  //       if (item.name === "Super Administrator") successResp.content.splice(index, 1);
-  //     });
-  //     this.roles = successResp.content;
-  //   },
-  //     error => {
-  //       this.errDialog.showError(error);
-  //     }
-  //   );
-  // }
 
   getClientCategories() {
     this.getItemSub = this.clientService.getClientCategories(this.clientId).subscribe(successResp => {
@@ -147,7 +135,7 @@ export class UserTableComponent implements OnInit {
       {
         width: "720px",
         disableClose: true,
-        data: { roles: this.roles, category: this.clientCategory }
+        data: { roles: this.roles, category: this.clientCategory, community: this.clientCommunity }
       }
     );
 
@@ -163,11 +151,13 @@ export class UserTableComponent implements OnInit {
       let role: RoleData = new RoleData(res[0].role);
 
       let communities: CommunityData[] = [];
-      // communities.push(new CommunityData(res[0].role));
+      res[2].forEach(element => {
+        communities.push(new CommunityData(element.id));
+      });
 
       let categories: CategoryData[] = [];
       res[1].forEach(element => {
-        categories.push(new CategoryData(element));
+        categories.push(new CategoryData(element.id));
       });
 
       const client: ClientData = new ClientData(this.clientId);
@@ -177,7 +167,6 @@ export class UserTableComponent implements OnInit {
       this.clientService.addUser(req).subscribe(
         response => {
           this.getUsersByClient();
-          this.users = response;
           this.loader.close();
           this.snack.open("New User added !", "OK", { duration: 4000 });
         },
@@ -227,12 +216,10 @@ export class UserTableComponent implements OnInit {
 
   openCommunityPopUp(data: any = {}) {
     console.log();
-    
 
     this.getItemSub = this.clientService.getUser(data.id).subscribe(successResp => {
 
       console.log(successResp);
-
 
       let dialogRef: MatDialogRef<any> = this.dialog.open(
         UserCommunityPopupComponent,
@@ -330,6 +317,10 @@ export class UserTableComponent implements OnInit {
         this.errDialog.showError(error);
       }
     );
+  }
+
+  removeUser() {
+
   }
 
 }

@@ -79,6 +79,8 @@ export class RoleTablePopupComponent implements OnInit {
   */
   onChange(id: String, name: String, auth_key: String, isChecked: boolean) {
     const dataArray = <FormArray>this.authoritiesFormGroup.controls.data;
+    console.log(dataArray);
+    
     console.log('--------- role update onchange -------------');
     if (isChecked) {
       dataArray.push(new FormControl(auth_key));
@@ -133,6 +135,7 @@ export class RoleTablePopupComponent implements OnInit {
     this.clientService.getAllAuthorities()
       .subscribe(
         response => {
+          console.log(response);
           this.createComponentArray(response.content);
         }
       );
@@ -143,6 +146,31 @@ export class RoleTablePopupComponent implements OnInit {
   * Created by Prasad Kumara
   * 14/02/2019
   */
+  // createComponentArray(dataArray: any) {
+  //   dataArray.forEach(data => {
+  //     const name = this.getModuleName(data.code);
+  //     if (name === 'Clients') {
+  //       const i = this.componentList.findIndex(x => x.moduleName === name);
+  //       const status =  this.setSelectedAuthorities(data.id);
+  //       if (i < 0) {
+  //         const tempdata = data;
+  //         tempdata['checked'] = status;
+  //         this.componentList.push({
+  //           moduleName: name,
+  //           data: [tempdata]
+  //         });
+  //       }else {
+  //         const tempdata = data;
+  //         tempdata['checked'] = status;
+  //         this.componentList[i].data.push(tempdata);
+  //       }
+  //     }
+  //   });
+  //   // console.log('--------------- component list --------------------');
+  //   // console.log(this.componentList);
+  //   this.setSelectedRoleAuthorities();
+  // }
+
   createComponentArray(dataArray: any) {
     dataArray.forEach(data => {
       const name = this.getModuleName(data.code);

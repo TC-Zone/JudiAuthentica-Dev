@@ -60,20 +60,14 @@ export class AddHeaderInterceptor implements HttpInterceptor {
 
   getRequest(request: HttpRequest<any>, token: string): HttpRequest<any> {
     const isAuthToken = this.oauthTokenUrlValidate(request.url);
-    console.log(token);
-
-    console.log(this.gloable_user);
-    console.log(this.gloable_secret);
-    
-    
-    
+    // console.log(token);
     if (isAuthToken) {
       request = request.clone({
         headers: request.headers.set('Authorization', 'Basic ' + btoa(this.gloable_user + ':' + this.gloable_secret))
       });
     } else {
       const isTokenRequired = this.getWhiteListUrl(request.url);
-      console.log('------------------------------- isTokenRequired', isTokenRequired);
+      // console.log('------------------------------- isTokenRequired', isTokenRequired);
 
       if (token) {
         if (isTokenRequired) {
@@ -162,7 +156,6 @@ export class AddHeaderInterceptor implements HttpInterceptor {
       return false;
     }
   }
-
 
   private getWhiteListUrl(url): boolean {
     for (let i = 0; i < this.whiteListUrls.length; i++) {
