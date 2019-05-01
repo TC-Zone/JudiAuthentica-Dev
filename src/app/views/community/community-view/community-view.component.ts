@@ -1,23 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { egretAnimations } from 'app/shared/animations/egret-animations';
-import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
-import { CommunityViewPopupComponent } from './community-view-popup/community-view-popup.component';
-import { NavigationExtras, Router } from '@angular/router';
-import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
-import { ComunityService } from './../community.service';
-import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
-import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
-import { authProperties } from './../../../shared/services/auth/auth-properties';
-import { AppWarningService } from 'app/shared/services/app-warning/app-warning.service';
-import { AppInfoService } from 'app/shared/services/app-info/app-info.service';
+import { Component, OnInit } from "@angular/core";
+import { egretAnimations } from "app/shared/animations/egret-animations";
+import { MatDialogRef, MatDialog, MatSnackBar } from "@angular/material";
+import { CommunityViewPopupComponent } from "./community-view-popup/community-view-popup.component";
+import { NavigationExtras, Router } from "@angular/router";
+import { AppConfirmService } from "app/shared/services/app-confirm/app-confirm.service";
+import { ComunityService } from "./../community.service";
+import { AppLoaderService } from "app/shared/services/app-loader/app-loader.service";
+import { AppErrorService } from "app/shared/services/app-error/app-error.service";
+import { authProperties } from "./../../../shared/services/auth/auth-properties";
+import { AppWarningService } from "app/shared/services/app-warning/app-warning.service";
+import { AppInfoService } from "app/shared/services/app-info/app-info.service";
+import { AuthenticationService } from "../../sessions/authentication.service";
 
 @Component({
-  selector: 'app-community-view',
-  templateUrl: './community-view.component.html',
+  selector: "app-community-view",
+  templateUrl: "./community-view.component.html",
   animations: egretAnimations
 })
 export class CommunityViewComponent implements OnInit {
-
   public communities = [];
   public temCommunities = [];
   public pageNumber = 1;
@@ -37,45 +37,48 @@ export class CommunityViewComponent implements OnInit {
     private errDialog: AppErrorService,
     private comunityService: ComunityService,
     private appWarningService: AppWarningService,
-    private appInfoService: AppInfoService
-  ) { }
+    private appInfoService: AppInfoService,
+    private authService: AuthenticationService
+  ) {}
 
   ngOnInit() {
-    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+    const userObj: any = JSON.parse(
+      localStorage.getItem(authProperties.storage_name)
+    );
     this.fetchAllCommunities(this.pageNumber);
-    this.comunityService.licenseExpireState(userObj.userData.client.id, 'communities')
-      .subscribe(
-        response => {
-          const tempRes: any = response;
-          this.quotaExpire = tempRes.content.expired;
-          this.quota = tempRes.content.quota;
-        }
-      );
+    this.comunityService
+      .licenseExpireState(userObj.userData.client.id, "communities")
+      .subscribe(response => {
+        const tempRes: any = response;
+        this.quotaExpire = tempRes.content.expired;
+        this.quota = tempRes.content.quota;
+      });
   }
 
   /*
-  * Create new community and update community popup window open function
-  * 27-02-2019
-  * Prasad Kumara
-  */
+   * Create new community and update community popup window open function
+   * 27-02-2019
+   * Prasad Kumara
+   */
   communityPopUp(data: any = {}, isNew?) {
     if (this.quotaExpire && isNew) {
       const infoData = {
-        title: 'License',
-        message: 'You subscribed number of communities have expired!</br>' +
+        title: "License",
+        message:
+          "You subscribed number of communities have expired!</br>" +
           '<small class="text-muted">Do you like to extend the plan?</small>',
         linkData: {
-          url: 'https://www.google.com/gmail/',
-          buttonText: 'Extend'
+          url: "https://www.google.com/gmail/",
+          buttonText: "Extend"
         }
       };
       this.appInfoService.showInfo(infoData);
     } else {
-      const title = isNew ? 'Add New Community' : 'Update Community';
+      const title = isNew ? "Add New Community" : "Update Community";
       const dialogRef: MatDialogRef<any> = this.dialog.open(
         CommunityViewPopupComponent,
         {
-          width: '720px',
+          width: "720px",
           disableClose: true,
           data: { title: title, payload: data, isNew: isNew }
         }
@@ -84,55 +87,59 @@ export class CommunityViewComponent implements OnInit {
         if (!res) {
           return;
         } else {
-          const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+          const userObj: any = JSON.parse(
+            localStorage.getItem(authProperties.storage_name)
+          );
           if (userObj) {
             this.loader.open();
             if (isNew) {
-              res['createdUserId'] = userObj.id;
-              res['client'] = {
-                'id': userObj.userData.client.id
+              res["createdUserId"] = userObj.id;
+              res["client"] = {
+                id: userObj.userData.client.id
               };
-              res['users'] = [
+              res["users"] = [
                 {
-                  'id': userObj.id
+                  id: userObj.id
                 }
               ];
               res.status = this.getCommunityStatus(res.status);
               const clientId = userObj.userData.client.id;
-              this.comunityService.licenseExpireState(clientId, 'communities')
-                .subscribe(
-                  response => {
-                    const tempRes: any = response;
-                    this.quotaExpire = tempRes.content.expired;
-                    this.quota = tempRes.content.quota;
-                    if (!tempRes.content.expired) {
-                      this.loader.close();
-                      this.createCommunity(res, tempRes.content.usage, tempRes.content.quota);
-                    }
+              this.comunityService
+                .licenseExpireState(clientId, "communities")
+                .subscribe(response => {
+                  const tempRes: any = response;
+                  this.quotaExpire = tempRes.content.expired;
+                  this.quota = tempRes.content.quota;
+                  if (!tempRes.content.expired) {
+                    this.loader.close();
+                    this.createCommunity(
+                      res,
+                      tempRes.content.usage,
+                      tempRes.content.quota
+                    );
                   }
-                );
+                });
             } else {
-              res['lastModifiedUserId'] = userObj.id;
+              res["lastModifiedUserId"] = userObj.id;
               res.status = this.getCommunityStatus(res.status);
-              this.comunityService.updateCommunityById(data.id, res)
-                .subscribe(
-                  response => {
-                    const temData: any = response;
-                    const i = this.communities.indexOf(data);
-                    this.communities[i] = temData.content;
-                    this.temCommunities = this.communities;
-                    this.loader.close();
-                    this.snack.open('Community Updated', 'close', {
-                      duration: 2000
-                    });
-                  },
-                  error => {
-                    this.loader.close();
-                    if (error.status !== 401) {
-                      this.errDialog.showError(error);
-                    }
+              this.comunityService.updateCommunityById(data.id, res).subscribe(
+                response => {
+                  const temData: any = response;
+                  const i = this.communities.indexOf(data);
+                  this.communities[i] = temData.content;
+                  this.temCommunities = this.communities;
+                  this.loader.close();
+                  this.snack.open("Community Updated", "close", {
+                    duration: 2000
+                  });
+                },
+                error => {
+                  this.loader.close();
+                  if (error.status !== 401) {
+                    this.errDialog.showError(error);
                   }
-                );
+                }
+              );
             }
           }
         }
@@ -141,68 +148,78 @@ export class CommunityViewComponent implements OnInit {
   }
 
   /*
-  * Create community
-  * 05-03-2019
-  * Prasad Kumara
-  */
+   * Create community
+   * 05-03-2019
+   * Prasad Kumara
+   */
   createCommunity(res, usage, tempQuoata) {
-    this.comunityService.createCommunity(res)
-      .subscribe(
-        response => {
-          const temData: any = response;
-          if (this.communities.length === this.pageSize) {
-            this.appendNewlyCreatedCommunity(temData.content);
-          } else {
-            this.communities.push(temData.content);
-            this.temCommunities = this.communities;
-            this.totalRecords += 1;
-          }
-          // this.fetchAllCommunities(this.pageNumber);
-          if (this.totalRecords === this.quota) {
-            this.quotaExpire = true;
-          }
-          this.loader.close();
-          if (usage < (tempQuoata - 1) && (tempQuoata - usage) === 2) {
-            this.appWarningService.showWarning({
-              title: 'License',
-              message: 'Your subscription plan is about to expire!</br>One more community remaining!'
-            });
-          } else if (usage < tempQuoata && (tempQuoata - usage) === 1) {
-            const infoData = {
-              title: 'License',
-              message: 'You subscribed number of communities have expired!</br>' +
-              '<small class="text-muted">Do you like to extend the plan?</small>',
-              linkData: {
-                url: 'https://www.google.com/gmail/',
-                buttonText: 'Extend'
-              }
-            };
-            this.appInfoService.showInfo(infoData);
-          } // else {
-            this.snack.open('New Community Created', 'close', {
-              duration: 2000
-            });
-          // }
-        },
-        error => {
-          this.loader.close();
-          if (error.status !== 401) {
-            this.errDialog.showError(error);
-          }
+    this.comunityService.createCommunity(res).subscribe(
+      response => {
+        const temData: any = response;
+        if (this.communities.length === this.pageSize) {
+          this.appendNewlyCreatedCommunity(temData.content);
+        } else {
+          this.communities.push(temData.content);
+          this.temCommunities = this.communities;
+          this.totalRecords += 1;
         }
-      );
+        // this.fetchAllCommunities(this.pageNumber);
+        if (this.totalRecords === this.quota) {
+          this.quotaExpire = true;
+        }
+        this.loader.close();
+        if (usage < tempQuoata - 1 && tempQuoata - usage === 2) {
+          this.appWarningService.showWarning({
+            title: "License",
+            message:
+              "Your subscription plan is about to expire!</br>One more community remaining!"
+          });
+        } else if (usage < tempQuoata && tempQuoata - usage === 1) {
+          const infoData = {
+            title: "License",
+            message:
+              "You subscribed number of communities have expired!</br>" +
+              '<small class="text-muted">Do you like to extend the plan?</small>',
+            linkData: {
+              url: "https://www.google.com/gmail/",
+              buttonText: "Extend"
+            }
+          };
+          this.appInfoService.showInfo(infoData);
+        } // else {
+        this.snack.open("New Community Created", "close", {
+          duration: 2000
+        });
+        // }
+      },
+      error => {
+        this.loader.close();
+        if (error.status !== 401) {
+          this.errDialog.showError(error);
+        }
+      }
+    );
   }
 
   /*
-  * Fetch all communities
-  * 05-03-2019
-  * Prasad Kumara
-  */
+   * Fetch all communities
+   * 05-03-2019
+   * Prasad Kumara
+   */
   fetchAllCommunities(pageNumber) {
-    if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
-      const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+    if (
+      pageNumber === 1 ||
+      (0 < pageNumber && pageNumber <= this.totalPages.length)
+    ) {
+      // const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+      const userObj: any = this.authService.getLoggedUserDetail();
       if (userObj) {
-        this.comunityService.fetchAllComunities(userObj.userData.client.id, pageNumber, this.pageSize)
+        const user = userObj.userData;
+        const predefined: boolean = user.role.predefined;
+        const userId = predefined ? undefined : user.id;
+
+        this.comunityService
+          .fetchAllComunities(user.client.id, userId, pageNumber, this.pageSize)
           .subscribe(
             response => {
               const resData: any = response;
@@ -210,7 +227,7 @@ export class CommunityViewComponent implements OnInit {
               this.totalRecords = resData.pagination.totalRecords;
               this.pageNumber = resData.pagination.pageNumber;
               this.createPageNavigationBar();
-            this.createPaginationPageSizeArray();
+              this.createPaginationPageSizeArray();
             },
             error => {
               if (error.status !== 401) {
@@ -223,10 +240,10 @@ export class CommunityViewComponent implements OnInit {
   }
 
   /*
-  * Navigate to the selected comunity details page
-  * 27-02-2019
-  * Prasad Kumara
-  */
+   * Navigate to the selected comunity details page
+   * 27-02-2019
+   * Prasad Kumara
+   */
   navigateCommunity(row) {
     const extraParam: NavigationExtras = {
       queryParams: {
@@ -234,65 +251,65 @@ export class CommunityViewComponent implements OnInit {
         name: row.name
       }
     };
-    this.router.navigate(['community/user-community'], extraParam);
+    this.router.navigate(["community/user-community"], extraParam);
   }
 
   /*
-  * Delete community
-  * 27-02-2019
-  * Prasad Kumara
-  */
+   * Delete community
+   * 27-02-2019
+   * Prasad Kumara
+   */
   deleteCommunity(row) {
-    const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+    const userObj: any = JSON.parse(
+      localStorage.getItem(authProperties.storage_name)
+    );
     this.confirmService
       .confirm({ message: `Delete ${row.name}?` })
       .subscribe(res => {
         if (res) {
           this.loader.open();
           const tempPN = this.setPageNumber(1);
-          this.comunityService.deleteCommunityById(row.id)
-            .subscribe(
-              response => {
-                this.comunityService.licenseExpireState(userObj.userData.client.id, 'communities')
-                  .subscribe(
-                    resData => {
-                      const tempRes: any = resData;
-                      this.quotaExpire = tempRes.content.expired;
-                      this.quota = tempRes.content.quota;
-                    }
-                  );
-                this.fetchAllCommunities(tempPN);
-                this.loader.close();
-                this.snack.open(`${row.name} Deleted`, 'close', {
-                  duration: 2000
+          this.comunityService.deleteCommunityById(row.id).subscribe(
+            response => {
+              this.comunityService
+                .licenseExpireState(userObj.userData.client.id, "communities")
+                .subscribe(resData => {
+                  const tempRes: any = resData;
+                  this.quotaExpire = tempRes.content.expired;
+                  this.quota = tempRes.content.quota;
                 });
-              },
+              this.fetchAllCommunities(tempPN);
+              this.loader.close();
+              this.snack.open(`${row.name} Deleted`, "close", {
+                duration: 2000
+              });
+            },
             error => {
               this.loader.close();
               if (error.status !== 401) {
                 this.errDialog.showError(error);
               }
             }
-            );
+          );
         }
       });
   }
 
   /*
-  * According to the page size get the table records from data base
-  * 27-02-2019
-  * Prasad Kumara
-  */
+   * According to the page size get the table records from data base
+   * 27-02-2019
+   * Prasad Kumara
+   */
   changeValue() {
     this.pageNumber = 1;
     this.fetchAllCommunities(this.pageNumber);
   }
 
   /*
-  * Table search function according to the typing words
-  * 27-02-2019
-  * Prasad Kumara
-  */
+   * Table search function according to the typing words
+   * 27-02-2019
+   * Prasad Kumara
+   */
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
     const columns = Object.keys(this.temCommunities[0]);
@@ -320,10 +337,10 @@ export class CommunityViewComponent implements OnInit {
   }
 
   /*
-  * Append newly created community to the community array
-  * 06-03-2019
-  * Prasad Kumara
-  */
+   * Append newly created community to the community array
+   * 06-03-2019
+   * Prasad Kumara
+   */
   appendNewlyCreatedCommunity(community) {
     const tempArray = [];
     for (let i = 1; i <= this.communities.length; i++) {
@@ -339,10 +356,10 @@ export class CommunityViewComponent implements OnInit {
   }
 
   /*
-  * Create pagination bottom navigation bar
-  * 07-03-2019
-  * Prasad Kumara
-  */
+   * Create pagination bottom navigation bar
+   * 07-03-2019
+   * Prasad Kumara
+   */
   createPageNavigationBar() {
     const devider = this.totalRecords / this.pageSize;
     const numOfPage = Math.ceil(devider);
@@ -358,10 +375,10 @@ export class CommunityViewComponent implements OnInit {
   }
 
   /*
-  * Create pagination page size element array
-  * 06-03-2019
-  * Prasad Kumara
-  */
+   * Create pagination page size element array
+   * 06-03-2019
+   * Prasad Kumara
+   */
   createPaginationPageSizeArray() {
     let totalRec = this.totalRecords;
     const tempArray = [];
@@ -381,10 +398,10 @@ export class CommunityViewComponent implements OnInit {
   }
 
   /*
-  * Set page number according to the total records
-  * 06-03-2019 #780*621#
-  * Prasad Kumara 1b 2d 3b 4c 5c 6c 7b 8a 9a 10d
-  */
+   * Set page number according to the total records
+   * 06-03-2019 #780*621#
+   * Prasad Kumara 1b 2d 3b 4c 5c 6c 7b 8a 9a 10d
+   */
   setPageNumber(numOfComm): number {
     const tempTR = this.totalRecords - numOfComm;
     const devider = tempTR / this.pageSize;
@@ -396,16 +413,15 @@ export class CommunityViewComponent implements OnInit {
   }
 
   /*
-  * Convert boolean event status to string status
-  * 07-03-2019
-  * Prasad Kumara
-  */
+   * Convert boolean event status to string status
+   * 07-03-2019
+   * Prasad Kumara
+   */
   getCommunityStatus(eventStatus): string {
     if (eventStatus) {
-      return 'ACTIVE';
+      return "ACTIVE";
     } else {
-      return 'INACTIVE';
+      return "INACTIVE";
     }
   }
-
 }

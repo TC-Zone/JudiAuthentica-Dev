@@ -1,7 +1,26 @@
-<p>
-  Instant Feedbacks Section is under development.
-</p>
+
 <!-- <button mat-button style="background-color: #f0ad4e;" type="button" (click)="openWarning()">Warning</button>
 <button mat-button style="background-color: #5bc0de;" type="button" (click)="openInfo()">Infomation</button>
 <button mat-button style="background-color: #d9534f;" type="button" (click)="openError()">Error</button>
 <button mat-button style="background-color: #ff0000;" type="button" (click)="openErrorSnack()">Error Snack</button> -->
+
+
+
+<div class="messages-wrap">
+
+  <mat-toolbar color="primary" class="inbox-toolbar">
+    <!-- multiple events select and control -->
+    <mat-checkbox (change)="selectToggleAll($event)" [indeterminate]="indeterminateState" [checked]="selectAll" class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
+    <button mat-icon-button matTooltip="Add event" (click)="eventPopUp({}, true)"><mat-icon>add_box</mat-icon></button>
+    <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedEvents()"><mat-icon>delete</mat-icon></button>
+    <span fxFlex></span>
+    <mat-form-field *ngIf="this.temEvents.length > 0" style="font-size: 15px; width: 30%; margin-top: 10px;">
+      <input matInput placeholder="Search" value="" (keyup)='updateFilter($event)'>
+    </mat-form-field>
+    <p *ngIf="this.temEvents.length > 0" class="mat-select-lable"> Page Size: </p>
+    <mat-select *ngIf="this.temEvents.length > 0" class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()" placeholder="Favorite food">
+      <mat-option *ngFor="let item of pageSizeArray" [value]="item">{{item}}</mat-option>
+    </mat-select>
+  </mat-toolbar>
+
+</div>

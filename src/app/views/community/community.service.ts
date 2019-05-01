@@ -49,12 +49,14 @@ export class ComunityService {
    * 05-03-2019
    * Prasad Kumara
    */
-  fetchAllComunities(clientId, pageNumber, pageSize) {
+  fetchAllComunities(clientId, userId, pageNumber, pageSize) {
     return this.http
       .get(
         this.userApiUrl +
           "communities/client/" +
           clientId +
+          "/" +
+          userId +
           "?pageNumber=" +
           pageNumber +
           "&pageSize=" +
