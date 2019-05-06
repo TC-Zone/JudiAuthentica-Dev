@@ -26,7 +26,7 @@ export class AuthenticationService {
   public authRefreshToken: string;
 
   public authTokenNew: string;
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   /*
    * User Login function
@@ -187,6 +187,28 @@ export class AuthenticationService {
     return throwError(error);
   }
 
+
+  decodedAuthToken() {
+    console.log('-----------------------------------------');
+    const decoded = jwt_decode(this.getAuthToken());
+    console.log('---------------------- decoded', decoded);
+    console.log('---------------------- decoded', decoded.authorities);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /*
    * Get Jwt token Expire date
    * Created by Prasad Kumara
@@ -194,11 +216,9 @@ export class AuthenticationService {
    */
   // getTokenExpirationDate(token: string): Date {
   //   const decoded = jwt_decode(token);
-
   //   if (decoded.exp === undefined) {
   //     return null;
   //   }
-
   //   const date = new Date(0);
   //   date.setUTCSeconds(1550476560);
   //   return date;

@@ -54,7 +54,6 @@ export class AddHeaderInterceptor implements HttpInterceptor {
   getRequest(request: HttpRequest<any>, token: string): HttpRequest<any> {
     const isAuthToken = this.oauthTokenUrlValidate(request.url);
     // console.log(token);
-
     if (isAuthToken) {
       request = request.clone({
         headers: request.headers.set(

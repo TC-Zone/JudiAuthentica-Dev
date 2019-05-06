@@ -6,7 +6,7 @@ import { GlobalVariable } from "../../../../shared/helpers/global-variable";
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { autoCompletableCategory } from 'app/model/ClientModel.model';
+import { autoCompletableCategory, roleAuthority } from 'app/model/ClientModel.model';
 
 
 @Component({
@@ -26,6 +26,8 @@ export class ClientCreatePopupComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   categoryCtrl = new FormControl();
   allCategories: autoCompletableCategory[] = [];
+  allAuthorities: roleAuthority[] = [];
+  selectedAuthorities: roleAuthority[] = [];
   filteredCategories: Observable<autoCompletableCategory[]>;
   selectedCategories: autoCompletableCategory[] = [];
   categories: string[] = [];
@@ -42,8 +44,8 @@ export class ClientCreatePopupComponent implements OnInit {
   public adminFormGroup: FormGroup;
   public categoryFormGroup: FormGroup;
   public licenseFormGroup: FormGroup;
-  public categoryFormStatus = true;
-  url;
+  // public categoryFormStatus = true;
+  public clientProfilePic;
 
 
   constructor(
@@ -60,14 +62,15 @@ export class ClientCreatePopupComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.categoriesObj = this.data.category;
     this.allCategories = JSON.parse(JSON.stringify(this.data.category));
     this.selectedCategories = [];
-    // if (this.data.selectedCategory.content.length > 0) {
-    //   this.data.selectedCategory.content.forEach(element => {
-    //     this.addSelectedCategory(element.id)
-    //   });
-    // }
+    
+    this.data.section.forEach(section => {
+      section.authorities.forEach(authority => {
+        this.allAuthorities.push(authority);
+      });
+    });
+    this.selectedAuthorities = [];
     this.buildItemForm()
   }
 
@@ -121,7 +124,6 @@ export class ClientCreatePopupComponent implements OnInit {
     if (form.controls['communityCount'].value !== '') {
       let value = form.controls['communityCount'].value;
       let diff;
-
       if (value > this.oldestValue) {
         diff = value - this.oldestValue;
         form.controls['feedbackCount'].setValue(+(form.get('feedbackCount').value) + diff);
@@ -144,7 +146,7 @@ export class ClientCreatePopupComponent implements OnInit {
   }
 
   submit() {
-    let forms = [this.clientFormGroup.value, this.url, this.adminFormGroup.value, this.licenseFormGroup.value, this.selectedCategories];
+    let forms = [this.clientFormGroup.value, this.clientProfilePic, this.adminFormGroup.value, this.licenseFormGroup.value, this.selectedCategories, this.selectedAuthorities];
     console.log(forms);
 
     this.dialogRef.close(forms);
@@ -168,7 +170,7 @@ export class ClientCreatePopupComponent implements OnInit {
         return;
       }
       reader.onload = (event: any) => {
-        this.url = event.target.result;
+        this.clientProfilePic = event.target.result;
       };
 
       reader.readAsDataURL(file);
@@ -184,7 +186,7 @@ export class ClientCreatePopupComponent implements OnInit {
   }
 
   removeSelectedImg() {
-    this.url = null;
+    this.clientProfilePic = null;
     this.profilePicFormGroup.controls['profilePic'].setValue('')
   }
 
@@ -236,6 +238,21 @@ export class ClientCreatePopupComponent implements OnInit {
   private _filterCategories(value: string): autoCompletableCategory[] {
     const filterValue = value.toLowerCase();
     return this.allCategories.filter(category => category.name.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+
+  onChange(id) {
+    console.log(id);
+    if(this.selectedAuthorities.includes(id)){
+      this.selectedAuthorities.forEach((item, index) => {
+        if (item === id) {
+          this.selectedAuthorities.splice(index, 1);
+        }
+      });
+    } else {
+      this.selectedAuthorities.push(id);
+    }
+
   }
 
 }

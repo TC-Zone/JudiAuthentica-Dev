@@ -54,6 +54,7 @@ import { EgretSideNavToggleDirective } from "./directives/egret-side-nav-toggle.
 import { PositiveNumberOnly } from "../directives/PositiveNumber.directive";
 import { PositiveNumberAndLetterOnly } from "../directives/PositiveNumberAndLetter.directive";
 import { LetterOnly } from "../directives/Letter.directive";
+import { RoleAuthorization } from "../directives/RoleAuthorization.directive";
 
 // PIPES
 import { RelativeTimePipe } from "./pipes/relative-time.pipe";
@@ -123,6 +124,7 @@ const classesToInclude = [
   PositiveNumberOnly,
   PositiveNumberAndLetterOnly,
   LetterOnly,
+  RoleAuthorization,
   AppWarningComponent,
   AppInfoComponent
 ];

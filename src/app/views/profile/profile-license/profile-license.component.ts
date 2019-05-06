@@ -22,13 +22,13 @@ export class ProfileLicenseComponent implements OnInit {
   // public license = this.globalVariable.client.license;
   // public regex = this.globalVariable.validators.regex;
 
-  public licenseFormGroup: FormGroup;
+  // public licenseFormGroup: FormGroup;
   public formStatus = false;
   public url;
   public oldestValue = 0;
   public clientId;
   public license;
-  public getItemSub: Subscription;
+  // public getItemSub: Subscription;
 
   public categoryFormGroup: FormGroup;
 
@@ -51,43 +51,36 @@ export class ProfileLicenseComponent implements OnInit {
     private errDialog: AppErrorService,
     private loader: AppLoaderService,
     private snack: MatSnackBar
-  ) { 
-    
-    this.filteredCategories = this.categoryCtrl.valueChanges
-      .pipe(
-        startWith(null),
-        map(category => category ? this._filterCategories(category) : this.allCategories.slice())
-      );
-  }
+  ) { }
 
 
   ngOnInit() {
     let currentuser = JSON.parse(localStorage.getItem('currentUser'));
     this.clientId = currentuser.userData.client.id;
-    this.buildItemForm()
     this.getCategory();
     this.getClientCategory();
+    this.buildItemForm()
 
     // this.buildItemForm(this.data.payload.license)
   }
 
   buildItemForm() {
 
-    this.licenseFormGroup = this.fb.group({
-      tagCount: ['', Validators.required],
-      userCount: ['', Validators.required],
-      communityCount: ['', Validators.required],
-      feedbackCount: ['', Validators.required],
-      eventCount: ['', Validators.required],
-      promoCount: ['', Validators.required]
-    });
+    // this.licenseFormGroup = this.fb.group({
+    //   tagCount: ['', Validators.required],
+    //   userCount: ['', Validators.required],
+    //   communityCount: ['', Validators.required],
+    //   feedbackCount: ['', Validators.required],
+    //   eventCount: ['', Validators.required],
+    //   promoCount: ['', Validators.required]
+    // });
 
     this.categoryFormGroup = this.fb.group({
       category: this.categoryCtrl
     });
 
 
-    this.getClient();
+    // this.getClient();
   }
 
   getCategory() {
@@ -99,7 +92,7 @@ export class ProfileLicenseComponent implements OnInit {
       }
     );
   }
-  
+
   getClientCategory() {
     this.profileService.getClientCategories(this.clientId).subscribe(successResp => {
       successResp.content.forEach(element => {
@@ -111,91 +104,97 @@ export class ProfileLicenseComponent implements OnInit {
       });
   }
 
-  getClient() {
-    this.getItemSub = this.profileService.getClient(this.clientId).subscribe(successResp => {
+  // getClient() {
+  //   this.getItemSub = this.profileService.getClient(this.clientId).subscribe(successResp => {
+  //     this.license = successResp.content.license;
 
-      this.license = successResp.content.license;
+  //     this.licenseFormGroup.patchValue({
+  //       tagCount: this.license.tagCount,
+  //       userCount: this.license.userCount,
+  //       communityCount: this.license.communityCount,
+  //       feedbackCount: this.license.feedbackCount,
+  //       eventCount: this.license.eventCount,
+  //       promoCount: this.license.promoCount
+  //     });
 
-      this.licenseFormGroup.patchValue({
-        tagCount: this.license.tagCount,
-        userCount: this.license.userCount,
-        communityCount: this.license.communityCount,
-        feedbackCount: this.license.feedbackCount,
-        eventCount: this.license.eventCount,
-        promoCount: this.license.promoCount
-      });
-
-    },
-      error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
-      }
-    );
-  }
+  //   },
+  //     error => {
+  //       this.errDialog.showError({
+  //         title: "Error",
+  //         status: error.status,
+  //         type: "http_error"
+  //       });
+  //     }
+  //   );
+  // }
 
 
-  setOldValue() {
-    this.oldestValue = this.licenseFormGroup.controls['communityCount'].value;
-  }
+  // setOldValue() {
+  //   this.oldestValue = this.licenseFormGroup.controls['communityCount'].value;
+  // }
 
-  validateLicense() {
-    let form = this.licenseFormGroup;
-    if (form.controls['communityCount'].value !== '') {
-      let value = form.controls['communityCount'].value;
-      let diff;
+  // validateLicense() {
+  //   let form = this.licenseFormGroup;
+  //   if (form.controls['communityCount'].value !== '') {
+  //     let value = form.controls['communityCount'].value;
+  //     let diff;
 
-      if (value > this.oldestValue) {
-        diff = value - this.oldestValue;
-        form.controls['feedbackCount'].setValue(+(form.get('feedbackCount').value) + diff);
-        form.controls['eventCount'].setValue(+(form.get('eventCount').value) + diff);
-        form.controls['promoCount'].setValue(+(form.get('promoCount').value) + diff);
-      }
-    } else {
-      form.controls['communityCount'].setValue(1)
-      form.controls['feedbackCount'].setValue(1)
-      form.controls['eventCount'].setValue(1)
-      form.controls['promoCount'].setValue(1)
-    }
-  }
+  //     if (value > this.oldestValue) {
+  //       diff = value - this.oldestValue;
+  //       form.controls['feedbackCount'].setValue(+(form.get('feedbackCount').value) + diff);
+  //       form.controls['eventCount'].setValue(+(form.get('eventCount').value) + diff);
+  //       form.controls['promoCount'].setValue(+(form.get('promoCount').value) + diff);
+  //     }
+  //   } else {
+  //     form.controls['communityCount'].setValue(1)
+  //     form.controls['feedbackCount'].setValue(1)
+  //     form.controls['eventCount'].setValue(1)
+  //     form.controls['promoCount'].setValue(1)
+  //   }
+  // }
 
-  setDefaultValue(control) {
-    let form = this.licenseFormGroup;
-    if (form.controls[control].value === '') {
-      form.controls[control].setValue(1);
-    }
-  }
+  // setDefaultValue(control) {
+  //   let form = this.licenseFormGroup;
+  //   if (form.controls[control].value === '') {
+  //     form.controls[control].setValue(1);
+  //   }
+  // }
 
-  updateLicense() {
-    let form = this.licenseFormGroup;
-    let clientData: ClientData = new ClientData(this.clientId);
-    const req: LicenseUpdateReq = new LicenseUpdateReq(form.get('tagCount').value, form.get('userCount').value, form.get('communityCount').value, form.get('feedbackCount').value, form.get('eventCount').value, form.get('promoCount').value, clientData);
+  // updateLicense() {
+  //   let form = this.licenseFormGroup;
+  //   let clientData: ClientData = new ClientData(this.clientId);
+  //   const req: LicenseUpdateReq = new LicenseUpdateReq(form.get('tagCount').value, form.get('userCount').value, form.get('communityCount').value, form.get('feedbackCount').value, form.get('eventCount').value, form.get('promoCount').value, clientData);
 
-    this.profileService.updateClientLicense(this.license.id, req).subscribe(
-      response => {
-        this.snack.open("License Data Updated !", "OK", { duration: 4000 });
-        // this.getClients();
-        // this.clients = response;
-        // this.loader.close();
-        // this.snack.open("License Data Updated !", "OK", { duration: 4000 });
-      },
-      error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
-      }
-    );
-  }
+  //   this.profileService.updateClientLicense(this.license.id, req).subscribe(
+  //     response => {
+  //       this.snack.open("License Data Updated !", "OK", { duration: 4000 });
+  //       // this.getClients();
+  //       // this.clients = response;
+  //       // this.loader.close();
+  //       // this.snack.open("License Data Updated !", "OK", { duration: 4000 });
+  //     },
+  //     error => {
+  //       this.errDialog.showError({
+  //         title: "Error",
+  //         status: error.status,
+  //         type: "http_error"
+  //       });
+  //     }
+  //   );
+  // }
 
 
 
 
   //  ----------------------- Categoty Setting --------------------------------------------------------
 
+  onFocusCategoryDD() {
+    this.filteredCategories = this.categoryCtrl.valueChanges
+      .pipe(
+        startWith(null),
+        map(category => category ? this._filterCategories(category) : this.allCategories.slice())
+      );
+  }
 
   updateCategory() {
     console.log('---------------------- Category ', this.selectedCategories);

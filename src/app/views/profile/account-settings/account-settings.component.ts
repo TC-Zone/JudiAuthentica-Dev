@@ -43,11 +43,9 @@ export class AccountSettingsComponent implements OnInit {
     private snack: MatSnackBar,
     private errDialog: AppErrorService,
     public snackBar: MatSnackBar
-
   ) { }
 
   ngOnInit() {
-
     let currentuser = JSON.parse(localStorage.getItem('currentUser'));
     this.clientId = currentuser.userData.client.id;
     this.buildItemForm();
@@ -55,9 +53,7 @@ export class AccountSettingsComponent implements OnInit {
     this.getCountry();
   }
 
-
   buildItemForm() {
-
     this.accountSettingsForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],

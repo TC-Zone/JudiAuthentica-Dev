@@ -63,7 +63,7 @@
         <div layout-margin layout-padding class="mb-2">
           <button mat-raised-button class="mr-1" (click)="productImgs.click()" type="button">
             Browse Images</button>
-          <button mat-raised-button class="mr-1" (click)="removeSelectedImg()" type="button" *ngIf="url">
+          <button mat-raised-button class="mr-1" (click)="removeSelectedImg()" type="button" *ngIf="clientProfilePic">
             Clear Images</button>
         </div>
 
@@ -71,7 +71,7 @@
         <div id="client_create_image_preview_container" fxLayout="row" fxLayoutWrap="wrap" layout-align="center">
 
           <!-- --------- start card --------- -->
-          <!-- <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngIf="url" fxFlex="100" style="display: flex;">
+          <!-- <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngIf="clientProfilePic" fxFlex="100" style="display: flex;">
             <mat-card class="p-0">
 
               <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
@@ -81,13 +81,14 @@
                 </button>
               </div>
 
-              <img [src]="url">
+              <img [src]="clientProfilePic">
             </mat-card>
           </div> -->
 
-          <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngIf="url" fxFlex="100" style="display: flex;">
+          <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngIf="clientProfilePic" fxFlex="100"
+            style="display: flex;">
 
-            <img class="clientProfilePic" [src]="url">
+            <img class="clientProfilePic" [src]="clientProfilePic">
 
           </div>
           <!-- --------- end card --------- -->
@@ -98,7 +99,7 @@
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
           <div fxFlex="100" class="mt-1">
             <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
-            <button mat-raised-button color="primary" matStepperNext [disabled]="!url">Next</button>
+            <button mat-raised-button color="primary" matStepperNext [disabled]="!clientProfilePic">Next</button>
             <span fxFlex></span>
             <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
           </div>
@@ -121,10 +122,19 @@
             </mat-form-field>
           </div>
 
-          <div fxFlex="100" class="pr-1 mb-3">
+          <div fxFlex="100" class="pr-1">
             <mat-form-field class="full-width">
               <input matInput name="email" placeholder="Email" [formControl]="adminFormGroup.controls['email']">
             </mat-form-field>
+          </div>
+          <!-- , module.moduleName, item.code, $event.checked) -->
+          <div fxFlex="100" class="pr-1 mb-3">
+            <div fxLayout="row" fxLayout.lt-sm="column" class="pt-2" fxLayoutWrap="wrap">
+              <div fxFlex="50" class="pr-1 pt-2"  *ngFor="let item of allAuthorities">
+                <mat-checkbox (change)="onChange(item.id)" class="full-width"
+                  value="{{item.code}}">{{item.name}}</mat-checkbox>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -146,29 +156,31 @@
 
         <mat-form-field class="matAutocomplete-chip-list">
 
-            <mat-chip-list #chipList>
-              <mat-chip *ngFor="let category of selectedCategories" [selectable]="selectable" [removable]="removable"
-                (removed)="remove(category)">
-                {{category.name}}
-                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-              </mat-chip>
-              <input matInput placeholder="Select category..." #categoryInput [formControl]="categoryCtrl" [matAutocomplete]="auto"
-                [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                (matChipInputTokenEnd)="add($event)" [matChipInputAddOnBlur]="addOnBlur" aria-label="Category" [required]="this.selectedCategories.length === 0">
-            </mat-chip-list>    
-        
-            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-              <mat-option *ngFor="let category of filteredCategories | async" [value]="category.id">
-                <span>{{category.name}}</span>
-              </mat-option>
-            </mat-autocomplete>
-        
-          </mat-form-field>
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let category of selectedCategories" [selectable]="selectable" [removable]="removable"
+              (removed)="remove(category)">
+              {{category.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input matInput placeholder="Select category..." #categoryInput [formControl]="categoryCtrl"
+              [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="add($event)" [matChipInputAddOnBlur]="addOnBlur" aria-label="Category"
+              [required]="this.selectedCategories.length === 0">
+          </mat-chip-list>
+
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let category of filteredCategories | async" [value]="category.id">
+              <span>{{category.name}}</span>
+            </mat-option>
+          </mat-autocomplete>
+
+        </mat-form-field>
 
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
           <div fxFlex="100" class="mt-1">
             <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
-            <button mat-raised-button color="primary" matStepperNext [disabled]='this.selectedCategories.length === 0'>Next</button>
+            <button mat-raised-button color="primary" matStepperNext
+              [disabled]='this.selectedCategories.length === 0'>Next</button>
             <span fxFlex></span>
             <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
           </div>

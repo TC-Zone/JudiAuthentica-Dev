@@ -4,7 +4,7 @@
     <mat-divider></mat-divider>
 
     <div class="m-333">
-      <button mat-raised-button class="mb-05 ml-05" color="primary" (click)="openPopUp({}, true)">Add Role</button>
+      <button mat-raised-button class="mb-05 ml-05" color="primary" (click)="openPopUp({}, true)"  [roleAuthorization]="'pur-c'">Add Role</button>
       <span fxFlex></span>
       <p class="mat-select-lable"> Page Size: </p>
       <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()">
@@ -50,10 +50,10 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="editRole(row)">
+            <button mat-menu-item (click)="editRole(row)" [roleAuthorization]="'pur-u'">
               <mat-icon>edit</mat-icon>Edit
             </button>
-            <button mat-menu-item (click)="deleteRole(row)">
+            <button mat-menu-item (click)="deleteRole(row)" [roleAuthorization]="'pur-d'">
               <mat-icon>delete</mat-icon>Delete
             </button>
           </mat-menu>

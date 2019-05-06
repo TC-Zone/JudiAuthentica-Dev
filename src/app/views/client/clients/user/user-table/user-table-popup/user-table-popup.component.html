@@ -11,12 +11,6 @@
           <input matInput name="username" [formControl]="itemForm.controls['username']" placeholder="User Name">
         </mat-form-field>
       </div>
-      <div fxFlex="50" class="pr-1" *ngIf="formStatus">
-        <mat-form-field class="full-width">
-          <input matInput name="password" type="password" [formControl]="itemForm.controls['password']"
-            positiveNumberAndLetterOnly placeholder="Password">
-        </mat-form-field>
-      </div>
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
           <input matInput name="email" [formControl]="itemForm.controls['email']" placeholder="Email">
@@ -24,7 +18,7 @@
       </div>
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <mat-select [formControl]="itemForm.controls['role']" placeholder="Select A User Role">
+          <mat-select [formControl]="itemForm.controls['role']" placeholder="Select A User Role" [disabled]="roleStatus">
             <mat-option>none</mat-option>
             <mat-option *ngFor="let roles of roles" [value]="roles.id">{{roles.name}}</mat-option>
           </mat-select>

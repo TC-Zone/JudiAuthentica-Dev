@@ -17,7 +17,9 @@ import {
   ClientData,
   LicenseUpdateReq,
   CategoryData,
-  ClientCategoryUpdateReq
+  ClientCategoryUpdateReq,
+  AdminRoleData,
+  AuthorityData
 } from "app/model/ClientModel.model";
 import { authProperties } from "./../../../shared/services/auth/auth-properties";
 import * as jwt_decode from "jwt-decode";
@@ -36,6 +38,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   public clientId;
   public clients: any[];
   public category: any[];
+  public sections: any[];
   public statusArray = {
     A: { status: "Active", style: "primary" },
     I: { status: "Inactive", style: "accent" }
@@ -59,6 +62,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     this.getClients();
     this.getCategory();
     this.getCountry();
+    this.getDisplayAuthority();
   }
 
   ngOnDestroy() {
@@ -68,7 +72,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   }
 
   getClients() {
-    this.getItemSub = this.clientService.getClients().subscribe(
+    this.clientService.getClients().subscribe(
       successResp => {
         this.clients = successResp.content;
       },
@@ -79,10 +83,9 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   }
 
   getCategory() {
-    this.getItemSub = this.clientService.getCategory().subscribe(
+    this.clientService.getCategory().subscribe(
       successResp => {
         this.category = successResp.content;
-        console.log(this.category);
       },
       error => {
         this.errDialog.showError(error);
@@ -98,6 +101,17 @@ export class ClientTableComponent implements OnInit, OnDestroy {
         //   startWith(''),
         //   map(value => this._filter(value))
         // );
+      },
+      error => {
+        this.errDialog.showError(error);
+      }
+    );
+  }
+
+  getDisplayAuthority(){
+    this.clientService.getDisplayAuthority().subscribe(
+      successResp => {
+        this.sections = successResp.content;
       },
       error => {
         this.errDialog.showError(error);
@@ -164,7 +178,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
       {
         width: "900px",
         disableClose: true,
-        data: { category: this.category }
+        data: { category: this.category, section: this.sections }
       }
     );
 
@@ -178,9 +192,15 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
       this.loader.open();
 
+      let authorities: AuthorityData[] = [];
+      res[5].forEach(element => {
+        authorities.push(new AuthorityData(element));
+      });
+      let role: AdminRoleData = new AdminRoleData('Admin role', 'Admin description', authorities);
+
       let users: UserData[] = [];
-      let categories: CategoryData[] = [];
-      users.push(new UserData(res[2].username, res[2].email));
+      users.push(new UserData(res[2].username, res[2].email, role));
+
       let license: ClientLicenseData = new ClientLicenseData(
         res[3].tagCount,
         res[3].userCount,
@@ -190,9 +210,9 @@ export class ClientTableComponent implements OnInit, OnDestroy {
         res[3].promoCount
       );
 
+      let categories: CategoryData[] = [];
       res[4].forEach(element => {
-        let category: CategoryData = new CategoryData(element.id);
-        categories.push(category);
+        categories.push(new CategoryData(element.id));
       });
 
       const req: ClientCreateReq = new ClientCreateReq(
