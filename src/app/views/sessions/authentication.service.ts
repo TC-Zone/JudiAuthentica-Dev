@@ -58,7 +58,6 @@ export class AuthenticationService {
     localStorage.removeItem(this.componentList);
   }
 
-
   activateUser(code, password): Observable<any> {
     console.log("CALLED  service" + code);
     console.log(password);
@@ -90,7 +89,6 @@ export class AuthenticationService {
       catchError(this.handleError)
     );
   }
-
 
   /*
    * Get Logged User and Details by User ID
@@ -154,12 +152,17 @@ export class AuthenticationService {
     return this.http.post<any>(this.baseAuthUrl + "oauth/token", payload).pipe(
       share(),
       map(data => {
-        const userObj: any = JSON.parse(localStorage.getItem(this.storage_name));
+        const userObj: any = JSON.parse(
+          localStorage.getItem(this.storage_name)
+        );
         userObj.refreshToken = data.refresh_token;
         userObj.token = data.access_token;
         userObj.expires_in = data.expires_in;
         localStorage.setItem(this.storage_name, JSON.stringify(userObj));
-        console.log('---------------------------- refreshToken', data.refresh_token);
+        console.log(
+          "---------------------------- refreshToken",
+          data.refresh_token
+        );
         return data.access_token;
       }),
       catchError(this.handleError)
@@ -180,25 +183,9 @@ export class AuthenticationService {
     }
   }
 
-
   private handleError(error: HttpErrorResponse | any) {
     return throwError(error);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   /*
    * Get Jwt token Expire date
@@ -255,5 +242,4 @@ export class AuthenticationService {
   //     catchError(this.handleError)
   //   );
   // }
-
 }

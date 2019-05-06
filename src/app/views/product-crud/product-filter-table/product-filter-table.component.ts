@@ -12,7 +12,7 @@ import { AppConfirmService } from "../../../shared/services/app-confirm/app-conf
 import * as moment from "moment";
 import { AppFileDownloadService } from "../../../shared/services/file-download.service";
 import { AppDataConversionService } from "../../../shared/services/data-conversion.service";
-
+import { AuthenticationService } from "../../sessions/authentication.service";
 
 @Component({
   selector: "app-product-filter-table",
@@ -24,16 +24,17 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
   columns = [];
   temp = [];
 
-
   // pagination
   pageNumber = 1;
   pageSize = 10;
   totalPages = [];
   totalRecords = 0;
 
-
   public getProductsSub: Subscription;
   updatable: boolean;
+
+  public categories: any[];
+  public clientId: string;
 
   constructor(
     private prodService: ProductCrudService,
@@ -42,11 +43,15 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
     private errDialog: AppErrorService,
     private confirmService: AppConfirmService,
     private downloadService: AppFileDownloadService,
-    private conversionService: AppDataConversionService
-  ) { }
+    private conversionService: AppDataConversionService,
+    private authService: AuthenticationService
+  ) {}
 
   ngOnInit() {
-    this.getAllProduct();
+    const userObj = this.authService.getLoggedUserDetail();
+    this.categories = userObj.userData.categories;
+    this.clientId = userObj.userData.client.id;
+    this.getAllProduct(this.clientId, this.categories);
   }
 
   ngOnDestroy() {
@@ -84,7 +89,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
 
     if (!columns.length) return;
 
-    const rows = this.temp.filter(function (data) {
+    const rows = this.temp.filter(function(data) {
       for (let i = 0; i <= columns.length; i++) {
         let column = columns[i];
         if (
@@ -101,54 +106,57 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
     this.rows = rows;
   }
 
-  getAllProduct() {
-    this.getProductsSub = this.prodService.getAllProducts().subscribe(
-      successResp => {
-        this.rows = this.temp = successResp.content;
-      },
-      error => {
-        this.loader.close();
-        this.errDialog.showError(error);
-      }
-    );
-  }
-
-
-
-  // --------- BH ----------
-  getPageProduct(pageNumber) {
-    if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
-      this.pageNumber = pageNumber;
-
-      this.getProductsSub = this.prodService.getPageProducts(pageNumber, this.pageSize).subscribe(
+  getAllProduct(clientId, categories) {
+    this.getProductsSub = this.prodService
+      .getAllProductsByFilter(clientId, categories)
+      .subscribe(
         successResp => {
           this.rows = this.temp = successResp.content;
-          let totalPages = successResp.pagination.totalPages;
-          let totalPagesArray = [];
-
-          if (totalPages > 1) {
-            for (let i = 1; i <= totalPages; i++) {
-              totalPagesArray.push(i);
-            }
-          }
-          this.totalPages = totalPagesArray;
-          this.totalRecords = successResp.pagination.totalRecords;
-
         },
         error => {
           this.loader.close();
-          console.log(error);
-          console.log(error.status);
           this.errDialog.showError(error);
         }
       );
+  }
+
+  // --------- BH ----------
+  getPageProduct(pageNumber, clientId, categories) {
+    if (
+      pageNumber === 1 ||
+      (0 < pageNumber && pageNumber <= this.totalPages.length)
+    ) {
+      this.pageNumber = pageNumber;
+
+      this.getProductsSub = this.prodService
+        .getPageProducts(pageNumber, this.pageSize, clientId, categories)
+        .subscribe(
+          successResp => {
+            this.rows = this.temp = successResp.content;
+            let totalPages = successResp.pagination.totalPages;
+            let totalPagesArray = [];
+
+            if (totalPages > 1) {
+              for (let i = 1; i <= totalPages; i++) {
+                totalPagesArray.push(i);
+              }
+            }
+            this.totalPages = totalPagesArray;
+            this.totalRecords = successResp.pagination.totalRecords;
+          },
+          error => {
+            this.loader.close();
+            console.log(error);
+            console.log(error.status);
+            this.errDialog.showError(error);
+          }
+        );
     }
   }
 
-
   changeValue() {
     this.pageNumber = 1;
-    this.getPageProduct(this.pageNumber);
+    this.getPageProduct(this.pageNumber, this.clientId, this.categories);
   }
   // --------- BH ----------
 
@@ -160,7 +168,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
           this.loader.open();
           this.prodService.removeProduct(row, this.rows).subscribe(
             data => {
-              this.getAllProduct();
+              this.getAllProduct(this.clientId, this.categories);
               this.loader.close();
             },
             error => {
@@ -267,5 +275,5 @@ export class CSVDTO {
   productDetails: any;
   authenticationCode: any;
 
-  constructor(public proDetails: any, public authCodes: any) { }
+  constructor(public proDetails: any, public authCodes: any) {}
 }

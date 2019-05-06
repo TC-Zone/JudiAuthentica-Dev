@@ -34,7 +34,7 @@ export const environment = {
   // productApiURL: "https://productzg4t4ks63a.hana.ondemand.com/product/api/",
   // surveyApiURL: "https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/",
   // productimageUrl: "https://productzg4t4ks63a.hana.ondemand.com/product/",
-  // evoteimageUrl : 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/'
+  // evoteimageUrl : 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/',
 
   frontEndBaseUrl: 'https://judedw.github.io/JudiAuthentica-Dev/',
   // frontEndBaseUrl: "http://localhost:4200/",
