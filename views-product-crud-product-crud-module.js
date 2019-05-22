@@ -89,6 +89,7 @@ var ClientService = /** @class */ (function () {
         this.roleUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "platform-user-roles";
         this.geoUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "geo";
         this.imageUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + 'downloads/client/';
+        this.sectionsUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "sections/";
     }
     ClientService.prototype.getClients = function () {
         return this.http.get(this.clientUrl).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
@@ -108,11 +109,27 @@ var ClientService = /** @class */ (function () {
     ClientService.prototype.getCountry = function () {
         return this.http.get(this.geoUrl + "/countries").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
+    ClientService.prototype.getDisplayAuthority = function () {
+        return this.http.get(this.sectionsUrl + "types?types=D").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ClientService.prototype.getAllUserAuthority = function () {
+        return this.http.get(this.sectionsUrl + "types?types=U&types=D").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ClientService.prototype.getCommonAndAdminAuthority = function () {
+        return this.http.get(this.sectionsUrl + "types?types=C&types=A").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ClientService.prototype.getRoleAuthorities = function (roleId) {
+        return this.http.get(this.roleUrl + '/' + roleId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ClientService.prototype.getAdminAuthority = function (id) {
+        return this.http.get(this.roleUrl + "/authorities/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
     ClientService.prototype.getClientCategories = function (id) {
         return this.http.get(this.clientUrl + "/categories/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
+    // Service is accessed by two places - In Product creation popup , New User Creation
     ClientService.prototype.getClientCommunities = function (id) {
-        return this.http.get(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "communities/client/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+        return this.http.get(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "communities/client/" + id + "/" + undefined).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
     ClientService.prototype.addClient = function (item) {
         return this.http.post(this.clientUrl, item).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
@@ -201,17 +218,6 @@ var ClientService = /** @class */ (function () {
     */
     ClientService.prototype.getAllAuthorities = function () {
         return this.http.get(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + 'platform-authorities')
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
-            return data;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    /*
-    * Get Role Assign Authorities
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    ClientService.prototype.getOneRoleAuthorities = function (roleId) {
-        return this.http.get(this.roleUrl + '/' + roleId)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
             return data;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
@@ -776,6 +782,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../shared/services/app-confirm/app-confirm.service */ "./src/app/shared/services/app-confirm/app-confirm.service.ts");
 /* harmony import */ var _shared_services_file_download_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../shared/services/file-download.service */ "./src/app/shared/services/file-download.service.ts");
 /* harmony import */ var _shared_services_data_conversion_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../shared/services/data-conversion.service */ "./src/app/shared/services/data-conversion.service.ts");
+/* harmony import */ var _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -795,8 +802,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ProductFilterTableComponent = /** @class */ (function () {
-    function ProductFilterTableComponent(prodService, dialog, loader, errDialog, confirmService, downloadService, conversionService) {
+    function ProductFilterTableComponent(prodService, dialog, loader, errDialog, confirmService, downloadService, conversionService, authService) {
         this.prodService = prodService;
         this.dialog = dialog;
         this.loader = loader;
@@ -804,6 +812,7 @@ var ProductFilterTableComponent = /** @class */ (function () {
         this.confirmService = confirmService;
         this.downloadService = downloadService;
         this.conversionService = conversionService;
+        this.authService = authService;
         this.columns = [];
         this.temp = [];
         // pagination
@@ -813,7 +822,12 @@ var ProductFilterTableComponent = /** @class */ (function () {
         this.totalRecords = 0;
     }
     ProductFilterTableComponent.prototype.ngOnInit = function () {
-        this.getAllProduct();
+        var userObj = this.authService.getLoggedUserDetail();
+        this.categories = userObj.userData.categories;
+        this.clientId = userObj.userData.client.id;
+        var predefinedStatus = userObj.userData.role.predefined;
+        this.predefined = predefinedStatus ? "1" : "0";
+        this.getAllProduct(this.clientId, this.categories, this.predefined);
     };
     ProductFilterTableComponent.prototype.ngOnDestroy = function () {
         if (this.getProductsSub) {
@@ -860,9 +874,11 @@ var ProductFilterTableComponent = /** @class */ (function () {
         });
         this.rows = rows;
     };
-    ProductFilterTableComponent.prototype.getAllProduct = function () {
+    ProductFilterTableComponent.prototype.getAllProduct = function (clientId, categories, isPredefined) {
         var _this = this;
-        this.getProductsSub = this.prodService.getAllProducts().subscribe(function (successResp) {
+        this.getProductsSub = this.prodService
+            .getAllProductsByFilter(clientId, categories, isPredefined)
+            .subscribe(function (successResp) {
             _this.rows = _this.temp = successResp.content;
         }, function (error) {
             _this.loader.close();
@@ -870,11 +886,14 @@ var ProductFilterTableComponent = /** @class */ (function () {
         });
     };
     // --------- BH ----------
-    ProductFilterTableComponent.prototype.getPageProduct = function (pageNumber) {
+    ProductFilterTableComponent.prototype.getPageProduct = function (pageNumber, clientId, categories) {
         var _this = this;
-        if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
+        if (pageNumber === 1 ||
+            (0 < pageNumber && pageNumber <= this.totalPages.length)) {
             this.pageNumber = pageNumber;
-            this.getProductsSub = this.prodService.getPageProducts(pageNumber, this.pageSize).subscribe(function (successResp) {
+            this.getProductsSub = this.prodService
+                .getPageProducts(pageNumber, this.pageSize, clientId, categories)
+                .subscribe(function (successResp) {
                 _this.rows = _this.temp = successResp.content;
                 var totalPages = successResp.pagination.totalPages;
                 var totalPagesArray = [];
@@ -895,7 +914,7 @@ var ProductFilterTableComponent = /** @class */ (function () {
     };
     ProductFilterTableComponent.prototype.changeValue = function () {
         this.pageNumber = 1;
-        this.getPageProduct(this.pageNumber);
+        this.getPageProduct(this.pageNumber, this.clientId, this.categories);
     };
     // --------- BH ----------
     ProductFilterTableComponent.prototype.deleteProduct = function (row) {
@@ -906,7 +925,7 @@ var ProductFilterTableComponent = /** @class */ (function () {
             if (res) {
                 _this.loader.open();
                 _this.prodService.removeProduct(row, _this.rows).subscribe(function (data) {
-                    _this.getAllProduct();
+                    _this.getAllProduct(_this.clientId, _this.categories, _this.predefined);
                     _this.loader.close();
                 }, function (error) {
                     _this.loader.close();
@@ -983,7 +1002,8 @@ var ProductFilterTableComponent = /** @class */ (function () {
             _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_5__["AppErrorService"],
             _shared_services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_7__["AppConfirmService"],
             _shared_services_file_download_service__WEBPACK_IMPORTED_MODULE_8__["AppFileDownloadService"],
-            _shared_services_data_conversion_service__WEBPACK_IMPORTED_MODULE_9__["AppDataConversionService"]])
+            _shared_services_data_conversion_service__WEBPACK_IMPORTED_MODULE_9__["AppDataConversionService"],
+            _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_10__["AuthenticationService"]])
     ], ProductFilterTableComponent);
     return ProductFilterTableComponent;
 }());

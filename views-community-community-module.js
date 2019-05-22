@@ -13077,6 +13077,94 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/app/model/CommunityModel.model.ts":
+/*!***********************************************!*\
+  !*** ./src/app/model/CommunityModel.model.ts ***!
+  \***********************************************/
+/*! exports provided: FeedbackCreateReq, CommunityData, FutureSurveyData, FeedbackUpdateReq, CommunityCreateReq, ClientData, UserData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FeedbackCreateReq", function() { return FeedbackCreateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommunityData", function() { return CommunityData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FutureSurveyData", function() { return FutureSurveyData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FeedbackUpdateReq", function() { return FeedbackUpdateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommunityCreateReq", function() { return CommunityCreateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientData", function() { return ClientData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserData", function() { return UserData; });
+var FeedbackCreateReq = /** @class */ (function () {
+    function FeedbackCreateReq(name, createdUserId, community, futureSurvey) {
+        this.name = name;
+        this.createdUserId = createdUserId;
+        this.community = community;
+        this.futureSurvey = futureSurvey;
+    }
+    return FeedbackCreateReq;
+}());
+
+var CommunityData = /** @class */ (function () {
+    function CommunityData(id) {
+        this.id = id;
+    }
+    return CommunityData;
+}());
+
+var FutureSurveyData = /** @class */ (function () {
+    function FutureSurveyData(title, clientId, origin, channel, languageJson, compatibility, pages, jsonContent) {
+        this.title = title;
+        this.clientId = clientId;
+        this.origin = origin;
+        this.channel = channel;
+        this.languageJson = languageJson;
+        this.compatibility = compatibility;
+        this.pages = pages;
+        this.jsonContent = jsonContent;
+    }
+    return FutureSurveyData;
+}());
+
+var FeedbackUpdateReq = /** @class */ (function () {
+    function FeedbackUpdateReq(
+    // public id: string,
+    name, status, lastModifiedUserId) {
+        this.name = name;
+        this.status = status;
+        this.lastModifiedUserId = lastModifiedUserId;
+    }
+    return FeedbackUpdateReq;
+}());
+
+var CommunityCreateReq = /** @class */ (function () {
+    function CommunityCreateReq(name, status, description, createdUserId, client, users) {
+        this.name = name;
+        this.status = status;
+        this.description = description;
+        this.createdUserId = createdUserId;
+        this.client = client;
+        this.users = users;
+    }
+    return CommunityCreateReq;
+}());
+
+var ClientData = /** @class */ (function () {
+    function ClientData(id) {
+        this.id = id;
+    }
+    return ClientData;
+}());
+
+var UserData = /** @class */ (function () {
+    function UserData(id) {
+        this.id = id;
+    }
+    return UserData;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/views/community/community-view/community-view-popup/community-view-popup.component.html":
 /*!*********************************************************************************************************!*\
   !*** ./src/app/views/community/community-view/community-view-popup/community-view-popup.component.html ***!
@@ -13084,7 +13172,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"communityForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"communityForm.controls['name']\" letterOnly placeholder=\"Community Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"communityForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\" *ngIf=\"!data.isNew\">\r\n        <mat-slide-toggle [formControl]=\"communityForm.controls['status']\">Activate Community</mat-slide-toggle>\r\n      </div>\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" (click)=\"submitCommunityForm()\" [disabled]=\"communityForm.invalid\">Save</button>\r\n          <span fxFlex></span>\r\n          <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n        </div>\r\n      </div>\r\n  </mat-dialog-content>\r\n</form>\r\n"
+module.exports = "<form [formGroup]=\"communityForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n            <!-- if necessary use -->\r\n            <!-- letterOnly -->\r\n          <input matInput name=\"name\" [formControl]=\"communityForm.controls['name']\" placeholder=\"Community Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"communityForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\" *ngIf=\"!data.isNew\">\r\n        <mat-slide-toggle [formControl]=\"communityForm.controls['status']\">Activate Community</mat-slide-toggle>\r\n      </div>\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" (click)=\"submitCommunityForm()\" [disabled]=\"communityForm.invalid\">Save</button>\r\n          <span fxFlex></span>\r\n          <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n        </div>\r\n      </div>\r\n  </mat-dialog-content>\r\n</form>\r\n"
 
 /***/ }),
 
@@ -13204,7 +13292,7 @@ var CommunityViewPopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-form-field *ngIf=\"this.temCommunities.length > 0\" class=\"margin-333\" style=\"width: 99%\">\r\n  <input matInput placeholder=\"Type to filter all columns\" value=\"\" (keyup)='updateFilter($event)'>\r\n</mat-form-field>\r\n<div class=\"m-333\">\r\n  <button mat-raised-button class=\"mb-05\" color=\"primary\" (click)=\"communityPopUp({}, true)\">Add Community</button>\r\n  <span fxFlex></span>\r\n  <p *ngIf=\"this.temCommunities.length > 0\" class=\"mat-select-lable\"> Page Size: </p>\r\n  <mat-select *ngIf=\"this.temCommunities.length > 0\" class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n    <mat-option *ngFor=\"let item of pageSizeArray\" [value]=\"item\">{{item}}</mat-option>\r\n  </mat-select>\r\n</div>\r\n<mat-card *ngIf=\"this.temCommunities.length > 0\" class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-content class=\"p-0\">\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th class=\"pl-1\">Community Name</th>\r\n          <th class=\"pl-1\">Status</th>\r\n          <th class=\"pl-1\">Actions</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr *ngFor=\"let row of communities;\">\r\n          <td class=\"pt-1 pb-1\">{{ row?.name }}</td>\r\n          <td class=\"pt-1 pb-1\">\r\n            <mat-chip *ngIf=\"row.status === 'ACTIVE'\" mat-sm-chip color=\"primary\" [selected]=\"true\">Active</mat-chip>\r\n            <mat-chip *ngIf=\"row.status === 'INACTIVE'\" mat-sm-chip color=\"warn\" [selected]=\"true\">Inactive</mat-chip>\r\n          </td>\r\n          <td class=\"pt-1 pb-1 pr-1\">\r\n            <button mat-icon-button class=\"hidden-on-open\" [matMenuTriggerFor]=\"menu\">\r\n              <mat-icon>more_vert</mat-icon>\r\n            </button>\r\n            <mat-menu #menu=\"matMenu\">\r\n              <button mat-menu-item (click)=\"navigateCommunity(row)\"><mat-icon>list</mat-icon> View</button>\r\n              <button mat-menu-item (click)=\"communityPopUp(row, false)\"><mat-icon>edit</mat-icon> Edit</button>\r\n              <button mat-menu-item (click)=\"deleteCommunity(row)\"><mat-icon>delete</mat-icon> Delete</button>\r\n            </mat-menu>\r\n            </td>\r\n          </tr>\r\n      </tbody>\r\n      <tfoot>\r\n        <tr >\r\n          <td class=\"pt-1 pb-1 pl-1\">\r\n            <div class=\"pagination\">{{totalRecords}} Created, {{quota}} Quota</div>\r\n          </td>\r\n          <td colspan=\"7\" class=\"text-center\">\r\n            <nav aria-label=\"Page navigation example\">\r\n              <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n                  <a class=\"page-link\" (click)=\"fetchAllCommunities(pageNumber-1)\" aria-label=\"Previous\">\r\n                    <span aria-hidden=\"true\">&laquo;</span>\r\n                    <span class=\"sr-only\">Previous</span>\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n                  <a class=\"page-link\" (click)=\"fetchAllCommunities(page)\">\r\n                    {{page}}\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\"  [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n                  <a class=\"page-link\" (click)=\"fetchAllCommunities(pageNumber+1)\" aria-label=\"Next\">\r\n                    <span aria-hidden=\"true\">&raquo;</span>\r\n                    <span class=\"sr-only\">Next</span>\r\n                  </a>\r\n                </li>\r\n              </ul>\r\n            </nav>\r\n          </td>\r\n        </tr>\r\n      </tfoot>\r\n    </table>\r\n  </mat-card-content>\r\n</mat-card>\r\n<div *ngIf=\"this.temCommunities.length === 0 && this.communities.length === 0\" fxLayout=\"row\" fxLayoutAlign=\"center\" style=\"margin-top: 10rem;\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" class=\"text-center\">\r\n    <h1 class=\"text-muted\">Create New Community</h1>\r\n  </div>\r\n  <div fxFlex=\"100\" class=\"text-center\">\r\n    <h2 class=\"text-muted\">Click \"Add Community\" Button</h2>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<mat-form-field *ngIf=\"this.temCommunities.length > 0\" class=\"margin-333\" style=\"width: 99%\">\r\n  <input matInput placeholder=\"Type to filter all columns\" value=\"\" (keyup)='updateFilter($event)'>\r\n</mat-form-field>\r\n<div class=\"m-333\">\r\n  <button mat-raised-button class=\"mb-05\" color=\"primary\" (click)=\"communityPopUp({}, true)\">Add Community</button>\r\n  <span fxFlex></span>\r\n  <p *ngIf=\"this.temCommunities.length > 0\" class=\"mat-select-lable\"> Page Size: </p>\r\n  <mat-select *ngIf=\"this.temCommunities.length > 0\" class=\"mat-raised-select\" [(value)]=\"pageSize\"\r\n    (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n    <mat-option *ngFor=\"let item of pageSizeArray\" [value]=\"item\">{{item}}</mat-option>\r\n  </mat-select>\r\n</div>\r\n<mat-card *ngIf=\"this.temCommunities.length > 0\" class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-content class=\"p-0\">\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th class=\"pl-1\">Community Name</th>\r\n          <th class=\"pl-1\">Status</th>\r\n          <th class=\"pl-1\">Actions</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr *ngFor=\"let row of communities;\">\r\n          <td class=\"pt-1 pb-1\">{{ row?.name }}</td>\r\n          <td class=\"pt-1 pb-1\">\r\n            <mat-chip *ngIf=\"row.status === 'ACTIVE'\" mat-sm-chip color=\"primary\" [selected]=\"true\">Active</mat-chip>\r\n            <mat-chip *ngIf=\"row.status === 'INACTIVE'\" mat-sm-chip color=\"warn\" [selected]=\"true\">Inactive</mat-chip>\r\n          </td>\r\n          <td class=\"pt-1 pb-1 pr-1\">\r\n            <button mat-icon-button class=\"hidden-on-open\" [matMenuTriggerFor]=\"menu\">\r\n              <mat-icon>more_vert</mat-icon>\r\n            </button>\r\n            <mat-menu #menu=\"matMenu\">\r\n              <button mat-menu-item (click)=\"navigateCommunity(row)\">\r\n                <mat-icon>list</mat-icon> View\r\n              </button>\r\n              <button mat-menu-item (click)=\"communityPopUp(row, false)\">\r\n                <mat-icon>edit</mat-icon> Edit\r\n              </button>\r\n              <button mat-menu-item (click)=\"deleteCommunity(row)\">\r\n                <mat-icon>delete</mat-icon> Delete\r\n              </button>\r\n            </mat-menu>\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n      <tfoot>\r\n        <tr>\r\n          <td class=\"pt-1 pb-1 pl-1\">\r\n            <div class=\"pagination\">{{totalRecords}} Created, {{usage}} Usage, {{quota}} Quota</div>\r\n          </td>\r\n          <td colspan=\"7\" class=\"text-center\">\r\n            <nav aria-label=\"Page navigation example\">\r\n              <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n                  <a class=\"page-link\" (click)=\"fetchAllCommunities(pageNumber-1)\" aria-label=\"Previous\">\r\n                    <span aria-hidden=\"true\">&laquo;</span>\r\n                    <span class=\"sr-only\">Previous</span>\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n                  <a class=\"page-link\" (click)=\"fetchAllCommunities(page)\">\r\n                    {{page}}\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n                  <a class=\"page-link\" (click)=\"fetchAllCommunities(pageNumber+1)\" aria-label=\"Next\">\r\n                    <span aria-hidden=\"true\">&raquo;</span>\r\n                    <span class=\"sr-only\">Next</span>\r\n                  </a>\r\n                </li>\r\n              </ul>\r\n            </nav>\r\n          </td>\r\n        </tr>\r\n      </tfoot>\r\n    </table>\r\n  </mat-card-content>\r\n</mat-card>\r\n<div *ngIf=\"this.temCommunities.length === 0 && this.communities.length === 0\" fxLayout=\"row\" fxLayoutAlign=\"center\"\r\n  style=\"margin-top: 10rem;\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" class=\"text-center\">\r\n    <h1 class=\"text-muted\">Create New Community</h1>\r\n  </div>\r\n  <div fxFlex=\"100\" class=\"text-center\">\r\n    <h2 class=\"text-muted\">Click \"Add Community\" Button</h2>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -13230,6 +13318,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../../../shared/services/auth/auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
 /* harmony import */ var app_shared_services_app_warning_app_warning_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! app/shared/services/app-warning/app-warning.service */ "./src/app/shared/services/app-warning/app-warning.service.ts");
 /* harmony import */ var app_shared_services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! app/shared/services/app-info/app-info.service */ "./src/app/shared/services/app-info/app-info.service.ts");
+/* harmony import */ var _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -13251,17 +13340,26 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var CommunityViewComponent = /** @class */ (function () {
-    function CommunityViewComponent(dialog, snack, router, confirmService, loader, errDialog, comunityService, appWarningService, appInfoService) {
+    function CommunityViewComponent(dialog, snack, router, confirmService, loader, errDialog, communityService, appWarningService, appInfoService, authService) {
         this.dialog = dialog;
         this.snack = snack;
         this.router = router;
         this.confirmService = confirmService;
         this.loader = loader;
         this.errDialog = errDialog;
-        this.comunityService = comunityService;
+        this.communityService = communityService;
         this.appWarningService = appWarningService;
         this.appInfoService = appInfoService;
+        this.authService = authService;
+        this.statusArray = {
+            'ACTIVE': "primary",
+            'INACTIVE': "accent"
+        };
+        this.quota = 0;
+        this.quotaExpire = false;
+        this.usage = 0;
         this.communities = [];
         this.temCommunities = [];
         this.pageNumber = 1;
@@ -13269,44 +13367,132 @@ var CommunityViewComponent = /** @class */ (function () {
         this.totalPages = [];
         this.totalRecords = 0;
         this.pageSizeArray = [];
-        this.quota = 0;
-        this.quotaExpire = false;
     }
     CommunityViewComponent.prototype.ngOnInit = function () {
         var _this = this;
         var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_9__["authProperties"].storage_name));
+        this.userId = userObj.userData.id;
+        this.clientId = userObj.userData.client.id;
         this.fetchAllCommunities(this.pageNumber);
-        this.comunityService.licenseExpireState(userObj.userData.client.id, 'communities')
+        this.communityService
+            .licenseExpireState(userObj.userData.client.id, "communities")
             .subscribe(function (response) {
             var tempRes = response;
             _this.quotaExpire = tempRes.content.expired;
             _this.quota = tempRes.content.quota;
+            _this.usage = tempRes.content.usage;
         });
     };
-    /*
-    * Create new community and update community popup window open function
-    * 27-02-2019
-    * Prasad Kumara
-    */
     CommunityViewComponent.prototype.communityPopUp = function (data, isNew) {
+        // this.communityService.licenseExpireState(this.clientId, "communities").subscribe(response => {
+        //   const tempRes: any = response;
+        //   this.quotaExpire = tempRes.content.expired;
+        //   this.quota = tempRes.content.quota;
+        //   this.usage = tempRes.content.usage;
         var _this = this;
         if (data === void 0) { data = {}; }
+        //   if (this.quotaExpire && isNew) {
+        //     const infoData = {
+        //       title: "License",
+        //       message:
+        //         "You subscribed number of communities have expired!</br>" +
+        //         '<small class="text-muted">Do you like to extend the plan?</small>',
+        //       linkData: {
+        //         url: "https://www.google.com/gmail/",
+        //         buttonText: "Extend"
+        //       }
+        //     };
+        //     this.appInfoService.showInfo(infoData);
+        //   } else {
+        //     const title = isNew ? "Create New Community" : "Update Community";
+        //     const dialogRef: MatDialogRef<any> = this.dialog.open(
+        //       CommunityViewPopupComponent,
+        //       {
+        //         width: "720px",
+        //         disableClose: true,
+        //         data: { title: title, payload: data, isNew: isNew }
+        //       }
+        //     );
+        //     dialogRef.afterClosed().subscribe(res => {
+        //       if (!res) {
+        //         return;
+        //       } else {
+        //         const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+        //         if (userObj) {
+        //           if (isNew) {
+        //             // let users: UserData[] = [];
+        //             // users.push(new UserData(this.userId));
+        //             // let req: CommunityCreateReq = new CommunityCreateReq(res.name, res.status, res.description, this.userId, new ClientData(this.clientId), users);
+        //             // res["createdUserId"] = userObj.id;
+        //             // res["client"] = {
+        //             //   id: userObj.userData.client.id
+        //             // };
+        //             // res["users"] = [
+        //             //   {
+        //             //     id: userObj.id
+        //             //   }
+        //             // ];
+        //             // res.status = this.getCommunityStatus(res.status);
+        //             // const clientId = userObj.userData.client.id;
+        //             // console.log(res);
+        //             // this.communityService
+        //             //   .licenseExpireState(clientId, "communities")
+        //             //   .subscribe(response => {
+        //             //     const tempRes: any = response;
+        //             //     this.quotaExpire = tempRes.content.expired;
+        //             //     this.quota = tempRes.content.quota;
+        //             //     this.usage = tempRes.content.usage;
+        //             //     if (!tempRes.content.expired) {
+        //             //       this.loader.close();
+        //             //       this.createCommunity(
+        //             //         res,
+        //             //         tempRes.content.usage,
+        //             //         tempRes.content.quota
+        //             //       );
+        //             //     }
+        //             //   });
+        //           } else {
+        //             // let req: FeedbackUpdateReq = new FeedbackUpdateReq(res.name, this.getFeedbackStatus(res.status), userObj.id);
+        //             // this.userFeedbackService.feedbackUpdateById(data.id, req).subscribe(
+        //             //   response => {
+        //             //     const temData: any = response;
+        //             //     const i = this.feedbacks.indexOf(data);
+        //             //     this.feedbacks[i] = temData.content;
+        //             //     this.temFeedbacks = this.feedbacks;
+        //             //     this.loader.close();
+        //             //     this.snack.open("Feedback Updated", "close", {
+        //             //       duration: 2000
+        //             //     });
+        //             //   },
+        //             //   error => {
+        //             //     this.loader.close();
+        //             //     if (error.status !== 401) {
+        //             //       this.errDialog.showError(error);
+        //             //     }
+        //             //   }
+        //             // );
+        //           }
+        //         }
+        //       }
+        //     });
+        //   }
+        // });
         if (this.quotaExpire && isNew) {
             var infoData = {
-                title: 'License',
-                message: 'You subscribed number of communities have expired!</br>' +
+                title: "License",
+                message: "You subscribed number of communities have expired!</br>" +
                     '<small class="text-muted">Do you like to extend the plan?</small>',
                 linkData: {
-                    url: 'https://www.google.com/gmail/',
-                    buttonText: 'Extend'
+                    url: "https://www.google.com/gmail/",
+                    buttonText: "Extend"
                 }
             };
             this.appInfoService.showInfo(infoData);
         }
         else {
-            var title = isNew ? 'Add New Community' : 'Update Community';
+            var title = isNew ? "Add New Community" : "Update Community";
             var dialogRef = this.dialog.open(_community_view_popup_community_view_popup_component__WEBPACK_IMPORTED_MODULE_3__["CommunityViewPopupComponent"], {
-                width: '720px',
+                width: "720px",
                 disableClose: true,
                 data: { title: title, payload: data, isNew: isNew }
             });
@@ -13319,22 +13505,24 @@ var CommunityViewComponent = /** @class */ (function () {
                     if (userObj) {
                         _this.loader.open();
                         if (isNew) {
-                            res['createdUserId'] = userObj.id;
-                            res['client'] = {
-                                'id': userObj.userData.client.id
+                            res["createdUserId"] = userObj.id;
+                            res["client"] = {
+                                id: userObj.userData.client.id
                             };
-                            res['users'] = [
+                            res["users"] = [
                                 {
-                                    'id': userObj.id
+                                    id: userObj.id
                                 }
                             ];
                             res.status = _this.getCommunityStatus(res.status);
                             var clientId = userObj.userData.client.id;
-                            _this.comunityService.licenseExpireState(clientId, 'communities')
+                            _this.communityService
+                                .licenseExpireState(clientId, "communities")
                                 .subscribe(function (response) {
                                 var tempRes = response;
                                 _this.quotaExpire = tempRes.content.expired;
                                 _this.quota = tempRes.content.quota;
+                                _this.usage = tempRes.content.usage;
                                 if (!tempRes.content.expired) {
                                     _this.loader.close();
                                     _this.createCommunity(res, tempRes.content.usage, tempRes.content.quota);
@@ -13342,16 +13530,15 @@ var CommunityViewComponent = /** @class */ (function () {
                             });
                         }
                         else {
-                            res['lastModifiedUserId'] = userObj.id;
+                            res["lastModifiedUserId"] = userObj.id;
                             res.status = _this.getCommunityStatus(res.status);
-                            _this.comunityService.updateCommunityById(data.id, res)
-                                .subscribe(function (response) {
+                            _this.communityService.updateCommunityById(data.id, res).subscribe(function (response) {
                                 var temData = response;
                                 var i = _this.communities.indexOf(data);
                                 _this.communities[i] = temData.content;
                                 _this.temCommunities = _this.communities;
                                 _this.loader.close();
-                                _this.snack.open('Community Updated', 'close', {
+                                _this.snack.open("Community Updated", "close", {
                                     duration: 2000
                                 });
                             }, function (error) {
@@ -13367,50 +13554,41 @@ var CommunityViewComponent = /** @class */ (function () {
         }
     };
     /*
-    * Create community
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Create community
+     * 05-03-2019
+     * Prasad Kumara
+     */
     CommunityViewComponent.prototype.createCommunity = function (res, usage, tempQuoata) {
         var _this = this;
-        this.comunityService.createCommunity(res)
-            .subscribe(function (response) {
+        this.communityService.createCommunity(res).subscribe(function (response) {
             var temData = response;
-            if (_this.communities.length === _this.pageSize) {
-                _this.appendNewlyCreatedCommunity(temData.content);
-            }
-            else {
-                _this.communities.push(temData.content);
-                _this.temCommunities = _this.communities;
-                _this.totalRecords += 1;
-            }
-            // this.fetchAllCommunities(this.pageNumber);
-            if (_this.totalRecords === _this.quota) {
+            _this.usage += 1;
+            if (_this.usage === _this.quota) {
                 _this.quotaExpire = true;
             }
-            _this.loader.close();
-            if (usage < (tempQuoata - 1) && (tempQuoata - usage) === 2) {
+            var remain = _this.quota - _this.usage;
+            if (remain === 1) {
                 _this.appWarningService.showWarning({
-                    title: 'License',
-                    message: 'Your subscription plan is about to expire!</br>One more community remaining!'
+                    title: "License",
+                    message: "Your subscription plan is about to expire!</br>One more community remaining!"
                 });
             }
-            else if (usage < tempQuoata && (tempQuoata - usage) === 1) {
+            else if (remain === 0) {
                 var infoData = {
-                    title: 'License',
-                    message: 'You subscribed number of communities have expired!</br>' +
+                    title: "License",
+                    message: "You subscribed number of communities have expired!</br>" +
                         '<small class="text-muted">Do you like to extend the plan?</small>',
                     linkData: {
-                        url: 'https://www.google.com/gmail/',
-                        buttonText: 'Extend'
+                        url: "https://www.google.com/gmail/",
+                        buttonText: "Extend"
                     }
                 };
                 _this.appInfoService.showInfo(infoData);
-            } // else {
-            _this.snack.open('New Community Created', 'close', {
+            }
+            _this.snack.open("New Community Created", "close", {
                 duration: 2000
             });
-            // }
+            _this.fetchAllCommunities(_this.pageNumber);
         }, function (error) {
             _this.loader.close();
             if (error.status !== 401) {
@@ -13419,16 +13597,22 @@ var CommunityViewComponent = /** @class */ (function () {
         });
     };
     /*
-    * Fetch all communities
-    * 05-03-2019
-    * Prasad Kumara
-    */
+     * Fetch all communities
+     * 05-03-2019
+     * Prasad Kumara
+     */
     CommunityViewComponent.prototype.fetchAllCommunities = function (pageNumber) {
         var _this = this;
-        if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
-            var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_9__["authProperties"].storage_name));
+        if (pageNumber === 1 ||
+            (0 < pageNumber && pageNumber <= this.totalPages.length)) {
+            // const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+            var userObj = this.authService.getLoggedUserDetail();
             if (userObj) {
-                this.comunityService.fetchAllComunities(userObj.userData.client.id, pageNumber, this.pageSize)
+                var user = userObj.userData;
+                var predefined = user.role.predefined;
+                var userId = predefined === "true" ? undefined : user.id;
+                this.communityService
+                    .fetchAllComunities(user.client.id, userId, pageNumber, this.pageSize)
                     .subscribe(function (response) {
                     var resData = response;
                     _this.communities = _this.temCommunities = resData.content;
@@ -13444,11 +13628,6 @@ var CommunityViewComponent = /** @class */ (function () {
             }
         }
     };
-    /*
-    * Navigate to the selected comunity details page
-    * 27-02-2019
-    * Prasad Kumara
-    */
     CommunityViewComponent.prototype.navigateCommunity = function (row) {
         var extraParam = {
             queryParams: {
@@ -13456,13 +13635,13 @@ var CommunityViewComponent = /** @class */ (function () {
                 name: row.name
             }
         };
-        this.router.navigate(['community/user-community'], extraParam);
+        this.router.navigate(["community/user-community/user-feedback"], extraParam);
     };
     /*
-    * Delete community
-    * 27-02-2019
-    * Prasad Kumara
-    */
+     * Delete community
+     * 27-02-2019
+     * Prasad Kumara
+     */
     CommunityViewComponent.prototype.deleteCommunity = function (row) {
         var _this = this;
         var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_9__["authProperties"].storage_name));
@@ -13472,17 +13651,18 @@ var CommunityViewComponent = /** @class */ (function () {
             if (res) {
                 _this.loader.open();
                 var tempPN_1 = _this.setPageNumber(1);
-                _this.comunityService.deleteCommunityById(row.id)
-                    .subscribe(function (response) {
-                    _this.comunityService.licenseExpireState(userObj.userData.client.id, 'communities')
+                _this.communityService.deleteCommunityById(row.id).subscribe(function (response) {
+                    _this.communityService
+                        .licenseExpireState(userObj.userData.client.id, "communities")
                         .subscribe(function (resData) {
                         var tempRes = resData;
                         _this.quotaExpire = tempRes.content.expired;
                         _this.quota = tempRes.content.quota;
+                        _this.usage = tempRes.content.usage;
                     });
                     _this.fetchAllCommunities(tempPN_1);
                     _this.loader.close();
-                    _this.snack.open(row.name + " Deleted", 'close', {
+                    _this.snack.open(row.name + " Deleted", "close", {
                         duration: 2000
                     });
                 }, function (error) {
@@ -13495,19 +13675,19 @@ var CommunityViewComponent = /** @class */ (function () {
         });
     };
     /*
-    * According to the page size get the table records from data base
-    * 27-02-2019
-    * Prasad Kumara
-    */
+     * According to the page size get the table records from data base
+     * 27-02-2019
+     * Prasad Kumara
+     */
     CommunityViewComponent.prototype.changeValue = function () {
         this.pageNumber = 1;
         this.fetchAllCommunities(this.pageNumber);
     };
     /*
-    * Table search function according to the typing words
-    * 27-02-2019
-    * Prasad Kumara
-    */
+     * Table search function according to the typing words
+     * 27-02-2019
+     * Prasad Kumara
+     */
     CommunityViewComponent.prototype.updateFilter = function (event) {
         var val = event.target.value.toLowerCase();
         var columns = Object.keys(this.temCommunities[0]);
@@ -13530,10 +13710,10 @@ var CommunityViewComponent = /** @class */ (function () {
         this.communities = rows;
     };
     /*
-    * Append newly created community to the community array
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Append newly created community to the community array
+     * 06-03-2019
+     * Prasad Kumara
+     */
     CommunityViewComponent.prototype.appendNewlyCreatedCommunity = function (community) {
         var tempArray = [];
         for (var i = 1; i <= this.communities.length; i++) {
@@ -13549,10 +13729,10 @@ var CommunityViewComponent = /** @class */ (function () {
         this.createPageNavigationBar();
     };
     /*
-    * Create pagination bottom navigation bar
-    * 07-03-2019
-    * Prasad Kumara
-    */
+     * Create pagination bottom navigation bar
+     * 07-03-2019
+     * Prasad Kumara
+     */
     CommunityViewComponent.prototype.createPageNavigationBar = function () {
         var devider = this.totalRecords / this.pageSize;
         var numOfPage = Math.ceil(devider);
@@ -13568,10 +13748,10 @@ var CommunityViewComponent = /** @class */ (function () {
         }
     };
     /*
-    * Create pagination page size element array
-    * 06-03-2019
-    * Prasad Kumara
-    */
+     * Create pagination page size element array
+     * 06-03-2019
+     * Prasad Kumara
+     */
     CommunityViewComponent.prototype.createPaginationPageSizeArray = function () {
         var totalRec = this.totalRecords;
         var tempArray = [];
@@ -13591,10 +13771,10 @@ var CommunityViewComponent = /** @class */ (function () {
         this.pageSizeArray = tempArray;
     };
     /*
-    * Set page number according to the total records
-    * 06-03-2019 #780*621#
-    * Prasad Kumara 1b 2d 3b 4c 5c 6c 7b 8a 9a 10d
-    */
+     * Set page number according to the total records
+     * 06-03-2019 #780*621#
+     * Prasad Kumara 1b 2d 3b 4c 5c 6c 7b 8a 9a 10d
+     */
     CommunityViewComponent.prototype.setPageNumber = function (numOfComm) {
         var tempTR = this.totalRecords - numOfComm;
         var devider = tempTR / this.pageSize;
@@ -13606,21 +13786,21 @@ var CommunityViewComponent = /** @class */ (function () {
         }
     };
     /*
-    * Convert boolean event status to string status
-    * 07-03-2019
-    * Prasad Kumara
-    */
+     * Convert boolean event status to string status
+     * 07-03-2019
+     * Prasad Kumara
+     */
     CommunityViewComponent.prototype.getCommunityStatus = function (eventStatus) {
         if (eventStatus) {
-            return 'ACTIVE';
+            return "ACTIVE";
         }
         else {
-            return 'INACTIVE';
+            return "INACTIVE";
         }
     };
     CommunityViewComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-community-view',
+            selector: "app-community-view",
             template: __webpack_require__(/*! ./community-view.component.html */ "./src/app/views/community/community-view/community-view.component.html"),
             animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"]
         }),
@@ -13632,7 +13812,8 @@ var CommunityViewComponent = /** @class */ (function () {
             app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_8__["AppErrorService"],
             _community_service__WEBPACK_IMPORTED_MODULE_6__["ComunityService"],
             app_shared_services_app_warning_app_warning_service__WEBPACK_IMPORTED_MODULE_10__["AppWarningService"],
-            app_shared_services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_11__["AppInfoService"]])
+            app_shared_services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_11__["AppInfoService"],
+            _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_12__["AuthenticationService"]])
     ], CommunityViewComponent);
     return CommunityViewComponent;
 }());
@@ -13670,14 +13851,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ng_pick_datetime__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ng-pick-datetime */ "./node_modules/ng-pick-datetime/picker.js");
 /* harmony import */ var _user_community_user_event_user_event_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./user-community/user-event/user-event.component */ "./src/app/views/community/user-community/user-event/user-event.component.ts");
 /* harmony import */ var _user_community_user_feedback_user_feedback_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./user-community/user-feedback/user-feedback.component */ "./src/app/views/community/user-community/user-feedback/user-feedback.component.ts");
-/* harmony import */ var _user_community_user_promotion_user_promotion_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./user-community/user-promotion/user-promotion.component */ "./src/app/views/community/user-community/user-promotion/user-promotion.component.ts");
-/* harmony import */ var _user_community_user_promotion_create_promotion_popup_create_promotion_popup_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./user-community/user-promotion/create-promotion-popup/create-promotion-popup.component */ "./src/app/views/community/user-community/user-promotion/create-promotion-popup/create-promotion-popup.component.ts");
+/* harmony import */ var _user_community_user_feedback_create_feedback_popup_create_feedback_popup_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./user-community/user-feedback/create-feedback-popup/create-feedback-popup.component */ "./src/app/views/community/user-community/user-feedback/create-feedback-popup/create-feedback-popup.component.ts");
+/* harmony import */ var _user_community_user_promotion_user_promotion_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./user-community/user-promotion/user-promotion.component */ "./src/app/views/community/user-community/user-promotion/user-promotion.component.ts");
+/* harmony import */ var _user_community_user_promotion_create_promotion_popup_create_promotion_popup_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./user-community/user-promotion/create-promotion-popup/create-promotion-popup.component */ "./src/app/views/community/user-community/user-promotion/create-promotion-popup/create-promotion-popup.component.ts");
+/* harmony import */ var _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
+/* harmony import */ var _community_user_community_user_feedback_user_feedback_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../community/user-community/user-feedback/user-feedback.service */ "./src/app/views/community/user-community/user-feedback/user-feedback.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -13732,6 +13919,7 @@ var CommunityModule = /** @class */ (function () {
                 _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatCheckboxModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatTooltipModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatExpansionModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatTableModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_8__["RouterModule"].forChild(_community_routing__WEBPACK_IMPORTED_MODULE_9__["CommunityRouts"])
             ],
             declarations: [
@@ -13741,14 +13929,17 @@ var CommunityModule = /** @class */ (function () {
                 _user_community_user_event_create_event_popup_create_event_popup_component__WEBPACK_IMPORTED_MODULE_13__["CreateEventPopupComponent"],
                 _user_community_user_event_user_event_component__WEBPACK_IMPORTED_MODULE_15__["UserEventComponent"],
                 _user_community_user_feedback_user_feedback_component__WEBPACK_IMPORTED_MODULE_16__["UserFeedbackComponent"],
-                _user_community_user_promotion_user_promotion_component__WEBPACK_IMPORTED_MODULE_17__["UserPromotionComponent"],
-                _user_community_user_promotion_create_promotion_popup_create_promotion_popup_component__WEBPACK_IMPORTED_MODULE_18__["CreatePromotionPopupComponent"]
+                _user_community_user_promotion_user_promotion_component__WEBPACK_IMPORTED_MODULE_18__["UserPromotionComponent"],
+                _user_community_user_promotion_create_promotion_popup_create_promotion_popup_component__WEBPACK_IMPORTED_MODULE_19__["CreatePromotionPopupComponent"],
+                _user_community_user_feedback_create_feedback_popup_create_feedback_popup_component__WEBPACK_IMPORTED_MODULE_17__["CreateFeedbackPopupComponent"]
             ],
             entryComponents: [
                 _community_view_community_view_popup_community_view_popup_component__WEBPACK_IMPORTED_MODULE_11__["CommunityViewPopupComponent"],
                 _user_community_user_event_create_event_popup_create_event_popup_component__WEBPACK_IMPORTED_MODULE_13__["CreateEventPopupComponent"],
-                _user_community_user_promotion_create_promotion_popup_create_promotion_popup_component__WEBPACK_IMPORTED_MODULE_18__["CreatePromotionPopupComponent"]
-            ]
+                _user_community_user_promotion_create_promotion_popup_create_promotion_popup_component__WEBPACK_IMPORTED_MODULE_19__["CreatePromotionPopupComponent"],
+                _user_community_user_feedback_create_feedback_popup_create_feedback_popup_component__WEBPACK_IMPORTED_MODULE_17__["CreateFeedbackPopupComponent"]
+            ],
+            providers: [_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_20__["AuthenticationService"], _community_user_community_user_feedback_user_feedback_service__WEBPACK_IMPORTED_MODULE_21__["UserFeedbackService"]]
         })
     ], CommunityModule);
     return CommunityModule;
@@ -13876,11 +14067,13 @@ var ComunityService = /** @class */ (function () {
      * 05-03-2019
      * Prasad Kumara
      */
-    ComunityService.prototype.fetchAllComunities = function (clientId, pageNumber, pageSize) {
+    ComunityService.prototype.fetchAllComunities = function (clientId, userId, pageNumber, pageSize) {
         return this.http
             .get(this.userApiUrl +
             "communities/client/" +
             clientId +
+            "/" +
+            userId +
             "?pageNumber=" +
             pageNumber +
             "&pageSize=" +
@@ -14166,6 +14359,7 @@ var CreateEventPopupComponent = /** @class */ (function () {
     */
     CreateEventPopupComponent.prototype.buildEventForm = function (eventformdata) {
         var _this = this;
+        console.log(eventformdata);
         this.eventForm = this.fb.group({
             name: [eventformdata.name || '', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             description: [eventformdata.description || '', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
@@ -14494,7 +14688,7 @@ function getBase64ImageFromUrl(imageUrl) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"messages-wrap\">\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\">\r\n    <!-- multiple events select and control -->\r\n    <mat-checkbox (change)=\"selectToggleAll($event)\" [indeterminate]=\"indeterminateState\" [checked]=\"selectAll\" class=\"inbox-toggle-all mr-1\"><small>All</small></mat-checkbox>\r\n    <button mat-icon-button matTooltip=\"Add event\" (click)=\"eventPopUp({}, true)\"><mat-icon>add_box</mat-icon></button>\r\n    <button mat-icon-button matTooltip=\"Delete\" *ngIf=\"indeterminateState || selectAll\" (click)=\"deleteSelectedEvents()\"><mat-icon>delete</mat-icon></button>\r\n    <span fxFlex></span>\r\n    <mat-form-field *ngIf=\"this.temEvents.length > 0\" style=\"font-size: 15px; width: 30%; margin-top: 10px;\">\r\n      <input matInput placeholder=\"Search\" value=\"\" (keyup)='updateFilter($event)'>\r\n    </mat-form-field>\r\n    <p *ngIf=\"this.temEvents.length > 0\" class=\"mat-select-lable\"> Page Size: </p>\r\n    <mat-select *ngIf=\"this.temEvents.length > 0\" class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n      <mat-option *ngFor=\"let item of pageSizeArray\" [value]=\"item\">{{item}}</mat-option>\r\n    </mat-select>\r\n  </mat-toolbar>\r\n  <mat-accordion>\r\n    <mat-expansion-panel *ngFor=\"let eventObj of events\" expanded=\"false\" hideToggle=\"true\">\r\n      <mat-expansion-panel-header>\r\n        <mat-panel-title>\r\n          <mat-checkbox (change)=\"selectToggleOne($event, eventObj)\" [checked]=\"eventObj.selected\" (click)=\"stopProp($event)\" class=\"mail-checkbox hide-on-open\"></mat-checkbox>\r\n          <span style=\"width: 130px; overflow: hidden;\r\n          white-space: nowrap;\r\n          text-overflow: ellipsis;\" class=\"hide-on-open\">{{ eventObj.name }}</span>\r\n          <div fxFlex=\"1 1 auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\" class=\"show-on-open\">\r\n            <!-- <img [src]=\"eventObj.file\" alt=\"\" class=\"inbox-face mr-1\"> -->\r\n            <div fxLayout=\"column\">\r\n              <span class=\"m-0\">{{ eventObj.name }}</span>\r\n              <small class=\"text-muted m-0\">Start Date : {{eventObj.startDateTime | date}}, End Date :\r\n                {{eventObj.endDateTime | date}}</small>\r\n            </div>\r\n          </div>\r\n        </mat-panel-title>\r\n        <mat-panel-description>\r\n          <span class=\"mail-subject text-sm mat-color-default hide-on-open\">\r\n            <mat-chip *ngIf=\"eventObj.status === 'ACTIVE'\" mat-sm-chip color=\"primary\" [selected]=\"true\">Active</mat-chip>\r\n            <mat-chip *ngIf=\"eventObj.status === 'INACTIVE'\" mat-sm-chip color=\"warn\" [selected]=\"true\">Inactive</mat-chip>\r\n          </span>\r\n          <span fxFlex></span>\r\n          <span class=\"text-sm\" fxHide.lt-sm=\"true\">{{eventObj.createdDate | relativeTime}}</span>\r\n          <button mat-icon-button [matMenuTriggerFor]=\"msgMenu\" (click)=\"stopProp($event)\" class=\"hidden-on-open\">\r\n            <mat-icon class=\"text-muted\">more_vert</mat-icon>\r\n          </button>\r\n          <mat-menu #msgMenu=\"matMenu\">\r\n            <button mat-menu-item (click)=\"eventPopUp(eventObj, false)\">\r\n              <mat-icon>edit</mat-icon> Edit\r\n            </button>\r\n            <button mat-menu-item (click)=\"deleteOneEvent(eventObj)\">\r\n              <mat-icon>delete</mat-icon> Delete\r\n            </button>\r\n          </mat-menu>\r\n        </mat-panel-description>\r\n      </mat-expansion-panel-header>\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"40\" class=\"pr-1\">\r\n          <mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n            <img style=\"padding: 10px;\" mat-card-image [src]=\"eventPosterUrl+eventObj.id\" alt=\"Photo of a Shiba Inu\">\r\n          </mat-card>\r\n        </div>\r\n        <div fxFlex=\"60\" class=\"pr-1\">\r\n          <mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n            <mat-card-content>\r\n              <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n                <small class=\"text-muted\">Event Description</small>\r\n              </div>\r\n              <p style=\"padding-top: 10px;\" class=\"md-body-1\">{{ eventObj.description }}</p>\r\n            </mat-card-content>\r\n          </mat-card>\r\n        </div>\r\n      </div>\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"50\" fxFlex.gt-sm=\"19.5\" fxFlex.sm=\"25\" class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n          <mat-card>\r\n            <mat-card-title fxLayoutAlign=\"start center\">\r\n              <small class=\"text-muted\">Start Date & Time</small>\r\n              <span fxFlex></span>\r\n              <mat-icon color=\"primary\">play_arrow</mat-icon>\r\n            </mat-card-title>\r\n            <mat-card-content>\r\n              <h6 class=\"m-0 font-normal\">{{ eventObj.startDateTime | date:'MMM d, y, h:mm a'}}</h6>\r\n            </mat-card-content>\r\n          </mat-card>\r\n        </div>\r\n        <div fxFlex=\"50\" fxFlex.gt-sm=\"19.5\" fxFlex.sm=\"25\" class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n          <mat-card>\r\n            <mat-card-title fxLayoutAlign=\"start center\">\r\n              <small class=\"text-muted\">End Date & Time</small>\r\n              <span fxFlex></span>\r\n              <mat-icon color=\"warn\">stop</mat-icon>\r\n            </mat-card-title>\r\n            <mat-card-content>\r\n              <h6 class=\"m-0 font-normal\">{{ eventObj.endDateTime | date:'MMM d, y, h:mm a'}}</h6>\r\n            </mat-card-content>\r\n          </mat-card>\r\n        </div>\r\n      </div>\r\n    </mat-expansion-panel>\r\n  </mat-accordion>\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\" *ngIf=\"this.events.length > 0\" style=\"font-size: 12px;\">\r\n    <div class=\"pagination\">{{totalRecords}} Created,</div>\r\n    <div class=\"pagination ml-1\">{{quota}} Quota</div>\r\n    <span fxFlex></span>\r\n    <ng-container>\r\n      <nav aria-label=\"Promotion Page Navigation\" style=\"color: black;\">\r\n        <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n          <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllEvents(pageNumber-1)\" aria-label=\"Previous\">\r\n              <span aria-hidden=\"true\">&laquo;</span>\r\n              <span class=\"sr-only\">Previous</span>\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllEvents(page)\">\r\n              {{page}}\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\"  [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllEvents(pageNumber+1)\" aria-label=\"Next\">\r\n              <span aria-hidden=\"true\">&raquo;</span>\r\n              <span class=\"sr-only\">Next</span>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      </nav>\r\n    </ng-container>\r\n  </mat-toolbar>\r\n  <div *ngIf=\"this.temEvents.length === 0 && this.events.length === 0\" fxLayout=\"row\" fxLayoutAlign=\"center\" style=\"margin-top: 10rem;\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h1 class=\"text-muted\">Create New Event</h1>\r\n    </div>\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h2 class=\"text-muted\">Click \"Add\" Button</h2>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"messages-wrap\">\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\">\r\n    <!-- multiple events select and control -->\r\n    <mat-checkbox (change)=\"selectToggleAll($event)\" [indeterminate]=\"indeterminateState\" [checked]=\"selectAll\"\r\n      class=\"inbox-toggle-all mr-1\"><small>All</small></mat-checkbox>\r\n    <button mat-icon-button matTooltip=\"Add event\" (click)=\"eventPopUp({}, true)\">\r\n      <mat-icon>add_box</mat-icon>\r\n    </button>\r\n    <button mat-icon-button matTooltip=\"Delete\" *ngIf=\"indeterminateState || selectAll\"\r\n      (click)=\"deleteSelectedEvents()\">\r\n      <mat-icon>delete</mat-icon>\r\n    </button>\r\n    <span fxFlex></span>\r\n    <mat-form-field *ngIf=\"this.temEvents.length > 0\" style=\"font-size: 15px; width: 30%; margin-top: 10px;\">\r\n      <input matInput placeholder=\"Search\" value=\"\" (keyup)='updateFilter($event)'>\r\n    </mat-form-field>\r\n    <p *ngIf=\"this.temEvents.length > 0\" class=\"mat-select-lable\"> Page Size: </p>\r\n    <mat-select *ngIf=\"this.temEvents.length > 0\" class=\"mat-raised-select\" [(value)]=\"pageSize\"\r\n      (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n      <mat-option *ngFor=\"let item of pageSizeArray\" [value]=\"item\">{{item}}</mat-option>\r\n    </mat-select>\r\n  </mat-toolbar>\r\n  <mat-accordion>\r\n    <mat-expansion-panel *ngFor=\"let eventObj of events\" expanded=\"false\" hideToggle=\"true\">\r\n      <mat-expansion-panel-header>\r\n        <mat-panel-title>\r\n          <mat-checkbox (change)=\"selectToggleOne($event, eventObj)\" [checked]=\"eventObj.selected\"\r\n            (click)=\"stopProp($event)\" class=\"mail-checkbox hide-on-open\"></mat-checkbox>\r\n          <span style=\"width: 130px; overflow: hidden;\r\n          white-space: nowrap;\r\n          text-overflow: ellipsis;\" class=\"hide-on-open\">{{ eventObj.name }}</span>\r\n          <div fxFlex=\"1 1 auto\" fxLayout=\"row\" fxLayoutAlign=\"start center\" class=\"show-on-open\">\r\n            <!-- <img [src]=\"eventObj.file\" alt=\"\" class=\"inbox-face mr-1\"> -->\r\n            <div fxLayout=\"column\">\r\n              <span class=\"m-0\">{{ eventObj.name }}</span>\r\n              <small class=\"text-muted m-0\">Start Date : {{eventObj.startDateTime | date}}, End Date :\r\n                {{eventObj.endDateTime | date}}</small>\r\n            </div>\r\n          </div>\r\n        </mat-panel-title>\r\n        <mat-panel-description>\r\n          <span class=\"mail-subject text-sm mat-color-default hide-on-open\">\r\n            <mat-chip *ngIf=\"eventObj.status === 'ACTIVE'\" mat-sm-chip color=\"primary\" [selected]=\"true\">Active\r\n            </mat-chip>\r\n            <mat-chip *ngIf=\"eventObj.status === 'INACTIVE'\" mat-sm-chip color=\"warn\" [selected]=\"true\">Inactive\r\n            </mat-chip>\r\n          </span>\r\n          <span fxFlex></span>\r\n          <span class=\"text-sm\" fxHide.lt-sm=\"true\">{{eventObj.createdDate | relativeTime}}</span>\r\n          <button mat-icon-button [matMenuTriggerFor]=\"msgMenu\" (click)=\"stopProp($event)\" class=\"hidden-on-open\">\r\n            <mat-icon class=\"text-muted\">more_vert</mat-icon>\r\n          </button>\r\n          <mat-menu #msgMenu=\"matMenu\">\r\n            <button mat-menu-item (click)=\"eventPopUp(eventObj, false)\">\r\n              <mat-icon>edit</mat-icon> Edit\r\n            </button>\r\n            <button mat-menu-item (click)=\"deleteOneEvent(eventObj)\">\r\n              <mat-icon>delete</mat-icon> Delete\r\n            </button>\r\n          </mat-menu>\r\n        </mat-panel-description>\r\n      </mat-expansion-panel-header>\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"40\" class=\"pr-1\">\r\n          <mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n            <img style=\"padding: 10px;\" mat-card-image [src]=\"eventPosterUrl+eventObj.id\" alt=\"Photo of a Shiba Inu\">\r\n          </mat-card>\r\n        </div>\r\n        <div fxFlex=\"60\" class=\"pr-1\">\r\n          <mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n            <mat-card-content>\r\n              <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n                <small class=\"text-muted\">Event Description</small>\r\n              </div>\r\n              <p style=\"padding-top: 10px;\" class=\"md-body-1\">{{ eventObj.description }}</p>\r\n            </mat-card-content>\r\n          </mat-card>\r\n        </div>\r\n      </div>\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"50\" fxFlex.gt-sm=\"19.5\" fxFlex.sm=\"25\" class=\"p-0\"\r\n          [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n          <mat-card>\r\n            <mat-card-title fxLayoutAlign=\"start center\">\r\n              <small class=\"text-muted\">Start Date & Time</small>\r\n              <span fxFlex></span>\r\n              <mat-icon color=\"primary\">play_arrow</mat-icon>\r\n            </mat-card-title>\r\n            <mat-card-content>\r\n              <h6 class=\"m-0 font-normal\">{{ eventObj.startDateTime | date:'MMM d, y, h:mm a'}}</h6>\r\n            </mat-card-content>\r\n          </mat-card>\r\n        </div>\r\n        <div fxFlex=\"50\" fxFlex.gt-sm=\"19.5\" fxFlex.sm=\"25\" class=\"p-0\"\r\n          [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n          <mat-card>\r\n            <mat-card-title fxLayoutAlign=\"start center\">\r\n              <small class=\"text-muted\">End Date & Time</small>\r\n              <span fxFlex></span>\r\n              <mat-icon color=\"warn\">stop</mat-icon>\r\n            </mat-card-title>\r\n            <mat-card-content>\r\n              <h6 class=\"m-0 font-normal\">{{ eventObj.endDateTime | date:'MMM d, y, h:mm a'}}</h6>\r\n            </mat-card-content>\r\n          </mat-card>\r\n        </div>\r\n      </div>\r\n    </mat-expansion-panel>\r\n  </mat-accordion>\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\" *ngIf=\"this.events.length > 0\" style=\"font-size: 12px;\">\r\n    <div class=\"pagination\">{{totalRecords}} Created,</div>\r\n    <div class=\"pagination ml-1\">{{quota}} Quota</div>\r\n    <span fxFlex></span>\r\n    <ng-container>\r\n      <nav aria-label=\"Promotion Page Navigation\" style=\"color: black;\">\r\n        <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n          <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllEvents(pageNumber-1)\" aria-label=\"Previous\">\r\n              <span aria-hidden=\"true\">&laquo;</span>\r\n              <span class=\"sr-only\">Previous</span>\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllEvents(page)\">\r\n              {{page}}\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllEvents(pageNumber+1)\" aria-label=\"Next\">\r\n              <span aria-hidden=\"true\">&raquo;</span>\r\n              <span class=\"sr-only\">Next</span>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      </nav>\r\n    </ng-container>\r\n  </mat-toolbar>\r\n  <div *ngIf=\"this.temEvents.length === 0 && this.events.length === 0\" fxLayout=\"row\" fxLayoutAlign=\"center\"\r\n    style=\"margin-top: 10rem;\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h1 class=\"text-muted\">Create New Event</h1>\r\n    </div>\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h2 class=\"text-muted\">Click \"Add\" Button</h2>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -15184,6 +15378,92 @@ var UserEventService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/views/community/user-community/user-feedback/create-feedback-popup/create-feedback-popup.component.html":
+/*!*************************************************************************************************************************!*\
+  !*** ./src/app/views/community/user-community/user-feedback/create-feedback-popup/create-feedback-popup.component.html ***!
+  \*************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<form [formGroup]=\"feedbackForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{this.data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"feedbackForm.controls['name']\" placeholder=\"Feedback Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-slide-toggle *ngIf=\"!data.isNew\" [formControl]=\"feedbackForm.controls['status']\">Activate Event\r\n        </mat-slide-toggle>\r\n      </div>\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"mt-1\">\r\n        <button mat-raised-button color=\"primary\" (click)=\"submit()\" [disabled]=\"feedbackForm.invalid\">Save</button>\r\n        <span fxFlex></span>\r\n        <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n</form>"
+
+/***/ }),
+
+/***/ "./src/app/views/community/user-community/user-feedback/create-feedback-popup/create-feedback-popup.component.ts":
+/*!***********************************************************************************************************************!*\
+  !*** ./src/app/views/community/user-community/user-feedback/create-feedback-popup/create-feedback-popup.component.ts ***!
+  \***********************************************************************************************************************/
+/*! exports provided: CreateFeedbackPopupComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateFeedbackPopupComponent", function() { return CreateFeedbackPopupComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/shared/animations/egret-animations */ "./src/app/shared/animations/egret-animations.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _user_feedback_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../user-feedback.service */ "./src/app/views/community/user-community/user-feedback/user-feedback.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+
+
+var CreateFeedbackPopupComponent = /** @class */ (function () {
+    function CreateFeedbackPopupComponent(data, dialogRef, fb, snackBar, userFeedbackService) {
+        this.data = data;
+        this.dialogRef = dialogRef;
+        this.fb = fb;
+        this.snackBar = snackBar;
+        this.userFeedbackService = userFeedbackService;
+    }
+    CreateFeedbackPopupComponent.prototype.ngOnInit = function () {
+        this.buildFeedbackForm(this.data.payload);
+    };
+    CreateFeedbackPopupComponent.prototype.buildFeedbackForm = function (data) {
+        var status = false;
+        if (data.status === "ACTIVE") {
+            status = true;
+        }
+        this.feedbackForm = this.fb.group({
+            name: [data.name || '', _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
+            status: [status, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required]
+        });
+    };
+    CreateFeedbackPopupComponent.prototype.submit = function () {
+        this.dialogRef.close(this.feedbackForm.value);
+    };
+    CreateFeedbackPopupComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-create-feedback-popup',
+            template: __webpack_require__(/*! ./create-feedback-popup.component.html */ "./src/app/views/community/user-community/user-feedback/create-feedback-popup/create-feedback-popup.component.html"),
+            animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"]
+        }),
+        __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [Object, _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"],
+            _user_feedback_service__WEBPACK_IMPORTED_MODULE_4__["UserFeedbackService"]])
+    ], CreateFeedbackPopupComponent);
+    return CreateFeedbackPopupComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/views/community/user-community/user-feedback/user-feedback.component.html":
 /*!*******************************************************************************************!*\
   !*** ./src/app/views/community/user-community/user-feedback/user-feedback.component.html ***!
@@ -15191,7 +15471,7 @@ var UserEventService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  Instant Feedbacks Section is under development.\r\n</p>\r\n<!-- <button mat-button style=\"background-color: #f0ad4e;\" type=\"button\" (click)=\"openWarning()\">Warning</button>\r\n<button mat-button style=\"background-color: #5bc0de;\" type=\"button\" (click)=\"openInfo()\">Infomation</button>\r\n<button mat-button style=\"background-color: #d9534f;\" type=\"button\" (click)=\"openError()\">Error</button>\r\n<button mat-button style=\"background-color: #ff0000;\" type=\"button\" (click)=\"openErrorSnack()\">Error Snack</button> -->\r\n"
+module.exports = "<div class=\"messages-wrap\">\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\">\r\n    <mat-checkbox (change)=\"selectToggleAll($event)\" [indeterminate]=\"indeterminateState\" [checked]=\"selectAll\"\r\n      class=\"inbox-toggle-all mr-1\"><small>All</small></mat-checkbox>\r\n    <button mat-icon-button matTooltip=\"Add feedback\" (click)=\"feedbackPopUp({}, true)\">\r\n      <mat-icon>add_box</mat-icon>\r\n    </button>\r\n    <button mat-icon-button matTooltip=\"Delete\" *ngIf=\"indeterminateState || selectAll\"\r\n      (click)=\"deleteSelectedFeedbacks()\">\r\n      <mat-icon>delete</mat-icon>\r\n    </button>\r\n    <span fxFlex></span>\r\n    <mat-form-field *ngIf=\"this.temFeedbacks.length > 0\" style=\"font-size: 15px; width: 30%; margin-top: 10px;\">\r\n      <input matInput placeholder=\"Search\" value=\"\" (keyup)='updateFilter($event)'>\r\n    </mat-form-field>\r\n    <p *ngIf=\"this.temFeedbacks.length > 0\" class=\"mat-select-lable\"> Page Size: </p>\r\n    <mat-select *ngIf=\"this.temFeedbacks.length > 0\" class=\"mat-raised-select\" [(value)]=\"pageSize\"\r\n      (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n      <mat-option *ngFor=\"let item of pageSizeArray\" [value]=\"item\">{{item}}</mat-option>\r\n    </mat-select>\r\n  </mat-toolbar>\r\n\r\n\r\n  <table class=\"table table-hover\">\r\n    <tbody>\r\n      <tr *ngFor=\"let feedback of this.feedbacks\">\r\n        <td>\r\n          <div fxLayout=\"row wrap\">\r\n\r\n            <div fxFlex=\"5\">\r\n              <div style=\"padding-top: 5px;\">\r\n                <mat-checkbox (change)=\"selectToggleOne($event, feedback)\" [checked]=\"feedback.selected\"\r\n                  class=\"mail-checkbox hide-on-open\"></mat-checkbox>\r\n              </div>\r\n            </div>\r\n            <div fxFlex=\"55\">\r\n              <div class=\"custom-vertical-align-middle\" style=\"padding-top: 10px;\">{{  feedback.name }}</div>\r\n            </div>\r\n            <div fxFlex=\"20\">\r\n              <div class=\"custom-vertical-align-middle custom-float-right\" style=\"padding-top: 10px;\">\r\n                <mat-chip mat-sm-chip color=\"{{statusArray[feedback.status]}}\" [selected]=\"true\">\r\n                  {{feedback.status}}\r\n                </mat-chip>\r\n              </div>\r\n            </div>\r\n            <div fxFlex=\"20\">\r\n              <div class=\"custom-float-right\">\r\n                <button mat-icon-button class=\"hidden-on-open\" [matMenuTriggerFor]=\"menu\">\r\n                  <mat-icon>more_vert</mat-icon>\r\n                </button>\r\n                <mat-menu #menu=\"matMenu\">\r\n                  <button mat-menu-item (click)=\"navigateToSurveyEditor(feedback)\">\r\n                    <mat-icon>view_headline</mat-icon> View\r\n                  </button>\r\n                  <button mat-menu-item (click)=\"feedbackPopUp(feedback, false)\">\r\n                    <mat-icon>edit</mat-icon> Edit\r\n                  </button>\r\n                  <button mat-menu-item (click)=\"deleteOneFeedback(feedback)\">\r\n                    <mat-icon>delete</mat-icon> Delete\r\n                  </button>\r\n                </mat-menu>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\" *ngIf=\"this.feedbacks.length > 0\" style=\"font-size: 12px;\">\r\n    <div class=\"pagination\">{{totalRecords}} Created,</div>\r\n    <div class=\"pagination ml-1\">{{usage}} Usage</div>\r\n    <div class=\"pagination ml-1\">{{quota}} Quota</div>\r\n    <span fxFlex></span>\r\n    <ng-container>\r\n      <nav aria-label=\"Promotion Page Navigation\" style=\"color: black;\">\r\n        <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n          <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllFeedbacks(pageNumber-1)\" aria-label=\"Previous\">\r\n              <span aria-hidden=\"true\">&laquo;</span>\r\n              <span class=\"sr-only\">Previous</span>\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllFeedbacks(page)\">\r\n              {{page}}\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllFeedbacks(pageNumber+1)\" aria-label=\"Next\">\r\n              <span aria-hidden=\"true\">&raquo;</span>\r\n              <span class=\"sr-only\">Next</span>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      </nav>\r\n    </ng-container>\r\n  </mat-toolbar>\r\n  <div *ngIf=\"this.temFeedbacks.length === 0 && this.feedbacks.length === 0\" fxLayout=\"row\" fxLayoutAlign=\"center\"\r\n    style=\"margin-top: 10rem;\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h1 class=\"text-muted\">Create New Feedback</h1>\r\n    </div>\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h2 class=\"text-muted\">Click \"Add\" Button</h2>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -15207,9 +15487,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserFeedbackComponent", function() { return UserFeedbackComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! app/shared/animations/egret-animations */ "./src/app/shared/animations/egret-animations.ts");
-/* harmony import */ var app_shared_services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! app/shared/services/app-info/app-info.service */ "./src/app/shared/services/app-info/app-info.service.ts");
-/* harmony import */ var app_shared_services_app_warning_app_warning_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/app-warning/app-warning.service */ "./src/app/shared/services/app-warning/app-warning.service.ts");
-/* harmony import */ var app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! app/shared/services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! app/shared/services/app-confirm/app-confirm.service */ "./src/app/shared/services/app-confirm/app-confirm.service.ts");
+/* harmony import */ var _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../../../shared/services/auth/auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
+/* harmony import */ var app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
+/* harmony import */ var app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/shared/services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
+/* harmony import */ var _community_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../community.service */ "./src/app/views/community/community.service.ts");
+/* harmony import */ var app_shared_services_app_warning_app_warning_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/shared/services/app-warning/app-warning.service */ "./src/app/shared/services/app-warning/app-warning.service.ts");
+/* harmony import */ var app_shared_services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! app/shared/services/app-info/app-info.service */ "./src/app/shared/services/app-info/app-info.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _create_feedback_popup_create_feedback_popup_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./create-feedback-popup/create-feedback-popup.component */ "./src/app/views/community/user-community/user-feedback/create-feedback-popup/create-feedback-popup.component.ts");
+/* harmony import */ var _user_feedback_user_feedback_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../user-feedback/user-feedback.service */ "./src/app/views/community/user-community/user-feedback/user-feedback.service.ts");
+/* harmony import */ var app_model_CommunityModel_model__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! app/model/CommunityModel.model */ "./src/app/model/CommunityModel.model.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15224,58 +15513,427 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
+
+
+
+
+
+
+
 var UserFeedbackComponent = /** @class */ (function () {
-    function UserFeedbackComponent(appWarningService, appInfoService, errDialog) {
+    function UserFeedbackComponent(dialog, snack, confirmService, activeRoute, loader, errDialog, userFeedbackService, communityService, appWarningService, appInfoService, router) {
+        this.dialog = dialog;
+        this.snack = snack;
+        this.confirmService = confirmService;
+        this.activeRoute = activeRoute;
+        this.loader = loader;
+        this.errDialog = errDialog;
+        this.userFeedbackService = userFeedbackService;
+        this.communityService = communityService;
         this.appWarningService = appWarningService;
         this.appInfoService = appInfoService;
-        this.errDialog = errDialog;
+        this.router = router;
+        this.statusArray = {
+            'ACTIVE': "primary",
+            'INACTIVE': "accent"
+        };
+        this.quota = 0;
+        this.quotaExpire = false;
+        this.usage = 0;
+        this.feedbacks = [];
+        this.temFeedbacks = [];
+        this.indeterminateState = false;
+        this.selectAll = false;
+        this.pageNumber = 1;
+        this.pageSize = 10;
+        this.totalPages = [];
+        this.totalRecords = 0;
+        this.pageSizeArray = [];
+        this.feedbackPosterUrl = this.communityService.getPosterDownloadUrl("feedback");
     }
     UserFeedbackComponent.prototype.ngOnInit = function () {
-    };
-    UserFeedbackComponent.prototype.openWarning = function () {
-        this.appWarningService.showWarning({
-            title: 'Warning!',
-            message: 'You can create only one community only!'
+        var _this = this;
+        var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_4__["authProperties"].storage_name));
+        this.userId = userObj.userData.id;
+        this.clientId = userObj.userData.client.id;
+        this.activeRoute.queryParams.subscribe(function (params) {
+            _this.communityId = params["id"];
+            _this.communityName = params["name"];
+        });
+        this.fetchAllFeedbacks(this.pageNumber);
+        this.communityService
+            .licenseExpireState(userObj.userData.client.id, "feedbacks")
+            .subscribe(function (response) {
+            var tempRes = response;
+            _this.quotaExpire = tempRes.content.expired;
+            _this.quota = tempRes.content.quota;
+            _this.usage = tempRes.content.usage;
         });
     };
-    UserFeedbackComponent.prototype.openInfo = function () {
-        var infoData = {
-            title: 'License Limit Exceeded',
-            message: 'Your User Limit has Expired. Do you want to extend?',
-            linkData: {
-                url: '#',
-                buttonText: 'Extend'
-            }
-        };
-        this.appInfoService.showInfo(infoData);
-    };
-    UserFeedbackComponent.prototype.openError = function () {
-        var error = {
-            error: {
-                status: 'Client_Error',
-                validationFailures: [{
-                        code: 'Test Error',
-                        field: 'test field'
-                    }],
-            },
-            status: 400
-        };
-        this.errDialog.showError(error);
-    };
-    UserFeedbackComponent.prototype.openErrorSnack = function () {
-        var error = {
-            error: {
-                error: {
-                    validationFailures: [
-                        {
-                            code: "This.is.error.snack.bar"
-                        }
-                    ]
+    UserFeedbackComponent.prototype.navigateToSurveyEditor = function (data) {
+        var _this = this;
+        this.userFeedbackService.getFeedbackById(data.id).subscribe(function (successResp) {
+            console.log(successResp);
+            var extraParam = {
+                queryParams: {
+                    surveyId: successResp.content.surveyId,
+                    communityId: _this.communityId,
+                    communityName: _this.communityName
                 }
-            },
-            duration: 2000
-        };
-        this.errDialog.showErrorSnack(error);
+            };
+            _this.router.navigate(["future-survey/sEditor"], extraParam);
+        }, function (error) {
+            _this.errDialog.showError(error);
+        });
+    };
+    UserFeedbackComponent.prototype.feedbackPopUp = function (data, isNew) {
+        var _this = this;
+        if (data === void 0) { data = {}; }
+        this.communityService.licenseExpireState(this.clientId, "feedbacks").subscribe(function (response) {
+            var tempRes = response;
+            _this.quotaExpire = tempRes.content.expired;
+            _this.quota = tempRes.content.quota;
+            _this.usage = tempRes.content.usage;
+            if (_this.quotaExpire && isNew) {
+                var infoData = {
+                    title: "License",
+                    message: "You subscribed number of feedbacks have expired!</br>" +
+                        '<small class="text-muted">Do you like to extend the plan?</small>',
+                    linkData: {
+                        url: "https://www.google.com/gmail/",
+                        buttonText: "Extend"
+                    }
+                };
+                _this.appInfoService.showInfo(infoData);
+            }
+            else {
+                var title = isNew ? "Create New Feedback" : "Update Feedback";
+                var dialogRef = _this.dialog.open(_create_feedback_popup_create_feedback_popup_component__WEBPACK_IMPORTED_MODULE_11__["CreateFeedbackPopupComponent"], {
+                    width: "720px",
+                    disableClose: true,
+                    data: { title: title, payload: data, isNew: isNew }
+                });
+                dialogRef.afterClosed().subscribe(function (res) {
+                    if (!res) {
+                        return;
+                    }
+                    else {
+                        var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_4__["authProperties"].storage_name));
+                        if (userObj) {
+                            if (isNew) {
+                                var languageJson = "{\"def\":\"en\"}";
+                                var compatibility = "2";
+                                var pages = [{ name: 'page1' }];
+                                var jsonContent = "\"{\\\"locale\\\":\\\"en\\\",\\\"title\\\":\\\"" + res.name + "\\\",\\\"clientId\\\":\\\"faa6643aca8c5318a9583178795542cf\\\",\\\"pages\\\":[{\\\"name\\\":\\\"page1\\\"}]}\"";
+                                var fsreq = new app_model_CommunityModel_model__WEBPACK_IMPORTED_MODULE_13__["FutureSurveyData"](res.name, _this.clientId, "1", "1", languageJson, compatibility, pages, jsonContent);
+                                var req = new app_model_CommunityModel_model__WEBPACK_IMPORTED_MODULE_13__["FeedbackCreateReq"](res.name, _this.userId, new app_model_CommunityModel_model__WEBPACK_IMPORTED_MODULE_13__["CommunityData"](_this.communityId), fsreq);
+                                _this.createFeedback(req, tempRes.content.usage, tempRes.content.quota);
+                            }
+                            else {
+                                var req = new app_model_CommunityModel_model__WEBPACK_IMPORTED_MODULE_13__["FeedbackUpdateReq"](res.name, _this.getFeedbackStatus(res.status), userObj.id);
+                                _this.userFeedbackService.feedbackUpdateById(data.id, req).subscribe(function (response) {
+                                    var temData = response;
+                                    var i = _this.feedbacks.indexOf(data);
+                                    _this.feedbacks[i] = temData.content;
+                                    _this.temFeedbacks = _this.feedbacks;
+                                    _this.loader.close();
+                                    _this.snack.open("Feedback Updated", "close", {
+                                        duration: 2000
+                                    });
+                                }, function (error) {
+                                    _this.loader.close();
+                                    if (error.status !== 401) {
+                                        _this.errDialog.showError(error);
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    };
+    UserFeedbackComponent.prototype.createFeedback = function (res, usage, tempQuoata) {
+        var _this = this;
+        this.userFeedbackService.createFeedback(res).subscribe(function (response) {
+            var temData = response;
+            var feedbackId = temData.content.id;
+            _this.usage += 1;
+            if (_this.usage === _this.quota) {
+                _this.quotaExpire = true;
+            }
+            var remain = _this.quota - _this.usage;
+            if (remain === 1) {
+                _this.appWarningService.showWarning({
+                    title: "License",
+                    message: "Your subscription plan is about to expire!</br>One more feedback remaining!"
+                });
+            }
+            else if (remain === 0) {
+                var infoData = {
+                    title: "License",
+                    message: "You subscribed number of feedbacks have expired!</br>" +
+                        '<small class="text-muted">Do you like to extend the plan?</small>',
+                    linkData: {
+                        url: "https://www.google.com/gmail/",
+                        buttonText: "Extend"
+                    }
+                };
+                _this.appInfoService.showInfo(infoData);
+            }
+            _this.snack.open("New Feedback Created", "close", {
+                duration: 2000
+            });
+            _this.fetchAllFeedbacks(_this.pageNumber);
+        }, function (error) {
+            _this.loader.close();
+            if (error.status !== 401) {
+                _this.errDialog.showError(error);
+            }
+        });
+    };
+    UserFeedbackComponent.prototype.selectToggleOne = function (feedback, data) {
+        var i = this.feedbacks.indexOf(data);
+        if (feedback.checked) {
+            this.feedbacks[i].selected = true;
+            this.indeterminateState = true;
+        }
+        else {
+            this.feedbacks[i].selected = false;
+        }
+        this.checkAllSelectedState();
+    };
+    UserFeedbackComponent.prototype.checkAllSelectedState = function () {
+        var numOfSelectedFeedback = 0;
+        this.feedbacks.forEach(function (data) {
+            if (data.selected) {
+                numOfSelectedFeedback++;
+            }
+        });
+        if (numOfSelectedFeedback === this.feedbacks.length) {
+            this.selectAll = true;
+            this.indeterminateState = false;
+        }
+        else {
+            if (this.selectAll) {
+                this.selectAll = false;
+                this.indeterminateState = true;
+            }
+            if (numOfSelectedFeedback === 0) {
+                this.indeterminateState = false;
+            }
+        }
+    };
+    UserFeedbackComponent.prototype.selectToggleAll = function (feedback) {
+        if (feedback.checked) {
+            this.feedbacks.forEach(function (data) {
+                data.selected = true;
+            });
+            this.selectAll = true;
+            this.indeterminateState = false;
+        }
+        else {
+            this.feedbacks.forEach(function (data) {
+                data.selected = false;
+            });
+            this.selectAll = false;
+            this.indeterminateState = false;
+        }
+    };
+    UserFeedbackComponent.prototype.deleteSelectedFeedbacks = function () {
+        var _this = this;
+        var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_4__["authProperties"].storage_name));
+        this.confirmService
+            .confirm({ message: "Do You want to Delete Selected Feedbacks?" })
+            .subscribe(function (res) {
+            if (res) {
+                _this.loader.open();
+                var selectedFeedbacks = _this.getSelectedFeedbacks();
+                var idArray = {
+                    feedbacks: selectedFeedbacks
+                };
+                var tempPN_1 = _this.setPageNumber(selectedFeedbacks.length);
+                _this.userFeedbackService.deleteFeedbackList(idArray).subscribe(function (response) {
+                    _this.selectAll = false;
+                    _this.indeterminateState = false;
+                    _this.communityService
+                        .licenseExpireState(userObj.userData.client.id, "feedbacks")
+                        .subscribe(function (resData) {
+                        var tempRes = resData;
+                        _this.quotaExpire = tempRes.content.expired;
+                        _this.quota = tempRes.content.quota;
+                        _this.usage = tempRes.content.usage;
+                    });
+                    _this.fetchAllFeedbacks(tempPN_1);
+                    _this.loader.close();
+                    _this.snack.open("Selected Feedbacks Deleted", "close", {
+                        duration: 2000
+                    });
+                }, function (error) {
+                    _this.loader.close();
+                    if (error.status !== 401) {
+                        _this.errDialog.showError(error);
+                    }
+                });
+            }
+        });
+    };
+    UserFeedbackComponent.prototype.deleteOneFeedback = function (data) {
+        var _this = this;
+        var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_4__["authProperties"].storage_name));
+        this.confirmService
+            .confirm({ message: "Do You want to Delete " + data.name + "?" })
+            .subscribe(function (res) {
+            if (res) {
+                _this.loader.open();
+                var tempPN_2 = _this.setPageNumber(1);
+                _this.userFeedbackService.feedbackDeleteById(data.id).subscribe(function (response) {
+                    _this.communityService
+                        .licenseExpireState(userObj.userData.client.id, "feedbacks")
+                        .subscribe(function (resData) {
+                        var tempRes = resData;
+                        _this.quotaExpire = tempRes.content.expired;
+                        _this.quota = tempRes.content.quota;
+                        _this.usage = tempRes.content.usage;
+                    });
+                    _this.fetchAllFeedbacks(tempPN_2);
+                    _this.loader.close();
+                    _this.snack.open(data.name + " Deleted", "close", {
+                        duration: 2000
+                    });
+                }, function (error) {
+                    _this.loader.close();
+                    if (error.status !== 401) {
+                        _this.errDialog.showError(error);
+                    }
+                });
+            }
+        });
+    };
+    UserFeedbackComponent.prototype.getSelectedFeedbacks = function () {
+        var selectedFeedbacks = [];
+        this.feedbacks.forEach(function (data) {
+            if (data.selected) {
+                selectedFeedbacks.push({ id: data.id });
+            }
+        });
+        return selectedFeedbacks;
+    };
+    UserFeedbackComponent.prototype.fetchAllFeedbacks = function (pageNumber) {
+        var _this = this;
+        this.userFeedbackService
+            .getCommunityFeedbacks(this.communityId, pageNumber, this.pageSize)
+            .subscribe(function (response) {
+            var tempResponse = response;
+            var tempFeedbacks = _this.createDateTimeObject(tempResponse.content);
+            _this.feedbacks = _this.temFeedbacks = tempFeedbacks;
+            _this.totalRecords = tempResponse.pagination.totalRecords;
+            _this.pageNumber = tempResponse.pagination.pageNumber;
+            console.log(_this.feedbacks);
+            _this.createPageNavigationBar();
+            _this.createPaginationPageSizeArray();
+        }, function (error) {
+            if (error.status !== 401) {
+                _this.errDialog.showError(error);
+            }
+        });
+    };
+    UserFeedbackComponent.prototype.createDateTimeObject = function (feedbacksArray) {
+        feedbacksArray.forEach(function (feedback) {
+            feedback.createdDate = new Date(feedback.createdDate);
+        });
+        return feedbacksArray;
+    };
+    UserFeedbackComponent.prototype.getFeedbackStatus = function (feedbackStatus) {
+        if (feedbackStatus) {
+            return "ACTIVE";
+        }
+        else {
+            return "INACTIVE";
+        }
+    };
+    UserFeedbackComponent.prototype.createPaginationPageSizeArray = function () {
+        var totalRec = this.totalRecords;
+        var tempArray = [];
+        if (totalRec > 10) {
+            var rem = totalRec % 10;
+            if (rem !== 0) {
+                totalRec = totalRec + 10;
+            }
+            for (var i = 10; i < totalRec;) {
+                tempArray.push(i);
+                i = i + 10;
+            }
+        }
+        else {
+            tempArray.push(10);
+        }
+        this.pageSizeArray = tempArray;
+    };
+    UserFeedbackComponent.prototype.updateFilter = function (feedback) {
+        var val = feedback.target.value.toLowerCase();
+        var columns = Object.keys(this.temFeedbacks[0]);
+        columns.splice(columns.length - 1);
+        if (!columns.length) {
+            return;
+        }
+        var rows = this.temFeedbacks.filter(function (data) {
+            for (var i = 0; i <= columns.length; i++) {
+                var col = columns[i];
+                if (data[col] &&
+                    data[col]
+                        .toString()
+                        .toLowerCase()
+                        .indexOf(val) > -1) {
+                    return true;
+                }
+            }
+        });
+        this.feedbacks = rows;
+    };
+    UserFeedbackComponent.prototype.changeValue = function () {
+        this.pageNumber = 1;
+        this.fetchAllFeedbacks(this.pageNumber);
+    };
+    UserFeedbackComponent.prototype.appendNewlyCreatedFeedback = function (feedback) {
+        var tempArray = [];
+        for (var i = this.feedbacks.length; i >= 1; i--) {
+            if (i === this.feedbacks.length) {
+                tempArray.push(feedback);
+            }
+            else {
+                tempArray.push(this.feedbacks[i]);
+            }
+        }
+        this.feedbacks = this.temFeedbacks = tempArray;
+        this.totalRecords += 1;
+        this.createPageNavigationBar();
+    };
+    UserFeedbackComponent.prototype.createPageNavigationBar = function () {
+        var devider = this.totalRecords / this.pageSize;
+        var numOfPage = Math.ceil(devider);
+        if (numOfPage > 1) {
+            var temPages = [];
+            for (var i = 1; i <= numOfPage; i++) {
+                temPages.push(i);
+            }
+            this.totalPages = temPages;
+        }
+        else {
+            this.totalPages = [];
+        }
+    };
+    UserFeedbackComponent.prototype.setPageNumber = function (numOfPromo) {
+        var tempTR = this.totalRecords - numOfPromo;
+        var devider = tempTR / this.pageSize;
+        if (devider < this.totalPages.length) {
+            return this.pageNumber - 1;
+        }
+        else {
+            return this.pageNumber;
+        }
     };
     UserFeedbackComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -15283,11 +15941,105 @@ var UserFeedbackComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./user-feedback.component.html */ "./src/app/views/community/user-community/user-feedback/user-feedback.component.html"),
             animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"]
         }),
-        __metadata("design:paramtypes", [app_shared_services_app_warning_app_warning_service__WEBPACK_IMPORTED_MODULE_3__["AppWarningService"],
-            app_shared_services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_2__["AppInfoService"],
-            app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_4__["AppErrorService"]])
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"],
+            app_shared_services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_3__["AppConfirmService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_10__["ActivatedRoute"],
+            app_shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_5__["AppLoaderService"],
+            app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_6__["AppErrorService"],
+            _user_feedback_user_feedback_service__WEBPACK_IMPORTED_MODULE_12__["UserFeedbackService"],
+            _community_service__WEBPACK_IMPORTED_MODULE_7__["ComunityService"],
+            app_shared_services_app_warning_app_warning_service__WEBPACK_IMPORTED_MODULE_8__["AppWarningService"],
+            app_shared_services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_9__["AppInfoService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_10__["Router"]])
     ], UserFeedbackComponent);
     return UserFeedbackComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/views/community/user-community/user-feedback/user-feedback.service.ts":
+/*!***************************************************************************************!*\
+  !*** ./src/app/views/community/user-community/user-feedback/user-feedback.service.ts ***!
+  \***************************************************************************************/
+/*! exports provided: UserFeedbackService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserFeedbackService", function() { return UserFeedbackService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../environments/environment.prod */ "./src/environments/environment.prod.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var UserFeedbackService = /** @class */ (function () {
+    function UserFeedbackService(http) {
+        this.http = http;
+        this.feedbackUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "feedback";
+    }
+    UserFeedbackService.prototype.getFeedbackById = function (id) {
+        return this.http.get(this.feedbackUrl + "/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    // getCommunityFeedbacks(id: string): Observable<any> {
+    //   return this.http.get(this.feedbackUrl + "/community/" + id).pipe(catchError(this.handleError));
+    // }
+    UserFeedbackService.prototype.createFeedback = function (createEventData) {
+        return this.http.
+            post(this.feedbackUrl, createEventData)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
+            return data;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    UserFeedbackService.prototype.getCommunityFeedbacks = function (communityId, pageNumber, pageSize) {
+        return this.http.
+            get(this.feedbackUrl + "/community/" + communityId + '?pageNumber=' + pageNumber + '&pageSize=' + pageSize).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
+            return data;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    UserFeedbackService.prototype.feedbackUpdateById = function (feedbackId, feedbackData) {
+        return this.http.put(this.feedbackUrl + "/" + feedbackId, feedbackData).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
+            return data;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    UserFeedbackService.prototype.feedbackDeleteById = function (feedbackId) {
+        return this.http.delete(this.feedbackUrl + "/" + feedbackId)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
+            return data;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    UserFeedbackService.prototype.deleteFeedbackList = function (feedbackIdList) {
+        return this.http.request('delete', this.feedbackUrl, { body: feedbackIdList }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
+            return data;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    UserFeedbackService.prototype.handleError = function (error) {
+        // console.log(error);
+        if (error.status !== 401) {
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["throwError"])(error);
+        }
+    };
+    UserFeedbackService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])
+    ], UserFeedbackService);
+    return UserFeedbackService;
 }());
 
 

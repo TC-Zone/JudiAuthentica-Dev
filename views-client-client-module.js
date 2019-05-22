@@ -421,7 +421,7 @@ var ClientCategoryPopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">Create Client</span>\r\n  </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\" id=\"client-create\">\r\n\r\n\r\n  <mat-horizontal-stepper [linear]=\"true\">\r\n\r\n    <mat-step [stepControl]=\"clientFormGroup\">\r\n\r\n      <form [formGroup]=\"clientFormGroup\">\r\n\r\n        <ng-template matStepLabel>Client</ng-template>\r\n\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n          <div fxFlex=\"100\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"clientName\" letterOnly placeholder=\"Name\"\r\n                [formControl]=\"clientFormGroup.controls['name']\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"100\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <textarea matInput name=\"description\" placeholder=\"Description\"\r\n                [formControl]=\"clientFormGroup.controls['description']\"></textarea>\r\n            </mat-form-field>\r\n          </div>\r\n\r\n        </div>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"primary\" matStepperNext [disabled]=\"clientFormGroup.invalid\">Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n\r\n      </form>\r\n\r\n    </mat-step>\r\n\r\n\r\n    <mat-step [stepControl]=\"profilePicFormGroup\">\r\n      <form [formGroup]=\"profilePicFormGroup\">\r\n        <ng-template matStepLabel>Profile Picture</ng-template>\r\n\r\n        <!-- --------- hidden file input --------- -->\r\n        <input (change)=\"onSelectFile($event)\" #productImgs type=\"file\" style=\"display: none\"\r\n          [formControl]=\"profilePicFormGroup.controls['profilePic']\" base-sixty-four-input>\r\n\r\n\r\n        <!-- --------- file input click button --------- -->\r\n        <!-- <div layout-margin layout-padding>\r\n          <button mat-raised-button class=\"mr-1 mb-1\" (click)=\"productImgs.click()\" type=\"button\">\r\n            Browse Images</button>\r\n        </div> -->\r\n        <div layout-margin layout-padding class=\"mb-2\">\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"productImgs.click()\" type=\"button\">\r\n            Browse Images</button>\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"removeSelectedImg()\" type=\"button\" *ngIf=\"url\">\r\n            Clear Images</button>\r\n        </div>\r\n\r\n        <!-- --------- start images preview container --------- -->\r\n        <div id=\"client_create_image_preview_container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\" layout-align=\"center\">\r\n\r\n          <!-- --------- start card --------- -->\r\n          <!-- <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngIf=\"url\" fxFlex=\"100\" style=\"display: flex;\">\r\n            <mat-card class=\"p-0\">\r\n\r\n              <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n                <span fxFlex></span>\r\n                <button type=\"button\" class=\"close p-1\" aria-label=\"Close\" (click)=\"removeSelectedImg()\">\r\n                  <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n              </div>\r\n\r\n              <img [src]=\"url\">\r\n            </mat-card>\r\n          </div> -->\r\n\r\n          <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngIf=\"url\" fxFlex=\"100\" style=\"display: flex;\">\r\n\r\n            <img class=\"clientProfilePic\" [src]=\"url\">\r\n\r\n          </div>\r\n          <!-- --------- end card --------- -->\r\n\r\n        </div>\r\n        <!-- --------- end images preview container --------- -->\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" matStepperNext [disabled]=\"!url\">Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n\r\n      </form>\r\n    </mat-step>\r\n\r\n\r\n    <mat-step [stepControl]=\"adminFormGroup\">\r\n      <form [formGroup]=\"adminFormGroup\">\r\n        <ng-template matStepLabel>Admin User</ng-template>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n          <div fxFlex=\"100\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" positiveNumberAndLetterOnly placeholder=\"Username\"\r\n                [formControl]=\"adminFormGroup.controls['username']\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"100\" class=\"pr-1 mb-3\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"email\" placeholder=\"Email\" [formControl]=\"adminFormGroup.controls['email']\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n        </div>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" matStepperNext [disabled]=\"adminFormGroup.invalid\">Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n\r\n    <mat-step [stepControl]=\"categoryFormGroup\">\r\n      <form [formGroup]=\"categoryFormGroup\">\r\n        <ng-template matStepLabel>Category</ng-template>\r\n\r\n        <mat-form-field class=\"matAutocomplete-chip-list\">\r\n\r\n            <mat-chip-list #chipList>\r\n              <mat-chip *ngFor=\"let category of selectedCategories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n                (removed)=\"remove(category)\">\r\n                {{category.name}}\r\n                <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n              </mat-chip>\r\n              <input matInput placeholder=\"Select category...\" #categoryInput [formControl]=\"categoryCtrl\" [matAutocomplete]=\"auto\"\r\n                [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\"\r\n                (matChipInputTokenEnd)=\"add($event)\" [matChipInputAddOnBlur]=\"addOnBlur\" aria-label=\"Category\" [required]=\"this.selectedCategories.length === 0\">\r\n            </mat-chip-list>    \r\n        \r\n            <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n              <mat-option *ngFor=\"let category of filteredCategories | async\" [value]=\"category.id\">\r\n                <span>{{category.name}}</span>\r\n              </mat-option>\r\n            </mat-autocomplete>\r\n        \r\n          </mat-form-field>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" matStepperNext [disabled]='this.selectedCategories.length === 0'>Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n\r\n    <mat-step [stepControl]=\"licenseFormGroup\">\r\n      <form [formGroup]=\"licenseFormGroup\">\r\n        <ng-template matStepLabel>License</ng-template>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"tagCount\" placeholder=\"Tag Count\" positiveNumberOnly\r\n                [formControl]=\"licenseFormGroup.controls['tagCount']\">\r\n            </mat-form-field>\r\n            <span *ngIf=\"licenseFormGroup.controls['tagCount'].hasError('max')\" class=\"form-error-msg\">\r\n              {{this.license.tagCount}} max ! </span>\r\n          </div>\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"userCount\" placeholder=\"User Count\" positiveNumberOnly\r\n                [formControl]=\"licenseFormGroup.controls['userCount']\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"communityCount\" placeholder=\"Comunity Count\" positiveNumberOnly\r\n                [formControl]=\"licenseFormGroup.controls['communityCount']\" (blur)=\"validateLicense()\"\r\n                (focus)='setOldValue()'>\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"feedbackCount\" placeholder=\"Feedback Count\" positiveNumberOnly\r\n                [formControl]=\"licenseFormGroup.controls['feedbackCount']\" (blur)=\"setDefaultValue('feedbackCount')\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"eventkCount\" placeholder=\"Event Count\" positiveNumberOnly\r\n                [formControl]=\"licenseFormGroup.controls['eventCount']\" (blur)=\"setDefaultValue('eventCount')\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"promoCount\" placeholder=\"Promo Count\" positiveNumberOnly\r\n                [formControl]=\"licenseFormGroup.controls['promoCount']\" (blur)=\"setDefaultValue('promoCount')\">\r\n            </mat-form-field>\r\n          </div>\r\n        </div>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" (click)=\"submit()\"\r\n              [disabled]=\"licenseFormGroup.invalid\">Submit</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n\r\n  </mat-horizontal-stepper>\r\n\r\n\r\n</mat-dialog-content>"
+module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">Create Client</span>\r\n  </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\" id=\"client-create\">\r\n\r\n\r\n  <mat-horizontal-stepper [linear]=\"true\">\r\n\r\n    <mat-step [stepControl]=\"clientFormGroup\">\r\n\r\n      <form [formGroup]=\"clientFormGroup\">\r\n\r\n        <ng-template matStepLabel>Client</ng-template>\r\n\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n          <div fxFlex=\"100\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"clientName\" letterOnly placeholder=\"Name\"\r\n                [formControl]=\"clientFormGroup.controls['name']\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"100\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <textarea matInput name=\"description\" placeholder=\"Description\"\r\n                [formControl]=\"clientFormGroup.controls['description']\"></textarea>\r\n            </mat-form-field>\r\n          </div>\r\n\r\n        </div>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"primary\" matStepperNext [disabled]=\"clientFormGroup.invalid\">Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n\r\n      </form>\r\n\r\n    </mat-step>\r\n\r\n\r\n    <mat-step [stepControl]=\"profilePicFormGroup\">\r\n      <form [formGroup]=\"profilePicFormGroup\">\r\n        <ng-template matStepLabel>Profile Picture</ng-template>\r\n\r\n        <!-- --------- hidden file input --------- -->\r\n        <input (change)=\"onSelectFile($event)\" #productImgs type=\"file\" style=\"display: none\"\r\n          [formControl]=\"profilePicFormGroup.controls['profilePic']\" base-sixty-four-input>\r\n\r\n\r\n        <!-- --------- file input click button --------- -->\r\n        <!-- <div layout-margin layout-padding>\r\n          <button mat-raised-button class=\"mr-1 mb-1\" (click)=\"productImgs.click()\" type=\"button\">\r\n            Browse Images</button>\r\n        </div> -->\r\n        <div layout-margin layout-padding class=\"mb-2\">\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"productImgs.click()\" type=\"button\">\r\n            Browse Images</button>\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"removeSelectedImg()\" type=\"button\" *ngIf=\"clientProfilePic\">\r\n            Clear Images</button>\r\n        </div>\r\n\r\n        <!-- --------- start images preview container --------- -->\r\n        <div id=\"client_create_image_preview_container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\" layout-align=\"center\">\r\n\r\n          <!-- --------- start card --------- -->\r\n          <!-- <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngIf=\"clientProfilePic\" fxFlex=\"100\" style=\"display: flex;\">\r\n            <mat-card class=\"p-0\">\r\n\r\n              <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n                <span fxFlex></span>\r\n                <button type=\"button\" class=\"close p-1\" aria-label=\"Close\" (click)=\"removeSelectedImg()\">\r\n                  <span aria-hidden=\"true\">&times;</span>\r\n                </button>\r\n              </div>\r\n\r\n              <img [src]=\"clientProfilePic\">\r\n            </mat-card>\r\n          </div> -->\r\n\r\n          <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngIf=\"clientProfilePic\" fxFlex=\"100\"\r\n            style=\"display: flex;\">\r\n\r\n            <img class=\"clientProfilePic\" [src]=\"clientProfilePic\">\r\n\r\n          </div>\r\n          <!-- --------- end card --------- -->\r\n\r\n        </div>\r\n        <!-- --------- end images preview container --------- -->\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" matStepperNext [disabled]=\"!clientProfilePic\">Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n\r\n      </form>\r\n    </mat-step>\r\n\r\n\r\n    <mat-step [stepControl]=\"adminFormGroup\">\r\n      <form [formGroup]=\"adminFormGroup\">\r\n        <ng-template matStepLabel>Admin User</ng-template>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n          <div fxFlex=\"100\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" positiveNumberAndLetterOnly placeholder=\"Username\"\r\n                [formControl]=\"adminFormGroup.controls['username']\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"100\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"email\" placeholder=\"Email\" [formControl]=\"adminFormGroup.controls['email']\">\r\n            </mat-form-field>\r\n          </div>\r\n          <!-- , module.moduleName, item.code, $event.checked) -->\r\n          <div fxFlex=\"100\" class=\"pr-1 mb-3\">\r\n            <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" class=\"pt-2\" fxLayoutWrap=\"wrap\">\r\n              <div fxFlex=\"50\" class=\"pr-1 pt-2\"  *ngFor=\"let item of allAuthorities\">\r\n                <mat-checkbox (change)=\"onChange(item.id)\" class=\"full-width\"\r\n                  value=\"{{item.code}}\">{{item.name}}</mat-checkbox>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n        </div>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" matStepperNext [disabled]=\"adminFormGroup.invalid\">Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n\r\n    <mat-step [stepControl]=\"categoryFormGroup\">\r\n      <form [formGroup]=\"categoryFormGroup\">\r\n        <ng-template matStepLabel>Category</ng-template>\r\n\r\n        <mat-form-field class=\"matAutocomplete-chip-list\">\r\n\r\n          <mat-chip-list #chipList>\r\n            <mat-chip *ngFor=\"let category of selectedCategories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n              (removed)=\"remove(category)\">\r\n              {{category.name}}\r\n              <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n            </mat-chip>\r\n            <input matInput placeholder=\"Select category...\" #categoryInput [formControl]=\"categoryCtrl\"\r\n              [matAutocomplete]=\"auto\" [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\"\r\n              (matChipInputTokenEnd)=\"add($event)\" [matChipInputAddOnBlur]=\"addOnBlur\" aria-label=\"Category\"\r\n              [required]=\"this.selectedCategories.length === 0\">\r\n          </mat-chip-list>\r\n\r\n          <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n            <mat-option *ngFor=\"let category of filteredCategories | async\" [value]=\"category.id\">\r\n              <span>{{category.name}}</span>\r\n            </mat-option>\r\n          </mat-autocomplete>\r\n\r\n        </mat-form-field>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" matStepperNext\r\n              [disabled]='this.selectedCategories.length === 0'>Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n\r\n    <mat-step [stepControl]=\"licenseFormGroup\">\r\n      <form [formGroup]=\"licenseFormGroup\">\r\n        <ng-template matStepLabel>License</ng-template>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"tagCount\" placeholder=\"Tag Count\" positiveNumberOnly\r\n                [formControl]=\"licenseFormGroup.controls['tagCount']\">\r\n            </mat-form-field>\r\n            <span *ngIf=\"licenseFormGroup.controls['tagCount'].hasError('max')\" class=\"form-error-msg\">\r\n              {{this.license.tagCount}} max ! </span>\r\n          </div>\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"userCount\" placeholder=\"User Count\" positiveNumberOnly\r\n                [formControl]=\"licenseFormGroup.controls['userCount']\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"communityCount\" placeholder=\"Comunity Count\" positiveNumberOnly\r\n                [formControl]=\"licenseFormGroup.controls['communityCount']\" (blur)=\"validateLicense()\"\r\n                (focus)='setOldValue()'>\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"feedbackCount\" placeholder=\"Feedback Count\" positiveNumberOnly\r\n                [formControl]=\"licenseFormGroup.controls['feedbackCount']\" (blur)=\"setDefaultValue('feedbackCount')\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"eventkCount\" placeholder=\"Event Count\" positiveNumberOnly\r\n                [formControl]=\"licenseFormGroup.controls['eventCount']\" (blur)=\"setDefaultValue('eventCount')\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"promoCount\" placeholder=\"Promo Count\" positiveNumberOnly\r\n                [formControl]=\"licenseFormGroup.controls['promoCount']\" (blur)=\"setDefaultValue('promoCount')\">\r\n            </mat-form-field>\r\n          </div>\r\n        </div>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" (click)=\"submit()\"\r\n              [disabled]=\"licenseFormGroup.invalid\">Submit</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n\r\n  </mat-horizontal-stepper>\r\n\r\n\r\n</mat-dialog-content>"
 
 /***/ }),
 
@@ -477,23 +477,27 @@ var ClientCreatePopupComponent = /** @class */ (function () {
         this.separatorKeysCodes = [_angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_5__["ENTER"], _angular_cdk_keycodes__WEBPACK_IMPORTED_MODULE_5__["COMMA"]];
         this.categoryCtrl = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]();
         this.allCategories = [];
+        this.allAuthorities = [];
+        this.selectedAuthorities = [];
         this.selectedCategories = [];
         this.categories = [];
         // categoriesValue: string[] = [];
         this.oldestValue = 0;
-        this.categoryFormStatus = true;
         this.filteredCategories = this.categoryCtrl.valueChanges
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (category) { return category ? _this._filterCategories(category) : _this.allCategories.slice(); }));
     }
     ClientCreatePopupComponent.prototype.ngOnInit = function () {
-        // this.categoriesObj = this.data.category;
+        var _this = this;
         this.allCategories = JSON.parse(JSON.stringify(this.data.category));
         this.selectedCategories = [];
-        // if (this.data.selectedCategory.content.length > 0) {
-        //   this.data.selectedCategory.content.forEach(element => {
-        //     this.addSelectedCategory(element.id)
-        //   });
-        // }
+        this.data.section.forEach(function (section) {
+            section.authorities.forEach(function (authority) {
+                if (authority.code !== 'cm-a') {
+                    _this.allAuthorities.push(authority);
+                }
+            });
+        });
+        this.selectedAuthorities = [];
         this.buildItemForm();
     };
     ClientCreatePopupComponent.prototype.buildItemForm = function () {
@@ -536,31 +540,31 @@ var ClientCreatePopupComponent = /** @class */ (function () {
     };
     ClientCreatePopupComponent.prototype.validateLicense = function () {
         var form = this.licenseFormGroup;
-        if (form.controls['communityCount'].value !== '') {
-            var value = form.controls['communityCount'].value;
-            var diff = void 0;
-            if (value > this.oldestValue) {
-                diff = value - this.oldestValue;
+        var value = form.controls['communityCount'].value;
+        if (value !== '' && value !== '0') {
+            var diff = value - this.oldestValue;
+            if (diff > 0) {
                 form.controls['feedbackCount'].setValue(+(form.get('feedbackCount').value) + diff);
                 form.controls['eventCount'].setValue(+(form.get('eventCount').value) + diff);
                 form.controls['promoCount'].setValue(+(form.get('promoCount').value) + diff);
             }
         }
         else {
-            form.controls['communityCount'].setValue(1);
-            form.controls['feedbackCount'].setValue(1);
-            form.controls['eventCount'].setValue(1);
-            form.controls['promoCount'].setValue(1);
+            this.setDefaultValue('communityCount');
+            this.setDefaultValue('feedbackCount');
+            this.setDefaultValue('eventCount');
+            this.setDefaultValue('promoCount');
         }
     };
     ClientCreatePopupComponent.prototype.setDefaultValue = function (control) {
         var form = this.licenseFormGroup;
-        if (form.controls[control].value === '') {
+        var value = form.controls[control].value;
+        if (value === '' || value === '0') {
             form.controls[control].setValue(1);
         }
     };
     ClientCreatePopupComponent.prototype.submit = function () {
-        var forms = [this.clientFormGroup.value, this.url, this.adminFormGroup.value, this.licenseFormGroup.value, this.selectedCategories];
+        var forms = [this.clientFormGroup.value, this.clientProfilePic, this.adminFormGroup.value, this.licenseFormGroup.value, this.selectedCategories, this.selectedAuthorities];
         console.log(forms);
         this.dialogRef.close(forms);
     };
@@ -576,7 +580,7 @@ var ClientCreatePopupComponent = /** @class */ (function () {
                 return;
             }
             reader.onload = function (event) {
-                _this.url = event.target.result;
+                _this.clientProfilePic = event.target.result;
             };
             reader.readAsDataURL(file);
         }
@@ -585,7 +589,7 @@ var ClientCreatePopupComponent = /** @class */ (function () {
         }
     };
     ClientCreatePopupComponent.prototype.removeSelectedImg = function () {
-        this.url = null;
+        this.clientProfilePic = null;
         this.profilePicFormGroup.controls['profilePic'].setValue('');
     };
     ClientCreatePopupComponent.prototype.add = function (event) {
@@ -630,6 +634,20 @@ var ClientCreatePopupComponent = /** @class */ (function () {
     ClientCreatePopupComponent.prototype._filterCategories = function (value) {
         var filterValue = value.toLowerCase();
         return this.allCategories.filter(function (category) { return category.name.toLowerCase().indexOf(filterValue) === 0; });
+    };
+    ClientCreatePopupComponent.prototype.onChange = function (id) {
+        var _this = this;
+        console.log(id);
+        if (this.selectedAuthorities.includes(id)) {
+            this.selectedAuthorities.forEach(function (item, index) {
+                if (item === id) {
+                    _this.selectedAuthorities.splice(index, 1);
+                }
+            });
+        }
+        else {
+            this.selectedAuthorities.push(id);
+        }
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('categoryInput'),
@@ -849,6 +867,7 @@ var ClientTableComponent = /** @class */ (function () {
         this.getClients();
         this.getCategory();
         this.getCountry();
+        this.getDisplayAuthority();
     };
     ClientTableComponent.prototype.ngOnDestroy = function () {
         if (this.getItemSub) {
@@ -857,7 +876,7 @@ var ClientTableComponent = /** @class */ (function () {
     };
     ClientTableComponent.prototype.getClients = function () {
         var _this = this;
-        this.getItemSub = this.clientService.getClients().subscribe(function (successResp) {
+        this.clientService.getClients().subscribe(function (successResp) {
             _this.clients = successResp.content;
         }, function (error) {
             _this.errDialog.showError(error);
@@ -865,9 +884,8 @@ var ClientTableComponent = /** @class */ (function () {
     };
     ClientTableComponent.prototype.getCategory = function () {
         var _this = this;
-        this.getItemSub = this.clientService.getCategory().subscribe(function (successResp) {
+        this.clientService.getCategory().subscribe(function (successResp) {
             _this.category = successResp.content;
-            console.log(_this.category);
         }, function (error) {
             _this.errDialog.showError(error);
         });
@@ -880,6 +898,14 @@ var ClientTableComponent = /** @class */ (function () {
             //   startWith(''),
             //   map(value => this._filter(value))
             // );
+        }, function (error) {
+            _this.errDialog.showError(error);
+        });
+    };
+    ClientTableComponent.prototype.getDisplayAuthority = function () {
+        var _this = this;
+        this.clientService.getDisplayAuthority().subscribe(function (successResp) {
+            _this.sections = successResp.content;
         }, function (error) {
             _this.errDialog.showError(error);
         });
@@ -920,7 +946,7 @@ var ClientTableComponent = /** @class */ (function () {
         var dialogRef = this.dialog.open(_client_create_popup_client_create_popup_component__WEBPACK_IMPORTED_MODULE_5__["ClientCreatePopupComponent"], {
             width: "900px",
             disableClose: true,
-            data: { category: this.category }
+            data: { category: this.category, section: this.sections }
         });
         dialogRef.afterClosed().subscribe(function (res) {
             console.log(res);
@@ -929,13 +955,17 @@ var ClientTableComponent = /** @class */ (function () {
                 return;
             }
             _this.loader.open();
+            var authorities = [];
+            res[5].forEach(function (element) {
+                authorities.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["AuthorityData"](element));
+            });
+            var role = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["AdminRoleData"]('Admin role', 'Admin description', authorities);
             var users = [];
-            var categories = [];
-            users.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["UserData"](res[2].username, res[2].email));
+            users.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["UserData"](res[2].username, res[2].email, role));
             var license = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["ClientLicenseData"](res[3].tagCount, res[3].userCount, res[3].communityCount, res[3].feedbackCount, res[3].eventCount, res[3].promoCount);
+            var categories = [];
             res[4].forEach(function (element) {
-                var category = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["CategoryData"](element.id);
-                categories.push(category);
+                categories.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["CategoryData"](element.id));
             });
             var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["ClientCreateReq"](res[0].name, res[0].description, res[1], users, categories, license);
             _this.clientService.addClient(req).subscribe(function (response) {
@@ -1315,7 +1345,7 @@ function getBase64ImageFromUrl(imageUrl) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">{{data.title}}</span>\r\n  </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\" style=\"overflow: unset; max-height: unset;\">\r\n  <form [formGroup]=\"roleFormGroup\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput required formControlName=\"name\" placeholder=\"Role Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput required formControlName=\"description\" placeholder=\"Description\">\r\n        </mat-form-field>\r\n      </div>\r\n    </div>\r\n  </form>\r\n\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <div fxFlex=\"100\" class=\"pr-1\">\r\n      <span>Select Role Authorities</span>\r\n    </div>\r\n    <div fxFlex=\"100\" class=\"pr-1\">\r\n      <mat-tab-group>\r\n        <div *ngFor=\"let module of this.componentList; let i = index\">\r\n          <mat-tab label=\"{{module.moduleName}}\">\r\n            <form [formGroup]=\"authoritiesFormGroup\">\r\n              <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" style=\"padding-top: 5px;\" fxLayoutWrap=\"wrap\">\r\n                <div fxFlex=\"50\" class=\"pr-1\" style=\"padding-top: 5px;\" *ngFor=\"let item of module.data\">\r\n                  <mat-checkbox [checked]=\"item.checked\" (change)=\"onChange(item.id, module.moduleName, item.code, $event.checked)\" class=\"full-width\" value=\"{{item.code}}\">{{item.name}}</mat-checkbox>\r\n                </div>\r\n              </div>\r\n            </form>\r\n          </mat-tab>\r\n        </div>\r\n      </mat-tab-group>\r\n    </div>\r\n  </div>\r\n\r\n</mat-dialog-content>\r\n<mat-dialog-actions align=\"end\">\r\n  <button mat-raised-button color=\"accent\" [disabled]=\"this.selectedAuthorities.length == 0 || roleFormGroup.invalid\" (click)=\"submit()\">Save</button>\r\n  <span fxFlex></span>\r\n  <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n</mat-dialog-actions>\r\n"
+module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n        <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\" style=\"overflow: unset; max-height: unset;\">\r\n    <form [formGroup]=\"roleFormGroup\">\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n                <mat-form-field class=\"full-width\">\r\n                    <input matInput required formControlName=\"name\" placeholder=\"Role Name\">\r\n                </mat-form-field>\r\n            </div>\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n                <mat-form-field class=\"full-width\">\r\n                    <input matInput required formControlName=\"description\" placeholder=\"Description\">\r\n                </mat-form-field>\r\n            </div>\r\n        </div>\r\n    </form>\r\n\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n        <div fxFlex=\"100\" class=\"pr-1\">\r\n            <span>Select Role Authorities</span>\r\n        </div>\r\n        <div fxFlex=\"100\" class=\"pr-1\">\r\n            <mat-tab-group *ngIf=\"this.predefined !== 'true'\">\r\n                <div *ngFor=\"let module of this.componentList; let i = index\">\r\n                    <mat-tab label=\"{{module.name}}\" *ngIf=\"module.authorities.length !== 0\">\r\n                        <form [formGroup]=\"authoritiesFormGroup\">\r\n                            <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" class=\"pt-2\" fxLayoutWrap=\"wrap\">\r\n                                <div fxFlex=\"50\" class=\"pr-1\" style=\"padding-top: 5px;\"\r\n                                    *ngFor=\"let item of module.authorities\">\r\n                                    <mat-checkbox [checked]=\"item.checked\"\r\n                                        (change)=\"onChangeUserRole(item, $event.checked)\" class=\"full-width\"\r\n                                        value=\"{{item.code}}\">{{item.name}}</mat-checkbox>\r\n                                </div>\r\n                            </div>\r\n                        </form>\r\n                    </mat-tab>\r\n                </div>\r\n                <!-- <div *ngFor=\"let module of this.componentList; let i = index\">\r\n          <mat-tab label=\"{{module.moduleName}}\">\r\n            <form [formGroup]=\"authoritiesFormGroup\">\r\n              <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" style=\"padding-top: 5px;\" fxLayoutWrap=\"wrap\">\r\n                <div fxFlex=\"50\" class=\"pr-1\" style=\"padding-top: 5px;\" *ngFor=\"let item of module.data\">\r\n                  <mat-checkbox [checked]=\"item.checked\" (change)=\"onChange(item.id, module.moduleName, item.code, $event.checked)\" class=\"full-width\" value=\"{{item.code}}\">{{item.name}}</mat-checkbox>\r\n                </div>\r\n              </div>\r\n            </form>\r\n          </mat-tab>\r\n        </div> -->\r\n            </mat-tab-group>\r\n            <mat-tab-group *ngIf=\"this.predefined === 'true'\">\r\n                <mat-tab label=\"Display Authorities\">\r\n                    <form [formGroup]=\"authoritiesFormGroup\">\r\n                        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" class=\"pt-2\" fxLayoutWrap=\"wrap\">\r\n                            <div fxFlex=\"50\" class=\"pr-1\" style=\"padding-top: 5px;\"\r\n                                *ngFor=\"let item of allDisplayAuthority\">\r\n                                <mat-checkbox [checked]=\"item.checked\"\r\n                                    (change)=\"onChangeAdminRole(item, $event.checked)\" class=\"full-width\"\r\n                                    value=\"{{item.code}}\">{{item.name}}</mat-checkbox>\r\n                            </div>\r\n                        </div>\r\n                    </form>\r\n                </mat-tab>\r\n            </mat-tab-group>\r\n        </div>\r\n    </div>\r\n\r\n</mat-dialog-content>\r\n<mat-dialog-actions align=\"end\">\r\n    <button mat-raised-button color=\"accent\" [disabled]=\"this.newDisplayAuthority.length == 0 || roleFormGroup.invalid\"\r\n        (click)=\"submit()\" *ngIf=\"this.predefined === 'true'\">Save</button>\r\n    <button mat-raised-button color=\"accent\" [disabled]=\"this.selectedAuthorities.length == 0 || roleFormGroup.invalid\"\r\n        (click)=\"submit()\" *ngIf=\"this.predefined !== 'true'\">Save</button>\r\n    <span fxFlex></span>\r\n    <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n</mat-dialog-actions>"
 
 /***/ }),
 
@@ -1357,17 +1387,106 @@ var RoleTablePopupComponent = /** @class */ (function () {
         this.dialogRef = dialogRef;
         this.fb = fb;
         this.clientService = clientService;
-        //Raveen : need to implement a custom directive for the pattern validation
-        //public codeRegex = '/^-?[0-9]+(\.[0-9]*){0,1}$/g';
-        this.componentList = [];
-        this.numberOfComponent = this.componentList.length - 1;
+        this.allAuthority = [];
+        this.allDisplayAuthority = [];
+        this.adminRoleDisplayAuthority = [];
+        this.newDisplayAuthority = [];
+        this.removedDisplayAuthority = [];
+        this.commonAndAdminAuthorities = [];
         this.selectedAuthorities = [];
+        this.componentList = [];
+        this.adminComponentList = [];
     }
     RoleTablePopupComponent.prototype.ngOnInit = function () {
+        console.log(this.data);
         this.clientID = this.data.clientID;
-        this.buildRoleForms(this.data.payload);
+        this.predefined = this.data.roleData.predefined;
+        this.isNew = this.data.roleData.isNew;
+        this.commonAndAdminAuthorities = this.data.commonAndAdminAuthorities;
+        if (this.isNew) {
+            this.createUserAuthorityComponentList(this.data.adminRoleAuthorities);
+        }
+        else {
+            this.formatRoleAuthority(this.data.roleData);
+        }
+        this.buildRoleForms(this.data.roleData);
         this.buildauthoritiesForm();
-        this.getAllAuthorities();
+    };
+    RoleTablePopupComponent.prototype.formatRoleAuthority = function (data) {
+        var _this = this;
+        var roleData = JSON.parse(JSON.stringify(data));
+        if (this.predefined === 'true') {
+            this.createAdminAuthorityComponentList(this.data.adminRoleAuthorities);
+        }
+        else {
+            roleData.authorities.forEach(function (authority) {
+                if (authority.type === 'U' || authority.type === 'D') {
+                    _this.selectedAuthorities.push(authority.id);
+                }
+            });
+            this.createUserAuthorityComponentList(this.data.adminRoleAuthorities);
+        }
+    };
+    RoleTablePopupComponent.prototype.createUserAuthorityComponentList = function (data) {
+        var _this = this;
+        var roleData = JSON.parse(JSON.stringify(data));
+        var displayAuthoritySection = { name: "Display Authority", authorities: [] };
+        roleData.forEach(function (section) {
+            section.authorities.forEach(function (authority, index) {
+                if (authority.type === 'D' || authority.type === 'U') {
+                    var status_1 = false;
+                    if (_this.selectedAuthorities.includes(authority.id)) {
+                        status_1 = true;
+                    }
+                    authority['checked'] = status_1;
+                    if (authority.type === 'D') {
+                        displayAuthoritySection.authorities.push(authority);
+                        section.authorities.splice(index, 1);
+                    }
+                }
+                else {
+                    console.log(authority);
+                    section.authorities.splice(index, 1);
+                }
+            });
+        });
+        roleData.splice(0, 0, displayAuthoritySection);
+        this.componentList = roleData;
+        console.log('-------------------------------------- componentList', this.componentList);
+    };
+    RoleTablePopupComponent.prototype.createAdminAuthorityComponentList = function (data) {
+        var _this = this;
+        var roleData = JSON.parse(JSON.stringify(data));
+        this.clientService.getAllUserAuthority().subscribe(function (response) {
+            _this.allAuthority = response.content;
+            _this.allAuthority.forEach(function (section) {
+                section.authorities.forEach(function (authority) {
+                    if (authority.type === 'D' && authority.code !== 'cm-a') {
+                        authority['sectionId'] = section.id;
+                        _this.allDisplayAuthority.push(authority);
+                    }
+                });
+            });
+            roleData.forEach(function (section) {
+                section.authorities.forEach(function (authority) {
+                    if (authority.type === 'D') {
+                        authority['sectionId'] = section.id;
+                        _this.adminRoleDisplayAuthority.push(authority);
+                        _this.newDisplayAuthority.push(authority);
+                    }
+                });
+            });
+            _this.allDisplayAuthority.forEach(function (authority) {
+                var status = false;
+                var index = _this.adminRoleDisplayAuthority.findIndex(function (x) { return x.id === authority.id; });
+                if (index >= 0) {
+                    status = true;
+                }
+                authority['checked'] = status;
+            });
+        });
+        this.adminComponentList = this.allDisplayAuthority;
+        console.log('-------------------------------------- adminComponentList', this.adminComponentList);
     };
     /*
     * Build New Role Form Group
@@ -1390,144 +1509,105 @@ var RoleTablePopupComponent = /** @class */ (function () {
             data: this.fb.array([])
         });
     };
-    /*
-    * Form Data Submit
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
     RoleTablePopupComponent.prototype.submit = function () {
-        var roleFormValue = this.roleFormGroup.value;
-        var roleData = {
-            name: roleFormValue.name,
-            description: roleFormValue.description,
-            authorities: this.selectedAuthorities,
-            client: new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["ClientData"](this.clientID)
-        };
-        this.dialogRef.close(roleData);
-    };
-    /*
-    * Check box onchange function for get selected check box value
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    RoleTablePopupComponent.prototype.onChange = function (id, name, auth_key, isChecked) {
-        var dataArray = this.authoritiesFormGroup.controls.data;
-        console.log('--------- role update onchange -------------');
-        if (isChecked) {
-            dataArray.push(new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](auth_key));
-            var tempJson = {
-                id: id
-            };
-            console.log(id, auth_key);
-            this.selectedAuthorities.push(tempJson);
-        }
-        else {
-            var index = dataArray.controls.findIndex(function (x) { return x.value === auth_key; });
-            dataArray.removeAt(index);
-            // for (let i = 0; i < this.selectedAuthorities.length; i++) {
-            //   if (this.selectedAuthorities[i].id === id) {
-            var i = this.selectedAuthorities.findIndex(function (y) { return y.id === id; });
-            console.log(id, auth_key, i);
-            this.selectedAuthorities.splice(i, 1);
-            // break;
-            //   }
-            // }
-        }
-    };
-    /*
-    * Set Selected role authorities when update popup window open
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    RoleTablePopupComponent.prototype.setSelectedRoleAuthorities = function () {
         var _this = this;
-        if (this.data.payload.hasOwnProperty('authorities')) {
-            var temList = this.componentList;
-            temList.forEach(function (element) {
-                element.data.forEach(function (data) {
-                    if (data.checked) {
-                        var tempJson = {
-                            id: data.id
-                        };
-                        _this.selectedAuthorities.push(tempJson);
+        if (this.predefined === 'true') {
+            // update removedDisplayAuthority array -----------------------------------------------------------------
+            this.adminRoleDisplayAuthority.forEach(function (authority) {
+                if (_this.newDisplayAuthority.findIndex(function (x) { return x.id === authority.id; }) < 0) {
+                    _this.removedDisplayAuthority.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["AuthorityData"](authority.id));
+                }
+            });
+            // ------------------------------------------------------------------------------------------------------
+            // Add Authorities to selectedAuthorities array by selected Display Authorities -------------------------
+            this.newDisplayAuthority.forEach(function (newAuthority) {
+                _this.selectedAuthorities.push(newAuthority.id);
+                _this.allAuthority.forEach(function (section) {
+                    if (newAuthority.sectionId === section.id) {
+                        section.authorities.forEach(function (authority) {
+                            if (!_this.selectedAuthorities.includes(authority.id)) {
+                                _this.selectedAuthorities.push(authority.id);
+                            }
+                        });
                     }
                 });
             });
-            console.log('-------------- setSelectedRoleAuthorities -------------------');
-            console.log(this.selectedAuthorities);
+            // ------------------------------------------------------------------------------------------------------
+            // Add Admin And Common Authorities ---------------------------------------------------------------------
+            this.commonAndAdminAuthorities.forEach(function (authority) {
+                _this.selectedAuthorities.push(authority.id);
+            });
+            // ------------------------------------------------------------------------------------------------------
         }
-    };
-    /*
-    * Get All Authorities
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    RoleTablePopupComponent.prototype.getAllAuthorities = function () {
-        var _this = this;
-        this.clientService.getAllAuthorities()
-            .subscribe(function (response) {
-            _this.createComponentArray(response.content);
-        });
-    };
-    /*
-    * Create Componet tab view data array
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    RoleTablePopupComponent.prototype.createComponentArray = function (dataArray) {
-        var _this = this;
-        dataArray.forEach(function (data) {
-            var name = _this.getModuleName(data.code);
-            if (name === 'Clients') {
-                var i = _this.componentList.findIndex(function (x) { return x.moduleName === name; });
-                var status_1 = _this.setSelectedAuthorities(data.id);
-                if (i < 0) {
-                    var tempdata = data;
-                    tempdata['checked'] = status_1;
-                    _this.componentList.push({
-                        moduleName: name,
-                        data: [tempdata]
-                    });
-                }
-                else {
-                    var tempdata = data;
-                    tempdata['checked'] = status_1;
-                    _this.componentList[i].data.push(tempdata);
-                }
-            }
-        });
-        // console.log('--------------- component list --------------------');
-        // console.log(this.componentList);
-        this.setSelectedRoleAuthorities();
-    };
-    /*
-    * Get module name according to the code
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    RoleTablePopupComponent.prototype.getModuleName = function (code) {
-        var x = code.split('-');
-        if (x[0] === 'pc' || x[0] === 'pur' || x[0] === 'pu') {
-            return 'Clients';
-        }
-        return null;
-    };
-    /*
-    * Set Selected Authorities checke function
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    RoleTablePopupComponent.prototype.setSelectedAuthorities = function (id) {
-        var status = false;
-        if (this.data.payload.hasOwnProperty('authorities')) {
-            var dataArray = this.data.payload.authorities;
-            dataArray.forEach(function (elements) {
-                if (elements.id === id) {
-                    status = true;
+        else {
+            // Add Common Authorities --------------------------------------------------------------------------------
+            this.commonAndAdminAuthorities.forEach(function (authority) {
+                if (authority.type === 'C') {
+                    _this.selectedAuthorities.push(authority.id);
                 }
             });
+            // ------------------------------------------------------------------------------------------------------
         }
-        return status;
+        // create selected authorities (AuthorityData) array ------------------------------------------------------
+        var authorities = [];
+        this.selectedAuthorities.forEach(function (authorityID) {
+            authorities.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["AuthorityData"](authorityID));
+        });
+        // --------------------------------------------------------------------------------------------------------
+        // create req ---------------------------------------------------------------------------------------------
+        var roleFormValue = this.roleFormGroup.value;
+        var roleData = {};
+        if (this.isNew) {
+            roleData = {
+                name: roleFormValue.name,
+                description: roleFormValue.description,
+                authorities: authorities,
+                client: new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["ClientData"](this.clientID)
+            };
+        }
+        else {
+            roleData = {
+                name: roleFormValue.name,
+                description: roleFormValue.description,
+                authorities: authorities,
+                removedAuthorities: this.removedDisplayAuthority,
+                localizedName: ""
+            };
+        }
+        // --------------------------------------------------------------------------------------------------------
+        console.log(roleData);
+        this.dialogRef.close(roleData);
+    };
+    RoleTablePopupComponent.prototype.onChangeUserRole = function (authority, isChecked) {
+        var dataArray = this.authoritiesFormGroup.controls.data;
+        // console.log('------------------------------------------ dataArray', dataArray);
+        if (isChecked) {
+            dataArray.push(new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](authority.code));
+            this.selectedAuthorities.push(authority.id);
+        }
+        else {
+            var index = dataArray.controls.findIndex(function (x) { return x.value === authority.code; });
+            dataArray.removeAt(index);
+            var i = this.selectedAuthorities.findIndex(function (y) { return y === authority.id; });
+            this.selectedAuthorities.splice(i, 1);
+        }
+    };
+    RoleTablePopupComponent.prototype.onChangeAdminRole = function (authority, isChecked) {
+        var dataArray = this.authoritiesFormGroup.controls.data;
+        // console.log('------------------------------------------ dataArray', dataArray);
+        if (isChecked) {
+            dataArray.push(new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](authority.code));
+            // this.selectedAuthorities.push(authority.id);
+            this.newDisplayAuthority.push(authority);
+        }
+        else {
+            var index = dataArray.controls.findIndex(function (x) { return x.value === authority.code; });
+            dataArray.removeAt(index);
+            var i = this.newDisplayAuthority.findIndex(function (y) { return y.id === authority.id; });
+            this.newDisplayAuthority.splice(i, 1);
+            // const j = this.selectedAuthorities.findIndex(y => y === authority.id);
+            // this.selectedAuthorities.splice(j, 1);
+        }
     };
     RoleTablePopupComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1553,7 +1633,7 @@ var RoleTablePopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-title>\r\n    <div class=\"card-title-text\">Roles</div>\r\n    <mat-divider></mat-divider>\r\n\r\n    <div class=\"m-333\">\r\n      <button mat-raised-button class=\"mb-05 ml-05\" color=\"primary\" (click)=\"openPopUp({}, true)\">Add Role</button>\r\n      <span fxFlex></span>\r\n      <p class=\"mat-select-lable\"> Page Size: </p>\r\n      <mat-select class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\">\r\n        <mat-option [value]=\"10\">10</mat-option>\r\n        <mat-option [value]=\"20\">20</mat-option>\r\n      </mat-select>\r\n    </div>\r\n\r\n  </mat-card-title>\r\n  <mat-card-content class=\"p-0\">\r\n\r\n    <ngx-datatable class=\"material ml-0 mr-0\" [rows]=\"roles\" [columnMode]=\"'flex'\" [headerHeight]=\"50\"\r\n      [footerHeight]=\"50\" [limit]=\"10\" [rowHeight]=\"'auto'\">\r\n      <ngx-datatable-column name=\"Role Name\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.name }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <!-- <ngx-datatable-column name=\"Role Description\" [flexGrow]=\"2\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.description }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Last Modified Date\" [flexGrow]=\"2\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.lastModifiedDate }}\r\n        </ng-template>\r\n      </ngx-datatable-column> -->\r\n\r\n      <ngx-datatable-column name=\"Actions\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <!-- <button mat-icon-button mat-sm-button color=\"primary\" class=\"mr-1\" (click)=\"editRole(row)\">\r\n            <mat-icon>edit</mat-icon>\r\n          </button>\r\n          <button mat-icon-button mat-sm-button color=\"warn\" (click)=\"deleteRole(row)\">\r\n            <mat-icon>delete</mat-icon>\r\n          </button> -->\r\n\r\n          <span fxFlex></span>\r\n          <button class=\"card-control\" mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n            <mat-icon>more_vert</mat-icon>\r\n          </button>\r\n          <mat-menu #menu=\"matMenu\">\r\n            <button mat-menu-item (click)=\"editRole(row)\">\r\n              <mat-icon>edit</mat-icon>Edit\r\n            </button>\r\n            <button mat-menu-item (click)=\"deleteRole(row)\">\r\n              <mat-icon>delete</mat-icon>Delete\r\n            </button>\r\n          </mat-menu>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n    </ngx-datatable>\r\n\r\n\r\n    <!-- <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th class=\"pl-1\">Feedback Topic</th>\r\n          <th>Feedback Type</th>\r\n          <th>Start Date</th>\r\n          <th>End Date</th>\r\n          <th width=\"150px\" class=\"\">Actions</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr *ngFor=\"let row of rows;\">\r\n          <td class=\"pt-1 pb-1 pl-1\">{{row?.topic}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.type =='P' ? 'Product' : 'E Vote'}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.startDate}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.endDate}}</td>\r\n          <td class=\"pt-1 pb-1 pr-1\">\r\n            <div class=\"pb-1\">\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)='navigateSurveyBuilder(row)' color=\"primary\" class=\"\">\r\n                  <mat-icon>view_headline</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)='openSurveyPopup(row,false)' color=\"primary\" class=\"\">\r\n                  <mat-icon>edit</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)=\"deleteSurvey(row)\" color=\"warn\" class=\"\">\r\n                  <mat-icon>delete</mat-icon>\r\n                </button>\r\n              </div>\r\n            </div>\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n      <tfoot>\r\n        <tr>\r\n          <td class=\"pt-1 pb-1 pl-1\">\r\n            <div class=\"pagination\">{{totalRecords}} Total</div>\r\n          </td>\r\n          <td colspan=\"4\">\r\n\r\n            <nav aria-label=\"Page navigation example\">\r\n              <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(pageNumber-1);\" aria-label=\"Previous\">\r\n                    <span aria-hidden=\"true\">&laquo;</span>\r\n                    <span class=\"sr-only\">Previous</span>\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(page);\">\r\n                    {{page}}\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(pageNumber+1);\" aria-label=\"Next\">\r\n                    <span aria-hidden=\"true\">&raquo;</span>\r\n                    <span class=\"sr-only\">Next</span>\r\n                  </a>\r\n                </li>\r\n              </ul>\r\n            </nav>\r\n          </td>\r\n        </tr>\r\n      </tfoot>\r\n    </table> -->\r\n\r\n  </mat-card-content>\r\n</mat-card>"
+module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-title>\r\n    <div class=\"card-title-text\">Roles</div>\r\n    <mat-divider></mat-divider>\r\n\r\n    <div class=\"m-333\">\r\n      <button mat-raised-button class=\"mb-05 ml-05\" color=\"primary\" (click)=\"openPopUp({}, true)\"  [roleAuthorization]=\"'pur-c'\">Add Role</button>\r\n      <span fxFlex></span>\r\n      <p class=\"mat-select-lable\"> Page Size: </p>\r\n      <mat-select class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\">\r\n        <mat-option [value]=\"10\">10</mat-option>\r\n        <mat-option [value]=\"20\">20</mat-option>\r\n      </mat-select>\r\n    </div>\r\n\r\n  </mat-card-title>\r\n  <mat-card-content class=\"p-0\">\r\n\r\n    <ngx-datatable class=\"material ml-0 mr-0\" [rows]=\"roles\" [columnMode]=\"'flex'\" [headerHeight]=\"50\"\r\n      [footerHeight]=\"50\" [limit]=\"10\" [rowHeight]=\"'auto'\">\r\n      <ngx-datatable-column name=\"Role Name\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.name }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <!-- <ngx-datatable-column name=\"Role Description\" [flexGrow]=\"2\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.description }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Last Modified Date\" [flexGrow]=\"2\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.lastModifiedDate }}\r\n        </ng-template>\r\n      </ngx-datatable-column> -->\r\n\r\n      <ngx-datatable-column name=\"Actions\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <!-- <button mat-icon-button mat-sm-button color=\"primary\" class=\"mr-1\" (click)=\"editRole(row)\">\r\n            <mat-icon>edit</mat-icon>\r\n          </button>\r\n          <button mat-icon-button mat-sm-button color=\"warn\" (click)=\"deleteRole(row)\">\r\n            <mat-icon>delete</mat-icon>\r\n          </button> -->\r\n\r\n          <span fxFlex></span>\r\n          <button class=\"card-control\" mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n            <mat-icon>more_vert</mat-icon>\r\n          </button>\r\n          <mat-menu #menu=\"matMenu\">\r\n            <button mat-menu-item (click)=\"editRole(row)\" [roleAuthorization]=\"'pur-u'\">\r\n              <mat-icon>edit</mat-icon>Edit\r\n            </button>\r\n            <button mat-menu-item (click)=\"deleteRole(row)\" [roleAuthorization]=\"'pur-d'\">\r\n              <mat-icon>delete</mat-icon>Delete\r\n            </button>\r\n          </mat-menu>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n    </ngx-datatable>\r\n\r\n\r\n    <!-- <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th class=\"pl-1\">Feedback Topic</th>\r\n          <th>Feedback Type</th>\r\n          <th>Start Date</th>\r\n          <th>End Date</th>\r\n          <th width=\"150px\" class=\"\">Actions</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr *ngFor=\"let row of rows;\">\r\n          <td class=\"pt-1 pb-1 pl-1\">{{row?.topic}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.type =='P' ? 'Product' : 'E Vote'}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.startDate}}</td>\r\n          <td class=\"pt-1 pb-1\">{{row?.endDate}}</td>\r\n          <td class=\"pt-1 pb-1 pr-1\">\r\n            <div class=\"pb-1\">\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)='navigateSurveyBuilder(row)' color=\"primary\" class=\"\">\r\n                  <mat-icon>view_headline</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)='openSurveyPopup(row,false)' color=\"primary\" class=\"\">\r\n                  <mat-icon>edit</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)=\"deleteSurvey(row)\" color=\"warn\" class=\"\">\r\n                  <mat-icon>delete</mat-icon>\r\n                </button>\r\n              </div>\r\n            </div>\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n      <tfoot>\r\n        <tr>\r\n          <td class=\"pt-1 pb-1 pl-1\">\r\n            <div class=\"pagination\">{{totalRecords}} Total</div>\r\n          </td>\r\n          <td colspan=\"4\">\r\n\r\n            <nav aria-label=\"Page navigation example\">\r\n              <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(pageNumber-1);\" aria-label=\"Previous\">\r\n                    <span aria-hidden=\"true\">&laquo;</span>\r\n                    <span class=\"sr-only\">Previous</span>\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(page);\">\r\n                    {{page}}\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageSurvey(pageNumber+1);\" aria-label=\"Next\">\r\n                    <span aria-hidden=\"true\">&raquo;</span>\r\n                    <span class=\"sr-only\">Next</span>\r\n                  </a>\r\n                </li>\r\n              </ul>\r\n            </nav>\r\n          </td>\r\n        </tr>\r\n      </tfoot>\r\n    </table> -->\r\n\r\n  </mat-card-content>\r\n</mat-card>"
 
 /***/ }),
 
@@ -1607,6 +1687,7 @@ var RoleTableComponent = /** @class */ (function () {
         this.activeRoute = activeRoute;
         this.authService = authService;
         this.pageSize = 10;
+        this.commonAndAdminAuthorities = [];
         this.componentList = [];
     }
     RoleTableComponent.prototype.ngOnInit = function () {
@@ -1614,6 +1695,7 @@ var RoleTableComponent = /** @class */ (function () {
         if (currentClient) {
             this.clientId = currentClient.id;
             this.getClientRoles();
+            this.getCommonAndAdminAuthorities();
         }
     };
     RoleTableComponent.prototype.ngOnDestroy = function () {
@@ -1625,34 +1707,47 @@ var RoleTableComponent = /** @class */ (function () {
         var _this = this;
         this.getItemSub = this.clientService.getClient(this.clientId).subscribe(function (successResp) {
             _this.roles = successResp.content.roles;
+            _this.roles.forEach(function (role) {
+                if (role.predefined === 'true') {
+                    _this.adminRoleId = role.id;
+                }
+            });
+            _this.getAdminAuthorities(_this.adminRoleId);
         }, function (error) {
             _this.errDialog.showError(error);
         });
     };
-    // getItems() {
-    //   this.getItemSub = this.clientService.getAllUserRoles().subscribe(
-    //     response => {
-    //       this.items = response.content;
-    //     },
-    //     error => {
-    //       this.errDialog.showError(error);
-    //     }
-    //   );
-    // }
-    /*
-    * Open Create and Update Role popup window
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    RoleTableComponent.prototype.openPopUp = function (data, isNew) {
+    RoleTableComponent.prototype.getAdminAuthorities = function (id) {
         var _this = this;
-        if (data === void 0) { data = {}; }
+        this.clientService.getAdminAuthority(id).subscribe(function (response) {
+            _this.adminRoleAuthorities = response.content;
+        });
+    };
+    RoleTableComponent.prototype.getCommonAndAdminAuthorities = function () {
+        var _this = this;
+        this.clientService.getCommonAndAdminAuthority().subscribe(function (response) {
+            response.content.forEach(function (section) {
+                section.authorities.forEach(function (authority) {
+                    _this.commonAndAdminAuthorities.push(authority);
+                });
+            });
+        });
+    };
+    RoleTableComponent.prototype.openPopUp = function (roleData, isNew) {
+        var _this = this;
+        if (roleData === void 0) { roleData = {}; }
         var title = isNew ? "Create New User Role" : "Update User Role";
-        data["isNew"] = isNew;
+        roleData["isNew"] = isNew;
         var dialogRef = this.dialog.open(_role_table_popup_role_table_popup_component__WEBPACK_IMPORTED_MODULE_5__["RoleTablePopupComponent"], {
             width: "900px",
             disableClose: true,
-            data: { title: title, payload: data, clientID: this.clientId }
+            data: {
+                title: title,
+                roleData: roleData,
+                clientID: this.clientId,
+                adminRoleAuthorities: this.adminRoleAuthorities,
+                commonAndAdminAuthorities: this.commonAndAdminAuthorities
+            }
         });
         dialogRef.afterClosed().subscribe(function (res) {
             if (!res) {
@@ -1675,9 +1770,8 @@ var RoleTableComponent = /** @class */ (function () {
                 });
             }
             else {
-                // console.log('------------ update user role object ---------------');
-                res["localizedName"] = "";
-                // console.log(res);
+                console.log('------------ update user role object ---------------');
+                console.log(res);
                 _this.clientService.updateRloe(_this.editRoleId, res).subscribe(function (response) {
                     // console.log('--------------- create user role response ----------------');
                     // console.log(response);
@@ -1692,21 +1786,14 @@ var RoleTableComponent = /** @class */ (function () {
             _this.loader.close();
         });
     };
-    /*
-     * Edit User Role
-     * Created by Prasad Kumara
-     * 14/02/2019
-     */
     RoleTableComponent.prototype.editRole = function (role) {
         var _this = this;
-        // console.log('------------- edit role ----------------');
-        // console.log(role);
         this.editRoleId = role.id;
-        this.clientService.getOneRoleAuthorities(role.id).subscribe(function (response) {
-            // console.log(response.content);
+        this.clientService.getRoleAuthorities(role.id).subscribe(function (response) {
             var roleData = {
                 name: response.content.name,
                 description: response.content.description,
+                predefined: response.content.predefined,
                 authorities: response.content.authorities
             };
             _this.openPopUp(roleData, false);
@@ -1910,7 +1997,7 @@ var UserCategoryPopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">Community</span>\r\n  </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\" style=\"overflow: unset; max-height: unset;\">\r\n\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-3\" *ngIf=\"allCommunities.length !== 0\">\r\n    <div fxFlex=\"50\" class=\"pr-1\" *ngFor=\"let community of allCommunities\">\r\n      <mat-checkbox [checked]=\"community.isChecked\" (change)=\"onChange($event)\" class=\"full-width\"\r\n        [value]=\"community.id\">\r\n        {{community.name}}</mat-checkbox>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"alert alert-warning\" role=\"alert\" *ngIf=\"allCommunities.length === 0\">\r\n    Client has no any assigned communities.!\r\n  </div>\r\n\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-2\">\r\n    <div fxFlex=\"100\" class=\"mt-1\">\r\n      <button mat-raised-button color=\"primary\" (click)=\"submit()\" *ngIf=\"allCommunities.length !== 0\">Save</button>\r\n      <span fxFlex></span>\r\n      <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n    </div>\r\n  </div>\r\n\r\n</mat-dialog-content>"
+module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">Community</span>\r\n  </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\" style=\"overflow: unset; max-height: unset;\">\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-3\" *ngIf=\"allCommunities.length !== 0\">\r\n    <div fxFlex=\"50\" class=\"pr-1\" *ngFor=\"let community of allCommunities\">\r\n      <mat-checkbox [checked]=\"community.isChecked\" (change)=\"onChange($event)\" class=\"full-width\"\r\n        [value]=\"community.id\">\r\n        {{community.name}}</mat-checkbox>\r\n    </div>\r\n  </div>\r\n  <div class=\"alert alert-warning\" role=\"alert\" *ngIf=\"allCommunities.length === 0\">\r\n    Client has no any assigned communities.!\r\n  </div>\r\n  <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-2\">\r\n    <div fxFlex=\"100\" class=\"mt-1\">\r\n      <button mat-raised-button color=\"primary\" (click)=\"submit()\" *ngIf=\"allCommunities.length !== 0\">Save</button>\r\n      <span fxFlex></span>\r\n      <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n    </div>\r\n  </div>\r\n</mat-dialog-content>"
 
 /***/ }),
 
@@ -1953,17 +2040,16 @@ var UserCommunityPopupComponent = /** @class */ (function () {
     UserCommunityPopupComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.allCommunities = JSON.parse(JSON.stringify(this.data.community));
-        console.log(this.allCommunities);
-        // this.selectedCommunities = [];
         this.selectedCommunities = this.data.selectedCommunity;
         this.allCommunities.forEach(function (element) {
             if (_this.selectedCommunities.length > 0) {
-                if (_this.selectedCommunities.filter(function (community) { return community.id.indexOf(element.id) === 0; })) {
-                    element['isChecked'] = true;
-                }
-                else {
-                    element['isChecked'] = false;
-                }
+                var status_1 = false;
+                _this.selectedCommunities.forEach(function (community) {
+                    if (community.id.indexOf(element.id) === 0) {
+                        status_1 = true;
+                    }
+                    element['isChecked'] = status_1;
+                });
             }
         });
     };
@@ -2010,7 +2096,7 @@ var UserCommunityPopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">Create User</span>\r\n  </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\" id=\"client-create\">\r\n\r\n\r\n  <mat-horizontal-stepper [linear]=\"true\">\r\n\r\n    <mat-step [stepControl]=\"userFormGroup\">\r\n\r\n      <form [formGroup]=\"userFormGroup\">\r\n\r\n        <ng-template matStepLabel>Client</ng-template>\r\n\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" [formControl]=\"userFormGroup.controls['username']\"\r\n                placeholder=\"User Name\">\r\n            </mat-form-field>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"password\" type=\"password\" [formControl]=\"userFormGroup.controls['password']\"\r\n                positiveNumberAndLetterOnly placeholder=\"Password\">\r\n            </mat-form-field>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"email\" [formControl]=\"userFormGroup.controls['email']\" placeholder=\"Email\">\r\n            </mat-form-field>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <mat-select [formControl]=\"userFormGroup.controls['role']\" placeholder=\"Select A User Role\">\r\n                <mat-option>none</mat-option>\r\n                <mat-option *ngFor=\"let roles of roles\" [value]=\"roles.id\">{{roles.name}}</mat-option>\r\n              </mat-select>\r\n            </mat-form-field>\r\n          </div>\r\n\r\n        </div>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"primary\" matStepperNext>Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n\r\n      </form>\r\n\r\n    </mat-step>\r\n\r\n\r\n    <mat-step [stepControl]=\"categoryFormGroup\">\r\n      <form [formGroup]=\"categoryFormGroup\">\r\n        <ng-template matStepLabel>Category</ng-template>\r\n\r\n        <mat-form-field class=\"matAutocomplete-chip-list\">\r\n          <mat-chip-list #chipList>\r\n            <mat-chip *ngFor=\"let category of selectedCategories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n              (removed)=\"remove(category)\">\r\n              {{category.name}}\r\n              <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n            </mat-chip>\r\n            <input matInput placeholder=\"Select category...\" #categoryInput [formControl]=\"categoryCtrl\"\r\n              [matAutocomplete]=\"auto\" [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\"\r\n              (matChipInputTokenEnd)=\"add($event)\" [matChipInputAddOnBlur]=\"addOnBlur\" aria-label=\"Category\">\r\n          </mat-chip-list>\r\n\r\n          <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n            <mat-option *ngFor=\"let category of filteredCategories | async\" [value]=\"category.id\">\r\n              <span>{{category.name}}</span>\r\n            </mat-option>\r\n          </mat-autocomplete>\r\n\r\n        </mat-form-field>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" matStepperNext [disabled]=\"this.selectedCategories.length == 0\">Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n\r\n    <mat-step [stepControl]=\"communityFormGroup\">\r\n      <form [formGroup]=\"communityFormGroup\">\r\n        <ng-template matStepLabel>Community</ng-template>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n          <div fxFlex=\"100\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" positiveNumberAndLetterOnly placeholder=\"Username\"\r\n                [formControl]=\"communityFormGroup.controls['username']\">\r\n            </mat-form-field>\r\n          </div>\r\n\r\n        </div>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" (click)=\"submit()\">Submit</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n\r\n      </form>\r\n    </mat-step>\r\n\r\n  </mat-horizontal-stepper>\r\n\r\n\r\n</mat-dialog-content>"
+module.exports = "<mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n  <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n    <span class=\"title dialog-title\">Create User</span>\r\n  </div>\r\n</mat-toolbar>\r\n<mat-dialog-content class=\"mat-typography mt-1\" id=\"client-create\">\r\n\r\n\r\n  <mat-horizontal-stepper [linear]=\"true\">\r\n\r\n    <mat-step [stepControl]=\"userFormGroup\">\r\n\r\n      <form [formGroup]=\"userFormGroup\">\r\n\r\n        <ng-template matStepLabel>Client</ng-template>\r\n\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" [formControl]=\"userFormGroup.controls['username']\"\r\n                placeholder=\"User Name\">\r\n            </mat-form-field>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"password\" type=\"password\" [formControl]=\"userFormGroup.controls['password']\"\r\n                positiveNumberAndLetterOnly placeholder=\"Password\">\r\n            </mat-form-field>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"email\" [formControl]=\"userFormGroup.controls['email']\" placeholder=\"Email\">\r\n            </mat-form-field>\r\n          </div>\r\n          <div fxFlex=\"50\" class=\"pr-1\">\r\n            <mat-form-field class=\"full-width\">\r\n              <mat-select [formControl]=\"userFormGroup.controls['role']\" placeholder=\"Select A User Role\">\r\n                <mat-option>none</mat-option>\r\n                <mat-option *ngFor=\"let roles of roles\" [value]=\"roles.id\">{{roles.name}}</mat-option>\r\n              </mat-select>\r\n            </mat-form-field>\r\n          </div>\r\n\r\n        </div>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"primary\" matStepperNext>Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n\r\n      </form>\r\n\r\n    </mat-step>\r\n\r\n\r\n    <mat-step [stepControl]=\"categoryFormGroup\">\r\n      <form [formGroup]=\"categoryFormGroup\">\r\n        <ng-template matStepLabel>Category</ng-template>\r\n\r\n        <mat-form-field class=\"matAutocomplete-chip-list\">\r\n          <mat-chip-list #chipList>\r\n            <mat-chip *ngFor=\"let category of selectedCategories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n              (removed)=\"remove(category)\">\r\n              {{category.name}}\r\n              <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n            </mat-chip>\r\n            <input matInput placeholder=\"Select category...\" #categoryInput [formControl]=\"categoryCtrl\"\r\n              [matAutocomplete]=\"auto\" [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\"\r\n              (matChipInputTokenEnd)=\"add($event)\" [matChipInputAddOnBlur]=\"addOnBlur\" aria-label=\"Category\" [required]=\"this.selectedCategories.length === 0\">\r\n          </mat-chip-list>\r\n\r\n          <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n            <mat-option *ngFor=\"let category of filteredCategories | async\" [value]=\"category.id\">\r\n              <span>{{category.name}}</span>\r\n            </mat-option>\r\n          </mat-autocomplete>\r\n\r\n        </mat-form-field>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" matStepperNext\r\n              [disabled]=\"this.selectedCategories.length == 0\">Next</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n      </form>\r\n    </mat-step>\r\n\r\n    <mat-step [stepControl]=\"communityFormGroup\">\r\n      <form [formGroup]=\"communityFormGroup\">\r\n        <ng-template matStepLabel>Community</ng-template>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-3\"\r\n            *ngIf=\"allCommunities.length !== 0\">\r\n            <div fxFlex=\"50\" class=\"pr-1\" *ngFor=\"let community of allCommunities\">\r\n              <mat-checkbox [checked]=\"community.isChecked\" (change)=\"onChange($event)\" class=\"full-width\"\r\n                [value]=\"community.id\">\r\n                {{community.name}}</mat-checkbox>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"alert alert-warning\" role=\"alert\" *ngIf=\"allCommunities.length === 0\">\r\n            Client has no any assigned communities.!\r\n          </div>\r\n\r\n        </div>\r\n\r\n        <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n          <div fxFlex=\"100\" class=\"mt-1\">\r\n            <button mat-raised-button color=\"accent\" matStepperPrevious class=\"mr-1\">Back</button>\r\n            <button mat-raised-button color=\"primary\" (click)=\"submit()\">Submit</button>\r\n            <span fxFlex></span>\r\n            <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n          </div>\r\n        </div>\r\n\r\n      </form>\r\n    </mat-step>\r\n\r\n  </mat-horizontal-stepper>\r\n\r\n\r\n</mat-dialog-content>"
 
 /***/ }),
 
@@ -2067,12 +2153,15 @@ var UserCreatePopupComponent = /** @class */ (function () {
         this.categoryCtrl = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]();
         this.allCategories = [];
         this.selectedCategories = [];
+        this.allCommunities = [];
+        this.selectedCommunities = [];
         this.filteredCategories = this.categoryCtrl.valueChanges
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (category) { return category ? _this._filterCategories(category) : _this.allCategories.slice(); }));
     }
     UserCreatePopupComponent.prototype.ngOnInit = function () {
         this.roles = this.data.roles;
         this.allCategories = JSON.parse(JSON.stringify(this.data.category));
+        this.allCommunities = JSON.parse(JSON.stringify(this.data.community));
         this.buildItemForm();
     };
     UserCreatePopupComponent.prototype.buildItemForm = function () {
@@ -2092,11 +2181,11 @@ var UserCreatePopupComponent = /** @class */ (function () {
             category: this.categoryCtrl
         });
         this.communityFormGroup = this.fb.group({
-            username: [''],
+            username: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]
         });
     };
     UserCreatePopupComponent.prototype.submit = function () {
-        var forms = [this.userFormGroup.value, this.selectedCategories, this.communityFormGroup.value];
+        var forms = [this.userFormGroup.value, this.selectedCategories, this.selectedCommunities];
         this.dialogRef.close(forms);
     };
     UserCreatePopupComponent.prototype.add = function (event) {
@@ -2138,6 +2227,24 @@ var UserCreatePopupComponent = /** @class */ (function () {
             }
         });
     };
+    // Community checkbox onchange event
+    UserCreatePopupComponent.prototype.onChange = function (event) {
+        var _this = this;
+        if (event.checked) {
+            this.allCommunities.forEach(function (item) {
+                if (item.id === event.source.value) {
+                    _this.selectedCommunities.push(item);
+                }
+            });
+        }
+        else {
+            this.selectedCommunities.forEach(function (item, index) {
+                if (item.id === event.source.value) {
+                    _this.selectedCommunities.splice(index, 1);
+                }
+            });
+        }
+    };
     UserCreatePopupComponent.prototype._filterCategories = function (value) {
         var filterValue = value.toLowerCase();
         return this.allCategories.filter(function (category) { return category.name.toLowerCase().indexOf(filterValue) === 0; });
@@ -2175,7 +2282,7 @@ var UserCreatePopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"itemForm\" (ngSubmit)=\"submit()\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">Update User</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"username\" [formControl]=\"itemForm.controls['username']\" placeholder=\"User Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\" *ngIf=\"formStatus\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"password\" type=\"password\" [formControl]=\"itemForm.controls['password']\"\r\n            positiveNumberAndLetterOnly placeholder=\"Password\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"email\" [formControl]=\"itemForm.controls['email']\" placeholder=\"Email\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <mat-select [formControl]=\"itemForm.controls['role']\" placeholder=\"Select A User Role\">\r\n            <mat-option>none</mat-option>\r\n            <mat-option *ngFor=\"let roles of roles\" [value]=\"roles.id\">{{roles.name}}</mat-option>\r\n          </mat-select>\r\n        </mat-form-field>\r\n      </div>\r\n      <!-- <div fxFlex=\"50\" class=\"pt-1 pr-1\">\r\n        <mat-slide-toggle [formControl]=\"itemForm.controls['isActive']\">Active User</mat-slide-toggle>\r\n      </div> -->\r\n      <div fxFlex=\"100\" class=\"mt-1\">\r\n        <button mat-raised-button color=\"primary\" [disabled]=\"itemForm.invalid\">Save</button>\r\n        <span fxFlex></span>\r\n        <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n\r\n  </mat-dialog-content>\r\n</form>"
+module.exports = "<form [formGroup]=\"itemForm\" (ngSubmit)=\"submit()\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">Update User</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"username\" [formControl]=\"itemForm.controls['username']\" placeholder=\"User Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"email\" [formControl]=\"itemForm.controls['email']\" placeholder=\"Email\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <mat-select [formControl]=\"itemForm.controls['role']\" placeholder=\"Select A User Role\" [disabled]=\"roleStatus\">\r\n            <mat-option>none</mat-option>\r\n            <mat-option *ngFor=\"let roles of roles\" [value]=\"roles.id\">{{roles.name}}</mat-option>\r\n          </mat-select>\r\n        </mat-form-field>\r\n      </div>\r\n      <!-- <div fxFlex=\"50\" class=\"pt-1 pr-1\">\r\n        <mat-slide-toggle [formControl]=\"itemForm.controls['isActive']\">Active User</mat-slide-toggle>\r\n      </div> -->\r\n      <div fxFlex=\"100\" class=\"mt-1\">\r\n        <button mat-raised-button color=\"primary\" [disabled]=\"itemForm.invalid\">Save</button>\r\n        <span fxFlex></span>\r\n        <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n\r\n  </mat-dialog-content>\r\n</form>"
 
 /***/ }),
 
@@ -2212,36 +2319,24 @@ var UserTablePopupComponent = /** @class */ (function () {
         this.data = data;
         this.dialogRef = dialogRef;
         this.fb = fb;
-        this.formStatus = false;
+        this.roles = [];
+        this.roleStatus = false;
     }
     UserTablePopupComponent.prototype.ngOnInit = function () {
-        this.buildItemForm(this.data.payload);
-        console.log(this.data);
         this.roles = this.data.roles;
+        this.buildItemForm(this.data.payload);
     };
     UserTablePopupComponent.prototype.buildItemForm = function (item) {
         var role = null;
-        var userStatus = 0;
-        if (item.id === undefined) {
-            this.formStatus = true;
-        }
-        else {
+        if (item.id !== undefined) {
+            console.log(item);
             role = item.role.id;
-            if (item.status === "ACTIVE") {
-                userStatus = 1;
-            }
         }
         this.itemForm = this.fb.group({
             username: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.userName || '', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
-            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.password || '', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
             email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](item.email || '', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email]),
             role: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"](role, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
         });
-        if (item.id !== undefined) {
-            // role = item.role.id;
-            this.itemForm.get('password').clearValidators();
-            this.itemForm.get('password').updateValueAndValidity();
-        }
     };
     UserTablePopupComponent.prototype.submit = function () {
         this.dialogRef.close(this.itemForm.value);
@@ -2269,7 +2364,7 @@ var UserTablePopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-title>\r\n\r\n    <div class=\"m-333 mt-3\">\r\n      <button mat-raised-button class=\"mb-05 ml-05\" color=\"primary\" (click)=\"userCreatePopup()\">Add User</button>\r\n      <span fxFlex></span>\r\n      <p class=\"mat-select-lable\"> Page Size: </p>\r\n      <mat-select class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\">\r\n        <mat-option [value]=\"10\">10</mat-option>\r\n        <mat-option [value]=\"20\">20</mat-option>\r\n      </mat-select>\r\n    </div>\r\n\r\n\r\n  </mat-card-title>\r\n  <mat-card-content class=\"p-0\">\r\n\r\n    <ngx-datatable class=\"material ml-0 mr-0\" [rows]=\"users\" [columnMode]=\"'force'\" [headerHeight]=\"50\"\r\n      [footerHeight]=\"50\" [limit]=\"10\" [rowHeight]=\"'auto'\">\r\n\r\n      <ngx-datatable-column name=\"\" [flexGrow]=\"1\" [maxWidth]=\"80\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <img mat-list-avatar class=\"\" src=\"assets/images/face-1.jpg\" alt=\"\"\r\n            style=\"flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; object-fit: cover;\">\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Name\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.userName }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Email\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.email }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Role\" [flexGrow]=\"1\"  [maxWidth]=\"180\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <mat-chip mat-sm-chip color=\"warn\" [selected]=\"true\">{{row?.role.name}}</mat-chip>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Status\" [flexGrow]=\"1\" [maxWidth]=\"150\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <mat-chip mat-sm-chip color=\"{{statusArray[row?.status]}}\" [selected]=\"true\">{{row?.status}}</mat-chip>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n\r\n      <ngx-datatable-column name=\"Actions\" [flexGrow]=\"1\" [maxWidth]=\"80\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <button class=\"card-control\" mat-icon-button [matMenuTriggerFor]=\"menu1\">\r\n            <mat-icon>more_vert</mat-icon>\r\n          </button>\r\n          <mat-menu #menu1=\"matMenu\">\r\n            <button mat-menu-item (click)=\"openEditPopUp(row)\">\r\n              <mat-icon>edit</mat-icon>\r\n              <span>Edit</span>\r\n            </button>\r\n            <button mat-menu-item (click)=\"openCommunityPopUp(row)\">\r\n              <mat-icon>assignment_ind</mat-icon>\r\n              <span>Community</span>\r\n            </button>\r\n            <button mat-menu-item (click)=\"openCategoryPopUp(row)\">\r\n              <mat-icon>assistant</mat-icon>\r\n              <span>Category</span>\r\n            </button>\r\n          </mat-menu>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n    </ngx-datatable>\r\n\r\n  </mat-card-content>\r\n</mat-card>\r\n"
+module.exports = "<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-title>\r\n\r\n    <div class=\"m-333 mt-3\">\r\n      <button mat-raised-button class=\"mb-05 ml-05\" color=\"primary\" (click)=\"userCreatePopup()\" [roleAuthorization]=\"'pu-c'\">Add User</button>\r\n      <span fxFlex></span>\r\n      <p class=\"mat-select-lable\"> Page Size: </p>\r\n      <mat-select class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\">\r\n        <mat-option [value]=\"10\">10</mat-option>\r\n        <mat-option [value]=\"20\">20</mat-option>\r\n      </mat-select>\r\n    </div>\r\n\r\n\r\n  </mat-card-title>\r\n  <mat-card-content class=\"p-0\">\r\n\r\n    <ngx-datatable class=\"material ml-0 mr-0\" [rows]=\"users\" [columnMode]=\"'force'\" [headerHeight]=\"50\"\r\n      [footerHeight]=\"50\" [limit]=\"10\" [rowHeight]=\"'auto'\">\r\n\r\n      <ngx-datatable-column name=\"\" [flexGrow]=\"1\" [maxWidth]=\"80\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <img mat-list-avatar class=\"\" src=\"assets/images/face-1.jpg\" alt=\"\"\r\n            style=\"flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; object-fit: cover;\">\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Name\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.userName }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Email\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.email }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Role\" [flexGrow]=\"1\"  [maxWidth]=\"180\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <mat-chip mat-sm-chip color=\"warn\" [selected]=\"true\">{{row?.role.name}}</mat-chip>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Status\" [flexGrow]=\"1\" [maxWidth]=\"150\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <mat-chip mat-sm-chip color=\"{{statusArray[row?.status]}}\" [selected]=\"true\">{{row?.status}}</mat-chip>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n\r\n      <ngx-datatable-column name=\"Actions\" [flexGrow]=\"1\" [maxWidth]=\"80\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <button class=\"card-control\" mat-icon-button [matMenuTriggerFor]=\"menu1\">\r\n            <mat-icon>more_vert</mat-icon>\r\n          </button>\r\n          <mat-menu #menu1=\"matMenu\">\r\n            <button mat-menu-item (click)=\"openEditPopUp(row)\" [roleAuthorization]=\"'pu-u'\">\r\n              <mat-icon>edit</mat-icon>\r\n              <span>Edit</span>\r\n            </button>\r\n            <button mat-menu-item (click)=\"openCommunityPopUp(row)\" [roleAuthorization]=\"'puc-u'\">\r\n              <mat-icon>assignment_ind</mat-icon>\r\n              <span>Community</span>\r\n            </button>\r\n            <button mat-menu-item (click)=\"openCategoryPopUp(row)\" [roleAuthorization]=\"'pucat-u'\">\r\n              <mat-icon>assistant</mat-icon>\r\n              <span>Category</span>\r\n            </button>\r\n          </mat-menu>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n    </ngx-datatable>\r\n\r\n  </mat-card-content>\r\n</mat-card>\r\n"
 
 /***/ }),
 
@@ -2339,7 +2434,6 @@ var UserTableComponent = /** @class */ (function () {
         if (currentClient) {
             this.clientId = currentClient.id;
             this.getUsersByClient();
-            this.getUserRoles();
             this.getClientCategories();
             this.getClientCommunities();
         }
@@ -2365,7 +2459,10 @@ var UserTableComponent = /** @class */ (function () {
         var _this = this;
         this.getItemSub = this.clientService.getClient(this.clientId).subscribe(function (successResp) {
             _this.users = successResp.content.users;
-            // this.roles = successResp.content.roles;
+            _this.users.forEach(function (item, index) {
+                if (item.role.name === "Super Administrator")
+                    _this.users.splice(index, 1);
+            });
             successResp.content.roles.forEach(function (item) {
                 _this.roles.push(item);
             });
@@ -2385,18 +2482,6 @@ var UserTableComponent = /** @class */ (function () {
             _this.errDialog.showError(error);
         });
     };
-    // getUserRoles() {
-    //   this.getItemSub = this.clientService.getRoles().subscribe(successResp => {
-    //     successResp.content.forEach((item, index) => {
-    //       if (item.name === "Super Administrator") successResp.content.splice(index, 1);
-    //     });
-    //     this.roles = successResp.content;
-    //   },
-    //     error => {
-    //       this.errDialog.showError(error);
-    //     }
-    //   );
-    // }
     UserTableComponent.prototype.getClientCategories = function () {
         var _this = this;
         this.getItemSub = this.clientService.getClientCategories(this.clientId).subscribe(function (successResp) {
@@ -2420,7 +2505,7 @@ var UserTableComponent = /** @class */ (function () {
         var dialogRef = this.dialog.open(_user_table_user_create_popup_user_create_popup_component__WEBPACK_IMPORTED_MODULE_4__["UserCreatePopupComponent"], {
             width: "720px",
             disableClose: true,
-            data: { roles: this.roles, category: this.clientCategory }
+            data: { roles: this.roles, category: this.clientCategory, community: this.clientCommunity }
         });
         dialogRef.afterClosed().subscribe(function (res) {
             console.log(res);
@@ -2431,16 +2516,17 @@ var UserTableComponent = /** @class */ (function () {
             _this.loader.open();
             var role = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["RoleData"](res[0].role);
             var communities = [];
-            // communities.push(new CommunityData(res[0].role));
+            res[2].forEach(function (element) {
+                communities.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["CommunityData"](element.id));
+            });
             var categories = [];
             res[1].forEach(function (element) {
-                categories.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["CategoryData"](element));
+                categories.push(new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["CategoryData"](element.id));
             });
             var client = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["ClientData"](_this.clientId);
             var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_9__["UserCreateReq"](res[0].username, res[0].password, res[0].email, role, client, communities, categories);
             _this.clientService.addUser(req).subscribe(function (response) {
                 _this.getUsersByClient();
-                _this.users = response;
                 _this.loader.close();
                 _this.snack.open("New User added !", "OK", { duration: 4000 });
             }, function (error) {
@@ -2552,6 +2638,8 @@ var UserTableComponent = /** @class */ (function () {
         }, function (error) {
             _this.errDialog.showError(error);
         });
+    };
+    UserTableComponent.prototype.removeUser = function () {
     };
     UserTableComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({

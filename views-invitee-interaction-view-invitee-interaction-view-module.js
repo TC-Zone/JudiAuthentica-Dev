@@ -15,13 +15,14 @@ module.exports = "<!-- ----------------------------- invitee-interaction-view lo
 /*!**************************************************************************************!*\
   !*** ./src/app/views/invitee-interaction-view/invitee-interaction-view.component.ts ***!
   \**************************************************************************************/
-/*! exports provided: InviteeInteractionViewComponent, InviteePart, ValueTemplate, MatrixBaseTemplate, FSAnswer */
+/*! exports provided: InviteeInteractionViewComponent, InviteePart, InviteeGroupData, ValueTemplate, MatrixBaseTemplate, FSAnswer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InviteeInteractionViewComponent", function() { return InviteeInteractionViewComponent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InviteePart", function() { return InviteePart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InviteeGroupData", function() { return InviteeGroupData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ValueTemplate", function() { return ValueTemplate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MatrixBaseTemplate", function() { return MatrixBaseTemplate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FSAnswer", function() { return FSAnswer; });
@@ -134,17 +135,20 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
             .getInvitationByUrl(this.originMap.get(originStr), this.publishUrl)
             .subscribe(function (data) {
             console.log(data.content.futureSurvey.status);
+            console.log("data.content");
+            console.log(data.content);
             if (data.content.futureSurvey.status === 0) {
                 // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - ON_PREMISE");
                 _this.setSurveyStatusErrorMsg("ON_PREMISE");
             }
             else if (data.content.futureSurvey.status === 1) {
                 console.log(data.content.futureSurvey.id);
+                _this.inviteeGroupId = data.content.inviteeGroup.id;
                 var jsonContent = JSON.parse(data.content.futureSurvey.jsonContent);
                 console.log(JSON.parse(jsonContent).title);
-                if (typeof (JSON.parse(jsonContent).title) !== "string") {
+                if (typeof JSON.parse(jsonContent).title !== "string") {
                     _this.titleJson = JSON.parse(jsonContent).title;
-                    _this.surveyLoginTitle = _this.titleJson['default'];
+                    _this.surveyLoginTitle = _this.titleJson["default"];
                 }
                 else {
                     _this.surveyLoginTitle = JSON.parse(jsonContent).title;
@@ -245,7 +249,7 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         localStorage.setItem("surveySelectedLang", JSON.stringify(this.currentLang));
         this.translateService.use(this.currentLang.code);
         if (this.titleJson !== null) {
-            if (typeof (this.titleJson) !== "string") {
+            if (typeof this.titleJson !== "string") {
                 if (this.titleJson.hasOwnProperty(this.currentLang.code)) {
                     this.surveyLoginTitle = this.titleJson[this.currentLang.code];
                 }
@@ -262,7 +266,9 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         var _this = this;
         var username = this.interactForm.get("username").value;
         var password = this.interactForm.get("password").value;
-        var inviteePart = new InviteePart(username, password);
+        var inviteeGroupPart = new InviteeGroupData(this.inviteeGroupId);
+        // RAVEEN : 2019/05/22 - Adding invitee group id with credentials to reduce duplicate credentials
+        var inviteePart = new InviteePart(username, password, inviteeGroupPart);
         this.inviteeInteractionViewService.interactLoginPost(inviteePart).subscribe(function (response) {
             var loggedInteraction = response;
             console.log("---------- ---------- Method : doLog() / interactLoginPost / Parameter-loggedInteraction : response (Json)");
@@ -327,7 +333,8 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
                 localStorage.setItem("surveyResultId", null);
                 localStorage.setItem("originalResultArray", null);
             }
-            document.getElementById("finishedSurveyMsg-iiv").style.display = "none";
+            document.getElementById("finishedSurveyMsg-iiv").style.display =
+                "none";
             if (_this.interactionResponStatus === 1) {
                 document.getElementById("btnViewSummary").style.display = "none";
                 document.getElementById("btnViewSurvey").style.display = "none";
@@ -509,16 +516,23 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
         }
         // let jsonContent = this.jsonContentJSON;
         var jsonContent = JSON.parse(this.jsonContent);
-        if (typeof (jsonContent.title) !== "string") {
+        if (typeof jsonContent.title !== "string") {
             if (jsonContent.title.hasOwnProperty(this.currentLang.code)) {
-                jsonContent.title = this.translateService.instant('SUMMERYTITLE') + " " + jsonContent.title[this.currentLang.code];
+                jsonContent.title =
+                    this.translateService.instant("SUMMERYTITLE") +
+                        " " +
+                        jsonContent.title[this.currentLang.code];
             }
             else {
-                jsonContent.title = this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title["default"];
+                jsonContent.title =
+                    this.translateService.instant("SUMMERYTITLE") +
+                        " " +
+                        jsonContent.title["default"];
             }
         }
         else {
-            jsonContent.title = this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title;
+            jsonContent.title =
+                this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title;
         }
         // ............... Change Survey default Lang to Current Lang ............
         this.surveyModel = new survey_angular__WEBPACK_IMPORTED_MODULE_3__["Model"](jsonContent);
@@ -698,11 +712,19 @@ var InviteeInteractionViewComponent = /** @class */ (function () {
 }());
 
 var InviteePart = /** @class */ (function () {
-    function InviteePart(username, password) {
+    function InviteePart(username, password, inviteeGroup) {
         this.username = username;
         this.password = password;
+        this.inviteeGroup = inviteeGroup;
     }
     return InviteePart;
+}());
+
+var InviteeGroupData = /** @class */ (function () {
+    function InviteeGroupData(id) {
+        this.id = id;
+    }
+    return InviteeGroupData;
 }());
 
 var ValueTemplate = /** @class */ (function () {
