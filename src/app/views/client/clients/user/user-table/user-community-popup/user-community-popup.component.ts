@@ -22,21 +22,19 @@ export class UserCommunityPopupComponent implements OnInit {
   ngOnInit() {
 
     this.allCommunities = JSON.parse(JSON.stringify(this.data.community));
-    console.log(this.allCommunities);
-    
-    
-    // this.selectedCommunities = [];
     this.selectedCommunities = this.data.selectedCommunity;
-
     this.allCommunities.forEach(element => {
       if (this.selectedCommunities.length > 0) {
-        if (this.selectedCommunities.filter(community => community.id.indexOf(element.id) === 0)) {
-          element['isChecked'] = true;
-        } else {
-          element['isChecked'] = false;
-        }
+        let status = false;
+        this.selectedCommunities.forEach(community => {
+          if (community.id.indexOf(element.id) === 0) {
+            status = true;
+          }
+          element['isChecked'] = status;
+        });
       }
     });
+    
   }
 
   onChange(event: MatCheckboxChange): void {

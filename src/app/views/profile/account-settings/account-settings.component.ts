@@ -115,7 +115,15 @@ export class AccountSettingsComponent implements OnInit {
   submit() {
     const country: CountryData = new CountryData(this.selectedCountry);
     const req: ClientUpdateReq = new ClientUpdateReq(
-      this.accountSettingsForm.get('name').value, this.accountSettingsForm.get('description').value, this.url, this.accountSettingsForm.get('contactNo').value, this.accountSettingsForm.get('addressLine1').value, this.accountSettingsForm.get('addressLine2').value, this.accountSettingsForm.get('city').value, this.accountSettingsForm.get('state').value, this.accountSettingsForm.get('zipCode').value, country
+      this.accountSettingsForm.get('name').value, 
+      this.accountSettingsForm.get('description').value, 
+      this.url, this.accountSettingsForm.get('contactNo').value, 
+      this.accountSettingsForm.get('addressLine1').value, 
+      this.accountSettingsForm.get('addressLine2').value, 
+      this.accountSettingsForm.get('city').value, 
+      this.accountSettingsForm.get('state').value, 
+      this.accountSettingsForm.get('zipCode').value, 
+      country
     );
 
     this.profileService.updateClientDetails(this.clientId, req).subscribe(

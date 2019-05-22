@@ -8,7 +8,7 @@ import { CrudService } from "../../cruds/crud.service";
 import { Subscription } from "rxjs";
 import { ResponseModel } from "../../../model/ResponseModel.model";
 import { FutureSurveyService } from "../future-survey.service";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 import { AppErrorService } from "../../../shared/services/app-error/app-error.service";
 import { MatSnackBar } from "@angular/material";
@@ -40,14 +40,14 @@ widgets.autocomplete(SurveyKo);
 widgets.bootstrapslider(SurveyKo);
 
 var CkEditor_ModalEditor = {
-  afterRender: function(modalEditor, htmlElement) {
+  afterRender: function (modalEditor, htmlElement) {
     var editor = window["CKEDITOR"].replace(htmlElement);
-    editor.on("change", function() {
+    editor.on("change", function () {
       modalEditor.editingValue = editor.getData();
     });
     editor.setData(modalEditor.editingValue);
   },
-  destroy: function(modalEditor, htmlElement) {
+  destroy: function (modalEditor, htmlElement) {
     var instance = window["CKEDITOR"].instances[htmlElement.id];
     if (instance) {
       instance.removeAllListeners();
@@ -66,6 +66,16 @@ SurveyEditor.SurveyPropertyModalEditor.registerCustomWidget(
 })
 export class FutureSurveyComponent implements OnInit {
   editor: SurveyEditor.SurveyEditor;
+
+  public clientId;
+  public compatibilities = {
+    WEB: { "id": 1, "name": "Web" },
+    MOBILE: { "id": 2, "name": "Mobile" }
+  }
+  public compatibility;
+  public communityId;
+  public communityName;
+
   public clients: any[];
   public getClientSub: Subscription;
   public response: ResponseModel;
@@ -75,7 +85,7 @@ export class FutureSurveyComponent implements OnInit {
   jsonContent: any;
 
   constructor(
-    private clientService2: ClientService,
+    private clientService: ClientService,
     private furureSurveyService: FutureSurveyService,
     private router: Router,
     private route: ActivatedRoute,
@@ -85,65 +95,73 @@ export class FutureSurveyComponent implements OnInit {
     private loc: LocalizationService,
     private FSOperationalService: FutureSurveyOperationalService,
     private appWarning: AppWarningService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loader.open();
     this.sub = this.route.queryParams.subscribe(params => {
       this.surveyId = params["surveyId"];
-      console.log("survey id : " + this.surveyId);
 
+      if (params["communityId"] && params["communityName"]) {
+        this.communityId = params["communityId"];
+        this.communityName = params["communityName"];
+      }
+
+      console.log("survey id : " + this.surveyId);
       if (this.surveyId) {
         this.furureSurveyService
           .getFutureSurveyById(this.surveyId)
           .subscribe(response => {
+            this.clientId = response.content.clientId;
+            this.compatibility = response.content.compatibility;
             this.jsonContent = JSON.parse(response.content.jsonContent);
-            console.log(this.jsonContent);
-
             let title = response.content.title;
             this.snack.open("New " + title + " survey is loaded !", "OK", {
               duration: 4000
             });
             this.setuptheme();
-            this.setClients();
+            // this.setClients();
+            this.setupProperty();
           });
       } else {
         this.setuptheme();
-        this.setClients();
+        // this.setClients();
+        this.setupProperty();
       }
     });
     //add new localization
     this.loc.addlocalization();
   }
 
-  setClients() {
-    this.getClientSub = this.clientService2.getClients().subscribe(data => {
-      this.response = data;
-      this.clients = this.response.content;
+  // -------------------------------- not necessary now --------------------------------
+  // setClients() { 
+  //   this.getClientSub = this.clientService.getClients().subscribe(data => {
+  //     this.response = data;
+  //     this.clients = this.response.content;
+  //     let noneClients = [{ value: "none", text: "none" }];
+  //     let newClients = [];
+  //     for (let i = 0; i < this.clients.length; i++) {
+  //       newClients.push({
+  //         value: this.clients[i].id,
+  //         text: this.clients[i].name
+  //       });
+  //     }
+  //     let fullClients = [];
+  //     fullClients = noneClients.concat(newClients);
+  //     SurveyKo.JsonObject.metaData.addProperty("survey", {
+  //       name: "clientId",
+  //       choices: fullClients
+  //     });
+  //     this.loader.close();
+  //     this.setupProperty();
+  //     this.loadSurveyEditor();
+  //   });
+  // }
+  // -----------------------------------------------------------------------------------
 
-      let noneClients = [{ value: "none", text: "none" }];
-      let newClients = [];
-
-      for (let i = 0; i < this.clients.length; i++) {
-        newClients.push({
-          value: this.clients[i].id,
-          text: this.clients[i].name
-        });
-      }
-      let fullClients = [];
-      fullClients = noneClients.concat(newClients);
-
-      SurveyKo.JsonObject.metaData.addProperty("survey", {
-        name: "clientId",
-        choices: fullClients
-      });
-      this.loader.close();
-      this.setupProperty();
-      this.loadSurveyEditor();
-    });
-  }
 
   setupProperty() {
+    this.loader.close();
     SurveyKo.JsonObject.metaData.addProperty(
       "questionbase",
       "popupdescription:text"
@@ -164,14 +182,14 @@ export class FutureSurveyComponent implements OnInit {
       name: "unselectable:boolean",
       default: 0
     });
+    this.loadSurveyEditor();
   }
 
   loadSurveyEditor() {
-    let editorOptions = {
-      showEmbededSurveyTab: true,
-      generateValidJSON: true,
-      showTranslationTab: true, // ADDED for enable language translation tab : YRS
-      questionTypes: [
+
+    let questionTypes;
+    if (this.compatibilities[this.compatibility].id === 1) {
+      questionTypes = [
         "text",
         "radiogroup",
         "dropdown",
@@ -183,7 +201,25 @@ export class FutureSurveyComponent implements OnInit {
         "html",
         "matrix",
         "checkbox"
-      ]
+      ];
+    } else {
+      questionTypes = [
+        "text",
+        "radiogroup",
+        "dropdown",
+        "imagepicker",
+        "rating",
+        "comment",
+        "checkbox"
+      ];
+    }
+
+
+    let editorOptions = {
+      showEmbededSurveyTab: true,
+      generateValidJSON: true,
+      showTranslationTab: true, // ADDED for enable language translation tab : YRS
+      questionTypes: questionTypes
     };
     this.editor = new SurveyEditor.SurveyEditor(
       "surveyEditorContainer",
@@ -208,7 +244,7 @@ export class FutureSurveyComponent implements OnInit {
     // Set the name property different from the default value
     // and set the tag property to a generated GUID value.
 
-    this.editor.onQuestionAdded.add(function(sender, options) {
+    this.editor.onQuestionAdded.add(function (sender, options) {
       let q = options.question;
 
       let text = "";
@@ -223,8 +259,6 @@ export class FutureSurveyComponent implements OnInit {
     });
 
     if (this.jsonContent) {
-      console.log("JSON CONTENT : ");
-      console.log(this.jsonContent);
       this.editor.text = this.jsonContent;
     }
 
@@ -310,7 +344,7 @@ export class FutureSurveyComponent implements OnInit {
     const request: FutureSurveyRequest = new FutureSurveyRequest(
       jsonText,
       jsonObject.title,
-      jsonObject.clientId,
+      this.clientId,
       // JSON.stringify(langJson),
       JSON.stringify(req.surveyLang),
       jsonObject.pages
@@ -320,7 +354,17 @@ export class FutureSurveyComponent implements OnInit {
   };
 
   navigateSurveyList() {
-    this.router.navigate(["future-survey/sList"]);
+    if (this.compatibilities[this.compatibility].id === 1) {
+      this.router.navigate(["future-survey/sList"]);
+    } else {
+      const extraParam: NavigationExtras = {
+        queryParams: {
+          id: this.communityId,
+          name: this.communityName
+        }
+      };
+      this.router.navigate(["community/user-community/user-feedback"], extraParam);
+    }
   }
 
   submitFutureSurvey(jsonContent: any, futureSurveyId?: any) {
@@ -369,7 +413,8 @@ export class FutureSurveyComponent implements OnInit {
 
   validateFutureSurveyRequest(jsonRequest) {
     let title = jsonRequest.title;
-    let clientId = jsonRequest.clientId;
+    // let clientId = jsonRequest.clientId;
+    let clientId = this.clientId;
     let pages = jsonRequest.pages;
 
     let clientError;

@@ -17,8 +17,12 @@ import { AuthenticationService } from "app/views/sessions/authentication.service
   animations: egretAnimations
 })
 export class RoleTableComponent implements OnInit, OnDestroy {
-  public roles: any[];
   public pageSize = 10;
+
+  public roles: any[];
+  public adminRoleId;
+  public adminRoleAuthorities;
+  public commonAndAdminAuthorities = [];
 
   public componentList = [];
   public editRoleId: String;
@@ -36,11 +40,11 @@ export class RoleTableComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-
     const currentUser = this.authService.getLoggedUserDetail();
     if (currentUser) {
       this.clientId = currentUser.userData.client.id;
       this.getClientRoles();
+      this.getCommonAndAdminAuthorities();
     }
   }
 
@@ -50,10 +54,15 @@ export class RoleTableComponent implements OnInit, OnDestroy {
     }
   }
 
-
   getClientRoles() {
     this.getItemSub = this.clientService.getClient(this.clientId).subscribe(successResp => {
       this.roles = successResp.content.roles;
+      this.roles.forEach((role, index) => {
+        if (role.predefined === 'true') {
+          this.adminRoleId = role.id;
+          this.roles.splice(index, 1);
+        }
+      });
     },
       error => {
         this.errDialog.showError(error);
@@ -62,90 +71,85 @@ export class RoleTableComponent implements OnInit, OnDestroy {
   }
 
 
-  // getItems() {
-  //   this.getItemSub = this.clientService.getAllUserRoles().subscribe(
-  //     response => {
-  //       this.items = response.content;
-  //     },
-  //     error => {
-  //       this.errDialog.showError(error);
-  //     }
-  //   );
-  // }
+  getCommonAndAdminAuthorities() {
+    this.clientService.getCommonAndAdminAuthority().subscribe(response => {
+      response.content.forEach(section => {
+        section.authorities.forEach(authority => {
+          this.commonAndAdminAuthorities.push(authority);
+        });
+      });
+    });
+  }
 
-  /*
-  * Open Create and Update Role popup window
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
+  openPopUp(roleData: any = {}, isNew?) {
 
-  openPopUp(data: any = {}, isNew?) {
-    let title = isNew ? "Create New User Role" : "Update User Role";
-    data["isNew"] = isNew;
-    let dialogRef: MatDialogRef<any> = this.dialog.open(
-      RoleTablePopupComponent,
-      {
-        width: "900px",
-        disableClose: true,
-        data: { title: title, payload: data, clientID: this.clientId }
-      }
-    );
-    dialogRef.afterClosed().subscribe(res => {
-      if (!res) {
-        // If user press cancel
-        return;
-      }
-      this.loader.open();
-      if (isNew) {
-        // console.log('------------ create user role object ---------------');
-        console.log(res);
-        this.clientService.createNewRole(res).subscribe(response => {
-          // console.log('--------------- create user role response ----------------');
-          // console.log(response);
-          this.snack.open('User Role Created', 'close', {
-            duration: 2000
-          });
-          this.getClientRoles();
-        },
-          error => {
-            this.errDialog.showError(error);
-          });
-      } else {
-        // console.log('------------ update user role object ---------------');
-        res["localizedName"] = "";
-        // console.log(res);
-        this.clientService.updateRloe(this.editRoleId, res).subscribe(
-          response => {
+    this.clientService.getAdminAuthority(this.adminRoleId).subscribe(response => {
+      this.adminRoleAuthorities = response.content;
+      let title = isNew ? "Create New User Role" : "Update User Role";
+      roleData["isNew"] = isNew;
+      let dialogRef: MatDialogRef<any> = this.dialog.open(
+        RoleTablePopupComponent,
+        {
+          width: "900px",
+          disableClose: true,
+          data: {
+            title: title,
+            roleData: roleData,
+            clientID: this.clientId,
+            adminRoleAuthorities: this.adminRoleAuthorities,
+            commonAndAdminAuthorities: this.commonAndAdminAuthorities
+          }
+        }
+      );
+      dialogRef.afterClosed().subscribe(res => {
+        if (!res) {
+          // If user press cancel
+          return;
+        }
+        this.loader.open();
+        if (isNew) {
+          // console.log('------------ create user role object ---------------');
+          console.log(res);
+          this.clientService.createNewRole(res).subscribe(response => {
             // console.log('--------------- create user role response ----------------');
             // console.log(response);
-            this.snack.open("User Role Updated", "close", {
+            this.snack.open('User Role Created', 'close', {
               duration: 2000
             });
             this.getClientRoles();
           },
-          error => {
-            this.errDialog.showError(error);
-          });
-      }
-      this.loader.close();
+            error => {
+              this.errDialog.showError(error);
+            });
+        } else {
+          console.log('------------ update user role object ---------------');
+          console.log(res);
+          this.clientService.updateRloe(this.editRoleId, res).subscribe(
+            response => {
+              // console.log('--------------- create user role response ----------------');
+              // console.log(response);
+              this.snack.open("User Role Updated", "close", {
+                duration: 2000
+              });
+              this.getClientRoles();
+            },
+            error => {
+              this.errDialog.showError(error);
+            });
+        }
+        this.loader.close();
+      });
     });
   }
 
-  /*
-   * Edit User Role
-   * Created by Prasad Kumara
-   * 14/02/2019
-   */
   editRole(role) {
-    // console.log('------------- edit role ----------------');
-    // console.log(role);
     this.editRoleId = role.id;
-    this.clientService.getOneRoleAuthorities(role.id).subscribe(
+    this.clientService.getRoleAuthorities(role.id).subscribe(
       response => {
-        // console.log(response.content);
         const roleData = {
           name: response.content.name,
           description: response.content.description,
+          predefined: response.content.predefined,
           authorities: response.content.authorities
         };
         this.openPopUp(roleData, false);
@@ -171,3 +175,4 @@ export class RoleTableComponent implements OnInit, OnDestroy {
       });
   }
 }
+

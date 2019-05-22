@@ -11,6 +11,7 @@ import { authProperties } from "./../../../shared/services/auth/auth-properties"
 import { AppWarningService } from "app/shared/services/app-warning/app-warning.service";
 import { AppInfoService } from "app/shared/services/app-info/app-info.service";
 import { AuthenticationService } from "../../sessions/authentication.service";
+import { CommunityCreateReq, ClientData, UserData } from "app/model/CommunityModel.model";
 
 @Component({
   selector: "app-community-view",
@@ -18,6 +19,17 @@ import { AuthenticationService } from "../../sessions/authentication.service";
   animations: egretAnimations
 })
 export class CommunityViewComponent implements OnInit {
+  public userId;
+  public clientId;
+  public statusArray = {
+    'ACTIVE': "primary",
+    'INACTIVE': "accent"
+  };
+
+  public quota = 0;
+  public quotaExpire = false;
+  public usage = 0;
+
   public communities = [];
   public temCommunities = [];
   public pageNumber = 1;
@@ -25,8 +37,6 @@ export class CommunityViewComponent implements OnInit {
   public totalPages = [];
   public totalRecords = 0;
   public pageSizeArray = [];
-  public quota = 0;
-  public quotaExpire = false;
 
   constructor(
     private dialog: MatDialog,
@@ -35,32 +45,157 @@ export class CommunityViewComponent implements OnInit {
     private confirmService: AppConfirmService,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
-    private comunityService: ComunityService,
+    private communityService: ComunityService,
     private appWarningService: AppWarningService,
     private appInfoService: AppInfoService,
     private authService: AuthenticationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const userObj: any = JSON.parse(
       localStorage.getItem(authProperties.storage_name)
     );
+
+    this.userId = userObj.userData.id;
+    this.clientId = userObj.userData.client.id;
+
     this.fetchAllCommunities(this.pageNumber);
-    this.comunityService
+    this.communityService
       .licenseExpireState(userObj.userData.client.id, "communities")
       .subscribe(response => {
         const tempRes: any = response;
         this.quotaExpire = tempRes.content.expired;
         this.quota = tempRes.content.quota;
+        this.usage = tempRes.content.usage;
       });
   }
 
-  /*
-   * Create new community and update community popup window open function
-   * 27-02-2019
-   * Prasad Kumara
-   */
   communityPopUp(data: any = {}, isNew?) {
+
+
+    // this.communityService.licenseExpireState(this.clientId, "communities").subscribe(response => {
+    //   const tempRes: any = response;
+    //   this.quotaExpire = tempRes.content.expired;
+    //   this.quota = tempRes.content.quota;
+    //   this.usage = tempRes.content.usage;
+
+    //   if (this.quotaExpire && isNew) {
+    //     const infoData = {
+    //       title: "License",
+    //       message:
+    //         "You subscribed number of communities have expired!</br>" +
+    //         '<small class="text-muted">Do you like to extend the plan?</small>',
+    //       linkData: {
+    //         url: "https://www.google.com/gmail/",
+    //         buttonText: "Extend"
+    //       }
+    //     };
+    //     this.appInfoService.showInfo(infoData);
+    //   } else {
+    //     const title = isNew ? "Create New Community" : "Update Community";
+    //     const dialogRef: MatDialogRef<any> = this.dialog.open(
+    //       CommunityViewPopupComponent,
+    //       {
+    //         width: "720px",
+    //         disableClose: true,
+    //         data: { title: title, payload: data, isNew: isNew }
+    //       }
+    //     );
+    //     dialogRef.afterClosed().subscribe(res => {
+    //       if (!res) {
+    //         return;
+    //       } else {
+    //         const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
+    //         if (userObj) {
+    //           if (isNew) {
+    //             // let users: UserData[] = [];
+    //             // users.push(new UserData(this.userId));
+    //             // let req: CommunityCreateReq = new CommunityCreateReq(res.name, res.status, res.description, this.userId, new ClientData(this.clientId), users);
+
+    //             // res["createdUserId"] = userObj.id;
+    //             // res["client"] = {
+    //             //   id: userObj.userData.client.id
+    //             // };
+    //             // res["users"] = [
+    //             //   {
+    //             //     id: userObj.id
+    //             //   }
+    //             // ];
+    //             // res.status = this.getCommunityStatus(res.status);
+    //             // const clientId = userObj.userData.client.id;
+    //             // console.log(res);
+
+
+    //             // this.communityService
+    //             //   .licenseExpireState(clientId, "communities")
+    //             //   .subscribe(response => {
+    //             //     const tempRes: any = response;
+    //             //     this.quotaExpire = tempRes.content.expired;
+    //             //     this.quota = tempRes.content.quota;
+    //             //     this.usage = tempRes.content.usage;
+    //             //     if (!tempRes.content.expired) {
+    //             //       this.loader.close();
+    //             //       this.createCommunity(
+    //             //         res,
+    //             //         tempRes.content.usage,
+    //             //         tempRes.content.quota
+    //             //       );
+    //             //     }
+    //             //   });
+
+
+    //           } else {
+    //             // let req: FeedbackUpdateReq = new FeedbackUpdateReq(res.name, this.getFeedbackStatus(res.status), userObj.id);
+    //             // this.userFeedbackService.feedbackUpdateById(data.id, req).subscribe(
+    //             //   response => {
+    //             //     const temData: any = response;
+    //             //     const i = this.feedbacks.indexOf(data);
+    //             //     this.feedbacks[i] = temData.content;
+    //             //     this.temFeedbacks = this.feedbacks;
+    //             //     this.loader.close();
+    //             //     this.snack.open("Feedback Updated", "close", {
+    //             //       duration: 2000
+    //             //     });
+    //             //   },
+    //             //   error => {
+    //             //     this.loader.close();
+    //             //     if (error.status !== 401) {
+    //             //       this.errDialog.showError(error);
+    //             //     }
+    //             //   }
+    //             // );
+
+    //           }
+    //         }
+    //       }
+    //     });
+    //   }
+
+    // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if (this.quotaExpire && isNew) {
       const infoData = {
         title: "License",
@@ -104,12 +239,13 @@ export class CommunityViewComponent implements OnInit {
               ];
               res.status = this.getCommunityStatus(res.status);
               const clientId = userObj.userData.client.id;
-              this.comunityService
+              this.communityService
                 .licenseExpireState(clientId, "communities")
                 .subscribe(response => {
                   const tempRes: any = response;
                   this.quotaExpire = tempRes.content.expired;
                   this.quota = tempRes.content.quota;
+                  this.usage = tempRes.content.usage;
                   if (!tempRes.content.expired) {
                     this.loader.close();
                     this.createCommunity(
@@ -122,7 +258,7 @@ export class CommunityViewComponent implements OnInit {
             } else {
               res["lastModifiedUserId"] = userObj.id;
               res.status = this.getCommunityStatus(res.status);
-              this.comunityService.updateCommunityById(data.id, res).subscribe(
+              this.communityService.updateCommunityById(data.id, res).subscribe(
                 response => {
                   const temData: any = response;
                   const i = this.communities.indexOf(data);
@@ -153,28 +289,24 @@ export class CommunityViewComponent implements OnInit {
    * Prasad Kumara
    */
   createCommunity(res, usage, tempQuoata) {
-    this.comunityService.createCommunity(res).subscribe(
+    this.communityService.createCommunity(res).subscribe(
       response => {
         const temData: any = response;
-        if (this.communities.length === this.pageSize) {
-          this.appendNewlyCreatedCommunity(temData.content);
-        } else {
-          this.communities.push(temData.content);
-          this.temCommunities = this.communities;
-          this.totalRecords += 1;
-        }
-        // this.fetchAllCommunities(this.pageNumber);
-        if (this.totalRecords === this.quota) {
+
+
+        this.usage += 1;
+        if (this.usage === this.quota) {
           this.quotaExpire = true;
         }
-        this.loader.close();
-        if (usage < tempQuoata - 1 && tempQuoata - usage === 2) {
+
+        let remain = this.quota - this.usage;
+        if (remain === 1) {
           this.appWarningService.showWarning({
             title: "License",
             message:
               "Your subscription plan is about to expire!</br>One more community remaining!"
           });
-        } else if (usage < tempQuoata && tempQuoata - usage === 1) {
+        } else if (remain === 0) {
           const infoData = {
             title: "License",
             message:
@@ -186,11 +318,12 @@ export class CommunityViewComponent implements OnInit {
             }
           };
           this.appInfoService.showInfo(infoData);
-        } // else {
+        }
         this.snack.open("New Community Created", "close", {
           duration: 2000
         });
-        // }
+        this.fetchAllCommunities(this.pageNumber);
+
       },
       error => {
         this.loader.close();
@@ -215,10 +348,10 @@ export class CommunityViewComponent implements OnInit {
       const userObj: any = this.authService.getLoggedUserDetail();
       if (userObj) {
         const user = userObj.userData;
-        const predefined: boolean = user.role.predefined;
-        const userId = predefined ? undefined : user.id;
+        const predefined = user.role.predefined;
+        const userId = predefined === "true" ? undefined : user.id;
 
-        this.comunityService
+        this.communityService
           .fetchAllComunities(user.client.id, userId, pageNumber, this.pageSize)
           .subscribe(
             response => {
@@ -239,11 +372,6 @@ export class CommunityViewComponent implements OnInit {
     }
   }
 
-  /*
-   * Navigate to the selected comunity details page
-   * 27-02-2019
-   * Prasad Kumara
-   */
   navigateCommunity(row) {
     const extraParam: NavigationExtras = {
       queryParams: {
@@ -251,7 +379,7 @@ export class CommunityViewComponent implements OnInit {
         name: row.name
       }
     };
-    this.router.navigate(["community/user-community"], extraParam);
+    this.router.navigate(["community/user-community/user-feedback"], extraParam);
   }
 
   /*
@@ -269,14 +397,15 @@ export class CommunityViewComponent implements OnInit {
         if (res) {
           this.loader.open();
           const tempPN = this.setPageNumber(1);
-          this.comunityService.deleteCommunityById(row.id).subscribe(
+          this.communityService.deleteCommunityById(row.id).subscribe(
             response => {
-              this.comunityService
+              this.communityService
                 .licenseExpireState(userObj.userData.client.id, "communities")
                 .subscribe(resData => {
                   const tempRes: any = resData;
                   this.quotaExpire = tempRes.content.expired;
                   this.quota = tempRes.content.quota;
+                  this.usage = tempRes.content.usage;
                 });
               this.fetchAllCommunities(tempPN);
               this.loader.close();
@@ -319,7 +448,7 @@ export class CommunityViewComponent implements OnInit {
       return;
     }
 
-    const rows = this.temCommunities.filter(function(data) {
+    const rows = this.temCommunities.filter(function (data) {
       for (let i = 0; i <= columns.length; i++) {
         const column = columns[i];
         if (
@@ -387,7 +516,7 @@ export class CommunityViewComponent implements OnInit {
       if (rem !== 0) {
         totalRec = totalRec + 10;
       }
-      for (let i = 10; i < totalRec; ) {
+      for (let i = 10; i < totalRec;) {
         tempArray.push(i);
         i = i + 10;
       }

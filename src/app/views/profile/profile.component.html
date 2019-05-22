@@ -37,13 +37,13 @@
             Profile Settings
           </mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item routerLink="/profile/account-settings" routerLinkActive="list-item-active">
+          <mat-list-item routerLink="/profile/account-settings" routerLinkActive="list-item-active" [roleAuthorization]="'isPredefined'">
             <mat-icon>work</mat-icon>
             Account Settings
           </mat-list-item>
           <mat-divider></mat-divider>
 
-          <mat-list-item routerLink="/profile/general-settings" routerLinkActive="list-item-active">
+          <mat-list-item routerLink="/profile/general-settings" routerLinkActive="list-item-active" [roleAuthorization]="'isPredefined'">
             <mat-icon>settings</mat-icon>
             General Settings
           </mat-list-item>

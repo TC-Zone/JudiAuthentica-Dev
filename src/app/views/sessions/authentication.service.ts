@@ -47,15 +47,12 @@ export class AuthenticationService {
     );
   }
 
-  /*
-   * User Log out function
-   * Created by Prasad Kumara
-   * 14/02/2019
-   */
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem(this.storage_name);
-    localStorage.removeItem(this.componentList);
+    // localStorage.removeItem(this.storage_name);
+    // localStorage.removeItem(this.componentList);
+    localStorage.clear();
+    this.router.navigate(['/sessions/signin']);
   }
 
 
@@ -113,24 +110,39 @@ export class AuthenticationService {
    * 15/02/2019
    * Not working properly. Still lokking for solution
    */
-  setComponetDisable() {
+
+  // setComponetDisable() {
+  //   const userObj = JSON.parse(localStorage.getItem(this.storage_name));
+  //   console.log('---------------------------------------- userObj', userObj);
+  //   let arrayList = [];
+  //   if (userObj) {
+  //     console.log("--------------- setComponetDisable ----------------");
+  //     console.log(userObj.userData.role.name);
+  //     const roleName = userObj.userData.role.name;
+  //     if (roleName === "Super Administrator") { 
+  //       arrayList = ["User Management"];
+  //       return arrayList;
+  //     } else if (roleName === "Admin") {
+  //       arrayList = ["Client Management"];
+  //       return arrayList;
+  //     } else {
+  //       arrayList = ["Client Management", "User Management"];
+  //       return arrayList;
+  //     }
+  //   }
+  // }
+
+  getActiveComponet() {
     const userObj = JSON.parse(localStorage.getItem(this.storage_name));
     let arrayList = [];
     if (userObj) {
-      console.log("--------------- setComponetDisable ----------------");
-      console.log(userObj.userData.role.name);
-      const roleName = userObj.userData.role.name;
-      if (roleName === "Super Administrator") {
-        arrayList = ["User Management"];
-        return arrayList;
-      } else if (roleName === "Admin") {
-        arrayList = ["Client Management"];
-        return arrayList;
-      } else {
-        arrayList = ["Client Management", "User Management"];
-        return arrayList;
-      }
+      userObj.userData.role.authorities.forEach(authority => {
+        if (authority.type === "D") {
+          arrayList.push(authority.section.name);
+        }
+      });
     }
+    return arrayList;
   }
 
   getAuthToken() {

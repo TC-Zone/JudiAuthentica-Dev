@@ -2,7 +2,7 @@
   <mat-card-title>
 
     <div class="m-333 mt-3">
-      <button mat-raised-button class="mb-05 ml-05" color="primary" (click)="userCreatePopup()">Add User</button>
+      <button mat-raised-button class="mb-05 ml-05" color="primary" (click)="userCreatePopup()" [roleAuthorization]="'pu-c'">Add User</button>
       <span fxFlex></span>
       <p class="mat-select-lable"> Page Size: </p>
       <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()">
@@ -56,15 +56,15 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu1="matMenu">
-            <button mat-menu-item (click)="openEditPopUp(row)">
+            <button mat-menu-item (click)="openEditPopUp(row)" [roleAuthorization]="'pu-u'">
               <mat-icon>edit</mat-icon>
               <span>Edit</span>
             </button>
-            <button mat-menu-item (click)="openCommunityPopUp(row)">
+            <button mat-menu-item (click)="openCommunityPopUp(row)" [roleAuthorization]="'puc-u'">
               <mat-icon>assignment_ind</mat-icon>
               <span>Community</span>
             </button>
-            <button mat-menu-item (click)="openCategoryPopUp(row)">
+            <button mat-menu-item (click)="openCategoryPopUp(row)" [roleAuthorization]="'pucat-u'">
               <mat-icon>assistant</mat-icon>
               <span>Category</span>
             </button>

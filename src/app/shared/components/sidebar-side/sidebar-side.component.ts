@@ -6,6 +6,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 import { LocalStorageHandler } from "../../helpers/local-storage";
 import { AuthenticationService } from "../../../views/sessions/authentication.service";
 import { LayoutService } from "../../services/layout.service";
+import { FutureSurveyOperationalService } from "app/shared/services/survey/future-survey-operational.service";
 
 @Component({
   selector: "app-sidebar-side",
@@ -31,22 +32,34 @@ export class SidebarSideComponent extends LocalStorageHandler
   ngOnInit() {
     this.layoutConf = this.layout.layoutConf;
     this.iconTypeMenuTitle = this.navService.iconTypeMenuTitle;
+
+
     this.menuItemsSub = this.navService.menuItems$.subscribe(menuItem => {
       this.menuItems = menuItem;
-      const removeItemList = this.authService.setComponetDisable();
-      removeItemList.forEach(element => {
+      // const removeItemList = this.authService.setComponetDisable();
+      // removeItemList.forEach(element => {
+      //   const index = this.menuItems.findIndex(x => x.name === element);
+      //   if (index >= 0) {
+      //     this.menuItems[index].disabled = true;
+      //   }
+      // });
+
+      const activeItemList = this.authService.getActiveComponet();
+      
+      activeItemList.forEach(element => {
         const index = this.menuItems.findIndex(x => x.name === element);
         if (index >= 0) {
-          this.menuItems[index].disabled = true;
+          this.menuItems[index].disabled = false;
         }
       });
-      console.log("=====================================");
-      console.log(this.menuItems);
+      
       //Checks item list has any icon type.
       this.hasIconTypeMenuItem = !!this.menuItems.filter(
         item => item.type === "icon"
       ).length;
+
     });
+
   }
   ngAfterViewInit() {
     setTimeout(() => {

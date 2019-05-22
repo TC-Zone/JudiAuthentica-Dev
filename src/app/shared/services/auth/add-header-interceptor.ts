@@ -49,7 +49,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
     private authService: AuthenticationService,
     private router: Router,
     private loader: AppLoaderService
-  ) {}
+  ) { }
 
   getRequest(request: HttpRequest<any>, token: string): HttpRequest<any> {
     const isAuthToken = this.oauthTokenUrlValidate(request.url);
@@ -80,15 +80,14 @@ export class AddHeaderInterceptor implements HttpInterceptor {
   }
 
   intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<
-    | HttpSentEvent
-    | HttpHeaderResponse
-    | HttpProgressEvent
-    | HttpResponse<any>
-    | HttpUserEvent<any>
-  > {
+    request: HttpRequest<any>, next: HttpHandler):
+    Observable<
+      | HttpSentEvent
+      | HttpHeaderResponse
+      | HttpProgressEvent
+      | HttpResponse<any>
+      | HttpUserEvent<any>
+    > {
     return next
       .handle(this.getRequest(request, this.authService.getAuthToken()))
       .catch(error => {
@@ -123,10 +122,13 @@ export class AddHeaderInterceptor implements HttpInterceptor {
             return next.handle(this.getRequest(req, newToken));
           }
           // If we don't get a new token, we are in trouble so logout.
+          console.log("------------------------- If we don't get a new token, we are in trouble so logout.");
+
           return this.logoutUser();
         })
         .catch(error => {
           // If there is an exception calling 'refreshToken', bad news so logout.
+          console.log("------------------------- If there is an exception calling 'refreshToken', bad news so logout.");
           return this.logoutUser();
         })
         .finally(() => {

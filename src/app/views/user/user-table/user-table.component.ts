@@ -22,7 +22,7 @@ import { AuthenticationService } from 'app/views/sessions/authentication.service
 export class UserTableComponent implements OnInit {
 
   public users: any[];
-  public roles: any[];
+  public roles: any[] = [];
   public statusArray = {
     'Active': "primary",
     'Inactive': "accent"
@@ -39,7 +39,6 @@ export class UserTableComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
-    // private userService: UserService,
     private clientService: ClientService,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
@@ -48,20 +47,30 @@ export class UserTableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser) {
+      this.clientId = currentUser.userData.client.id;
+      this.getUsersByClient();
+      this.getClientCategories();
+      this.getClientCommunities();
+    }
 
-    // const client = JSON.parse(localStorage.getItem('currentUser')).userData.client;
-    // console.log(client);
-    // this.clientId = client.id;
-    // this.name = client.name;
+    // this.activeRoute.queryParams.subscribe(params => {
+    //   this.clientId = params["clientId"];
 
-    const currentUser = this.authService.getLoggedUserDetail();
-    this.clientId = currentUser.userData.client.id;
-    this.name = currentUser.userData.client.name;
+    //   // // RAVEEN : 2014/04/11 - Handling situation when client id is not coming from quesry parameter
+    //   // if (!this.clientId) {
+    //   //   const currentUser = this.authService.getLoggedUserDetail();
+    //   //   this.clientId = currentUser.userData.client.id;
+    //   // }
 
-    this.getUsers();
-    this.getUserRoles();
-    this.getClientCategories();
-    this.getClientCommunities();
+    //   this.getUsers();
+    //   this.getUserRoles();
+    //   this.getClientCategories();
+    //   this.getClientCommunities();
+    // });
+
+
   }
 
   ngOnDestroy() {
@@ -70,37 +79,20 @@ export class UserTableComponent implements OnInit {
     }
   }
 
-  getUsers() {
-    this.getItemSub = this.clientService.getUsers(this.clientId).subscribe(successResp => {
+  getUsersByClient() {
+    this.getItemSub = this.clientService.getClient(this.clientId).subscribe(successResp => {
       this.users = successResp.content.users;
-
-      this.users.forEach((item, index) => {
-        if (item.role.name === "Admin") this.users.splice(index, 1);
-      });
-
       this.users.forEach((item, index) => {
         if (item.role.name === "Super Administrator") this.users.splice(index, 1);
+        if (item.role.predefined === "true") this.users.splice(index, 1);
       });
-
-      // this.roles = successResp.content;
-
-      console.log(this.users);
-    },
-      error => {
-        this.errDialog.showError(error);
-      }
-    );
-  }
-
-  getUserRoles() {
-    this.getItemSub = this.clientService.getRoles().subscribe(successResp => {
-      successResp.content.forEach((item, index) => {
-        if (item.name === "Super Administrator") { successResp.content.splice(index, 1) };
+      this.roles = successResp.content.roles;
+      this.roles.forEach((item, index) => {
+        if (item.predefined === "true") this.roles.splice(index, 1);
       });
-      successResp.content.forEach((item, index) => {
-        if (item.name === "Admin") { successResp.content.splice(index, 1) };
-      });
-      this.roles = successResp.content;
+      // successResp.content.roles.forEach((item) => {
+      //   this.roles.push(item);
+      // });
     },
       error => {
         this.errDialog.showError(error);
@@ -112,14 +104,9 @@ export class UserTableComponent implements OnInit {
     this.getItemSub = this.clientService.getClientCategories(this.clientId).subscribe(successResp => {
       this.clientCategory = successResp.content;
       console.log(this.clientCategory);
-
     },
       error => {
-        this.errDialog.showError({
-          title: "Error",
-          status: error.status,
-          type: "http_error"
-        });
+        this.errDialog.showError(error);
       }
     );
   }
@@ -141,7 +128,7 @@ export class UserTableComponent implements OnInit {
       {
         width: "720px",
         disableClose: true,
-        data: { roles: this.roles, category: this.clientCategory }
+        data: { roles: this.roles, category: this.clientCategory, community: this.clientCommunity }
       }
     );
 
@@ -157,11 +144,13 @@ export class UserTableComponent implements OnInit {
       let role: RoleData = new RoleData(res[0].role);
 
       let communities: CommunityData[] = [];
-      // communities.push(new CommunityData(res[0].role));
+      res[2].forEach(element => {
+        communities.push(new CommunityData(element.id));
+      });
 
       let categories: CategoryData[] = [];
       res[1].forEach(element => {
-        categories.push(new CategoryData(element));
+        categories.push(new CategoryData(element.id));
       });
 
       const client: ClientData = new ClientData(this.clientId);
@@ -170,13 +159,11 @@ export class UserTableComponent implements OnInit {
 
       this.clientService.addUser(req).subscribe(
         response => {
-          this.getUsers();
-          this.users = response;
+          this.getUsersByClient();
           this.loader.close();
           this.snack.open("New User added !", "OK", { duration: 4000 });
         },
         error => {
-          this.loader.close();
           this.errDialog.showError(error);
         }
       );
@@ -206,17 +193,13 @@ export class UserTableComponent implements OnInit {
       this.loader.open();
       this.clientService.updateUser(data.id, req).subscribe(
         response => {
-          this.getUsers();
+          this.getUsersByClient();
           this.loader.close();
           this.snack.open("User Updated!", "OK", { duration: 4000 });
         },
         error => {
           this.loader.close();
-          this.errDialog.showError({
-            title: "Error",
-            status: error.status,
-            type: "http_error"
-          });
+          this.errDialog.showError(error);
         }
       );
 
@@ -226,12 +209,10 @@ export class UserTableComponent implements OnInit {
 
   openCommunityPopUp(data: any = {}) {
     console.log();
-    
 
     this.getItemSub = this.clientService.getUser(data.id).subscribe(successResp => {
 
       console.log(successResp);
-
 
       let dialogRef: MatDialogRef<any> = this.dialog.open(
         UserCommunityPopupComponent,
@@ -257,7 +238,7 @@ export class UserTableComponent implements OnInit {
         this.loader.open();
         this.clientService.updateUserCommunity(data.id, req).subscribe(
           response => {
-            this.getUsers();
+            this.getUsersByClient();
             this.loader.close();
             this.snack.open("User Community Updated!", "OK", { duration: 4000 });
           },
@@ -277,6 +258,7 @@ export class UserTableComponent implements OnInit {
       }
     );
   }
+
 
   openCategoryPopUp(data: any = {}) {
 
@@ -329,4 +311,9 @@ export class UserTableComponent implements OnInit {
       }
     );
   }
+
+  removeUser() {
+
+  }
+
 }

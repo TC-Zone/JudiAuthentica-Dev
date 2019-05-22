@@ -9,7 +9,7 @@ import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms'
 })
 export class UserTablePopupComponent implements OnInit {
   public itemForm: FormGroup;
-  public roles: any[];
+  public roles: any[] = [];
   public roleStatus = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -18,22 +18,15 @@ export class UserTablePopupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.buildItemForm(this.data.payload);
     this.roles = this.data.roles;
+    this.buildItemForm(this.data.payload);
   }
 
   buildItemForm(item) {
 
     let role = null;
     if (item.id !== undefined) {
-      if (item.role.predefined === 1) {
-        this.roles.push(item.role);
-        this.roleStatus = true;
-      } else {
-        this.roles.forEach((item, index) => {
-          if (item.role.predefined === 1) this.roles.splice(index, 1);
-        });
-      }
+      console.log(item);
       role = item.role.id;
     }
 

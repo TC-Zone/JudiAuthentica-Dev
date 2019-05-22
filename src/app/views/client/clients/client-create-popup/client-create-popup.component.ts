@@ -64,10 +64,12 @@ export class ClientCreatePopupComponent implements OnInit {
   ngOnInit() {
     this.allCategories = JSON.parse(JSON.stringify(this.data.category));
     this.selectedCategories = [];
-    
+
     this.data.section.forEach(section => {
       section.authorities.forEach(authority => {
-        this.allAuthorities.push(authority);
+        if (authority.code !== 'cm-a') {
+          this.allAuthorities.push(authority);
+        }
       });
     });
     this.selectedAuthorities = [];
@@ -121,26 +123,29 @@ export class ClientCreatePopupComponent implements OnInit {
 
   validateLicense() {
     let form = this.licenseFormGroup;
-    if (form.controls['communityCount'].value !== '') {
-      let value = form.controls['communityCount'].value;
-      let diff;
-      if (value > this.oldestValue) {
-        diff = value - this.oldestValue;
+    let value = form.controls['communityCount'].value;
+
+    if (value !== '' && value !== '0') {
+
+      let diff = value - this.oldestValue;
+
+      if (diff > 0) {
         form.controls['feedbackCount'].setValue(+(form.get('feedbackCount').value) + diff);
         form.controls['eventCount'].setValue(+(form.get('eventCount').value) + diff);
         form.controls['promoCount'].setValue(+(form.get('promoCount').value) + diff);
       }
     } else {
-      form.controls['communityCount'].setValue(1);
-      form.controls['feedbackCount'].setValue(1);
-      form.controls['eventCount'].setValue(1);
-      form.controls['promoCount'].setValue(1);
+      this.setDefaultValue('communityCount');
+      this.setDefaultValue('feedbackCount');
+      this.setDefaultValue('eventCount');
+      this.setDefaultValue('promoCount');
     }
   }
 
   setDefaultValue(control) {
     let form = this.licenseFormGroup;
-    if (form.controls[control].value === '') {
+    let value = form.controls[control].value;
+    if (value === '' || value === '0') {
       form.controls[control].setValue(1);
     }
   }
@@ -243,7 +248,7 @@ export class ClientCreatePopupComponent implements OnInit {
 
   onChange(id) {
     console.log(id);
-    if(this.selectedAuthorities.includes(id)){
+    if (this.selectedAuthorities.includes(id)) {
       this.selectedAuthorities.forEach((item, index) => {
         if (item === id) {
           this.selectedAuthorities.splice(index, 1);

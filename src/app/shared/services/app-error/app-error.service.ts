@@ -83,6 +83,7 @@ export class AppErrorService {
   showError(error: any) {
     console.log('show error messages');
     console.log(error);
+    console.log(error.error.error);
     if (error.error !== null) {
       if (error.status === 403) {
         this.openPopUpWindow(this.removeUnderscore(error.error.error), error.error.error_description);

@@ -26,11 +26,12 @@
     <div fxFlex="100" class="pr-1">
       <mat-tab-group>
         <div *ngFor="let module of this.componentList; let i = index">
-          <mat-tab label="{{module.moduleName}}">
+          <mat-tab label="{{module.name}}" *ngIf="module.authorities.length !== 0">
             <form [formGroup]="authoritiesFormGroup">
-              <div fxLayout="row" fxLayout.lt-sm="column" style="padding-top: 5px;" fxLayoutWrap="wrap">
-                <div fxFlex="50" class="pr-1" style="padding-top: 5px;" *ngFor="let item of module.data">
-                  <mat-checkbox [checked]="item.checked" (change)="onChange(item.id, module.moduleName, item.code, $event.checked)" class="full-width" value="{{item.code}}">{{item.name}}</mat-checkbox>
+              <div fxLayout="row" fxLayout.lt-sm="column" class="pt-2" fxLayoutWrap="wrap">
+                <div fxFlex="50" class="pr-1" style="padding-top: 5px;" *ngFor="let item of module.authorities">
+                  <mat-checkbox [checked]="item.checked" (change)="onChangeUserRole(item, $event.checked)"
+                    class="full-width" value="{{item.code}}">{{item.name}}</mat-checkbox>
                 </div>
               </div>
             </form>
@@ -42,7 +43,10 @@
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-raised-button color="accent" [disabled]="this.selectedAuthorities.length == 0 || roleFormGroup.invalid" (click)="submit()">Save</button>
+  <button mat-raised-button color="accent" [disabled]="this.newDisplayAuthority.length == 0 || roleFormGroup.invalid"
+    (click)="submit()" *ngIf="this.predefined === 'true'">Save</button>
+  <button mat-raised-button color="accent" [disabled]="this.selectedAuthorities.length == 0 || roleFormGroup.invalid"
+    (click)="submit()" *ngIf="this.predefined !== 'true'">Save</button>
   <span fxFlex></span>
   <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
 </mat-dialog-actions>

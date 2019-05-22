@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormBuilder, Validators, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { ClientService } from '../../../../client.service';
-import { ClientData } from 'app/model/ClientModel.model';
+import { ClientData, AuthorityData } from 'app/model/ClientModel.model';
 
 
 @Component({
@@ -10,14 +10,27 @@ import { ClientData } from 'app/model/ClientModel.model';
   templateUrl: './role-table-popup.component.html'
 })
 export class RoleTablePopupComponent implements OnInit {
-  public authoritiesFormGroup: FormGroup;
-  public roleFormGroup: FormGroup;
   //Raveen : need to implement a custom directive for the pattern validation
   //public codeRegex = '/^-?[0-9]+(\.[0-9]*){0,1}$/g';
-  public componentList = [];
-  public numberOfComponent = this.componentList.length - 1;
-  public selectedAuthorities: Array<any> = [];
+
   public clientID;
+  public predefined;
+  public isNew;
+
+  public allAuthority = [];
+  public allDisplayAuthority = [];
+  public adminRoleDisplayAuthority = [];
+  public newDisplayAuthority = [];
+  public removedDisplayAuthority = [];
+  public commonAndAdminAuthorities = [];
+
+  public selectedAuthorities = [];
+  public componentList = [];
+  public adminComponentList = [];
+
+
+  public authoritiesFormGroup: FormGroup;
+  public roleFormGroup: FormGroup;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -27,11 +40,109 @@ export class RoleTablePopupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.data);
+
     this.clientID = this.data.clientID;
-    this.buildRoleForms(this.data.payload);
+    this.predefined = this.data.roleData.predefined;
+    this.isNew = this.data.roleData.isNew;
+    this.commonAndAdminAuthorities = this.data.commonAndAdminAuthorities;
+
+    if (this.isNew) {
+      this.createUserAuthorityComponentList(this.data.adminRoleAuthorities);
+    } else {
+      this.formatRoleAuthority(this.data.roleData);
+    }
+
+    this.buildRoleForms(this.data.roleData);
     this.buildauthoritiesForm();
-    this.getAllAuthorities();
   }
+
+
+  formatRoleAuthority(data) {
+    let roleData = JSON.parse(JSON.stringify(data));
+    if (this.predefined === 'true') {
+      this.createAdminAuthorityComponentList(this.data.adminRoleAuthorities);
+    } else {
+      roleData.authorities.forEach(authority => {
+        if (authority.type === 'U' || authority.type === 'D') {
+          this.selectedAuthorities.push(authority.id);
+        }
+      });
+      this.createUserAuthorityComponentList(this.data.adminRoleAuthorities);
+    }
+  }
+
+  createUserAuthorityComponentList(data) {
+    const roleData = JSON.parse(JSON.stringify(data));
+    let displayAuthoritySection = { name: "Display Authority", authorities: [] };
+    roleData.forEach(section => {
+      section.authorities.forEach((authority, index) => {
+        if (authority.type === 'D' || authority.type === 'U') {
+          let status = false;
+          if (this.selectedAuthorities.includes(authority.id)) {
+            status = true;
+          }
+          authority['checked'] = status;
+
+          if (authority.type === 'D') {
+            displayAuthoritySection.authorities.push(authority);
+            section.authorities.splice(index, 1);
+          }
+        } else {
+          console.log(authority);
+          section.authorities.splice(index, 1);
+        }
+      });
+    });
+
+    roleData.splice(0, 0, displayAuthoritySection);
+    this.componentList = roleData;
+    console.log('-------------------------------------- componentList', this.componentList);
+  }
+
+  createAdminAuthorityComponentList(data) {
+    let roleData = JSON.parse(JSON.stringify(data));
+
+    this.clientService.getAllUserAuthority().subscribe(response => {
+      this.allAuthority = response.content;
+
+      this.allAuthority.forEach(section => {
+        section.authorities.forEach(authority => {
+
+          if (authority.type === 'D' && authority.code !== 'cm-a') {
+            authority['sectionId'] = section.id;
+            this.allDisplayAuthority.push(authority)
+          }
+        });
+      });
+
+      roleData.forEach(section => {
+        section.authorities.forEach(authority => {
+          if (authority.type === 'D') {
+            authority['sectionId'] = section.id;
+            this.adminRoleDisplayAuthority.push(authority);
+            this.newDisplayAuthority.push(authority);
+          }
+        });
+      });
+
+      this.allDisplayAuthority.forEach(authority => {
+        let status = false;
+        const index = this.adminRoleDisplayAuthority.findIndex(x => x.id === authority.id);
+        if (index >= 0) {
+          status = true;
+        }
+        authority['checked'] = status;
+      });
+
+    });
+
+    this.adminComponentList = this.allDisplayAuthority;
+    console.log('-------------------------------------- adminComponentList', this.adminComponentList);
+
+  }
+
+
 
   /*
   * Build New Role Form Group
@@ -56,175 +167,122 @@ export class RoleTablePopupComponent implements OnInit {
     });
   }
 
-  /*
-  * Form Data Submit
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
+
   submit() {
-    const roleFormValue = this.roleFormGroup.value;
-    const roleData = {
-      name: roleFormValue.name,
-      description: roleFormValue.description,
-      authorities: this.selectedAuthorities,
-      client: new ClientData(this.clientID)
-    };
-    this.dialogRef.close(roleData);
-  }
 
-  /*
-  * Check box onchange function for get selected check box value
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
-  onChange(id: String, name: String, auth_key: String, isChecked: boolean) {
-    const dataArray = <FormArray>this.authoritiesFormGroup.controls.data;
-    console.log(dataArray);
-    
-    console.log('--------- role update onchange -------------');
-    if (isChecked) {
-      dataArray.push(new FormControl(auth_key));
-      const tempJson = {
-        id: id
-      };
-      console.log(id, auth_key);
-      this.selectedAuthorities.push(tempJson);
-    } else {
-      const index = dataArray.controls.findIndex(x => x.value === auth_key);
-      dataArray.removeAt(index);
-      // for (let i = 0; i < this.selectedAuthorities.length; i++) {
-      //   if (this.selectedAuthorities[i].id === id) {
-          const i = this.selectedAuthorities.findIndex(y => y.id === id);
-          console.log(id, auth_key, i);
-          this.selectedAuthorities.splice(i, 1);
-          // break;
-      //   }
-      // }
-    }
-  }
+    if (this.predefined === 'true') {
 
-  /*
-  * Set Selected role authorities when update popup window open
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
-  setSelectedRoleAuthorities() {
-    if (this.data.payload.hasOwnProperty('authorities')) {
-      const temList = this.componentList;
-      temList.forEach(element => {
-        element.data.forEach(data => {
-          if (data.checked) {
-            const tempJson = {
-              id: data.id
-            };
-            this.selectedAuthorities.push(tempJson);
+      // update removedDisplayAuthority array -----------------------------------------------------------------
+      this.adminRoleDisplayAuthority.forEach(authority => {
+        if (this.newDisplayAuthority.findIndex(x => x.id === authority.id) < 0) {
+          this.removedDisplayAuthority.push(new AuthorityData(authority.id));
+        }
+      });
+      // ------------------------------------------------------------------------------------------------------
+
+
+      // Add Authorities to selectedAuthorities array by selected Display Authorities -------------------------
+      this.newDisplayAuthority.forEach(newAuthority => {
+        this.selectedAuthorities.push(newAuthority.id);
+        this.allAuthority.forEach(section => {
+          if (newAuthority.sectionId === section.id) {
+            section.authorities.forEach(authority => {
+              if (!this.selectedAuthorities.includes(authority.id)) {
+                this.selectedAuthorities.push(authority.id);
+              }
+            });
           }
         });
       });
-      console.log('-------------- setSelectedRoleAuthorities -------------------');
-      console.log(this.selectedAuthorities);
-    }
-  }
+      // ------------------------------------------------------------------------------------------------------
 
-  /*
-  * Get All Authorities
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
-  getAllAuthorities() {
-    this.clientService.getAllAuthorities()
-      .subscribe(
-        response => {
-          console.log(response);
-          this.createComponentArray(response.content);
-        }
-      );
-  }
 
-  /*
-  * Create Componet tab view data array
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
-  // createComponentArray(dataArray: any) {
-  //   dataArray.forEach(data => {
-  //     const name = this.getModuleName(data.code);
-  //     if (name === 'Clients') {
-  //       const i = this.componentList.findIndex(x => x.moduleName === name);
-  //       const status =  this.setSelectedAuthorities(data.id);
-  //       if (i < 0) {
-  //         const tempdata = data;
-  //         tempdata['checked'] = status;
-  //         this.componentList.push({
-  //           moduleName: name,
-  //           data: [tempdata]
-  //         });
-  //       }else {
-  //         const tempdata = data;
-  //         tempdata['checked'] = status;
-  //         this.componentList[i].data.push(tempdata);
-  //       }
-  //     }
-  //   });
-  //   // console.log('--------------- component list --------------------');
-  //   // console.log(this.componentList);
-  //   this.setSelectedRoleAuthorities();
-  // }
+      // Add Admin And Common Authorities ---------------------------------------------------------------------
+      this.commonAndAdminAuthorities.forEach(authority => {
+        this.selectedAuthorities.push(authority.id);
+      });
+      // ------------------------------------------------------------------------------------------------------
 
-  createComponentArray(dataArray: any) {
-    dataArray.forEach(data => {
-      const name = this.getModuleName(data.code);
-      if (name === 'Clients') {
-        const i = this.componentList.findIndex(x => x.moduleName === name);
-        const status =  this.setSelectedAuthorities(data.id);
-        if (i < 0) {
-          const tempdata = data;
-          tempdata['checked'] = status;
-          this.componentList.push({
-            moduleName: name,
-            data: [tempdata]
-          });
-        }else {
-          const tempdata = data;
-          tempdata['checked'] = status;
-          this.componentList[i].data.push(tempdata);
-        }
-      }
-    });
-    // console.log('--------------- component list --------------------');
-    // console.log(this.componentList);
-    this.setSelectedRoleAuthorities();
-  }
 
-  /*
-  * Get module name according to the code
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
-  getModuleName(code): any {
-    const x = code.split('-');
-    if (x[0] === 'pc' || x[0] === 'pur' || x[0] === 'pu') {
-      return 'Clients';
-    }
-    return null;
-  }
 
-  /*
-  * Set Selected Authorities checke function
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
-  setSelectedAuthorities(id): boolean {
-    let status = false;
-    if (this.data.payload.hasOwnProperty('authorities')) {
-      const dataArray = this.data.payload.authorities;
-      dataArray.forEach(elements => {
-        if (elements.id === id) {
-          status = true;
+    } else {
+
+      // Add Common Authorities --------------------------------------------------------------------------------
+      this.commonAndAdminAuthorities.forEach(authority => {
+        if (authority.type === 'C') {
+          this.selectedAuthorities.push(authority.id);
         }
       });
+      // ------------------------------------------------------------------------------------------------------
+
     }
-    return status;
+
+
+    // create selected authorities (AuthorityData) array ------------------------------------------------------
+    let authorities: AuthorityData[] = [];
+    this.selectedAuthorities.forEach(authorityID => {
+      authorities.push(new AuthorityData(authorityID));
+    });
+    // --------------------------------------------------------------------------------------------------------
+
+
+    // create req ---------------------------------------------------------------------------------------------
+    const roleFormValue = this.roleFormGroup.value;
+    let roleData = {};
+    if (this.isNew) {
+      roleData = {
+        name: roleFormValue.name,
+        description: roleFormValue.description,
+        authorities: authorities,
+        client: new ClientData(this.clientID)
+      };
+    } else {
+      roleData = {
+        name: roleFormValue.name,
+        description: roleFormValue.description,
+        authorities: authorities,
+        removedAuthorities: this.removedDisplayAuthority,
+        localizedName: ""
+      };
+    }
+    // --------------------------------------------------------------------------------------------------------
+
+    console.log(roleData);
+
+    this.dialogRef.close(roleData);
+  }
+
+  onChangeUserRole(authority, isChecked: boolean) {
+    const dataArray = <FormArray>this.authoritiesFormGroup.controls.data;
+    // console.log('------------------------------------------ dataArray', dataArray);
+
+    if (isChecked) {
+      dataArray.push(new FormControl(authority.code));
+      this.selectedAuthorities.push(authority.id);
+    } else {
+      const index = dataArray.controls.findIndex(x => x.value === authority.code);
+      dataArray.removeAt(index);
+      const i = this.selectedAuthorities.findIndex(y => y === authority.id);
+      this.selectedAuthorities.splice(i, 1);
+    }
+  }
+
+  onChangeAdminRole(authority, isChecked: boolean) {
+    const dataArray = <FormArray>this.authoritiesFormGroup.controls.data;
+    // console.log('------------------------------------------ dataArray', dataArray);
+
+    if (isChecked) {
+      dataArray.push(new FormControl(authority.code));
+      // this.selectedAuthorities.push(authority.id);
+      this.newDisplayAuthority.push(authority);
+    } else {
+      const index = dataArray.controls.findIndex(x => x.value === authority.code);
+      dataArray.removeAt(index);
+      const i = this.newDisplayAuthority.findIndex(y => y.id === authority.id);
+      this.newDisplayAuthority.splice(i, 1);
+      // const j = this.selectedAuthorities.findIndex(y => y === authority.id);
+      // this.selectedAuthorities.splice(j, 1);
+    }
   }
 
 }

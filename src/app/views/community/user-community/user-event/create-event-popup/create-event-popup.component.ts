@@ -77,8 +77,6 @@ export class CreateEventPopupComponent implements OnInit {
     this.setStartDateMin();
     //edited by kushan
     this.imgBaseURL = this.userEventService.imageUrl;
-
-
   }
 
   /*
@@ -88,6 +86,8 @@ export class CreateEventPopupComponent implements OnInit {
   * Edited by Kushan Pabasara
   */
   buildEventForm(eventformdata) {
+    
+    console.log(eventformdata);
     this.eventForm = this.fb.group({
       name: [eventformdata.name || '', Validators.required],
       description: [eventformdata.description || '', Validators.required],
@@ -403,8 +403,6 @@ export class CreateEventPopupComponent implements OnInit {
     }
     return event;
   }
-
-
 }
 /* created by kushan pabasara */
 async function getBase64ImageFromUrl(imageUrl) {

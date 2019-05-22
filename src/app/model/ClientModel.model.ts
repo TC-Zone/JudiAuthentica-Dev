@@ -166,8 +166,7 @@ export class LicenseUpdateRequest {
 
 export class profileUpdateReq {
   constructor(
-    public userName: string,
-    public password: string,
+    public accountName: string,
     public email: string
   ) { }
 }

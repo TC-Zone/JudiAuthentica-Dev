@@ -95,7 +95,7 @@ export class ProfileSettingsComponent implements OnInit {
   updateProfile() {
     const itemForm = this.profileSettingsForm.value;
     const client: ClientData = new ClientData(this.clientId);
-    const req: profileUpdateReq = new profileUpdateReq(itemForm.accountName, itemForm.password, itemForm.email);
+    const req: profileUpdateReq = new profileUpdateReq(itemForm.accountName, itemForm.email);
 
     this.profileService.updateUser(this.userId, req).subscribe(
       response => {

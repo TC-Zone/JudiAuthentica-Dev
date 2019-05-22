@@ -1,26 +1,108 @@
-
-<!-- <button mat-button style="background-color: #f0ad4e;" type="button" (click)="openWarning()">Warning</button>
-<button mat-button style="background-color: #5bc0de;" type="button" (click)="openInfo()">Infomation</button>
-<button mat-button style="background-color: #d9534f;" type="button" (click)="openError()">Error</button>
-<button mat-button style="background-color: #ff0000;" type="button" (click)="openErrorSnack()">Error Snack</button> -->
-
-
-
 <div class="messages-wrap">
-
   <mat-toolbar color="primary" class="inbox-toolbar">
-    <!-- multiple events select and control -->
-    <mat-checkbox (change)="selectToggleAll($event)" [indeterminate]="indeterminateState" [checked]="selectAll" class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
-    <button mat-icon-button matTooltip="Add event" (click)="eventPopUp({}, true)"><mat-icon>add_box</mat-icon></button>
-    <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedEvents()"><mat-icon>delete</mat-icon></button>
+    <mat-checkbox (change)="selectToggleAll($event)" [indeterminate]="indeterminateState" [checked]="selectAll"
+      class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
+    <button mat-icon-button matTooltip="Add feedback" (click)="feedbackPopUp({}, true)">
+      <mat-icon>add_box</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll"
+      (click)="deleteSelectedFeedbacks()">
+      <mat-icon>delete</mat-icon>
+    </button>
     <span fxFlex></span>
-    <mat-form-field *ngIf="this.temEvents.length > 0" style="font-size: 15px; width: 30%; margin-top: 10px;">
+    <mat-form-field *ngIf="this.temFeedbacks.length > 0" style="font-size: 15px; width: 30%; margin-top: 10px;">
       <input matInput placeholder="Search" value="" (keyup)='updateFilter($event)'>
     </mat-form-field>
-    <p *ngIf="this.temEvents.length > 0" class="mat-select-lable"> Page Size: </p>
-    <mat-select *ngIf="this.temEvents.length > 0" class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()" placeholder="Favorite food">
+    <p *ngIf="this.temFeedbacks.length > 0" class="mat-select-lable"> Page Size: </p>
+    <mat-select *ngIf="this.temFeedbacks.length > 0" class="mat-raised-select" [(value)]="pageSize"
+      (selectionChange)="changeValue()" placeholder="Favorite food">
       <mat-option *ngFor="let item of pageSizeArray" [value]="item">{{item}}</mat-option>
     </mat-select>
   </mat-toolbar>
 
+
+  <table class="table table-hover">
+    <tbody>
+      <tr *ngFor="let feedback of this.feedbacks">
+        <td>
+          <div fxLayout="row wrap">
+
+            <div fxFlex="5">
+              <div style="padding-top: 5px;">
+                <mat-checkbox (change)="selectToggleOne($event, feedback)" [checked]="feedback.selected"
+                  class="mail-checkbox hide-on-open"></mat-checkbox>
+              </div>
+            </div>
+            <div fxFlex="55">
+              <div class="custom-vertical-align-middle" style="padding-top: 10px;">{{  feedback.name }}</div>
+            </div>
+            <div fxFlex="20">
+              <div class="custom-vertical-align-middle custom-float-right" style="padding-top: 10px;">
+                <mat-chip mat-sm-chip color="{{statusArray[feedback.status]}}" [selected]="true">
+                  {{feedback.status}}
+                </mat-chip>
+              </div>
+            </div>
+            <div fxFlex="20">
+              <div class="custom-float-right">
+                <button mat-icon-button class="hidden-on-open" [matMenuTriggerFor]="menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="navigateToSurveyEditor(feedback)">
+                    <mat-icon>view_headline</mat-icon> View
+                  </button>
+                  <button mat-menu-item (click)="feedbackPopUp(feedback, false)">
+                    <mat-icon>edit</mat-icon> Edit
+                  </button>
+                  <button mat-menu-item (click)="deleteOneFeedback(feedback)">
+                    <mat-icon>delete</mat-icon> Delete
+                  </button>
+                </mat-menu>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <mat-toolbar color="primary" class="inbox-toolbar" *ngIf="this.feedbacks.length > 0" style="font-size: 12px;">
+    <div class="pagination">{{totalRecords}} Created,</div>
+    <div class="pagination ml-1">{{usage}} Usage</div>
+    <div class="pagination ml-1">{{quota}} Quota</div>
+    <span fxFlex></span>
+    <ng-container>
+      <nav aria-label="Promotion Page Navigation" style="color: black;">
+        <ul class="pagination" *ngIf="totalPages.length > 1">
+          <li class="page-item" [ngClass]="{'disabled':pageNumber <= 1}">
+            <a class="page-link" (click)="fetchAllFeedbacks(pageNumber-1)" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+          <li class="page-item" *ngFor="let page of totalPages" [ngClass]="{'active':pageNumber === page}">
+            <a class="page-link" (click)="fetchAllFeedbacks(page)">
+              {{page}}
+            </a>
+          </li>
+          <li class="page-item" [ngClass]="{'disabled':pageNumber >= totalPages.length}">
+            <a class="page-link" (click)="fetchAllFeedbacks(pageNumber+1)" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </ng-container>
+  </mat-toolbar>
+  <div *ngIf="this.temFeedbacks.length === 0 && this.feedbacks.length === 0" fxLayout="row" fxLayoutAlign="center"
+    style="margin-top: 10rem;" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+    <div fxFlex="100" class="text-center">
+      <h1 class="text-muted">Create New Feedback</h1>
+    </div>
+    <div fxFlex="100" class="text-center">
+      <h2 class="text-muted">Click "Add" Button</h2>
+    </div>
+  </div>
 </div>

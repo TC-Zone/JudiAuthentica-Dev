@@ -400,7 +400,7 @@ export class NavigationService {
       tooltip: "Client management",
       icon: "person",
       state: "users/user-table",
-      disabled: false
+      disabled: true
     },
     {
       name: "Client Management",
@@ -408,7 +408,7 @@ export class NavigationService {
       tooltip: "CliManagementent ",
       icon: "person",
       state: "clients/client-table",
-      disabled: false
+      disabled: true
     },
     {
       name: "Product Catalogue",
@@ -416,7 +416,7 @@ export class NavigationService {
       tooltip: "Product management",
       icon: "assignment",
       state: "productCrud/show",
-      disabled: false
+      disabled: true
     },
     // {
     //   name: "Instant Feedback",
@@ -424,7 +424,7 @@ export class NavigationService {
     //   tooltip: "Feedback Management",
     //   icon: "feedback",
     //   state: "surveys",
-    //   disabled: false
+    //   disabled: true
     // },
     // {
     //   name: "E-Vote",
@@ -432,7 +432,7 @@ export class NavigationService {
     //   tooltip: "E-Vote",
     //   icon: "thumbs_up_down",
     //   state: "evote/showEvote",
-    //   disabled: false
+    //   disabled: true
     // },
     {
       name: "Community",
@@ -440,7 +440,7 @@ export class NavigationService {
       tooltip: "Community",
       icon: "group",
       state: "community/community-view",
-      disabled: false
+      disabled: true
     },
     {
       name: "ClearPicture Survey",
@@ -448,7 +448,7 @@ export class NavigationService {
       tooltip: "Future Survey",
       icon: "language",
       state: "future-survey",
-      disabled: false
+      disabled: true
     },
 
     // ,

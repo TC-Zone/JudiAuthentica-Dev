@@ -19,8 +19,12 @@ import { Router, ActivatedRoute } from "@angular/router";
   animations: egretAnimations
 })
 export class RoleTableComponent implements OnInit, OnDestroy {
-  public roles: any[];
   public pageSize = 10;
+
+  public roles: any[];
+  public adminRoleId;
+  public adminRoleAuthorities;
+  public commonAndAdminAuthorities = [];
 
   public componentList = [];
   public editRoleId: String;
@@ -43,6 +47,7 @@ export class RoleTableComponent implements OnInit, OnDestroy {
     if (currentClient) {
       this.clientId = currentClient.id;
       this.getClientRoles();
+      this.getCommonAndAdminAuthorities();
     }
   }
 
@@ -52,10 +57,15 @@ export class RoleTableComponent implements OnInit, OnDestroy {
     }
   }
 
-
   getClientRoles() {
     this.getItemSub = this.clientService.getClient(this.clientId).subscribe(successResp => {
       this.roles = successResp.content.roles;
+      this.roles.forEach(role => {
+        if (role.predefined === 'true') {
+          this.adminRoleId = role.id;
+        }
+      });
+      this.getAdminAuthorities(this.adminRoleId);
     },
       error => {
         this.errDialog.showError(error);
@@ -63,34 +73,37 @@ export class RoleTableComponent implements OnInit, OnDestroy {
     );
   }
 
+  getAdminAuthorities(id) {
+    this.clientService.getAdminAuthority(id).subscribe(response => {
+      this.adminRoleAuthorities = response.content;
+    });
+  }
 
-  // getItems() {
-  //   this.getItemSub = this.clientService.getAllUserRoles().subscribe(
-  //     response => {
-  //       this.items = response.content;
-  //     },
-  //     error => {
-  //       this.errDialog.showError(error);
-  //     }
-  //   );
-  // }
+  getCommonAndAdminAuthorities() {
+    this.clientService.getCommonAndAdminAuthority().subscribe(response => {
+      response.content.forEach(section => {
+        section.authorities.forEach(authority => {
+          this.commonAndAdminAuthorities.push(authority);
+        });
+      });
+    });
+  }
 
-  /*
-  * Open Create and Update Role popup window
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
-
-  openPopUp(data: any = {}, isNew?) {
-    
+  openPopUp(roleData: any = {}, isNew?) {
     let title = isNew ? "Create New User Role" : "Update User Role";
-    data["isNew"] = isNew;
+    roleData["isNew"] = isNew;
     let dialogRef: MatDialogRef<any> = this.dialog.open(
       RoleTablePopupComponent,
       {
         width: "900px",
         disableClose: true,
-        data: { title: title, payload: data, clientID: this.clientId }
+        data: {
+          title: title,
+          roleData: roleData,
+          clientID: this.clientId,
+          adminRoleAuthorities: this.adminRoleAuthorities,
+          commonAndAdminAuthorities: this.commonAndAdminAuthorities
+        }
       }
     );
     dialogRef.afterClosed().subscribe(res => {
@@ -114,9 +127,8 @@ export class RoleTableComponent implements OnInit, OnDestroy {
             this.errDialog.showError(error);
           });
       } else {
-        // console.log('------------ update user role object ---------------');
-        res["localizedName"] = "";
-        // console.log(res);
+        console.log('------------ update user role object ---------------');
+        console.log(res);
         this.clientService.updateRloe(this.editRoleId, res).subscribe(
           response => {
             // console.log('--------------- create user role response ----------------');
@@ -134,21 +146,14 @@ export class RoleTableComponent implements OnInit, OnDestroy {
     });
   }
 
-  /*
-   * Edit User Role
-   * Created by Prasad Kumara
-   * 14/02/2019
-   */
   editRole(role) {
-    // console.log('------------- edit role ----------------');
-    // console.log(role);
     this.editRoleId = role.id;
-    this.clientService.getOneRoleAuthorities(role.id).subscribe(
+    this.clientService.getRoleAuthorities(role.id).subscribe(
       response => {
-        // console.log(response.content);
         const roleData = {
           name: response.content.name,
           description: response.content.description,
+          predefined: response.content.predefined,
           authorities: response.content.authorities
         };
         this.openPopUp(roleData, false);

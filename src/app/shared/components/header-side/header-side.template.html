@@ -62,11 +62,11 @@
       <mat-icon>portrait</mat-icon>
       <span>Profile Settings</span>
     </button>
-    <button mat-menu-item [routerLink]="['/profile/account-settings']">
+    <button mat-menu-item [routerLink]="['/profile/account-settings']" [roleAuthorization]="'isPredefined'">
       <mat-icon>work</mat-icon>
       <span>Account Settings</span>
     </button>
-    <button mat-menu-item [routerLink]="['/profile/general-settings']">
+    <button mat-menu-item [routerLink]="['/profile/general-settings']" [roleAuthorization]="'isPredefined'">
       <mat-icon>settings</mat-icon>
       <span>General Settings</span>
     </button>

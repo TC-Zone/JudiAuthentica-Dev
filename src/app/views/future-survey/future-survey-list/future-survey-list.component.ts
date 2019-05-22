@@ -24,7 +24,7 @@ export class FutureSurveyListComponent implements OnInit {
   public futureSurveys: any[] = [];
   getClientSub: Subscription;
 
-  public clients: any[];
+  // public clients: any[];
   public response: ResponseModel;
 
   public statusArray = {
@@ -52,7 +52,7 @@ export class FutureSurveyListComponent implements OnInit {
 
   ngOnInit() {
     this.getAllFutureSurveys();
-    this.getAllClients();
+    // this.getAllClients();
   }
 
   ngOnDestroy() {
@@ -261,12 +261,12 @@ export class FutureSurveyListComponent implements OnInit {
       });
   }
 
-  getAllClients() {
-    this.getClientSub = this.clientService.getClients().subscribe(data => {
-      this.response = data;
-      this.clients = this.response.content;
-    });
-  }
+  // getAllClients() {
+  //   this.getClientSub = this.clientService.getClients().subscribe(data => {
+  //     this.response = data;
+  //     this.clients = this.response.content;
+  //   });
+  // }
 
   navigateToSurveyEditor(res?: any) {
     if (res) {

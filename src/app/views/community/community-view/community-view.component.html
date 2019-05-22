@@ -5,7 +5,8 @@
   <button mat-raised-button class="mb-05" color="primary" (click)="communityPopUp({}, true)">Add Community</button>
   <span fxFlex></span>
   <p *ngIf="this.temCommunities.length > 0" class="mat-select-lable"> Page Size: </p>
-  <mat-select *ngIf="this.temCommunities.length > 0" class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()" placeholder="Favorite food">
+  <mat-select *ngIf="this.temCommunities.length > 0" class="mat-raised-select" [(value)]="pageSize"
+    (selectionChange)="changeValue()" placeholder="Favorite food">
     <mat-option *ngFor="let item of pageSizeArray" [value]="item">{{item}}</mat-option>
   </mat-select>
 </div>
@@ -31,17 +32,23 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="navigateCommunity(row)"><mat-icon>list</mat-icon> View</button>
-              <button mat-menu-item (click)="communityPopUp(row, false)"><mat-icon>edit</mat-icon> Edit</button>
-              <button mat-menu-item (click)="deleteCommunity(row)"><mat-icon>delete</mat-icon> Delete</button>
+              <button mat-menu-item (click)="navigateCommunity(row)">
+                <mat-icon>list</mat-icon> View
+              </button>
+              <button mat-menu-item (click)="communityPopUp(row, false)">
+                <mat-icon>edit</mat-icon> Edit
+              </button>
+              <button mat-menu-item (click)="deleteCommunity(row)">
+                <mat-icon>delete</mat-icon> Delete
+              </button>
             </mat-menu>
-            </td>
-          </tr>
+          </td>
+        </tr>
       </tbody>
       <tfoot>
-        <tr >
+        <tr>
           <td class="pt-1 pb-1 pl-1">
-            <div class="pagination">{{totalRecords}} Created, {{quota}} Quota</div>
+            <div class="pagination">{{totalRecords}} Created, {{usage}} Usage, {{quota}} Quota</div>
           </td>
           <td colspan="7" class="text-center">
             <nav aria-label="Page navigation example">
@@ -57,7 +64,7 @@
                     {{page}}
                   </a>
                 </li>
-                <li class="page-item"  [ngClass]="{'disabled':pageNumber >= totalPages.length}">
+                <li class="page-item" [ngClass]="{'disabled':pageNumber >= totalPages.length}">
                   <a class="page-link" (click)="fetchAllCommunities(pageNumber+1)" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                     <span class="sr-only">Next</span>
@@ -71,7 +78,8 @@
     </table>
   </mat-card-content>
 </mat-card>
-<div *ngIf="this.temCommunities.length === 0 && this.communities.length === 0" fxLayout="row" fxLayoutAlign="center" style="margin-top: 10rem;" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+<div *ngIf="this.temCommunities.length === 0 && this.communities.length === 0" fxLayout="row" fxLayoutAlign="center"
+  style="margin-top: 10rem;" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
   <div fxFlex="100" class="text-center">
     <h1 class="text-muted">Create New Community</h1>
   </div>

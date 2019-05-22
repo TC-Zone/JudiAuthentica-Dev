@@ -20,6 +20,7 @@ import {
   MatListModule,
   MatCheckboxModule,
   MatTooltipModule,
+  MatTableModule,
   MatExpansionModule
 } from "@angular/material";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -36,9 +37,11 @@ import { CreateEventPopupComponent } from "./user-community/user-event/create-ev
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
 import { UserEventComponent } from "./user-community/user-event/user-event.component";
 import { UserFeedbackComponent } from "./user-community/user-feedback/user-feedback.component";
+import { CreateFeedbackPopupComponent } from "./user-community/user-feedback/create-feedback-popup/create-feedback-popup.component";
 import { UserPromotionComponent } from "./user-community/user-promotion/user-promotion.component";
 import { CreatePromotionPopupComponent } from "./user-community/user-promotion/create-promotion-popup/create-promotion-popup.component";
 import { AuthenticationService } from "../sessions/authentication.service";
+import { UserFeedbackService } from "../community/user-community/user-feedback/user-feedback.service";
 
 @NgModule({
   imports: [
@@ -71,6 +74,7 @@ import { AuthenticationService } from "../sessions/authentication.service";
     MatCheckboxModule,
     MatTooltipModule,
     MatExpansionModule,
+    MatTableModule,
     RouterModule.forChild(CommunityRouts)
   ],
   declarations: [
@@ -81,13 +85,15 @@ import { AuthenticationService } from "../sessions/authentication.service";
     UserEventComponent,
     UserFeedbackComponent,
     UserPromotionComponent,
-    CreatePromotionPopupComponent
+    CreatePromotionPopupComponent,
+    CreateFeedbackPopupComponent
   ],
   entryComponents: [
     CommunityViewPopupComponent,
     CreateEventPopupComponent,
-    CreatePromotionPopupComponent
+    CreatePromotionPopupComponent,
+    CreateFeedbackPopupComponent
   ],
-  providers: [AuthenticationService]
+  providers: [AuthenticationService, UserFeedbackService]
 })
 export class CommunityModule {}

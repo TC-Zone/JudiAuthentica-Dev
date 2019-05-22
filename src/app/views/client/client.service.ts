@@ -43,14 +43,23 @@ export class ClientService {
   getDisplayAuthority(): Observable<any> {
     return this.http.get(this.sectionsUrl + "types?types=D").pipe(catchError(this.handleError));
   }
-  getUserAuthority(): Observable<any> {
+  getAllUserAuthority(): Observable<any> {
     return this.http.get(this.sectionsUrl + "types?types=U&types=D").pipe(catchError(this.handleError));
+  }
+  getCommonAndAdminAuthority(): Observable<any> {
+    return this.http.get(this.sectionsUrl + "types?types=C&types=A").pipe(catchError(this.handleError));
+  }
+  getRoleAuthorities(roleId): any {
+    return this.http.get(this.roleUrl + '/' + roleId).pipe(catchError(this.handleError));
+  }
+  getAdminAuthority(id): Observable<any> {
+    return this.http.get(this.roleUrl + "/authorities/"+id).pipe(catchError(this.handleError));
   }
   getClientCategories(id): Observable<any> {
     return this.http.get(this.clientUrl + "/categories/" + id).pipe(catchError(this.handleError));
   }
   getClientCommunities(id): Observable<any> {
-    return this.http.get(environment.userApiUrl + "communities/client/" + id).pipe(catchError(this.handleError));
+    return this.http.get(environment.userApiUrl + "communities/client/" + id+"/"+undefined).pipe(catchError(this.handleError));
   }
 
 
@@ -180,20 +189,6 @@ export class ClientService {
       );
   }
 
-  /*
-  * Get Role Assign Authorities
-  * Created by Prasad Kumara
-  * 14/02/2019
-  */
-  getOneRoleAuthorities(roleId): any {
-    return this.http.get(this.roleUrl + '/' + roleId)
-      .pipe(
-        map(data => {
-          return data;
-        }),
-        catchError(this.handleError)
-      );
-  }
 
   private handleError(error: HttpErrorResponse | any) {
     // console.log(error);
