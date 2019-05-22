@@ -58,18 +58,41 @@ export class ProductCrudService {
   }
 
   // --------- BH ----------
-  getPageProducts(pageNumber, pageSize): Observable<any> {
+  getPageProducts(pageNumber, pageSize, clientId, categories): Observable<any> {
     return this.http
       .get(
         this.productApiUrl +
           "?pageNumber=" +
           pageNumber +
           "&pageSize=" +
-          pageSize
+          pageSize +
+          "&clientId=" +
+          clientId +
+          "&categories=" +
+          categories
       )
       .pipe(catchError(this.handleError));
   }
   // --------- BH ----------
+
+  /** RAVEEN SANKALPA - 2019/05/03
+   * Filter products by client id and categories that assigned to user.
+   *
+   * @param clientId
+   *
+   * @param categories
+   */
+  getAllProductsByFilter(clientId, categories): Observable<any> {
+    return this.http
+      .get(
+        this.productApiUrl +
+          "?clientId=" +
+          clientId +
+          "&categories=" +
+          categories
+      )
+      .pipe(catchError(this.handleError));
+  }
 
   getProductById(proId): Observable<any> {
     return this.http

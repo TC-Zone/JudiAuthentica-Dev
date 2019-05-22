@@ -58,6 +58,7 @@ export class ClientService {
   getClientCategories(id): Observable<any> {
     return this.http.get(this.clientUrl + "/categories/" + id).pipe(catchError(this.handleError));
   }
+  // Service is accessed by two places - In Product creation popup , New User Creation
   getClientCommunities(id): Observable<any> {
     return this.http.get(environment.userApiUrl + "communities/client/" + id+"/"+undefined).pipe(catchError(this.handleError));
   }
@@ -121,7 +122,7 @@ export class ClientService {
 
   updateUserCommunity(id, item): Observable<any> {
     console.log(this.userUrl + "/communities/" + id);
-    
+
     return this.http
       .put<any>(this.userUrl + "/communities/" + id, item)
       .pipe(catchError(this.handleError));
