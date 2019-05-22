@@ -59,6 +59,7 @@ export class InviteeInteractionViewComponent implements OnInit {
   public defaultLang: surveyLanguage;
   public currentLang: surveyLanguage;
   public langCardStatus = true;
+  public inviteeGroupId: any;
 
   public getLangsSub: Subscription;
   public originMap = new Map();
@@ -79,7 +80,6 @@ export class InviteeInteractionViewComponent implements OnInit {
     private loader: AppLoaderService,
     private fsOperationalService: FutureSurveyOperationalService
   ) {
-
     this.loader.open();
     this.originMap.set("Survey", "1");
     this.originMap.set("eVote", "2");
@@ -102,25 +102,25 @@ export class InviteeInteractionViewComponent implements OnInit {
     const originStr = urlArr[0];
     this.origin = originStr;
 
-
     this.inviteeInteractionViewService
       .getInvitationByUrl(this.originMap.get(originStr), this.publishUrl)
       .subscribe(
         data => {
           console.log(data.content.futureSurvey.status);
-
+          console.log("data.content");
+          console.log(data.content);
           if (data.content.futureSurvey.status === 0) {
             // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - ON_PREMISE");
             this.setSurveyStatusErrorMsg("ON_PREMISE");
           } else if (data.content.futureSurvey.status === 1) {
             console.log(data.content.futureSurvey.id);
-
+            this.inviteeGroupId = data.content.inviteeGroup.id;
             let jsonContent = JSON.parse(data.content.futureSurvey.jsonContent);
             console.log(JSON.parse(jsonContent).title);
 
-            if (typeof (JSON.parse(jsonContent).title) !== "string") {
+            if (typeof JSON.parse(jsonContent).title !== "string") {
               this.titleJson = JSON.parse(jsonContent).title;
-              this.surveyLoginTitle = this.titleJson['default'];
+              this.surveyLoginTitle = this.titleJson["default"];
             } else {
               this.surveyLoginTitle = JSON.parse(jsonContent).title;
             }
@@ -138,7 +138,6 @@ export class InviteeInteractionViewComponent implements OnInit {
 
             this.loader.close();
             this.isVisible = true;
-
           } else if (data.content.futureSurvey.status === 2) {
             // console.log("---------- ---------- Method : doLog() / interactLoginPost / Label : Survey-Status - FULFILLED");
           } else if (data.content.futureSurvey.status === 3) {
@@ -226,11 +225,14 @@ export class InviteeInteractionViewComponent implements OnInit {
   }
 
   changeDefaultLang() {
-    localStorage.setItem("surveySelectedLang", JSON.stringify(this.currentLang));
+    localStorage.setItem(
+      "surveySelectedLang",
+      JSON.stringify(this.currentLang)
+    );
     this.translateService.use(this.currentLang.code);
 
     if (this.titleJson !== null) {
-      if (typeof (this.titleJson) !== "string") {
+      if (typeof this.titleJson !== "string") {
         if (this.titleJson.hasOwnProperty(this.currentLang.code)) {
           this.surveyLoginTitle = this.titleJson[this.currentLang.code];
         } else {
@@ -243,10 +245,19 @@ export class InviteeInteractionViewComponent implements OnInit {
   }
 
   doLog() {
-    let username = this.interactForm.get("username").value;
-    let password = this.interactForm.get("password").value;
+    const username = this.interactForm.get("username").value;
+    const password = this.interactForm.get("password").value;
 
-    let inviteePart: InviteePart = new InviteePart(username, password);
+    const inviteeGroupPart: InviteeGroupData = new InviteeGroupData(
+      this.inviteeGroupId
+    );
+
+    // RAVEEN : 2019/05/22 - Adding invitee group id with credentials to reduce duplicate credentials
+    const inviteePart: InviteePart = new InviteePart(
+      username,
+      password,
+      inviteeGroupPart
+    );
 
     this.inviteeInteractionViewService.interactLoginPost(inviteePart).subscribe(
       response => {
@@ -327,7 +338,8 @@ export class InviteeInteractionViewComponent implements OnInit {
             localStorage.setItem("surveyResultId", null);
             localStorage.setItem("originalResultArray", null);
           }
-          document.getElementById("finishedSurveyMsg-iiv").style.display = "none";
+          document.getElementById("finishedSurveyMsg-iiv").style.display =
+            "none";
 
           if (this.interactionResponStatus === 1) {
             document.getElementById("btnViewSummary").style.display = "none";
@@ -351,7 +363,6 @@ export class InviteeInteractionViewComponent implements OnInit {
   }
 
   viewSurvey() {
-
     this.fsOperationalService.optionUnselect(Survey);
 
     this.jsonContentJSON = JSON.parse(this.jsonContent);
@@ -397,7 +408,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     localStorage.setItem("onCompleteStatus", "onComplete");
     let thankYouMsg = this.setThankYouMsg("DEFAULT_MSG");
 
-    this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
+    this.surveyModel.onUpdateQuestionCssClasses.add(function(survey, options) {
       var classes = options.cssClasses;
 
       if (options.question.getType() === "rating") {
@@ -442,7 +453,7 @@ export class InviteeInteractionViewComponent implements OnInit {
     ];
 
     // .............. ON COMPLET START HERE ..........................
-    this.surveyModel.onComplete.add(function (result) {
+    this.surveyModel.onComplete.add(function(result) {
       if (localStorage.getItem("onCompleteStatus") === "onComplete") {
         localStorage.setItem("survey_currentPage_" + interactionId, lastPage);
       }
@@ -570,24 +581,32 @@ export class InviteeInteractionViewComponent implements OnInit {
     // let jsonContent = this.jsonContentJSON;
     let jsonContent = JSON.parse(this.jsonContent);
 
-    if (typeof (jsonContent.title) !== "string") {
+    if (typeof jsonContent.title !== "string") {
       if (jsonContent.title.hasOwnProperty(this.currentLang.code)) {
-        jsonContent.title = this.translateService.instant('SUMMERYTITLE') + " " + jsonContent.title[this.currentLang.code];
+        jsonContent.title =
+          this.translateService.instant("SUMMERYTITLE") +
+          " " +
+          jsonContent.title[this.currentLang.code];
       } else {
-        jsonContent.title = this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title["default"];
+        jsonContent.title =
+          this.translateService.instant("SUMMERYTITLE") +
+          " " +
+          jsonContent.title["default"];
       }
     } else {
-      jsonContent.title = this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title;
+      jsonContent.title =
+        this.translateService.instant("SUMMERYTITLE") + " " + jsonContent.title;
     }
-
 
     // ............... Change Survey default Lang to Current Lang ............
     this.surveyModel = new Survey.Model(jsonContent);
     Survey.StylesManager.applyTheme("bootstrap");
-    this.surveyModel.locale = JSON.parse(localStorage.getItem("surveySelectedLang")).code;
+    this.surveyModel.locale = JSON.parse(
+      localStorage.getItem("surveySelectedLang")
+    ).code;
     // .......................................................................
 
-    this.surveyModel.onUpdateQuestionCssClasses.add(function (survey, options) {
+    this.surveyModel.onUpdateQuestionCssClasses.add(function(survey, options) {
       var classes = options.cssClasses;
 
       if (options.question.getType() === "rating") {
@@ -777,15 +796,23 @@ export class InviteeInteractionViewComponent implements OnInit {
 }
 
 export class InviteePart {
-  constructor(public username, public password: string) { }
+  constructor(
+    public username,
+    public password,
+    public inviteeGroup: InviteeGroupData
+  ) {}
+}
+
+export class InviteeGroupData {
+  constructor(public id: string) {}
 }
 
 export class ValueTemplate {
-  constructor(public value: any) { }
+  constructor(public value: any) {}
 }
 
 export class MatrixBaseTemplate {
-  constructor(public rowValue, public columnValue: any) { }
+  constructor(public rowValue, public columnValue: any) {}
 }
 
 export class FSAnswer {
@@ -793,7 +820,7 @@ export class FSAnswer {
     public interactionId: any,
     public futureSurveyAnswers: any,
     public originalResultArray: any
-  ) { }
+  ) {}
 }
 
 async function getBase64ImageFromUrl(imageUrl) {
@@ -804,7 +831,7 @@ async function getBase64ImageFromUrl(imageUrl) {
     var reader = new FileReader();
     reader.addEventListener(
       "load",
-      function () {
+      function() {
         resolve(reader.result);
       },
       false

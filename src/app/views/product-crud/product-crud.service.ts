@@ -82,14 +82,16 @@ export class ProductCrudService {
    *
    * @param categories
    */
-  getAllProductsByFilter(clientId, categories): Observable<any> {
+  getAllProductsByFilter(clientId, categories, isPredefined): Observable<any> {
     return this.http
       .get(
         this.productApiUrl +
           "?clientId=" +
           clientId +
           "&categories=" +
-          categories
+          categories +
+          "&predefined=" +
+          isPredefined
       )
       .pipe(catchError(this.handleError));
   }

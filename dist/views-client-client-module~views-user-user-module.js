@@ -33298,7 +33298,7 @@ var NgxIntlTelInputModule = /** @class */ (function () {
 /*!********************************************!*\
   !*** ./src/app/model/ClientModel.model.ts ***!
   \********************************************/
-/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, UserUpdateReq, UserCategoryUpdateReq, UserCommunityUpdateRequest, ClientCategoryUpdateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
+/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, AdminRoleData, AuthorityData, UserCreateReq, UserUpdateReq, UserCategoryUpdateReq, UserCommunityUpdateRequest, ClientCategoryUpdateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33309,6 +33309,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientUpdateReq", function() { return ClientUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CountryData", function() { return CountryData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserData", function() { return UserData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminRoleData", function() { return AdminRoleData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthorityData", function() { return AuthorityData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCreateReq", function() { return UserCreateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserUpdateReq", function() { return UserUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCategoryUpdateReq", function() { return UserCategoryUpdateReq; });
@@ -33377,11 +33379,28 @@ var CountryData = /** @class */ (function () {
 }());
 
 var UserData = /** @class */ (function () {
-    function UserData(accountName, email) {
+    function UserData(accountName, email, role) {
         this.accountName = accountName;
         this.email = email;
+        this.role = role;
     }
     return UserData;
+}());
+
+var AdminRoleData = /** @class */ (function () {
+    function AdminRoleData(name, description, authorities) {
+        this.name = name;
+        this.description = description;
+        this.authorities = authorities;
+    }
+    return AdminRoleData;
+}());
+
+var AuthorityData = /** @class */ (function () {
+    function AuthorityData(id) {
+        this.id = id;
+    }
+    return AuthorityData;
 }());
 
 var UserCreateReq = /** @class */ (function () {
@@ -33484,9 +33503,8 @@ var LicenseUpdateRequest = /** @class */ (function () {
 }());
 
 var profileUpdateReq = /** @class */ (function () {
-    function profileUpdateReq(userName, password, email) {
-        this.userName = userName;
-        this.password = password;
+    function profileUpdateReq(accountName, email) {
+        this.accountName = accountName;
         this.email = email;
     }
     return profileUpdateReq;
@@ -33561,6 +33579,7 @@ var ClientService = /** @class */ (function () {
         this.roleUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "platform-user-roles";
         this.geoUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "geo";
         this.imageUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + 'downloads/client/';
+        this.sectionsUrl = _environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "sections/";
     }
     ClientService.prototype.getClients = function () {
         return this.http.get(this.clientUrl).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
@@ -33580,11 +33599,27 @@ var ClientService = /** @class */ (function () {
     ClientService.prototype.getCountry = function () {
         return this.http.get(this.geoUrl + "/countries").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
+    ClientService.prototype.getDisplayAuthority = function () {
+        return this.http.get(this.sectionsUrl + "types?types=D").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ClientService.prototype.getAllUserAuthority = function () {
+        return this.http.get(this.sectionsUrl + "types?types=U&types=D").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ClientService.prototype.getCommonAndAdminAuthority = function () {
+        return this.http.get(this.sectionsUrl + "types?types=C&types=A").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ClientService.prototype.getRoleAuthorities = function (roleId) {
+        return this.http.get(this.roleUrl + '/' + roleId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ClientService.prototype.getAdminAuthority = function (id) {
+        return this.http.get(this.roleUrl + "/authorities/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
     ClientService.prototype.getClientCategories = function (id) {
         return this.http.get(this.clientUrl + "/categories/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
+    // Service is accessed by two places - In Product creation popup , New User Creation
     ClientService.prototype.getClientCommunities = function (id) {
-        return this.http.get(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "communities/client/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+        return this.http.get(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + "communities/client/" + id + "/" + undefined).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
     ClientService.prototype.addClient = function (item) {
         return this.http.post(this.clientUrl, item).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
@@ -33673,17 +33708,6 @@ var ClientService = /** @class */ (function () {
     */
     ClientService.prototype.getAllAuthorities = function () {
         return this.http.get(_environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl + 'platform-authorities')
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
-            return data;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    /*
-    * Get Role Assign Authorities
-    * Created by Prasad Kumara
-    * 14/02/2019
-    */
-    ClientService.prototype.getOneRoleAuthorities = function (roleId) {
-        return this.http.get(this.roleUrl + '/' + roleId)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
             return data;
         }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));

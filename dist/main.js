@@ -74,6 +74,7 @@ var map = {
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
 		"views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-module~vie~0709af30",
+		"views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
 		"views-product-crud-product-crud-module"
 	],
@@ -94,6 +95,7 @@ var map = {
 		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
 		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
+		"views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
 		"views-survey-survey-module"
 	],
@@ -635,6 +637,89 @@ var PositiveNumberAndLetterOnly = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/directives/RoleAuthorization.directive.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/directives/RoleAuthorization.directive.ts ***!
+  \***********************************************************/
+/*! exports provided: RoleAuthorization */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RoleAuthorization", function() { return RoleAuthorization; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../shared/services/auth/auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var RoleAuthorization = /** @class */ (function () {
+    function RoleAuthorization(el) {
+        this.el = el;
+        this.storage_name = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_1__["authProperties"].storage_name;
+        this.predefined = "false";
+        var role = JSON.parse(localStorage.getItem(this.storage_name)).userData.role;
+        this.predefined = role.predefined;
+        this.userAuthorities = role.authorities;
+    }
+    RoleAuthorization.prototype.ngOnInit = function () {
+        var _this = this;
+        this.el.nativeElement.style.display = 'none';
+        if (this.roleAuthorization === "isPredefined") {
+            if (this.predefined === "true") {
+                this.el.nativeElement.style.display = 'block';
+            }
+        }
+        else {
+            this.userAuthorities.forEach(function (item) {
+                if (item.code === _this.roleAuthorization) {
+                    _this.el.nativeElement.style.display = 'block';
+                }
+            });
+        }
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", String)
+    ], RoleAuthorization.prototype, "roleAuthorization", void 0);
+    RoleAuthorization = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Directive"])({
+            selector: "[roleAuthorization]"
+        }),
+        __metadata("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"]])
+    ], RoleAuthorization);
+    return RoleAuthorization;
+}());
+
+// @Directive({
+//   selector: "[adminAuthorization]"
+// })
+// export class AdminAuthorization implements OnInit {
+//   private storage_name = authProperties.storage_name;
+//   public predefined = "false";
+//   // @Input() adminAuthorization: string;
+//   constructor(private el: ElementRef) {
+//     let role = JSON.parse(localStorage.getItem(this.storage_name)).userData.role;
+//     this.predefined = role.predefined;
+//   }
+//   ngOnInit() {
+//     this.el.nativeElement.style.display = 'none';
+//     if (this.predefined === "true") {
+//       this.el.nativeElement.style.display = 'block';
+//     }
+//   }
+// }
+
+
+/***/ }),
+
 /***/ "./src/app/shared/animations/egret-animations.ts":
 /*!*******************************************************!*\
   !*** ./src/app/shared/animations/egret-animations.ts ***!
@@ -1041,7 +1126,7 @@ var HeaderSideComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'compact'\" mat-icon-button id=\"sidenavToggle\" (click)=\"toggleSidenav()\"\r\n    matTooltip=\"Toggle Hide/Open\">\r\n    <mat-icon>menu</mat-icon>\r\n  </button>\r\n  <!-- Sidenav toggle collapse -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'closed'\" mat-icon-button id=\"collapseToggle\" fxHide.lt-md=\"true\"\r\n    (click)=\"toggleCollapse()\" matTooltip=\"Toggle Collapse\" class=\"toggle-collapsed\">\r\n    <mat-icon>chevron_left</mat-icon>\r\n  </button>\r\n  <!-- Search form -->\r\n  <!-- <div\r\n  fxFlex\r\n  fxHide.lt-sm=\"true\"\r\n  class=\"search-bar\">\r\n    <form class=\"top-search-form\">\r\n      <mat-icon role=\"img\">search</mat-icon>\r\n      <input autofocus=\"true\" placeholder=\"Search\" type=\"text\">\r\n    </form>\r\n  </div> -->\r\n  <span fxFlex></span>\r\n  <!-- Language Switcher -->\r\n  <!-- <mat-select\r\n  placeholder=\"\"\r\n  id=\"langToggle\"\r\n  [style.width]=\"'auto'\"\r\n  name=\"currentLang\"\r\n  [(ngModel)]=\"currentLang\"\r\n  (selectionChange)=\"setLang($event)\">\r\n    <mat-option\r\n    *ngFor=\"let lang of availableLangs\"\r\n    [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n  </mat-select> -->\r\n  <!-- Theme Switcher -->\r\n  <button mat-icon-button id=\"schemeToggle\" [style.overflow]=\"'visible'\" matTooltip=\"Color Schemes\"\r\n    [matMenuTriggerFor]=\"themeMenu\" class=\"topbar-button-right\">\r\n    <mat-icon>format_color_fill</mat-icon>\r\n  </button>\r\n  <mat-menu #themeMenu=\"matMenu\">\r\n    <mat-grid-list class=\"theme-list\" cols=\"2\" rowHeight=\"48px\">\r\n      <mat-grid-tile *ngFor=\"let theme of egretThemes\" (click)=\"changeTheme(theme)\">\r\n        <div mat-menu-item [title]=\"theme.name\">\r\n          <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n          <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n        </div>\r\n      </mat-grid-tile>\r\n    </mat-grid-list>\r\n  </mat-menu>\r\n  <!-- Notification toggle button -->\r\n  <button mat-icon-button matTooltip=\"Notifications\" (click)=\"toggleNotific()\" [style.overflow]=\"'visible'\"\r\n    class=\"topbar-button-right\">\r\n    <mat-icon>notifications</mat-icon>\r\n    <span class=\"notification-number mat-bg-warn\">3</span>\r\n  </button>\r\n  <!-- Top left user menu -->\r\n  <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right img-button\">\r\n    <img src=\"{{currentUser.image}}\" alt=\"\">\r\n  </button>\r\n  <mat-menu #accountMenu=\"matMenu\">\r\n    <button mat-menu-item [routerLink]=\"['/profile/profile-settings']\">\r\n      <mat-icon>portrait</mat-icon>\r\n      <span>Profile Settings</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/account-settings']\">\r\n      <mat-icon>work</mat-icon>\r\n      <span>Account Settings</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/general-settings']\">\r\n      <mat-icon>settings</mat-icon>\r\n      <span>General Settings</span>\r\n    </button>\r\n    <!-- <button mat-menu-item>\r\n      <mat-icon>notifications_off</mat-icon>\r\n      <span>Disable alerts</span>\r\n    </button> -->\r\n    <a mat-menu-item href=\"sessions/signin\" (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </a>\r\n    <!-- <button mat-menu-item (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </button> -->\r\n  </mat-menu>\r\n</mat-toolbar>"
+module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'compact'\" mat-icon-button id=\"sidenavToggle\" (click)=\"toggleSidenav()\"\r\n    matTooltip=\"Toggle Hide/Open\">\r\n    <mat-icon>menu</mat-icon>\r\n  </button>\r\n  <!-- Sidenav toggle collapse -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'closed'\" mat-icon-button id=\"collapseToggle\" fxHide.lt-md=\"true\"\r\n    (click)=\"toggleCollapse()\" matTooltip=\"Toggle Collapse\" class=\"toggle-collapsed\">\r\n    <mat-icon>chevron_left</mat-icon>\r\n  </button>\r\n  <!-- Search form -->\r\n  <!-- <div\r\n  fxFlex\r\n  fxHide.lt-sm=\"true\"\r\n  class=\"search-bar\">\r\n    <form class=\"top-search-form\">\r\n      <mat-icon role=\"img\">search</mat-icon>\r\n      <input autofocus=\"true\" placeholder=\"Search\" type=\"text\">\r\n    </form>\r\n  </div> -->\r\n  <span fxFlex></span>\r\n  <!-- Language Switcher -->\r\n  <!-- <mat-select\r\n  placeholder=\"\"\r\n  id=\"langToggle\"\r\n  [style.width]=\"'auto'\"\r\n  name=\"currentLang\"\r\n  [(ngModel)]=\"currentLang\"\r\n  (selectionChange)=\"setLang($event)\">\r\n    <mat-option\r\n    *ngFor=\"let lang of availableLangs\"\r\n    [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n  </mat-select> -->\r\n  <!-- Theme Switcher -->\r\n  <button mat-icon-button id=\"schemeToggle\" [style.overflow]=\"'visible'\" matTooltip=\"Color Schemes\"\r\n    [matMenuTriggerFor]=\"themeMenu\" class=\"topbar-button-right\">\r\n    <mat-icon>format_color_fill</mat-icon>\r\n  </button>\r\n  <mat-menu #themeMenu=\"matMenu\">\r\n    <mat-grid-list class=\"theme-list\" cols=\"2\" rowHeight=\"48px\">\r\n      <mat-grid-tile *ngFor=\"let theme of egretThemes\" (click)=\"changeTheme(theme)\">\r\n        <div mat-menu-item [title]=\"theme.name\">\r\n          <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n          <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n        </div>\r\n      </mat-grid-tile>\r\n    </mat-grid-list>\r\n  </mat-menu>\r\n  <!-- Notification toggle button -->\r\n  <button mat-icon-button matTooltip=\"Notifications\" (click)=\"toggleNotific()\" [style.overflow]=\"'visible'\"\r\n    class=\"topbar-button-right\">\r\n    <mat-icon>notifications</mat-icon>\r\n    <span class=\"notification-number mat-bg-warn\">3</span>\r\n  </button>\r\n  <!-- Top left user menu -->\r\n  <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right img-button\">\r\n    <img src=\"{{currentUser.image}}\" alt=\"\">\r\n  </button>\r\n  <mat-menu #accountMenu=\"matMenu\">\r\n    <button mat-menu-item [routerLink]=\"['/profile/profile-settings']\">\r\n      <mat-icon>portrait</mat-icon>\r\n      <span>Profile Settings</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/account-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n      <mat-icon>work</mat-icon>\r\n      <span>Account Settings</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/general-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n      <mat-icon>settings</mat-icon>\r\n      <span>General Settings</span>\r\n    </button>\r\n    <!-- <button mat-menu-item>\r\n      <mat-icon>notifications_off</mat-icon>\r\n      <span>Disable alerts</span>\r\n    </button> -->\r\n    <a mat-menu-item href=\"sessions/signin\" (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </a>\r\n    <!-- <button mat-menu-item (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </button> -->\r\n  </mat-menu>\r\n</mat-toolbar>"
 
 /***/ }),
 
@@ -1052,7 +1137,7 @@ module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header-topnav mat-elevation-z2\">\r\n  <div class=\"container\">\r\n    <div class=\"topnav\">\r\n      <!-- App Logo -->\r\n      <div class=\"topbar-branding\">\r\n        <!-- <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\"> -->\r\n        <img src=\"assets/images/truverus/TruVerus_Logo_short.png\" alt=\"\" class=\"app-logo\">\r\n      </div>\r\n\r\n      <ul class=\"menu\" *ngIf=\"!layoutConf.isMobile\">\r\n        <li *ngFor=\"let item of menuItems; let i = index;\">\r\n          <div *ngIf=\"item.type !== 'separator'\" routerLinkActive=\"open\">\r\n            <a matRipple routerLink=\"/{{item.state}}\" *ngIf=\"item.type === 'link'\">\r\n              <mat-icon>{{item.icon}}</mat-icon>\r\n              {{item.name | translate}}\r\n            </a>\r\n            <div *ngIf=\"item.type === 'dropDown'\">\r\n              <label matRipple for=\"drop-{{i}}\" class=\"toggle\"><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</label>\r\n              <a matRipple><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</a>\r\n              <input type=\"checkbox\" id=\"drop-{{i}}\" />\r\n              <ul>\r\n                <li *ngFor=\"let itemLvL2 of item.sub; let j = index;\" routerLinkActive=\"open\">\r\n                  <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\"\r\n                  *ngIf=\"itemLvL2.type !== 'dropDown'\">\r\n                    <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>\r\n                    {{itemLvL2.name | translate}}\r\n                  </a>\r\n\r\n                  <div *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n                    <label matRipple for=\"drop-{{i}}{{j}}\" class=\"toggle\">{{itemLvL2.name | translate}}</label>\r\n                    <a matRipple><mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>  {{itemLvL2.name | translate}}</a>\r\n                    <input type=\"checkbox\" id=\"drop-{{i}}{{j}}\" />\r\n                    <!-- Level 3 -->\r\n                    <ul>\r\n                      <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" routerLinkActive=\"open\">\r\n                        <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\">\r\n                          <mat-icon *ngIf=\"itemLvL3.icon\">{{itemLvL3.icon}}</mat-icon>\r\n                          {{itemLvL3.name | translate}}\r\n                        </a>\r\n                      </li>\r\n                    </ul>\r\n                  </div>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n      <span fxFlex></span>\r\n      <!-- End Navigation -->\r\n\r\n      <!-- Language Switcher -->\r\n      <mat-select\r\n      *ngIf=\"!layoutConf.isMobile\"\r\n      placeholder=\"\"\r\n      id=\"langToggle\"\r\n      [style.width]=\"'auto'\"\r\n      name=\"currentLang\"\r\n      [(ngModel)]=\"currentLang\"\r\n      (selectionChange)=\"setLang()\"\r\n      class=\"topbar-button-right\">\r\n        <mat-option\r\n        *ngFor=\"let lang of availableLangs\"\r\n        [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n      </mat-select>\r\n      <!-- Theme Switcher -->\r\n      <button\r\n      mat-icon-button\r\n      id=\"schemeToggle\"\r\n      [style.overflow]=\"'visible'\"\r\n      matTooltip=\"Color Schemes\"\r\n      [matMenuTriggerFor]=\"themeMenu\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>format_color_fill</mat-icon>\r\n      </button>\r\n      <mat-menu #themeMenu=\"matMenu\">\r\n        <mat-grid-list\r\n        class=\"theme-list\"\r\n        cols=\"2\"\r\n        rowHeight=\"48px\">\r\n          <mat-grid-tile\r\n          *ngFor=\"let theme of egretThemes\"\r\n          (click)=\"changeTheme(theme)\">\r\n            <div mat-menu-item [title]=\"theme.name\">\r\n              <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n              <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </mat-menu>\r\n      <!-- Notification toggle button -->\r\n      <button\r\n      mat-icon-button\r\n      matTooltip=\"Notifications\"\r\n      (click)=\"toggleNotific()\"\r\n      [style.overflow]=\"'visible'\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>notifications</mat-icon>\r\n        <span class=\"notification-number mat-bg-warn\">3</span>\r\n      </button>\r\n      <!-- Top left user menu -->\r\n      <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right mr-1 img-button\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </button>\r\n      <mat-menu #accountMenu=\"matMenu\">\r\n        <button mat-menu-item [routerLink]=\"['/profile/profile-settings']\">\r\n          <mat-icon>portrait</mat-icon>\r\n          <span>Profile Settings</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/account-settings']\">\r\n          <mat-icon>work</mat-icon>\r\n          <span>Account Settings</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/general-settings']\">\r\n          <mat-icon>settings</mat-icon>\r\n          <span>General Settings</span>\r\n        </button>\r\n        <!-- <button mat-menu-item>\r\n          <mat-icon>notifications_off</mat-icon>\r\n          <span>Disable alerts</span>\r\n        </button> -->\r\n        <button mat-menu-item (click)=\"signOut()\" >\r\n          <mat-icon>exit_to_app</mat-icon>\r\n          <span>Sign out</span>\r\n        </button>\r\n      </mat-menu>\r\n      <!-- Mobile screen menu toggle -->\r\n      <button\r\n      mat-icon-button\r\n      class=\"mr-1\"\r\n      (click)=\"toggleSidenav()\"\r\n      *ngIf=\"layoutConf.isMobile\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"header-topnav mat-elevation-z2\">\r\n  <div class=\"container\">\r\n    <div class=\"topnav\">\r\n      <!-- App Logo -->\r\n      <div class=\"topbar-branding\">\r\n        <!-- <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\"> -->\r\n        <img src=\"assets/images/truverus/TruVerus_Logo_short.png\" alt=\"\" class=\"app-logo\">\r\n      </div>\r\n\r\n      <ul class=\"menu\" *ngIf=\"!layoutConf.isMobile\">\r\n        <li *ngFor=\"let item of menuItems; let i = index;\">\r\n          <div *ngIf=\"item.type !== 'separator'\" routerLinkActive=\"open\">\r\n            <a matRipple routerLink=\"/{{item.state}}\" *ngIf=\"item.type === 'link'\">\r\n              <mat-icon>{{item.icon}}</mat-icon>\r\n              {{item.name | translate}}\r\n            </a>\r\n            <div *ngIf=\"item.type === 'dropDown'\">\r\n              <label matRipple for=\"drop-{{i}}\" class=\"toggle\"><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</label>\r\n              <a matRipple><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</a>\r\n              <input type=\"checkbox\" id=\"drop-{{i}}\" />\r\n              <ul>\r\n                <li *ngFor=\"let itemLvL2 of item.sub; let j = index;\" routerLinkActive=\"open\">\r\n                  <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\"\r\n                  *ngIf=\"itemLvL2.type !== 'dropDown'\">\r\n                    <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>\r\n                    {{itemLvL2.name | translate}}\r\n                  </a>\r\n\r\n                  <div *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n                    <label matRipple for=\"drop-{{i}}{{j}}\" class=\"toggle\">{{itemLvL2.name | translate}}</label>\r\n                    <a matRipple><mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>  {{itemLvL2.name | translate}}</a>\r\n                    <input type=\"checkbox\" id=\"drop-{{i}}{{j}}\" />\r\n                    <!-- Level 3 -->\r\n                    <ul>\r\n                      <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" routerLinkActive=\"open\">\r\n                        <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\">\r\n                          <mat-icon *ngIf=\"itemLvL3.icon\">{{itemLvL3.icon}}</mat-icon>\r\n                          {{itemLvL3.name | translate}}\r\n                        </a>\r\n                      </li>\r\n                    </ul>\r\n                  </div>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n      <span fxFlex></span>\r\n      <!-- End Navigation -->\r\n\r\n      <!-- Language Switcher -->\r\n      <mat-select\r\n      *ngIf=\"!layoutConf.isMobile\"\r\n      placeholder=\"\"\r\n      id=\"langToggle\"\r\n      [style.width]=\"'auto'\"\r\n      name=\"currentLang\"\r\n      [(ngModel)]=\"currentLang\"\r\n      (selectionChange)=\"setLang()\"\r\n      class=\"topbar-button-right\">\r\n        <mat-option\r\n        *ngFor=\"let lang of availableLangs\"\r\n        [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n      </mat-select>\r\n      <!-- Theme Switcher -->\r\n      <button\r\n      mat-icon-button\r\n      id=\"schemeToggle\"\r\n      [style.overflow]=\"'visible'\"\r\n      matTooltip=\"Color Schemes\"\r\n      [matMenuTriggerFor]=\"themeMenu\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>format_color_fill</mat-icon>\r\n      </button>\r\n      <mat-menu #themeMenu=\"matMenu\">\r\n        <mat-grid-list\r\n        class=\"theme-list\"\r\n        cols=\"2\"\r\n        rowHeight=\"48px\">\r\n          <mat-grid-tile\r\n          *ngFor=\"let theme of egretThemes\"\r\n          (click)=\"changeTheme(theme)\">\r\n            <div mat-menu-item [title]=\"theme.name\">\r\n              <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n              <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </mat-menu>\r\n      <!-- Notification toggle button -->\r\n      <button\r\n      mat-icon-button\r\n      matTooltip=\"Notifications\"\r\n      (click)=\"toggleNotific()\"\r\n      [style.overflow]=\"'visible'\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>notifications</mat-icon>\r\n        <span class=\"notification-number mat-bg-warn\">3</span>\r\n      </button>\r\n      <!-- Top left user menu -->\r\n      <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right mr-1 img-button\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </button>\r\n      <mat-menu #accountMenu=\"matMenu\">\r\n        <button mat-menu-item [routerLink]=\"['/profile/profile-settings']\">\r\n          <mat-icon>portrait</mat-icon>\r\n          <span>Profile Settings</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/account-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n          <mat-icon>work</mat-icon>\r\n          <span>Account Settings</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/general-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n          <mat-icon>settings</mat-icon>\r\n          <span>General Settings</span>\r\n        </button>\r\n        <!-- <button mat-menu-item>\r\n          <mat-icon>notifications_off</mat-icon>\r\n          <span>Disable alerts</span>\r\n        </button> -->\r\n        <button mat-menu-item (click)=\"signOut()\" >\r\n          <mat-icon>exit_to_app</mat-icon>\r\n          <span>Sign out</span>\r\n        </button>\r\n      </mat-menu>\r\n      <!-- Mobile screen menu toggle -->\r\n      <button\r\n      mat-icon-button\r\n      class=\"mr-1\"\r\n      (click)=\"toggleSidenav()\"\r\n      *ngIf=\"layoutConf.isMobile\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -1573,15 +1658,20 @@ var SidebarSideComponent = /** @class */ (function (_super) {
         this.iconTypeMenuTitle = this.navService.iconTypeMenuTitle;
         this.menuItemsSub = this.navService.menuItems$.subscribe(function (menuItem) {
             _this.menuItems = menuItem;
-            var removeItemList = _this.authService.setComponetDisable();
-            removeItemList.forEach(function (element) {
+            // const removeItemList = this.authService.setComponetDisable();
+            // removeItemList.forEach(element => {
+            //   const index = this.menuItems.findIndex(x => x.name === element);
+            //   if (index >= 0) {
+            //     this.menuItems[index].disabled = true;
+            //   }
+            // });
+            var activeItemList = _this.authService.getActiveComponet();
+            activeItemList.forEach(function (element) {
                 var index = _this.menuItems.findIndex(function (x) { return x.name === element; });
                 if (index >= 0) {
-                    _this.menuItems[index].disabled = true;
+                    _this.menuItems[index].disabled = false;
                 }
             });
-            console.log("=====================================");
-            console.log(_this.menuItems);
             //Checks item list has any icon type.
             _this.hasIconTypeMenuItem = !!_this.menuItems.filter(function (item) { return item.type === "icon"; }).length;
         });
@@ -2672,6 +2762,7 @@ var AppErrorService = /** @class */ (function () {
     AppErrorService.prototype.showError = function (error) {
         console.log('show error messages');
         console.log(error);
+        console.log(error.error.error);
         if (error.error !== null) {
             if (error.status === 403) {
                 this.openPopUpWindow(this.removeUnderscore(error.error.error), error.error.error_description);
@@ -3433,10 +3524,12 @@ var AddHeaderInterceptor = /** @class */ (function () {
                     return next.handle(_this.getRequest(req, newToken));
                 }
                 // If we don't get a new token, we are in trouble so logout.
+                console.log("------------------------- If we don't get a new token, we are in trouble so logout.");
                 return _this.logoutUser();
             })
                 .catch(function (error) {
                 // If there is an exception calling 'refreshToken', bad news so logout.
+                console.log("------------------------- If there is an exception calling 'refreshToken', bad news so logout.");
                 return _this.logoutUser();
             })
                 .finally(function () {
@@ -4335,7 +4428,7 @@ var NavigationService = /** @class */ (function () {
                 tooltip: "Client management",
                 icon: "person",
                 state: "users/user-table",
-                disabled: false
+                disabled: true
             },
             {
                 name: "Client Management",
@@ -4343,7 +4436,7 @@ var NavigationService = /** @class */ (function () {
                 tooltip: "CliManagementent ",
                 icon: "person",
                 state: "clients/client-table",
-                disabled: false
+                disabled: true
             },
             {
                 name: "Product Catalogue",
@@ -4351,7 +4444,7 @@ var NavigationService = /** @class */ (function () {
                 tooltip: "Product management",
                 icon: "assignment",
                 state: "productCrud/show",
-                disabled: false
+                disabled: true
             },
             // {
             //   name: "Instant Feedback",
@@ -4359,7 +4452,7 @@ var NavigationService = /** @class */ (function () {
             //   tooltip: "Feedback Management",
             //   icon: "feedback",
             //   state: "surveys",
-            //   disabled: false
+            //   disabled: true
             // },
             // {
             //   name: "E-Vote",
@@ -4367,7 +4460,7 @@ var NavigationService = /** @class */ (function () {
             //   tooltip: "E-Vote",
             //   icon: "thumbs_up_down",
             //   state: "evote/showEvote",
-            //   disabled: false
+            //   disabled: true
             // },
             {
                 name: "Community",
@@ -4375,7 +4468,7 @@ var NavigationService = /** @class */ (function () {
                 tooltip: "Community",
                 icon: "group",
                 state: "community/community-view",
-                disabled: false
+                disabled: true
             },
             {
                 name: "ClearPicture Survey",
@@ -4383,7 +4476,7 @@ var NavigationService = /** @class */ (function () {
                 tooltip: "Future Survey",
                 icon: "language",
                 state: "future-survey",
-                disabled: false
+                disabled: true
             },
             // ,
             // {
@@ -4808,25 +4901,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _directives_PositiveNumber_directive__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ../directives/PositiveNumber.directive */ "./src/app/directives/PositiveNumber.directive.ts");
 /* harmony import */ var _directives_PositiveNumberAndLetter_directive__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ../directives/PositiveNumberAndLetter.directive */ "./src/app/directives/PositiveNumberAndLetter.directive.ts");
 /* harmony import */ var _directives_Letter_directive__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../directives/Letter.directive */ "./src/app/directives/Letter.directive.ts");
-/* harmony import */ var _pipes_relative_time_pipe__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./pipes/relative-time.pipe */ "./src/app/shared/pipes/relative-time.pipe.ts");
-/* harmony import */ var _pipes_excerpt_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pipes/excerpt.pipe */ "./src/app/shared/pipes/excerpt.pipe.ts");
-/* harmony import */ var _services_theme_service__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./services/theme.service */ "./src/app/shared/services/theme.service.ts");
-/* harmony import */ var _services_layout_service__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./services/layout.service */ "./src/app/shared/services/layout.service.ts");
-/* harmony import */ var _services_navigation_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./services/navigation.service */ "./src/app/shared/services/navigation.service.ts");
-/* harmony import */ var _services_route_parts_service__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./services/route-parts.service */ "./src/app/shared/services/route-parts.service.ts");
-/* harmony import */ var _services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./services/auth/auth.guard */ "./src/app/shared/services/auth/auth.guard.ts");
-/* harmony import */ var _services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./services/app-confirm/app-confirm.service */ "./src/app/shared/services/app-confirm/app-confirm.service.ts");
-/* harmony import */ var _services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
-/* harmony import */ var _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./services/app-error/app-error.component */ "./src/app/shared/services/app-error/app-error.component.ts");
-/* harmony import */ var _services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
-/* harmony import */ var _services_app_warning_app_warning_component__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./services/app-warning/app-warning.component */ "./src/app/shared/services/app-warning/app-warning.component.ts");
-/* harmony import */ var _services_app_warning_app_warning_service__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./services/app-warning/app-warning.service */ "./src/app/shared/services/app-warning/app-warning.service.ts");
-/* harmony import */ var _services_app_info_app_info_component__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./services/app-info/app-info.component */ "./src/app/shared/services/app-info/app-info.component.ts");
-/* harmony import */ var _services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./services/app-info/app-info.service */ "./src/app/shared/services/app-info/app-info.service.ts");
-/* harmony import */ var _services_file_download_service__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./services/file-download.service */ "./src/app/shared/services/file-download.service.ts");
-/* harmony import */ var _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./services/data-conversion.service */ "./src/app/shared/services/data-conversion.service.ts");
-/* harmony import */ var _pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./pipes/array-filter.pipe */ "./src/app/shared/pipes/array-filter.pipe.ts");
-/* harmony import */ var _services_localization_service__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./services/localization.service */ "./src/app/shared/services/localization.service.ts");
+/* harmony import */ var _directives_RoleAuthorization_directive__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../directives/RoleAuthorization.directive */ "./src/app/directives/RoleAuthorization.directive.ts");
+/* harmony import */ var _pipes_relative_time_pipe__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./pipes/relative-time.pipe */ "./src/app/shared/pipes/relative-time.pipe.ts");
+/* harmony import */ var _pipes_excerpt_pipe__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./pipes/excerpt.pipe */ "./src/app/shared/pipes/excerpt.pipe.ts");
+/* harmony import */ var _services_theme_service__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./services/theme.service */ "./src/app/shared/services/theme.service.ts");
+/* harmony import */ var _services_layout_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./services/layout.service */ "./src/app/shared/services/layout.service.ts");
+/* harmony import */ var _services_navigation_service__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./services/navigation.service */ "./src/app/shared/services/navigation.service.ts");
+/* harmony import */ var _services_route_parts_service__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./services/route-parts.service */ "./src/app/shared/services/route-parts.service.ts");
+/* harmony import */ var _services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./services/auth/auth.guard */ "./src/app/shared/services/auth/auth.guard.ts");
+/* harmony import */ var _services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./services/app-confirm/app-confirm.service */ "./src/app/shared/services/app-confirm/app-confirm.service.ts");
+/* harmony import */ var _services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
+/* harmony import */ var _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./services/app-error/app-error.component */ "./src/app/shared/services/app-error/app-error.component.ts");
+/* harmony import */ var _services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
+/* harmony import */ var _services_app_warning_app_warning_component__WEBPACK_IMPORTED_MODULE_40__ = __webpack_require__(/*! ./services/app-warning/app-warning.component */ "./src/app/shared/services/app-warning/app-warning.component.ts");
+/* harmony import */ var _services_app_warning_app_warning_service__WEBPACK_IMPORTED_MODULE_41__ = __webpack_require__(/*! ./services/app-warning/app-warning.service */ "./src/app/shared/services/app-warning/app-warning.service.ts");
+/* harmony import */ var _services_app_info_app_info_component__WEBPACK_IMPORTED_MODULE_42__ = __webpack_require__(/*! ./services/app-info/app-info.component */ "./src/app/shared/services/app-info/app-info.component.ts");
+/* harmony import */ var _services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_43__ = __webpack_require__(/*! ./services/app-info/app-info.service */ "./src/app/shared/services/app-info/app-info.service.ts");
+/* harmony import */ var _services_file_download_service__WEBPACK_IMPORTED_MODULE_44__ = __webpack_require__(/*! ./services/file-download.service */ "./src/app/shared/services/file-download.service.ts");
+/* harmony import */ var _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_45__ = __webpack_require__(/*! ./services/data-conversion.service */ "./src/app/shared/services/data-conversion.service.ts");
+/* harmony import */ var _pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_46__ = __webpack_require__(/*! ./pipes/array-filter.pipe */ "./src/app/shared/pipes/array-filter.pipe.ts");
+/* harmony import */ var _services_localization_service__WEBPACK_IMPORTED_MODULE_47__ = __webpack_require__(/*! ./services/localization.service */ "./src/app/shared/services/localization.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4857,6 +4951,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 // DIRECTIVES
+
 
 
 
@@ -4914,7 +5009,7 @@ var classesToInclude = [
     _components_breadcrumb_breadcrumb_component__WEBPACK_IMPORTED_MODULE_16__["BreadcrumbComponent"],
     _services_app_confirm_app_confirm_component__WEBPACK_IMPORTED_MODULE_17__["AppComfirmComponent"],
     _services_app_loader_app_loader_component__WEBPACK_IMPORTED_MODULE_18__["AppLoaderComponent"],
-    _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_37__["AppErrorComponent"],
+    _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_38__["AppErrorComponent"],
     _components_customizer_customizer_component__WEBPACK_IMPORTED_MODULE_11__["CustomizerComponent"],
     _directives_font_size_directive__WEBPACK_IMPORTED_MODULE_19__["FontSizeDirective"],
     _directives_scroll_to_directive__WEBPACK_IMPORTED_MODULE_20__["ScrollToDirective"],
@@ -4922,14 +5017,15 @@ var classesToInclude = [
     _directives_dropdown_anchor_directive__WEBPACK_IMPORTED_MODULE_22__["DropdownAnchorDirective"],
     _directives_dropdown_link_directive__WEBPACK_IMPORTED_MODULE_23__["DropdownLinkDirective"],
     _directives_egret_side_nav_toggle_directive__WEBPACK_IMPORTED_MODULE_24__["EgretSideNavToggleDirective"],
-    _pipes_relative_time_pipe__WEBPACK_IMPORTED_MODULE_28__["RelativeTimePipe"],
-    _pipes_excerpt_pipe__WEBPACK_IMPORTED_MODULE_29__["ExcerptPipe"],
-    _pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_45__["ArrayFilter"],
+    _pipes_relative_time_pipe__WEBPACK_IMPORTED_MODULE_29__["RelativeTimePipe"],
+    _pipes_excerpt_pipe__WEBPACK_IMPORTED_MODULE_30__["ExcerptPipe"],
+    _pipes_array_filter_pipe__WEBPACK_IMPORTED_MODULE_46__["ArrayFilter"],
     _directives_PositiveNumber_directive__WEBPACK_IMPORTED_MODULE_25__["PositiveNumberOnly"],
     _directives_PositiveNumberAndLetter_directive__WEBPACK_IMPORTED_MODULE_26__["PositiveNumberAndLetterOnly"],
     _directives_Letter_directive__WEBPACK_IMPORTED_MODULE_27__["LetterOnly"],
-    _services_app_warning_app_warning_component__WEBPACK_IMPORTED_MODULE_39__["AppWarningComponent"],
-    _services_app_info_app_info_component__WEBPACK_IMPORTED_MODULE_41__["AppInfoComponent"]
+    _directives_RoleAuthorization_directive__WEBPACK_IMPORTED_MODULE_28__["RoleAuthorization"],
+    _services_app_warning_app_warning_component__WEBPACK_IMPORTED_MODULE_40__["AppWarningComponent"],
+    _services_app_info_app_info_component__WEBPACK_IMPORTED_MODULE_42__["AppInfoComponent"]
 ];
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
@@ -4963,25 +5059,25 @@ var SharedModule = /** @class */ (function () {
             entryComponents: [
                 _services_app_confirm_app_confirm_component__WEBPACK_IMPORTED_MODULE_17__["AppComfirmComponent"],
                 _services_app_loader_app_loader_component__WEBPACK_IMPORTED_MODULE_18__["AppLoaderComponent"],
-                _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_37__["AppErrorComponent"],
-                _services_app_warning_app_warning_component__WEBPACK_IMPORTED_MODULE_39__["AppWarningComponent"],
-                _services_app_info_app_info_component__WEBPACK_IMPORTED_MODULE_41__["AppInfoComponent"]
+                _services_app_error_app_error_component__WEBPACK_IMPORTED_MODULE_38__["AppErrorComponent"],
+                _services_app_warning_app_warning_component__WEBPACK_IMPORTED_MODULE_40__["AppWarningComponent"],
+                _services_app_info_app_info_component__WEBPACK_IMPORTED_MODULE_42__["AppInfoComponent"]
             ],
             providers: [
-                _services_theme_service__WEBPACK_IMPORTED_MODULE_30__["ThemeService"],
-                _services_layout_service__WEBPACK_IMPORTED_MODULE_31__["LayoutService"],
-                _services_navigation_service__WEBPACK_IMPORTED_MODULE_32__["NavigationService"],
-                _services_route_parts_service__WEBPACK_IMPORTED_MODULE_33__["RoutePartsService"],
-                _services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_34__["AuthGuard"],
-                _services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_35__["AppConfirmService"],
-                _services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_36__["AppLoaderService"],
-                _services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_38__["AppErrorService"],
-                _services_file_download_service__WEBPACK_IMPORTED_MODULE_43__["AppFileDownloadService"],
-                _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_44__["AppDataConversionService"],
+                _services_theme_service__WEBPACK_IMPORTED_MODULE_31__["ThemeService"],
+                _services_layout_service__WEBPACK_IMPORTED_MODULE_32__["LayoutService"],
+                _services_navigation_service__WEBPACK_IMPORTED_MODULE_33__["NavigationService"],
+                _services_route_parts_service__WEBPACK_IMPORTED_MODULE_34__["RoutePartsService"],
+                _services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_35__["AuthGuard"],
+                _services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_36__["AppConfirmService"],
+                _services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_37__["AppLoaderService"],
+                _services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_39__["AppErrorService"],
+                _services_file_download_service__WEBPACK_IMPORTED_MODULE_44__["AppFileDownloadService"],
+                _services_data_conversion_service__WEBPACK_IMPORTED_MODULE_45__["AppDataConversionService"],
                 // LandingPageService
-                _services_localization_service__WEBPACK_IMPORTED_MODULE_46__["LocalizationService"],
-                _services_app_warning_app_warning_service__WEBPACK_IMPORTED_MODULE_40__["AppWarningService"],
-                _services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_42__["AppInfoService"]
+                _services_localization_service__WEBPACK_IMPORTED_MODULE_47__["LocalizationService"],
+                _services_app_warning_app_warning_service__WEBPACK_IMPORTED_MODULE_41__["AppWarningService"],
+                _services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_43__["AppInfoService"]
             ],
             declarations: classesToInclude,
             exports: classesToInclude
@@ -5156,11 +5252,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthenticationService", function() { return AuthenticationService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! environments/environment.prod */ "./src/environments/environment.prod.ts");
-/* harmony import */ var _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../shared/services/auth/auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jwt-decode */ "./node_modules/jwt-decode/lib/index.js");
+/* harmony import */ var jwt_decode__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jwt_decode__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var environments_environment_prod__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! environments/environment.prod */ "./src/environments/environment.prod.ts");
+/* harmony import */ var _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../shared/services/auth/auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5177,14 +5275,15 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var AuthenticationService = /** @class */ (function () {
     function AuthenticationService(http, router) {
         this.http = http;
         this.router = router;
-        this.baseAuthUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].authTokenUrl;
-        this.storage_name = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__["authProperties"].storage_name;
-        this.componentList = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__["authProperties"].componentList;
-        this.userApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_4__["environment"].userApiUrl;
+        this.baseAuthUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_5__["environment"].authTokenUrl;
+        this.storage_name = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_6__["authProperties"].storage_name;
+        this.componentList = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_6__["authProperties"].componentList;
+        this.userApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_5__["environment"].userApiUrl;
     }
     /*
      * User Login function
@@ -5196,29 +5295,26 @@ var AuthenticationService = /** @class */ (function () {
         payload.append("grant_type", "password");
         payload.append("username", signinFormData.username);
         payload.append("password", signinFormData.password);
-        return this.http.post(this.baseAuthUrl + "oauth/token", payload).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
+        return this.http.post(this.baseAuthUrl + "oauth/token", payload).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
             return data;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     };
-    /*
-     * User Log out function
-     * Created by Prasad Kumara
-     * 14/02/2019
-     */
     AuthenticationService.prototype.logout = function () {
         // remove user from local storage to log user out
-        localStorage.removeItem(this.storage_name);
-        localStorage.removeItem(this.componentList);
+        // localStorage.removeItem(this.storage_name);
+        // localStorage.removeItem(this.componentList);
+        localStorage.clear();
+        this.router.navigate(['/sessions/signin']);
     };
     AuthenticationService.prototype.activateUser = function (code, password) {
         console.log("CALLED  service" + code);
         console.log(password);
         return this.http
             .post(this.userApiUrl + "platform-users/activations/" + code, password)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
             console.log("SUCESS");
             console.log(data);
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     };
     /*
      * Get User data using user id
@@ -5226,9 +5322,9 @@ var AuthenticationService = /** @class */ (function () {
      * 14/02/2019
      */
     AuthenticationService.prototype.getUserData = function (userId) {
-        return this.http.get(this.userApiUrl + "platform-users/" + userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
+        return this.http.get(this.userApiUrl + "platform-users/" + userId).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
             return data;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     };
     /*
      * Get Logged User and Details by User ID
@@ -5238,9 +5334,9 @@ var AuthenticationService = /** @class */ (function () {
     AuthenticationService.prototype.getLoggedUserData = function (userId) {
         return this.http
             .get(this.userApiUrl + "platform-users/current/" + userId)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
             return data;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     };
     /*
      * Get Jwt refrsh token Expire or not
@@ -5248,26 +5344,37 @@ var AuthenticationService = /** @class */ (function () {
      * 15/02/2019
      * Not working properly. Still lokking for solution
      */
-    AuthenticationService.prototype.setComponetDisable = function () {
+    // setComponetDisable() {
+    //   const userObj = JSON.parse(localStorage.getItem(this.storage_name));
+    //   console.log('---------------------------------------- userObj', userObj);
+    //   let arrayList = [];
+    //   if (userObj) {
+    //     console.log("--------------- setComponetDisable ----------------");
+    //     console.log(userObj.userData.role.name);
+    //     const roleName = userObj.userData.role.name;
+    //     if (roleName === "Super Administrator") { 
+    //       arrayList = ["User Management"];
+    //       return arrayList;
+    //     } else if (roleName === "Admin") {
+    //       arrayList = ["Client Management"];
+    //       return arrayList;
+    //     } else {
+    //       arrayList = ["Client Management", "User Management"];
+    //       return arrayList;
+    //     }
+    //   }
+    // }
+    AuthenticationService.prototype.getActiveComponet = function () {
         var userObj = JSON.parse(localStorage.getItem(this.storage_name));
         var arrayList = [];
         if (userObj) {
-            console.log("--------------- setComponetDisable ----------------");
-            console.log(userObj.userData.role.name);
-            var roleName = userObj.userData.role.name;
-            if (roleName === "Super Administrator") {
-                arrayList = ["User Management"];
-                return arrayList;
-            }
-            else if (roleName === "Admin") {
-                arrayList = ["Client Management"];
-                return arrayList;
-            }
-            else {
-                arrayList = ["Client Management", "User Management"];
-                return arrayList;
-            }
+            userObj.userData.role.authorities.forEach(function (authority) {
+                if (authority.type === "D") {
+                    arrayList.push(authority.section.name);
+                }
+            });
         }
+        return arrayList;
     };
     AuthenticationService.prototype.getAuthToken = function () {
         var userObj = JSON.parse(localStorage.getItem(this.storage_name));
@@ -5285,15 +5392,15 @@ var AuthenticationService = /** @class */ (function () {
             payload.append("grant_type", "refresh_token");
             payload.append("refresh_token", userObj.refreshToken);
         }
-        return this.http.post(this.baseAuthUrl + "oauth/token", payload).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["share"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
+        return this.http.post(this.baseAuthUrl + "oauth/token", payload).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["share"])(), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (data) {
             var userObj = JSON.parse(localStorage.getItem(_this.storage_name));
             userObj.refreshToken = data.refresh_token;
             userObj.token = data.access_token;
             userObj.expires_in = data.expires_in;
             localStorage.setItem(_this.storage_name, JSON.stringify(userObj));
-            console.log('---------------------------- refreshToken', data.refresh_token);
+            console.log("---------------------------- refreshToken", data.refresh_token);
             return data.access_token;
-        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError));
     };
     /** RAVEEN - 2019/04/04
      * Return detialed instance about current logged user.
@@ -5310,11 +5417,17 @@ var AuthenticationService = /** @class */ (function () {
         }
     };
     AuthenticationService.prototype.handleError = function (error) {
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["throwError"])(error);
+        return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(error);
+    };
+    AuthenticationService.prototype.decodedAuthToken = function () {
+        console.log('-----------------------------------------');
+        var decoded = jwt_decode__WEBPACK_IMPORTED_MODULE_2__(this.getAuthToken());
+        console.log('---------------------- decoded', decoded);
+        console.log('---------------------- decoded', decoded.authorities);
     };
     AuthenticationService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]])
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_7__["Router"]])
     ], AuthenticationService);
     return AuthenticationService;
 }());
@@ -5346,7 +5459,7 @@ var environment = {
     // SAP NEW 32GB -  DEV TEST
     productApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/product/api/",
     surveyApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey/api/",
-    productimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/product",
+    productimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/product/",
     evoteimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey",
     authTokenUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user/",
     userApiUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user/api/",
@@ -5363,7 +5476,7 @@ var environment = {
     // productApiURL: "https://productzg4t4ks63a.hana.ondemand.com/product/api/",
     // surveyApiURL: "https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/",
     // productimageUrl: "https://productzg4t4ks63a.hana.ondemand.com/product/",
-    // evoteimageUrl : 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/'
+    // evoteimageUrl : 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/',
     frontEndBaseUrl: 'https://judedw.github.io/JudiAuthentica-Dev/',
 };
 

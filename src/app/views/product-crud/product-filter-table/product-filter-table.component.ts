@@ -35,6 +35,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
 
   public categories: any[];
   public clientId: string;
+  public predefined: string;
 
   constructor(
     private prodService: ProductCrudService,
@@ -51,7 +52,9 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
     const userObj = this.authService.getLoggedUserDetail();
     this.categories = userObj.userData.categories;
     this.clientId = userObj.userData.client.id;
-    this.getAllProduct(this.clientId, this.categories);
+    const predefinedStatus: boolean = userObj.userData.role.predefined;
+    this.predefined = predefinedStatus ? "1" : "0";
+    this.getAllProduct(this.clientId, this.categories, this.predefined);
   }
 
   ngOnDestroy() {
@@ -106,9 +109,9 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
     this.rows = rows;
   }
 
-  getAllProduct(clientId, categories) {
+  getAllProduct(clientId, categories, isPredefined) {
     this.getProductsSub = this.prodService
-      .getAllProductsByFilter(clientId, categories)
+      .getAllProductsByFilter(clientId, categories, isPredefined)
       .subscribe(
         successResp => {
           this.rows = this.temp = successResp.content;
@@ -168,7 +171,11 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
           this.loader.open();
           this.prodService.removeProduct(row, this.rows).subscribe(
             data => {
-              this.getAllProduct(this.clientId, this.categories);
+              this.getAllProduct(
+                this.clientId,
+                this.categories,
+                this.predefined
+              );
               this.loader.close();
             },
             error => {
