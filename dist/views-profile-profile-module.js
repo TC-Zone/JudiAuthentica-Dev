@@ -15385,7 +15385,7 @@ __export(__webpack_require__(/*! ./index */ "./node_modules/ng2-file-upload/inde
 /*!********************************************!*\
   !*** ./src/app/model/ClientModel.model.ts ***!
   \********************************************/
-/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, UserCreateReq, UserUpdateReq, UserCategoryUpdateReq, UserCommunityUpdateRequest, ClientCategoryUpdateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
+/*! exports provided: Content, ClientCreateReq, ClientLicenseData, ClientUpdateReq, CountryData, UserData, AdminRoleData, AuthorityData, UserCreateReq, UserUpdateReq, UserCategoryUpdateReq, UserCommunityUpdateRequest, ClientCategoryUpdateReq, ClientData, LicenseUpdateReq, RoleData, CommunityData, CategoryData, LicenseUpdateRequest, profileUpdateReq */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -15396,6 +15396,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientUpdateReq", function() { return ClientUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CountryData", function() { return CountryData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserData", function() { return UserData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AdminRoleData", function() { return AdminRoleData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthorityData", function() { return AuthorityData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCreateReq", function() { return UserCreateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserUpdateReq", function() { return UserUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserCategoryUpdateReq", function() { return UserCategoryUpdateReq; });
@@ -15464,11 +15466,28 @@ var CountryData = /** @class */ (function () {
 }());
 
 var UserData = /** @class */ (function () {
-    function UserData(accountName, email) {
+    function UserData(accountName, email, role) {
         this.accountName = accountName;
         this.email = email;
+        this.role = role;
     }
     return UserData;
+}());
+
+var AdminRoleData = /** @class */ (function () {
+    function AdminRoleData(name, description, authorities) {
+        this.name = name;
+        this.description = description;
+        this.authorities = authorities;
+    }
+    return AdminRoleData;
+}());
+
+var AuthorityData = /** @class */ (function () {
+    function AuthorityData(id) {
+        this.id = id;
+    }
+    return AuthorityData;
 }());
 
 var UserCreateReq = /** @class */ (function () {
@@ -15571,9 +15590,8 @@ var LicenseUpdateRequest = /** @class */ (function () {
 }());
 
 var profileUpdateReq = /** @class */ (function () {
-    function profileUpdateReq(userName, password, email) {
-        this.userName = userName;
-        this.password = password;
+    function profileUpdateReq(accountName, email) {
+        this.accountName = accountName;
         this.email = email;
     }
     return profileUpdateReq;
@@ -15914,7 +15932,7 @@ var ProfileBlankComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <mat-card class=\"p-0\">\r\n  <form [formGroup]=\"licenseFormGroup\" (ngSubmit)=\"submitLicense()\" id=\"client-update\">\r\n    <mat-card-title>\r\n      <div class=\"card-title-text\">Update License</div>\r\n      <mat-divider></mat-divider>\r\n\r\n    </mat-card-title>\r\n    <mat-card-content class=\"mat-typography mt-2\">\r\n\r\n\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\" mt-1\">\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"tagCount\" placeholder=\"Tag Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['tagCount']\">\r\n          </mat-form-field>\r\n          <span *ngIf=\"licenseFormGroup.controls['tagCount'].hasError('max')\" class=\"form-error-msg\">\r\n            {{this.license.tagCount}} max ! </span>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"userCount\" placeholder=\"User Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['userCount']\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"communityCount\" placeholder=\"Community Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['communityCount']\" (blur)=\"validateLicense()\"\r\n              (focus)='setOldValue()'>\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"feedbackCount\" placeholder=\"Feedback Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['feedbackCount']\" (blur)=\"setDefaultValue('feedbackCount')\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"eventkCount\" placeholder=\"Event Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['eventCount']\" (blur)=\"setDefaultValue('eventCount')\">\r\n          </mat-form-field>\r\n        </div>\r\n\r\n        <div fxFlex=\"50\" class=\"pr-1\">\r\n          <mat-form-field class=\"full-width\">\r\n            <input matInput name=\"promoCount\" placeholder=\"Promo Count\" positiveNumberOnly\r\n              [formControl]=\"licenseFormGroup.controls['promoCount']\" (blur)=\"setDefaultValue('promoCount')\">\r\n          </mat-form-field>\r\n        </div>\r\n      </div>\r\n\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"licenseFormGroup.invalid\"\r\n            (click)=\"submit()\">Save</button>\r\n        </div>\r\n      </div>\r\n\r\n    </mat-card-content>\r\n\r\n    <mat-card-footer>\r\n      <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n        <div fxFlex=\"100\" class=\"mt-1\">\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"licenseFormGroup.invalid\">Save</button>\r\n          <span fxFlex></span>\r\n          <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n        </div>\r\n      </div>\r\n    </mat-card-footer>\r\n\r\n  </form>\r\n</mat-card> -->\r\n\r\n\r\n\r\n\r\n<mat-card class=\"p-0\">\r\n  <mat-tab-group>\r\n\r\n\r\n\r\n\r\n    <mat-tab label=\"Update License\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <!-- *ngIf=\"user | async; else loading\" -->\r\n        <form [formGroup]=\"licenseFormGroup\"  (ngSubmit)=\"submitLicense()\" class=\"\">\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\" mt-1\">\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"tagCount\" placeholder=\"Tag Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['tagCount']\">\r\n              </mat-form-field>\r\n              <span *ngIf=\"licenseFormGroup.controls['tagCount'].hasError('max')\" class=\"form-error-msg\">\r\n                {{this.license.tagCount}} max ! </span>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"userCount\" placeholder=\"User Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['userCount']\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"communityCount\" placeholder=\"Community Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['communityCount']\" (blur)=\"validateLicense()\"\r\n                  (focus)='setOldValue()'>\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"feedbackCount\" placeholder=\"Feedback Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['feedbackCount']\" (blur)=\"setDefaultValue('feedbackCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"eventkCount\" placeholder=\"Event Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['eventCount']\" (blur)=\"setDefaultValue('eventCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"promoCount\" placeholder=\"Promo Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['promoCount']\" (blur)=\"setDefaultValue('promoCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n          </div>\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"mt-1\">\r\n              <button mat-raised-button color=\"primary\" [disabled]=\"licenseFormGroup.invalid\" (click)=\"updateLicense()\">Save</button>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n\r\n    <mat-tab label=\"Category\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form [formGroup]=\"categoryFormGroup\">\r\n          <ng-template matStepLabel>Category</ng-template>\r\n\r\n          <mat-form-field class=\"matAutocomplete-chip-list\">\r\n\r\n            <mat-chip-list #chipList>\r\n              <mat-chip *ngFor=\"let category of selectedCategories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n                (removed)=\"remove(category)\">\r\n                {{category.name}}\r\n                <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n              </mat-chip>\r\n              <input matInput placeholder=\"Select category...\" #categoryInput [formControl]=\"categoryCtrl\" [matAutocomplete]=\"auto\"\r\n                [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\"\r\n                (matChipInputTokenEnd)=\"add($event)\" [matChipInputAddOnBlur]=\"addOnBlur\" aria-label=\"Category\">\r\n            </mat-chip-list>    \r\n        \r\n            <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n              <mat-option *ngFor=\"let category of filteredCategories | async\" [value]=\"category.id\">\r\n                <span>{{category.name}}</span>\r\n              </mat-option>\r\n            </mat-autocomplete>\r\n        \r\n          </mat-form-field>\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"mt-1\">\r\n              <button mat-raised-button color=\"primary\" matStepperNext [disabled]='categoryFormStatus' (click)=\"updateCategory()\">Save</button>\r\n              <span fxFlex></span>\r\n              <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n\r\n\r\n\r\n\r\n  </mat-tab-group>\r\n</mat-card>"
+module.exports = "\r\n<mat-card class=\"p-0\">\r\n  <mat-tab-group>\r\n\r\n\r\n\r\n\r\n    <!-- <mat-tab label=\"Update License\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form [formGroup]=\"licenseFormGroup\"  (ngSubmit)=\"submitLicense()\" class=\"\">\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\" mt-1\">\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"tagCount\" placeholder=\"Tag Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['tagCount']\">\r\n              </mat-form-field>\r\n              <span *ngIf=\"licenseFormGroup.controls['tagCount'].hasError('max')\" class=\"form-error-msg\">\r\n                {{this.license.tagCount}} max ! </span>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"userCount\" placeholder=\"User Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['userCount']\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"communityCount\" placeholder=\"Community Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['communityCount']\" (blur)=\"validateLicense()\"\r\n                  (focus)='setOldValue()'>\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"feedbackCount\" placeholder=\"Feedback Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['feedbackCount']\" (blur)=\"setDefaultValue('feedbackCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"eventkCount\" placeholder=\"Event Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['eventCount']\" (blur)=\"setDefaultValue('eventCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n\r\n            <div fxFlex=\"50\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"promoCount\" placeholder=\"Promo Count\" positiveNumberOnly\r\n                  [formControl]=\"licenseFormGroup.controls['promoCount']\" (blur)=\"setDefaultValue('promoCount')\">\r\n              </mat-form-field>\r\n            </div>\r\n          </div>\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"mt-1\">\r\n              <button mat-raised-button color=\"primary\" [disabled]=\"licenseFormGroup.invalid\" (click)=\"updateLicense()\">Save</button>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab> -->\r\n\r\n\r\n    <mat-tab label=\"Category\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form [formGroup]=\"categoryFormGroup\">\r\n          <ng-template matStepLabel>Category</ng-template>\r\n\r\n          <mat-form-field class=\"matAutocomplete-chip-list\">\r\n\r\n            <mat-chip-list #chipList>\r\n              <mat-chip *ngFor=\"let category of selectedCategories\" [selectable]=\"selectable\" [removable]=\"removable\"\r\n                (removed)=\"remove(category)\">\r\n                {{category.name}}\r\n                <mat-icon matChipRemove *ngIf=\"removable\">cancel</mat-icon>\r\n              </mat-chip>\r\n              <input matInput placeholder=\"Select category...\" #categoryInput [formControl]=\"categoryCtrl\" [matAutocomplete]=\"auto\"\r\n                [matChipInputFor]=\"chipList\" [matChipInputSeparatorKeyCodes]=\"separatorKeysCodes\" (focus) = \"onFocusCategoryDD()\"\r\n                (matChipInputTokenEnd)=\"add($event)\" [matChipInputAddOnBlur]=\"addOnBlur\" aria-label=\"Category\">\r\n            </mat-chip-list>    \r\n        \r\n            <mat-autocomplete #auto=\"matAutocomplete\" (optionSelected)=\"selected($event)\">\r\n              <mat-option *ngFor=\"let category of filteredCategories | async\" [value]=\"category.id\">\r\n                <span>{{category.name}}</span>\r\n              </mat-option>\r\n            </mat-autocomplete>\r\n        \r\n          </mat-form-field>\r\n\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"mt-1\">\r\n              <button mat-raised-button color=\"primary\" matStepperNext [disabled]='categoryFormStatus' (click)=\"updateCategory()\">Save</button>\r\n              <span fxFlex></span>\r\n              <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n            </div>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n\r\n\r\n\r\n\r\n  </mat-tab-group>\r\n</mat-card>"
 
 /***/ }),
 
@@ -15957,13 +15975,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var ProfileLicenseComponent = /** @class */ (function () {
     function ProfileLicenseComponent(fb, snackBar, profileService, errDialog, loader, snack) {
-        var _this = this;
         this.fb = fb;
         this.snackBar = snackBar;
         this.profileService = profileService;
         this.errDialog = errDialog;
         this.loader = loader;
         this.snack = snack;
+        // public globalVariable: GlobalVariable = new GlobalVariable();
+        // public license = this.globalVariable.client.license;
+        // public regex = this.globalVariable.validators.regex;
+        // public licenseFormGroup: FormGroup;
         this.formStatus = false;
         this.oldestValue = 0;
         this.selectable = true;
@@ -15973,30 +15994,28 @@ var ProfileLicenseComponent = /** @class */ (function () {
         this.categoryCtrl = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormControl"]();
         this.allCategories = [];
         this.selectedCategories = [];
-        this.filteredCategories = this.categoryCtrl.valueChanges
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(function (category) { return category ? _this._filterCategories(category) : _this.allCategories.slice(); }));
     }
     ProfileLicenseComponent.prototype.ngOnInit = function () {
         var currentuser = JSON.parse(localStorage.getItem('currentUser'));
         this.clientId = currentuser.userData.client.id;
-        this.buildItemForm();
         this.getCategory();
         this.getClientCategory();
+        this.buildItemForm();
         // this.buildItemForm(this.data.payload.license)
     };
     ProfileLicenseComponent.prototype.buildItemForm = function () {
-        this.licenseFormGroup = this.fb.group({
-            tagCount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-            userCount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-            communityCount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-            feedbackCount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-            eventCount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
-            promoCount: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]
-        });
+        // this.licenseFormGroup = this.fb.group({
+        //   tagCount: ['', Validators.required],
+        //   userCount: ['', Validators.required],
+        //   communityCount: ['', Validators.required],
+        //   feedbackCount: ['', Validators.required],
+        //   eventCount: ['', Validators.required],
+        //   promoCount: ['', Validators.required]
+        // });
         this.categoryFormGroup = this.fb.group({
             category: this.categoryCtrl
         });
-        this.getClient();
+        // this.getClient();
     };
     ProfileLicenseComponent.prototype.getCategory = function () {
         var _this = this;
@@ -16016,74 +16035,81 @@ var ProfileLicenseComponent = /** @class */ (function () {
             _this.errDialog.showError(error);
         });
     };
-    ProfileLicenseComponent.prototype.getClient = function () {
-        var _this = this;
-        this.getItemSub = this.profileService.getClient(this.clientId).subscribe(function (successResp) {
-            _this.license = successResp.content.license;
-            _this.licenseFormGroup.patchValue({
-                tagCount: _this.license.tagCount,
-                userCount: _this.license.userCount,
-                communityCount: _this.license.communityCount,
-                feedbackCount: _this.license.feedbackCount,
-                eventCount: _this.license.eventCount,
-                promoCount: _this.license.promoCount
-            });
-        }, function (error) {
-            _this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-            });
-        });
-    };
-    ProfileLicenseComponent.prototype.setOldValue = function () {
-        this.oldestValue = this.licenseFormGroup.controls['communityCount'].value;
-    };
-    ProfileLicenseComponent.prototype.validateLicense = function () {
-        var form = this.licenseFormGroup;
-        if (form.controls['communityCount'].value !== '') {
-            var value = form.controls['communityCount'].value;
-            var diff = void 0;
-            if (value > this.oldestValue) {
-                diff = value - this.oldestValue;
-                form.controls['feedbackCount'].setValue(+(form.get('feedbackCount').value) + diff);
-                form.controls['eventCount'].setValue(+(form.get('eventCount').value) + diff);
-                form.controls['promoCount'].setValue(+(form.get('promoCount').value) + diff);
-            }
-        }
-        else {
-            form.controls['communityCount'].setValue(1);
-            form.controls['feedbackCount'].setValue(1);
-            form.controls['eventCount'].setValue(1);
-            form.controls['promoCount'].setValue(1);
-        }
-    };
-    ProfileLicenseComponent.prototype.setDefaultValue = function (control) {
-        var form = this.licenseFormGroup;
-        if (form.controls[control].value === '') {
-            form.controls[control].setValue(1);
-        }
-    };
-    ProfileLicenseComponent.prototype.updateLicense = function () {
-        var _this = this;
-        var form = this.licenseFormGroup;
-        var clientData = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_3__["ClientData"](this.clientId);
-        var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_3__["LicenseUpdateReq"](form.get('tagCount').value, form.get('userCount').value, form.get('communityCount').value, form.get('feedbackCount').value, form.get('eventCount').value, form.get('promoCount').value, clientData);
-        this.profileService.updateClientLicense(this.license.id, req).subscribe(function (response) {
-            _this.snack.open("License Data Updated !", "OK", { duration: 4000 });
-            // this.getClients();
-            // this.clients = response;
-            // this.loader.close();
-            // this.snack.open("License Data Updated !", "OK", { duration: 4000 });
-        }, function (error) {
-            _this.errDialog.showError({
-                title: "Error",
-                status: error.status,
-                type: "http_error"
-            });
-        });
-    };
+    // getClient() {
+    //   this.getItemSub = this.profileService.getClient(this.clientId).subscribe(successResp => {
+    //     this.license = successResp.content.license;
+    //     this.licenseFormGroup.patchValue({
+    //       tagCount: this.license.tagCount,
+    //       userCount: this.license.userCount,
+    //       communityCount: this.license.communityCount,
+    //       feedbackCount: this.license.feedbackCount,
+    //       eventCount: this.license.eventCount,
+    //       promoCount: this.license.promoCount
+    //     });
+    //   },
+    //     error => {
+    //       this.errDialog.showError({
+    //         title: "Error",
+    //         status: error.status,
+    //         type: "http_error"
+    //       });
+    //     }
+    //   );
+    // }
+    // setOldValue() {
+    //   this.oldestValue = this.licenseFormGroup.controls['communityCount'].value;
+    // }
+    // validateLicense() {
+    //   let form = this.licenseFormGroup;
+    //   if (form.controls['communityCount'].value !== '') {
+    //     let value = form.controls['communityCount'].value;
+    //     let diff;
+    //     if (value > this.oldestValue) {
+    //       diff = value - this.oldestValue;
+    //       form.controls['feedbackCount'].setValue(+(form.get('feedbackCount').value) + diff);
+    //       form.controls['eventCount'].setValue(+(form.get('eventCount').value) + diff);
+    //       form.controls['promoCount'].setValue(+(form.get('promoCount').value) + diff);
+    //     }
+    //   } else {
+    //     form.controls['communityCount'].setValue(1)
+    //     form.controls['feedbackCount'].setValue(1)
+    //     form.controls['eventCount'].setValue(1)
+    //     form.controls['promoCount'].setValue(1)
+    //   }
+    // }
+    // setDefaultValue(control) {
+    //   let form = this.licenseFormGroup;
+    //   if (form.controls[control].value === '') {
+    //     form.controls[control].setValue(1);
+    //   }
+    // }
+    // updateLicense() {
+    //   let form = this.licenseFormGroup;
+    //   let clientData: ClientData = new ClientData(this.clientId);
+    //   const req: LicenseUpdateReq = new LicenseUpdateReq(form.get('tagCount').value, form.get('userCount').value, form.get('communityCount').value, form.get('feedbackCount').value, form.get('eventCount').value, form.get('promoCount').value, clientData);
+    //   this.profileService.updateClientLicense(this.license.id, req).subscribe(
+    //     response => {
+    //       this.snack.open("License Data Updated !", "OK", { duration: 4000 });
+    //       // this.getClients();
+    //       // this.clients = response;
+    //       // this.loader.close();
+    //       // this.snack.open("License Data Updated !", "OK", { duration: 4000 });
+    //     },
+    //     error => {
+    //       this.errDialog.showError({
+    //         title: "Error",
+    //         status: error.status,
+    //         type: "http_error"
+    //       });
+    //     }
+    //   );
+    // }
     //  ----------------------- Categoty Setting --------------------------------------------------------
+    ProfileLicenseComponent.prototype.onFocusCategoryDD = function () {
+        var _this = this;
+        this.filteredCategories = this.categoryCtrl.valueChanges
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["startWith"])(null), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_7__["map"])(function (category) { return category ? _this._filterCategories(category) : _this.allCategories.slice(); }));
+    };
     ProfileLicenseComponent.prototype.updateCategory = function () {
         var _this = this;
         console.log('---------------------- Category ', this.selectedCategories);
@@ -16337,7 +16363,7 @@ var ProfileOverviewComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-card class=\"p-0\">\r\n  <mat-tab-group>\r\n    <mat-tab label=\"Profile Settings\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form [formGroup]=\"profileSettingsForm\" (ngSubmit)=\"submit()\" class=\"userProfileForm\">\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"accountName\" [formControl]=\"profileSettingsForm.controls['accountName']\"\r\n                  positiveNumberAndLetterOnly placeholder=\"Account Name\">\r\n              </mat-form-field>\r\n            </div>\r\n            <div fxFlex=\"100\" class=\"pr-1 mb-3\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"email\" [formControl]=\"profileSettingsForm.controls['email']\" placeholder=\"Email\">\r\n              </mat-form-field>\r\n            </div>\r\n          </div>\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"profileSettingsForm.invalid\">Save</button>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n    <mat-tab label=\"Password Settings\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form [formGroup]=\"passwordSettingsForm\" (ngSubmit)=\"submit()\" class=\"userProfileForm\">\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"password\" type=\"currentPassword\"\r\n                  [formControl]=\"passwordSettingsForm.controls['currentPassword']\" positiveNumberAndLetterOnly\r\n                  placeholder=\"Current Password\">\r\n              </mat-form-field>\r\n            </div>\r\n            <div fxFlex=\"100\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"password\" type=\"password\"\r\n                  [formControl]=\"passwordSettingsForm.controls['password']\" positiveNumberAndLetterOnly\r\n                  placeholder=\"Password\">\r\n              </mat-form-field>\r\n            </div>\r\n            <div fxFlex=\"100\" class=\"pr-1 mb-3\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"confirmPassword\" type=\"password\"\r\n                  [formControl]=\"passwordSettingsForm.controls['confirmPassword']\" positiveNumberAndLetterOnly\r\n                  placeholder=\"Confirm Password\">\r\n              </mat-form-field>\r\n            </div>\r\n          </div>\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"passwordSettingsForm.invalid\">Save</button>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n\r\n    <mat-tab label=\"Profile Picture\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form class=\"userProfileForm\">\r\n          <div class=\"mb-1\">\r\n\r\n            <!-- --------- hidden file input --------- -->\r\n            <input (change)=\"onSelectFile($event)\" #productImgs type=\"file\" style=\"display: none\" base-sixty-four-input>\r\n\r\n            <!-- --------- file input click button --------- -->\r\n            <div layout-margin layout-padding class=\"mb-2\">\r\n              <button mat-raised-button class=\"mr-1\" (click)=\"productImgs.click()\" type=\"button\">\r\n                Browse Images</button>\r\n              <button mat-raised-button class=\"mr-1\" (click)=\"removeSelectedImg()\" type=\"button\" *ngIf=\"url\">\r\n                Clear Images</button>\r\n            </div>\r\n\r\n            <!-- --------- start images preview container --------- -->\r\n            <div id=\"client_create_image_preview_container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\" layout-align=\"center\">\r\n\r\n              <!-- --------- start card --------- -->\r\n              <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngIf=\"url\" fxFlex=\"100\"\r\n                style=\"display: flex;\">\r\n\r\n                <img id=\"userProfilePic\" [src]=\"url\">\r\n\r\n              </div>\r\n              <!-- --------- end card --------- -->\r\n\r\n            </div>\r\n            <!-- --------- end images preview container --------- -->\r\n\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n  </mat-tab-group>\r\n</mat-card>"
+module.exports = "<mat-card class=\"p-0\">\r\n  <mat-tab-group>\r\n    <mat-tab label=\"Profile Settings\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form [formGroup]=\"profileSettingsForm\" (ngSubmit)=\"updateProfile()\" class=\"userProfileForm\">\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"accountName\" [formControl]=\"profileSettingsForm.controls['accountName']\"\r\n                  positiveNumberAndLetterOnly placeholder=\"Account Name\">\r\n              </mat-form-field>\r\n            </div>\r\n            <div fxFlex=\"100\" class=\"pr-1 mb-3\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"email\" [formControl]=\"profileSettingsForm.controls['email']\" placeholder=\"Email\">\r\n              </mat-form-field>\r\n            </div>\r\n          </div>\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"profileSettingsForm.invalid\">Save</button>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n    <mat-tab label=\"Password Settings\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form [formGroup]=\"passwordSettingsForm\" (ngSubmit)=\"submit()\" class=\"userProfileForm\">\r\n          <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n            <div fxFlex=\"100\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"password\" type=\"currentPassword\"\r\n                  [formControl]=\"passwordSettingsForm.controls['currentPassword']\" positiveNumberAndLetterOnly\r\n                  placeholder=\"Current Password\">\r\n              </mat-form-field>\r\n            </div>\r\n            <div fxFlex=\"100\" class=\"pr-1\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"password\" type=\"password\"\r\n                  [formControl]=\"passwordSettingsForm.controls['password']\" positiveNumberAndLetterOnly\r\n                  placeholder=\"Password\">\r\n              </mat-form-field>\r\n            </div>\r\n            <div fxFlex=\"100\" class=\"pr-1 mb-3\">\r\n              <mat-form-field class=\"full-width\">\r\n                <input matInput name=\"confirmPassword\" type=\"password\"\r\n                  [formControl]=\"passwordSettingsForm.controls['confirmPassword']\" positiveNumberAndLetterOnly\r\n                  placeholder=\"Confirm Password\">\r\n              </mat-form-field>\r\n            </div>\r\n          </div>\r\n          <button mat-raised-button color=\"primary\" [disabled]=\"passwordSettingsForm.invalid\">Save</button>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n\r\n    <mat-tab label=\"Profile Picture\">\r\n      <mat-card-content class=\"mt-3\">\r\n        <form class=\"userProfileForm\">\r\n          <div class=\"mb-1\">\r\n\r\n            <!-- --------- hidden file input --------- -->\r\n            <input (change)=\"onSelectFile($event)\" #productImgs type=\"file\" style=\"display: none\" base-sixty-four-input>\r\n\r\n            <!-- --------- file input click button --------- -->\r\n            <div layout-margin layout-padding class=\"mb-2\">\r\n              <button mat-raised-button class=\"mr-1\" (click)=\"productImgs.click()\" type=\"button\">\r\n                Browse Images</button>\r\n              <button mat-raised-button class=\"mr-1\" (click)=\"removeSelectedImg()\" type=\"button\" *ngIf=\"url\">\r\n                Clear Images</button>\r\n            </div>\r\n\r\n            <!-- --------- start images preview container --------- -->\r\n            <div id=\"client_create_image_preview_container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\" layout-align=\"center\">\r\n\r\n              <!-- --------- start card --------- -->\r\n              <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngIf=\"url\" fxFlex=\"100\"\r\n                style=\"display: flex;\">\r\n\r\n                <img id=\"userProfilePic\" [src]=\"url\">\r\n\r\n              </div>\r\n              <!-- --------- end card --------- -->\r\n\r\n            </div>\r\n            <!-- --------- end images preview container --------- -->\r\n\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-tab>\r\n\r\n  </mat-tab-group>\r\n</mat-card>"
 
 /***/ }),
 
@@ -16433,7 +16459,7 @@ var ProfileSettingsComponent = /** @class */ (function () {
         var _this = this;
         var itemForm = this.profileSettingsForm.value;
         var client = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["ClientData"](this.clientId);
-        var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["profileUpdateReq"](itemForm.accountName, itemForm.password, itemForm.email);
+        var req = new app_model_ClientModel_model__WEBPACK_IMPORTED_MODULE_4__["profileUpdateReq"](itemForm.accountName, itemForm.email);
         this.profileService.updateUser(this.userId, req).subscribe(function (response) {
             // this.getUsers();
             _this.loader.close();
@@ -16471,7 +16497,7 @@ var ProfileSettingsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" fxFlex.gt-md=\"300px\" fxFlex.gt-sm=\"50\">\r\n    <mat-card class=\"profile-sidebar mb-1 pb-0\">\r\n      <div class=\"propic text-center\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\" />\r\n      </div>\r\n      <div class=\"profile-title text-center mb-1\">\r\n        <div class=\"main-title\">{{ currentUser.accountName }}</div>\r\n        <div class=\"subtitle mb-05\">{{ currentUser.company }}</div>\r\n        <div class=\"text-muted\">\r\n          Hi {{ currentUser.accountName }} ! Hope you are doing great at\r\n          {{ currentUser.company }}\r\n        </div>\r\n      </div>\r\n      <div class=\"profile-actions text-center mb-1\">\r\n        <button color=\"primary\" mat-raised-button=\"\" class=\"mat-raised-button mat-primary mr-1\">\r\n          <span class=\"mat-button-wrapper\">Message</span>\r\n          <div class=\"mat-button-ripple mat-ripple\" matripple=\"\"></div>\r\n          <div class=\"mat-button-focus-overlay\"></div>\r\n        </button><button color=\"accent\" mat-raised-button=\"\" class=\"mat-raised-button mat-accent\">\r\n          <span class=\"mat-button-wrapper\">Follow</span>\r\n          <div class=\"mat-button-ripple mat-ripple\" matripple=\"\"></div>\r\n          <div class=\"mat-button-focus-overlay\"></div>\r\n        </button>\r\n      </div>\r\n      <div class=\"profile-nav\">\r\n        <mat-nav-list>\r\n          <!--\r\n            <mat-list-item routerLink=\"/profile/overview\" routerLinkActive=\"list-item-active\">\r\n              <mat-icon>home</mat-icon>\r\n              Overview\r\n            </mat-list-item>\r\n            <mat-divider></mat-divider>\r\n          -->\r\n          <mat-list-item routerLink=\"/profile/profile-settings\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>portrait</mat-icon>\r\n            Profile Settings\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"/profile/account-settings\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>work</mat-icon>\r\n            Account Settings\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n\r\n          <mat-list-item routerLink=\"/profile/general-settings\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>settings</mat-icon>\r\n            General Settings\r\n          </mat-list-item>\r\n          <!-- <mat-list-item routerLink=\"/profile/blank\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>content_paste</mat-icon>\r\n            Blank\r\n          </mat-list-item> -->\r\n\r\n        </mat-nav-list>\r\n      </div>\r\n    </mat-card>\r\n  </div>\r\n\r\n  <!-- Profile Views -->\r\n  <div fxFlex=\"100\" fxFlex.gt-sm=\"50\" fxFlex.gt-md=\"calc(100% - 300px)\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>"
+module.exports = "<div fxLayout=\"row\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" fxFlex.gt-md=\"300px\" fxFlex.gt-sm=\"50\">\r\n    <mat-card class=\"profile-sidebar mb-1 pb-0\">\r\n      <div class=\"propic text-center\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\" />\r\n      </div>\r\n      <div class=\"profile-title text-center mb-1\">\r\n        <div class=\"main-title\">{{ currentUser.accountName }}</div>\r\n        <div class=\"subtitle mb-05\">{{ currentUser.company }}</div>\r\n        <div class=\"text-muted\">\r\n          Hi {{ currentUser.accountName }} ! Hope you are doing great at\r\n          {{ currentUser.company }}\r\n        </div>\r\n      </div>\r\n      <div class=\"profile-actions text-center mb-1\">\r\n        <button color=\"primary\" mat-raised-button=\"\" class=\"mat-raised-button mat-primary mr-1\">\r\n          <span class=\"mat-button-wrapper\">Message</span>\r\n          <div class=\"mat-button-ripple mat-ripple\" matripple=\"\"></div>\r\n          <div class=\"mat-button-focus-overlay\"></div>\r\n        </button><button color=\"accent\" mat-raised-button=\"\" class=\"mat-raised-button mat-accent\">\r\n          <span class=\"mat-button-wrapper\">Follow</span>\r\n          <div class=\"mat-button-ripple mat-ripple\" matripple=\"\"></div>\r\n          <div class=\"mat-button-focus-overlay\"></div>\r\n        </button>\r\n      </div>\r\n      <div class=\"profile-nav\">\r\n        <mat-nav-list>\r\n          <!--\r\n            <mat-list-item routerLink=\"/profile/overview\" routerLinkActive=\"list-item-active\">\r\n              <mat-icon>home</mat-icon>\r\n              Overview\r\n            </mat-list-item>\r\n            <mat-divider></mat-divider>\r\n          -->\r\n          <mat-list-item routerLink=\"/profile/profile-settings\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>portrait</mat-icon>\r\n            Profile Settings\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n          <mat-list-item routerLink=\"/profile/account-settings\" routerLinkActive=\"list-item-active\" [roleAuthorization]=\"'isPredefined'\">\r\n            <mat-icon>work</mat-icon>\r\n            Account Settings\r\n          </mat-list-item>\r\n          <mat-divider></mat-divider>\r\n\r\n          <mat-list-item routerLink=\"/profile/general-settings\" routerLinkActive=\"list-item-active\" [roleAuthorization]=\"'isPredefined'\">\r\n            <mat-icon>settings</mat-icon>\r\n            General Settings\r\n          </mat-list-item>\r\n          <!-- <mat-list-item routerLink=\"/profile/blank\" routerLinkActive=\"list-item-active\">\r\n            <mat-icon>content_paste</mat-icon>\r\n            Blank\r\n          </mat-list-item> -->\r\n\r\n        </mat-nav-list>\r\n      </div>\r\n    </mat-card>\r\n  </div>\r\n\r\n  <!-- Profile Views -->\r\n  <div fxFlex=\"100\" fxFlex.gt-sm=\"50\" fxFlex.gt-md=\"calc(100% - 300px)\">\r\n    <router-outlet></router-outlet>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
