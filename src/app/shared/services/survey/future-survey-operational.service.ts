@@ -167,13 +167,19 @@ export class FutureSurveyOperationalService {
         let lastValue = question.cachedValueForUrlRequests;
         el.onclick = function (e) {
 
-          // ----------------------------------------------------------------------------------------------------------
-          console.log('-------------- ------------ optionUnselect lastValue', lastValue);
-          console.log('-------------- optionUnselect e.originalTarget.value', e.originalTarget.value);
-          // ----------------------------------------------------------------------------------------------------------
+          let targetValue = null;
 
-          if (e.originalTarget.value !== undefined) {
-            if (lastValue === null || lastValue !== e.originalTarget.value) {
+          if(e.originalTarget){
+            targetValue = e.originalTarget.value;
+          } else if(e.target){
+            targetValue = e.target.defaultValue;
+          }
+
+          // console.log('----------------------------------- targetValue',targetValue);
+          
+
+          if (targetValue !== null) {
+            if (lastValue === null || lastValue !== targetValue) {
               lastValue = question.cachedValueForUrlRequests
             } else {
               lastValue = null;
