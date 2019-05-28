@@ -178,6 +178,13 @@ var ClientService = /** @class */ (function () {
             .put(this.userUrl + "/communities/" + id, item)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
+    ClientService.prototype.deleteUserById = function (userId) {
+        return this.http
+            .delete(this.userUrl + "/" + userId)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (data) {
+            return data;
+        }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
     /*
     * Create New User Role
     * Created by Prasad Kumara
