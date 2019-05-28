@@ -13081,7 +13081,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***********************************************!*\
   !*** ./src/app/model/CommunityModel.model.ts ***!
   \***********************************************/
-/*! exports provided: FeedbackCreateReq, CommunityData, FutureSurveyData, FeedbackUpdateReq, CommunityCreateReq, ClientData, UserData */
+/*! exports provided: FeedbackCreateReq, CommunityData, FutureSurveyData, FeedbackUpdateReq, CommunityCreateReq, CommunityUpdateReq, ClientData, UserData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13091,6 +13091,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FutureSurveyData", function() { return FutureSurveyData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FeedbackUpdateReq", function() { return FeedbackUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommunityCreateReq", function() { return CommunityCreateReq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommunityUpdateReq", function() { return CommunityUpdateReq; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ClientData", function() { return ClientData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserData", function() { return UserData; });
 var FeedbackCreateReq = /** @class */ (function () {
@@ -13125,9 +13126,7 @@ var FutureSurveyData = /** @class */ (function () {
 }());
 
 var FeedbackUpdateReq = /** @class */ (function () {
-    function FeedbackUpdateReq(
-    // public id: string,
-    name, status, lastModifiedUserId) {
+    function FeedbackUpdateReq(name, status, lastModifiedUserId) {
         this.name = name;
         this.status = status;
         this.lastModifiedUserId = lastModifiedUserId;
@@ -13145,6 +13144,16 @@ var CommunityCreateReq = /** @class */ (function () {
         this.users = users;
     }
     return CommunityCreateReq;
+}());
+
+var CommunityUpdateReq = /** @class */ (function () {
+    function CommunityUpdateReq(name, status, description, lastModifiedUserId) {
+        this.name = name;
+        this.status = status;
+        this.description = description;
+        this.lastModifiedUserId = lastModifiedUserId;
+    }
+    return CommunityUpdateReq;
 }());
 
 var ClientData = /** @class */ (function () {
@@ -13292,7 +13301,7 @@ var CommunityViewPopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-form-field *ngIf=\"this.temCommunities.length > 0\" class=\"margin-333\" style=\"width: 99%\">\r\n  <input matInput placeholder=\"Type to filter all columns\" value=\"\" (keyup)='updateFilter($event)'>\r\n</mat-form-field>\r\n<div class=\"m-333\">\r\n  <button mat-raised-button class=\"mb-05\" color=\"primary\" (click)=\"communityPopUp({}, true)\">Add Community</button>\r\n  <span fxFlex></span>\r\n  <p *ngIf=\"this.temCommunities.length > 0\" class=\"mat-select-lable\"> Page Size: </p>\r\n  <mat-select *ngIf=\"this.temCommunities.length > 0\" class=\"mat-raised-select\" [(value)]=\"pageSize\"\r\n    (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n    <mat-option *ngFor=\"let item of pageSizeArray\" [value]=\"item\">{{item}}</mat-option>\r\n  </mat-select>\r\n</div>\r\n<mat-card *ngIf=\"this.temCommunities.length > 0\" class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-content class=\"p-0\">\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th class=\"pl-1\">Community Name</th>\r\n          <th class=\"pl-1\">Status</th>\r\n          <th class=\"pl-1\">Actions</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr *ngFor=\"let row of communities;\">\r\n          <td class=\"pt-1 pb-1\">{{ row?.name }}</td>\r\n          <td class=\"pt-1 pb-1\">\r\n            <mat-chip *ngIf=\"row.status === 'ACTIVE'\" mat-sm-chip color=\"primary\" [selected]=\"true\">Active</mat-chip>\r\n            <mat-chip *ngIf=\"row.status === 'INACTIVE'\" mat-sm-chip color=\"warn\" [selected]=\"true\">Inactive</mat-chip>\r\n          </td>\r\n          <td class=\"pt-1 pb-1 pr-1\">\r\n            <button mat-icon-button class=\"hidden-on-open\" [matMenuTriggerFor]=\"menu\">\r\n              <mat-icon>more_vert</mat-icon>\r\n            </button>\r\n            <mat-menu #menu=\"matMenu\">\r\n              <button mat-menu-item (click)=\"navigateCommunity(row)\">\r\n                <mat-icon>list</mat-icon> View\r\n              </button>\r\n              <button mat-menu-item (click)=\"communityPopUp(row, false)\">\r\n                <mat-icon>edit</mat-icon> Edit\r\n              </button>\r\n              <button mat-menu-item (click)=\"deleteCommunity(row)\">\r\n                <mat-icon>delete</mat-icon> Delete\r\n              </button>\r\n            </mat-menu>\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n      <tfoot>\r\n        <tr>\r\n          <td class=\"pt-1 pb-1 pl-1\">\r\n            <div class=\"pagination\">{{totalRecords}} Created, {{usage}} Usage, {{quota}} Quota</div>\r\n          </td>\r\n          <td colspan=\"7\" class=\"text-center\">\r\n            <nav aria-label=\"Page navigation example\">\r\n              <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n                  <a class=\"page-link\" (click)=\"fetchAllCommunities(pageNumber-1)\" aria-label=\"Previous\">\r\n                    <span aria-hidden=\"true\">&laquo;</span>\r\n                    <span class=\"sr-only\">Previous</span>\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n                  <a class=\"page-link\" (click)=\"fetchAllCommunities(page)\">\r\n                    {{page}}\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n                  <a class=\"page-link\" (click)=\"fetchAllCommunities(pageNumber+1)\" aria-label=\"Next\">\r\n                    <span aria-hidden=\"true\">&raquo;</span>\r\n                    <span class=\"sr-only\">Next</span>\r\n                  </a>\r\n                </li>\r\n              </ul>\r\n            </nav>\r\n          </td>\r\n        </tr>\r\n      </tfoot>\r\n    </table>\r\n  </mat-card-content>\r\n</mat-card>\r\n<div *ngIf=\"this.temCommunities.length === 0 && this.communities.length === 0\" fxLayout=\"row\" fxLayoutAlign=\"center\"\r\n  style=\"margin-top: 10rem;\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" class=\"text-center\">\r\n    <h1 class=\"text-muted\">Create New Community</h1>\r\n  </div>\r\n  <div fxFlex=\"100\" class=\"text-center\">\r\n    <h2 class=\"text-muted\">Click \"Add Community\" Button</h2>\r\n  </div>\r\n</div>"
+module.exports = "<mat-form-field *ngIf=\"this.temCommunities.length > 0\" class=\"margin-333\" style=\"width: 99%\">\r\n  <input matInput placeholder=\"Type to filter all columns\" value=\"\" (keyup)='updateFilter($event)'>\r\n</mat-form-field>\r\n<div class=\"m-333\">\r\n  <button mat-raised-button class=\"mb-05\" color=\"primary\" (click)=\"communityPopUp({}, true)\" [roleAuthorization]=\"'c-c'\">Add Community</button>\r\n  <span fxFlex></span>\r\n  <p *ngIf=\"this.temCommunities.length > 0\" class=\"mat-select-lable\"> Page Size: </p>\r\n  <mat-select *ngIf=\"this.temCommunities.length > 0\" class=\"mat-raised-select\" [(value)]=\"pageSize\"\r\n    (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n    <mat-option *ngFor=\"let item of pageSizeArray\" [value]=\"item\">{{item}}</mat-option>\r\n  </mat-select>\r\n</div>\r\n<mat-card *ngIf=\"this.temCommunities.length > 0\" class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-content class=\"p-0\">\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th class=\"pl-1\">Community Name</th>\r\n          <th class=\"pl-1\">Status</th>\r\n          <th class=\"pl-1\">Actions</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr *ngFor=\"let row of communities;\">\r\n          <td class=\"pt-1 pb-1\">{{ row?.name }}</td>\r\n          <td class=\"pt-1 pb-1\">\r\n            <mat-chip *ngIf=\"row.status === 'ACTIVE'\" mat-sm-chip color=\"primary\" [selected]=\"true\">Active</mat-chip>\r\n            <mat-chip *ngIf=\"row.status === 'INACTIVE'\" mat-sm-chip color=\"warn\" [selected]=\"true\">Inactive</mat-chip>\r\n          </td>\r\n          <td class=\"pt-1 pb-1 pr-1\">\r\n            <button mat-icon-button class=\"hidden-on-open\" [matMenuTriggerFor]=\"menu\">\r\n              <mat-icon>more_vert</mat-icon>\r\n            </button>\r\n            <mat-menu #menu=\"matMenu\">\r\n              <button mat-menu-item (click)=\"navigateCommunity(row)\">\r\n                <mat-icon>list</mat-icon> View\r\n              </button>\r\n              <button mat-menu-item (click)=\"communityPopUp(row, false)\"  [roleAuthorization]=\"'c-u'\">\r\n                <mat-icon>edit</mat-icon> Edit\r\n              </button>\r\n              <button mat-menu-item (click)=\"deleteCommunity(row)\" [roleAuthorization]=\"'c-d'\">\r\n                <mat-icon>delete</mat-icon> Delete\r\n              </button>\r\n            </mat-menu>\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n      <tfoot>\r\n        <tr>\r\n          <td class=\"pt-1 pb-1 pl-1\">\r\n            <div class=\"pagination\">{{totalRecords}} Created, {{usage}} Usage, {{quota}} Quota</div>\r\n          </td>\r\n          <td colspan=\"7\" class=\"text-center\">\r\n            <nav aria-label=\"Page navigation example\">\r\n              <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n                  <a class=\"page-link\" (click)=\"fetchAllCommunities(pageNumber-1)\" aria-label=\"Previous\">\r\n                    <span aria-hidden=\"true\">&laquo;</span>\r\n                    <span class=\"sr-only\">Previous</span>\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n                  <a class=\"page-link\" (click)=\"fetchAllCommunities(page)\">\r\n                    {{page}}\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n                  <a class=\"page-link\" (click)=\"fetchAllCommunities(pageNumber+1)\" aria-label=\"Next\">\r\n                    <span aria-hidden=\"true\">&raquo;</span>\r\n                    <span class=\"sr-only\">Next</span>\r\n                  </a>\r\n                </li>\r\n              </ul>\r\n            </nav>\r\n          </td>\r\n        </tr>\r\n      </tfoot>\r\n    </table>\r\n  </mat-card-content>\r\n</mat-card>\r\n<div *ngIf=\"this.temCommunities.length === 0 && this.communities.length === 0\" fxLayout=\"row\" fxLayoutAlign=\"center\"\r\n  style=\"margin-top: 10rem;\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n  <div fxFlex=\"100\" class=\"text-center\">\r\n    <h1 class=\"text-muted\">Create New Community</h1>\r\n  </div>\r\n  <div fxFlex=\"100\" class=\"text-center\">\r\n    <h2 class=\"text-muted\">Click \"Add Community\" Button</h2>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -13319,6 +13328,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var app_shared_services_app_warning_app_warning_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! app/shared/services/app-warning/app-warning.service */ "./src/app/shared/services/app-warning/app-warning.service.ts");
 /* harmony import */ var app_shared_services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! app/shared/services/app-info/app-info.service */ "./src/app/shared/services/app-info/app-info.service.ts");
 /* harmony import */ var _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
+/* harmony import */ var app_model_CommunityModel_model__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! app/model/CommunityModel.model */ "./src/app/model/CommunityModel.model.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -13328,6 +13338,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -13384,181 +13395,155 @@ var CommunityViewComponent = /** @class */ (function () {
         });
     };
     CommunityViewComponent.prototype.communityPopUp = function (data, isNew) {
-        // this.communityService.licenseExpireState(this.clientId, "communities").subscribe(response => {
-        //   const tempRes: any = response;
-        //   this.quotaExpire = tempRes.content.expired;
-        //   this.quota = tempRes.content.quota;
-        //   this.usage = tempRes.content.usage;
         var _this = this;
         if (data === void 0) { data = {}; }
-        //   if (this.quotaExpire && isNew) {
-        //     const infoData = {
-        //       title: "License",
-        //       message:
-        //         "You subscribed number of communities have expired!</br>" +
-        //         '<small class="text-muted">Do you like to extend the plan?</small>',
-        //       linkData: {
-        //         url: "https://www.google.com/gmail/",
-        //         buttonText: "Extend"
-        //       }
-        //     };
-        //     this.appInfoService.showInfo(infoData);
-        //   } else {
-        //     const title = isNew ? "Create New Community" : "Update Community";
-        //     const dialogRef: MatDialogRef<any> = this.dialog.open(
-        //       CommunityViewPopupComponent,
-        //       {
-        //         width: "720px",
-        //         disableClose: true,
-        //         data: { title: title, payload: data, isNew: isNew }
-        //       }
-        //     );
-        //     dialogRef.afterClosed().subscribe(res => {
-        //       if (!res) {
-        //         return;
-        //       } else {
-        //         const userObj: any = JSON.parse(localStorage.getItem(authProperties.storage_name));
-        //         if (userObj) {
-        //           if (isNew) {
-        //             // let users: UserData[] = [];
-        //             // users.push(new UserData(this.userId));
-        //             // let req: CommunityCreateReq = new CommunityCreateReq(res.name, res.status, res.description, this.userId, new ClientData(this.clientId), users);
-        //             // res["createdUserId"] = userObj.id;
-        //             // res["client"] = {
-        //             //   id: userObj.userData.client.id
-        //             // };
-        //             // res["users"] = [
-        //             //   {
-        //             //     id: userObj.id
-        //             //   }
-        //             // ];
-        //             // res.status = this.getCommunityStatus(res.status);
-        //             // const clientId = userObj.userData.client.id;
-        //             // console.log(res);
-        //             // this.communityService
-        //             //   .licenseExpireState(clientId, "communities")
-        //             //   .subscribe(response => {
-        //             //     const tempRes: any = response;
-        //             //     this.quotaExpire = tempRes.content.expired;
-        //             //     this.quota = tempRes.content.quota;
-        //             //     this.usage = tempRes.content.usage;
-        //             //     if (!tempRes.content.expired) {
-        //             //       this.loader.close();
-        //             //       this.createCommunity(
-        //             //         res,
-        //             //         tempRes.content.usage,
-        //             //         tempRes.content.quota
-        //             //       );
-        //             //     }
-        //             //   });
-        //           } else {
-        //             // let req: FeedbackUpdateReq = new FeedbackUpdateReq(res.name, this.getFeedbackStatus(res.status), userObj.id);
-        //             // this.userFeedbackService.feedbackUpdateById(data.id, req).subscribe(
-        //             //   response => {
-        //             //     const temData: any = response;
-        //             //     const i = this.feedbacks.indexOf(data);
-        //             //     this.feedbacks[i] = temData.content;
-        //             //     this.temFeedbacks = this.feedbacks;
-        //             //     this.loader.close();
-        //             //     this.snack.open("Feedback Updated", "close", {
-        //             //       duration: 2000
-        //             //     });
-        //             //   },
-        //             //   error => {
-        //             //     this.loader.close();
-        //             //     if (error.status !== 401) {
-        //             //       this.errDialog.showError(error);
-        //             //     }
-        //             //   }
-        //             // );
-        //           }
-        //         }
-        //       }
-        //     });
-        //   }
-        // });
-        if (this.quotaExpire && isNew) {
-            var infoData = {
-                title: "License",
-                message: "You subscribed number of communities have expired!</br>" +
-                    '<small class="text-muted">Do you like to extend the plan?</small>',
-                linkData: {
-                    url: "https://www.google.com/gmail/",
-                    buttonText: "Extend"
-                }
-            };
-            this.appInfoService.showInfo(infoData);
-        }
-        else {
-            var title = isNew ? "Add New Community" : "Update Community";
-            var dialogRef = this.dialog.open(_community_view_popup_community_view_popup_component__WEBPACK_IMPORTED_MODULE_3__["CommunityViewPopupComponent"], {
-                width: "720px",
-                disableClose: true,
-                data: { title: title, payload: data, isNew: isNew }
-            });
-            dialogRef.afterClosed().subscribe(function (res) {
-                if (!res) {
-                    return;
-                }
-                else {
-                    var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_9__["authProperties"].storage_name));
-                    if (userObj) {
-                        _this.loader.open();
-                        if (isNew) {
-                            res["createdUserId"] = userObj.id;
-                            res["client"] = {
-                                id: userObj.userData.client.id
-                            };
-                            res["users"] = [
-                                {
-                                    id: userObj.id
-                                }
-                            ];
-                            res.status = _this.getCommunityStatus(res.status);
-                            var clientId = userObj.userData.client.id;
-                            _this.communityService
-                                .licenseExpireState(clientId, "communities")
-                                .subscribe(function (response) {
-                                var tempRes = response;
-                                _this.quotaExpire = tempRes.content.expired;
-                                _this.quota = tempRes.content.quota;
-                                _this.usage = tempRes.content.usage;
-                                if (!tempRes.content.expired) {
+        this.communityService.licenseExpireState(this.clientId, "communities").subscribe(function (response) {
+            var tempRes = response;
+            _this.quotaExpire = tempRes.content.expired;
+            _this.quota = tempRes.content.quota;
+            _this.usage = tempRes.content.usage;
+            if (_this.quotaExpire && isNew) {
+                var infoData = {
+                    title: "License",
+                    message: "You subscribed number of communities have expired!</br>" +
+                        '<small class="text-muted">Do you like to extend the plan?</small>',
+                    linkData: {
+                        url: "https://www.google.com/gmail/",
+                        buttonText: "Extend"
+                    }
+                };
+                _this.appInfoService.showInfo(infoData);
+            }
+            else {
+                var title = isNew ? "Create New Community" : "Update Community";
+                var dialogRef = _this.dialog.open(_community_view_popup_community_view_popup_component__WEBPACK_IMPORTED_MODULE_3__["CommunityViewPopupComponent"], {
+                    width: "720px",
+                    disableClose: true,
+                    data: { title: title, payload: data, isNew: isNew }
+                });
+                dialogRef.afterClosed().subscribe(function (res) {
+                    if (!res) {
+                        return;
+                    }
+                    else {
+                        var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_9__["authProperties"].storage_name));
+                        if (userObj) {
+                            if (isNew) {
+                                var users = [];
+                                users.push(new app_model_CommunityModel_model__WEBPACK_IMPORTED_MODULE_13__["UserData"](_this.userId));
+                                var req = new app_model_CommunityModel_model__WEBPACK_IMPORTED_MODULE_13__["CommunityCreateReq"](res.name, _this.getCommunityStatus(res.status), res.description, _this.userId, new app_model_CommunityModel_model__WEBPACK_IMPORTED_MODULE_13__["ClientData"](_this.clientId), users);
+                                _this.createCommunity(req);
+                            }
+                            else {
+                                var req = new app_model_CommunityModel_model__WEBPACK_IMPORTED_MODULE_13__["CommunityUpdateReq"](res.name, _this.getCommunityStatus(res.status), res.description, _this.userId);
+                                _this.communityService.updateCommunityById(data.id, req).subscribe(function (response) {
+                                    var temData = response;
+                                    var i = _this.communities.indexOf(data);
+                                    _this.communities[i] = temData.content;
+                                    _this.temCommunities = _this.communities;
                                     _this.loader.close();
-                                    _this.createCommunity(res, tempRes.content.usage, tempRes.content.quota);
-                                }
-                            });
-                        }
-                        else {
-                            res["lastModifiedUserId"] = userObj.id;
-                            res.status = _this.getCommunityStatus(res.status);
-                            _this.communityService.updateCommunityById(data.id, res).subscribe(function (response) {
-                                var temData = response;
-                                var i = _this.communities.indexOf(data);
-                                _this.communities[i] = temData.content;
-                                _this.temCommunities = _this.communities;
-                                _this.loader.close();
-                                _this.snack.open("Community Updated", "close", {
-                                    duration: 2000
+                                    _this.snack.open("Community Updated", "close", {
+                                        duration: 2000
+                                    });
+                                }, function (error) {
+                                    _this.loader.close();
+                                    if (error.status !== 401) {
+                                        _this.errDialog.showError(error);
+                                    }
                                 });
-                            }, function (error) {
-                                _this.loader.close();
-                                if (error.status !== 401) {
-                                    _this.errDialog.showError(error);
-                                }
-                            });
+                            }
                         }
                     }
-                }
-            });
-        }
+                });
+            }
+        });
+        // if (this.quotaExpire && isNew) {
+        //   const infoData = {
+        //     title: "License",
+        //     message:
+        //       "You subscribed number of communities have expired!</br>" +
+        //       '<small class="text-muted">Do you like to extend the plan?</small>',
+        //     linkData: {
+        //       url: "https://www.google.com/gmail/",
+        //       buttonText: "Extend"
+        //     }
+        //   };
+        //   this.appInfoService.showInfo(infoData);
+        // } else {
+        //   const title = isNew ? "Add New Community" : "Update Community";
+        //   const dialogRef: MatDialogRef<any> = this.dialog.open(
+        //     CommunityViewPopupComponent,
+        //     {
+        //       width: "720px",
+        //       disableClose: true,
+        //       data: { title: title, payload: data, isNew: isNew }
+        //     }
+        //   );
+        //   dialogRef.afterClosed().subscribe(res => {
+        //     if (!res) {
+        //       return;
+        //     } else {
+        //       const userObj: any = JSON.parse(
+        //         localStorage.getItem(authProperties.storage_name)
+        //       );
+        //       if (userObj) {
+        //         this.loader.open();
+        //         if (isNew) {
+        //           res["createdUserId"] = userObj.id;
+        //           res["client"] = {
+        //             id: userObj.userData.client.id
+        //           };
+        //           res["users"] = [
+        //             {
+        //               id: userObj.id
+        //             }
+        //           ];
+        //           res.status = this.getCommunityStatus(res.status);
+        //           const clientId = userObj.userData.client.id;
+        //           this.communityService
+        //             .licenseExpireState(clientId, "communities")
+        //             .subscribe(response => {
+        //               const tempRes: any = response;
+        //               this.quotaExpire = tempRes.content.expired;
+        //               this.quota = tempRes.content.quota;
+        //               this.usage = tempRes.content.usage;
+        //               if (!tempRes.content.expired) {
+        //                 this.loader.close();
+        //                 this.createCommunity(
+        //                   res,
+        //                   tempRes.content.usage,
+        //                   tempRes.content.quota
+        //                 );
+        //               }
+        //             });
+        //         } else {
+        //           res["lastModifiedUserId"] = userObj.id;
+        //           res.status = this.getCommunityStatus(res.status);
+        //           this.communityService.updateCommunityById(data.id, res).subscribe(
+        //             response => {
+        //               const temData: any = response;
+        //               const i = this.communities.indexOf(data);
+        //               this.communities[i] = temData.content;
+        //               this.temCommunities = this.communities;
+        //               this.loader.close();
+        //               this.snack.open("Community Updated", "close", {
+        //                 duration: 2000
+        //               });
+        //             },
+        //             error => {
+        //               this.loader.close();
+        //               if (error.status !== 401) {
+        //                 this.errDialog.showError(error);
+        //               }
+        //             }
+        //           );
+        //         }
+        //       }
+        //     }
+        //   });
+        // }
     };
-    /*
-     * Create community
-     * 05-03-2019
-     * Prasad Kumara
-     */
-    CommunityViewComponent.prototype.createCommunity = function (res, usage, tempQuoata) {
+    CommunityViewComponent.prototype.createCommunity = function (res) {
         var _this = this;
         this.communityService.createCommunity(res).subscribe(function (response) {
             var temData = response;
@@ -13596,11 +13581,6 @@ var CommunityViewComponent = /** @class */ (function () {
             }
         });
     };
-    /*
-     * Fetch all communities
-     * 05-03-2019
-     * Prasad Kumara
-     */
     CommunityViewComponent.prototype.fetchAllCommunities = function (pageNumber) {
         var _this = this;
         if (pageNumber === 1 ||
@@ -15471,7 +15451,7 @@ var CreateFeedbackPopupComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"messages-wrap\">\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\">\r\n    <mat-checkbox (change)=\"selectToggleAll($event)\" [indeterminate]=\"indeterminateState\" [checked]=\"selectAll\"\r\n      class=\"inbox-toggle-all mr-1\"><small>All</small></mat-checkbox>\r\n    <button mat-icon-button matTooltip=\"Add feedback\" (click)=\"feedbackPopUp({}, true)\">\r\n      <mat-icon>add_box</mat-icon>\r\n    </button>\r\n    <button mat-icon-button matTooltip=\"Delete\" *ngIf=\"indeterminateState || selectAll\"\r\n      (click)=\"deleteSelectedFeedbacks()\">\r\n      <mat-icon>delete</mat-icon>\r\n    </button>\r\n    <span fxFlex></span>\r\n    <mat-form-field *ngIf=\"this.temFeedbacks.length > 0\" style=\"font-size: 15px; width: 30%; margin-top: 10px;\">\r\n      <input matInput placeholder=\"Search\" value=\"\" (keyup)='updateFilter($event)'>\r\n    </mat-form-field>\r\n    <p *ngIf=\"this.temFeedbacks.length > 0\" class=\"mat-select-lable\"> Page Size: </p>\r\n    <mat-select *ngIf=\"this.temFeedbacks.length > 0\" class=\"mat-raised-select\" [(value)]=\"pageSize\"\r\n      (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n      <mat-option *ngFor=\"let item of pageSizeArray\" [value]=\"item\">{{item}}</mat-option>\r\n    </mat-select>\r\n  </mat-toolbar>\r\n\r\n\r\n  <table class=\"table table-hover\">\r\n    <tbody>\r\n      <tr *ngFor=\"let feedback of this.feedbacks\">\r\n        <td>\r\n          <div fxLayout=\"row wrap\">\r\n\r\n            <div fxFlex=\"5\">\r\n              <div style=\"padding-top: 5px;\">\r\n                <mat-checkbox (change)=\"selectToggleOne($event, feedback)\" [checked]=\"feedback.selected\"\r\n                  class=\"mail-checkbox hide-on-open\"></mat-checkbox>\r\n              </div>\r\n            </div>\r\n            <div fxFlex=\"55\">\r\n              <div class=\"custom-vertical-align-middle\" style=\"padding-top: 10px;\">{{  feedback.name }}</div>\r\n            </div>\r\n            <div fxFlex=\"20\">\r\n              <div class=\"custom-vertical-align-middle custom-float-right\" style=\"padding-top: 10px;\">\r\n                <mat-chip mat-sm-chip color=\"{{statusArray[feedback.status]}}\" [selected]=\"true\">\r\n                  {{feedback.status}}\r\n                </mat-chip>\r\n              </div>\r\n            </div>\r\n            <div fxFlex=\"20\">\r\n              <div class=\"custom-float-right\">\r\n                <button mat-icon-button class=\"hidden-on-open\" [matMenuTriggerFor]=\"menu\">\r\n                  <mat-icon>more_vert</mat-icon>\r\n                </button>\r\n                <mat-menu #menu=\"matMenu\">\r\n                  <button mat-menu-item (click)=\"navigateToSurveyEditor(feedback)\">\r\n                    <mat-icon>view_headline</mat-icon> View\r\n                  </button>\r\n                  <button mat-menu-item (click)=\"feedbackPopUp(feedback, false)\">\r\n                    <mat-icon>edit</mat-icon> Edit\r\n                  </button>\r\n                  <button mat-menu-item (click)=\"deleteOneFeedback(feedback)\">\r\n                    <mat-icon>delete</mat-icon> Delete\r\n                  </button>\r\n                </mat-menu>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\" *ngIf=\"this.feedbacks.length > 0\" style=\"font-size: 12px;\">\r\n    <div class=\"pagination\">{{totalRecords}} Created,</div>\r\n    <div class=\"pagination ml-1\">{{usage}} Usage</div>\r\n    <div class=\"pagination ml-1\">{{quota}} Quota</div>\r\n    <span fxFlex></span>\r\n    <ng-container>\r\n      <nav aria-label=\"Promotion Page Navigation\" style=\"color: black;\">\r\n        <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n          <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllFeedbacks(pageNumber-1)\" aria-label=\"Previous\">\r\n              <span aria-hidden=\"true\">&laquo;</span>\r\n              <span class=\"sr-only\">Previous</span>\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllFeedbacks(page)\">\r\n              {{page}}\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllFeedbacks(pageNumber+1)\" aria-label=\"Next\">\r\n              <span aria-hidden=\"true\">&raquo;</span>\r\n              <span class=\"sr-only\">Next</span>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      </nav>\r\n    </ng-container>\r\n  </mat-toolbar>\r\n  <div *ngIf=\"this.temFeedbacks.length === 0 && this.feedbacks.length === 0\" fxLayout=\"row\" fxLayoutAlign=\"center\"\r\n    style=\"margin-top: 10rem;\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h1 class=\"text-muted\">Create New Feedback</h1>\r\n    </div>\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h2 class=\"text-muted\">Click \"Add\" Button</h2>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"messages-wrap\">\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\">\r\n    <mat-checkbox (change)=\"selectToggleAll($event)\" [indeterminate]=\"indeterminateState\" [checked]=\"selectAll\"\r\n      class=\"inbox-toggle-all mr-1\"><small>All</small></mat-checkbox>\r\n    <button mat-icon-button matTooltip=\"Add feedback\" (click)=\"feedbackPopUp({}, true)\" [roleAuthorization]=\"'f-c'\">\r\n      <mat-icon>add_box</mat-icon>\r\n    </button>\r\n    <button mat-icon-button matTooltip=\"Delete\" *ngIf=\"indeterminateState || selectAll\"\r\n      (click)=\"deleteSelectedFeedbacks()\"  [roleAuthorization]=\"'f-md'\">\r\n      <mat-icon>delete</mat-icon>\r\n    </button>\r\n    <span fxFlex></span>\r\n    <mat-form-field *ngIf=\"this.temFeedbacks.length > 0\" style=\"font-size: 15px; width: 30%; margin-top: 10px;\">\r\n      <input matInput placeholder=\"Search\" value=\"\" (keyup)='updateFilter($event)'>\r\n    </mat-form-field>\r\n    <p *ngIf=\"this.temFeedbacks.length > 0\" class=\"mat-select-lable\"> Page Size: </p>\r\n    <mat-select *ngIf=\"this.temFeedbacks.length > 0\" class=\"mat-raised-select\" [(value)]=\"pageSize\"\r\n      (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n      <mat-option *ngFor=\"let item of pageSizeArray\" [value]=\"item\">{{item}}</mat-option>\r\n    </mat-select>\r\n  </mat-toolbar>\r\n\r\n\r\n  <table class=\"table table-hover\">\r\n    <tbody>\r\n      <tr *ngFor=\"let feedback of this.feedbacks\">\r\n        <td>\r\n          <div fxLayout=\"row wrap\">\r\n\r\n            <div fxFlex=\"5\">\r\n              <div style=\"padding-top: 5px;\">\r\n                <mat-checkbox (change)=\"selectToggleOne($event, feedback)\" [checked]=\"feedback.selected\"\r\n                  class=\"mail-checkbox hide-on-open\"></mat-checkbox>\r\n              </div>\r\n            </div>\r\n            <div fxFlex=\"55\">\r\n              <div class=\"custom-vertical-align-middle\" style=\"padding-top: 10px;\">{{  feedback.name }}</div>\r\n            </div>\r\n            <div fxFlex=\"20\">\r\n              <div class=\"custom-vertical-align-middle custom-float-right\" style=\"padding-top: 10px;\">\r\n                <mat-chip mat-sm-chip color=\"{{statusArray[feedback.status]}}\" [selected]=\"true\">\r\n                  {{feedback.status}}\r\n                </mat-chip>\r\n              </div>\r\n            </div>\r\n            <div fxFlex=\"20\">\r\n              <div class=\"custom-float-right\">\r\n                <button mat-icon-button class=\"hidden-on-open\" [matMenuTriggerFor]=\"menu\">\r\n                  <mat-icon>more_vert</mat-icon>\r\n                </button>\r\n                <mat-menu #menu=\"matMenu\">\r\n                  <button mat-menu-item (click)=\"navigateToSurveyEditor(feedback)\">\r\n                    <mat-icon>view_headline</mat-icon> View\r\n                  </button>\r\n                  <button mat-menu-item (click)=\"feedbackPopUp(feedback, false)\" [roleAuthorization]=\"'f-u'\">\r\n                    <mat-icon>edit</mat-icon> Edit\r\n                  </button>\r\n                  <button mat-menu-item (click)=\"deleteOneFeedback(feedback)\" [roleAuthorization]=\"'f-d'\">\r\n                    <mat-icon>delete</mat-icon> Delete\r\n                  </button>\r\n                </mat-menu>\r\n              </div>\r\n            </div>\r\n          </div>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n  <mat-toolbar color=\"primary\" class=\"inbox-toolbar\" *ngIf=\"this.feedbacks.length > 0\" style=\"font-size: 12px;\">\r\n    <div class=\"pagination\">{{totalRecords}} Created,</div>\r\n    <div class=\"pagination ml-1\">{{usage}} Usage</div>\r\n    <div class=\"pagination ml-1\">{{quota}} Quota</div>\r\n    <span fxFlex></span>\r\n    <ng-container>\r\n      <nav aria-label=\"Promotion Page Navigation\" style=\"color: black;\">\r\n        <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n          <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllFeedbacks(pageNumber-1)\" aria-label=\"Previous\">\r\n              <span aria-hidden=\"true\">&laquo;</span>\r\n              <span class=\"sr-only\">Previous</span>\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllFeedbacks(page)\">\r\n              {{page}}\r\n            </a>\r\n          </li>\r\n          <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n            <a class=\"page-link\" (click)=\"fetchAllFeedbacks(pageNumber+1)\" aria-label=\"Next\">\r\n              <span aria-hidden=\"true\">&raquo;</span>\r\n              <span class=\"sr-only\">Next</span>\r\n            </a>\r\n          </li>\r\n        </ul>\r\n      </nav>\r\n    </ng-container>\r\n  </mat-toolbar>\r\n  <div *ngIf=\"this.temFeedbacks.length === 0 && this.feedbacks.length === 0\" fxLayout=\"row\" fxLayoutAlign=\"center\"\r\n    style=\"margin-top: 10rem;\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h1 class=\"text-muted\">Create New Feedback</h1>\r\n    </div>\r\n    <div fxFlex=\"100\" class=\"text-center\">\r\n      <h2 class=\"text-muted\">Click \"Add\" Button</h2>\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -15629,7 +15609,7 @@ var UserFeedbackComponent = /** @class */ (function () {
                                 var jsonContent = "\"{\\\"locale\\\":\\\"en\\\",\\\"title\\\":\\\"" + res.name + "\\\",\\\"clientId\\\":\\\"faa6643aca8c5318a9583178795542cf\\\",\\\"pages\\\":[{\\\"name\\\":\\\"page1\\\"}]}\"";
                                 var fsreq = new app_model_CommunityModel_model__WEBPACK_IMPORTED_MODULE_13__["FutureSurveyData"](res.name, _this.clientId, "1", "1", languageJson, compatibility, pages, jsonContent);
                                 var req = new app_model_CommunityModel_model__WEBPACK_IMPORTED_MODULE_13__["FeedbackCreateReq"](res.name, _this.userId, new app_model_CommunityModel_model__WEBPACK_IMPORTED_MODULE_13__["CommunityData"](_this.communityId), fsreq);
-                                _this.createFeedback(req, tempRes.content.usage, tempRes.content.quota);
+                                _this.createFeedback(req);
                             }
                             else {
                                 var req = new app_model_CommunityModel_model__WEBPACK_IMPORTED_MODULE_13__["FeedbackUpdateReq"](res.name, _this.getFeedbackStatus(res.status), userObj.id);
@@ -15655,7 +15635,7 @@ var UserFeedbackComponent = /** @class */ (function () {
             }
         });
     };
-    UserFeedbackComponent.prototype.createFeedback = function (res, usage, tempQuoata) {
+    UserFeedbackComponent.prototype.createFeedback = function (res) {
         var _this = this;
         this.userFeedbackService.createFeedback(res).subscribe(function (response) {
             var temData = response;

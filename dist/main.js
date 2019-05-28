@@ -3473,6 +3473,7 @@ var AddHeaderInterceptor = /** @class */ (function () {
             request = request.clone({
                 headers: request.headers.set("Authorization", "Basic " + btoa(this.gloable_user + ":" + this.gloable_secret))
             });
+            console.log('--------------------------------------- request', request);
         }
         else {
             var isTokenRequired = this.getWhiteListUrl(request.url);
@@ -3530,7 +3531,10 @@ var AddHeaderInterceptor = /** @class */ (function () {
                 .catch(function (error) {
                 // If there is an exception calling 'refreshToken', bad news so logout.
                 console.log("------------------------- If there is an exception calling 'refreshToken', bad news so logout.");
-                return _this.logoutUser();
+                console.log(error);
+                if (error.error.error !== 'access_denied') {
+                    return _this.logoutUser();
+                }
             })
                 .finally(function () {
                 _this.isRefreshingToken = false;
@@ -5459,7 +5463,7 @@ var environment = {
     // SAP NEW 32GB -  DEV TEST
     productApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/product/api/",
     surveyApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey/api/",
-    productimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/product/",
+    productimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/product",
     evoteimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey",
     authTokenUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user/",
     userApiUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user/api/",
