@@ -152,7 +152,7 @@ export class UserFeedbackComponent implements OnInit {
                 let fsreq: FutureSurveyData = new FutureSurveyData(res.name, this.clientId, "1", "1", languageJson, compatibility, pages, jsonContent);
                 let req: FeedbackCreateReq = new FeedbackCreateReq(res.name, this.userId, new CommunityData(this.communityId), fsreq);
 
-                this.createFeedback(req, tempRes.content.usage, tempRes.content.quota);
+                this.createFeedback(req);
               } else {
                 let req: FeedbackUpdateReq = new FeedbackUpdateReq(res.name, this.getFeedbackStatus(res.status), userObj.id);
                 this.userFeedbackService.feedbackUpdateById(data.id, req).subscribe(
@@ -183,7 +183,7 @@ export class UserFeedbackComponent implements OnInit {
 
   }
 
-  createFeedback(res, usage, tempQuoata) {
+  createFeedback(res) {
     this.userFeedbackService.createFeedback(res).subscribe(response => {
       const temData: any = response;
       let feedbackId = temData.content.id;

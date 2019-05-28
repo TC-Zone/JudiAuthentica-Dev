@@ -4,11 +4,15 @@ import { ChoiceTypeEnum, MatrixTypeEnum, LangJsonWrapper, ValidateLocalizeSurvey
 @Injectable()
 export class FutureSurveyOperationalService {
 
+  constructor() { }
+
+
+
+
+  // --------------------------------- validateLocalizeSurveyRequest Start ----------------------------------------------------------------
   public surveyLang;
   public defLang;
   public extraLang;
-
-  constructor() { }
 
   validateLocalizeSurveyRequest(jsonObject) {
     // ---------------------------------------------------------------------------------~ HBH ~------------------
@@ -141,84 +145,52 @@ export class FutureSurveyOperationalService {
 
   // ------------------------------------------------------------------------------------------------------------
 
+  // --------------------------------- validateLocalizeSurveyRequest End ------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+  // --------------------------------- optionUnselect Start -------------------------------------------------------------------------------
 
   optionUnselect(Survey) {
     // ---------------------------------------------------------------------------------~ HBH ~------------------
     // ---------------------------------------------------------------------------------- Option Unselect -------
-    // after add this widget to Survey, all the options can unselect
+    // after add this widget to Survey, all the Radio Button Groups can unselect.
     // ----------------------------------------------------------------------------------------------------------
-    var widget = {
-      name: "emptyRadio",
-      isFit: function (question) {
-        return question.getType() === 'radiogroup';
-      },
-      isDefaultRender: true,
-      afterRender: function (question, el) {
-        
+    let widget = {
+      name: "emptyRadio", isFit: function (question) { return question.getType() === 'radiogroup'; }, isDefaultRender: true, afterRender: function (question, el) {
         let lastValue = question.cachedValueForUrlRequests;
         el.onclick = function (e) {
-          
-          if (e.originalTarget.value !== undefined) {
-            let id = e.originalTarget.id;
-            let cls: string = 'customChecked';
-            let checked = (<HTMLInputElement>document.getElementById(id)).classList.contains(cls);
 
-            if (checked) {
-              (<HTMLInputElement>document.getElementById(id)).checked = false;
-              (<HTMLInputElement>document.getElementById(id)).classList.remove(cls);
+          // ----------------------------------------------------------------------------------------------------------
+          console.log('-------------- ------------ optionUnselect lastValue', lastValue);
+          console.log('-------------- optionUnselect e.originalTarget.value', e.originalTarget.value);
+          // ----------------------------------------------------------------------------------------------------------
+
+          if (e.originalTarget.value !== undefined) {
+            if (lastValue === null || lastValue !== e.originalTarget.value) {
+              lastValue = question.cachedValueForUrlRequests
             } else {
-              if (lastValue === null) {
-                (<HTMLInputElement>document.getElementById(id)).classList.add(cls);
-              } else {
-                (<HTMLInputElement>document.getElementById(id)).checked = false;
-                (<HTMLInputElement>document.getElementById(id)).classList.remove(cls);
-                lastValue = null;
-              }
+              lastValue = null;
+              question.clearValue();
             }
           }
+
         }
       }
     };
     Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
     // ----------------------------------------------------------------------------------------------------------
-
-    // ---------------------------- SurveyJS Library Example for Option Unselect --------------------------------
-    // var widget = {
-    //   name: "emptyRadio",
-    //   isFit: function (question) {
-    //     return question.getType() === 'radiogroup';
-    //   },
-    //   isDefaultRender: true,
-    //   afterRender: function (question, el) {
-
-    //     var $el = $(el);
-    //     var lastValue = question.cachedValueForUrlRequests;
-
-    //     $el.find("input:radio").click(function (event) {
-    //       var UnCheck = "UnCheck",
-    //         $clickedbox = $(this),
-    //         radioname = $clickedbox.prop("name"),
-    //         $group = $('input[name|="' + radioname + '"]'),
-    //         doUncheck = $clickedbox.hasClass(UnCheck),
-    //         isChecked = $clickedbox.is(':checked');
-
-    //       if (lastValue !== null) {
-    //         doUncheck = true;
-    //         lastValue = null;
-    //       }
-    //       if (doUncheck) {
-    //         $group.removeClass(UnCheck);
-    //         $clickedbox.prop('checked', false);
-    //         question.value = null;
-    //       } else if (isChecked) {
-    //         $group.removeClass(UnCheck);
-    //         $clickedbox.addClass(UnCheck);
-    //       }
-    //     });
-    //   }
-    // };
-    // Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "type");
-    // ----------------------------------------------------------------------------------------------------------
-    
   }
+
+  // --------------------------------- optionUnselect End ---------------------------------------------------------------------------------
+
+
+
+
 }

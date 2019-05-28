@@ -33,7 +33,6 @@ export class UserTableComponent implements OnInit {
   public url;
 
   public clientCategory;
-  public clientCommunity;
 
   public getItemSub: Subscription;
   constructor(
@@ -52,7 +51,6 @@ export class UserTableComponent implements OnInit {
       this.clientId = currentUser.userData.client.id;
       this.getUsersByClient();
       this.getClientCategories();
-      this.getClientCommunities();
     }
 
     // this.activeRoute.queryParams.subscribe(params => {
@@ -111,10 +109,25 @@ export class UserTableComponent implements OnInit {
     );
   }
 
-  getClientCommunities() {
+  getClientAndUserCommunities(popup, user?) {
     this.getItemSub = this.clientService.getClientCommunities(this.clientId).subscribe(successResp => {
-      this.clientCommunity = successResp.content;
-      console.log(this.clientCommunity);
+      let clientCommunity = successResp.content;
+
+      if (popup === 'UserCreatePopup') {
+        this.userCreatePopup(clientCommunity);
+      } else if (popup === 'CommunityPopUp') {
+
+        this.clientService.getUser(user.id).subscribe(successResp => {
+          let userCommunity = successResp.content.communities;
+          this.communityPopup(user.id, clientCommunity, userCommunity);
+        },
+          error => {
+            this.errDialog.showError(error);
+          }
+        );
+
+      }
+
     },
       error => {
         this.errDialog.showError(error);
@@ -122,13 +135,18 @@ export class UserTableComponent implements OnInit {
     );
   }
 
-  userCreatePopup() {
+
+  openUserCreatePopup() {
+    this.getClientAndUserCommunities("UserCreatePopup");
+  }
+
+  userCreatePopup(clientCommunity) {
     let dialogRef: MatDialogRef<any> = this.dialog.open(
       UserCreatePopupComponent,
       {
         width: "720px",
         disableClose: true,
-        data: { roles: this.roles, category: this.clientCategory, community: this.clientCommunity }
+        data: { roles: this.roles, category: this.clientCategory, community: clientCommunity }
       }
     );
 
@@ -208,55 +226,49 @@ export class UserTableComponent implements OnInit {
 
 
   openCommunityPopUp(data: any = {}) {
-    console.log();
+    this.getClientAndUserCommunities("CommunityPopUp", data);
+  }
 
-    this.getItemSub = this.clientService.getUser(data.id).subscribe(successResp => {
 
-      console.log(successResp);
-
-      let dialogRef: MatDialogRef<any> = this.dialog.open(
-        UserCommunityPopupComponent,
-        {
-          width: "720px",
-          disableClose: true,
-          data: { community: this.clientCommunity, selectedCommunity: successResp.content.communities }
-        }
-      );
-      dialogRef.afterClosed().subscribe(res => {
-        if (!res) {
-          // If user press cancel
-          return;
-        }
-        console.log(res);
-
-        let community: CommunityData[] = [];
-        res.forEach(element => {
-          community.push(new CommunityData(element.id));
-        });
-        const req: UserCommunityUpdateRequest = new UserCommunityUpdateRequest(community);
-
-        this.loader.open();
-        this.clientService.updateUserCommunity(data.id, req).subscribe(
-          response => {
-            this.getUsersByClient();
-            this.loader.close();
-            this.snack.open("User Community Updated!", "OK", { duration: 4000 });
-          },
-          error => {
-            this.loader.close();
-            this.errDialog.showError({
-              title: "Error",
-              status: error.status,
-              type: "http_error"
-            });
-          }
-        );
-      });
-    },
-      error => {
-        this.errDialog.showError(error);
+  communityPopup(userId, clientCommunities, userCommunities) {
+    let dialogRef: MatDialogRef<any> = this.dialog.open(
+      UserCommunityPopupComponent,
+      {
+        width: "720px",
+        disableClose: true,
+        data: { community: clientCommunities, selectedCommunity: userCommunities }
       }
     );
+    dialogRef.afterClosed().subscribe(res => {
+      if (!res) {
+        // If user press cancel
+        return;
+      }
+      console.log(res);
+
+      let community: CommunityData[] = [];
+      res.forEach(element => {
+        community.push(new CommunityData(element.id));
+      });
+      const req: UserCommunityUpdateRequest = new UserCommunityUpdateRequest(community);
+
+      this.loader.open();
+      this.clientService.updateUserCommunity(userId, req).subscribe(
+        response => {
+          this.getUsersByClient();
+          this.loader.close();
+          this.snack.open("User Community Updated!", "OK", { duration: 4000 });
+        },
+        error => {
+          this.loader.close();
+          this.errDialog.showError({
+            title: "Error",
+            status: error.status,
+            type: "http_error"
+          });
+        }
+      );
+    });
   }
 
 
@@ -312,8 +324,9 @@ export class UserTableComponent implements OnInit {
     );
   }
 
-  removeUser() {
 
+  removeUser(user) {
+    console.log('---------------------------- user', user);
   }
 
 }

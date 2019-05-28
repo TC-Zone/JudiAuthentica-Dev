@@ -2,7 +2,8 @@
   <mat-card-title>
 
     <div class="m-333 mt-3">
-      <button mat-raised-button class="mb-05 ml-05" color="primary" (click)="userCreatePopup()" [roleAuthorization]="'pu-c'">Add User</button>
+      <button mat-raised-button class="mb-05 ml-05" color="primary" (click)="openUserCreatePopup()"
+        [roleAuthorization]="'pu-c'">Add User</button>
       <span fxFlex></span>
       <p class="mat-select-lable"> Page Size: </p>
       <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()">
@@ -37,7 +38,7 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Role" [flexGrow]="1"  [maxWidth]="150">
+      <ngx-datatable-column name="Role" [flexGrow]="1" [maxWidth]="150">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <mat-chip mat-sm-chip color="warn" [selected]="true">{{row?.role.name}}</mat-chip>
         </ng-template>
@@ -67,6 +68,9 @@
             <button mat-menu-item (click)="openCategoryPopUp(row)">
               <mat-icon>assistant</mat-icon>
               <span>Category</span>
+            </button>
+            <button mat-menu-item (click)="removeUser(row)" [roleAuthorization]="'pu-d'">
+              <mat-icon>delete</mat-icon>Delete
             </button>
           </mat-menu>
         </ng-template>

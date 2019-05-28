@@ -67,28 +67,55 @@ export class RoleTablePopupComponent implements OnInit {
     this.createUserAuthorityComponentList(this.data.adminRoleAuthorities);
   }
 
+
   createUserAuthorityComponentList(data) {
     const roleData = JSON.parse(JSON.stringify(data));
     let displayAuthoritySection = { name: "Display Authority", authorities: [] };
+
+    // I had to foreach section twice for update selectedAuthorities and remove unnecessary authorities
+    // -------------------------------------------------------------------------------------------------------------
+
     roleData.forEach(section => {
-      section.authorities.forEach((authority, index) => {
+      section.authorities.forEach((authority) => {
         if (authority.type === 'D' || authority.type === 'U') {
           let status = false;
           if (this.selectedAuthorities.includes(authority.id)) {
             status = true;
           }
           authority['checked'] = status;
+        }
+      });
 
-          if (authority.type === 'D') {
-            displayAuthoritySection.authorities.push(authority);
-            section.authorities.splice(index, 1);
-          }
-        } else {
-          console.log(authority);
+      section.authorities.forEach((authority, index) => {
+        if (authority.type === 'D') {
+          displayAuthoritySection.authorities.push(authority);
+          section.authorities.splice(index, 1);
+        } else if (authority.type !== 'D' && authority.type !== 'U') {
           section.authorities.splice(index, 1);
         }
       });
     });
+
+    // roleData.forEach(section => {
+    //   section.authorities.forEach((authority, index) => {
+    //     if (authority.type === 'D' || authority.type === 'U') {
+    //       let status = false;
+    //       if (this.selectedAuthorities.includes(authority.id)) {
+    //         status = true;
+    //       }
+    //       authority['checked'] = status;
+
+    //       if (authority.type === 'D') {
+    //         displayAuthoritySection.authorities.push(authority);
+    //         section.authorities.splice(index, 1);
+    //       }
+    //     } else {
+    //       console.log(authority);
+    //       section.authorities.splice(index, 1);
+    //     }
+    //   });
+    // });
+    // -------------------------------------------------------------------------------------------------------------
 
     roleData.splice(0, 0, displayAuthoritySection);
     this.componentList = roleData;

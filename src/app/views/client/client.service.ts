@@ -128,6 +128,19 @@ export class ClientService {
       .pipe(catchError(this.handleError));
   }
 
+  deleteUserById(userId) {
+    return this.http
+      .delete(this.userUrl + "/" + userId)
+      .pipe(
+        map(data => {
+          return data;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+
+
 
 
   /*

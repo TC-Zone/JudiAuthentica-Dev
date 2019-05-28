@@ -100,7 +100,7 @@
 
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
 
-          <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-3"
+          <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class=""
             *ngIf="allCommunities.length !== 0">
             <div fxFlex="50" class="pr-1" *ngFor="let community of allCommunities">
               <mat-checkbox [checked]="community.isChecked" (change)="onChange($event)" class="full-width"

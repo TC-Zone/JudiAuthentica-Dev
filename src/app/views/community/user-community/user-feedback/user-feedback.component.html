@@ -2,11 +2,11 @@
   <mat-toolbar color="primary" class="inbox-toolbar">
     <mat-checkbox (change)="selectToggleAll($event)" [indeterminate]="indeterminateState" [checked]="selectAll"
       class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
-    <button mat-icon-button matTooltip="Add feedback" (click)="feedbackPopUp({}, true)">
+    <button mat-icon-button matTooltip="Add feedback" (click)="feedbackPopUp({}, true)" [roleAuthorization]="'f-c'">
       <mat-icon>add_box</mat-icon>
     </button>
     <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll"
-      (click)="deleteSelectedFeedbacks()">
+      (click)="deleteSelectedFeedbacks()"  [roleAuthorization]="'f-md'">
       <mat-icon>delete</mat-icon>
     </button>
     <span fxFlex></span>
@@ -52,10 +52,10 @@
                   <button mat-menu-item (click)="navigateToSurveyEditor(feedback)">
                     <mat-icon>view_headline</mat-icon> View
                   </button>
-                  <button mat-menu-item (click)="feedbackPopUp(feedback, false)">
+                  <button mat-menu-item (click)="feedbackPopUp(feedback, false)" [roleAuthorization]="'f-u'">
                     <mat-icon>edit</mat-icon> Edit
                   </button>
-                  <button mat-menu-item (click)="deleteOneFeedback(feedback)">
+                  <button mat-menu-item (click)="deleteOneFeedback(feedback)" [roleAuthorization]="'f-d'">
                     <mat-icon>delete</mat-icon> Delete
                   </button>
                 </mat-menu>

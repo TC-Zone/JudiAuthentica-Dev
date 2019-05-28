@@ -61,6 +61,8 @@ export class AddHeaderInterceptor implements HttpInterceptor {
           "Basic " + btoa(this.gloable_user + ":" + this.gloable_secret)
         )
       });
+      console.log('--------------------------------------- request',request);
+      
     } else {
       const isTokenRequired = this.getWhiteListUrl(request.url);
       // console.log('------------------------------- isTokenRequired', isTokenRequired);
@@ -92,7 +94,6 @@ export class AddHeaderInterceptor implements HttpInterceptor {
       .handle(this.getRequest(request, this.authService.getAuthToken()))
       .catch(error => {
         console.log("--------------------------- error", error);
-
         if (error instanceof HttpErrorResponse) {
           switch ((<HttpErrorResponse>error).status) {
             case 401:
@@ -123,13 +124,15 @@ export class AddHeaderInterceptor implements HttpInterceptor {
           }
           // If we don't get a new token, we are in trouble so logout.
           console.log("------------------------- If we don't get a new token, we are in trouble so logout.");
-
           return this.logoutUser();
         })
         .catch(error => {
           // If there is an exception calling 'refreshToken', bad news so logout.
           console.log("------------------------- If there is an exception calling 'refreshToken', bad news so logout.");
-          return this.logoutUser();
+          console.log(error);
+          if(error.error.error !== 'access_denied'){
+            return this.logoutUser();
+          }
         })
         .finally(() => {
           this.isRefreshingToken = false;

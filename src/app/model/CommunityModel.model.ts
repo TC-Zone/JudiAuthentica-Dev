@@ -29,7 +29,6 @@ export class FutureSurveyData {
 
 export class FeedbackUpdateReq {
   constructor(
-    // public id: string,
     public name: string,
     public status: string,
     public lastModifiedUserId: string
@@ -44,6 +43,15 @@ export class CommunityCreateReq {
     public createdUserId: string,
     public client: ClientData,
     public users: UserData[]
+  ) { }
+}
+
+export class CommunityUpdateReq {
+  constructor(
+    public name: string,
+    public status: string,
+    public description: string,
+    public lastModifiedUserId: string
   ) { }
 }
 
