@@ -13,6 +13,8 @@ import * as moment from "moment";
 import { AppFileDownloadService } from "../../../shared/services/file-download.service";
 import { AppDataConversionService } from "../../../shared/services/data-conversion.service";
 import { AuthenticationService } from "../../sessions/authentication.service";
+import { ComunityService } from "../../community/community.service";
+import { AppInfoService } from "../../../shared/services/app-info/app-info.service";
 
 @Component({
   selector: "app-product-filter-table",
@@ -45,7 +47,9 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
     private confirmService: AppConfirmService,
     private downloadService: AppFileDownloadService,
     private conversionService: AppDataConversionService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private communityService: ComunityService,
+    private appInfoService: AppInfoService
   ) {}
 
   ngOnInit() {
@@ -183,6 +187,31 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
               this.errDialog.showError(error);
             }
           );
+        }
+      });
+  }
+
+  handleNewProductSave() {
+    this.communityService
+      .licenseExpireState(this.clientId, "tags")
+      .subscribe(response => {
+        const tempRes: any = response;
+        const quotaExpire: boolean = tempRes.content.expired;
+
+        if (quotaExpire) {
+          const infoData = {
+            title: "License",
+            message:
+              "You subscribed number of tags count has expired!</br>" +
+              '<small class="text-muted">Do you like to extend the plan?</small>',
+            linkData: {
+              url: "https://www.google.com/gmail/",
+              buttonText: "Extend"
+            }
+          };
+          this.appInfoService.showInfo(infoData);
+        } else {
+          this.openProductPopup({}, true);
         }
       });
   }

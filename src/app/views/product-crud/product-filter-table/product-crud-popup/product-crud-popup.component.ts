@@ -27,6 +27,8 @@ import { egretAnimations } from "../../../../shared/animations/egret-animations"
 import { ProductCommonComponent } from "../../product-crud-common.component";
 import { ClientService } from "../../../client/client.service";
 import { AuthenticationService } from "../../../sessions/authentication.service";
+import { ComunityService } from "../../../community/community.service";
+import { AppInfoService } from "../../../../shared/services/app-info/app-info.service";
 
 export const MY_FORMATS = {
   parse: {
@@ -89,7 +91,9 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
     public surveyService: SurveyService,
     public authService: AuthenticationService,
     private fb: FormBuilder,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private communityService: ComunityService,
+    private appInfoService: AppInfoService
   ) {
     super(surveyService, clientService);
   }
@@ -207,12 +211,40 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
   }
 
   submit() {
-    let productRequest: ProductCreationRequest = new ProductCreationRequest(
-      this.productForm.value
-    );
-    let formData;
-    formData = this.prepareToSave(productRequest);
-    this.dialogRef.close(formData);
+    this.communityService
+      .licenseExpireState(this.clientId, "tags")
+      .subscribe(response => {
+        const tempRes: any = response;
+        const quotaExpire: boolean = tempRes.content.expired;
+        const usage = tempRes.content.usage;
+        const quota = tempRes.content.quota;
+        const qty = this.productForm.get("quantity").value;
+
+        const balance = quota - usage;
+
+        if (qty > balance) {
+          const infoData = {
+            title: "License",
+            message:
+              "You have unused " +
+              balance +
+              " tags only!</br> Please reduce the quantity </br>" +
+              '<small class="text-muted">Do you like to extend the plan?</small>',
+            linkData: {
+              url: "https://www.google.com/gmail/",
+              buttonText: "Extend"
+            }
+          };
+          this.appInfoService.showInfo(infoData);
+        } else {
+          const productRequest: ProductCreationRequest = new ProductCreationRequest(
+            this.productForm.value
+          );
+          let formData;
+          formData = this.prepareToSave(productRequest);
+          this.dialogRef.close(formData);
+        }
+      });
   }
 
   // image uploader related functions from here

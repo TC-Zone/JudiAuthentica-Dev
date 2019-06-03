@@ -29,6 +29,8 @@ import { SharedModule } from "../../shared/shared.module";
 import { ProductCommonComponent } from "./product-crud-common.component";
 import { ClientService } from "../client/client.service";
 import { AuthenticationService } from "../sessions/authentication.service";
+import { ComunityService } from '../community/community.service';
+import { AppInfoService } from '../../shared/services/app-info/app-info.service';
 
 @NgModule({
   imports: [
@@ -62,7 +64,9 @@ import { AuthenticationService } from "../sessions/authentication.service";
     ProductCrudService,
     ClientService,
     SurveyService,
-    AuthenticationService
+    AuthenticationService,
+    ComunityService,
+    AppInfoService
   ],
   entryComponents: [ProductCrudPopupComponent]
 })

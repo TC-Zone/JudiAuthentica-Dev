@@ -28,7 +28,7 @@
     width: 10em;
   }
 
-  // Fix for Basic Bootstrap table Class Override
+  // Fix for Basic Bootstrap table Class Override (Matrix Table)
   .sv_q_matrix{
     color: inherit !important;
   }
@@ -70,4 +70,14 @@
   .sv_row h5 {
     font-size: 1rem;
   }
+
 }
+
+
+// .right-aligned-header > .mat-content {
+//   justify-content: space-between;
+// }
+
+// .mat-content > mat-panel-title, .mat-content > mat-panel-description {
+// flex: 0 0 auto;
+// }
