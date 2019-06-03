@@ -341,12 +341,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _product_crud_common_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./product-crud-common.component */ "./src/app/views/product-crud/product-crud-common.component.ts");
 /* harmony import */ var _client_client_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../client/client.service */ "./src/app/views/client/client.service.ts");
 /* harmony import */ var _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
+/* harmony import */ var _community_community_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../community/community.service */ "./src/app/views/community/community.service.ts");
+/* harmony import */ var _shared_services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../shared/services/app-info/app-info.service */ "./src/app/shared/services/app-info/app-info.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -401,7 +405,9 @@ var ProductCrudModule = /** @class */ (function () {
                 _product_crud_service__WEBPACK_IMPORTED_MODULE_7__["ProductCrudService"],
                 _client_client_service__WEBPACK_IMPORTED_MODULE_16__["ClientService"],
                 _survey_survey_service__WEBPACK_IMPORTED_MODULE_13__["SurveyService"],
-                _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_17__["AuthenticationService"]
+                _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_17__["AuthenticationService"],
+                _community_community_service__WEBPACK_IMPORTED_MODULE_18__["ComunityService"],
+                _shared_services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_19__["AppInfoService"]
             ],
             entryComponents: [_product_filter_table_product_crud_popup_product_crud_popup_component__WEBPACK_IMPORTED_MODULE_8__["ProductCrudPopupComponent"]]
         })
@@ -475,6 +481,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _product_crud_common_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../product-crud-common.component */ "./src/app/views/product-crud/product-crud-common.component.ts");
 /* harmony import */ var _client_client_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../client/client.service */ "./src/app/views/client/client.service.ts");
 /* harmony import */ var _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
+/* harmony import */ var _community_community_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../community/community.service */ "./src/app/views/community/community.service.ts");
+/* harmony import */ var _shared_services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../shared/services/app-info/app-info.service */ "./src/app/shared/services/app-info/app-info.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -511,6 +519,8 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 
 
 
+
+
 var MY_FORMATS = {
     parse: {
         dateInput: "YYYY-MM-DD"
@@ -524,7 +534,7 @@ var MY_FORMATS = {
 };
 var ProductCrudPopupComponent = /** @class */ (function (_super) {
     __extends(ProductCrudPopupComponent, _super);
-    function ProductCrudPopupComponent(data, dialogRef, clientService, surveyService, authService, fb, snackBar) {
+    function ProductCrudPopupComponent(data, dialogRef, clientService, surveyService, authService, fb, snackBar, communityService, appInfoService) {
         var _this = _super.call(this, surveyService, clientService) || this;
         _this.data = data;
         _this.dialogRef = dialogRef;
@@ -533,6 +543,8 @@ var ProductCrudPopupComponent = /** @class */ (function (_super) {
         _this.authService = authService;
         _this.fb = fb;
         _this.snackBar = snackBar;
+        _this.communityService = communityService;
+        _this.appInfoService = appInfoService;
         _this.imageUrl = "assets/images/placeholder.jpg";
         // image uploader related properties
         _this.uploader = new ng2_file_upload__WEBPACK_IMPORTED_MODULE_6__["FileUploader"]({ url: "upload_url" });
@@ -633,10 +645,37 @@ var ProductCrudPopupComponent = /** @class */ (function (_super) {
         });
     };
     ProductCrudPopupComponent.prototype.submit = function () {
-        var productRequest = new ProductCreationRequest(this.productForm.value);
-        var formData;
-        formData = this.prepareToSave(productRequest);
-        this.dialogRef.close(formData);
+        var _this = this;
+        this.communityService
+            .licenseExpireState(this.clientId, "tags")
+            .subscribe(function (response) {
+            var tempRes = response;
+            var quotaExpire = tempRes.content.expired;
+            var usage = tempRes.content.usage;
+            var quota = tempRes.content.quota;
+            var qty = _this.productForm.get("quantity").value;
+            var balance = quota - usage;
+            if (qty > balance) {
+                var infoData = {
+                    title: "License",
+                    message: "You have unused " +
+                        balance +
+                        " tags only!</br> Please reduce the quantity </br>" +
+                        '<small class="text-muted">Do you like to extend the plan?</small>',
+                    linkData: {
+                        url: "https://www.google.com/gmail/",
+                        buttonText: "Extend"
+                    }
+                };
+                _this.appInfoService.showInfo(infoData);
+            }
+            else {
+                var productRequest = new ProductCreationRequest(_this.productForm.value);
+                var formData = void 0;
+                formData = _this.prepareToSave(productRequest);
+                _this.dialogRef.close(formData);
+            }
+        });
     };
     // image uploader related functions from here
     ProductCrudPopupComponent.prototype.fileOverBase = function (e) {
@@ -731,7 +770,9 @@ var ProductCrudPopupComponent = /** @class */ (function (_super) {
             _survey_survey_service__WEBPACK_IMPORTED_MODULE_8__["SurveyService"],
             _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_13__["AuthenticationService"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
-            _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSnackBar"]])
+            _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSnackBar"],
+            _community_community_service__WEBPACK_IMPORTED_MODULE_14__["ComunityService"],
+            _shared_services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_15__["AppInfoService"]])
     ], ProductCrudPopupComponent);
     return ProductCrudPopupComponent;
 }(_product_crud_common_component__WEBPACK_IMPORTED_MODULE_11__["ProductCommonComponent"]));
@@ -764,7 +805,7 @@ var ProductCreationRequest = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- -------- JA Sprint 1 - MVP -------- -->\r\n<!-- --------- Buddhi Hasanka ---------- -->\r\n\r\n\r\n<mat-form-field class=\"margin-333\" style=\"width: 99%\">\r\n  <input matInput placeholder=\"Type to filter all columns\" value=\"\" (keyup)='updateFilter($event)'>\r\n</mat-form-field>\r\n\r\n<div class=\"m-333\">\r\n  <p class=\"mat-select-lable\"> Page Size: </p>\r\n  <mat-select class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n    <mat-option [value]=\"10\">10</mat-option>\r\n    <mat-option [value]=\"20\">20</mat-option>\r\n  </mat-select>\r\n  <span fxFlex></span>\r\n  <button mat-raised-button class=\"mb-05\" (click)=\"openProductPopup({}, true)\" color=\"accent\">Add Product</button>\r\n\r\n</div>\r\n\r\n\r\n<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-content class=\"p-0\">\r\n    <!-- <ngx-datatable class=\"material bg-white\" [columnMode]=\"'force'\" [headerHeight]=\"50\" [footerHeight]=\"50\" [rowHeight]=\"'auto'\"\r\n      [limit]=\"10\" [rows]=\"rows\" [columns]=\"\">\r\n\r\n      <ngx-datatable-column name=\"Product Code\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.code }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Product Name\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.name }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Description\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.description }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Batch Number\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.batchNumber }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Quantity\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.quantity }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Expire Date\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.expireDate }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Actions\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <button mat-icon-button mat-sm-button color=\"primary\" class=\"mr-1\" (click)=\"openProductPopup(row)\">\r\n            <mat-icon>edit</mat-icon>\r\n          </button>\r\n          <button mat-icon-button mat-sm-button color=\"warn\" class=\"mr-1\" (click)=\"deleteProduct(row)\">\r\n            <mat-icon>delete</mat-icon>\r\n          </button>\r\n          <button mat-icon-button mat-sm-button (click)=\"downloadCsv(row)\">\r\n            <mat-icon>file_download</mat-icon>\r\n          </button>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n    </ngx-datatable> -->\r\n\r\n\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th class=\"pl-1\">Product Name</th>\r\n          <th width=\"250px\">Description</th>\r\n          <th>Batch Number</th>\r\n          <th>Quantity</th>\r\n          <th>Expire Date</th>\r\n          <th width=\"150px\" class=\"\">Actions</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr *ngFor=\"let row of rows;\">\r\n          <td class=\"pt-1 pb-1\">{{ row?.name }}</td>\r\n          <td class=\"pt-1 pb-1\">{{ row?.description }}</td>\r\n          <td class=\"pt-1 pb-1 text-cente\">{{ row?.batchNumber }}</td>\r\n          <td class=\"pt-1 pb-1\">{{ row?.quantity }}</td>\r\n          <td class=\"pt-1 pb-1\">{{ row?.expireDate }}</td>\r\n          <td class=\"pt-1 pb-1\">\r\n            <!-- <div class=\"pb-1\">\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button color=\"primary\" class=\"\" (click)=\"openProductPopup(row)\">\r\n                  <mat-icon>edit</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button color=\"warn\" class=\"\" (click)=\"deleteProduct(row)\">\r\n                  <mat-icon>delete</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)=\"downloadCsv(row)\">\r\n                  <mat-icon>file_download</mat-icon>\r\n                </button>\r\n              </div>\r\n            </div> -->\r\n\r\n            <button class=\"card-control\" mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n              <mat-icon>more_vert</mat-icon>\r\n            </button>\r\n\r\n            <mat-menu #menu=\"matMenu\">\r\n              <button mat-menu-item (click)=\"openProductPopup(row)\">\r\n                <mat-icon>edit</mat-icon>Edit\r\n              </button>\r\n\r\n              <button mat-menu-item color=\"warn\" (click)=\"deleteProduct(row)\">\r\n                <mat-icon>delete</mat-icon>Delete\r\n              </button>\r\n\r\n              <button mat-menu-item (click)=\"downloadCsv(row)\">\r\n                <mat-icon>file_download</mat-icon>Download CSV\r\n              </button>\r\n            </mat-menu>\r\n\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n      <tfoot>\r\n        <tr>\r\n          <td class=\"pt-1 pb-1 pl-1\">\r\n            <div class=\"pagination\">{{totalRecords}} Total</div>\r\n          </td>\r\n          <td colspan=\"7\">\r\n            <nav aria-label=\"Page navigation example\">\r\n              <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageProduct(pageNumber-1);\" aria-label=\"Previous\">\r\n                    <span aria-hidden=\"true\">&laquo;</span>\r\n                    <span class=\"sr-only\">Previous</span>\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageProduct(page);\">\r\n                    {{page}}\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageProduct(pageNumber+1);\" aria-label=\"Next\">\r\n                    <span aria-hidden=\"true\">&raquo;</span>\r\n                    <span class=\"sr-only\">Next</span>\r\n                  </a>\r\n                </li>\r\n              </ul>\r\n            </nav>\r\n          </td>\r\n        </tr>\r\n      </tfoot>\r\n    </table>\r\n\r\n  </mat-card-content>\r\n\r\n</mat-card>\r\n"
+module.exports = "<!-- -------- JA Sprint 1 - MVP -------- -->\r\n<!-- --------- Buddhi Hasanka ---------- -->\r\n\r\n\r\n<mat-form-field class=\"margin-333\" style=\"width: 99%\">\r\n  <input matInput placeholder=\"Type to filter all columns\" value=\"\" (keyup)='updateFilter($event)'>\r\n</mat-form-field>\r\n\r\n<div class=\"m-333\">\r\n  <p class=\"mat-select-lable\"> Page Size: </p>\r\n  <mat-select class=\"mat-raised-select\" [(value)]=\"pageSize\" (selectionChange)=\"changeValue()\" placeholder=\"Favorite food\">\r\n    <mat-option [value]=\"10\">10</mat-option>\r\n    <mat-option [value]=\"20\">20</mat-option>\r\n  </mat-select>\r\n  <span fxFlex></span>\r\n  <button mat-raised-button class=\"mb-05\" (click)=\"handleNewProductSave()\" color=\"accent\">Add Product</button>\r\n\r\n</div>\r\n\r\n\r\n<mat-card class=\"p-0\" [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\">\r\n  <mat-card-content class=\"p-0\">\r\n    <!-- <ngx-datatable class=\"material bg-white\" [columnMode]=\"'force'\" [headerHeight]=\"50\" [footerHeight]=\"50\" [rowHeight]=\"'auto'\"\r\n      [limit]=\"10\" [rows]=\"rows\" [columns]=\"\">\r\n\r\n      <ngx-datatable-column name=\"Product Code\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.code }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Product Name\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.name }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Description\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.description }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Batch Number\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.batchNumber }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Quantity\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.quantity }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Expire Date\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          {{ row?.expireDate }}\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n\r\n      <ngx-datatable-column name=\"Actions\" [flexGrow]=\"1\">\r\n        <ng-template let-row=\"row\" ngx-datatable-cell-template>\r\n          <button mat-icon-button mat-sm-button color=\"primary\" class=\"mr-1\" (click)=\"openProductPopup(row)\">\r\n            <mat-icon>edit</mat-icon>\r\n          </button>\r\n          <button mat-icon-button mat-sm-button color=\"warn\" class=\"mr-1\" (click)=\"deleteProduct(row)\">\r\n            <mat-icon>delete</mat-icon>\r\n          </button>\r\n          <button mat-icon-button mat-sm-button (click)=\"downloadCsv(row)\">\r\n            <mat-icon>file_download</mat-icon>\r\n          </button>\r\n        </ng-template>\r\n      </ngx-datatable-column>\r\n    </ngx-datatable> -->\r\n\r\n\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th class=\"pl-1\">Product Name</th>\r\n          <th width=\"250px\">Description</th>\r\n          <th>Batch Number</th>\r\n          <th>Quantity</th>\r\n          <th>Expire Date</th>\r\n          <th width=\"150px\" class=\"\">Actions</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <tr *ngFor=\"let row of rows;\">\r\n          <td class=\"pt-1 pb-1\">{{ row?.name }}</td>\r\n          <td class=\"pt-1 pb-1\">{{ row?.description }}</td>\r\n          <td class=\"pt-1 pb-1 text-cente\">{{ row?.batchNumber }}</td>\r\n          <td class=\"pt-1 pb-1\">{{ row?.quantity }}</td>\r\n          <td class=\"pt-1 pb-1\">{{ row?.expireDate }}</td>\r\n          <td class=\"pt-1 pb-1\">\r\n            <!-- <div class=\"pb-1\">\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button color=\"primary\" class=\"\" (click)=\"openProductPopup(row)\">\r\n                  <mat-icon>edit</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button color=\"warn\" class=\"\" (click)=\"deleteProduct(row)\">\r\n                  <mat-icon>delete</mat-icon>\r\n                </button>\r\n              </div>\r\n              <div class=\"col-lg-4 col-sm-4 col-xs-4\">\r\n                <button mat-icon-button mat-sm-button (click)=\"downloadCsv(row)\">\r\n                  <mat-icon>file_download</mat-icon>\r\n                </button>\r\n              </div>\r\n            </div> -->\r\n\r\n            <button class=\"card-control\" mat-icon-button [matMenuTriggerFor]=\"menu\">\r\n              <mat-icon>more_vert</mat-icon>\r\n            </button>\r\n\r\n            <mat-menu #menu=\"matMenu\">\r\n              <button mat-menu-item (click)=\"openProductPopup(row)\">\r\n                <mat-icon>edit</mat-icon>Edit\r\n              </button>\r\n\r\n              <button mat-menu-item color=\"warn\" (click)=\"deleteProduct(row)\">\r\n                <mat-icon>delete</mat-icon>Delete\r\n              </button>\r\n\r\n              <button mat-menu-item (click)=\"downloadCsv(row)\">\r\n                <mat-icon>file_download</mat-icon>Download CSV\r\n              </button>\r\n            </mat-menu>\r\n\r\n          </td>\r\n        </tr>\r\n      </tbody>\r\n      <tfoot>\r\n        <tr>\r\n          <td class=\"pt-1 pb-1 pl-1\">\r\n            <div class=\"pagination\">{{totalRecords}} Total</div>\r\n          </td>\r\n          <td colspan=\"7\">\r\n            <nav aria-label=\"Page navigation example\">\r\n              <ul class=\"pagination\" *ngIf=\"totalPages.length > 1\">\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber <= 1}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageProduct(pageNumber-1);\" aria-label=\"Previous\">\r\n                    <span aria-hidden=\"true\">&laquo;</span>\r\n                    <span class=\"sr-only\">Previous</span>\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" *ngFor=\"let page of totalPages\" [ngClass]=\"{'active':pageNumber === page}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageProduct(page);\">\r\n                    {{page}}\r\n                  </a>\r\n                </li>\r\n                <li class=\"page-item\" [ngClass]=\"{'disabled':pageNumber >= totalPages.length}\">\r\n                  <a class=\"page-link\" (click)=\"this.getPageProduct(pageNumber+1);\" aria-label=\"Next\">\r\n                    <span aria-hidden=\"true\">&raquo;</span>\r\n                    <span class=\"sr-only\">Next</span>\r\n                  </a>\r\n                </li>\r\n              </ul>\r\n            </nav>\r\n          </td>\r\n        </tr>\r\n      </tfoot>\r\n    </table>\r\n\r\n  </mat-card-content>\r\n\r\n</mat-card>\r\n"
 
 /***/ }),
 
@@ -790,6 +831,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_services_file_download_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../shared/services/file-download.service */ "./src/app/shared/services/file-download.service.ts");
 /* harmony import */ var _shared_services_data_conversion_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../shared/services/data-conversion.service */ "./src/app/shared/services/data-conversion.service.ts");
 /* harmony import */ var _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
+/* harmony import */ var _community_community_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../community/community.service */ "./src/app/views/community/community.service.ts");
+/* harmony import */ var _shared_services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../shared/services/app-info/app-info.service */ "./src/app/shared/services/app-info/app-info.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -810,8 +853,10 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var ProductFilterTableComponent = /** @class */ (function () {
-    function ProductFilterTableComponent(prodService, dialog, loader, errDialog, confirmService, downloadService, conversionService, authService) {
+    function ProductFilterTableComponent(prodService, dialog, loader, errDialog, confirmService, downloadService, conversionService, authService, communityService, appInfoService) {
         this.prodService = prodService;
         this.dialog = dialog;
         this.loader = loader;
@@ -820,6 +865,8 @@ var ProductFilterTableComponent = /** @class */ (function () {
         this.downloadService = downloadService;
         this.conversionService = conversionService;
         this.authService = authService;
+        this.communityService = communityService;
+        this.appInfoService = appInfoService;
         this.columns = [];
         this.temp = [];
         // pagination
@@ -941,6 +988,30 @@ var ProductFilterTableComponent = /** @class */ (function () {
             }
         });
     };
+    ProductFilterTableComponent.prototype.handleNewProductSave = function () {
+        var _this = this;
+        this.communityService
+            .licenseExpireState(this.clientId, "tags")
+            .subscribe(function (response) {
+            var tempRes = response;
+            var quotaExpire = tempRes.content.expired;
+            if (quotaExpire) {
+                var infoData = {
+                    title: "License",
+                    message: "You subscribed number of tags count has expired!</br>" +
+                        '<small class="text-muted">Do you like to extend the plan?</small>',
+                    linkData: {
+                        url: "https://www.google.com/gmail/",
+                        buttonText: "Extend"
+                    }
+                };
+                _this.appInfoService.showInfo(infoData);
+            }
+            else {
+                _this.openProductPopup({}, true);
+            }
+        });
+    };
     ProductFilterTableComponent.prototype.openProductPopup = function (data, isNew) {
         var _this = this;
         if (data === void 0) { data = {}; }
@@ -1010,7 +1081,9 @@ var ProductFilterTableComponent = /** @class */ (function () {
             _shared_services_app_confirm_app_confirm_service__WEBPACK_IMPORTED_MODULE_7__["AppConfirmService"],
             _shared_services_file_download_service__WEBPACK_IMPORTED_MODULE_8__["AppFileDownloadService"],
             _shared_services_data_conversion_service__WEBPACK_IMPORTED_MODULE_9__["AppDataConversionService"],
-            _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_10__["AuthenticationService"]])
+            _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_10__["AuthenticationService"],
+            _community_community_service__WEBPACK_IMPORTED_MODULE_11__["ComunityService"],
+            _shared_services_app_info_app_info_service__WEBPACK_IMPORTED_MODULE_12__["AppInfoService"]])
     ], ProductFilterTableComponent);
     return ProductFilterTableComponent;
 }());

@@ -5463,7 +5463,7 @@ var environment = {
     // SAP NEW 32GB -  DEV TEST
     productApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/product/api/",
     surveyApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey/api/",
-    productimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/product",
+    productimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/product/",
     evoteimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey",
     authTokenUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user/",
     userApiUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user/api/",
