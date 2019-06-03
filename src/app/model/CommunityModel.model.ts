@@ -68,3 +68,35 @@ export class UserData {
     public id: string
   ) { }
 }
+
+export class InviteeCreateeReq {
+  constructor(
+    public name: string,
+    public email: string,
+    public username: string,
+    public password: string,
+    public customField1: string,
+    public customField2: string,
+    public customField3: string,
+    public inviteeGroup: InviteeGroupData
+    ) { }
+  }
+  
+  
+  export class InviteeGroupData {
+    constructor(
+      public id: string
+    ) { }
+  }
+  
+  export class InviteeUpdateReq {
+    constructor(
+    public name: string,
+    public email: string,
+    public username: string,
+    public password: string,
+    public customField1: string,
+    public customField2: string,
+    public customField3: string,
+  ) { }
+}

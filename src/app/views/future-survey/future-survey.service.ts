@@ -2,7 +2,8 @@ import { Injectable, Injector } from "@angular/core";
 import {
   HttpClient,
   HttpHeaders,
-  HttpErrorResponse
+  HttpErrorResponse,
+  HttpParams
 } from "@angular/common/http";
 
 import { Observable, throwError } from "rxjs";
@@ -116,31 +117,6 @@ export class FutureSurveyService {
       .pipe(catchError(this.handleError));
   }
 
-  createInvitationSetting(invitationReq): Observable<any> {
-    return this.http
-      .post<any>(
-        this.surveyApiUrl + "surveys" + "/futureSurveyInvitation",
-        invitationReq
-      )
-      .pipe(
-        map(data => {
-          console.log("INVITATION CREATE REPONSE");
-          console.log(data);
-          return data.content;
-        }),
-        catchError(this.handleError)
-      );
-  }
-
-  // fetch future survey invitation instance with invitee group details.
-  getInvitationBySurvey(surveyId): Observable<any> {
-    return this.http
-      .get<any>(
-        this.surveyApiUrl + "surveys" + "/futureSurveyInvitation/" + surveyId
-      )
-      .pipe(catchError(this.handleError));
-  }
-
   // Fetch public survey link by using survey id
   getPublicSurveyLink(id) {
     let link =
@@ -186,17 +162,103 @@ export class FutureSurveyService {
       .pipe(catchError(this.handleError));
   }
 
-  updateInvitee(inviteeId, InviteeObj) {
+
+  createInvitationSetting(invitationReq): Observable<any> {
     return this.http
-      .put<any>(this.surveyApiUrl + "surveys" + "/futureSurveyInvitee/" + inviteeId, InviteeObj)
+      .post<any>(
+        this.surveyApiUrl + "surveys" + "/futureSurveyInvitation",
+        invitationReq
+      )
       .pipe(
         map(data => {
+          console.log("INVITATION CREATE REPONSE");
           console.log(data);
-
           return data.content;
         }),
         catchError(this.handleError)
       );
+  }
+
+  // fetch future survey invitation instance with invitee group details.
+  getInvitationBySurvey(surveyId): Observable<any> {
+    return this.http
+      .get<any>(
+        this.surveyApiUrl + "surveys" + "/futureSurveyInvitation/" + surveyId
+      )
+      .pipe(catchError(this.handleError));
+  }
+
+  getInviteesByFilter(groupId, pageNumber, pageSize, filter) {
+    return this.http.request('get', this.surveyApiUrl + "surveys/invitee/group/" + groupId + '?pageNumber=' + pageNumber + '&pageSize=' + pageSize + filter)
+      .pipe(
+        map(data => {
+          return data;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  getInviteesByGroupId(groupId, pageNumber, pageSize) {
+    return this.http.get<any>(
+      this.surveyApiUrl + "surveys/invitee/group/" + groupId + '?pageNumber=' +
+      pageNumber + '&pageSize=' + pageSize)
+      .pipe(
+        map(data => {
+          return data;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+
+  createInvitee(createInviteeData) {
+    return this.http.
+      post(this.surveyApiUrl + "surveys/invitee", createInviteeData)
+      .pipe(
+        map(data => {
+          return data;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+
+  updateInvitee(inviteeId, InviteeObj) {
+    return this.http
+      .put<any>(this.surveyApiUrl + "surveys/futureSurveyInvitee/" + inviteeId, InviteeObj)
+      .pipe(
+        map(data => {
+          return data;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+
+  inviteeDeleteById(inviteeId) {
+    return this.http.delete(this.surveyApiUrl + "surveys/invitee/" + inviteeId)
+      .pipe(
+        map(data => {
+          return data;
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  deleteInviteeList(inviteeIdList) {
+    return this.http.request('delete', this.surveyApiUrl + "surveys/invitee", { body: inviteeIdList }).pipe(
+      map(data => {
+        return data;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  sendInvitation(interactions): Observable<any> {
+    console.log(interactions);
+    return this.http
+      .post<any>(this.surveyApiUrl + "emails/interactions/", interactions)
+      .pipe(catchError(this.handleError));
   }
 
   updateInvitation(invitationId, invitationObj) {

@@ -16,7 +16,7 @@ import {
 import { EditInvitationSettingPopupComponent } from "../edit-invitation-setting-popup/edit-invitation-setting-popup.component";
 import { MomentDateAdapter } from "@angular/material-moment-adapter";
 import * as moment from "moment";
-import { InvitationRequest} from "../../../model/FutureSurvey.model";
+import { InvitationRequest } from "../../../model/FutureSurvey.model";
 
 
 export const MY_FORMATS = {
@@ -77,16 +77,7 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
     this.futureSurveyService.fetchAllInvitation().subscribe(
       response => {
         console.log(response);
-
         this.allInvitations = response.content;
-
-        // console.log(this.allInvitations);
-        // if(this.allInvitations && this.allInvitations.length != 0){
-        //   this.allInvitations[0].inviteeGroup.customFields.forEach(element => {
-        //     this.customHeader.push(element.displayName);
-        //   });
-        // }
-
       },
       error => {
         this.errDialog.showError(error);
@@ -100,6 +91,7 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
     item["groupName"] = groupName;
     item["customField"] = customField;
     item["endDate"] = endDate;
+    
     let dialogRef: MatDialogRef<any> = this.dialog.open(
       EditInvitationSettingPopupComponent,
       {
@@ -134,6 +126,18 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
     });
   }
 
+  navigateGroupInvitees(row) {
+    console.log(row);
+    let extraParam: NavigationExtras = {
+      queryParams: {
+        inviteeGroupId: row.inviteeGroup.id,
+        inviteeGroupName: row.inviteeGroup.inviteeGroupName,
+        customFields: row.inviteeGroup.customFields,
+      }
+    };
+
+    this.router.navigate(["future-survey/groupInvitees"], extraParam);
+  }
 
   navigateInviteeGroupView(surveyId) {
     let extraParam: NavigationExtras = {

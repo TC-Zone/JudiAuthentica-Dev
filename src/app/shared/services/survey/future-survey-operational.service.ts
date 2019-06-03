@@ -177,7 +177,6 @@ export class FutureSurveyOperationalService {
 
           // console.log('----------------------------------- targetValue',targetValue);
           
-
           if (targetValue !== null) {
             if (lastValue === null || lastValue !== targetValue) {
               lastValue = question.cachedValueForUrlRequests

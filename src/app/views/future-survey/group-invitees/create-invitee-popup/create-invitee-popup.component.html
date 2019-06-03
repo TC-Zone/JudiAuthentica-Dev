@@ -1,0 +1,61 @@
+<form [formGroup]="inviteeForm">
+  <mat-toolbar matDialogTitle class="mat-primary m-0">
+    <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="title dialog-title">{{data.title}}</span>
+    </div>
+  </mat-toolbar>
+  <mat-dialog-content class="mat-typography mt-1">
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="name" [formControl]="inviteeForm.controls['name']" placeholder="Invitee Name">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="email" [formControl]="inviteeForm.controls['email']" placeholder="Invitee Email">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="username" [formControl]="inviteeForm.controls['username']" placeholder="Username">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-1">
+        <mat-form-field class="full-width">
+          <input matInput name="password" [formControl]="inviteeForm.controls['password']" placeholder="Password">
+        </mat-form-field>
+      </div>
+
+      <!-- ---------------------------- customFields ------------------------------ -->
+      <div fxFlex="50" class="pr-1" *ngIf="this.length >= 1">
+        <mat-form-field class="full-width">
+          <input matInput name="customField1" [formControl]="inviteeForm.controls['customField1']"
+            placeholder="Custom Field 1">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-1" *ngIf="this.length >= 2">
+        <mat-form-field class="full-width">
+          <input matInput name="customField2" [formControl]="inviteeForm.controls['customField2']"
+            placeholder="Custom Field 2">
+        </mat-form-field>
+      </div>
+      <div fxFlex="50" class="pr-1" *ngIf="this.length === 3">
+        <mat-form-field class="full-width">
+          <input matInput name="customField3" [formControl]="inviteeForm.controls['customField3']"
+            placeholder="Custom Field 3">
+        </mat-form-field>
+      </div>
+      <!-- ------------------------------------------------------------------------ -->
+
+    </div>
+    <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+      <div fxFlex="100" class="mt-1">
+        <button mat-raised-button color="primary" (click)="submit()" [disabled]="inviteeForm.invalid">Save</button>
+        <span fxFlex></span>
+        <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+      </div>
+    </div>
+  </mat-dialog-content>
+</form>
