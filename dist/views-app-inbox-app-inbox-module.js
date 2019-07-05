@@ -11927,7 +11927,7 @@ var InboxDB = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL2FwcC1pbmJveC9hcHAtaW5ib3guY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
@@ -12027,8 +12027,8 @@ var AppInboxComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-inbox',
             template: __webpack_require__(/*! ./app-inbox.component.html */ "./src/app/views/app-inbox/app-inbox.component.html"),
-            styles: [__webpack_require__(/*! ./app-inbox.component.css */ "./src/app/views/app-inbox/app-inbox.component.css")],
-            providers: [_app_inbox_service__WEBPACK_IMPORTED_MODULE_4__["AppInboxService"]]
+            providers: [_app_inbox_service__WEBPACK_IMPORTED_MODULE_4__["AppInboxService"]],
+            styles: [__webpack_require__(/*! ./app-inbox.component.css */ "./src/app/views/app-inbox/app-inbox.component.css")]
         }),
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
             _angular_flex_layout__WEBPACK_IMPORTED_MODULE_2__["ObservableMedia"],

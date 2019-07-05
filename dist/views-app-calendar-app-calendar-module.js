@@ -14437,7 +14437,7 @@ var EgretCalendarEvent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL2FwcC1jYWxlbmRhci9hcHAtY2FsZW5kYXIuY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
@@ -14633,8 +14633,8 @@ var AppCalendarComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-calendar',
             template: __webpack_require__(/*! ./app-calendar.component.html */ "./src/app/views/app-calendar/app-calendar.component.html"),
-            styles: [__webpack_require__(/*! ./app-calendar.component.css */ "./src/app/views/app-calendar/app-calendar.component.css")],
-            animations: _shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_4__["egretAnimations"]
+            animations: _shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_4__["egretAnimations"],
+            styles: [__webpack_require__(/*! ./app-calendar.component.css */ "./src/app/views/app-calendar/app-calendar.component.css")]
         }),
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"],
             _app_calendar_service__WEBPACK_IMPORTED_MODULE_6__["AppCalendarService"],
@@ -14854,7 +14854,7 @@ module.exports = "<div class=\"event-dialog-wrapper\">\r\n  <mat-toolbar matDial
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL2FwcC1jYWxlbmRhci9jYWxlbmRhci1mb3JtLWRpYWxvZy9jYWxlbmRhci1mb3JtLWRpYWxvZy5jb21wb25lbnQuc2NzcyJ9 */"
 
 /***/ }),
 
