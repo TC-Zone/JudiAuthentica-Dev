@@ -69,52 +69,29 @@ export class CreateInviteePopupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.length = this.data.customFields.length;
-    console.log(this.length);
-    if (length === 1){
-      console.log('------------------- 1');
-    }
-    
-    this.buildInviteeForm(this.data.payload);
+    this.length = +this.data.customFieldsLength;
 
-  }
-
-
-  buildInviteeForm(inviteeFormData) {
+    let inviteeFormData = this.data.payload;
     this.inviteeForm = this.fb.group({
-      // name: new FormControl( { value: inviteeFormData.name || "", hidden: false}, Validators.required ),
-      // email: new FormControl( { value: inviteeFormData.email || "", hidden: false}, Validators.required ),
-      // username: new FormControl( { value: inviteeFormData.username || "", hidden: true}, Validators.required ),
-      // password: new FormControl( { value: inviteeFormData.password || "", hidden: true}, Validators.required ),
-      // customField1: new FormControl( { value: inviteeFormData.customField1 || "", hidden: true}, Validators.required ),
-      // customField2: new FormControl( { value: inviteeFormData.customField2 || "", hidden: true}, Validators.required ),
-      // customField3: new FormControl( { value: inviteeFormData.customField3 || "", hidden: true}, Validators.required )
       name: [inviteeFormData.name || '', Validators.required],
       email: [inviteeFormData.email || '', Validators.required],
       username: [inviteeFormData.username || '', Validators.required],
       password: [inviteeFormData.password || '', Validators.required],
-      customField1: [inviteeFormData.customField1 || ''],
-      customField2: [inviteeFormData.customField2 || ''],
-      customField3: [inviteeFormData.customField3 || '']
+      customField1: [inviteeFormData.customField1 || '', Validators.required],
+      customField2: [inviteeFormData.customField2 || '', Validators.required],
+      customField3: [inviteeFormData.customField3 || '', [Validators.required]]
     });
 
-    // if (length < 3) {
-    //   if (length === 1) {
-    //     // this.updateForm('customField2');
-    //     // this.updateForm('customField3');
-    //     let customField2 = this.inviteeForm.get('customField2');
-    //     customField2.clearValidators();
-    //     customField2.updateValueAndValidity();
-    //     let customField3 = this.inviteeForm.get('customField3');
-    //     customField3.clearValidators();
-    //     customField3.updateValueAndValidity();
-    //   } else if (length === 2) {
-    //     // this.updateForm('customField3');
-    //     let customField = this.inviteeForm.get('customField3');
-    //     customField.clearValidators();
-    //     customField.updateValueAndValidity();
-    //   }
-    // }
+    if (this.length < 3) {
+      if (this.length === 1) {
+        this.inviteeForm.get('customField2').clearValidators();
+        this.inviteeForm.get('customField3').clearValidators();
+      } else if (this.length === 2) {
+        this.inviteeForm.get('customField3').clearValidators();
+      }
+    }
+    this.inviteeForm.updateValueAndValidity();
+
   }
 
   submit() {

@@ -20,7 +20,7 @@ export class GroupInviteesComponent implements OnInit {
   public inviteeGroupId;
   public inviteeGroupName;
   public filter = "";
-  public customFields;
+  public customFieldsLength;
   public filterValueArray = ['All', 'Draft', 'Sent', 'Responded'];
   public filterValue = "All";
   public numOfSelectedInviteeForInvitation = 0;
@@ -71,9 +71,8 @@ export class GroupInviteesComponent implements OnInit {
     this.activeRoute.queryParams.subscribe(params => {
       this.inviteeGroupId = params["inviteeGroupId"];
       this.inviteeGroupName = params["inviteeGroupName"];
-      this.customFields = params["customFields"];
+      this.customFieldsLength = params["customFieldsLength"];
     });
-
     this.fetchAllInvitees(this.pageNumber);
   }
 
@@ -131,7 +130,7 @@ export class GroupInviteesComponent implements OnInit {
         {
           width: "720px",
           disableClose: true,
-          data: { title: title, payload: data, isNew: isNew, customFields: this.customFields }
+          data: { title: title, payload: data, isNew: isNew, customFieldsLength: this.customFieldsLength }
         }
       );
       dialogRef.afterClosed().subscribe(res => {

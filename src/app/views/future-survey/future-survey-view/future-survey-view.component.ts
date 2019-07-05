@@ -89,6 +89,14 @@ export class FutureSurveyViewComponent implements OnInit {
     // --------------------- set radio button group unselectable --------------------------------------
     this.fsOperationalService.optionUnselect(Survey);
     // ------------------------------------------------------------------------------------------------
+    
+    // --------------------- set rating unselectable --------------------------------------------------
+    // this.fsOperationalService.optionUnselectForRating(Survey);
+    // ------------------------------------------------------------------------------------------------
+    
+    // --------------------- set matrix radio button group unselectable -------------------------------
+    // this.fsOperationalService.optionUnselectForMatrix(Survey);
+    // ------------------------------------------------------------------------------------------------
 
     const surveyModel = new Survey.Model(this.jsonContent);
     console.log('--------------- surveyModel', surveyModel);
@@ -112,8 +120,6 @@ export class FutureSurveyViewComponent implements OnInit {
       }
 
       if (options.question.getType() === 'radiogroup') {
-        // console.log('--------------- survey', survey);
-        // console.log('--------------- options', options);
         classes.root = 'sv_qcbc';
         classes.item = 'sv-q-col-1';
       }

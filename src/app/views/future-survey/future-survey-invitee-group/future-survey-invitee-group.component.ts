@@ -132,7 +132,7 @@ export class FutureSurveyInviteeGroupComponent implements OnInit {
       queryParams: {
         inviteeGroupId: row.inviteeGroup.id,
         inviteeGroupName: row.inviteeGroup.inviteeGroupName,
-        customFields: row.inviteeGroup.customFields,
+        customFieldsLength: row.inviteeGroup.customFields.length,
       }
     };
 

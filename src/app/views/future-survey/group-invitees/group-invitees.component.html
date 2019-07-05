@@ -3,9 +3,9 @@
     <div class="m-333 mb-1 mt-1 mr-1" style="flex-direction: row; box-sizing: border-box; display: flex;">
       <div class="card-title-text">{{this.inviteeGroupName}}</div>
       <span fxFlex></span>
-      <p class="mat-select-lable mr-05 mt-05"> Filter:</p>
-      <mat-select class="mat-raised-select mr-05 mt-05" [(ngModel)]="this.filterValue" (selectionChange)="filterOnChange($event)">
-        <mat-option *ngFor="let filterValue of filterValueArray" [value]="filterValue">{{filterValue}}</mat-option>
+      <p class="mat-select-lable"> Filter: </p>
+      <mat-select class="mat-raised-select" [(ngModel)]="this.filterValue" (selectionChange)="filterOnChange()">
+          <mat-option *ngFor="let filterValue of filterValueArray" [value]="filterValue">{{filterValue}}</mat-option>
       </mat-select>
       <button mat-raised-button class="mb-05 ml-05 mr-05 mt-05" color="accent"
         routerLink="/future-survey/inviteeGroups">Back</button>

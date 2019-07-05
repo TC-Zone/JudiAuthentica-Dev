@@ -363,7 +363,10 @@ export class InviteeInteractionViewComponent implements OnInit {
   }
 
   viewSurvey() {
+    
+    // --------------------- set radio button group unselectable --------------------------------------
     this.fsOperationalService.optionUnselect(Survey);
+    // ------------------------------------------------------------------------------------------------
 
     this.jsonContentJSON = JSON.parse(this.jsonContent);
 
