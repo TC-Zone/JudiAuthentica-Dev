@@ -4009,7 +4009,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPhoneCode", function() { return getPhoneCode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPhoneCodeCustom", function() { return getPhoneCodeCustom; });
 /* harmony import */ var _metadata_min_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata.min.json */ "./node_modules/libphonenumber-js/metadata.min.json");
-var _metadata_min_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/Object.assign({}, _metadata_min_json__WEBPACK_IMPORTED_MODULE_0__, {"default": _metadata_min_json__WEBPACK_IMPORTED_MODULE_0__});
+var _metadata_min_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./metadata.min.json */ "./node_modules/libphonenumber-js/metadata.min.json", 1);
 /* harmony import */ var _es6_parse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./es6/parse */ "./node_modules/libphonenumber-js/es6/parse.js");
 /* harmony import */ var _es6_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./es6/types */ "./node_modules/libphonenumber-js/es6/types.js");
 /* harmony import */ var _es6_format__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./es6/format */ "./node_modules/libphonenumber-js/es6/format.js");
@@ -6658,7 +6658,7 @@ exports.uuid = function (version) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3Nlc3Npb25zL2Vycm9yL2Vycm9yLmNvbXBvbmVudC5jc3MifQ== */"
 
 /***/ }),
 
@@ -6732,7 +6732,7 @@ module.exports = "<!-- <div class=\"page-wrap height-100 comman-background\">\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".page-wrap {\n  display: flex;\n  padding: 0px; }\n\n.session-form-hold.set-form-left {\n  margin-left: 0px;\n  max-width: 100%; }\n\n#user-forgot-password-view .signin-background {\n  background-image: url('Truverus-Login-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n\n#user-forgot-password-view #login-card {\n  height: 100vh;\n  width: 33.3%;\n  opacity: 0.8;\n  background-color: #f1fcfe; }\n\n#user-forgot-password-view #login-card #login-form, #user-forgot-password-view #login-card #signin-form {\n    padding: 0px 90px 0px;\n    margin: 0;\n    position: absolute;\n    top: 20%; }\n\n#user-forgot-password-view #login-card #login-form #login-form-logo, #user-forgot-password-view #login-card #signin-form #login-form-logo {\n      padding: 30px 0px 50px !important;\n      max-width: 80%;\n      margin: auto; }\n\n#user-forgot-password-view .mat-card {\n  padding: 0px; }\n"
+module.exports = ".page-wrap {\n  display: -webkit-box;\n  display: flex;\n  padding: 0px; }\n\n.session-form-hold.set-form-left {\n  margin-left: 0px;\n  max-width: 100%; }\n\n#user-forgot-password-view .signin-background {\n  background-image: url('Truverus-Login-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n\n#user-forgot-password-view #login-card {\n  height: 100vh;\n  width: 33.3%;\n  opacity: 0.8;\n  background-color: #f1fcfe; }\n\n#user-forgot-password-view #login-card #login-form, #user-forgot-password-view #login-card #signin-form {\n    padding: 0px 90px 0px;\n    margin: 0;\n    position: absolute;\n    top: 20%; }\n\n#user-forgot-password-view #login-card #login-form #login-form-logo, #user-forgot-password-view #login-card #signin-form #login-form-logo {\n      padding: 30px 0px 50px !important;\n      max-width: 80%;\n      margin: auto; }\n\n#user-forgot-password-view .mat-card {\n  padding: 0px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvc2Vzc2lvbnMvZm9yZ290LXBhc3N3b3JkL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXFRDX2F1dGhlbnRpY2FfZGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHZpZXdzXFxzZXNzaW9uc1xcZm9yZ290LXBhc3N3b3JkXFxmb3Jnb3QtcGFzc3dvcmQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxvQkFBYTtFQUFiLGFBQWE7RUFDYixZQUFZLEVBQUE7O0FBSWQ7RUFDRSxnQkFBZ0I7RUFDaEIsZUFBZSxFQUFBOztBQUlqQjtFQUdJLGlFQUFzRjtFQUN0RixpQ0FBaUM7RUFDakMsdUNBQXVDLEVBQUE7O0FBTDNDO0VBU0ksYUFBYTtFQUNiLFlBQVk7RUFDWixZQUFZO0VBQ1oseUJBQXlCLEVBQUE7O0FBWjdCO0lBZU0scUJBQXFCO0lBQ3JCLFNBQVM7SUFDVCxrQkFBa0I7SUFDbEIsUUFBUSxFQUFBOztBQWxCZDtNQXFCUSxpQ0FBaUM7TUFDakMsY0FBYztNQUNkLFlBQVksRUFBQTs7QUF2QnBCO0VBK0JJLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3Nlc3Npb25zL2ZvcmdvdC1wYXNzd29yZC9mb3Jnb3QtcGFzc3dvcmQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucGFnZS13cmFwIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBwYWRkaW5nOiAwcHg7XHJcbiAgfVxyXG4gIFxyXG4gIC8vIG92ZXJyaWRlIHRvIHNldCBpbnZpdGVlIGluaW50ZXJhY3Rpb24gbG9naW4gcG9zdGlvbiB0byBsZWZ0XHJcbiAgLnNlc3Npb24tZm9ybS1ob2xkLnNldC1mb3JtLWxlZnR7XHJcbiAgICBtYXJnaW4tbGVmdDogMHB4O1xyXG4gICAgbWF4LXdpZHRoOiAxMDAlO1xyXG4gICAgLy8gd2lkdGg6IDEwMCU7XHJcbiAgfVxyXG5cclxuICAjdXNlci1mb3Jnb3QtcGFzc3dvcmQtdmlldyB7XHJcblxyXG4gICAgLnNpZ25pbi1iYWNrZ3JvdW5kIHtcclxuICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiYXNzZXRzL2ltYWdlcy9zaWduaW4vVHJ1dmVydXMtTG9naW4tQmFja2dyb3VuZC5qcGdcIikgIWltcG9ydGFudDtcclxuICAgICAgYmFja2dyb3VuZC1zaXplOiBjb3ZlciAhaW1wb3J0YW50O1xyXG4gICAgICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0ICFpbXBvcnRhbnQ7XHJcbiAgICB9XHJcblxyXG4gICAgI2xvZ2luLWNhcmR7XHJcbiAgICAgIGhlaWdodDogMTAwdmg7XHJcbiAgICAgIHdpZHRoOiAzMy4zJTtcclxuICAgICAgb3BhY2l0eTogMC44O1xyXG4gICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjFmY2ZlO1xyXG5cclxuICAgICAgI2xvZ2luLWZvcm0sICNzaWduaW4tZm9ybXtcclxuICAgICAgICBwYWRkaW5nOiAwcHggOTBweCAwcHg7XHJcbiAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgICAgICB0b3A6IDIwJTtcclxuXHJcbiAgICAgICAgI2xvZ2luLWZvcm0tbG9nb3tcclxuICAgICAgICAgIHBhZGRpbmc6IDMwcHggMHB4IDUwcHggIWltcG9ydGFudDtcclxuICAgICAgICAgIG1heC13aWR0aDogODAlO1xyXG4gICAgICAgICAgbWFyZ2luOiBhdXRvO1xyXG4gICAgICAgIH1cclxuXHJcbiAgICAgIH1cclxuXHJcbiAgICB9XHJcblxyXG4gICAgLm1hdC1jYXJke1xyXG4gICAgICBwYWRkaW5nOiAwcHg7XHJcbiAgICB9XHJcblxyXG4gIH0iXX0= */"
 
 /***/ }),
 
@@ -6780,7 +6780,7 @@ var ForgotPasswordComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-forgot-password',
             template: __webpack_require__(/*! ./forgot-password.component.html */ "./src/app/views/sessions/forgot-password/forgot-password.component.html"),
-            styles: [__webpack_require__(/*! ./forgot-password.component.scss */ "./src/app/views/sessions/forgot-password/forgot-password.component.scss")],
+            styles: [__webpack_require__(/*! ./forgot-password.component.scss */ "./src/app/views/sessions/forgot-password/forgot-password.component.scss")]
         }),
         __metadata("design:paramtypes", [])
     ], ForgotPasswordComponent);
@@ -6798,7 +6798,7 @@ var ForgotPasswordComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3Nlc3Npb25zL2xvY2tzY3JlZW4vbG9ja3NjcmVlbi5jb21wb25lbnQuY3NzIn0= */"
 
 /***/ }),
 
@@ -6879,7 +6879,7 @@ var LockscreenComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3Nlc3Npb25zL25vdC1mb3VuZC9ub3QtZm91bmQuY29tcG9uZW50LmNzcyJ9 */"
 
 /***/ }),
 
@@ -7114,7 +7114,7 @@ module.exports = "<!-- <div class=\"page-wrap height-100 comman-background\">\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".page-wrap {\n  display: flex;\n  padding: 0px; }\n\n.session-form-hold.set-form-left {\n  margin-left: 0px;\n  max-width: 100%; }\n\n#user-login-view .signin-background {\n  background-image: url('Truverus-Login-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n\n#user-login-view #login-card {\n  height: 100vh;\n  width: 33.3%;\n  opacity: 0.8;\n  background-color: #f1fcfe; }\n\n#user-login-view #login-card #login-form, #user-login-view #login-card #signin-form {\n    padding: 0px 90px 0px;\n    margin: 0;\n    position: absolute;\n    top: 20%; }\n\n#user-login-view #login-card #login-form #login-form-logo, #user-login-view #login-card #signin-form #login-form-logo {\n      padding: 30px 0px 50px !important;\n      max-width: 80%;\n      margin: auto; }\n\n#user-login-view .mat-card {\n  padding: 0px; }\n"
+module.exports = ".page-wrap {\n  display: -webkit-box;\n  display: flex;\n  padding: 0px; }\n\n.session-form-hold.set-form-left {\n  margin-left: 0px;\n  max-width: 100%; }\n\n#user-login-view .signin-background {\n  background-image: url('Truverus-Login-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n\n#user-login-view #login-card {\n  height: 100vh;\n  width: 33.3%;\n  opacity: 0.8;\n  background-color: #f1fcfe; }\n\n#user-login-view #login-card #login-form, #user-login-view #login-card #signin-form {\n    padding: 0px 90px 0px;\n    margin: 0;\n    position: absolute;\n    top: 20%; }\n\n#user-login-view #login-card #login-form #login-form-logo, #user-login-view #login-card #signin-form #login-form-logo {\n      padding: 30px 0px 50px !important;\n      max-width: 80%;\n      margin: auto; }\n\n#user-login-view .mat-card {\n  padding: 0px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvc2Vzc2lvbnMvc2lnbmluL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXFRDX2F1dGhlbnRpY2FfZGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHZpZXdzXFxzZXNzaW9uc1xcc2lnbmluXFxzaWduaW4uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxvQkFBYTtFQUFiLGFBQWE7RUFDYixZQUFZLEVBQUE7O0FBSWQ7RUFDRSxnQkFBZ0I7RUFDaEIsZUFBZSxFQUFBOztBQUlqQjtFQUdJLGlFQUFzRjtFQUN0RixpQ0FBaUM7RUFDakMsdUNBQXVDLEVBQUE7O0FBTDNDO0VBU0ksYUFBYTtFQUNiLFlBQVk7RUFDWixZQUFZO0VBQ1oseUJBQXlCLEVBQUE7O0FBWjdCO0lBZU0scUJBQXFCO0lBQ3JCLFNBQVM7SUFDVCxrQkFBa0I7SUFDbEIsUUFBUSxFQUFBOztBQWxCZDtNQXFCUSxpQ0FBaUM7TUFDakMsY0FBYztNQUNkLFlBQVksRUFBQTs7QUF2QnBCO0VBK0JJLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3Nlc3Npb25zL3NpZ25pbi9zaWduaW4uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucGFnZS13cmFwIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBwYWRkaW5nOiAwcHg7XHJcbiAgfVxyXG4gIFxyXG4gIC8vIG92ZXJyaWRlIHRvIHNldCBpbnZpdGVlIGluaW50ZXJhY3Rpb24gbG9naW4gcG9zdGlvbiB0byBsZWZ0XHJcbiAgLnNlc3Npb24tZm9ybS1ob2xkLnNldC1mb3JtLWxlZnR7XHJcbiAgICBtYXJnaW4tbGVmdDogMHB4O1xyXG4gICAgbWF4LXdpZHRoOiAxMDAlO1xyXG4gICAgLy8gd2lkdGg6IDEwMCU7XHJcbiAgfVxyXG5cclxuICAjdXNlci1sb2dpbi12aWV3IHtcclxuXHJcbiAgICAuc2lnbmluLWJhY2tncm91bmQge1xyXG4gICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCJhc3NldHMvaW1hZ2VzL3NpZ25pbi9UcnV2ZXJ1cy1Mb2dpbi1CYWNrZ3JvdW5kLmpwZ1wiKSAhaW1wb3J0YW50O1xyXG4gICAgICBiYWNrZ3JvdW5kLXNpemU6IGNvdmVyICFpbXBvcnRhbnQ7XHJcbiAgICAgIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQgIWltcG9ydGFudDtcclxuICAgIH1cclxuXHJcbiAgICAjbG9naW4tY2FyZHtcclxuICAgICAgaGVpZ2h0OiAxMDB2aDtcclxuICAgICAgd2lkdGg6IDMzLjMlO1xyXG4gICAgICBvcGFjaXR5OiAwLjg7XHJcbiAgICAgIGJhY2tncm91bmQtY29sb3I6ICNmMWZjZmU7XHJcblxyXG4gICAgICAjbG9naW4tZm9ybSwgI3NpZ25pbi1mb3Jte1xyXG4gICAgICAgIHBhZGRpbmc6IDBweCA5MHB4IDBweDtcclxuICAgICAgICBtYXJnaW46IDA7XHJcbiAgICAgICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgICAgIHRvcDogMjAlO1xyXG5cclxuICAgICAgICAjbG9naW4tZm9ybS1sb2dve1xyXG4gICAgICAgICAgcGFkZGluZzogMzBweCAwcHggNTBweCAhaW1wb3J0YW50O1xyXG4gICAgICAgICAgbWF4LXdpZHRoOiA4MCU7XHJcbiAgICAgICAgICBtYXJnaW46IGF1dG87XHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgfVxyXG5cclxuICAgIH1cclxuXHJcbiAgICAubWF0LWNhcmR7XHJcbiAgICAgIHBhZGRpbmc6IDBweDtcclxuICAgIH1cclxuXHJcbiAgfSJdfQ== */"
 
 /***/ }),
 
@@ -7346,7 +7346,7 @@ module.exports = "<div class=\"page-wrap height-100 default-bg\">\r\n  <div clas
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3Nlc3Npb25zL3VuYXV0aG9yaXplZC91bmF1dGhvcml6ZWQuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -7415,7 +7415,7 @@ module.exports = "<div class=\"page-wrap height-100 comman-background\">\r\n  <d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".comman-background {\n  background-image: url('Truverus-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n"
+module.exports = ".comman-background {\n  background-image: url('Truverus-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvc2Vzc2lvbnMvdXNlci1hY3RpdmF0aW9uL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXFRDX2F1dGhlbnRpY2FfZGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHZpZXdzXFxzZXNzaW9uc1xcdXNlci1hY3RpdmF0aW9uXFx1c2VyLWFjdGl2YXRpb24uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSwyREFBa0Y7RUFDbEYsaUNBQXFDO0VBQ3JDLHVDQUF5QyxFQUFBIiwiZmlsZSI6InNyYy9hcHAvdmlld3Mvc2Vzc2lvbnMvdXNlci1hY3RpdmF0aW9uL3VzZXItYWN0aXZhdGlvbi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jb21tYW4tYmFja2dyb3VuZHtcclxuICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcImFzc2V0cy9pbWFnZXMvdHJ1dmVydXMvVHJ1dmVydXMtQmFja2dyb3VuZC5qcGdcIikgIWltcG9ydGFudDtcclxuICAgIGJhY2tncm91bmQtc2l6ZTogICAgIGNvdmVyICFpbXBvcnRhbnQ7XHJcbiAgICBiYWNrZ3JvdW5kLXJlcGVhdDogICBuby1yZXBlYXQgIWltcG9ydGFudDtcclxufSJdfQ== */"
 
 /***/ }),
 

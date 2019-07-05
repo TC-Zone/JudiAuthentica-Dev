@@ -19,70 +19,70 @@ var map = {
 	],
 	"./views/client/client.module": [
 		"./src/app/views/client/client.module.ts",
-		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
-		"views-client-client-module~views-user-user-module",
+		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
+		"default~views-client-client-module~views-user-user-module",
 		"common",
 		"views-client-client-module"
 	],
 	"./views/community/community.module": [
 		"./src/app/views/community/community.module.ts",
-		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
-		"views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-module~vie~0709af30",
+		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
+		"default~views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-mo~490929b2",
 		"common",
 		"views-community-community-module"
 	],
 	"./views/evote/evote.module": [
 		"./src/app/views/evote/evote.module.ts",
-		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
-		"views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-module~vie~0709af30",
+		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
+		"default~views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-mo~490929b2",
 		"common",
 		"views-evote-evote-module"
 	],
 	"./views/future-survey/future-survey.module": [
 		"./src/app/views/future-survey/future-survey.module.ts",
-		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
-		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
+		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
+		"default~views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~view~e575ea12",
 		"common"
 	],
 	"./views/interaction-view/interaction-view.module": [
 		"./src/app/views/interaction-view/interaction-view.module.ts",
-		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
-		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
+		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
+		"default~views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~view~e575ea12",
 		"common",
 		"views-interaction-view-interaction-view-module"
 	],
 	"./views/invitee-interaction-view/invitee-interaction-view.module": [
 		"./src/app/views/invitee-interaction-view/invitee-interaction-view.module.ts",
-		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
-		"views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~views-invite~c94c07c0",
+		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
+		"default~views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~view~e575ea12",
 		"common",
 		"views-invitee-interaction-view-invitee-interaction-view-module"
 	],
 	"./views/product-crud/product-crud.module": [
 		"./src/app/views/product-crud/product-crud.module.ts",
-		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
-		"views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-module~vie~0709af30",
-		"views-product-crud-product-crud-module~views-survey-survey-module",
+		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
+		"default~views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-mo~490929b2",
+		"default~views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
 		"views-product-crud-product-crud-module"
 	],
 	"./views/profile/profile.module": [
 		"./src/app/views/profile/profile.module.ts",
-		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
-		"views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-module~vie~0709af30",
+		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-mo~490929b2",
 		"common",
 		"views-profile-profile-module"
 	],
@@ -92,17 +92,17 @@ var map = {
 	],
 	"./views/survey/survey.module": [
 		"./src/app/views/survey/survey.module.ts",
-		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1724d274",
-		"views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-module~v~1a4e2c55",
-		"views-product-crud-product-crud-module~views-survey-survey-module",
+		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
+		"default~views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
 		"views-survey-survey-module"
 	],
 	"./views/user/user.module": [
 		"./src/app/views/user/user.module.ts",
-		"views-client-client-module~views-community-community-module~views-evote-evote-module~views-future-su~362cde71",
-		"views-client-client-module~views-user-user-module",
+		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
+		"default~views-client-client-module~views-user-user-module",
 		"common",
 		"views-user-user-module"
 	]
@@ -111,14 +111,14 @@ function webpackAsyncContext(req) {
 	var ids = map[req];
 	if(!ids) {
 		return Promise.resolve().then(function() {
-			var e = new Error('Cannot find module "' + req + '".');
+			var e = new Error("Cannot find module '" + req + "'");
 			e.code = 'MODULE_NOT_FOUND';
 			throw e;
 		});
 	}
 	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
-		var module = __webpack_require__(ids[0]);
-		return module;
+		var id = ids[0];
+		return __webpack_require__(id);
 	});
 }
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
@@ -136,7 +136,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIn0= */"
 
 /***/ }),
 
@@ -786,7 +786,7 @@ module.exports = "<div class=\"breadcrumb-bar\" *ngIf=\"layout.layoutConf.useBre
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL2JyZWFkY3J1bWIvYnJlYWRjcnVtYi5jb21wb25lbnQuc2NzcyJ9 */"
 
 /***/ }),
 
@@ -897,7 +897,7 @@ module.exports = "<div id=\"app-customizer\">\r\n  <div class=\"handle\" *ngIf=\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#app-customizer {\n  position: fixed;\n  z-index: 100;\n  bottom: 16px;\n  right: 24px; }\n  #app-customizer .handle {\n    float: right; }\n  #app-customizer .mat-card-content {\n    padding: 1rem 1.5rem 2rem; }\n  .pos-rel {\n  position: relative;\n  z-index: 99; }\n  .pos-rel .olay {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background: rgba(255, 255, 255, 0.5);\n    z-index: 100; }\n"
+module.exports = "#app-customizer {\n  position: fixed;\n  z-index: 100;\n  bottom: 16px;\n  right: 24px; }\n  #app-customizer .handle {\n    float: right; }\n  #app-customizer .mat-card-content {\n    padding: 1rem 1.5rem 2rem; }\n  .pos-rel {\n  position: relative;\n  z-index: 99; }\n  .pos-rel .olay {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background: rgba(255, 255, 255, 0.5);\n    z-index: 100; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbXBvbmVudHMvY3VzdG9taXplci9EOlxcQ2xlYXJQaWN0dXJlXFxDUCBab25lXFxUQ19hdXRoZW50aWNhX2RldlxcSnVkaUF1dGhlbnRpY2EtRGV2L3NyY1xcYXBwXFxzaGFyZWRcXGNvbXBvbmVudHNcXGN1c3RvbWl6ZXJcXGN1c3RvbWl6ZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxlQUFlO0VBQ2YsWUFBWTtFQUNaLFlBQVk7RUFDWixXQUFXLEVBQUE7RUFKYjtJQU1JLFlBQVksRUFBQTtFQU5oQjtJQVNJLHlCQUF5QixFQUFBO0VBRzdCO0VBQ0Usa0JBQWtCO0VBQ2xCLFdBQVcsRUFBQTtFQUZiO0lBSUksa0JBQWtCO0lBQ2xCLFdBQVc7SUFDWCxZQUFZO0lBQ1osb0NBQW1DO0lBQ25DLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL2N1c3RvbWl6ZXIvY3VzdG9taXplci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIiNhcHAtY3VzdG9taXplciB7XHJcbiAgcG9zaXRpb246IGZpeGVkO1xyXG4gIHotaW5kZXg6IDEwMDtcclxuICBib3R0b206IDE2cHg7XHJcbiAgcmlnaHQ6IDI0cHg7XHJcbiAgLmhhbmRsZSB7XHJcbiAgICBmbG9hdDogcmlnaHQ7XHJcbiAgfVxyXG4gIC5tYXQtY2FyZC1jb250ZW50ICB7XHJcbiAgICBwYWRkaW5nOiAxcmVtIDEuNXJlbSAycmVtO1xyXG4gIH1cclxufVxyXG4ucG9zLXJlbCB7XHJcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gIHotaW5kZXg6IDk5O1xyXG4gIC5vbGF5IHtcclxuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgYmFja2dyb3VuZDogcmdiYSgyNTUsIDI1NSwgMjU1LCAuNSk7XHJcbiAgICB6LWluZGV4OiAxMDA7XHJcbiAgfVxyXG59Il19 */"
 
 /***/ }),
 
@@ -2614,7 +2614,7 @@ module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n  <
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.error-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.error-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n"
+module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.error-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.error-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC1lcnJvci9EOlxcQ2xlYXJQaWN0dXJlXFxDUCBab25lXFxUQ19hdXRoZW50aWNhX2RldlxcSnVkaUF1dGhlbnRpY2EtRGV2L3NyY1xcYXBwXFxzaGFyZWRcXHNlcnZpY2VzXFxhcHAtZXJyb3JcXGFwcC1lcnJvci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx3REFBWTtBQUVaO0VBQ0UsZ0JBQWdCLEVBQUE7QUFHbEI7RUFDRSxvQkFBb0I7RUFDcEIsZUFBZTtFQUNmLG1CQUFtQjtFQUNuQixrQkFBa0IsRUFBQTtBQUdwQjtFQUNFLG9CQUFvQjtFQUNwQixlQUFlO0VBQ2Ysa0JBQWtCLEVBQUE7QUFHcEI7RUFDRSx5QkFBeUI7RUFDekIsWUFBWTtFQUNaLGVBQWUsRUFBQTtBQUdqQjtFQUNFLHlCQUF5QjtFQUN6QixZQUFZO0VBQ1osZUFBZSxFQUFBO0FBR2pCO0VBQ0Usa0JBQWtCO0VBQ2xCLG1CQUFtQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC1lcnJvci9hcHAtZXJyb3IuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IHVybCgnaHR0cHM6Ly9mb250cy5nb29nbGUuY29tL3NwZWNpbWVuL1BvcHBpbnMnKTtcclxuXHJcbi5tYXJnaW4tdG9wIHtcclxuICBtYXJnaW4tdG9wOiAyMHB4O1xyXG59XHJcblxyXG4uZXJyb3ItaGVhZGVyIHtcclxuICBmb250LWZhbWlseTogUG9wcGlucztcclxuICBmb250LXNpemU6IDI2cHg7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGRlcjtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5lcnJvci1tZXNzYWdlIHtcclxuICBmb250LWZhbWlseTogUG9wcGlucztcclxuICBmb250LXNpemU6IDE2cHg7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4ub2stYnRuIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZWY0MTM2O1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICBmb250LXNpemU6IDE2cHg7XHJcbn1cclxuXHJcbi5jbG9zZS1idG4ge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNlZjQxMzY7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxufVxyXG5cclxuLmFjdGlvbi1zZWN0aW9uIHtcclxuICBwYWRkaW5nLWxlZnQ6IDdyZW07XHJcbiAgcGFkZGluZy1yaWdodDogN3JlbTtcclxufVxyXG4iXX0= */"
 
 /***/ }),
 
@@ -2657,8 +2657,8 @@ var AppErrorComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-app-error',
             template: __webpack_require__(/*! ./app-error.component.html */ "./src/app/shared/services/app-error/app-error.component.html"),
-            styles: [__webpack_require__(/*! ./app-error.component.scss */ "./src/app/shared/services/app-error/app-error.component.scss")],
-            animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_2__["egretAnimations"]
+            animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_2__["egretAnimations"],
+            styles: [__webpack_require__(/*! ./app-error.component.scss */ "./src/app/shared/services/app-error/app-error.component.scss")]
         }),
         __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"], Object])
@@ -3052,7 +3052,7 @@ module.exports = "<!-- <mat-toolbar matDialogTitle class=\"m-0 info-title\">\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.info-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.info-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #2bb673;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n"
+module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.info-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.info-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #2bb673;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC1pbmZvL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXFRDX2F1dGhlbnRpY2FfZGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHNoYXJlZFxcc2VydmljZXNcXGFwcC1pbmZvXFxhcHAtaW5mby5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx3REFBWTtBQUVaO0VBQ0UsZ0JBQWdCLEVBQUE7QUFHbEI7RUFDRSxvQkFBb0I7RUFDcEIsZUFBZTtFQUNmLG1CQUFtQjtFQUNuQixrQkFBa0IsRUFBQTtBQUdwQjtFQUNFLG9CQUFvQjtFQUNwQixlQUFlO0VBQ2Ysa0JBQWtCLEVBQUE7QUFHcEI7RUFDRSx5QkFBeUI7RUFDekIsWUFBWTtFQUNaLGVBQWUsRUFBQTtBQUdqQjtFQUNFLHlCQUF5QjtFQUN6QixZQUFZO0VBQ1osZUFBZSxFQUFBO0FBR2pCO0VBQ0Usa0JBQWtCO0VBQ2xCLG1CQUFtQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC1pbmZvL2FwcC1pbmZvLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCB1cmwoJ2h0dHBzOi8vZm9udHMuZ29vZ2xlLmNvbS9zcGVjaW1lbi9Qb3BwaW5zJyk7XHJcblxyXG4ubWFyZ2luLXRvcCB7XHJcbiAgbWFyZ2luLXRvcDogMjBweDtcclxufVxyXG5cclxuLmluZm8taGVhZGVyIHtcclxuICBmb250LWZhbWlseTogUG9wcGlucztcclxuICBmb250LXNpemU6IDI2cHg7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGRlcjtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5pbmZvLW1lc3NhZ2Uge1xyXG4gIGZvbnQtZmFtaWx5OiBQb3BwaW5zO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5vay1idG4ge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICMyYmI2NzM7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxufVxyXG5cclxuLmNsb3NlLWJ0biB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2VmNDEzNjtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgZm9udC1zaXplOiAxNnB4O1xyXG59XHJcblxyXG4uYWN0aW9uLXNlY3Rpb24ge1xyXG4gIHBhZGRpbmctbGVmdDogN3JlbTtcclxuICBwYWRkaW5nLXJpZ2h0OiA3cmVtO1xyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -3095,8 +3095,8 @@ var AppInfoComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-app-info',
             template: __webpack_require__(/*! ./app-info.component.html */ "./src/app/shared/services/app-info/app-info.component.html"),
-            styles: [__webpack_require__(/*! ./app-info.component.scss */ "./src/app/shared/services/app-info/app-info.component.scss")],
-            animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"]
+            animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"],
+            styles: [__webpack_require__(/*! ./app-info.component.scss */ "./src/app/shared/services/app-info/app-info.component.scss")]
         }),
         __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
         __metadata("design:paramtypes", [Object, _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"]])
@@ -3172,7 +3172,7 @@ var AppInfoService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".mat-dialog-content {\r\n  min-height: 122px;\r\n}"
+module.exports = ".mat-dialog-content {\r\n  min-height: 122px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC1sb2FkZXIvYXBwLWxvYWRlci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsaUJBQWlCO0FBQ25CIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC1sb2FkZXIvYXBwLWxvYWRlci5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm1hdC1kaWFsb2ctY29udGVudCB7XHJcbiAgbWluLWhlaWdodDogMTIycHg7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -3300,7 +3300,7 @@ module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n   
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.warn-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.warn-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #2bb673;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n"
+module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.warn-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.warn-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #2bb673;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC13YXJuaW5nL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXFRDX2F1dGhlbnRpY2FfZGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHNoYXJlZFxcc2VydmljZXNcXGFwcC13YXJuaW5nXFxhcHAtd2FybmluZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx3REFBWTtBQUVaO0VBQ0UsZ0JBQWdCLEVBQUE7QUFHbEI7RUFDRSxvQkFBb0I7RUFDcEIsZUFBZTtFQUNmLG1CQUFtQjtFQUNuQixrQkFBa0IsRUFBQTtBQUdwQjtFQUNFLG9CQUFvQjtFQUNwQixlQUFlO0VBQ2Ysa0JBQWtCLEVBQUE7QUFHcEI7RUFDRSx5QkFBeUI7RUFDekIsWUFBWTtFQUNaLGVBQWUsRUFBQTtBQUdqQjtFQUNFLHlCQUF5QjtFQUN6QixZQUFZO0VBQ1osZUFBZSxFQUFBO0FBR2pCO0VBQ0Usa0JBQWtCO0VBQ2xCLG1CQUFtQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC13YXJuaW5nL2FwcC13YXJuaW5nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCB1cmwoJ2h0dHBzOi8vZm9udHMuZ29vZ2xlLmNvbS9zcGVjaW1lbi9Qb3BwaW5zJyk7XHJcblxyXG4ubWFyZ2luLXRvcCB7XHJcbiAgbWFyZ2luLXRvcDogMjBweDtcclxufVxyXG5cclxuLndhcm4taGVhZGVyIHtcclxuICBmb250LWZhbWlseTogUG9wcGlucztcclxuICBmb250LXNpemU6IDI2cHg7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGRlcjtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi53YXJuLW1lc3NhZ2Uge1xyXG4gIGZvbnQtZmFtaWx5OiBQb3BwaW5zO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5vay1idG4ge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICMyYmI2NzM7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxufVxyXG5cclxuLmNsb3NlLWJ0biB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2VmNDEzNjtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgZm9udC1zaXplOiAxNnB4O1xyXG59XHJcblxyXG4uYWN0aW9uLXNlY3Rpb24ge1xyXG4gIHBhZGRpbmctbGVmdDogN3JlbTtcclxuICBwYWRkaW5nLXJpZ2h0OiA3cmVtO1xyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -3343,8 +3343,8 @@ var AppWarningComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-app-warning',
             template: __webpack_require__(/*! ./app-warning.component.html */ "./src/app/shared/services/app-warning/app-warning.component.html"),
-            styles: [__webpack_require__(/*! ./app-warning.component.scss */ "./src/app/shared/services/app-warning/app-warning.component.scss")],
-            animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"]
+            animations: app_shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_1__["egretAnimations"],
+            styles: [__webpack_require__(/*! ./app-warning.component.scss */ "./src/app/shared/services/app-warning/app-warning.component.scss")]
         }),
         __param(0, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_2__["MAT_DIALOG_DATA"])),
         __metadata("design:paramtypes", [Object, _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogRef"]])
@@ -5463,7 +5463,7 @@ var environment = {
     // SAP NEW 32GB -  DEV TEST
     productApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/product/api/",
     surveyApiURL: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey/api/",
-    productimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/product",
+    productimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/product/",
     evoteimageUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/survey",
     authTokenUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user/",
     userApiUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user/api/",
@@ -5543,7 +5543,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\ClearPicture\CP Zone\cp_authentica_dev\Dev-JudiAuthentica-Dev\JudiAuthentica-Dev\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\ClearPicture\CP Zone\TC_authentica_dev\JudiAuthentica-Dev\src\main.ts */"./src/main.ts");
 
 
 /***/ })
