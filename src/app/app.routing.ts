@@ -94,6 +94,11 @@ export const rootRouterConfig: Routes = [
         path: "community",
         loadChildren: "./views/community/community.module#CommunityModule",
         data: { title: "Community", breadcrumb: "Community" }
+      },
+      {
+        path: "reporting",
+        loadChildren: "./views/reporting/reporting.module#ReportingModule",
+        data: { title: "Reporting", breadcrumb: "Reporting" }
       }
 
     ]

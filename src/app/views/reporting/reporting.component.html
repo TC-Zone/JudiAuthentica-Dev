@@ -1,0 +1,66 @@
+<!-- First row -->
+<mat-card class="p-0" [@animate]="{ value: '*', params: { scale: '.9', delay: '300ms' } }">
+  <div fxLayout="row wrap">
+    <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="50">
+      <div class="text-center pt-1 pb-1 border-right-light">
+        <mat-icon class="text-green" color="warn">show_chart</mat-icon>
+        <h4 class="m-0 ">100.53K</h4>
+        <small class="m-0 ">Total Sales</small>
+      </div>
+    </div>
+    <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="50">
+      <div class="text-center pt-1 pb-1 border-right-light">
+        <mat-icon class="text-blue">location_city</mat-icon>
+        <h4 class="m-0 ">40.8K</h4>
+        <small class="m-0 ">Factories</small>
+      </div>
+    </div>
+    <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="50">
+      <div class="text-center pt-1 pb-1 border-right-light">
+        <mat-icon class="text-green" color="primary">shop</mat-icon>
+        <h4 class="m-0 ">50K</h4>
+        <small class="m-0 ">Merchandizers</small>
+      </div>
+    </div>
+    <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="50">
+      <div class="text-center pt-1 pb-1 border-right-light">
+        <mat-icon class="text-blue" color="accent">person</mat-icon>
+        <h4 class="m-0 ">75K</h4>
+        <small class="m-0 ">Customers</small>
+      </div>
+    </div>
+  </div>
+</mat-card>
+<!--/ End first row -->
+
+<div class="pt-2">
+  <mat-card class="" [@animate]="{ value: '*', params: { scale: '.9', delay: '300ms' } }">
+    <h6 class="pl-1 pt-1 m-0 ">Chart Details</h6>
+    <div fxLayout="row" fxLayoutWrap="wrap" class="pt-2">
+      <div fxFlex="100">
+        <mat-divider></mat-divider>
+        <nav mat-tab-nav-bar>
+          <a mat-tab-link routerLink="/reporting/sales-region" [queryParams]="queryParams" routerLinkActive #rla1="routerLinkActive"
+            [active]="rla1.isActive">
+            <mat-icon class="icon-mr" color="primary">add_location</mat-icon>Sales by Region
+          </a>
+          <a mat-tab-link routerLink="/reporting/sales-time" [queryParams]="queryParams" routerLinkActive #rla2="routerLinkActive"
+            [active]="rla2.isActive">
+            <mat-icon class="icon-mr" color="primary">timer</mat-icon>Sales by Time
+          </a>
+          <a mat-tab-link routerLink="/reporting/sales-retailers" [queryParams]="queryParams" routerLinkActive #rla3="routerLinkActive"
+            [active]="rla3.isActive">
+            <mat-icon class="icon-mr" color="primary">people</mat-icon>Sales by Retailers
+          </a>
+          <a mat-tab-link routerLink="/reporting/feedback-rate" [queryParams]="queryParams" routerLinkActive #rla4="routerLinkActive"
+            [active]="rla4.isActive">
+            <mat-icon class="icon-mr" color="primary">person</mat-icon>Customer Feedback Rate
+          </a>
+        </nav>
+      </div>
+      <div fxFlex="100">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </mat-card>
+</div>

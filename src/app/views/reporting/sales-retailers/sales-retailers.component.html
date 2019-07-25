@@ -1,0 +1,36 @@
+<div fxLayout="row wrap" class="pt-2">
+  <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="25">
+    <mat-card>
+      <form>
+        <mat-form-field class="full-width">
+          <mat-select required placeholder="Select a Product">
+            <mat-option [value]="">NIKE Shoes</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-select required placeholder="Select A Country">
+            <mat-option [value]="">Canada</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-select required placeholder="Select Style">
+            <mat-option [value]="">Sport Shoes</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+
+    </mat-card>
+  </div>
+  <div fxFlex="50" fxFlex.gt-sm="75" fxFlex.sm="75">
+    <mat-card>
+      <mat-card-title class="">
+        <div class="card-title-text">Horizontal Bar chart</div>
+        <mat-divider></mat-divider>
+      </mat-card-title>
+      <mat-card-content>
+        <canvas baseChart class="chart" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartHorizontalOptions"
+          [colors]="chartColors" [legend]="barChartLegend" [chartType]="barChartHorizontalType"></canvas>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

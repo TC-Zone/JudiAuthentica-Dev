@@ -450,6 +450,14 @@ export class NavigationService {
       state: "future-survey",
       disabled: true
     },
+    {
+      name: "Reporting",
+      type: "link",
+      tooltip: "Reporting",
+      icon: "assessment",
+      state: "reporting",
+      disabled: true
+    },
 
     // ,
     // {

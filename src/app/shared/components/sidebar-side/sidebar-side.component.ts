@@ -36,6 +36,7 @@ export class SidebarSideComponent extends LocalStorageHandler
 
     this.menuItemsSub = this.navService.menuItems$.subscribe(menuItem => {
       this.menuItems = menuItem;
+
       // const removeItemList = this.authService.setComponetDisable();
       // removeItemList.forEach(element => {
       //   const index = this.menuItems.findIndex(x => x.name === element);
@@ -44,15 +45,28 @@ export class SidebarSideComponent extends LocalStorageHandler
       //   }
       // });
 
-      const activeItemList = this.authService.getActiveComponet();
-      
-      activeItemList.forEach(element => {
-        const index = this.menuItems.findIndex(x => x.name === element);
-        if (index >= 0) {
-          this.menuItems[index].disabled = false;
-        }
+
+
+      // const activeItemList = this.authService.getActiveComponet();
+
+      // activeItemList.forEach(element => {
+      //   const index = this.menuItems.findIndex(x => x.name === element);
+      //   if (index >= 0) {
+      //     this.menuItems[index].disabled = false;
+      //   }
+      //   this.menuItems[index].disabled = false;
+      // });
+
+
+      //has to be change 
+      this.menuItems.forEach(e => {
+        e.disabled = false;
       });
-      
+
+
+
+
+
       //Checks item list has any icon type.
       this.hasIconTypeMenuItem = !!this.menuItems.filter(
         item => item.type === "icon"
