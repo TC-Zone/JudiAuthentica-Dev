@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { egretAnimations } from "app/shared/animations/egret-animations";
-import { FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sales-region',
@@ -9,12 +11,77 @@ import { FormControl } from '@angular/forms';
   animations: egretAnimations
 })
 export class SalesRegionComponent implements OnInit {
-  myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
-  constructor() { }
+
+  // -------------------------------------------------------------------------------------------------
+  public countries;
+  filteredCountries: Observable<string[]>;
+  public selectedCountry;
+  public itemForm: FormGroup;
+  // -------------------------------------------------------------------------------------------------
+
+
+  constructor(
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit() {
+
+
+    // -----------------------------------------------------------------------------------------------
+    this.countries = [
+      { id: "faa6643aca8c5318a9583178795542cf", name: "Afghanistan", code: "AF" },
+      { id: "d36eeebd8b1f0cde16210339e97b9408", name: "Åland Islands", code: "AX" },
+      { id: "ec21ff12b34a21bece175e48a059ec7f", name: "Albania", code: "AL" }
+    ];
+
+    this.buildItemForm({ id: "faa6643aca8c5318a9583178795542cf", name: "Afghanistan", code: "AF" })
+
+    this.filteredCountries = this.itemForm.get("country").valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+    // -----------------------------------------------------------------------------------------------
+
   }
+
+  // -------------------------------------------------------------------------------------------------
+  buildItemForm(item) {
+    let country = null;
+    if (item) {
+      country = item.name;
+      this.selectedCountry = item.id;
+    }
+    this.itemForm = this.fb.group({
+      country: [country || '', Validators.required]
+    })
+  }
+
+  private _filter(value: string): any {
+    const filterValue = value.toLowerCase();
+    return this.countries.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  onBlurCountry(): void {
+    let value = this.itemForm.get("country").value;
+    let status = true;
+    this.countries.forEach(element => {
+      if (element.name === value) {
+        this.selectedCountry = element.id;
+        status = false;
+      }
+    });
+
+    if (status) {
+      this.selectedCountry = null;
+      this.itemForm.get("country").setValue("");
+    }
+  }
+  // -------------------------------------------------------------------------------------------------
+
+
+
+
+
 
   sharedChartOptions: any = {
     responsive: true,
