@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { egretAnimations } from "app/shared/animations/egret-animations";
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-sales-region',
@@ -8,7 +9,8 @@ import { egretAnimations } from "app/shared/animations/egret-animations";
   animations: egretAnimations
 })
 export class SalesRegionComponent implements OnInit {
-
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
   constructor() { }
 
   ngOnInit() {
@@ -44,51 +46,23 @@ export class SalesRegionComponent implements OnInit {
     pointHoverBackgroundColor: '#fff',
     pointHoverBorderColor: 'rgba(148,159,177,0.8)'
   }];
+
   /*
-  * Bar Chart
-  */
-  barChartLabels: string[] = ['1', '2', '3', '4', '5', '6', '7'];
-  barChartType = 'bar';
-  barChartLegend = true;
-  barChartData: any[] = [{
-    data: [5, 6, 7, 8, 4, 5, 5],
-    label: 'Series A',
-    borderWidth: 0
-  }, {
-    data: [5, 4, 4, 3, 6, 2, 5],
-    label: 'Series B',
-    borderWidth: 0
+ * Pie Chart Options
+ */
+  public pieChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
+  public pieChartData: number[] = [300, 500, 100];
+  public pieChartType: string = 'pie';
+  public pieChartColors: Array<any> = [{
+    backgroundColor: ['rgba(255, 217, 125, 0.8)', 'rgba(36, 123, 160, 0.8)', 'rgba(244, 67, 54, 0.8)']
   }];
-  barChartOptions: any = Object.assign({
-    scaleShowVerticalLines: false,
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: 'rgba(0,0,0,0.02)',
-          zeroLineColor: 'rgba(0,0,0,0.02)'
-        }
-      }],
-      yAxes: [{
-        gridLines: {
-          color: 'rgba(0,0,0,0.02)',
-          zeroLineColor: 'rgba(0,0,0,0.02)'
-        },
-        position: 'left',
-        ticks: {
-          beginAtZero: true,
-          suggestedMax: 9
-        }
-      }]
-    }
-  }, this.sharedChartOptions);
 
   /*
-  * Bar Chart Event Handler
+  * Pie Chart Event Handler
   */
-  public barChartClicked(e: any): void {
+  public pieChartClicked(e: any): void {
   }
-  public barChartHovered(e: any): void {
+  public pieChartHovered(e: any): void {
   }
-
 
 }

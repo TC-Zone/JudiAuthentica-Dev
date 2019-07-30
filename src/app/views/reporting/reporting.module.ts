@@ -33,6 +33,7 @@ import { SalesTimeComponent } from './sales-time/sales-time.component';
 import { SalesRetailersComponent } from './sales-retailers/sales-retailers.component';
 import { FeedbackRateComponent } from './feedback-rate/feedback-rate.component';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -71,7 +72,9 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     MatMenuModule,
     MatAutocompleteModule,
     FlexLayoutModule,
-    ChartsModule
+    ChartsModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class ReportingModule { }
