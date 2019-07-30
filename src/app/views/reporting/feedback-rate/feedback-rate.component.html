@@ -3,18 +3,18 @@
     <mat-card>
       <form>
         <mat-form-field class="full-width">
-          <mat-select required placeholder="Select a Product">
+          <mat-select required placeholder="Select A Product">
             <mat-option [value]="">NIKE Shoes</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <mat-select required placeholder="Select Country">
-            <mat-option [value]="">Canada</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="full-width">
           <mat-select required placeholder="Select Style">
             <mat-option [value]="">Nike Air Max</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-select required placeholder="Select Country">
+            <mat-option [value]="">Canada</mat-option>
           </mat-select>
         </mat-form-field>
       </form>
@@ -24,12 +24,12 @@
   <div fxFlex="50" fxFlex.gt-sm="75" fxFlex.sm="75">
     <mat-card>
       <mat-card-title class="">
-        <div class="card-title-text">Basic Line chart</div>
+        <div class="card-title-text">Horizontal Bar chart</div>
         <mat-divider></mat-divider>
       </mat-card-title>
       <mat-card-content>
-        <canvas baseChart class="chart" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-          [colors]="chartColors" [legend]="lineChartLegend" [chartType]="lineChartType"></canvas>
+        <canvas baseChart class="chart" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartHorizontalOptions"
+          [colors]="chartColors" [legend]="barChartLegend" [chartType]="barChartHorizontalType"></canvas>
       </mat-card-content>
     </mat-card>
   </div>

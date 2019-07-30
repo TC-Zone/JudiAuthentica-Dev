@@ -44,91 +44,48 @@ export class FeedbackRateComponent implements OnInit {
     pointHoverBackgroundColor: '#fff',
     pointHoverBorderColor: 'rgba(148,159,177,0.8)'
   }];
-  /*
-   * Line Chart Options
-   */
-  lineChartData: Array<any> = [{
-    data: [5, 5, 7, 8, 4, 5, 5],
+  // Horizontal Bar Chart
+  barChartLabels: string[] = ['1', '2', '3', '4', '5', '6', '7'];
+  barChartType = 'bar';
+  barChartLegend = true;
+  barChartData: any[] = [{
+    data: [5, 6, 7, 8, 4, 5, 5],
     label: 'Series A',
-    borderWidth: 1
+    borderWidth: 0
   }, {
     data: [5, 4, 4, 3, 6, 2, 5],
     label: 'Series B',
-    borderWidth: 1
+    borderWidth: 0
   }];
-  lineChartLabels: Array<any> = ['1', '2', '3', '4', '5', '6', '7'];
-  lineChartOptions: any = Object.assign({
-    animation: false,
+  barChartHorizontalType = 'horizontalBar';
+  barChartHorizontalOptions: any = Object.assign({
+    scaleShowVerticalLines: false,
     scales: {
       xAxes: [{
-        gridLines: {
-          color: 'rgba(0,0,0,0.02)',
-          zeroLineColor: 'rgba(0,0,0,0.02)'
-        }
-      }],
-      yAxes: [{
         gridLines: {
           color: 'rgba(0,0,0,0.02)',
           zeroLineColor: 'rgba(0,0,0,0.02)'
         },
         ticks: {
           beginAtZero: true,
-          suggestedMax: 9,
-        }
-      }]
-    }
-  }, this.sharedChartOptions);
-  public lineChartLegend: boolean = false;
-  public lineChartType: string = 'line';
-  lineChartPointsData: Array<any> = [{
-    data: [6, 5, 8, 8, 5, 5, 4],
-    label: 'Series A',
-    borderWidth: 1,
-    fill: false,
-    pointRadius: 10,
-    pointHoverRadius: 15,
-    showLine: false
-  }, {
-    data: [5, 4, 4, 2, 6, 2, 5],
-    label: 'Series B',
-    borderWidth: 1,
-    fill: false,
-    pointRadius: 10,
-    pointHoverRadius: 15,
-    showLine: false
-  }];
-  lineChartPointsOptions: any = Object.assign({
-    scales: {
-      xAxes: [{
-        gridLines: {
-          color: 'rgba(0,0,0,0.02)',
-          zeroLineColor: 'rgba(0,0,0,0.02)'
+          suggestedMax: 9
         }
       }],
       yAxes: [{
         gridLines: {
           color: 'rgba(0,0,0,0.02)',
           zeroLineColor: 'rgba(0,0,0,0.02)'
-        },
-        ticks: {
-          beginAtZero: true,
-          suggestedMax: 9,
         }
       }]
-    },
-    elements: {
-      point: {
-        pointStyle: 'rectRot',
-      }
     }
   }, this.sharedChartOptions);
 
   /*
-  * Line Chart Event Handler
-  */
-  public lineChartClicked(e: any): void {
+ * Bar Chart Event Handler
+ */
+  public barChartClicked(e: any): void {
   }
-  public lineChartHovered(e: any): void {
+  public barChartHovered(e: any): void {
   }
 
 }

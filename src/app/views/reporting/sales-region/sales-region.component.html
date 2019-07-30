@@ -3,7 +3,7 @@
     <mat-card>
       <form class="example-form">
         <mat-form-field class="full-width">
-          <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
+          <input type="text" placeholder="Select a Product" aria-label="Number" matInput [formControl]="myControl"
             [matAutocomplete]="auto">
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option *ngFor="let option of options" [value]="option">
@@ -12,13 +12,13 @@
           </mat-autocomplete>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <mat-select required placeholder="Select A Country">
-            <mat-option [value]="">Canada</mat-option>
+          <mat-select required placeholder="Select Production Order">
+            <mat-option [value]="">10029</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <mat-select required placeholder="Select Batch">
-            <mat-option [value]="">10029</mat-option>
+          <mat-select required placeholder="Select A Country">
+            <mat-option [value]="">Canada</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="full-width">
