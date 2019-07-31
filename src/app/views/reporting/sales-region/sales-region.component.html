@@ -4,11 +4,11 @@
       <form class="example-form">
 
         <mat-form-field class="full-width">
-          <input matInput [formControl]="itemForm.controls['country']" placeholder="Country" [matAutocomplete]="auto"
-            (blur)="onBlurCountry()">
+          <input matInput [formControl]="itemForm.controls['product']" placeholder="Search Product" [matAutocomplete]="auto"
+            (blur)="onBlurProducts()">
           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredCountries | async" [value]="option.name">
-              {{option.name}}
+            <mat-option *ngFor="let product of filteredProducts | async" [value]="product.name">
+              {{product.name}}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
@@ -30,6 +30,8 @@
         </mat-form-field>
       </form>
 
+      <h1>{{selectedCountry}}</h1>
+
     </mat-card>
   </div>
   <div fxFlex="50" fxFlex.gt-sm="75" fxFlex.sm="75">
@@ -40,8 +42,7 @@
       </mat-card-title>
       <mat-card-content>
         <canvas class="chart" baseChart [data]="pieChartData" [labels]="pieChartLabels" [options]="doughnutOptions"
-          [colors]="doughnutChartColors" [chartType]="pieChartType" (chartHover)="pieChartHovered($event)"
-          (chartClick)="pieChartClicked($event)"></canvas>
+          [colors]="doughnutChartColors" [chartType]="pieChartType" (chartHover)="pieChartHovered($event)" (chartClick)="pieChartClicked($event)"></canvas>
       </mat-card-content>
     </mat-card>
   </div>

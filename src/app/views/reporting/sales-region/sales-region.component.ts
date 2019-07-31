@@ -3,6 +3,7 @@ import { egretAnimations } from "app/shared/animations/egret-animations";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { Chart } from '../../../shared/fake-db/chart';
 
 @Component({
   selector: 'app-sales-region',
@@ -13,30 +14,29 @@ import { startWith, map } from 'rxjs/operators';
 export class SalesRegionComponent implements OnInit {
 
   // -------------------------------------------------------------------------------------------------
-  public countries;
-  filteredCountries: Observable<string[]>;
+  public products;
+  filteredProducts: Observable<string[]>;
   public selectedCountry;
   public itemForm: FormGroup;
   // -------------------------------------------------------------------------------------------------
-
+  public chart: Chart;
 
   constructor(
     private fb: FormBuilder
-  ) { }
+  ) {
+    this.chart = new Chart();
+  }
 
   ngOnInit() {
 
 
     // -----------------------------------------------------------------------------------------------
-    this.countries = [
-      { id: "faa6643aca8c5318a9583178795542cf", name: "Afghanistan", code: "AF" },
-      { id: "d36eeebd8b1f0cde16210339e97b9408", name: "Åland Islands", code: "AX" },
-      { id: "ec21ff12b34a21bece175e48a059ec7f", name: "Albania", code: "AL" }
-    ];
 
-    this.buildItemForm({ id: "faa6643aca8c5318a9583178795542cf", name: "Afghanistan", code: "AF" })
+    this.products = this.chart.products;
 
-    this.filteredCountries = this.itemForm.get("country").valueChanges.pipe(
+    this.buildItemForm();
+
+    this.filteredProducts = this.itemForm.get("country").valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
     );
@@ -45,26 +45,26 @@ export class SalesRegionComponent implements OnInit {
   }
 
   // -------------------------------------------------------------------------------------------------
-  buildItemForm(item) {
-    let country = null;
-    if (item) {
-      country = item.name;
-      this.selectedCountry = item.id;
-    }
+  buildItemForm() {
+    // let country = null;
+    // if (item) {
+    //   country = item.name;
+    //   this.selectedCountry = item.id;
+    // }
     this.itemForm = this.fb.group({
-      country: [country || '', Validators.required]
+      country: ['', Validators.required]
     })
   }
 
   private _filter(value: string): any {
     const filterValue = value.toLowerCase();
-    return this.countries.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+    return this.products.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  onBlurCountry(): void {
-    let value = this.itemForm.get("country").value;
+  onBlurProducts(): void {
+    let value = this.itemForm.get("product").value;
     let status = true;
-    this.countries.forEach(element => {
+    this.products.forEach(element => {
       if (element.name === value) {
         this.selectedCountry = element.id;
         status = false;
@@ -73,15 +73,11 @@ export class SalesRegionComponent implements OnInit {
 
     if (status) {
       this.selectedCountry = null;
-      this.itemForm.get("country").setValue("");
+      this.itemForm.get("product").setValue("");
     }
   }
-  // -------------------------------------------------------------------------------------------------
 
-
-
-
-
+  // -------------------------------------------------------------------------------------------------//
 
   sharedChartOptions: any = {
     responsive: true,
