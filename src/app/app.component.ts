@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   public currentUser;
   public updateProfile = true;
-  private updateProfileImageUrls = ['/profile/profile-settings'];
+  private updateProfileImageUrls = ['/profile/profile-settings', '/profile/account-settings', '/profile/general-settings'];
   private updateProfileImageBlackListUrls = ['/sessions/signin'];
 
   constructor(
