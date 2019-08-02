@@ -85,6 +85,8 @@ export class SidebarSideComponent extends LocalStorageHandler
       // });
 
       const activeItemList = this.authService.getActiveComponet();
+      console.log('-------------- activeItemList', activeItemList);
+
 
       activeItemList.forEach(element => {
         const index = this.menuItems.findIndex(x => x.name === element);
@@ -93,6 +95,9 @@ export class SidebarSideComponent extends LocalStorageHandler
         }
         this.menuItems[index].disabled = false;
       });
+
+
+      console.log('-------------- this.menuItems', this.menuItems);
 
       //Checks item list has any icon type.
       this.hasIconTypeMenuItem = !!this.menuItems.filter(
