@@ -12,6 +12,7 @@ import { AppWarningService } from "app/shared/services/app-warning/app-warning.s
 import { AppInfoService } from "app/shared/services/app-info/app-info.service";
 import { AuthenticationService } from "../../sessions/authentication.service";
 import { CommunityCreateReq, ClientData, UserData, CommunityUpdateReq } from "app/model/CommunityModel.model";
+import { GlobalVariable } from "app/shared/helpers/global-variable";
 
 @Component({
   selector: "app-community-view",
@@ -21,10 +22,7 @@ import { CommunityCreateReq, ClientData, UserData, CommunityUpdateReq } from "ap
 export class CommunityViewComponent implements OnInit {
   public userId;
   public clientId;
-  public statusArray = {
-    'ACTIVE': "primary",
-    'INACTIVE': "accent"
-  };
+  public statusArray = new GlobalVariable().common.matChip.colorForStatus01;
 
   public quota = 0;
   public quotaExpire = false;

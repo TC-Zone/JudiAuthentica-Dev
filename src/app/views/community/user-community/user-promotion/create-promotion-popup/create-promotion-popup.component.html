@@ -44,11 +44,11 @@
       </div>
       <div fxFlex="50" class="pr-1">
         <!-- --------- hidden file input --------- -->
-        <input (change)="onSelectFile($event)" #eventImgs type="file" [formControl]="promotionForm.controls['promoPoster']"
-          multiple style="display: none" />
+        <input (change)="onSelectFile($event)" #promotionImgs type="file" [formControl]="promotionForm.controls['promoPoster']"
+          multiple style="display: none"/>
         <!-- --------- file input click button --------- -->
         <div layout-margin layout-padding>
-          <button mat-raised-button class="mr-1" (click)="eventImgs.click()" [disabled]="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
+          <button mat-raised-button class="mr-1" (click)="promotionImgs.click()" [disabled]="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
           (false) :
           (this.currentTotalImageCount === this.maxUploadableFileCount)"
             type="button">
@@ -94,7 +94,7 @@
     </div>
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
       <div fxFlex="100" class="mt-1">
-        <button mat-raised-button color="primary" (click)="promotionFormSubmit()" [disabled]="promotionForm.invalid">Save</button>
+        <button mat-raised-button color="primary" (click)="promotionFormSubmit()" [disabled]="promotionForm.invalid || this.url === null">Save</button>
         <span fxFlex></span>
         <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
       </div>

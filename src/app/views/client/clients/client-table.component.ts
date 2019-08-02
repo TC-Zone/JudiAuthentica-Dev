@@ -25,6 +25,7 @@ import { authProperties } from "./../../../shared/services/auth/auth-properties"
 import * as jwt_decode from "jwt-decode";
 import { ClientCategoryPopupComponent } from "./client-category-popup/client-category-popup.component";
 import { ClientLicenseUpdatePopupComponent } from "./client-license-update-popup/client-license-update-popup.component";
+import { GlobalVariable } from "app/shared/helpers/global-variable";
 
 @Component({
   selector: "app-client-table",
@@ -39,10 +40,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   public clients: any[];
   public category: any[];
   public sections: any[];
-  public statusArray = {
-    A: { status: "Active", style: "primary" },
-    I: { status: "Inactive", style: "accent" }
-  };
+  public statusArray = new GlobalVariable().common.matChip.clientStatus;
 
   public pageSize = 10;
 
@@ -108,7 +106,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     );
   }
 
-  getDisplayAuthority(){
+  getDisplayAuthority() {
     this.clientService.getDisplayAuthority().subscribe(
       successResp => {
         this.sections = successResp.content;
@@ -239,7 +237,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     });
   }
 
-  openCategoryPopUp(data: any = {}) {
+  categoryUpdatePopUp(data: any = {}) {
     this.clientService.getClientCategories(data.id).subscribe(
       successResp => {
         console.log(successResp);
@@ -313,7 +311,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     );
   }
 
-  openlicensePopUp(data: any = {}) {
+  licenseUpdatePopUp(data: any = {}) {
     this.clientService.getClient(data.id).subscribe(
       successResp => {
         let resClient = successResp.content;
@@ -370,8 +368,20 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     );
   }
 
+  updateClientStatus(data: any = {}) {
+    this.clientService.updateClientStatus(data.id).subscribe(
+      successResp => {
+        console.log(successResp.content);
+        this.getClients();
+      },
+      error => {
+        this.errDialog.showError(error);
+      }
+    );
+  }
+
   navigateUserTable(res: any) {
-    
+
     // let extraParam: NavigationExtras = {
     //   queryParams: {
     //     clientId: res.id,
@@ -384,7 +394,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     this.clientService.getClient(res.id).subscribe(
       successResp => {
         console.log(successResp.content);
-        localStorage.setItem("currentClient",JSON.stringify(successResp.content));
+        localStorage.setItem("currentClient", JSON.stringify(successResp.content));
         this.router.navigate(["clients/user/user-table"]);
       },
       error => {

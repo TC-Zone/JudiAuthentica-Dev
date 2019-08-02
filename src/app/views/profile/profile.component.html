@@ -2,13 +2,13 @@
   <div fxFlex="100" fxFlex.gt-md="300px" fxFlex.gt-sm="50">
     <mat-card class="profile-sidebar mb-1 pb-0">
       <div class="propic text-center">
-        <img src="{{currentUser.image}}" alt="" />
+        <img src="{{this.profileImg}}" alt="" />
       </div>
       <div class="profile-title text-center mb-1">
-        <div class="main-title">{{ currentUser.accountName }}</div>
+        <div class="main-title">{{this.userDisplayName}}</div>
         <div class="subtitle mb-05">{{ currentUser.company }}</div>
         <div class="text-muted">
-          Hi {{ currentUser.accountName }} ! Hope you are doing great at
+          Hi {{this.userDisplayName}}! Hope you are doing great at
           {{ currentUser.company }}
         </div>
       </div>
@@ -37,13 +37,15 @@
             Profile Settings
           </mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item routerLink="/profile/account-settings" routerLinkActive="list-item-active" [roleAuthorization]="'isPredefined'">
+          <mat-list-item routerLink="/profile/account-settings" routerLinkActive="list-item-active"
+            [roleAuthorization]="'isPredefined'">
             <mat-icon>work</mat-icon>
             Account Settings
           </mat-list-item>
           <mat-divider></mat-divider>
 
-          <mat-list-item routerLink="/profile/general-settings" routerLinkActive="list-item-active" [roleAuthorization]="'isPredefined'">
+          <mat-list-item routerLink="/profile/general-settings" routerLinkActive="list-item-active"
+            [roleAuthorization]="'isPredefined'">
             <mat-icon>settings</mat-icon>
             General Settings
           </mat-list-item>

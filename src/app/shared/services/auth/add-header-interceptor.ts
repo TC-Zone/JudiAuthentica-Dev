@@ -24,25 +24,23 @@ import { environment } from "./../../../../environments/environment.prod";
 import { Router } from "@angular/router";
 import { AppLoaderService } from "./../app-loader/app-loader.service";
 
-// import { environment } from "./../../../../environments/environment.prod";
-// import { Router } from "@angular/router";
-// import { AppLoaderService } from "./../app-loader/app-loader.service";
-
 @Injectable()
 export class AddHeaderInterceptor implements HttpInterceptor {
   private gloable_user = authProperties.gloable_user;
   private gloable_secret = authProperties.gloable_secret;
-  private storage_name = authProperties.storage_name;
+  // private storage_name = authProperties.storage_name;
 
+  private publicUrls = [environment.authTokenUrl + "api/downloads"];
   private whiteListUrls = [environment.userApiUrl];
-  private userServiceblackListUrls = ["platform-users/activations/"];
+  private userServiceBlackListUrls = ["platform-users/activations/"];
 
-  private whiteListUrl = [
-    { url: environment.authTokenUrl + "oauth/token", type: "oauthToken" },
-    { url: environment.userApiUrl, type: "userApiUrl" }
-  ];
+  // private whiteListUrl = [
+  //   { url: environment.authTokenUrl + "oauth/token", type: "oauthToken" },
+  //   { url: environment.userApiUrl, type: "userApiUrl" }
+  // ];
 
   isRefreshingToken: boolean = false;
+  isTokenError: boolean = false;
   tokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(
@@ -52,8 +50,9 @@ export class AddHeaderInterceptor implements HttpInterceptor {
   ) { }
 
   getRequest(request: HttpRequest<any>, token: string): HttpRequest<any> {
+
     const isAuthToken = this.oauthTokenUrlValidate(request.url);
-    // console.log(token);
+
     if (isAuthToken) {
       request = request.clone({
         headers: request.headers.set(
@@ -61,14 +60,15 @@ export class AddHeaderInterceptor implements HttpInterceptor {
           "Basic " + btoa(this.gloable_user + ":" + this.gloable_secret)
         )
       });
-      console.log('--------------------------------------- request',request);
-      
+      console.log('--------------------------------------- request', request);
+
     } else {
+
       const isTokenRequired = this.getWhiteListUrl(request.url);
-      // console.log('------------------------------- isTokenRequired', isTokenRequired);
 
       if (token) {
         if (isTokenRequired) {
+          console.log('---------------------------- refreshToken in header', token);
           request = request.clone({
             headers: request.headers.set("Authorization", "bearer " + token)
           });
@@ -76,6 +76,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
       } else {
         // this.userService.logout();
       }
+
     }
 
     return request;
@@ -90,10 +91,12 @@ export class AddHeaderInterceptor implements HttpInterceptor {
       | HttpResponse<any>
       | HttpUserEvent<any>
     > {
+
     return next
-      .handle(this.getRequest(request, this.authService.getAuthToken()))
+      .handle(this.checkPublicUrl(request.url) ? request : this.getRequest(request, this.authService.getAuthToken()))
       .catch(error => {
         console.log("--------------------------- error", error);
+
         if (error instanceof HttpErrorResponse) {
           switch ((<HttpErrorResponse>error).status) {
             case 401:
@@ -104,10 +107,14 @@ export class AddHeaderInterceptor implements HttpInterceptor {
         } else {
           return Observable.throw(error);
         }
+
       });
+
   }
 
   handle401Error(req: HttpRequest<any>, next: HttpHandler) {
+
+    console.log("------------------------- 01. handle401Error");
     if (!this.isRefreshingToken) {
       this.isRefreshingToken = true;
 
@@ -118,32 +125,45 @@ export class AddHeaderInterceptor implements HttpInterceptor {
       return this.authService
         .getNewToken()
         .switchMap((newToken: string) => {
+          console.log("------------------------- 02. getNewToken");
           if (newToken) {
+            console.log("------------------------- 03. newToken");
             this.tokenSubject.next(newToken);
-            return next.handle(this.getRequest(req, newToken));
+            return next
+              .handle(this.getRequest(req, newToken))
+              .catch(error => {
+                console.log("------------------------- 04. recallUrlError");
+                console.log(error);
+                return Observable.throw(error);
+              });
           }
           // If we don't get a new token, we are in trouble so logout.
           console.log("------------------------- If we don't get a new token, we are in trouble so logout.");
           return this.logoutUser();
         })
         .catch(error => {
-          // If there is an exception calling 'refreshToken', bad news so logout.
-          console.log("------------------------- If there is an exception calling 'refreshToken', bad news so logout.");
           console.log(error);
-          if(error.error.error !== 'access_denied'){
-            return this.logoutUser();
+          if (error && error.url && error.error.error) {
+            if (this.oauthTokenUrlValidate(error.url) && error.error.error !== 'access_denied') {
+              // If there is an exception calling 'refreshToken', bad news so logout.
+              console.log("------------------------- If there is an exception calling 'refreshToken', bad news so logout.");
+              return this.logoutUser();
+            }
           }
         })
         .finally(() => {
           this.isRefreshingToken = false;
         });
+
     } else {
+
       return this.tokenSubject
         .filter(token => token != null)
         .take(1)
         .switchMap(token => {
           return next.handle(this.getRequest(req, token));
         });
+
     }
   }
 
@@ -162,12 +182,22 @@ export class AddHeaderInterceptor implements HttpInterceptor {
     }
   }
 
+  private checkPublicUrl(url): boolean {
+    for (let i = 0; i < this.publicUrls.length; i++) {
+      const isMatched = url.match(this.publicUrls[i]);
+      if (isMatched) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   private getWhiteListUrl(url): boolean {
     for (let i = 0; i < this.whiteListUrls.length; i++) {
       const isMatched = url.match(this.whiteListUrls[i]);
       if (isMatched) {
-        for (let j = 0; j < this.userServiceblackListUrls.length; j++) {
-          const blacklistMatched = url.match(this.userServiceblackListUrls[j]);
+        for (let j = 0; j < this.userServiceBlackListUrls.length; j++) {
+          const blacklistMatched = url.match(this.userServiceBlackListUrls[j]);
           if (blacklistMatched) {
             return false;
           }
@@ -178,40 +208,4 @@ export class AddHeaderInterceptor implements HttpInterceptor {
     return false;
   }
 
-  // private getWhiteListUrl(url): boolean {
-  //   let validURL = false;
-  //   this.whiteListUrl.forEach((item, index) => {
-  //     console.log('--------------------------- item.url', item.url);
-  //     console.log('--------------------------- url', url);
-
-  //     if (url.match(item.url)) {
-  //       console.log('--------------------------- match');
-  //       validURL = true;
-
-  //     }
-  //   });
-
-  //   // for (let i = 0; i < this.whiteListUrls.length; i++) {
-  //   //   const isMatched = url.match(this.whiteListUrls[i]);
-  //   //   if (isMatched) {
-  //   //     for (let j = 0; j < this.userServiceblackListUrls.length; j++) {
-  //   //       const blacklistMatched = url.match(this.userServiceblackListUrls[j]);
-  //   //       if (blacklistMatched) {
-  //   //         return false;
-  //   //       }
-  //   //     }
-  //   //     return true;
-  //   //   }
-  //   // }
-  //   return validURL;
-  // }
-
-  // private oauthTokenUrlValidate(url): boolean {
-  //   const authTokenUrl = environment.authTokenUrl + 'oauth/token';
-  //   if (authTokenUrl === url) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
 }

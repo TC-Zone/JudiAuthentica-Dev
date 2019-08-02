@@ -13,6 +13,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { CreateFeedbackPopupComponent } from './create-feedback-popup/create-feedback-popup.component';
 import { UserFeedbackService } from '../user-feedback/user-feedback.service';
 import { FeedbackCreateReq, CommunityData, FutureSurveyData, FeedbackUpdateReq } from 'app/model/CommunityModel.model';
+import { GlobalVariable } from "app/shared/helpers/global-variable";
 
 @Component({
   selector: 'app-user-feedback',
@@ -23,10 +24,7 @@ export class UserFeedbackComponent implements OnInit {
 
   public userId;
   public clientId;
-  public statusArray = {
-    'ACTIVE': "primary",
-    'INACTIVE': "accent"
-  };
+  public statusArray = new GlobalVariable().common.matChip.colorForStatus01;
 
   public quota = 0;
   public quotaExpire = false;

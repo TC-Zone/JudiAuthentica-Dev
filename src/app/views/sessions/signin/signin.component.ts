@@ -72,6 +72,11 @@ export class SigninComponent implements OnInit {
             tempUser.username = viewData.userName;
             tempUser.accountName = viewData.accountName;
             tempUser.userData = res.content;
+            tempUser.company = res.content.client.name;
+            // if(res.profileImage !== null){
+            //   tempUser.image = res.profileImage;
+            // }
+
             localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
             console.log('---------------------------- tempUser', tempUser);
             // this.progressBar.mode = 'determinate';

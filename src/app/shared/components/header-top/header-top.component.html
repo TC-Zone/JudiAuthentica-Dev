@@ -100,7 +100,8 @@
       </button>
       <!-- Top left user menu -->
       <button mat-icon-button [matMenuTriggerFor]="accountMenu" class="topbar-button-right mr-1 img-button">
-        <img src="{{currentUser.image}}" alt="">
+        <!-- <img src="{{currentUser.image}}" alt=""> -->
+        <img src="{{this.authService.imgBaseURL + '/user/' + this.userId}}" alt="">
       </button>
       <mat-menu #accountMenu="matMenu">
         <button mat-menu-item [routerLink]="['/profile/profile-settings']">

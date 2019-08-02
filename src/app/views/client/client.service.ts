@@ -95,6 +95,12 @@ export class ClientService {
       .pipe(catchError(this.handleError));
   }
 
+  updateClientStatus(id): Observable<any> {
+    return this.http.get(this.clientUrl + "/status/" + id).pipe(catchError(this.handleError));
+  }
+
+
+
   addUser(item): Observable<any> {
     return this.http.post<any>(this.userUrl, item).pipe(
       map(data => {
@@ -112,6 +118,10 @@ export class ClientService {
     return this.http
       .put<any>(this.userUrl + "/" + id, item)
       .pipe(catchError(this.handleError));
+  }
+  
+  deleteUser(id): Observable<any> {
+    return this.http.delete(this.userUrl + "/" + id).pipe(catchError(this.handleError));
   }
 
   updateUserCategories(id, item): Observable<any> {

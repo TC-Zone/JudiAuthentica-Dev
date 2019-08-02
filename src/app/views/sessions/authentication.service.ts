@@ -20,6 +20,7 @@ export class AuthenticationService {
   private storage_name = authProperties.storage_name;
   private componentList = authProperties.componentList;
   private userApiUrl = environment.userApiUrl;
+  public imgBaseURL = environment.userApiUrl + 'downloads';
   public testValue;
 
   public currentToken: string;
@@ -27,6 +28,7 @@ export class AuthenticationService {
 
   public authTokenNew: string;
   constructor(private http: HttpClient, private router: Router) { }
+
 
   /*
    * User Login function
@@ -206,18 +208,6 @@ export class AuthenticationService {
     console.log('---------------------- decoded', decoded);
     console.log('---------------------- decoded', decoded.authorities);
   }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

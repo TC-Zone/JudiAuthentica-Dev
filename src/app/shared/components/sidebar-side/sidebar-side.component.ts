@@ -7,6 +7,9 @@ import { LocalStorageHandler } from "../../helpers/local-storage";
 import { AuthenticationService } from "../../../views/sessions/authentication.service";
 import { LayoutService } from "../../services/layout.service";
 import { FutureSurveyOperationalService } from "app/shared/services/survey/future-survey-operational.service";
+import { AppErrorService } from "app/shared/services/app-error/app-error.service";
+import { InteractionService } from "app/shared/services/app-profile/interaction.service";
+
 
 @Component({
   selector: "app-sidebar-side",
@@ -20,18 +23,54 @@ export class SidebarSideComponent extends LocalStorageHandler
   public iconTypeMenuTitle: string;
   private menuItemsSub: Subscription;
   public layoutConf: any;
+
+  public currentUser;
+  public userDisplayName;
+
+  public userId;
+  public profileImg;
+
+
+
   constructor(
     private navService: NavigationService,
     public themeService: ThemeService,
     public authService: AuthenticationService,
-    private layout: LayoutService
+    private layout: LayoutService,
+    private errDialog: AppErrorService,
+    private _interactionService: InteractionService
   ) {
     super();
   }
 
   ngOnInit() {
+
     this.layoutConf = this.layout.layoutConf;
     this.iconTypeMenuTitle = this.navService.iconTypeMenuTitle;
+
+
+    // ---------------------------------- UserProfile -------------------------------
+
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.userDisplayName = this.currentUser.accountName;
+
+    this._interactionService.changeProfileDetails$.subscribe(
+      userName => {
+        this.userDisplayName = userName;
+      }
+    );
+
+    this._interactionService.changeProfilePicture$.subscribe(
+      url => {
+        this.profileImg = url;
+      }
+    );
+
+    // ------------------------------------------------------------------------------
+
+
+
+
 
 
     this.menuItemsSub = this.navService.menuItems$.subscribe(menuItem => {
@@ -45,27 +84,15 @@ export class SidebarSideComponent extends LocalStorageHandler
       //   }
       // });
 
+      const activeItemList = this.authService.getActiveComponet();
 
-
-      // const activeItemList = this.authService.getActiveComponet();
-
-      // activeItemList.forEach(element => {
-      //   const index = this.menuItems.findIndex(x => x.name === element);
-      //   if (index >= 0) {
-      //     this.menuItems[index].disabled = false;
-      //   }
-      //   this.menuItems[index].disabled = false;
-      // });
-
-
-      //has to be change 
-      this.menuItems.forEach(e => {
-        e.disabled = false;
+      activeItemList.forEach(element => {
+        const index = this.menuItems.findIndex(x => x.name === element);
+        if (index >= 0) {
+          this.menuItems[index].disabled = false;
+        }
+        this.menuItems[index].disabled = false;
       });
-
-
-
-
 
       //Checks item list has any icon type.
       this.hasIconTypeMenuItem = !!this.menuItems.filter(
@@ -75,6 +102,7 @@ export class SidebarSideComponent extends LocalStorageHandler
     });
 
   }
+
   ngAfterViewInit() {
     setTimeout(() => {
       this.sidebarPS = new PerfectScrollbar("#scroll-area", {
@@ -82,6 +110,7 @@ export class SidebarSideComponent extends LocalStorageHandler
       });
     });
   }
+
   ngOnDestroy() {
     if (this.sidebarPS) {
       this.sidebarPS.destroy();

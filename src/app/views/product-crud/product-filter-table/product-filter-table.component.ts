@@ -114,8 +114,12 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
   }
 
   getAllProduct(clientId, categories, isPredefined) {
+    let categoriesID = [];
+    categories.forEach(cat => {
+      categoriesID.push(cat.id);
+    });
     this.getProductsSub = this.prodService
-      .getAllProductsByFilter(clientId, categories, isPredefined)
+      .getAllProductsByFilter(clientId, categoriesID, isPredefined)
       .subscribe(
         successResp => {
           this.rows = this.temp = successResp.content;
