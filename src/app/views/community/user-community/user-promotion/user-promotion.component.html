@@ -2,14 +2,19 @@
   <mat-toolbar color="primary" class="inbox-toolbar">
     <!-- multiple promotions select and control -->
     <mat-checkbox (change)="selectToggleAll($event)" [indeterminate]="indeterminateState" [checked]="selectAll" class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
-    <button mat-icon-button matTooltip="Add Promotion" (click)="promotionPopUp({}, true)"><mat-icon>add_box</mat-icon></button>
-    <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedPromotions()"><mat-icon>delete</mat-icon></button>
+    <button mat-icon-button matTooltip="Add Promotion" (click)="promotionPopUp({}, true)">
+      <mat-icon>add_box</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedPromotions()">
+      <mat-icon>delete</mat-icon>
+    </button>
     <span fxFlex></span>
     <mat-form-field *ngIf="this.temPromotions.length > 0" style="font-size: 15px; width: 30%; margin-top: 10px;">
       <input matInput placeholder="Search" value="" (keyup)='updateFilter($event)'>
     </mat-form-field>
     <p *ngIf="this.temPromotions.length > 0" class="mat-select-lable"> Page Size: </p>
-    <mat-select *ngIf="this.temPromotions.length > 0" class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()" placeholder="Favorite food">
+    <mat-select *ngIf="this.temPromotions.length > 0" class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()"
+      placeholder="Favorite food">
       <mat-option *ngFor="let item of pageSizeArray" [value]="item">{{item}}</mat-option>
       <!-- <mat-option [value]="20">20</mat-option> -->
     </mat-select>
@@ -18,10 +23,12 @@
     <mat-expansion-panel *ngFor="let promoObj of promotions" expanded="false" hideToggle="true">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <mat-checkbox (change)="selectToggleOne($event, promoObj)" [checked]="promoObj.selected" (click)="stopProp($event)" class="mail-checkbox hide-on-open"></mat-checkbox>
+          <mat-checkbox (change)="selectToggleOne($event, promoObj)" [checked]="promoObj.selected" (click)="stopProp($event)"
+            class="mail-checkbox hide-on-open"></mat-checkbox>
           <span style="width: 130px; overflow: hidden;
           white-space: nowrap;
-          text-overflow: ellipsis;" class="hide-on-open">{{ promoObj.name }}</span>
+          text-overflow: ellipsis;"
+            class="hide-on-open">{{ promoObj.name }}</span>
           <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start center" class="show-on-open">
             <!-- <img [src]="promoObj.file" alt="" class="inbox-face mr-1"> -->
             <div fxLayout="column">
@@ -53,68 +60,39 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div fxLayout="row" fxLayoutWrap="wrap" class="mt-1">
-        <div fxFlex="40" class="pr-1">
+        <div fxFlex="30" class="pr-1">
           <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
-            <img style="padding: 10px;" mat-card-image [src]="promoPosterUrl+promoObj.id" alt="promoObj.name">
+            <img style="padding: 10px;max-height: 400px;" mat-card-image [src]="promoPosterUrl+promoObj.id" alt="promoObj.name">
           </mat-card>
         </div>
-        <div fxFlex="60" class="pr-1">
-          <div fxLayout="row" fxLayoutWrap="wrap" class="mt-1">
-            <div fxFlex="100">
-              <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
-                <mat-card-content>
-                  <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
-                    <small class="text-muted">Event Description</small>
-                  </div>
-                  <p style="padding-top: 10px;" class="md-body-1">{{ promoObj.description }}</p>
-                </mat-card-content>
-              </mat-card>
-            </div>
-            <div fxFlex="100">
-              <div fxLayout="row" fxLayoutWrap="wrap">
-                <div fxFlex="30">
-                  <mat-card>
-                    <mat-card-title fxLayoutAlign="start center">
-                      <small class="text-muted">Start Date & Time</small>
-                      <span fxFlex></span>
-                      <mat-icon color="primary">play_arrow</mat-icon>
-                    </mat-card-title>
-                    <mat-card-content>
-                      <h6 class="m-0 font-normal">{{ promoObj.startDate | date:'MMM d, y, h:mm a'}}</h6>
-                    </mat-card-content>
-                  </mat-card>
-                </div>
-                <div fxFlex="30">
-                  <mat-card>
-                    <mat-card-title fxLayoutAlign="start center">
-                      <small class="text-muted">End Date & Time</small>
-                      <span fxFlex></span>
-                      <mat-icon color="warn">stop</mat-icon>
-                    </mat-card-title>
-                    <mat-card-content>
-                      <h6 class="m-0 font-normal">{{ promoObj.endDate | date:'MMM d, y, h:mm a'}}</h6>
-                    </mat-card-content>
-                  </mat-card>
-                </div>
-                <div fxFlex="40">
-                  <mat-card>
-                    <mat-card-content>
-                      <div fxLayout="row" fxLayoutWrap="wrap">
-                        <div fxFlex="40" >
-                          <small class="text-muted discount-mt">DISCOUNT</small>
-                        </div>
-                        <div fxFlex="60">
-                          <h6 class="m-0 discount-font">{{ promoObj.percentage }} %</h6>
-                        </div>
-                      </div>
-                    </mat-card-content>
-                  </mat-card>
-                </div>
+        <div fxFlex="70" class="pr-1">
+          <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+            <mat-card-content>
+              <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+                <small class="text-muted">Event Description</small>
               </div>
-            </div>
-          </div>
+              <p style="padding-top: 10px;" class="md-body-1">{{ promoObj.description }}</p>
+              <mat-divider></mat-divider>
+              <div class="mt-2">
+                <small class="text-muted">Start Date & Time</small>
+                <!-- <mat-icon color="primary">play_arrow</mat-icon> -->
+                <h6 class="m-0 font-normal">{{ promoObj.startDate | date:'MMM d, y, h:mm a'}}</h6>
+              </div>
+              <div class="mt-1">
+                <small class="text-muted">End Date & Time</small>
+                <!-- <span fxFlex></span>
+                <mat-icon color="warn">stop</mat-icon> -->
+                <h6 class="m-0 font-normal">{{ promoObj.endDate | date:'MMM d, y, h:mm a'}}</h6>
+              </div>
+              <div class="mt-1">
+                <small class="text-muted discount-mt">DISCOUNT</small>
+                <h2 class="m-0">{{ promoObj.percentage }} %</h2>
+              </div>
+            </mat-card-content>
+          </mat-card>
         </div>
       </div>
+
     </mat-expansion-panel>
   </mat-accordion>
   <mat-toolbar color="primary" class="inbox-toolbar" *ngIf="this.temPromotions.length > 0" style="font-size: 12px;">
@@ -135,7 +113,7 @@
               {{page}}
             </a>
           </li>
-          <li class="page-item"  [ngClass]="{'disabled':pageNumber >= totalPages.length}">
+          <li class="page-item" [ngClass]="{'disabled':pageNumber >= totalPages.length}">
             <a class="page-link" (click)="fetchAllPromotions(pageNumber+1)" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
               <span class="sr-only">Next</span>
@@ -145,7 +123,8 @@
       </nav>
     </ng-container>
   </mat-toolbar>
-  <div *ngIf="this.temPromotions.length === 0 && this.promotions.length === 0" fxLayout="row" fxLayoutAlign="center" style="margin-top: 10rem;" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
+  <div *ngIf="this.temPromotions.length === 0 && this.promotions.length === 0" fxLayout="row" fxLayoutAlign="center"
+    style="margin-top: 10rem;" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
     <div fxFlex="100" class="text-center">
       <h1 class="text-muted">Create New Promotion</h1>
     </div>
