@@ -50,7 +50,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     private communityService: ComunityService,
     private appInfoService: AppInfoService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const userObj = this.authService.getLoggedUserDetail();
@@ -74,13 +74,11 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
       .subscribe(successResp => {
         let auths = successResp.content;
         const fileName =
-          selectedRow.name +
-          "_" +
-          selectedRow.code +
-          "_" +
+          selectedRow.name.toUpperCase() +
+          "_BATCH_" +
           selectedRow.batchNumber;
         const csvData = this.conversionService.convertToCsv(auths);
-
+        console.log("fileName : " + fileName);
         this.downloadService.downloadFile({
           name: fileName,
           type: "csv",
@@ -96,7 +94,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
 
     if (!columns.length) return;
 
-    const rows = this.temp.filter(function(data) {
+    const rows = this.temp.filter(function (data) {
       for (let i = 0; i <= columns.length; i++) {
         let column = columns[i];
         if (
@@ -311,5 +309,5 @@ export class CSVDTO {
   productDetails: any;
   authenticationCode: any;
 
-  constructor(public proDetails: any, public authCodes: any) {}
+  constructor(public proDetails: any, public authCodes: any) { }
 }

@@ -12,12 +12,15 @@
       <!-- <img src="assets/images/cp_logo_text.png" alt="" class="app-logo-text"
           *ngIf="themeService.activatedTheme?.name?.indexOf('dark') === -1"> -->
 
-      <img *ngIf="layoutConf.sidebarStyle === 'compact'" src="assets/images/truverus/TruVerus_Logo_short.png" alt="" class="app-logo">
-      <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="" class="app-logo-text" *ngIf="themeService.activatedTheme?.name?.indexOf('dark') !== -1">
-      <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="" class="app-logo-text" *ngIf="themeService.activatedTheme?.name?.indexOf('dark') === -1">
-      
-      
-      
+      <img *ngIf="layoutConf.sidebarStyle === 'compact'" src="assets/images/truverus/TruVerus_Logo_short.png" alt=""
+        class="app-logo">
+      <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="" class="app-logo-text"
+        *ngIf="themeService.activatedTheme?.name?.indexOf('dark') !== -1">
+      <img src="assets/images/truverus/TruVerus_Logo_small.png" alt="" class="app-logo-text"
+        *ngIf="themeService.activatedTheme?.name?.indexOf('dark') === -1">
+
+
+
       <!-- <img src="https://about.canva.com/wp-content/uploads/sites/3/2015/01/concert_poster.png" alt="" class="app-logo-text" *ngIf="themeService.activatedTheme?.name?.indexOf('dark') === -1"> -->
       <!-- <img src="https://www.acurax.com/wp-content/themes/acuraxsite/images/inner_page_bnr.jpg?x21789" alt="" class="app-logo-text" *ngIf="themeService.activatedTheme?.name?.indexOf('dark') === -1"> -->
       <!-- <img src="https://marketplace.canva.com/MACq6ALcZxM/1/0/thumbnail_large/canva-blue-shapes-etsy-banner-MACq6ALcZxM.jpg" alt="" class="app-logo-text" *ngIf="themeService.activatedTheme?.name?.indexOf('dark') === -1"> -->
@@ -28,7 +31,7 @@
 
 
     </div>
-    
+
     <!-- Sidebar user -->
     <div class="app-user">
       <div class="app-user-photo">
@@ -53,10 +56,11 @@
             <mat-icon>account_box</mat-icon>
             <span>Profile</span>
           </button>
-          <button mat-menu-item routerLink="/profile/settings">
+          <!-- COMMENTED BECAUSE OF NOT USE OF THIS : RAVEEN 2019/07/31 -->
+          <!-- <button mat-menu-item routerLink="/profile/settings">
             <mat-icon>settings</mat-icon>
             <span>Account Settings</span>
-          </button>
+          </button> -->
           <button mat-menu-item routerLink="/calendar">
             <mat-icon>date_range</mat-icon>
             <span>Calendar</span>

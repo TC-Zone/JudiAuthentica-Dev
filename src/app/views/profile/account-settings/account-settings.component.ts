@@ -80,9 +80,9 @@ export class AccountSettingsComponent implements OnInit {
         city: data.city,
         state: data.state,
         zipCode: data.zipCode,
-        country: data.country.name
+        country: data.country != null ? data.country.name : ''
       });
-      this.selectedCountry = data.country.id;
+      this.selectedCountry = data.country != null ? data.country.id : '';
       this.onBlurCountry();
       getBase64ImageFromUrl(this.imgBaseURL + this.clientId)
         .then(result => this.url = result)
@@ -115,14 +115,14 @@ export class AccountSettingsComponent implements OnInit {
   submit() {
     const country: CountryData = new CountryData(this.selectedCountry);
     const req: ClientUpdateReq = new ClientUpdateReq(
-      this.accountSettingsForm.get('name').value, 
-      this.accountSettingsForm.get('description').value, 
-      this.url, this.accountSettingsForm.get('contactNo').value, 
-      this.accountSettingsForm.get('addressLine1').value, 
-      this.accountSettingsForm.get('addressLine2').value, 
-      this.accountSettingsForm.get('city').value, 
-      this.accountSettingsForm.get('state').value, 
-      this.accountSettingsForm.get('zipCode').value, 
+      this.accountSettingsForm.get('name').value,
+      this.accountSettingsForm.get('description').value,
+      this.url, this.accountSettingsForm.get('contactNo').value,
+      this.accountSettingsForm.get('addressLine1').value,
+      this.accountSettingsForm.get('addressLine2').value,
+      this.accountSettingsForm.get('city').value,
+      this.accountSettingsForm.get('state').value,
+      this.accountSettingsForm.get('zipCode').value,
       country
     );
 

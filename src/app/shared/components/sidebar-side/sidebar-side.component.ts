@@ -47,21 +47,21 @@ export class SidebarSideComponent extends LocalStorageHandler
 
 
 
-      // const activeItemList = this.authService.getActiveComponet();
+      const activeItemList = this.authService.getActiveComponet();
 
-      // activeItemList.forEach(element => {
-      //   const index = this.menuItems.findIndex(x => x.name === element);
-      //   if (index >= 0) {
-      //     this.menuItems[index].disabled = false;
-      //   }
-      //   this.menuItems[index].disabled = false;
-      // });
-
-
-      //has to be change 
-      this.menuItems.forEach(e => {
-        e.disabled = false;
+      activeItemList.forEach(element => {
+        const index = this.menuItems.findIndex(x => x.name === element);
+        if (index >= 0) {
+          this.menuItems[index].disabled = false;
+        }
+        this.menuItems[index].disabled = false;
       });
+
+
+      // //has to be change
+      // this.menuItems.forEach(e => {
+      //   e.disabled = false;
+      // });
 
 
 
