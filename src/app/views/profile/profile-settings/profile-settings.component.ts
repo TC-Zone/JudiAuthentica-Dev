@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ProfileService } from '../profile.service';
-import { ClientData, profileUpdateReq } from 'app/model/ClientModel.model';
+import { profileUpdateReq, passwordUpdateReq, userImageReq } from 'app/model/ClientModel.model';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
 import { MatSnackBar } from '@angular/material';
 import { egretAnimations } from "app/shared/animations/egret-animations";
+import { GlobalVariable } from 'app/shared/helpers/global-variable';
+import { Router } from '@angular/router';
+import { InteractionService } from 'app/shared/services/app-profile/interaction.service';
 
 @Component({
   selector: 'app-profile-settings',
@@ -19,6 +22,10 @@ export class ProfileSettingsComponent implements OnInit {
   public clientId;
   public userId;
   public url;
+  public imageName;
+  public currentUser;
+  public passwordStatus = null;
+  public statusArray = new GlobalVariable().common.matChip.confirmPasswordStatus;
 
   public profileSettingsForm: FormGroup;
   public passwordSettingsForm: FormGroup;
@@ -29,15 +36,28 @@ export class ProfileSettingsComponent implements OnInit {
     private loader: AppLoaderService,
     private snack: MatSnackBar,
     private errDialog: AppErrorService,
-    public snackBar: MatSnackBar
-    
+    public snackBar: MatSnackBar,
+    public r: Router,
+    private _interactionService: InteractionService
+
   ) { }
 
   ngOnInit() {
 
-    let currentuser = JSON.parse(localStorage.getItem('currentUser'));
-    this.userId = currentuser.userData.id;
-    this.buildItemForm(currentuser.userData);
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.userId = this.currentUser.userData.id;
+    this.buildItemForm(this.currentUser.userData);
+    
+    // ---------------------------------- UserProfile -------------------------------
+
+    this._interactionService.changeProfilePicture$.subscribe(
+      url => {
+        this.url = url;
+      }
+    );
+
+    // ------------------------------------------------------------------------------
+
   }
 
   buildItemForm(data) {
@@ -55,9 +75,10 @@ export class ProfileSettingsComponent implements OnInit {
 
   }
 
-  
   // File uploader validation and upload
   onSelectFile(event) {
+    console.log(event);
+
 
     if (event.target.files && event.target.files[0]) {
 
@@ -74,6 +95,7 @@ export class ProfileSettingsComponent implements OnInit {
       }
       reader.onload = (event: any) => {
         this.url = event.target.result;
+        this.imageName = file.name;
       };
 
       reader.readAsDataURL(file);
@@ -94,15 +116,69 @@ export class ProfileSettingsComponent implements OnInit {
 
   updateProfile() {
     const itemForm = this.profileSettingsForm.value;
-    const client: ClientData = new ClientData(this.clientId);
-    const req: profileUpdateReq = new profileUpdateReq(itemForm.accountName, itemForm.email);
+    const req: profileUpdateReq = new profileUpdateReq(this.userId, itemForm.accountName, itemForm.email);
 
-    this.profileService.updateUser(this.userId, req).subscribe(
+    this.profileService.updateUser(req).subscribe(
       response => {
-        // this.getUsers();
         this.loader.close();
         this.snack.open("Profile Updated!", "OK", { duration: 4000 });
-        // return this.users.slice();
+
+        this.currentUser.userData.accountName = this.currentUser.accountName = response.content.accountName;
+        this.currentUser.userData.email = response.content.email;
+        localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+        this.changeProfileDetails(response.content.accountName);
+      },
+      error => {
+        this.loader.close();
+        this.errDialog.showError(error);
+      }
+    );
+
+  }
+
+
+  changeProfileDetails(userName) {
+    this._interactionService.changeProfileDetails(userName);
+  }
+
+  checkConfirmPasswoed() {
+    const itemForm = this.passwordSettingsForm.value
+    if (itemForm.password !== null && itemForm.confirmPassword !== null && itemForm.password !== '' && itemForm.confirmPassword !== '') {
+      if (itemForm.password !== itemForm.confirmPassword) { this.passwordStatus = false; }
+      else { this.passwordStatus = true; }
+    } else {
+      this.passwordStatus = null;
+    }
+
+  }
+
+  changePassword() {
+
+    const itemForm = this.passwordSettingsForm.value
+
+    const req: passwordUpdateReq = new passwordUpdateReq(this.userId, itemForm.currentPassword, itemForm.confirmPassword);
+    this.profileService.updateUserPassword(req).subscribe(
+      response => {
+        this.loader.close();
+        this.snack.open("Password Updated!", "OK", { duration: 4000 });
+      },
+      error => {
+        this.loader.close();
+        this.errDialog.showError(error);
+      }
+    );
+
+  }
+
+
+  updateProfilePic() {
+    const req: userImageReq = new userImageReq(this.userId, this.url, this.imageName);
+    this.profileService.updateProfilePic(req).subscribe(
+      response => {
+        this.loader.close();
+        this.snack.open("Profile Picture Updated!", "OK", { duration: 4000 });
+        this._interactionService.changeProfilePicture(this.userId);
+        this.imageName = null;
       },
       error => {
         this.loader.close();

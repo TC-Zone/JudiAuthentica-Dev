@@ -46,7 +46,7 @@
 
       <ngx-datatable-column name="Status" [flexGrow]="1" [maxWidth]="150">
         <ng-template let-row="row" ngx-datatable-cell-template>
-          <mat-chip mat-sm-chip color="{{statusArray[row?.status]}}" [selected]="true">{{row?.status}}</mat-chip>
+          <mat-chip mat-sm-chip color="{{statusArray[row?.status].style}}" selected>{{statusArray[row?.status].display}}</mat-chip>
         </ng-template>
       </ngx-datatable-column>
 
@@ -57,15 +57,15 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu1="matMenu">
-            <button mat-menu-item (click)="openEditPopUp(row)">
+            <button mat-menu-item (click)="openEditPopUp(row)" [roleAuthorization]="'pu-u'">
               <mat-icon>edit</mat-icon>
               <span>Edit</span>
             </button>
-            <button mat-menu-item (click)="openCommunityPopUp(row)">
+            <button mat-menu-item (click)="openCommunityPopUp(row)" [roleAuthorization]="'puc-u'">
               <mat-icon>assignment_ind</mat-icon>
               <span>Community</span>
             </button>
-            <button mat-menu-item (click)="openCategoryPopUp(row)">
+            <button mat-menu-item (click)="openCategoryPopUp(row)" [roleAuthorization]="'pucat-u'">
               <mat-icon>assistant</mat-icon>
               <span>Category</span>
             </button>

@@ -8,6 +8,7 @@ import { AppDataConversionService } from "../../../shared/services/data-conversi
 import { AppLoaderService } from "../../../shared/services/app-loader/app-loader.service";
 import { AppConfirmService } from "../../../shared/services/app-confirm/app-confirm.service";
 import { Router } from "@angular/router";
+import { GlobalVariable } from "app/shared/helpers/global-variable";
 
 @Component({
   selector: "app-future-survey-invitation-launch",
@@ -24,12 +25,7 @@ export class FutureSurveyInvitationLaunchComponent implements OnInit {
   public surveyId: any;
 
   public futureSurveys: any[] = [];
-
-  public statusArray = [
-    { id: 0, status: "On Premise", style: "accent" },
-    { id: 1, status: "Launched", style: "primary" },
-    { id: 4, status: "Offline", style: "default" }
-  ];
+  public statusArray = new GlobalVariable().common.matChip.colorForSurveyStatus01;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -51,12 +47,10 @@ export class FutureSurveyInvitationLaunchComponent implements OnInit {
     this.origin = this.surveyObject.origin == "2" ? "E Vote" : "Survey";
 
     let surveyStatus = this.surveyObject.status;
-    this.currentStatus = this.statusArray.filter(function(status) {
-      return status.id == surveyStatus;
-    });
+    this.currentStatus = this.statusArray[surveyStatus];
 
     console.log("current Status");
-    console.log(this.currentStatus[0]);
+    console.log(this.currentStatus.id);
 
     this.isPublic = this.surveyObject.channel == 1 ? true : false;
     if (this.isPublic) {

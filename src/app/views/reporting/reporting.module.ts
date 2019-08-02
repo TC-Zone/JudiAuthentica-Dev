@@ -34,6 +34,7 @@ import { SalesRetailersComponent } from './sales-retailers/sales-retailers.compo
 import { FeedbackRateComponent } from './feedback-rate/feedback-rate.component';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReportingService } from './reporting.service';
 
 
 
@@ -75,6 +76,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ChartsModule,
     FormsModule,
     ReactiveFormsModule,
+  ],
+  providers: [
+    ReportingService
   ]
 })
 export class ReportingModule { }

@@ -18,16 +18,20 @@
       </div>
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <mat-select [formControl]="itemForm.controls['role']" placeholder="Select A User Role" [disabled]="roleStatus">
+          <mat-select [formControl]="itemForm.controls['role']" placeholder="Select A User Role"
+            [disabled]="roleStatus">
             <mat-option>none</mat-option>
             <mat-option *ngFor="let roles of roles" [value]="roles.id">{{roles.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <!-- <div fxFlex="50" class="pt-1 pr-1">
-        <mat-slide-toggle [formControl]="itemForm.controls['isActive']">Active User</mat-slide-toggle>
-      </div> -->
-      <div fxFlex="100" class="mt-1">
+      <div fxFlex="50" class="pt-1 pr-1">
+        <mat-slide-toggle color="primary" [formControl]="itemForm.controls['status']" [(ngModel)]="isActive" (change)="changeUserStatus()">
+          User Status : <mat-chip color="{{statusArray[userStatus].style}}" selected>
+            {{statusArray[userStatus].display}}</mat-chip>
+        </mat-slide-toggle>
+      </div>
+      <div fxFlex=" 100" class="mt-1">
         <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>
         <span fxFlex></span>
         <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>

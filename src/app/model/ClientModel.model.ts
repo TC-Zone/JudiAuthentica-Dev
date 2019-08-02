@@ -92,6 +92,7 @@ export class UserUpdateReq {
     public accountName: string,
     public email: string,
     public role: RoleData,
+    public status : string
   ) { }
 }
 
@@ -166,8 +167,25 @@ export class LicenseUpdateRequest {
 
 export class profileUpdateReq {
   constructor(
+    public id: string,
     public accountName: string,
-    public email: string
+    public email: string,
+  ) { }
+}
+
+export class passwordUpdateReq {
+  constructor(
+    public id: string,
+    public password: string,
+    public newPassword: string,
+  ) { }
+}
+
+export class userImageReq {
+  constructor(
+    public id: string,
+    public imageContent: string,
+    public profileImage: string,
   ) { }
 }
 

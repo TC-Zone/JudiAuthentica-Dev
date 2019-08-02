@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { egretAnimations } from 'app/shared/animations/egret-animations';
 import {
   MAT_DIALOG_DATA,
@@ -65,6 +65,9 @@ export class CreateEventPopupComponent implements OnInit {
     private userEventService: UserEventService
   ) { }
 
+  @ViewChild('eventImgs')
+  eventImgsElemnt: ElementRef;
+
   ngOnInit() {
     if (!this.data.isNew) {
       this.getEventById(this.data.payload.id);
@@ -76,7 +79,7 @@ export class CreateEventPopupComponent implements OnInit {
     });
     this.setStartDateMin();
     //edited by kushan
-    this.imgBaseURL = this.userEventService.imageUrl;
+    // this.imgBaseURL = this.userEventService.imageUrl;
   }
 
   /*
@@ -86,8 +89,6 @@ export class CreateEventPopupComponent implements OnInit {
   * Edited by Kushan Pabasara
   */
   buildEventForm(eventformdata) {
-    
-    console.log(eventformdata);
     this.eventForm = this.fb.group({
       name: [eventformdata.name || '', Validators.required],
       description: [eventformdata.description || '', Validators.required],
@@ -280,7 +281,8 @@ export class CreateEventPopupComponent implements OnInit {
               'close',
               { duration: 3000 }
             );
-            this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
+            this.eventImgsElemnt.nativeElement.value = "";
+            // this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
             return;
           }
         }
@@ -369,7 +371,7 @@ export class CreateEventPopupComponent implements OnInit {
         "close",
         { duration: 2000 }
       );
-      this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
+      // this.eventForm.controls['poster'].setErrors({ 'incorrect': true });
     }
 
 

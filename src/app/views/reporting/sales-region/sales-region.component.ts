@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Chart } from '../../../shared/fake-db/chart';
+import { ReportingService } from '../reporting.service';
 
 @Component({
   selector: 'app-sales-region',
@@ -16,66 +17,69 @@ export class SalesRegionComponent implements OnInit {
   // -------------------------------------------------------------------------------------------------
   public products;
   filteredProducts: Observable<string[]>;
-  public selectedCountry;
+  public proObj = null;
   public itemForm: FormGroup;
   // -------------------------------------------------------------------------------------------------
   public chart: Chart;
+  public pieChartLabels: any[] = [];
+  public pieChartData: number[] = [];
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private reportingService: ReportingService,
   ) {
     this.chart = new Chart();
   }
 
   ngOnInit() {
-
-
-    // -----------------------------------------------------------------------------------------------
+    //----service subscription---//
+    //  this.reportingService.getAllProducts().subscribe(data => {
+    //       this.products = data.content;
+    //  });
 
     this.products = this.chart.products;
-
     this.buildItemForm();
 
-    this.filteredProducts = this.itemForm.get("country").valueChanges.pipe(
+    this.filteredProducts = this.itemForm.get("product").valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value))
+      map(value => this._filter(value)),
     );
-    // -----------------------------------------------------------------------------------------------
 
   }
 
   // -------------------------------------------------------------------------------------------------
   buildItemForm() {
-    // let country = null;
-    // if (item) {
-    //   country = item.name;
-    //   this.selectedCountry = item.id;
-    // }
+
     this.itemForm = this.fb.group({
-      country: ['', Validators.required]
+      product: ['', Validators.required]
     })
   }
 
   private _filter(value: string): any {
-    const filterValue = value.toLowerCase();
+    const filterValue = value;
     return this.products.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  onBlurProducts(): void {
-    let value = this.itemForm.get("product").value;
-    let status = true;
-    this.products.forEach(element => {
-      if (element.name === value) {
-        this.selectedCountry = element.id;
-        status = false;
-      }
-    });
+  selectedProduct(event) {
+    this.proObj = event.option.value;
+    //this.pieChartLabels = ['Afghanistan', 'Åland Islands'];
+    //console.log(this.pieChartLabels);
 
-    if (status) {
-      this.selectedCountry = null;
-      this.itemForm.get("product").setValue("");
-    }
+    //this.pieChartData = [400, 500];
+
+    // this.proObj.country.forEach(element => {
+    //   this.pieChartLabels.push(element.name);
+    //   this.pieChartData.push(element.sale);
+    // });
+    this.pieChartLabels = ["A", "B"];
+    this.pieChartData = [400, 500];
+
   }
+  displayFn(value) {
+    console.log("displayfn" + value);
+    return value ? value.name : value;
+  }
+
 
   // -------------------------------------------------------------------------------------------------//
 
@@ -110,11 +114,15 @@ export class SalesRegionComponent implements OnInit {
     pointHoverBorderColor: 'rgba(148,159,177,0.8)'
   }];
 
+
   /*
  * Pie Chart Options
  */
-  public pieChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales'];
-  public pieChartData: number[] = [300, 500, 100];
+  // public pieChartLabels: string[] = ['Afghanistan', 'Åland Islands'];
+  // public pieChartData: number[] = [400, 500];
+  // public pieChartLabels: string[] = this.country;
+  // public pieChartData: number[] = this.sale;
+
   public pieChartType: string = 'pie';
   public pieChartColors: Array<any> = [{
     backgroundColor: ['rgba(255, 217, 125, 0.8)', 'rgba(36, 123, 160, 0.8)', 'rgba(244, 67, 54, 0.8)']

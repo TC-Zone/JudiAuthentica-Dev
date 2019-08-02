@@ -76,6 +76,8 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.layout.adjustLayout(event);

@@ -1,36 +1,60 @@
+<!-- First row -->
+<div class="pt-2">
+  <mat-card class="p-0" [@animate]="{ value: '*', params: { scale: '.9', delay: '300ms' } }">
+    <div fxLayout="row wrap">
+      <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="50">
+        <div class="text-center pt-1 pb-1 border-right-light">
+          <mat-icon class="text-green" color="warn">show_chart</mat-icon>
+          <h4 class="m-0">{{proObj === null ? 0 : (proObj.total_auth === null ? "0" : proObj.total_auth)}}</h4>
+          <small class="m-0 ">Total Authentication</small>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="50">
+        <div class="text-center pt-1 pb-1 border-right-light">
+          <mat-icon class="text-blue">location_city</mat-icon>
+          <h4 class="m-0 ">{{proObj === null ? 0 : (proObj.factories === null ? "0" : proObj.factories)}}</h4>
+          <small class="m-0 ">Factories</small>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="50">
+        <div class="text-center pt-1 pb-1 border-right-light">
+          <mat-icon class="text-green" color="primary">shop</mat-icon>
+          <h4 class="m-0 ">{{proObj === null ? 0 : (proObj.merchandizers === null ? "0" : proObj.merchandizers)}}</h4>
+          <small class="m-0 ">Merchandizers</small>
+        </div>
+      </div>
+      <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="50">
+        <div class="text-center pt-1 pb-1 border-right-light">
+          <mat-icon class="text-blue" color="accent">person</mat-icon>
+          <h4 class="m-0 ">{{proObj === null ? 0 : (proObj.customer === null ? "0" : proObj.customer)}}</h4>
+          <small class="m-0 ">Customers</small>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>
+<!--/ End first row -->
 <div fxLayout="row wrap" class="pt-2">
   <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="25">
     <mat-card>
       <form class="example-form">
 
         <mat-form-field class="full-width">
-          <input matInput [formControl]="itemForm.controls['product']" placeholder="Search Product" [matAutocomplete]="auto"
-            (blur)="onBlurProducts()">
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let product of filteredProducts | async" [value]="product.name">
+          <input matInput [formControl]="itemForm.controls['product']" placeholder="Search Product" [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selectedProduct($event)"
+            [displayWith]="displayFn">
+            <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
               {{product.name}}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
 
-        <mat-form-field class="full-width">
-          <mat-select required placeholder="Select Production Order">
-            <mat-option [value]="">10029</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="full-width">
+        <mat-form-field *ngIf="itemForm.controls['product'].value" class="full-width">
           <mat-select required placeholder="Select A Country">
             <mat-option [value]="">Canada</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="full-width">
-          <mat-select required placeholder="Select Region/Regions">
-            <mat-option [value]="">Canada Toronto</mat-option>
-          </mat-select>
-        </mat-form-field>
       </form>
-
-      <h1>{{selectedCountry}}</h1>
 
     </mat-card>
   </div>

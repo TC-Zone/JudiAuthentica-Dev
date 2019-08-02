@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { egretAnimations } from 'app/shared/animations/egret-animations';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material';
@@ -65,6 +65,9 @@ export class CreatePromotionPopupComponent implements OnInit {
     private userPromotionService: UserPromotionService
   ) { }
 
+  @ViewChild('promotionImgs')
+  eventImgsElemnt: ElementRef;
+  
   ngOnInit() {
     if (!this.data.isNew) {
       this.getPromotionById(this.data.payload.id);
@@ -245,7 +248,8 @@ export class CreatePromotionPopupComponent implements OnInit {
               'close',
               { duration: 3000 }
             );
-            this.promotionForm.controls['promoPoster'].setErrors({ 'incorrect': true });
+            this.eventImgsElemnt.nativeElement.value = "";
+            // this.promotionForm.controls['promoPoster'].setErrors({ 'incorrect': true });
             return;
           }
         }
@@ -329,7 +333,7 @@ export class CreatePromotionPopupComponent implements OnInit {
         "close",
         { duration: 2000 }
       );
-      this.promotionForm.controls['poster'].setErrors({ 'incorrect': true });
+      // this.promotionForm.controls['poster'].setErrors({ 'incorrect': true });
     }
 
   }

@@ -1,13 +1,21 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { LocalStorageHandler } from "../../shared/helpers/local-storage";
+import { AuthenticationService } from "../sessions/authentication.service";
+import { InteractionService } from "app/shared/services/app-profile/interaction.service";
 
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html"
 })
 export class ProfileComponent extends LocalStorageHandler implements OnInit {
+
   activeView: string = "overview";
+  public currentUser;
+  public userDisplayName
+
+  public userId;
+  public profileImg;
 
   // Doughnut
   doughnutChartColors: any[] = [
@@ -43,11 +51,38 @@ export class ProfileComponent extends LocalStorageHandler implements OnInit {
     }
   };
 
-  constructor(private router: ActivatedRoute) {
+  constructor(
+    private router: ActivatedRoute,
+    private authService: AuthenticationService,
+    private _interactionService: InteractionService
+  ) {
     super();
   }
 
   ngOnInit() {
     this.activeView = this.router.snapshot.params["view"];
+
+
+    // ---------------------------------- UserProfile -------------------------------
+
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.userDisplayName = this.currentUser.accountName;
+
+    this._interactionService.changeProfileDetails$.subscribe(
+      userName => {
+        this.userDisplayName = userName;
+      }
+    );
+
+    this._interactionService.changeProfilePicture$.subscribe(
+      url => {
+        this.profileImg = url;
+      }
+    );
+
+    // ------------------------------------------------------------------------------
+
+
+
   }
 }

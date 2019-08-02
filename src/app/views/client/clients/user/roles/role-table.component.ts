@@ -163,17 +163,11 @@ export class RoleTableComponent implements OnInit, OnDestroy {
       });
   }
 
-  /*
-   * Delete User Role
-   * Created by Prasad Kumara
-   * 14/02/2019
-   */
   deleteRole(row) {
     this.confirmService
       .confirm({ message: `Delete ${row.name}?` })
       .subscribe(res => {
         if (res) {
-          // this.loader.open();
           this.getClientRoles();
         }
       });

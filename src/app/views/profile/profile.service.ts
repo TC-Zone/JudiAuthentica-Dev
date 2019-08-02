@@ -11,22 +11,38 @@ import { environment } from "environments/environment.prod";
 @Injectable()
 export class ProfileService {
 
-  userUrl: string = environment.userApiUrl + "platform-users";
-  clientUrl: string = environment.userApiUrl + "clients";
-  licenseUrl: string = this.clientUrl + "/license";
-  specsUrl: string = environment.userApiUrl + "spec";
-  geoUrl: string = environment.userApiUrl + "geo";
-  imgBaseURL = 'http://localhost:10000/api/downloads/client/';
+  public userUrl: string = environment.userApiUrl + "platform-users";
+  public userProfileUrl: string = environment.userApiUrl + "platform-user-profiles";
+  public clientUrl: string = environment.userApiUrl + "clients";
+  public licenseUrl: string = this.clientUrl + "/license";
+  public specsUrl: string = environment.userApiUrl + "spec";
+  public geoUrl: string = environment.userApiUrl + "geo";
+  public imgBaseURL = environment.userApiUrl + 'downloads';
 
   constructor(private http: HttpClient) { }
 
-  updateUser(id, item): Observable<any> {
+  updateUser(item): Observable<any> {
     return this.http
-      .put<any>(this.userUrl +"/"+ id, item)
+      .put<any>(this.userProfileUrl, item)
+      .pipe(catchError(this.handleError));
+    // return this.http
+    //   .put<any>(this.userProfileUrl +"/"+ id, item)
+    //   .pipe(catchError(this.handleError));
+  }
+
+  updateUserPassword(item): Observable<any> {
+    return this.http
+      .put<any>(this.userProfileUrl + "/change-password", item)
       .pipe(catchError(this.handleError));
   }
 
-  
+  updateProfilePic(item): Observable<any> {
+    return this.http
+      .post<any>(this.userUrl + "/profileImage", item)
+      .pipe(catchError(this.handleError));
+  }
+
+
   getClient(id): Observable<any> {
     return this.http.get(this.clientUrl + "/" + id).pipe(catchError(this.handleError));
   }
@@ -38,33 +54,30 @@ export class ProfileService {
   getCountry(): Observable<any> {
     return this.http.get(this.geoUrl + "/countries").pipe(catchError(this.handleError));
   }
-  getClientProfilePic(id):Observable<any> {
-    return this.http.get(this.imgBaseURL+id).pipe(catchError(this.handleError));
-  }
-  
+
   getClientCategories(id): Observable<any> {
     return this.http.get(this.clientUrl + "/categories/" + id).pipe(catchError(this.handleError));
   }
-  
+
   updateClientLicense(id, item): Observable<any> {
     return this.http
       .put<any>(this.licenseUrl + "/" + id, item)
       .pipe(catchError(this.handleError));
   }
-  
+
   updateClientCategory(id, item): Observable<any> {
     return this.http
       .put<any>(this.clientUrl + "/categories/" + id, item)
       .pipe(catchError(this.handleError));
   }
-  
+
   updateClientDetails(id, item): Observable<any> {
     return this.http
       .put<any>(this.clientUrl + "/" + id, item)
       .pipe(catchError(this.handleError));
   }
 
-  
+
 
   private handleError(error: HttpErrorResponse | any) {
     console.log(error);

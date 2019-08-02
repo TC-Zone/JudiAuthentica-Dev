@@ -137,7 +137,7 @@
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
-    <button [disabled]="currentStatus[0].id == 1 || launchForm.invalid" mat-raised-button (click)="saveInvitationSetting()"
+    <button [disabled]="currentStatus.id == 1 || launchForm.invalid" mat-raised-button (click)="saveInvitationSetting()"
       color="accent">
       Save Settings
     </button>

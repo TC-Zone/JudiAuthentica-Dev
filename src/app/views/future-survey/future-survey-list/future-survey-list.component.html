@@ -115,7 +115,7 @@
                 <mat-chip mat-sm-chip color="primary" [selected]="true">{{row?.origin =='1' ? 'Survey' : 'EVote'}}</mat-chip>
               </td>
               <td class="pt-1 pb-1 text-cente">
-                <mat-chip mat-sm-chip color="{{statusArray[row?.status].style}}" [selected]="true">{{statusArray[row?.status].status}}</mat-chip>
+                <mat-chip mat-sm-chip color="{{statusArray[row?.status].style}}" selected>{{statusArray[row?.status].status}}</mat-chip>
               </td>
               <td class="pt-1 pb-1">
                 <button class="card-control" mat-icon-button [matMenuTriggerFor]="menu">

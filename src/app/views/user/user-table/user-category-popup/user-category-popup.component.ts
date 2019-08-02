@@ -74,6 +74,7 @@ export class UserCategoryPopupComponent implements OnInit {
 
       this.categoryCtrl.setValue(null);
     }
+    
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {

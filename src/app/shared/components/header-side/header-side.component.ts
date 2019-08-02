@@ -12,6 +12,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../../../views/sessions/authentication.service";
 import { Router } from "@angular/router";
 import { LocalStorageHandler } from "../../helpers/local-storage";
+import { InteractionService } from "app/shared/services/app-profile/interaction.service";
 
 @Component({
   selector: "app-header-side",
@@ -32,13 +33,19 @@ export class HeaderSideComponent extends LocalStorageHandler implements OnInit {
   ];
   public egretThemes;
   public layoutConf: any;
+
+  public currentuser;
+  public userId;
+  public profileImg;
+
   constructor(
     private themeService: ThemeService,
     private layout: LayoutService,
     public translate: TranslateService,
     private renderer: Renderer2,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private _interactionService: InteractionService
   ) {
     super();
   }
@@ -46,7 +53,25 @@ export class HeaderSideComponent extends LocalStorageHandler implements OnInit {
     this.egretThemes = this.themeService.egretThemes;
     this.layoutConf = this.layout.layoutConf;
     this.translate.use(this.currentLang);
+
+
+    // ---------------------------------- UserProfile -------------------------------
+
+    this.currentuser = JSON.parse(localStorage.getItem('currentUser'));
+    this.userId = this.currentuser.userData.id;
+
+    this._interactionService.changeProfilePicture$.subscribe(
+      url => {
+        this.profileImg = url;
+      }
+    );
+
+    // ------------------------------------------------------------------------------
+
   }
+
+
+
   setLang(e) {
     console.log(e);
     this.translate.use(this.currentLang);

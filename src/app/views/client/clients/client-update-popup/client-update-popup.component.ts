@@ -38,7 +38,6 @@ export class ClientUpdatePopupComponent implements OnInit {
   ngOnInit() {
 
     this.imgBaseURL = this.clientService.imageUrl;
-
     this.countries = this.data.country;
     console.log(this.countries);
 

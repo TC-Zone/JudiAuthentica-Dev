@@ -13,6 +13,8 @@ import { UserCreateReq, ClientData, RoleData, CommunityData, CategoryData, UserU
 import { UserCategoryPopupComponent } from './user-category-popup/user-category-popup.component';
 import { UserCommunityPopupComponent } from './user-community-popup/user-community-popup.component';
 import { AuthenticationService } from 'app/views/sessions/authentication.service';
+import { GlobalVariable } from 'app/shared/helpers/global-variable';
+import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 
 @Component({
   selector: 'app-user-table',
@@ -23,10 +25,7 @@ export class UserTableComponent implements OnInit {
 
   public users: any[];
   public roles: any[] = [];
-  public statusArray = {
-    'Active': "primary",
-    'Inactive': "accent"
-  };
+  public statusArray = new GlobalVariable().common.matChip.userStatus;
   public pageSize = 10;
   public clientId;
   public name;
@@ -42,7 +41,8 @@ export class UserTableComponent implements OnInit {
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
     private activeRoute: ActivatedRoute,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private confirmService: AppConfirmService,
   ) { }
 
   ngOnInit() {
@@ -52,23 +52,6 @@ export class UserTableComponent implements OnInit {
       this.getUsersByClient();
       this.getClientCategories();
     }
-
-    // this.activeRoute.queryParams.subscribe(params => {
-    //   this.clientId = params["clientId"];
-
-    //   // // RAVEEN : 2014/04/11 - Handling situation when client id is not coming from quesry parameter
-    //   // if (!this.clientId) {
-    //   //   const currentUser = this.authService.getLoggedUserDetail();
-    //   //   this.clientId = currentUser.userData.client.id;
-    //   // }
-
-    //   this.getUsers();
-    //   this.getUserRoles();
-    //   this.getClientCategories();
-    //   this.getClientCommunities();
-    // });
-
-
   }
 
   ngOnDestroy() {
@@ -79,18 +62,17 @@ export class UserTableComponent implements OnInit {
 
   getUsersByClient() {
     this.getItemSub = this.clientService.getClient(this.clientId).subscribe(successResp => {
-      this.users = successResp.content.users;
-      this.users.forEach((item, index) => {
-        if (item.role.name === "Super Administrator") this.users.splice(index, 1);
-        if (item.role.predefined === "true") this.users.splice(index, 1);
-      });
+      // this.users = successResp.content.users;
+      this.users = successResp.content.users.filter(user => user.role.predefined !== "true"  && user.status !== 'DELETED');
+      console.log(this.users);
+      // this.users.forEach((item, index) => {
+      //   if (item.role.name === "Super Administrator") this.users.splice(index, 1);
+      //   if (item.role.predefined === "true") this.users.splice(index, 1);
+      // });
       this.roles = successResp.content.roles;
       this.roles.forEach((item, index) => {
         if (item.predefined === "true") this.roles.splice(index, 1);
       });
-      // successResp.content.roles.forEach((item) => {
-      //   this.roles.push(item);
-      // });
     },
       error => {
         this.errDialog.showError(error);
@@ -206,7 +188,7 @@ export class UserTableComponent implements OnInit {
       }
 
       let role: RoleData = new RoleData(res.role);
-      const req: UserUpdateReq = new UserUpdateReq(res.username, res.email, role);
+      const req: UserUpdateReq = new UserUpdateReq(res.username, res.email, role, res.status);
 
       this.loader.open();
       this.clientService.updateUser(data.id, req).subscribe(
@@ -324,9 +306,24 @@ export class UserTableComponent implements OnInit {
     );
   }
 
+  removeUser(data: any = {}) {
 
-  removeUser(user) {
-    console.log('---------------------------- user', user);
+    this.confirmService
+      .confirm({ message: `Do You Want to Delete ${data.userName}?` })
+      .subscribe(res => {
+        if (res) {
+          this.clientService.deleteUser(data.id).subscribe(
+            successResp => {
+              console.log(successResp.content);
+              this.getUsersByClient();
+            },
+            error => {
+              this.errDialog.showError(error);
+            }
+          );
+        }
+      });
+
   }
 
 }

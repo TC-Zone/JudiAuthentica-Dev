@@ -31,6 +31,7 @@ import {
   CustomField,
   InviteRequest
 } from "../../../model/FutureSurvey.model";
+import { GlobalVariable } from "app/shared/helpers/global-variable";
 
 export const MY_FORMATS = {
   parse: {
@@ -77,11 +78,13 @@ export class FutureSurveyLaunchComponent implements OnInit {
   public emailPattern = /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   public urlPattern = /^([a-zA-Z0-9_-]){3,20}$/;
 
-  public statusArray = [
-    { id: 0, status: "On Premise", style: "accent" },
-    { id: 1, status: "Launched", style: "primary" },
-    { id: 4, status: "Offline", style: "default" }
-  ];
+  public statusArray = new GlobalVariable().common.matChip.colorForSurveyStatus01;
+
+  // public statusArray = [
+  //   { id: 0, status: "On Premise", style: "accent" },
+  //   { id: 1, status: "Launched", style: "primary" },
+  //   { id: 4, status: "Offline", style: "default" }
+  // ];
 
   // csv validation message
   private MISSING_NAME: string = "Essential Name field is missing!";
@@ -137,20 +140,22 @@ export class FutureSurveyLaunchComponent implements OnInit {
 
     // set which status can edit details
     console.log(surveyStatus);
-    
+
     if (surveyStatus === 0 || surveyStatus === 4) {
       this.isDisabled = false;
     }
 
     this.buildLaunchForm(data, inviteeGroup);
 
-    this.currentStatus = this.statusArray.filter(function (status) {
-      console.log(status);
-      return status.id === surveyStatus;
-    });
+    // this.currentStatus = this.statusArray.filter(function (status) {
+    //   console.log(status);
+    //   return status.id === surveyStatus;
+    // });
+
+    this.currentStatus = this.statusArray[surveyStatus];
 
     console.log("current Status");
-    console.log(this.currentStatus[0]);
+    console.log(this.currentStatus.id);
 
     if (this.isPublic) {
       this.buildLaunchForm(data, inviteeGroup);

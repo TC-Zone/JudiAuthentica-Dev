@@ -13,6 +13,7 @@ import { FutureSurveyConfigPopupComponent } from "../future-survey-config-popup/
 import { FutureSurveyLaunchComponent } from "../future-survey-launch/future-survey-launch.component";
 import { FutureSurveyInvitationLaunchComponent } from "../future-survey-invitation-launch/future-survey-invitation-launch.component";
 import { ClientService } from "../../client/client.service";
+import { GlobalVariable } from "app/shared/helpers/global-variable";
 
 @Component({
   selector: "app-future-survey-list",
@@ -26,12 +27,7 @@ export class FutureSurveyListComponent implements OnInit {
 
   public clients: any[];
   public response: ResponseModel;
-
-  public statusArray = {
-    0: { id: 0, status: "On Premise", style: "accent" },
-    1: { id: 1, status: "Launched", style: "primary" },
-    4: { id: 4, status: "Offline", style: "default" }
-  };
+  public statusArray = new GlobalVariable().common.matChip.colorForSurveyStatus01;
 
   // pagination
   pageNumber = 1;

@@ -30,6 +30,12 @@ export class HeaderTopComponent extends LocalStorageHandler
     }
   ];
   @Input() notificPanel;
+  
+  public currentuser;
+  public userId;
+  public profileImg;
+
+
   constructor(
     private layout: LayoutService,
     private navService: NavigationService,
@@ -64,7 +70,15 @@ export class HeaderTopComponent extends LocalStorageHandler
       });
       this.menuItems = mainItems;
     });
+
+
+
+    // ----------------------------- UserProfileImage -------------------------------
+    this.currentuser = JSON.parse(localStorage.getItem('currentUser'));
+    this.userId = this.currentuser.userData.id;
+    // ------------------------------------------------------------------------------
   }
+
   ngOnDestroy() {
     this.menuItemSub.unsubscribe();
   }
