@@ -22,8 +22,8 @@ export class Chart {
             "merchandizers": 60,
             "customer": 270,
             "country": [
-                { "code": "Albania", "sale": 300 },
-                { "code": "Algeria", "sale": 600 },
+                { "name": "Albania", "sale": 300 },
+                { "name": "Algeria", "sale": 600 },
             ]
         }
     ];

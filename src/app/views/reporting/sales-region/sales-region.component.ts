@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { egretAnimations } from "app/shared/animations/egret-animations";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Chart } from '../../../shared/fake-db/chart';
 import { ReportingService } from '../reporting.service';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-sales-region',
@@ -13,6 +14,7 @@ import { ReportingService } from '../reporting.service';
   animations: egretAnimations
 })
 export class SalesRegionComponent implements OnInit {
+  @ViewChild(BaseChartDirective) chartupdate: BaseChartDirective;
 
   // -------------------------------------------------------------------------------------------------
   public products;
@@ -21,12 +23,15 @@ export class SalesRegionComponent implements OnInit {
   public itemForm: FormGroup;
   // -------------------------------------------------------------------------------------------------
   public chart: Chart;
-  public pieChartLabels: any[] = [];
-  public pieChartData: number[] = [];
+  public pieChartType: string = 'pie';
+  public pieChartLabels: Array<any> = [];
+  public pieChartData: Array<any> = [];
+  public pieChartColors: Array<any> = [];
+  public backgroundColor: Array<any> = [];
 
   constructor(
     private fb: FormBuilder,
-    private reportingService: ReportingService,
+    private reportingService: ReportingService
   ) {
     this.chart = new Chart();
   }
@@ -45,7 +50,10 @@ export class SalesRegionComponent implements OnInit {
       map(value => this._filter(value)),
     );
 
+
+
   }
+
 
   // -------------------------------------------------------------------------------------------------
   buildItemForm() {
@@ -62,19 +70,28 @@ export class SalesRegionComponent implements OnInit {
 
   selectedProduct(event) {
     this.proObj = event.option.value;
-    //this.pieChartLabels = ['Afghanistan', 'Åland Islands'];
-    //console.log(this.pieChartLabels);
+    this.chartupdate.data.length = 0;
+    this.chartupdate.labels.length = 0;
 
-    //this.pieChartData = [400, 500];
+    this.proObj.country.forEach(element => {
+      this.pieChartLabels.push(element.name);
+      this.pieChartData.push(element.sale);
+      this.backgroundColor.push(this.getRandomColor());
+    });
+    this.pieChartColors = [{ backgroundColor: this.backgroundColor }];
 
-    // this.proObj.country.forEach(element => {
-    //   this.pieChartLabels.push(element.name);
-    //   this.pieChartData.push(element.sale);
-    // });
-    this.pieChartLabels = ["A", "B"];
-    this.pieChartData = [400, 500];
-
+    this.chartupdate.chart.update();
   }
+
+  getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
   displayFn(value) {
     console.log("displayfn" + value);
     return value ? value.name : value;
@@ -123,10 +140,10 @@ export class SalesRegionComponent implements OnInit {
   // public pieChartLabels: string[] = this.country;
   // public pieChartData: number[] = this.sale;
 
-  public pieChartType: string = 'pie';
-  public pieChartColors: Array<any> = [{
-    backgroundColor: ['rgba(255, 217, 125, 0.8)', 'rgba(36, 123, 160, 0.8)', 'rgba(244, 67, 54, 0.8)']
-  }];
+  // public pieChartType: string = 'pie';
+  // public pieChartColors: Array<any> = [{
+  //   backgroundColor: ['rgba(255, 217, 125, 0.8)', 'rgba(36, 123, 160, 0.8)', 'rgba(244, 67, 54, 0.8)']
+  // }];
 
   /*
   * Pie Chart Event Handler

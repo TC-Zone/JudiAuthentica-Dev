@@ -56,6 +56,7 @@
         </mat-form-field>
       </form>
 
+
     </mat-card>
   </div>
   <div fxFlex="50" fxFlex.gt-sm="75" fxFlex.sm="75">
@@ -66,7 +67,7 @@
       </mat-card-title>
       <mat-card-content>
         <canvas class="chart" baseChart [data]="pieChartData" [labels]="pieChartLabels" [options]="doughnutOptions"
-          [colors]="doughnutChartColors" [chartType]="pieChartType" (chartHover)="pieChartHovered($event)" (chartClick)="pieChartClicked($event)"></canvas>
+          [colors]="pieChartColors" [chartType]="pieChartType" (chartHover)="pieChartHovered($event)" (chartClick)="pieChartClicked($event)"></canvas>
       </mat-card-content>
     </mat-card>
   </div>
