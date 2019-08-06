@@ -1,5 +1,5 @@
 <!-- First row -->
-<div class="pt-2">
+<!-- <div class="pt-2">
   <mat-card class="p-0" [@animate]="{ value: '*', params: { scale: '.9', delay: '300ms' } }">
     <div fxLayout="row wrap">
       <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="50">
@@ -32,7 +32,7 @@
       </div>
     </div>
   </mat-card>
-</div>
+</div> -->
 <!--/ End first row -->
 <div fxLayout="row wrap" class="pt-2">
   <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="25">
@@ -49,7 +49,7 @@
           </mat-autocomplete>
         </mat-form-field>
 
-        <mat-form-field *ngIf="itemForm.controls['product'].value" class="full-width">
+        <!-- <mat-form-field *ngIf="itemForm.controls['product'].value" class="full-width">
           <input matInput [formControl]="itemForm.controls['countries']" placeholder="Search Country" [matAutocomplete]="auto">
           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selectedCountry($event)"
             [displayWith]="displayFn">
@@ -57,7 +57,7 @@
               {{country.name}}
             </mat-option>
           </mat-autocomplete>
-        </mat-form-field>
+        </mat-form-field> -->
       </form>
 
 

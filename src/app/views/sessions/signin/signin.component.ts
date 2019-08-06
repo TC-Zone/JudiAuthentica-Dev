@@ -30,7 +30,7 @@ export class SigninComponent implements OnInit {
     private authService: AuthenticationService,
     private router: Router,
     private snack: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.signinForm = new FormGroup({
@@ -60,7 +60,7 @@ export class SigninComponent implements OnInit {
           image: "assets/images/cp_users/placeholder-user.png",
           token: response.access_token,
           refreshToken: response.refresh_token,
-          company: "Kushan Pabasara",
+          company: "",
           expires_in: response.expires_in,
           userData: ""
         };
@@ -72,11 +72,7 @@ export class SigninComponent implements OnInit {
             tempUser.username = viewData.userName;
             tempUser.accountName = viewData.accountName;
             tempUser.userData = res.content;
-            tempUser.company = res.content.client.name;
-            // if(res.profileImage !== null){
-            //   tempUser.image = res.profileImage;
-            // }
-
+            tempUser.company = viewData.client.name;
             localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
             console.log('---------------------------- tempUser', tempUser);
             // this.progressBar.mode = 'determinate';
@@ -92,18 +88,18 @@ export class SigninComponent implements OnInit {
           }
         );
       },
-      error => {
-        this.result = false;
-        if (error.status === 400) {
-          // this.progressBar.mode = 'determinate';
-          this.signinForm.reset();
-        } else {
-          // this.progressBar.mode = 'determinate';
-          this.signinForm.reset();
-          this.router.navigate([this.signInUrl]);
+        error => {
+          this.result = false;
+          if (error.status === 400) {
+            // this.progressBar.mode = 'determinate';
+            this.signinForm.reset();
+          } else {
+            // this.progressBar.mode = 'determinate';
+            this.signinForm.reset();
+            this.router.navigate([this.signInUrl]);
+          }
         }
-      }
-    );
+      );
   }
 
   // getRefreshToken(refreshTime) {

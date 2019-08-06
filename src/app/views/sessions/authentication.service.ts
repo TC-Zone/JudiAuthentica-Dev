@@ -12,6 +12,7 @@ import { environment } from "environments/environment.prod";
 import { authProperties } from "../../shared/services/auth/auth-properties";
 
 import { Router } from "@angular/router";
+import { log } from "util";
 
 @Injectable()
 export class AuthenticationService {
@@ -120,7 +121,7 @@ export class AuthenticationService {
   //     console.log("--------------- setComponetDisable ----------------");
   //     console.log(userObj.userData.role.name);
   //     const roleName = userObj.userData.role.name;
-  //     if (roleName === "Super Administrator") { 
+  //     if (roleName === "Super Administrator") {
   //       arrayList = ["User Management"];
   //       return arrayList;
   //     } else if (roleName === "Admin") {

@@ -451,9 +451,9 @@ export class NavigationService {
       disabled: true
     },
     {
-      name: "Reporting",
+      name: "Analytics",
       type: "link",
-      tooltip: "Reporting",
+      tooltip: "Analytics",
       icon: "assessment",
       state: "reporting",
       disabled: true

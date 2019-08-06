@@ -8,12 +8,12 @@ import { ReportingService } from '../reporting.service';
 import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
-  selector: 'app-sales-region',
-  templateUrl: './sales-region.component.html',
-  styleUrls: ['./sales-region.component.scss'],
+  selector: 'app-auth-count-country',
+  templateUrl: './auth-count-country.component.html',
+  styleUrls: ['./auth-count-country.component.scss'],
   animations: egretAnimations
 })
-export class SalesRegionComponent implements OnInit {
+export class AuthCountCountryComponent implements OnInit {
   @ViewChild(BaseChartDirective) chartupdate: BaseChartDirective;
 
   // -------------------------------------------------------------------------------------------------
@@ -36,6 +36,7 @@ export class SalesRegionComponent implements OnInit {
   public pieChartData: Array<any> = [];
   public pieChartColors: Array<any> = [];
   public backgroundColor: Array<any> = [];
+
 
   constructor(
     private fb: FormBuilder,
