@@ -35,6 +35,7 @@ import { FeedbackRateComponent } from './feedback-rate/feedback-rate.component';
 import { ChartsModule } from 'ng2-charts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReportingService } from './reporting.service';
+import { AuthCountCountryComponent } from './auth-count-country/auth-count-country.component';
 
 
 
@@ -44,7 +45,8 @@ import { ReportingService } from './reporting.service';
     SalesRegionComponent,
     SalesTimeComponent,
     SalesRetailersComponent,
-    FeedbackRateComponent
+    FeedbackRateComponent,
+    AuthCountCountryComponent
   ],
   imports: [
     CommonModule,
