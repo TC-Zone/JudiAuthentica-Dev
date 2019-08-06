@@ -29,6 +29,7 @@ import { ClientService } from "../../../client/client.service";
 import { AuthenticationService } from "../../../sessions/authentication.service";
 import { ComunityService } from "../../../community/community.service";
 import { AppInfoService } from "../../../../shared/services/app-info/app-info.service";
+import { ProductCreationRequest } from "app/model/ProductModel.model ";
 
 export const MY_FORMATS = {
   parse: {
@@ -191,14 +192,14 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
         fieldItem.batchNumber || "",
         Validators.required
       ),
-      quantity: new FormControl(fieldItem.quantity || "", Validators.required),
+      quantity: new FormControl(fieldItem.quantity || "", [Validators.required , Validators.min(1)]),
       expireDate: new FormControl(
         fieldItem.expireDate || "",
         Validators.required
       ),
 
       videoUrl: new FormControl(youtubeUrl || "", Validators.required),
-      file: new FormControl(fieldItem.file || "", Validators.required),
+      file: new FormControl(),
       categoryId: new FormControl(
         fieldItem.categoryId || "",
         Validators.required
@@ -338,32 +339,11 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
       input.append("file", selectedFile, imageName);
     }
 
+    console.log('------------------------- input', input);
+    
+
     return input;
   }
 }
 
-export class ProductCreationRequest {
-  code: string;
-  name: string;
-  description: string;
-  batchNumber: string;
-  quantity: string;
-  expireDate: string;
-  communityId: string;
-  categoryId: string;
-  videoUrl: string;
-  file: any;
 
-  constructor(public formValue: any) {
-    this.code = formValue.code;
-    this.name = formValue.name;
-    this.description = formValue.description;
-    this.batchNumber = formValue.batchNumber;
-    this.quantity = formValue.quantity;
-    this.expireDate = formValue.expireDate;
-    this.communityId = formValue.communityId;
-    this.categoryId = formValue.categoryId;
-    this.file = formValue.file;
-    this.videoUrl = formValue.videoUrl;
-  }
-}

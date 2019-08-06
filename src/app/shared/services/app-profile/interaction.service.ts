@@ -39,7 +39,7 @@ export class InteractionService {
     this.getUserProfile(userId).subscribe(data => {
       this.createImageFromBlob(data);
     }, error => {
-      this.profileImg = "http://localhost:4200/assets/images/cp_users/placeholder-user.png";
+      this.profileImg = "assets/images/cp_users/placeholder-user.png";
       this.changeProfilePictureSource.next(this.profileImg);
       console.log("---------------------- getUserProfile error", error);
     });

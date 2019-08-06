@@ -131,7 +131,6 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
       );
   }
 
-  // --------- BH ----------
   getPageProduct(pageNumber, clientId, categories) {
     if (
       pageNumber === 1 ||
@@ -169,7 +168,6 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
     this.pageNumber = 1;
     this.getPageProduct(this.pageNumber, this.clientId, this.categories);
   }
-  // --------- BH ----------
 
   deleteProduct(row) {
     this.confirmService

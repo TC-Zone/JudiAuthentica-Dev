@@ -26,9 +26,7 @@ export class ProductCrudService {
   }
 
   updateProduct(id, item) {
-    return this.http
-      .put<any>(this.productApiUrl + id, item)
-      .pipe(catchError(this.handleError));
+    return this.http.put<any>(this.productApiUrl + id, item).pipe(catchError(this.handleError));
   }
 
   addProduct(productObj, items): Observable<any> {

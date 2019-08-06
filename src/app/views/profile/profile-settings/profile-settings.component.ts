@@ -141,7 +141,7 @@ export class ProfileSettingsComponent implements OnInit {
     this._interactionService.changeProfileDetails(userName);
   }
 
-  checkConfirmPasswoed() {
+  checkConfirmPassword() {
     const itemForm = this.passwordSettingsForm.value
     if (itemForm.password !== null && itemForm.confirmPassword !== null && itemForm.password !== '' && itemForm.confirmPassword !== '') {
       if (itemForm.password !== itemForm.confirmPassword) { this.passwordStatus = false; }
