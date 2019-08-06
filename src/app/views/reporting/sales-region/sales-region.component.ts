@@ -111,13 +111,10 @@ export class SalesRegionComponent implements OnInit {
   selectedCountry(event) {
     this.countryObj = event.option.value;
 
-
-
     this.getCountries.forEach(country => {
 
       if (country.code === this.countryObj.code) {
 
-        this.statObj = null;
         this.statObj = country;
 
         this.chartupdate.data.length = 0;
