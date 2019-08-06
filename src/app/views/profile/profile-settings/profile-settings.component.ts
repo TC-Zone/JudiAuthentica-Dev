@@ -47,7 +47,7 @@ export class ProfileSettingsComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.userId = this.currentUser.userData.id;
     this.buildItemForm(this.currentUser.userData);
-    
+
     // ---------------------------------- UserProfile -------------------------------
 
     this._interactionService.changeProfilePicture$.subscribe(
@@ -141,7 +141,7 @@ export class ProfileSettingsComponent implements OnInit {
     this._interactionService.changeProfileDetails(userName);
   }
 
-  checkConfirmPasswoed() {
+  checkConfirmPassword() {
     const itemForm = this.passwordSettingsForm.value
     if (itemForm.password !== null && itemForm.confirmPassword !== null && itemForm.password !== '' && itemForm.confirmPassword !== '') {
       if (itemForm.password !== itemForm.confirmPassword) { this.passwordStatus = false; }

@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   public currentUser;
   public updateProfile = true;
-  private updateProfileImageUrls = ['/profile/profile-settings'];
+  private updateProfileImageUrls = ['/profile/profile-settings', '/profile/account-settings', '/profile/general-settings'];
   private updateProfileImageBlackListUrls = ['/sessions/signin'];
 
   constructor(
@@ -53,7 +53,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (this.updateProfile && this.updateProfileImageBlackListUrls.indexOf(url) !== 0) {
           this.changeProfilePicture();
           console.log('---------------------------------- UPDATE PROFILE PICTURE - FIRST TIME ');
-        } else if (this.updateProfileImageUrls.indexOf(url) === 0) {
+        } else if (this.updateProfileImageUrls.indexOf(url) >= 0) {
           this.changeProfilePicture();
           console.log('---------------------------------- UPDATE PROFILE PICTURE ');
         }
