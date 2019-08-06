@@ -18,9 +18,17 @@ export class SalesRegionComponent implements OnInit {
 
   // -------------------------------------------------------------------------------------------------
   public products;
+  public getCountries;
+  public countries;
   filteredProducts: Observable<string[]>;
+  filteredCountry: Observable<string[]>;
   public proObj = null;
+  public countryObj = null;
+  public statObj = null;
   public itemForm: FormGroup;
+  // public selectCounty;
+  public countryDet;
+
   // -------------------------------------------------------------------------------------------------
   public chart: Chart;
   public pieChartType: string = 'pie';
@@ -43,33 +51,42 @@ export class SalesRegionComponent implements OnInit {
     //  });
 
     this.products = this.chart.products;
+    this.getCountries = this.chart.country;
     this.buildItemForm();
 
     this.filteredProducts = this.itemForm.get("product").valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value)),
+      map(value => this._filterProduct(value)),
     );
-
-
-
   }
-
 
   // -------------------------------------------------------------------------------------------------
   buildItemForm() {
 
     this.itemForm = this.fb.group({
-      product: ['', Validators.required]
+      product: ['', Validators.required],
+      countries: ['', Validators.required]
     })
   }
 
-  private _filter(value: string): any {
+  private _filterProduct(value: string): any {
     const filterValue = value;
     return this.products.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
+  private _filterCounty(value: string): any {
+    const filterValue = value;
+    return this.countries.filter(option => option.name.toLowerCase().indexOf(filterValue) === 0);
+  }
+
   selectedProduct(event) {
     this.proObj = event.option.value;
+
+    this.statObj = this.proObj;
+
+    this.itemForm.get('countries').setValue('');
+    this.countries = this.proObj.country;
+
     this.chartupdate.data.length = 0;
     this.chartupdate.labels.length = 0;
 
@@ -81,7 +98,45 @@ export class SalesRegionComponent implements OnInit {
     this.pieChartColors = [{ backgroundColor: this.backgroundColor }];
 
     this.chartupdate.chart.update();
+    console.log(this.proObj);
+    console.log(this.countries);
+    this.filteredCountry = this.itemForm.get("countries").valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterCounty(value)),
+    );
+
+
   }
+
+  selectedCountry(event) {
+    this.countryObj = event.option.value;
+
+
+
+    this.getCountries.forEach(country => {
+
+      if (country.code === this.countryObj.code) {
+
+        this.statObj = null;
+        this.statObj = country;
+
+        this.chartupdate.data.length = 0;
+        this.chartupdate.labels.length = 0;
+
+        country.region.forEach(region => {
+          console.log(region);
+
+          this.pieChartLabels.push(region.name);
+          this.pieChartData.push(region.sale);
+          this.backgroundColor.push(this.getRandomColor());
+        });
+        this.pieChartColors = [{ backgroundColor: this.backgroundColor }];
+
+        this.chartupdate.chart.update();
+      }
+    });
+  }
+
 
   getRandomColor() {
     var letters = '0123456789ABCDEF';

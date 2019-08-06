@@ -5,28 +5,28 @@
       <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="50">
         <div class="text-center pt-1 pb-1 border-right-light">
           <mat-icon class="text-green" color="warn">show_chart</mat-icon>
-          <h4 class="m-0">{{proObj === null ? 0 : (proObj.total_auth === null ? "0" : proObj.total_auth)}}</h4>
+          <h4 class="m-0">{{statObj === null ? 0 : (statObj.total_auth === null ? "0" : statObj.total_auth)}}</h4>
           <small class="m-0 ">Total Authentication</small>
         </div>
       </div>
       <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="50">
         <div class="text-center pt-1 pb-1 border-right-light">
           <mat-icon class="text-blue">location_city</mat-icon>
-          <h4 class="m-0 ">{{proObj === null ? 0 : (proObj.factories === null ? "0" : proObj.factories)}}</h4>
+          <h4 class="m-0 ">{{statObj === null ? 0 : (statObj.factories === null ? "0" : statObj.factories)}}</h4>
           <small class="m-0 ">Factories</small>
         </div>
       </div>
       <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="50">
         <div class="text-center pt-1 pb-1 border-right-light">
           <mat-icon class="text-green" color="primary">shop</mat-icon>
-          <h4 class="m-0 ">{{proObj === null ? 0 : (proObj.merchandizers === null ? "0" : proObj.merchandizers)}}</h4>
+          <h4 class="m-0 ">{{statObj === null ? 0 : (statObj.merchandizers === null ? "0" : statObj.merchandizers)}}</h4>
           <small class="m-0 ">Merchandizers</small>
         </div>
       </div>
       <div fxFlex="50" fxFlex.gt-sm="25" fxFlex.sm="50">
         <div class="text-center pt-1 pb-1 border-right-light">
           <mat-icon class="text-blue" color="accent">person</mat-icon>
-          <h4 class="m-0 ">{{proObj === null ? 0 : (proObj.customer === null ? "0" : proObj.customer)}}</h4>
+          <h4 class="m-0 ">{{statObj === null ? 0 : (statObj.customer === null ? "0" : statObj.customer)}}</h4>
           <small class="m-0 ">Customers</small>
         </div>
       </div>
@@ -40,8 +40,8 @@
       <form class="example-form">
 
         <mat-form-field class="full-width">
-          <input matInput [formControl]="itemForm.controls['product']" placeholder="Search Product" [matAutocomplete]="auto">
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selectedProduct($event)"
+          <input matInput [formControl]="itemForm.controls['product']" placeholder="Search Product" [matAutocomplete]="autoProduct">
+          <mat-autocomplete autoActiveFirstOption #autoProduct="matAutocomplete" (optionSelected)="selectedProduct($event)"
             [displayWith]="displayFn">
             <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
               {{product.name}}
@@ -50,9 +50,13 @@
         </mat-form-field>
 
         <mat-form-field *ngIf="itemForm.controls['product'].value" class="full-width">
-          <mat-select required placeholder="Select A Country">
-            <mat-option [value]="">Canada</mat-option>
-          </mat-select>
+          <input matInput [formControl]="itemForm.controls['countries']" placeholder="Search Country" [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selectedCountry($event)"
+            [displayWith]="displayFn">
+            <mat-option *ngFor="let country of filteredCountry | async" [value]="country">
+              {{country.name}}
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
       </form>
 
