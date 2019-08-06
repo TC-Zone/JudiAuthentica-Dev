@@ -50,9 +50,10 @@ export class AppComponent implements OnInit, AfterViewInit {
         let url = this.router.url;
         console.log('---------------------------------- APP COMPONENT - ', url);
 
-        if (this.updateProfile && this.updateProfileImageBlackListUrls.indexOf(url) !== 0) {
+        if (this.updateProfile && this.updateProfileImageBlackListUrls.indexOf(url) < 0) {
           this.changeProfilePicture();
           console.log('---------------------------------- UPDATE PROFILE PICTURE - FIRST TIME ');
+
         } else if (this.updateProfileImageUrls.indexOf(url) >= 0) {
           this.changeProfilePicture();
           console.log('---------------------------------- UPDATE PROFILE PICTURE ');
