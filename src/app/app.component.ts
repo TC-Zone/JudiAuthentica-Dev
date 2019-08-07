@@ -53,7 +53,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (this.updateProfile && this.updateProfileImageBlackListUrls.indexOf(url) < 0) {
           this.changeProfilePicture();
           console.log('---------------------------------- UPDATE PROFILE PICTURE - FIRST TIME ');
-
+          
         } else if (this.updateProfileImageUrls.indexOf(url) >= 0) {
           this.changeProfilePicture();
           console.log('---------------------------------- UPDATE PROFILE PICTURE ');

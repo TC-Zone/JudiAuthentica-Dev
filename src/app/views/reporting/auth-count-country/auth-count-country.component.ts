@@ -1,15 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { egretAnimations } from "app/shared/animations/egret-animations";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { Chart } from '../../../shared/fake-db/chart';
 import { ReportingService } from '../reporting.service';
 import { BaseChartDirective } from 'ng2-charts';
-import { ProductCrudService } from '../../product-crud/product-crud.service';
-import { AppLoaderService } from '../../../shared/services/app-loader/app-loader.service';
-import { AppErrorService } from '../../../shared/services/app-error/app-error.service';
-import { AuthenticationService } from '../../sessions/authentication.service';
 
 @Component({
   selector: 'app-auth-count-country',
@@ -23,7 +19,7 @@ export class AuthCountCountryComponent implements OnInit {
   // -------------------------------------------------------------------------------------------------
   public products;
   public getCountries;
-  public countries: any[];
+  public countries;
   filteredProducts: Observable<string[]>;
   filteredCountry: Observable<string[]>;
   public proObj = null;
@@ -42,63 +38,27 @@ export class AuthCountCountryComponent implements OnInit {
   public backgroundColor: Array<any> = [];
 
 
-  public getProductsSub: Subscription;
-  public categories: any[];
-  public clientId: string;
-  public predefined: string;
-
   constructor(
     private fb: FormBuilder,
-    private prodService: ProductCrudService,
-    private loader: AppLoaderService,
-    private errDialog: AppErrorService,
-    private authService: AuthenticationService,
     private reportingService: ReportingService
   ) {
     this.chart = new Chart();
   }
 
   ngOnInit() {
+    //----service subscription---//
+    //  this.reportingService.getAllProducts().subscribe(data => {
+    //       this.products = data.content;
+    //  });
 
-
-    const userObj = this.authService.getLoggedUserDetail();
-    this.categories = userObj.userData.categories;
-    this.clientId = userObj.userData.client.id;
-    const predefinedStatus: boolean = userObj.userData.role.predefined;
-    this.predefined = predefinedStatus ? "1" : "0";
-    this.getAllProduct(this.clientId, this.categories, this.predefined);
-
-
-
-    // this.products = this.chart.products;
-    // this.getCountries = this.chart.country;
+    this.products = this.chart.products;
+    this.getCountries = this.chart.country;
     this.buildItemForm();
 
-  }
-
-  getAllProduct(clientId, categories, isPredefined) {
-    let categoriesID = [];
-    categories.forEach(cat => {
-      categoriesID.push(cat.id);
-    });
-    this.getProductsSub = this.prodService
-      .getAllProductsByFilter(clientId, categoriesID, isPredefined)
-      .subscribe(
-        successResp => {
-          this.products = successResp.content;
-          console.log('THIS PRODUCT 3333333333333333333');
-          console.log(this.products);
-
-          this.filteredProducts = this.itemForm.get("product").valueChanges.pipe(
-            startWith(''),
-            map(value => this._filterProduct(value)),
-          );
-        },
-        error => {
-          this.loader.close();
-          this.errDialog.showError(error);
-        }
-      );
+    this.filteredProducts = this.itemForm.get("product").valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterProduct(value)),
+    );
   }
 
   // -------------------------------------------------------------------------------------------------
@@ -123,40 +83,28 @@ export class AuthCountCountryComponent implements OnInit {
   selectedProduct(event) {
     this.proObj = event.option.value;
 
-    const productId = this.proObj.id;
+    this.statObj = this.proObj;
 
-    this.reportingService.getAuthCountByProductId(productId).subscribe(
-      successResp => {
+    this.itemForm.get('countries').setValue('');
+    this.countries = this.proObj.country;
 
-        const dataSet = successResp.content;
-        this.countries = dataSet.countries;
+    this.chartupdate.data.length = 0;
+    this.chartupdate.labels.length = 0;
 
-        this.chartupdate.data.length = 0;
-        this.chartupdate.labels.length = 0;
+    this.proObj.country.forEach(element => {
+      this.pieChartLabels.push(element.name);
+      this.pieChartData.push(element.sale);
+      this.backgroundColor.push(this.getRandomColor());
+    });
+    this.pieChartColors = [{ backgroundColor: this.backgroundColor }];
 
-        this.countries.forEach(element => {
-          this.pieChartLabels.push(element.country);
-          this.pieChartData.push(element.count);
-          this.backgroundColor.push(this.getRandomColor());
-        });
-        this.pieChartColors = [{ backgroundColor: this.backgroundColor }];
-
-        this.chartupdate.chart.update();
-
-
-        this.itemForm.get('countries').setValue('');
-        this.filteredCountry = this.itemForm.get("countries").valueChanges.pipe(
-          startWith(''),
-          map(value => this._filterCounty(value)),
-        );
-      },
-      error => {
-        this.loader.close();
-        this.errDialog.showError(error);
-      }
+    this.chartupdate.chart.update();
+    console.log(this.proObj);
+    console.log(this.countries);
+    this.filteredCountry = this.itemForm.get("countries").valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterCounty(value)),
     );
-
-
 
 
   }
