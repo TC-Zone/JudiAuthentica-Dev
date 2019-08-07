@@ -36,6 +36,8 @@ import { ChartsModule } from 'ng2-charts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReportingService } from './reporting.service';
 import { AuthCountCountryComponent } from './auth-count-country/auth-count-country.component';
+import { ProductCrudService } from '../product-crud/product-crud.service';
+import { AuthenticationService } from '../sessions/authentication.service';
 
 
 
@@ -80,7 +82,7 @@ import { AuthCountCountryComponent } from './auth-count-country/auth-count-count
     ReactiveFormsModule,
   ],
   providers: [
-    ReportingService
+    ReportingService, ProductCrudService, AuthenticationService
   ]
 })
 export class ReportingModule { }

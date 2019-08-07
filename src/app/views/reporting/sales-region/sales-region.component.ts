@@ -6,6 +6,9 @@ import { startWith, map } from 'rxjs/operators';
 import { Chart } from '../../../shared/fake-db/chart';
 import { ReportingService } from '../reporting.service';
 import { BaseChartDirective } from 'ng2-charts';
+import { ProductCrudService } from '../../product-crud/product-crud.service';
+import { AppLoaderService } from '../../../shared/services/app-loader/app-loader.service';
+import { AppErrorService } from '../../../shared/services/app-error/app-error.service';
 
 @Component({
   selector: 'app-sales-region',

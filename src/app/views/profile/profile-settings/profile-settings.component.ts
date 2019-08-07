@@ -47,7 +47,7 @@ export class ProfileSettingsComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.userId = this.currentUser.userData.id;
     this.buildItemForm(this.currentUser.userData);
-    
+
     // ---------------------------------- UserProfile -------------------------------
 
     this._interactionService.changeProfilePicture$.subscribe(
