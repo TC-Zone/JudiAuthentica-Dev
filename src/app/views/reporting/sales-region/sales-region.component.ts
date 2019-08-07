@@ -27,7 +27,9 @@ export class SalesRegionComponent implements OnInit {
   public statObj = null;
   public itemForm: FormGroup;
   // public selectCounty;
-  public countryDet;
+  //public countryDet;
+  public noData = true;
+  public noDataSecond = true;
 
   // -------------------------------------------------------------------------------------------------
   public chart: Chart;
@@ -80,35 +82,58 @@ export class SalesRegionComponent implements OnInit {
   }
 
   selectedProduct(event) {
-    this.proObj = event.option.value;
+    console.log(event);
 
-    this.statObj = this.proObj;
+    if (event.option !== undefined) {
 
-    this.itemForm.get('countries').setValue('');
-    this.countries = this.proObj.country;
+      this.proObj = event.option.value;
 
-    this.chartupdate.data.length = 0;
-    this.chartupdate.labels.length = 0;
+      this.statObj = this.proObj;
 
-    this.proObj.country.forEach(element => {
-      this.pieChartLabels.push(element.name);
-      this.pieChartData.push(element.sale);
-      this.backgroundColor.push(this.getRandomColor());
-    });
-    this.pieChartColors = [{ backgroundColor: this.backgroundColor }];
+      this.itemForm.get('countries').setValue('');
+      this.countries = this.proObj.country;
 
-    this.chartupdate.chart.update();
-    console.log(this.proObj);
-    console.log(this.countries);
-    this.filteredCountry = this.itemForm.get("countries").valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterCounty(value)),
-    );
+      // this.chartupdate.data.length = 0;
+      // this.chartupdate.labels.length = 0;
+
+      this.pieChartLabels.length = 0;
+      this.pieChartData.length = 0;
+
+
+      this.proObj.country.forEach(element => {
+
+        this.pieChartLabels.push(element.name);
+        this.pieChartData.push(element.sale);
+        this.backgroundColor.push(this.getRandomColor());
+
+      });
+
+      this.pieChartData.forEach(element => {
+
+        if (element !== '') {
+          this.noData = true;
+          this.pieChartColors = [{ backgroundColor: this.backgroundColor }];
+          //this.chartupdate.chart.update();
+          this.filteredCountry = this.itemForm.get("countries").valueChanges.pipe(
+            startWith(''),
+            map(value => this._filterCounty(value)),
+          );
+        }
+        else {
+          this.noData = false;
+
+        }
+      });
+
+
+    }
 
 
   }
 
   selectedCountry(event) {
+    console.log(event);
+
     this.countryObj = event.option.value;
 
     this.getCountries.forEach(country => {
@@ -117,8 +142,8 @@ export class SalesRegionComponent implements OnInit {
 
         this.statObj = country;
 
-        this.chartupdate.data.length = 0;
-        this.chartupdate.labels.length = 0;
+        this.pieChartLabels.length = 0;
+        this.pieChartData.length = 0;
 
         country.region.forEach(region => {
           console.log(region);
@@ -127,9 +152,19 @@ export class SalesRegionComponent implements OnInit {
           this.pieChartData.push(region.sale);
           this.backgroundColor.push(this.getRandomColor());
         });
-        this.pieChartColors = [{ backgroundColor: this.backgroundColor }];
 
-        this.chartupdate.chart.update();
+        this.pieChartData.forEach(element => {
+
+          if (element !== '') {
+            // this.noData = true;
+            this.noDataSecond = true;
+            this.pieChartColors = [{ backgroundColor: this.backgroundColor }];
+          }
+          else {
+            // this.noData = true;
+            this.noDataSecond = false;
+          }
+        });
       }
     });
   }
@@ -147,6 +182,17 @@ export class SalesRegionComponent implements OnInit {
   displayFn(value) {
     console.log("displayfn" + value);
     return value ? value.name : value;
+  }
+
+  doSomething(event) {
+    console.log(event);
+    if (event) {
+      if (event.target.value === null || event.target.value === "") {
+        console.log("-----------  empty");
+        var myPlayer = document.getElementById("getProduct");
+        myPlayer.click();
+      }
+    }
   }
 
 

@@ -10,8 +10,8 @@ export class Chart {
             "merchandizers": 30,
             "customer": 200,
             "country": [
-                { "name": "Canada", "code": "CA", "sale": 400 },
-                { "name": "United States", "code": "US", "sale": 500 },
+                { "name": "Canada", "code": "CA", "sale": "" },
+                { "name": "United States", "code": "US", "sale": "" },
             ]
         },
         {
@@ -64,8 +64,8 @@ export class Chart {
             "merchandizers": 62,
             "customer": 400,
             "region": [
-                { "name": "Rome", "sale": 250 },
-                { "name": "Verona", "sale": 450 }
+                { "name": "Rome", "sale": "" },
+                { "name": "Verona", "sale": "" }
             ]
         },
         {
