@@ -40,7 +40,7 @@
   </div>
 </div> -->
 
-<form [formGroup]="signinForm" id="user-login-view"  (ngSubmit)="signin()">
+<form [formGroup]="signinForm" id="user-login-view" (ngSubmit)="signin()">
   <div class="page-wrap height-100 signin-background">
     <div class="session-form-hold set-form-left">
       <mat-card id="login-card">
@@ -48,15 +48,14 @@
           <div id="login-form">
             <div class="text-center pb-1" id="login-form-logo">
               <img src="assets/images/truverus/Tru-Verus-Logo.png" alt="">
-              <p class="text-muted m-0">Welcome, Please Signin to your Account.</p>
+              <p class="text-muted m-0">Welcome, Please Sign in to your Account.</p>
               <small *ngIf="!result" class=" m-0 form-error-msg"> Invalid Login Credentials ! </small>
             </div>
             <mat-form-field class="full-width">
               <input matInput name="username" [formControl]="signinForm.controls['username']" placeholder="Username"
                 value="">
             </mat-form-field>
-            <small
-              *ngIf="signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched"
+            <small *ngIf="signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched"
               class="form-error-msg">
               Username is required </small>
 
@@ -64,8 +63,7 @@
               <input type="password" name="password" matInput [formControl]="signinForm.controls['password']"
                 placeholder="Password" value="">
             </mat-form-field>
-            <small
-              *ngIf="signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched"
+            <small *ngIf="signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched"
               class="form-error-msg"> Password is required </small>
 
             <div class="pb-1">

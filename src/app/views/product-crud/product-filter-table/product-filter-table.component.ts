@@ -130,6 +130,8 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
   }
 
   getPageProduct(pageNumber, clientId, categories) {
+    console.log(categories);
+
     if (
       pageNumber === 1 ||
       (0 < pageNumber && pageNumber <= this.totalPages.length)
@@ -169,7 +171,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
 
   deleteProduct(row) {
     this.confirmService
-      .confirm({ message: `Delete ${row.name}?` })
+      .confirm({ message: `Are you sure that you want to delete this product?` })
       .subscribe(res => {
         if (res) {
           this.loader.open();

@@ -1,12 +1,11 @@
 <div class="messages-wrap">
   <mat-toolbar color="primary" class="inbox-toolbar">
-    <mat-checkbox (change)="selectToggleAll($event)" [indeterminate]="indeterminateState" [checked]="selectAll"
-      class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
+    <mat-checkbox (change)="selectToggleAll($event)" [indeterminate]="indeterminateState" [checked]="selectAll" class="inbox-toggle-all mr-1"><small>All</small></mat-checkbox>
     <button mat-icon-button matTooltip="Add feedback" (click)="feedbackPopUp({}, true)" [roleAuthorization]="'f-c'">
       <mat-icon>add_box</mat-icon>
     </button>
-    <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll"
-      (click)="deleteSelectedFeedbacks()"  [roleAuthorization]="'f-md'">
+    <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedFeedbacks()"
+      [roleAuthorization]="'f-md'">
       <mat-icon>delete</mat-icon>
     </button>
     <span fxFlex></span>
@@ -14,8 +13,8 @@
       <input matInput placeholder="Search" value="" (keyup)='updateFilter($event)'>
     </mat-form-field>
     <p *ngIf="this.temFeedbacks.length > 0" class="mat-select-lable"> Page Size: </p>
-    <mat-select *ngIf="this.temFeedbacks.length > 0" class="mat-raised-select" [(value)]="pageSize"
-      (selectionChange)="changeValue()" placeholder="Favorite food">
+    <mat-select *ngIf="this.temFeedbacks.length > 0" class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()"
+      placeholder="Favorite food">
       <mat-option *ngFor="let item of pageSizeArray" [value]="item">{{item}}</mat-option>
     </mat-select>
   </mat-toolbar>
@@ -29,12 +28,11 @@
 
             <div fxFlex="5">
               <div style="padding-top: 5px;">
-                <mat-checkbox (change)="selectToggleOne($event, feedback)" [checked]="feedback.selected"
-                  class="mail-checkbox hide-on-open"></mat-checkbox>
+                <mat-checkbox (change)="selectToggleOne($event, feedback)" [checked]="feedback.selected" class="mail-checkbox hide-on-open"></mat-checkbox>
               </div>
             </div>
             <div fxFlex="55">
-              <div class="custom-vertical-align-middle" style="padding-top: 10px;">{{  feedback.name }}</div>
+              <div class="custom-vertical-align-middle" style="padding-top: 10px;">{{ feedback.name }}</div>
             </div>
             <div fxFlex="20">
               <div class="custom-vertical-align-middle custom-float-right" style="padding-top: 10px;">
@@ -99,10 +97,10 @@
   <div *ngIf="this.temFeedbacks.length === 0 && this.feedbacks.length === 0" fxLayout="row" fxLayoutAlign="center"
     style="margin-top: 10rem;" fxLayout.lt-sm="column" fxLayoutWrap="wrap">
     <div fxFlex="100" class="text-center">
-      <h1 class="text-muted">Create New Feedback</h1>
+      <h1 class="text-muted">To create a feedback</h1>
     </div>
     <div fxFlex="100" class="text-center">
-      <h2 class="text-muted">Click "Add" Button</h2>
+      <h2 class="text-muted">Please click on the "Add" button</h2>
     </div>
   </div>
 </div>

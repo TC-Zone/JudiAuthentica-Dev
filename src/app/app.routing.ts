@@ -47,17 +47,17 @@ export const rootRouterConfig: Routes = [
         loadChildren: "./views/profile/profile.module#ProfileModule",
         data: { title: "Profile", breadcrumb: "PROFILE" }
       },
-      {
-        path: "inbox",
-        loadChildren: "./views/app-inbox/app-inbox.module#AppInboxModule",
-        data: { title: "Inbox", breadcrumb: "INBOX" }
-      },
-      {
-        path: "calendar",
-        loadChildren:
-          "./views/app-calendar/app-calendar.module#AppCalendarModule",
-        data: { title: "Calendar", breadcrumb: "CALENDAR" }
-      },
+      // {
+      //   path: "inbox",
+      //   loadChildren: "./views/app-inbox/app-inbox.module#AppInboxModule",
+      //   data: { title: "Inbox", breadcrumb: "INBOX" }
+      // },
+      // {
+      //   path: "calendar",
+      //   loadChildren:
+      //     "./views/app-calendar/app-calendar.module#AppCalendarModule",
+      //   data: { title: "Calendar", breadcrumb: "CALENDAR" }
+      // },
       {
         path: "users",
         loadChildren: "./views/user/user.module#UserModule",

@@ -192,7 +192,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
         fieldItem.batchNumber || "",
         Validators.required
       ),
-      quantity: new FormControl(fieldItem.quantity || "", [Validators.required , Validators.min(1)]),
+      quantity: new FormControl(fieldItem.quantity || "", [Validators.required, Validators.min(1)]),
       expireDate: new FormControl(
         fieldItem.expireDate || "",
         Validators.required
@@ -225,12 +225,9 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
 
         if (qty > balance) {
           const infoData = {
-            title: "License",
+            title: "Quantity Exceed!",
             message:
-              "You have unused " +
-              balance +
-              " tags only!</br> Please reduce the quantity </br>" +
-              '<small class="text-muted">Do you like to extend the plan?</small>',
+              "To extend the order quantity please contact your Administrator.",
             linkData: {
               url: "https://www.google.com/gmail/",
               buttonText: "Extend"
@@ -262,7 +259,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
         this.maxUploadableFileCount == null || this.maxUploadableFileCount < 1
           ? true
           : this.currentTotalImageCount + filesAmount <=
-            this.maxUploadableFileCount
+          this.maxUploadableFileCount
       ) {
         for (let i = 0; i < filesAmount; i++) {
           var reader = new FileReader();
@@ -340,7 +337,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
     }
 
     console.log('------------------------- input', input);
-    
+
 
     return input;
   }

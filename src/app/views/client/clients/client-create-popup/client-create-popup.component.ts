@@ -65,6 +65,9 @@ export class ClientCreatePopupComponent implements OnInit {
     this.allCategories = JSON.parse(JSON.stringify(this.data.category));
     this.selectedCategories = [];
 
+    console.log(this.data);
+
+
     this.data.section.forEach(section => {
       section.authorities.forEach(authority => {
         if (authority.code !== 'cm-a') {
