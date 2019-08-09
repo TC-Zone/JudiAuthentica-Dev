@@ -22,10 +22,6 @@ export class SigninComponent implements OnInit {
   result: boolean = true;
   private storage_name = authProperties.storage_name;
 
-  // test
-  public userId;
-  public counter = 0;
-
   constructor(
     private authService: AuthenticationService,
     private router: Router,
@@ -102,25 +98,4 @@ export class SigninComponent implements OnInit {
       );
   }
 
-  // getRefreshToken(refreshTime) {
-  //   setTimeout(() => {
-  //     console.log('Set Time out function');
-  //     const tempUser = JSON.parse(localStorage.getItem(this.storage_name));
-  //     this.userService.getUserRefreshToken(tempUser.refreshToken)
-  //       .subscribe(response => {
-  //         this.counter += 1;
-  //         console.log('Refresh count = ' + this.counter);
-  //         tempUser.token = response.access_token;
-  //         tempUser.refreshToken = response.refresh_token;
-  //         tempUser.expires_in = response.expires_in;
-  //         localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
-  //         const expireInMilliSecond = (response.expires_in - 2) * 1000;
-  //         this.getRefreshToken(expireInMilliSecond);
-  //       },
-  //         error => {
-  //           console.log('Refresh Token Error');
-  //           this.getRefreshToken(refreshTime);
-  //         });
-  //   }, refreshTime);
-  // }
 }

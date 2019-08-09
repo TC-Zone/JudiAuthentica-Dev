@@ -8,6 +8,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ErrorComponent } from './error/error.component';
 import { UserActivationComponent } from './user-activation/user-activation.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { AuthGuard } from 'app/shared/services/auth/auth.guard';
 
 export const SessionsRoutes: Routes = [
   {
@@ -15,11 +16,12 @@ export const SessionsRoutes: Routes = [
     children: [{
       path: 'signup',
       component: SignupComponent,
-      data: { title: 'Signup' }
+      data: { title: 'Signup' },
     }, {
       path: 'signin',
       component: SigninComponent,
-      data: { title: 'Signin' }
+      data: { title: 'Signin' },
+      canActivate: [AuthGuard]
     }, {
       path: 'forgot-password',
       component: ForgotPasswordComponent,

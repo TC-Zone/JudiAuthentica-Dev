@@ -41,11 +41,10 @@ export const rootRouterConfig: Routes = [
     component: AdminLayoutComponent,
     canActivate: [AuthGuard],
     children: [
-
       {
         path: "profile",
         loadChildren: "./views/profile/profile.module#ProfileModule",
-        data: { title: "Profile", breadcrumb: "PROFILE" }
+        data: { title: "Profile", breadcrumb: "PROFILE" },
       },
       {
         path: "inbox",
@@ -66,13 +65,13 @@ export const rootRouterConfig: Routes = [
       {
         path: "clients",
         loadChildren: "./views/client/client.module#ClientModule",
-        data: { title: "Clients", breadcrumb: "Client" }
+        data: { title: "Clients", breadcrumb: "Client" },
       },
       {
         path: "productCrud",
         loadChildren:
           "./views/product-crud/product-crud.module#ProductCrudModule",
-        data: { title: "Product Catalogue", breadcrumb: "" }
+        data: { title: "Product Catalogue", breadcrumb: "" },
       },
       {
         path: "surveys",
@@ -98,7 +97,7 @@ export const rootRouterConfig: Routes = [
       {
         path: "reporting",
         loadChildren: "./views/reporting/reporting.module#ReportingModule",
-        data: { title: "Reporting", breadcrumb: "Reporting" }
+        data: { title: "Reporting", breadcrumb: "Reporting" },
       }
 
     ]

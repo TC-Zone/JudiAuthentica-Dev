@@ -14,10 +14,7 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { AuthenticationService } from './views/sessions/authentication.service';
 import { AddHeaderInterceptor } from './shared/services/auth/add-header-interceptor';
-
-
-
-
+import { AuthGuard } from './shared/services/auth/auth.guard';
 
 
 // AoT requires an exported function for factories
@@ -47,6 +44,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     // ANGULAR MATERIAL SLIDER FIX
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
     { provide: HTTP_INTERCEPTORS, useClass: AddHeaderInterceptor, multi: true },
+    { provide: AuthGuard, useClass: AuthGuard },
     AuthenticationService
   ],
   bootstrap: [AppComponent]

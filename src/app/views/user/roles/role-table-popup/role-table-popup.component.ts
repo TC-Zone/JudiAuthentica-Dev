@@ -70,56 +70,35 @@ export class RoleTablePopupComponent implements OnInit {
 
   createUserAuthorityComponentList(data) {
     const roleData = JSON.parse(JSON.stringify(data));
-    let displayAuthoritySection = { name: "Display Authority", authorities: [] };
-
-    // I had to foreach section twice for update selectedAuthorities and remove unnecessary authorities
-    // -------------------------------------------------------------------------------------------------------------
+    let displayAuthoritySection = { name: "Display Authority", id: 'display_authority', selectAll: false, indeterminateState: false, authorities: [] };
 
     roleData.forEach(section => {
-      section.authorities.forEach((authority) => {
-        if (authority.type === 'D' || authority.type === 'U') {
-          let status = false;
-          if (this.selectedAuthorities.includes(authority.id)) {
-            status = true;
-          }
-          authority['checked'] = status;
-        }
-      });
 
-      section.authorities.forEach((authority, index) => {
+      let authorities: any[] = [];
+      section.authorities.forEach((authority) => {
+
         if (authority.type === 'D') {
           displayAuthoritySection.authorities.push(authority);
-          section.authorities.splice(index, 1);
-        } else if (authority.type !== 'D' && authority.type !== 'U') {
-          section.authorities.splice(index, 1);
+        } else if (authority.type === 'U') {
+          authorities.push(authority);
         }
+        let status = false;
+        if (this.selectedAuthorities.includes(authority.id)) {
+          status = true;
+        }
+        authority['checked'] = status;
+
       });
+      section.authorities = authorities;
+      section['selectAll'] = false;
+      section['indeterminateState'] = false;
+      
     });
-
-    // roleData.forEach(section => {
-    //   section.authorities.forEach((authority, index) => {
-    //     if (authority.type === 'D' || authority.type === 'U') {
-    //       let status = false;
-    //       if (this.selectedAuthorities.includes(authority.id)) {
-    //         status = true;
-    //       }
-    //       authority['checked'] = status;
-
-    //       if (authority.type === 'D') {
-    //         displayAuthoritySection.authorities.push(authority);
-    //         section.authorities.splice(index, 1);
-    //       }
-    //     } else {
-    //       console.log(authority);
-    //       section.authorities.splice(index, 1);
-    //     }
-    //   });
-    // });
-    // -------------------------------------------------------------------------------------------------------------
 
     roleData.splice(0, 0, displayAuthoritySection);
     this.componentList = roleData;
     console.log('-------------------------------------- componentList', this.componentList);
+    this.checkAllSelect();
   }
 
 
@@ -193,19 +172,61 @@ export class RoleTablePopupComponent implements OnInit {
     this.dialogRef.close(roleData);
   }
 
-  onChangeUserRole(authority, isChecked: boolean) {
-    const dataArray = <FormArray>this.authoritiesFormGroup.controls.data;
-    // console.log('------------------------------------------ dataArray', dataArray);
 
+  onChangeUserRole(authority, isChecked: boolean) {
+
+    const dataArray = <FormArray>this.authoritiesFormGroup.controls.data;
     if (isChecked) {
       dataArray.push(new FormControl(authority.code));
       this.selectedAuthorities.push(authority.id);
+      authority.checked = true;
     } else {
       const index = dataArray.controls.findIndex(x => x.value === authority.code);
       dataArray.removeAt(index);
       const i = this.selectedAuthorities.findIndex(y => y === authority.id);
       this.selectedAuthorities.splice(i, 1);
+      authority.checked = false;
     }
+
+    this.checkAllSelect();
+
+  }
+
+  
+  checkAllSelect() {
+
+    this.componentList.forEach(section => {
+      let selectedAuthoritiesCount = 0;
+      section.authorities.forEach(authority => {
+        if (authority.checked) {
+          selectedAuthoritiesCount++;
+        }
+      });
+      if (section.authorities.length === selectedAuthoritiesCount) {
+        section.selectAll = true;
+        section.indeterminateState = false;
+      } else if (selectedAuthoritiesCount === 0) {
+        section.selectAll = false;
+        section.indeterminateState = false;
+      } else {
+        section.selectAll = false;
+        section.indeterminateState = true;
+      }
+    });
+
+  }
+  
+  onChangeSelectAll(id, isChecked) {
+
+    this.componentList.forEach(section => {
+      if (section.id === id) {
+        section.authorities.forEach(authority => {
+          this.onChangeUserRole(authority, isChecked);
+        });
+      }
+    });
+    this.checkAllSelect();
+
   }
 
 }

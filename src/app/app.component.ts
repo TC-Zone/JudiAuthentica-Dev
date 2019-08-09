@@ -4,7 +4,21 @@ import {
   Router,
   NavigationEnd,
   ActivatedRoute,
-  ActivatedRouteSnapshot
+  NavigationStart,
+  ActivatedRouteSnapshot,
+  RouteConfigLoadStart,
+  RouteConfigLoadEnd,
+  RoutesRecognized,
+  GuardsCheckStart,
+  ChildActivationStart,
+  ActivationStart,
+  GuardsCheckEnd,
+  ResolveStart,
+  ResolveEnd,
+  ActivationEnd,
+  ChildActivationEnd,
+  NavigationCancel,
+  NavigationError
 } from "@angular/router";
 
 import { RoutePartsService } from "./shared/services/route-parts.service";
@@ -48,15 +62,19 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (ev instanceof NavigationEnd) {
 
         let url = this.router.url;
-        console.log('---------------------------------- APP COMPONENT - ', url);
+        console.log('---------------------------------- AppComponent : APP COMPONENT - ', url);
+
+        // if (localStorage.getItem("currentUser") && this.loggedUserBlackListUrls.indexOf(url) === 0) {
+        //   this.router.navigate(["/profile/profile-settings"]);
+        // }
 
         if (this.updateProfile && this.updateProfileImageBlackListUrls.indexOf(url) < 0) {
           this.changeProfilePicture();
-          console.log('---------------------------------- UPDATE PROFILE PICTURE - FIRST TIME ');
-          
+          console.log('---------------------------------- AppComponent : UPDATE PROFILE PICTURE - FIRST TIME ');
+
         } else if (this.updateProfileImageUrls.indexOf(url) >= 0) {
           this.changeProfilePicture();
-          console.log('---------------------------------- UPDATE PROFILE PICTURE ');
+          console.log('---------------------------------- AppComponent : UPDATE PROFILE PICTURE ');
         }
 
       }

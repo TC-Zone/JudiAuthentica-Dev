@@ -28,6 +28,9 @@ export class RoleTablePopupComponent implements OnInit {
   public componentList = [];
   public adminComponentList = [];
 
+  // TEMPORARY : SET USER DISPLAY AUTH DEFAULT
+  public userDisplayAuthority;
+
 
   public authoritiesFormGroup: FormGroup;
   public roleFormGroup: FormGroup;
@@ -58,118 +61,6 @@ export class RoleTablePopupComponent implements OnInit {
   }
 
 
-  formatRoleAuthority(data) {
-    let roleData = JSON.parse(JSON.stringify(data));
-    if (this.predefined === 'true') {
-      this.createAdminAuthorityComponentList(this.data.adminRoleAuthorities);
-    } else {
-      roleData.authorities.forEach(authority => {
-        if (authority.type === 'U' || authority.type === 'D') {
-          this.selectedAuthorities.push(authority.id);
-        }
-      });
-      this.createUserAuthorityComponentList(this.data.adminRoleAuthorities);
-    }
-  }
-
-  createUserAuthorityComponentList(data) {
-    const roleData = JSON.parse(JSON.stringify(data));
-    let displayAuthoritySection = { name: "Display Authority", authorities: [] };
-
-    // I had to foreach section twice for update selectedAuthorities and remove unnecessary authorities
-    // -------------------------------------------------------------------------------------------------------------
-
-    roleData.forEach(section => {
-      section.authorities.forEach((authority) => {
-        if (authority.type === 'D' || authority.type === 'U') {
-          let status = false;
-          if (this.selectedAuthorities.includes(authority.id)) {
-            status = true;
-          }
-          authority['checked'] = status;
-        }
-      });
-
-      section.authorities.forEach((authority, index) => {
-        if (authority.type === 'D') {
-          displayAuthoritySection.authorities.push(authority);
-          section.authorities.splice(index, 1);
-        } else if (authority.type !== 'D' && authority.type !== 'U') {
-          section.authorities.splice(index, 1);
-        }
-      });
-    });
-
-    // roleData.forEach(section => {
-    //   section.authorities.forEach((authority, index) => {
-    //     if (authority.type === 'D' || authority.type === 'U') {
-    //       let status = false;
-    //       if (this.selectedAuthorities.includes(authority.id)) {
-    //         status = true;
-    //       }
-    //       authority['checked'] = status;
-
-    //       if (authority.type === 'D') {
-    //         displayAuthoritySection.authorities.push(authority);
-    //         section.authorities.splice(index, 1);
-    //       }
-    //     } else {
-    //       console.log(authority);
-    //       section.authorities.splice(index, 1);
-    //     }
-    //   });
-    // });
-    // -------------------------------------------------------------------------------------------------------------
-
-    roleData.splice(0, 0, displayAuthoritySection);
-    this.componentList = roleData;
-    console.log('-------------------------------------- componentList', this.componentList);
-  }
-
-  createAdminAuthorityComponentList(data) {
-    let roleData = JSON.parse(JSON.stringify(data));
-
-    this.clientService.getAllUserAuthority().subscribe(response => {
-      this.allAuthority = response.content;
-
-      this.allAuthority.forEach(section => {
-        section.authorities.forEach(authority => {
-
-          if (authority.type === 'D' && authority.code !== 'cm-a') {
-            authority['sectionId'] = section.id;
-            this.allDisplayAuthority.push(authority)
-          }
-        });
-      });
-
-      roleData.forEach(section => {
-        section.authorities.forEach(authority => {
-          if (authority.type === 'D') {
-            authority['sectionId'] = section.id;
-            this.adminRoleDisplayAuthority.push(authority);
-            this.newDisplayAuthority.push(authority);
-          }
-        });
-      });
-
-      this.allDisplayAuthority.forEach(authority => {
-        let status = false;
-        const index = this.adminRoleDisplayAuthority.findIndex(x => x.id === authority.id);
-        if (index >= 0) {
-          status = true;
-        }
-        authority['checked'] = status;
-      });
-
-    });
-
-    this.adminComponentList = this.allDisplayAuthority;
-    console.log('-------------------------------------- adminComponentList', this.adminComponentList);
-
-  }
-
-
-
   /*
   * Build New Role Form Group
   * Created by Prasad Kumara
@@ -194,6 +85,191 @@ export class RoleTablePopupComponent implements OnInit {
   }
 
 
+  formatRoleAuthority(data) {
+    let roleData = JSON.parse(JSON.stringify(data));
+    if (this.predefined === 'true') {
+      this.createAdminAuthorityComponentList(this.data.adminRoleAuthorities);
+    } else {
+      roleData.authorities.forEach(authority => {
+        if (authority.type === 'U' || authority.type === 'D') {
+          this.selectedAuthorities.push(authority.id);
+        }
+      });
+      this.createUserAuthorityComponentList(this.data.adminRoleAuthorities);
+    }
+  }
+
+  createUserAuthorityComponentList(data) {
+    const roleData = JSON.parse(JSON.stringify(data));
+    let displayAuthoritySection = { name: "Display Authority", id: 'display_authority', selectAll: false, indeterminateState: false, authorities: [] };
+
+    roleData.forEach(section => {
+
+      let authorities: any[] = [];
+      section.authorities.forEach((authority) => {
+
+        if (authority.type === 'D') {
+          displayAuthoritySection.authorities.push(authority);
+        } else if (authority.type === 'U') {
+          authorities.push(authority);
+        }
+        let status = false;
+        if (this.selectedAuthorities.includes(authority.id)) {
+          status = true;
+        }
+        authority['checked'] = status;
+
+      });
+      section.authorities = authorities;
+      section['selectAll'] = false;
+      section['indeterminateState'] = false;
+
+    });
+
+    roleData.splice(0, 0, displayAuthoritySection);
+    this.componentList = roleData;
+    console.log('-------------------------------------- componentList', this.componentList);
+    this.checkAllSelect();
+  }
+
+  createAdminAuthorityComponentList(data) {
+    let roleData = JSON.parse(JSON.stringify(data));
+
+    this.clientService.getAllUserAuthority().subscribe(response => {
+      this.allAuthority = response.content;
+
+      this.allAuthority.forEach(section => {
+        section.authorities.forEach(authority => {
+          console.log('--------------------------- authority', authority);
+
+
+          if (
+            authority.type === 'D' &&
+            authority.code !== 'cm-a' &&
+            // TEMPORARY : SET USER DISPLAY AUTH DEFAULT
+            authority.code !== 'um-a'
+          ) {
+            authority['sectionId'] = section.id;
+            this.allDisplayAuthority.push(authority)
+          }
+
+        });
+      });
+
+      roleData.forEach(section => {
+        section.authorities.forEach(authority => {
+
+          authority['sectionId'] = section.id;
+
+          // TEMPORARY : SET USER DISPLAY AUTH DEFAULT
+          if (authority.code === 'um-a') {
+            this.userDisplayAuthority = authority;
+          } else
+
+            if (authority.type === 'D') {
+              this.adminRoleDisplayAuthority.push(authority);
+              this.newDisplayAuthority.push(authority);
+            }
+
+        });
+      });
+
+      this.allDisplayAuthority.forEach(authority => {
+        let status = false;
+        const index = this.adminRoleDisplayAuthority.findIndex(x => x.id === authority.id);
+        if (index >= 0) {
+          status = true;
+        }
+        authority['checked'] = status;
+      });
+
+    });
+
+    this.adminComponentList = this.allDisplayAuthority;
+    console.log('-------------------------------------- adminComponentList', this.adminComponentList);
+
+  }
+
+
+  checkAllSelect() {
+
+    this.componentList.forEach(section => {
+      let selectedAuthoritiesCount = 0;
+      section.authorities.forEach(authority => {
+        if (authority.checked) {
+          selectedAuthoritiesCount++;
+        }
+      });
+      if (section.authorities.length === selectedAuthoritiesCount) {
+        section.selectAll = true;
+        section.indeterminateState = false;
+      } else if (selectedAuthoritiesCount === 0) {
+        section.selectAll = false;
+        section.indeterminateState = false;
+      } else {
+        section.selectAll = false;
+        section.indeterminateState = true;
+      }
+    });
+
+    // console.log('--------------------------------------------- this.componentList', this.componentList);
+    console.log('--------------------------------------------- this.selectedAuthorities', this.selectedAuthorities);
+
+
+  }
+
+
+  onChangeUserRole(authority, isChecked: boolean) {
+
+    const dataArray = <FormArray>this.authoritiesFormGroup.controls.data;
+    if (isChecked) {
+      dataArray.push(new FormControl(authority.code));
+      this.selectedAuthorities.push(authority.id);
+      authority.checked = true;
+    } else {
+      const index = dataArray.controls.findIndex(x => x.value === authority.code);
+      dataArray.removeAt(index);
+      const i = this.selectedAuthorities.findIndex(y => y === authority.id);
+      this.selectedAuthorities.splice(i, 1);
+      authority.checked = false;
+    }
+
+    this.checkAllSelect();
+
+  }
+
+  onChangeSelectAll(id, isChecked) {
+
+    this.componentList.forEach(section => {
+      if (section.id === id) {
+        section.authorities.forEach(authority => {
+          this.onChangeUserRole(authority, isChecked);
+        });
+      }
+    });
+    this.checkAllSelect();
+
+  }
+
+  onChangeAdminRole(authority, isChecked: boolean) {
+    const dataArray = <FormArray>this.authoritiesFormGroup.controls.data;
+    // console.log('------------------------------------------ dataArray', dataArray);
+
+    if (isChecked) {
+      dataArray.push(new FormControl(authority.code));
+      // this.selectedAuthorities.push(authority.id);
+      this.newDisplayAuthority.push(authority);
+    } else {
+      const index = dataArray.controls.findIndex(x => x.value === authority.code);
+      dataArray.removeAt(index);
+      const i = this.newDisplayAuthority.findIndex(y => y.id === authority.id);
+      this.newDisplayAuthority.splice(i, 1);
+      // const j = this.selectedAuthorities.findIndex(y => y === authority.id);
+      // this.selectedAuthorities.splice(j, 1);
+    }
+  }
+
+
   submit() {
 
     if (this.predefined === 'true') {
@@ -208,6 +284,10 @@ export class RoleTablePopupComponent implements OnInit {
 
 
       // Add Authorities to selectedAuthorities array by selected Display Authorities -------------------------
+
+      // TEMPORARY : SET USER DISPLAY AUTH DEFAULT
+      this.newDisplayAuthority.push(this.userDisplayAuthority);
+
       this.newDisplayAuthority.forEach(newAuthority => {
         this.selectedAuthorities.push(newAuthority.id);
         this.allAuthority.forEach(section => {
@@ -229,7 +309,7 @@ export class RoleTablePopupComponent implements OnInit {
       });
       // ------------------------------------------------------------------------------------------------------
 
-
+      console.log('--------------------------- this.selectedAuthorities', this.selectedAuthorities);
 
     } else {
 
@@ -276,39 +356,6 @@ export class RoleTablePopupComponent implements OnInit {
     console.log(roleData);
 
     this.dialogRef.close(roleData);
-  }
-
-  onChangeUserRole(authority, isChecked: boolean) {
-    const dataArray = <FormArray>this.authoritiesFormGroup.controls.data;
-    // console.log('------------------------------------------ dataArray', dataArray);
-
-    if (isChecked) {
-      dataArray.push(new FormControl(authority.code));
-      this.selectedAuthorities.push(authority.id);
-    } else {
-      const index = dataArray.controls.findIndex(x => x.value === authority.code);
-      dataArray.removeAt(index);
-      const i = this.selectedAuthorities.findIndex(y => y === authority.id);
-      this.selectedAuthorities.splice(i, 1);
-    }
-  }
-
-  onChangeAdminRole(authority, isChecked: boolean) {
-    const dataArray = <FormArray>this.authoritiesFormGroup.controls.data;
-    // console.log('------------------------------------------ dataArray', dataArray);
-
-    if (isChecked) {
-      dataArray.push(new FormControl(authority.code));
-      // this.selectedAuthorities.push(authority.id);
-      this.newDisplayAuthority.push(authority);
-    } else {
-      const index = dataArray.controls.findIndex(x => x.value === authority.code);
-      dataArray.removeAt(index);
-      const i = this.newDisplayAuthority.findIndex(y => y.id === authority.id);
-      this.newDisplayAuthority.splice(i, 1);
-      // const j = this.selectedAuthorities.findIndex(y => y === authority.id);
-      // this.selectedAuthorities.splice(j, 1);
-    }
   }
 
 }

@@ -60,7 +60,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
           "Basic " + btoa(this.gloable_user + ":" + this.gloable_secret)
         )
       });
-      console.log('--------------------------------------- request', request);
+      console.log('--------------------------------------- AddHeaderInterceptor : request', request);
 
     } else {
 
@@ -68,7 +68,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
 
       if (token) {
         if (isTokenRequired) {
-          console.log('---------------------------- refreshToken in header', token);
+          console.log('---------------------------- AddHeaderInterceptor : refreshToken in header', token);
           request = request.clone({
             headers: request.headers.set("Authorization", "bearer " + token)
           });
@@ -95,7 +95,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
     return next
       .handle(this.checkPublicUrl(request.url) ? request : this.getRequest(request, this.authService.getAuthToken()))
       .catch(error => {
-        console.log("--------------------------- error", error);
+        console.log("--------------------------- AddHeaderInterceptor : error", error);
 
         if (error instanceof HttpErrorResponse) {
           switch ((<HttpErrorResponse>error).status) {
@@ -114,7 +114,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
 
   handle401Error(req: HttpRequest<any>, next: HttpHandler) {
 
-    console.log("------------------------- 01. handle401Error");
+    console.log("------------------------- AddHeaderInterceptor : 01. handle401Error");
     if (!this.isRefreshingToken) {
       this.isRefreshingToken = true;
 
@@ -125,20 +125,20 @@ export class AddHeaderInterceptor implements HttpInterceptor {
       return this.authService
         .getNewToken()
         .switchMap((newToken: string) => {
-          console.log("------------------------- 02. getNewToken");
+          console.log("------------------------- AddHeaderInterceptor : 02. getNewToken");
           if (newToken) {
-            console.log("------------------------- 03. newToken");
+            console.log("------------------------- AddHeaderInterceptor : 03. newToken");
             this.tokenSubject.next(newToken);
             return next
               .handle(this.getRequest(req, newToken))
               .catch(error => {
-                console.log("------------------------- 04. recallUrlError");
+                console.log("------------------------- AddHeaderInterceptor : 04. recallUrlError");
                 console.log(error);
                 return Observable.throw(error);
               });
           }
           // If we don't get a new token, we are in trouble so logout.
-          console.log("------------------------- If we don't get a new token, we are in trouble so logout.");
+          console.log("------------------------- AddHeaderInterceptor : If we don't get a new token, we are in trouble so logout.");
           return this.logoutUser();
         })
         .catch(error => {
@@ -146,7 +146,7 @@ export class AddHeaderInterceptor implements HttpInterceptor {
           if (error && error.url && error.error.error) {
             if (this.oauthTokenUrlValidate(error.url) && error.error.error !== 'access_denied') {
               // If there is an exception calling 'refreshToken', bad news so logout.
-              console.log("------------------------- If there is an exception calling 'refreshToken', bad news so logout.");
+              console.log("------------------------- AddHeaderInterceptor : If there is an exception calling 'refreshToken', bad news so logout.");
               return this.logoutUser();
             }
           }

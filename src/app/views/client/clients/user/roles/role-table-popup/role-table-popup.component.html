@@ -26,17 +26,30 @@
         <div fxFlex="100" class="pr-1">
             <mat-tab-group *ngIf="this.predefined !== 'true'">
                 <div *ngFor="let module of this.componentList; let i = index">
+
                     <mat-tab label="{{module.name}}" *ngIf="module.authorities.length !== 0">
-                        <form [formGroup]="authoritiesFormGroup">
-                            <div fxLayout="row" fxLayout.lt-sm="column" class="pt-2" fxLayoutWrap="wrap">
-                                <div fxFlex="50" class="pr-1" style="padding-top: 5px;"
-                                    *ngFor="let item of module.authorities">
-                                    <mat-checkbox [checked]="item.checked"
-                                        (change)="onChangeUserRole(item, $event.checked)" class="full-width"
-                                        value="{{item.code}}">{{item.name}}</mat-checkbox>
-                                </div>
+
+                        <div fxLayout="row" fxLayout.lt-sm="column" class="pt-2" fxLayoutWrap="wrap">
+                            <div fxFlex="50" class="pr-1" style="padding-top: 5px;">
+                                <mat-checkbox (change)="onChangeSelectAll(module.id, $event.checked)"
+                                    [indeterminate]="module.indeterminateState" [checked]="module.selectAll"
+                                    class="full-width">Select All</mat-checkbox>
                             </div>
-                        </form>
+                        </div>
+                        <mat-divider></mat-divider>
+
+                        <div class="user-role-custom-popup-body">
+                            <form [formGroup]="authoritiesFormGroup">
+                                <div fxLayout="row" fxLayout.lt-sm="column" class="pt-2" fxLayoutWrap="wrap">
+                                    <div fxFlex="50" class="pr-1" style="padding-top: 5px;"
+                                        *ngFor="let item of module.authorities">
+                                        <mat-checkbox [checked]="item.checked"
+                                            (change)="onChangeUserRole(item, $event.checked)" class="full-width"
+                                            value="{{item.code}}">{{item.name}}</mat-checkbox>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </mat-tab>
                 </div>
                 <!-- <div *ngFor="let module of this.componentList; let i = index">
