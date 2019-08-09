@@ -41,7 +41,7 @@
 
         <mat-form-field class="full-width">
           <input matInput [formControl]="itemForm.controls['product']" placeholder="Search Product" id="getProduct"
-            [matAutocomplete]="autoProduct" (focus)="selectedProduct($event)">
+            (keyup)="emptyProduct($event)" [matAutocomplete]="autoProduct">
           <mat-autocomplete autoActiveFirstOption #autoProduct="matAutocomplete" (optionSelected)="selectedProduct($event)"
             [displayWith]="displayFn">
             <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
@@ -53,7 +53,7 @@
 
 
         <mat-form-field *ngIf="noData && itemForm.controls['product'].value" class="full-width">
-          <input matInput [formControl]="itemForm.controls['countries']" placeholder="Search Country" (keyup)="doSomething($event)"
+          <input matInput [formControl]="itemForm.controls['countries']" placeholder="Search Country" (keyup)="emptyCountry($event)"
             [matAutocomplete]="auto">
           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selectedCountry($event)"
             [displayWith]="displayFn">
