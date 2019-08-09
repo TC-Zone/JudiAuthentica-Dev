@@ -24,13 +24,13 @@
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Description" [flexGrow]="1" [maxWidth]="500">
+      <ngx-datatable-column name="Description" [sortable]="false" [flexGrow]="1" [maxWidth]="500">
         <ng-template let-row="row" ngx-datatable-cell-template>
           {{ row?.description }}
         </ng-template>
       </ngx-datatable-column>
 
-      <ngx-datatable-column name="Status" [flexGrow]="1" [maxWidth]="150">
+      <ngx-datatable-column name="Status" [sortable]="false" [flexGrow]="1" [maxWidth]="150">
         <ng-template let-row="row" ngx-datatable-cell-template>
           <mat-chip mat-sm-chip color="{{statusArray[row?.status].style}}" [selected]="true">
             {{statusArray[row?.status].status}}</mat-chip>
@@ -38,7 +38,7 @@
       </ngx-datatable-column>
 
 
-      <ngx-datatable-column name="Actions" [flexGrow]="1" [maxWidth]="150">
+      <ngx-datatable-column name="Actions" [sortable]="false" [flexGrow]="1" [maxWidth]="150">
         <ng-template let-row="row" ngx-datatable-cell-template>
 
           <!-- <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="navigateUserTable(row)">

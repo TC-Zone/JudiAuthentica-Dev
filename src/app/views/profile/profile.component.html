@@ -8,8 +8,7 @@
         <div class="main-title">{{this.userDisplayName}}</div>
         <div class="subtitle mb-05">{{ currentUser.company }}</div>
         <div class="text-muted">
-          Hi {{this.userDisplayName}}! Hope you are doing great at
-          {{ currentUser.company }}
+          Welcome on Truverus! Hope you're doing good today
         </div>
       </div>
       <!-- <div class="profile-actions text-center mb-1">
@@ -37,15 +36,13 @@
             Profile Settings
           </mat-list-item>
           <mat-divider></mat-divider>
-          <mat-list-item routerLink="/profile/account-settings" routerLinkActive="list-item-active"
-            [roleAuthorization]="'isPredefined'">
+          <mat-list-item routerLink="/profile/account-settings" routerLinkActive="list-item-active" [roleAuthorization]="'isPredefined'">
             <mat-icon>work</mat-icon>
             Account Settings
           </mat-list-item>
           <mat-divider></mat-divider>
 
-          <mat-list-item routerLink="/profile/general-settings" routerLinkActive="list-item-active"
-            [roleAuthorization]="'isPredefined'">
+          <mat-list-item routerLink="/profile/general-settings" routerLinkActive="list-item-active" [roleAuthorization]="'isPredefined'">
             <mat-icon>settings</mat-icon>
             General Settings
           </mat-list-item>

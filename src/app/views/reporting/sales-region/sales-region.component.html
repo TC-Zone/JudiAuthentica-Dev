@@ -40,7 +40,8 @@
       <form class="example-form">
 
         <mat-form-field class="full-width">
-          <input matInput [formControl]="itemForm.controls['product']" placeholder="Search Product" [matAutocomplete]="autoProduct">
+          <input matInput [formControl]="itemForm.controls['product']" placeholder="Search Product" id="getProduct"
+            [matAutocomplete]="autoProduct" (focus)="selectedProduct($event)">
           <mat-autocomplete autoActiveFirstOption #autoProduct="matAutocomplete" (optionSelected)="selectedProduct($event)"
             [displayWith]="displayFn">
             <mat-option *ngFor="let product of filteredProducts | async" [value]="product">
@@ -49,8 +50,11 @@
           </mat-autocomplete>
         </mat-form-field>
 
-        <mat-form-field *ngIf="itemForm.controls['product'].value" class="full-width">
-          <input matInput [formControl]="itemForm.controls['countries']" placeholder="Search Country" [matAutocomplete]="auto">
+
+
+        <mat-form-field *ngIf="noData && itemForm.controls['product'].value" class="full-width">
+          <input matInput [formControl]="itemForm.controls['countries']" placeholder="Search Country" (keyup)="doSomething($event)"
+            [matAutocomplete]="auto">
           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="selectedCountry($event)"
             [displayWith]="displayFn">
             <mat-option *ngFor="let country of filteredCountry | async" [value]="country">
@@ -59,7 +63,8 @@
           </mat-autocomplete>
         </mat-form-field>
       </form>
-
+      <!-- {{noData}}
+      {{noDataSecond}} -->
 
     </mat-card>
   </div>
@@ -70,8 +75,15 @@
         <mat-divider></mat-divider>
       </mat-card-title>
       <mat-card-content>
-        <canvas class="chart" baseChart [data]="pieChartData" [labels]="pieChartLabels" [options]="doughnutOptions"
-          [colors]="pieChartColors" [chartType]="pieChartType" (chartHover)="pieChartHovered($event)" (chartClick)="pieChartClicked($event)"></canvas>
+        <canvas *ngIf="noData && noDataSecond" class="chart" baseChart [data]="pieChartData" [labels]="pieChartLabels"
+          [options]="doughnutOptions" [colors]="pieChartColors" [chartType]="pieChartType" (chartHover)="pieChartHovered($event)"
+          (chartClick)="pieChartClicked($event)"></canvas>
+        <div *ngIf="!noData" class="alert alert-warning" role="alert">
+          No sales identified for the selected product
+        </div>
+        <div *ngIf="!noDataSecond" class="alert alert-warning" role="alert">
+          No sales identified for the selected country
+        </div>
       </mat-card-content>
     </mat-card>
   </div>

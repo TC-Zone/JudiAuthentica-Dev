@@ -126,7 +126,7 @@ export class UserFeedbackComponent implements OnInit {
         };
         this.appInfoService.showInfo(infoData);
       } else {
-        const title = isNew ? "Create New Feedback" : "Update Feedback";
+        const title = isNew ? "Submit your feedback" : "Update Feedback";
         const dialogRef: MatDialogRef<any> = this.dialog.open(
           CreateFeedbackPopupComponent,
           {
