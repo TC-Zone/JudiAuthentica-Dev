@@ -47,7 +47,7 @@ export class ProfileSettingsComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.userId = this.currentUser.userData.id;
     this.buildItemForm(this.currentUser.userData);
-    
+
     // ---------------------------------- UserProfile -------------------------------
 
     this._interactionService.changeProfilePicture$.subscribe(
@@ -69,8 +69,8 @@ export class ProfileSettingsComponent implements OnInit {
 
     this.passwordSettingsForm = this.fb.group({
       currentPassword: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-      confirmPassword: new FormControl('', Validators.required)
+      password: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z\d$@$!%*?&].{5,}')]),
+      confirmPassword: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z\d$@$!%*?&].{5,}')])
     })
 
   }
@@ -161,8 +161,10 @@ export class ProfileSettingsComponent implements OnInit {
       response => {
         this.loader.close();
         this.snack.open("Password Updated!", "OK", { duration: 4000 });
+
       },
       error => {
+        console.log("------error", error.error);
         this.loader.close();
         this.errDialog.showError(error);
       }

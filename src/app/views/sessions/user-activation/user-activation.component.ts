@@ -23,7 +23,7 @@ export class UserActivationComponent implements OnInit {
     private authService: AuthenticationService,
     private snack: MatSnackBar,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -35,7 +35,7 @@ export class UserActivationComponent implements OnInit {
 
   buildActivationForm() {
     this.activationForm = new FormGroup({
-      password: new FormControl("", Validators.required)
+      password: new FormControl("", [Validators.required, Validators.pattern('[A-Za-z\d$@$!%*?&].{5,}')])
     });
   }
 

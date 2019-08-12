@@ -25,7 +25,7 @@ export interface errorSnack {
 
 @Injectable()
 export class AppErrorService {
-  constructor(private dialog: MatDialog, private snack: MatSnackBar) {}
+  constructor(private dialog: MatDialog, private snack: MatSnackBar) { }
 
   private showHttpError(error: ErrorData = {}): String {
     console.log("error status : " + error.status);
@@ -154,13 +154,13 @@ export class AppErrorService {
   }
 
   // open pop up window
-  private openPopUpWindow(title, message): any{
+  private openPopUpWindow(title, message): any {
     let dialogRef: MatDialogRef<AppErrorComponent>;
-      dialogRef = this.dialog.open(AppErrorComponent, {
-        width: '480px',
-        disableClose: false,
-        data: { title: title, message: message}
-      });
-      return dialogRef.afterClosed();
+    dialogRef = this.dialog.open(AppErrorComponent, {
+      width: '480px',
+      disableClose: false,
+      data: { title: title, message: message }
+    });
+    return dialogRef.afterClosed();
   }
 }
