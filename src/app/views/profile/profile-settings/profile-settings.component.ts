@@ -69,8 +69,8 @@ export class ProfileSettingsComponent implements OnInit {
 
     this.passwordSettingsForm = this.fb.group({
       currentPassword: new FormControl('', Validators.required),
-      password: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z\d$@$!%*?&].{5,}')]),
-      confirmPassword: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z\d$@$!%*?&].{5,}')])
+      password: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z\d$@$!%*?&].{7,}')]),
+      confirmPassword: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z\d$@$!%*?&].{7,}')])
     })
 
   }
@@ -160,6 +160,8 @@ export class ProfileSettingsComponent implements OnInit {
     this.profileService.updateUserPassword(req).subscribe(
       response => {
         this.loader.close();
+        this.passwordSettingsForm.reset();
+        this.checkConfirmPassword();
         this.snack.open("Password Updated!", "OK", { duration: 4000 });
 
       },

@@ -43,7 +43,7 @@ export class UserActivationComponent implements OnInit {
     console.log("CALLED activate");
     if (
       100 > this.activationForm.value.password.length &&
-      this.activationForm.value.password.length > 6
+      this.activationForm.value.password.length > 8
     ) {
       this.authService
         .activateUser(this.activationCode, this.activationForm.value)
@@ -72,7 +72,7 @@ export class UserActivationComponent implements OnInit {
           }
         );
     } else {
-      this.errorMsg = "The password must have more than 6 characters !";
+      this.errorMsg = "The password must have more than 8 characters !";
       this.result = true;
     }
   }
