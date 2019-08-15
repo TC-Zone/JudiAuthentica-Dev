@@ -39,7 +39,7 @@ export class UserTablePopupComponent implements OnInit {
     }
 
     this.itemForm = this.fb.group({
-      username: new FormControl(item.userName || '', Validators.required),
+      username: new FormControl(item.accountName || '', Validators.required),
       email: new FormControl(item.email || '', [Validators.required, Validators.email]),
       role: new FormControl(role, Validators.required),
       status: new FormControl(this.isActive)

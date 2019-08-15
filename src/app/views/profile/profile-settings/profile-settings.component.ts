@@ -159,11 +159,10 @@ export class ProfileSettingsComponent implements OnInit {
     const req: passwordUpdateReq = new passwordUpdateReq(this.userId, itemForm.currentPassword, itemForm.confirmPassword);
     this.profileService.updateUserPassword(req).subscribe(
       response => {
-        this.loader.close();
         this.snack.open("Password Updated!", "OK", { duration: 4000 });
       },
       error => {
-        this.loader.close();
+        console.log('------------------------- changePassword - error');
         this.errDialog.showError(error);
       }
     );

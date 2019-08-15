@@ -25,11 +25,38 @@ export class ClientService {
   getClients(): Observable<any> {
     return this.http.get(this.clientUrl).pipe(catchError(this.handleError));
   }
+
+  getClientsByFilter(name, pageSize, pageNumber): Observable<any> {
+    return this.http.get(
+      this.clientUrl +
+      "?name=" +
+      name +
+      "&pageNumber=" +
+      pageNumber +
+      "&pageSize=" +
+      pageSize
+    ).pipe(catchError(this.handleError));
+  }
+  getUsers(clientId, keyword, pageSize, pageNumber, isSuperAdmin): Observable<any> {
+    return this.http.get(
+      this.userUrl +
+      "?id=" +
+      clientId +
+      "&keyword=" +
+      keyword +
+      "&pageNumber=" +
+      pageNumber +
+      "&pageSize=" +
+      pageSize +
+      "&isSuperAdmin=" +
+      isSuperAdmin
+    ).pipe(catchError(this.handleError));
+  }
+  // getUsers(id): Observable<any> {
+  //   return this.http.get(this.clientUrl + "/" + id).pipe(catchError(this.handleError));
+  // }
   getClientsSuggestions(): Observable<any> {
     return this.http.get(this.clientUrl + "/suggestions").pipe(catchError(this.handleError));
-  }
-  getUsers(id): Observable<any> {
-    return this.http.get(this.clientUrl + "/" + id).pipe(catchError(this.handleError));
   }
   getRoles(): Observable<any> {
     return this.http.get(this.roleUrl + "/suggestions").pipe(catchError(this.handleError));
@@ -53,14 +80,14 @@ export class ClientService {
     return this.http.get(this.roleUrl + '/' + roleId).pipe(catchError(this.handleError));
   }
   getAdminAuthority(id): Observable<any> {
-    return this.http.get(this.roleUrl + "/authorities/"+id).pipe(catchError(this.handleError));
+    return this.http.get(this.roleUrl + "/authorities/" + id).pipe(catchError(this.handleError));
   }
   getClientCategories(id): Observable<any> {
     return this.http.get(this.clientUrl + "/categories/" + id).pipe(catchError(this.handleError));
   }
   // Service is accessed by two places - In Product creation popup , New User Creation
   getClientCommunities(id): Observable<any> {
-    return this.http.get(environment.userApiUrl + "communities/client/" + id+"/"+undefined).pipe(catchError(this.handleError));
+    return this.http.get(environment.userApiUrl + "communities/client/" + id + "/" + undefined).pipe(catchError(this.handleError));
   }
 
 
@@ -119,7 +146,7 @@ export class ClientService {
       .put<any>(this.userUrl + "/" + id, item)
       .pipe(catchError(this.handleError));
   }
-  
+
   deleteUser(id): Observable<any> {
     return this.http.delete(this.userUrl + "/" + id).pipe(catchError(this.handleError));
   }

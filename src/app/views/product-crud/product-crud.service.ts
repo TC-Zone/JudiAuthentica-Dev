@@ -55,19 +55,26 @@ export class ProductCrudService {
       .pipe(catchError(this.handleError));
   }
 
+
+  // "?name=" +
+  // keyword +
   // --------- BH ----------
-  getPageProducts(pageNumber, pageSize, clientId, categories): Observable<any> {
+  getPageProducts(keyword, pageNumber, pageSize, clientId, categories, predefined): Observable<any> {
     return this.http
       .get(
         this.productApiUrl +
-          "?pageNumber=" +
-          pageNumber +
-          "&pageSize=" +
-          pageSize +
-          "&clientId=" +
-          clientId +
-          "&categories=" +
-          categories
+        "?pageNumber=" +
+        pageNumber +
+        "&pageSize=" +
+        pageSize +
+        "&clientId=" +
+        clientId +
+        "&categories=" +
+        categories +
+        "&name=" +
+        keyword +
+        "&predefined=" +
+        predefined
       )
       .pipe(catchError(this.handleError));
   }
@@ -84,12 +91,12 @@ export class ProductCrudService {
     return this.http
       .get(
         this.productApiUrl +
-          "?clientId=" +
-          clientId +
-          "&categories=" +
-          categories +
-          "&predefined=" +
-          isPredefined
+        "?clientId=" +
+        clientId +
+        "&categories=" +
+        categories +
+        "&predefined=" +
+        isPredefined
       )
       .pipe(catchError(this.handleError));
   }

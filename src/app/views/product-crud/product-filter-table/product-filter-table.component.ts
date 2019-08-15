@@ -27,10 +27,11 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
   temp = [];
 
   // pagination
-  pageNumber = 1;
-  pageSize = 10;
-  totalPages = [];
-  totalRecords = 0;
+  public keyword = "";
+  public pageNumber = 1;
+  public pageSize = 10;
+  public totalPages = [];
+  public totalRecords = 0;
 
   public getProductsSub: Subscription;
   updatable: boolean;
@@ -58,7 +59,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
     this.clientId = userObj.userData.client.id;
     const predefinedStatus: boolean = userObj.userData.role.predefined;
     this.predefined = predefinedStatus ? "1" : "0";
-    this.getAllProduct(this.clientId, this.categories, this.predefined);
+    this.getPageProduct(this.pageNumber);
   }
 
   ngOnDestroy() {
@@ -68,7 +69,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
   }
 
   downloadCsv(selectedRow) {
-    console.log("SELECTED RAW : " + selectedRow.id);
+    console.log("------------------------------- ProductFilterTableComponent : SELECTED RAW : " + selectedRow.id);
     this.prodService
       .getProductDetails(selectedRow.id)
       .subscribe(successResp => {
@@ -87,59 +88,35 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
       });
   }
 
+
+  changeValue() {
+    this.pageNumber = 1;
+    this.getPageProduct(this.pageNumber);
+  }
+
   updateFilter(event) {
-    const val = event.target.value.toLowerCase();
-    let columns = Object.keys(this.temp[0]);
-    columns.splice(columns.length - 1);
-
-    if (!columns.length) return;
-
-    const rows = this.temp.filter(function (data) {
-      for (let i = 0; i <= columns.length; i++) {
-        let column = columns[i];
-        if (
-          data[column] &&
-          data[column]
-            .toString()
-            .toLowerCase()
-            .indexOf(val) > -1
-        ) {
-          return true;
-        }
-      }
-    });
-    this.rows = rows;
+    if (event.keyCode === 13) {
+      this.keyword = event.target.value.toLowerCase();
+      this.pageNumber = 1;
+      this.getPageProduct(this.pageNumber);
+    }
   }
 
-  getAllProduct(clientId, categories, isPredefined) {
-    let categoriesID = [];
+  getCategoryIDs(categories) {
+    let categoryIDs = [];
     categories.forEach(cat => {
-      categoriesID.push(cat.id);
+      categoryIDs.push(cat.id);
     });
-    this.getProductsSub = this.prodService
-      .getAllProductsByFilter(clientId, categoriesID, isPredefined)
-      .subscribe(
-        successResp => {
-          this.rows = this.temp = successResp.content;
-        },
-        error => {
-          this.loader.close();
-          this.errDialog.showError(error);
-        }
-      );
+    return categoryIDs
   }
 
-  getPageProduct(pageNumber, clientId, categories) {
-    console.log(categories);
+  getPageProduct(pageNumber) {
 
-    if (
-      pageNumber === 1 ||
-      (0 < pageNumber && pageNumber <= this.totalPages.length)
-    ) {
+    if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
       this.pageNumber = pageNumber;
 
       this.getProductsSub = this.prodService
-        .getPageProducts(pageNumber, this.pageSize, clientId, categories)
+        .getPageProducts(this.keyword, this.pageNumber, this.pageSize, this.clientId, this.getCategoryIDs(this.categories), this.predefined)
         .subscribe(
           successResp => {
             this.rows = this.temp = successResp.content;
@@ -156,18 +133,14 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
           },
           error => {
             this.loader.close();
-            console.log(error);
-            console.log(error.status);
+            console.log('------------------------------- ProductFilterTableComponent : error - ', error);
+            console.log('------------------------------- ProductFilterTableComponent : error.status - ', error.status);
             this.errDialog.showError(error);
           }
         );
     }
   }
 
-  changeValue() {
-    this.pageNumber = 1;
-    this.getPageProduct(this.pageNumber, this.clientId, this.categories);
-  }
 
   deleteProduct(row) {
     this.confirmService
@@ -177,11 +150,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
           this.loader.open();
           this.prodService.removeProduct(row, this.rows).subscribe(
             data => {
-              this.getAllProduct(
-                this.clientId,
-                this.categories,
-                this.predefined
-              );
+              this.getPageProduct(this.pageNumber);
               this.loader.close();
             },
             error => {
@@ -230,8 +199,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
       }
     );
 
-    console.log("RES data :");
-    console.log(data);
+    console.log("------------------------------- ProductFilterTableComponent : RES data - ", data);
 
     dialogRef.afterClosed().subscribe(res => {
       if (!res) {
@@ -240,8 +208,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
       }
       this.loader.open();
 
-      console.log("RES obj :");
-      console.log(res);
+      console.log("------------------------------- ProductFilterTableComponent : RES obj - ", res);
 
       //res.expireDate = moment(res.expireDate).format("YYYY-MM-DD");
 
@@ -270,7 +237,7 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
               .subscribe(data => {
                 this.rows = this.rows.map(i => {
                   if (i.id === data.content.id) {
-                    console.log("recent obj " + JSON.stringify(data.content));
+                    console.log("------------------------------- ProductFilterTableComponent : recent obj - " + JSON.stringify(data.content));
                     return Object.assign({}, i, data.content);
                   }
                   return i;

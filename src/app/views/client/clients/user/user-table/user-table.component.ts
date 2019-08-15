@@ -25,12 +25,19 @@ export class UserTableComponent implements OnInit {
   public users: any[];
   public roles: any[] = [];
   public statusArray = new GlobalVariable().common.matChip.userStatus;
-  public pageSize = 10;
   public clientId;
   public name;
   public url;
 
   public clientCategory;
+
+
+  // pagination
+  public keyword = '';
+  public pageNumber = 1;
+  public pageSize = 10;
+  public totalPages = [];
+  public totalRecords = 0;
 
   public getItemSub: Subscription;
   constructor(
@@ -48,7 +55,8 @@ export class UserTableComponent implements OnInit {
     const currentClient = JSON.parse(localStorage.getItem('currentClient'));
     if (currentClient) {
       this.clientId = currentClient.id;
-      this.getUsersByClient();
+      this.getClient();
+      this.getPageUser(this.pageNumber);
       this.getClientCategories();
     }
   }
@@ -59,12 +67,12 @@ export class UserTableComponent implements OnInit {
     }
   }
 
-  getUsersByClient() {
+  getClient() {
     this.getItemSub = this.clientService.getClient(this.clientId).subscribe(successResp => {
-      this.users = successResp.content.users;
-      this.users.forEach((item, index) => {
-        if (item.role.name === "Super Administrator") this.users.splice(index, 1);
-      });
+      // this.users = successResp.content.users;
+      // this.users.forEach((item, index) => {
+      //   if (item.role.name === "Super Administrator") this.users.splice(index, 1);
+      // });
       successResp.content.roles.forEach((item) => {
         this.roles.push(item);
       });
@@ -73,6 +81,51 @@ export class UserTableComponent implements OnInit {
         this.errDialog.showError(error);
       }
     );
+  }
+
+  getPageUser(pageNumber) {
+
+    if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
+      this.pageNumber = pageNumber;
+
+      this.clientService
+        .getUsers(this.clientId, this.keyword, this.pageSize, this.pageNumber, true)
+        .subscribe(
+          successResp => {
+            this.users = successResp.content;
+            let totalPages = successResp.pagination.totalPages;
+            let totalPagesArray = [];
+
+            if (totalPages > 1) {
+              for (let i = 1; i <= totalPages; i++) {
+                totalPagesArray.push(i);
+              }
+            }
+            this.totalPages = totalPagesArray;
+            this.totalRecords = successResp.pagination.totalRecords;
+          },
+          error => {
+            this.loader.close();
+            console.log('------------------------------- UserTableComponent : error - ', error);
+            console.log('------------------------------- UserTableComponent : error.status - ', error.status);
+            this.errDialog.showError(error);
+          }
+        );
+    }
+  }
+
+  
+  changeValue() {
+    this.pageNumber = 1;
+    this.getPageUser(this.pageNumber);
+  }
+
+  updateFilter(event) {
+    if (event.keyCode === 13) {
+      this.keyword = event.target.value.toLowerCase();
+      this.pageNumber = 1;
+      this.getPageUser(this.pageNumber);
+    }
   }
 
   // for get admin role ----------------------------------------------------------
@@ -166,7 +219,7 @@ export class UserTableComponent implements OnInit {
 
       this.clientService.addUser(req).subscribe(
         response => {
-          this.getUsersByClient();
+          this.getPageUser(this.pageNumber);
           this.loader.close();
           this.snack.open("New User added !", "OK", { duration: 4000 });
         },
@@ -200,7 +253,7 @@ export class UserTableComponent implements OnInit {
       this.loader.open();
       this.clientService.updateUser(data.id, req).subscribe(
         response => {
-          this.getUsersByClient();
+          this.getPageUser(this.pageNumber);
           this.loader.close();
           this.snack.open("User Updated!", "OK", { duration: 4000 });
         },
@@ -243,7 +296,7 @@ export class UserTableComponent implements OnInit {
       this.loader.open();
       this.clientService.updateUserCommunity(userId, req).subscribe(
         response => {
-          this.getUsersByClient();
+          this.getPageUser(this.pageNumber);
           this.loader.close();
           this.snack.open("User Community Updated!", "OK", { duration: 4000 });
         },
@@ -321,7 +374,10 @@ export class UserTableComponent implements OnInit {
           this.clientService.deleteUser(data.id).subscribe(
             successResp => {
               console.log(successResp.content);
-              this.getUsersByClient();
+              this.getPageUser(this.pageNumber);
+              this.snack.open("User Deleted!", "OK", {
+                duration: 4000
+              });
             },
             error => {
               this.errDialog.showError(error);

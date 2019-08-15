@@ -42,7 +42,13 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   public sections: any[];
   public statusArray = new GlobalVariable().common.matChip.clientStatus;
 
+
+  // pagination
+  public keyword = '';
+  public pageNumber = 1;
   public pageSize = 10;
+  public totalPages = [];
+  public totalRecords = 0;
 
   public getItemSub: Subscription;
   constructor(
@@ -57,7 +63,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   ngOnInit() {
     let currentuser = JSON.parse(localStorage.getItem('currentUser'));
     this.clientId = currentuser.userData.client.id;
-    this.getClients();
+    this.getPageClient(this.pageNumber);
     this.getCategory();
     this.getCountry();
     this.getDisplayAuthority();
@@ -69,15 +75,48 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  getClients() {
-    this.clientService.getClients().subscribe(
-      successResp => {
-        this.clients = successResp.content;
-      },
-      error => {
-        this.errDialog.showError(error);
-      }
-    );
+  getPageClient(pageNumber) {
+
+    if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
+      this.pageNumber = pageNumber;
+
+      this.clientService
+        .getClientsByFilter(this.keyword, this.pageSize, this.pageNumber)
+        .subscribe(
+          successResp => {
+            this.clients = successResp.content;
+            let totalPages = successResp.pagination.totalPages;
+            let totalPagesArray = [];
+
+            if (totalPages > 1) {
+              for (let i = 1; i <= totalPages; i++) {
+                totalPagesArray.push(i);
+              }
+            }
+            this.totalPages = totalPagesArray;
+            this.totalRecords = successResp.pagination.totalRecords;
+          },
+          error => {
+            this.loader.close();
+            console.log('------------------------------- ClentTableComponent : error - ', error);
+            console.log('------------------------------- ClentTableComponent : error.status - ', error.status);
+            this.errDialog.showError(error);
+          }
+        );
+    }
+  }
+
+  changeValue() {
+    this.pageNumber = 1;
+    this.getPageClient(this.pageNumber);
+  }
+
+  updateFilter(event) {
+    if (event.keyCode === 13) {
+      this.keyword = event.target.value.toLowerCase();
+      this.pageNumber = 1;
+      this.getPageClient(this.pageNumber);
+    }
   }
 
   getCategory() {
@@ -153,7 +192,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
           this.clientService.updateClient(data.id, req).subscribe(
             response => {
-              this.getClients();
+              this.getPageClient(this.pageNumber);
               this.loader.close();
               this.snack.open("Client Updated!", "OK", { duration: 4000 });
             },
@@ -224,7 +263,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
       this.clientService.addClient(req).subscribe(
         response => {
-          this.getClients();
+          this.getPageClient(this.pageNumber);
           this.clients = response;
           this.loader.close();
           this.snack.open("New Client added !", "OK", { duration: 4000 });
@@ -348,7 +387,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
             .updateClientLicense(resClient.license.id, req)
             .subscribe(
               response => {
-                this.getClients();
+                this.getPageClient(this.pageNumber);
                 this.clients = response;
                 this.loader.close();
                 this.snack.open("License Data Updated !", "OK", {
@@ -372,7 +411,10 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     this.clientService.updateClientStatus(data.id).subscribe(
       successResp => {
         console.log(successResp.content);
-        this.getClients();
+        this.snack.open("Client Status Successfully Updated !", "OK", {
+          duration: 4000
+        });
+        this.getPageClient(this.pageNumber);
       },
       error => {
         this.errDialog.showError(error);

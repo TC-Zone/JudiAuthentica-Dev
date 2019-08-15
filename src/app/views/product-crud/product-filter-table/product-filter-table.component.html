@@ -1,79 +1,23 @@
 <!-- -------- JA Sprint 1 - MVP -------- -->
 <!-- --------- Buddhi Hasanka ---------- -->
 
-
-<mat-form-field class="margin-333" style="width: 99%">
-  <input matInput placeholder="Type to filter all columns" value="" (keyup)='updateFilter($event)'>
-</mat-form-field>
-
-<div class="m-333">
-  <p class="mat-select-lable"> Page Size: </p>
-  <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()" placeholder="Favorite food">
-    <mat-option [value]="10">10</mat-option>
-    <mat-option [value]="20">20</mat-option>
-  </mat-select>
-  <span fxFlex></span>
-  <button mat-raised-button class="mb-05" (click)="handleNewProductSave()" color="accent">Add Product</button>
-
-</div>
-
-
-<mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+<mat-card class="p-10" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
   <mat-card-content class="p-0">
-    <!-- <ngx-datatable class="material bg-white" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'"
-      [limit]="10" [rows]="rows" [columns]="">
 
-      <ngx-datatable-column name="Product Code" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.code }}
-        </ng-template>
-      </ngx-datatable-column>
+    <mat-form-field class="margin-333" style="width: 99%">
+      <input matInput placeholder="Search by name..." value="" (keyup)='updateFilter($event)'>
+    </mat-form-field>
 
-      <ngx-datatable-column name="Product Name" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.name }}
-        </ng-template>
-      </ngx-datatable-column>
-
-      <ngx-datatable-column name="Description" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.description }}
-        </ng-template>
-      </ngx-datatable-column>
-
-      <ngx-datatable-column name="Batch Number" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.batchNumber }}
-        </ng-template>
-      </ngx-datatable-column>
-
-      <ngx-datatable-column name="Quantity" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.quantity }}
-        </ng-template>
-      </ngx-datatable-column>
-
-      <ngx-datatable-column name="Expire Date" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          {{ row?.expireDate }}
-        </ng-template>
-      </ngx-datatable-column>
-
-      <ngx-datatable-column name="Actions" [flexGrow]="1">
-        <ng-template let-row="row" ngx-datatable-cell-template>
-          <button mat-icon-button mat-sm-button color="primary" class="mr-1" (click)="openProductPopup(row)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button mat-sm-button color="warn" class="mr-1" (click)="deleteProduct(row)">
-            <mat-icon>delete</mat-icon>
-          </button>
-          <button mat-icon-button mat-sm-button (click)="downloadCsv(row)">
-            <mat-icon>file_download</mat-icon>
-          </button>
-        </ng-template>
-      </ngx-datatable-column>
-    </ngx-datatable> -->
-
+    <div class="m-333">
+      <p class="mat-select-lable"> Page Size: </p>
+      <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()"
+        placeholder="Favorite food">
+        <mat-option [value]="10">10</mat-option>
+        <mat-option [value]="20">20</mat-option>
+      </mat-select>
+      <span fxFlex></span>
+      <button mat-raised-button class="mb-05" (click)="handleNewProductSave()" color="accent">Add Product</button>
+    </div>
 
     <table class="table table-hover">
       <thead>
@@ -87,51 +31,34 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of rows;">
-          <td class="pt-1 pb-1">{{ row?.name }}</td>
-          <td class="pt-1 pb-1">{{ row?.description }}</td>
-          <td class="pt-1 pb-1 text-cente">{{ row?.batchNumber }}</td>
-          <td class="pt-1 pb-1">{{ row?.quantity }}</td>
-          <td class="pt-1 pb-1">{{ row?.expireDate }}</td>
-          <td class="pt-1 pb-1">
-            <!-- <div class="pb-1">
-              <div class="col-lg-4 col-sm-4 col-xs-4">
-                <button mat-icon-button mat-sm-button color="primary" class="" (click)="openProductPopup(row)">
-                  <mat-icon>edit</mat-icon>
+          <tr *ngFor="let row of rows;">
+              <td class="pt-1 pb-1">{{ row?.name }}</td>
+              <td class="pt-1 pb-1">{{ row?.description }}</td>
+              <td class="pt-1 pb-1 text-cente">{{ row?.batchNumber }}</td>
+              <td class="pt-1 pb-1">{{ row?.quantity }}</td>
+              <td class="pt-1 pb-1">{{ row?.expireDate }}</td>
+              <td class="pt-1 pb-1">
+    
+                <button class="card-control" mat-icon-button [matMenuTriggerFor]="menu">
+                  <mat-icon>more_vert</mat-icon>
                 </button>
-              </div>
-              <div class="col-lg-4 col-sm-4 col-xs-4">
-                <button mat-icon-button mat-sm-button color="warn" class="" (click)="deleteProduct(row)">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </div>
-              <div class="col-lg-4 col-sm-4 col-xs-4">
-                <button mat-icon-button mat-sm-button (click)="downloadCsv(row)">
-                  <mat-icon>file_download</mat-icon>
-                </button>
-              </div>
-            </div> -->
-
-            <button class="card-control" mat-icon-button [matMenuTriggerFor]="menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item (click)="openProductPopup(row)">
-                <mat-icon>edit</mat-icon>Edit
-              </button>
-
-              <button mat-menu-item color="warn" (click)="deleteProduct(row)">
-                <mat-icon>delete</mat-icon>Delete
-              </button>
-
-              <button mat-menu-item (click)="downloadCsv(row)">
-                <mat-icon>file_download</mat-icon>Download CSV
-              </button>
-            </mat-menu>
-
-          </td>
-        </tr>
+    
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="openProductPopup(row)">
+                    <mat-icon>edit</mat-icon>Edit
+                  </button>
+    
+                  <button mat-menu-item color="warn" (click)="deleteProduct(row)">
+                    <mat-icon>delete</mat-icon>Delete
+                  </button>
+    
+                  <button mat-menu-item (click)="downloadCsv(row)">
+                    <mat-icon>file_download</mat-icon>Download CSV
+                  </button>
+                </mat-menu>
+    
+              </td>
+            </tr>
       </tbody>
       <tfoot>
         <tr>
@@ -142,18 +69,18 @@
             <nav aria-label="Page navigation example">
               <ul class="pagination" *ngIf="totalPages.length > 1">
                 <li class="page-item" [ngClass]="{'disabled':pageNumber <= 1}">
-                  <a class="page-link" (click)="this.getPageProduct(pageNumber-1);" aria-label="Previous">
+                  <a class="page-link" (click)="this.getPageClient(pageNumber-1);" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
                   </a>
                 </li>
                 <li class="page-item" *ngFor="let page of totalPages" [ngClass]="{'active':pageNumber === page}">
-                  <a class="page-link" (click)="this.getPageProduct(page);">
+                  <a class="page-link" (click)="this.getPageClient(page);">
                     {{page}}
                   </a>
                 </li>
                 <li class="page-item" [ngClass]="{'disabled':pageNumber >= totalPages.length}">
-                  <a class="page-link" (click)="this.getPageProduct(pageNumber+1);" aria-label="Next">
+                  <a class="page-link" (click)="this.getPageClient(pageNumber+1);" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                     <span class="sr-only">Next</span>
                   </a>

@@ -149,6 +149,8 @@ export class AddHeaderInterceptor implements HttpInterceptor {
               console.log("------------------------- AddHeaderInterceptor : If there is an exception calling 'refreshToken', bad news so logout.");
               return this.logoutUser();
             }
+          } else {
+            return Observable.throw(error);
           }
         })
         .finally(() => {

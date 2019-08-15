@@ -1,4 +1,4 @@
-<mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+<!-- <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
   <mat-card-title>
 
     <div class="m-333 mt-3">
@@ -78,4 +78,111 @@
     </ngx-datatable>
 
   </mat-card-content>
+</mat-card> -->
+
+
+<mat-card class="p-10" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+  <mat-card-content class="p-0">
+
+    <mat-form-field class="margin-333" style="width: 99%">
+      <input matInput placeholder="Search..." value="" (keyup)='updateFilter($event)'>
+    </mat-form-field>
+
+    <div class="m-333">
+      <p class="mat-select-lable"> Page Size: </p>
+      <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()">
+        <mat-option [value]="10">10</mat-option>
+        <mat-option [value]="20">20</mat-option>
+      </mat-select>
+      <span fxFlex></span>
+      <button mat-raised-button class="mb-05" (click)="openUserCreatePopup()" color="accent"
+        [roleAuthorization]="'pu-c'">Add User</button>
+    </div>
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th class="pl-1" width="80px"></th>
+          <th class="pl-1">Name</th>
+          <th>Email</th>
+          <th width="180px">Role</th>
+          <th>Status</th>
+          <th width="150px" class="">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of users;">
+          <td class="pt-1 pb-1">
+            <img mat-list-avatar class="" src="assets/images/face-1.jpg" alt=""
+              style="flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+          </td>
+          <td class="pt-1 pb-1">{{ row?.accountName }}</td>
+          <td class="pt-1 pb-1">{{ row?.email }}</td>
+          <td class="pt-1 pb-1">
+            <mat-chip mat-sm-chip color="primary" [selected]="true">{{row?.role.name}}</mat-chip>
+          </td>
+          <td class="pt-1 pb-1">
+            <mat-chip mat-sm-chip color="{{statusArray[row?.status].style}}" selected>{{statusArray[row?.status].display}}</mat-chip>
+          </td>
+          <td class="pt-1 pb-1">
+
+            <button class="card-control" mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="openEditPopUp(row)" [roleAuthorization]="'pu-u'">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item (click)="openCommunityPopUp(row)" [roleAuthorization]="'puc-u'">
+                <mat-icon>assignment_ind</mat-icon>
+                <span>Community</span>
+              </button>
+              <button mat-menu-item (click)="openCategoryPopUp(row)" [roleAuthorization]="'pucat-u'">
+                <mat-icon>assistant</mat-icon>
+                <span>Category</span>
+              </button>
+              <button mat-menu-item *ngIf="row?.status !== 'DELETED'" (click)="removeUser(row)" [roleAuthorization]="'pu-d'">
+                <mat-icon>delete</mat-icon>Delete
+              </button>
+            </mat-menu>
+
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="pt-1 pb-1 pl-1">
+            <div class="pagination">{{totalRecords}} Total</div>
+          </td>
+          <td colspan="7">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination" *ngIf="totalPages.length > 1">
+                <li class="page-item" [ngClass]="{'disabled':pageNumber <= 1}">
+                  <a class="page-link" (click)="this.getPageClient(pageNumber-1);" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <li class="page-item" *ngFor="let page of totalPages" [ngClass]="{'active':pageNumber === page}">
+                  <a class="page-link" (click)="this.getPageClient(page);">
+                    {{page}}
+                  </a>
+                </li>
+                <li class="page-item" [ngClass]="{'disabled':pageNumber >= totalPages.length}">
+                  <a class="page-link" (click)="this.getPageClient(pageNumber+1);" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+  </mat-card-content>
+
 </mat-card>
