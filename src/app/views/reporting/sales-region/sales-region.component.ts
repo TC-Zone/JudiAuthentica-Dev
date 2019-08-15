@@ -156,12 +156,12 @@ export class SalesRegionComponent implements OnInit {
         this.pieChartData.forEach(element => {
 
           if (element !== '') {
-            // this.noData = true;
+
             this.noDataSecond = true;
             this.pieChartColors = [{ backgroundColor: this.backgroundColor }];
           }
           else {
-            // this.noData = true;
+
             this.noDataSecond = false;
           }
         });
@@ -184,13 +184,36 @@ export class SalesRegionComponent implements OnInit {
     return value ? value.name : value;
   }
 
-  doSomething(event) {
-    console.log(event);
+  emptyCountry(event) {
     if (event) {
       if (event.target.value === null || event.target.value === "") {
-        console.log("-----------  empty");
-        var myPlayer = document.getElementById("getProduct");
-        myPlayer.click();
+
+        this.noData = true;
+
+        this.pieChartLabels.length = 0;
+        this.pieChartData.length = 0;
+
+        this.proObj.country.forEach(element => {
+          this.pieChartLabels.push(element.name);
+          this.pieChartData.push(element.sale);
+          this.backgroundColor.push(this.getRandomColor());
+        });
+        this.pieChartColors = [{ backgroundColor: this.backgroundColor }];
+      }
+    }
+  }
+
+  emptyProduct(event) {
+    console.log(event);
+
+    if (event) {
+      if (event.target.value === null || event.target.value === "") {
+        this.noDataSecond = true;
+
+        this.pieChartLabels.length = 0;
+        this.pieChartData.length = 0;
+        this.chartupdate.chart.update();
+
       }
     }
   }

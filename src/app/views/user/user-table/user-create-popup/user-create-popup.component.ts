@@ -72,10 +72,10 @@ export class UserCreatePopupComponent implements OnInit {
     //   email: new FormControl(''),
     //   role: new FormControl('')
     // });
-    
+
     this.userFormGroup = this.fb.group({
       username: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
+      password: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z\d$@$!%*?&].{7,}')]),
       email: new FormControl('', [Validators.required, Validators.email]),
       role: new FormControl('', Validators.required)
     });
@@ -89,6 +89,7 @@ export class UserCreatePopupComponent implements OnInit {
 
   submit() {
     let forms = [this.userFormGroup.value, this.selectedCategories, this.selectedCommunities];
+    this.userFormGroup.reset();
     this.dialogRef.close(forms);
   }
 

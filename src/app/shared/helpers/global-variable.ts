@@ -51,7 +51,7 @@ export class GlobalVariable {
       confirmPasswordStatus: {
         // false : { id: 0, value: "Passwords do not match!", style: "primary" },
         false: { id: 0, value: "Passwords Mismatch!", style: "custom-text-red" },
-        true: { id: 1, value: "Password OK!", style: "custom-text-green" }
+        true: { id: 1, value: "Password Matches!", style: "custom-text-green" }
       },
     }
 

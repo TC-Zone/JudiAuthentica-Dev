@@ -47,7 +47,7 @@ export class ProfileSettingsComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.userId = this.currentUser.userData.id;
     this.buildItemForm(this.currentUser.userData);
-    
+
     // ---------------------------------- UserProfile -------------------------------
 
     this._interactionService.changeProfilePicture$.subscribe(
@@ -69,8 +69,8 @@ export class ProfileSettingsComponent implements OnInit {
 
     this.passwordSettingsForm = this.fb.group({
       currentPassword: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-      confirmPassword: new FormControl('', Validators.required)
+      password: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z\d$@$!%*?&].{7,}')]),
+      confirmPassword: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z\d$@$!%*?&].{7,}')])
     })
 
   }
@@ -159,10 +159,13 @@ export class ProfileSettingsComponent implements OnInit {
     const req: passwordUpdateReq = new passwordUpdateReq(this.userId, itemForm.currentPassword, itemForm.confirmPassword);
     this.profileService.updateUserPassword(req).subscribe(
       response => {
+        this.passwordSettingsForm.reset();
+        this.checkConfirmPassword();
         this.snack.open("Password Updated!", "OK", { duration: 4000 });
+
       },
       error => {
-        console.log('------------------------- changePassword - error');
+        console.log("------error", error.error);
         this.errDialog.showError(error);
       }
     );

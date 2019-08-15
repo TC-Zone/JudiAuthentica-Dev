@@ -29,21 +29,20 @@
             <div fxFlex="100" class="pr-1">
               <mat-form-field class="full-width">
                 <input matInput name="password" type="password" [formControl]="passwordSettingsForm.controls['currentPassword']"
-                  positiveNumberAndLetterOnly placeholder="Current Password">
+                  placeholder="Current Password">
               </mat-form-field>
             </div>
             <div fxFlex="100" class="pr-1">
               <mat-form-field class="full-width">
                 <input matInput name="password" type="password" [formControl]="passwordSettingsForm.controls['password']"
-                  positiveNumberAndLetterOnly placeholder="Password" (keyup)=checkConfirmPassword()>
+                  placeholder="Password (Minimum 8 Characters)" (keyup)=checkConfirmPassword()>
               </mat-form-field>
             </div>
             <div fxFlex="100" class="pr-1 mb-3">
               <mat-form-field class="full-width">
                 <input matInput name="confirmPassword" type="password" [formControl]="passwordSettingsForm.controls['confirmPassword']"
-                  positiveNumberAndLetterOnly placeholder="Confirm Password" (keyup)=checkConfirmPassword()>
+                  placeholder="Confirm Password" (keyup)=checkConfirmPassword()>
               </mat-form-field>
-
               <span class="input-bottom-msg"><span *ngIf="passwordStatus !== null" class="{{statusArray[passwordStatus].style}}">{{statusArray[passwordStatus].value}}</span></span>
             </div>
           </div>
