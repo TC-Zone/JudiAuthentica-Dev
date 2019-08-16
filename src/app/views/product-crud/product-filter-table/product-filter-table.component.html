@@ -10,8 +10,7 @@
 
     <div class="m-333">
       <p class="mat-select-lable"> Page Size: </p>
-      <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()"
-        placeholder="Favorite food">
+      <mat-select class="mat-raised-select" [(value)]="pageSize" (selectionChange)="changeValue()" placeholder="Favorite food">
         <mat-option [value]="10">10</mat-option>
         <mat-option [value]="20">20</mat-option>
       </mat-select>
@@ -31,41 +30,41 @@
         </tr>
       </thead>
       <tbody>
-          <tr *ngFor="let row of rows;">
-              <td class="pt-1 pb-1">{{ row?.name }}</td>
-              <td class="pt-1 pb-1">{{ row?.description }}</td>
-              <td class="pt-1 pb-1 text-cente">{{ row?.batchNumber }}</td>
-              <td class="pt-1 pb-1">{{ row?.quantity }}</td>
-              <td class="pt-1 pb-1">{{ row?.expireDate }}</td>
-              <td class="pt-1 pb-1">
-    
-                <button class="card-control" mat-icon-button [matMenuTriggerFor]="menu">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-    
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="openProductPopup(row)">
-                    <mat-icon>edit</mat-icon>Edit
-                  </button>
-    
-                  <button mat-menu-item color="warn" (click)="deleteProduct(row)">
-                    <mat-icon>delete</mat-icon>Delete
-                  </button>
-    
-                  <button mat-menu-item (click)="downloadCsv(row)">
-                    <mat-icon>file_download</mat-icon>Download CSV
-                  </button>
-                </mat-menu>
-    
-              </td>
-            </tr>
+        <tr *ngFor="let row of rows;">
+          <td class="pt-1 pb-1">{{ row?.name }}</td>
+          <td class="pt-1 pb-1">{{ row?.description }}</td>
+          <td class="pt-1 pb-1 text-cente">{{ row?.batchNumber }}</td>
+          <td class="pt-1 pb-1">{{ row?.quantity }}</td>
+          <td class="pt-1 pb-1">{{ row?.expireDate }}</td>
+          <td class="pt-1 pb-1">
+
+            <button class="card-control" mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="openProductPopup(row)">
+                <mat-icon>edit</mat-icon>Edit
+              </button>
+
+              <button mat-menu-item color="warn" (click)="deleteProduct(row)">
+                <mat-icon>delete</mat-icon>Delete
+              </button>
+
+              <button mat-menu-item (click)="downloadCsv(row)">
+                <mat-icon>file_download</mat-icon>Download CSV
+              </button>
+            </mat-menu>
+
+          </td>
+        </tr>
       </tbody>
       <tfoot>
         <tr>
-          <td class="pt-1 pb-1 pl-1">
+          <td class="pt-1 pb-1 pl-1" style="width:5%">
             <div class="pagination">{{totalRecords}} Total</div>
           </td>
-          <td colspan="7">
+          <td colspan="7" style="width:95%">
             <nav aria-label="Page navigation example">
               <ul class="pagination" *ngIf="totalPages.length > 1">
                 <li class="page-item" [ngClass]="{'disabled':pageNumber <= 1}">
