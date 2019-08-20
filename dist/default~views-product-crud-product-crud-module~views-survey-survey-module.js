@@ -42,9 +42,7 @@ var ProductCrudService = /** @class */ (function () {
         console.log("URL : " + this.productApiUrl);
     }
     ProductCrudService.prototype.updateProduct = function (id, item) {
-        return this.http
-            .put(this.productApiUrl + id, item)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+        return this.http.put(this.productApiUrl + id, item).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
     ProductCrudService.prototype.addProduct = function (productObj, items) {
         return this.http.post(this.productApiUrl, productObj).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["map"])(function (response) {
@@ -65,8 +63,10 @@ var ProductCrudService = /** @class */ (function () {
             .get(this.productApiUrl + "suggestions")
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
+    // "?name=" +
+    // keyword +
     // --------- BH ----------
-    ProductCrudService.prototype.getPageProducts = function (pageNumber, pageSize, clientId, categories) {
+    ProductCrudService.prototype.getPageProducts = function (keyword, pageNumber, pageSize, clientId, categories, predefined) {
         return this.http
             .get(this.productApiUrl +
             "?pageNumber=" +
@@ -76,7 +76,11 @@ var ProductCrudService = /** @class */ (function () {
             "&clientId=" +
             clientId +
             "&categories=" +
-            categories)
+            categories +
+            "&name=" +
+            keyword +
+            "&predefined=" +
+            predefined)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
     // --------- BH ----------

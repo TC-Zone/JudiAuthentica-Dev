@@ -8,15 +8,6 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./views/app-calendar/app-calendar.module": [
-		"./src/app/views/app-calendar/app-calendar.module.ts",
-		"common",
-		"views-app-calendar-app-calendar-module"
-	],
-	"./views/app-inbox/app-inbox.module": [
-		"./src/app/views/app-inbox/app-inbox.module.ts",
-		"views-app-inbox-app-inbox-module"
-	],
 	"./views/client/client.module": [
 		"./src/app/views/client/client.module.ts",
 		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
@@ -27,7 +18,7 @@ var map = {
 	"./views/community/community.module": [
 		"./src/app/views/community/community.module.ts",
 		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
-		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~51e1eb5e",
 		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
 		"default~views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-mo~490929b2",
 		"common",
@@ -36,25 +27,28 @@ var map = {
 	"./views/evote/evote.module": [
 		"./src/app/views/evote/evote.module.ts",
 		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
-		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~51e1eb5e",
 		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
 		"default~views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-mo~490929b2",
+		"default~views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-int~e28357a9",
 		"common",
 		"views-evote-evote-module"
 	],
 	"./views/future-survey/future-survey.module": [
 		"./src/app/views/future-survey/future-survey.module.ts",
 		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
-		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~51e1eb5e",
 		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
+		"default~views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-int~e28357a9",
 		"default~views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~view~e575ea12",
 		"common"
 	],
 	"./views/interaction-view/interaction-view.module": [
 		"./src/app/views/interaction-view/interaction-view.module.ts",
 		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
-		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~51e1eb5e",
 		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
+		"default~views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-int~e28357a9",
 		"default~views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~view~e575ea12",
 		"common",
 		"views-interaction-view-interaction-view-module"
@@ -62,8 +56,9 @@ var map = {
 	"./views/invitee-interaction-view/invitee-interaction-view.module": [
 		"./src/app/views/invitee-interaction-view/invitee-interaction-view.module.ts",
 		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
-		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~51e1eb5e",
 		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
+		"default~views-evote-evote-module~views-future-survey-future-survey-module~views-interaction-view-int~e28357a9",
 		"default~views-future-survey-future-survey-module~views-interaction-view-interaction-view-module~view~e575ea12",
 		"common",
 		"views-invitee-interaction-view-invitee-interaction-view-module"
@@ -71,7 +66,7 @@ var map = {
 	"./views/product-crud/product-crud.module": [
 		"./src/app/views/product-crud/product-crud.module.ts",
 		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
-		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~51e1eb5e",
 		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
 		"default~views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-mo~490929b2",
 		"default~views-product-crud-product-crud-module~views-survey-survey-module",
@@ -81,10 +76,18 @@ var map = {
 	"./views/profile/profile.module": [
 		"./src/app/views/profile/profile.module.ts",
 		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
-		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~51e1eb5e",
 		"default~views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-mo~490929b2",
+		"default~views-profile-profile-module~views-reporting-reporting-module",
 		"common",
 		"views-profile-profile-module"
+	],
+	"./views/reporting/reporting.module": [
+		"./src/app/views/reporting/reporting.module.ts",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~51e1eb5e",
+		"default~views-profile-profile-module~views-reporting-reporting-module",
+		"common",
+		"views-reporting-reporting-module"
 	],
 	"./views/sessions/sessions.module": [
 		"./src/app/views/sessions/sessions.module.ts",
@@ -93,7 +96,7 @@ var map = {
 	"./views/survey/survey.module": [
 		"./src/app/views/survey/survey.module.ts",
 		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
-		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~ffc200bd",
+		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~51e1eb5e",
 		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
 		"default~views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
@@ -170,6 +173,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./shared/services/auth/auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _shared_services_app_profile_interaction_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./shared/services/app-profile/interaction.service */ "./src/app/shared/services/app-profile/interaction.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -191,8 +195,10 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 
 
 
+
 var AppComponent = /** @class */ (function () {
-    function AppComponent(title, router, activeRoute, routePartsService, themeService, renderer, userService, document) {
+    function AppComponent(title, router, activeRoute, routePartsService, themeService, renderer, userService, _interactionService, document) {
+        var _this = this;
         this.title = title;
         this.router = router;
         this.activeRoute = activeRoute;
@@ -200,15 +206,43 @@ var AppComponent = /** @class */ (function () {
         this.themeService = themeService;
         this.renderer = renderer;
         this.userService = userService;
+        this._interactionService = _interactionService;
         this.document = document;
         this.appTitle = "CP Authentica";
         this.pageTitle = "";
+        this.updateProfile = true;
+        this.updateProfileImageUrls = ['/profile/profile-settings', '/profile/account-settings', '/profile/general-settings'];
+        this.updateProfileImageBlackListUrls = ['/sessions/signin'];
+        this.router.events.subscribe(function (ev) {
+            if (ev instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"]) {
+                var url = _this.router.url;
+                console.log('---------------------------------- AppComponent : APP COMPONENT - ', url);
+                // if (localStorage.getItem("currentUser") && this.loggedUserBlackListUrls.indexOf(url) === 0) {
+                //   this.router.navigate(["/profile/profile-settings"]);
+                // }
+                if (_this.updateProfile && _this.updateProfileImageBlackListUrls.indexOf(url) < 0) {
+                    _this.changeProfilePicture();
+                    console.log('---------------------------------- AppComponent : UPDATE PROFILE PICTURE - FIRST TIME ');
+                }
+                else if (_this.updateProfileImageUrls.indexOf(url) >= 0) {
+                    _this.changeProfilePicture();
+                    console.log('---------------------------------- AppComponent : UPDATE PROFILE PICTURE ');
+                }
+            }
+        });
     }
     AppComponent.prototype.ngOnInit = function () {
         this.changePageTitle();
     };
     AppComponent.prototype.ngAfterViewInit = function () {
         this.themeService.applyMatTheme(this.renderer);
+    };
+    AppComponent.prototype.changeProfilePicture = function () {
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (this.currentUser !== null && this.currentUser.id !== null) {
+            this._interactionService.changeProfilePicture(this.currentUser.id);
+            this.updateProfile = false;
+        }
     };
     AppComponent.prototype.changePageTitle = function () {
         var _this = this;
@@ -239,7 +273,7 @@ var AppComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
         }),
-        __param(7, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_common__WEBPACK_IMPORTED_MODULE_8__["DOCUMENT"])),
+        __param(8, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_common__WEBPACK_IMPORTED_MODULE_8__["DOCUMENT"])),
         __metadata("design:paramtypes", [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["Title"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
             _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
@@ -247,6 +281,7 @@ var AppComponent = /** @class */ (function () {
             _shared_services_theme_service__WEBPACK_IMPORTED_MODULE_4__["ThemeService"],
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"],
             _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_6__["AuthenticationService"],
+            _shared_services_app_profile_interaction_service__WEBPACK_IMPORTED_MODULE_9__["InteractionService"],
             Document])
     ], AppComponent);
     return AppComponent;
@@ -280,12 +315,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ngx-translate/http-loader */ "./node_modules/@ngx-translate/http-loader/esm5/ngx-translate-http-loader.js");
 /* harmony import */ var _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _shared_services_auth_add_header_interceptor__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./shared/services/auth/add-header-interceptor */ "./src/app/shared/services/auth/add-header-interceptor.ts");
+/* harmony import */ var _shared_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./shared/services/auth/auth.guard */ "./src/app/shared/services/auth/auth.guard.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -329,6 +366,7 @@ var AppModule = /** @class */ (function () {
                 // ANGULAR MATERIAL SLIDER FIX
                 { provide: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["HAMMER_GESTURE_CONFIG"], useClass: _angular_material__WEBPACK_IMPORTED_MODULE_4__["GestureConfig"] },
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HTTP_INTERCEPTORS"], useClass: _shared_services_auth_add_header_interceptor__WEBPACK_IMPORTED_MODULE_12__["AddHeaderInterceptor"], multi: true },
+                { provide: _shared_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_13__["AuthGuard"], useClass: _shared_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_13__["AuthGuard"] },
                 _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_11__["AuthenticationService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
@@ -397,18 +435,19 @@ var rootRouterConfig = [
             {
                 path: "profile",
                 loadChildren: "./views/profile/profile.module#ProfileModule",
-                data: { title: "Profile", breadcrumb: "PROFILE" }
+                data: { title: "Profile", breadcrumb: "PROFILE" },
             },
-            {
-                path: "inbox",
-                loadChildren: "./views/app-inbox/app-inbox.module#AppInboxModule",
-                data: { title: "Inbox", breadcrumb: "INBOX" }
-            },
-            {
-                path: "calendar",
-                loadChildren: "./views/app-calendar/app-calendar.module#AppCalendarModule",
-                data: { title: "Calendar", breadcrumb: "CALENDAR" }
-            },
+            // {
+            //   path: "inbox",
+            //   loadChildren: "./views/app-inbox/app-inbox.module#AppInboxModule",
+            //   data: { title: "Inbox", breadcrumb: "INBOX" }
+            // },
+            // {
+            //   path: "calendar",
+            //   loadChildren:
+            //     "./views/app-calendar/app-calendar.module#AppCalendarModule",
+            //   data: { title: "Calendar", breadcrumb: "CALENDAR" }
+            // },
             {
                 path: "users",
                 loadChildren: "./views/user/user.module#UserModule",
@@ -417,12 +456,12 @@ var rootRouterConfig = [
             {
                 path: "clients",
                 loadChildren: "./views/client/client.module#ClientModule",
-                data: { title: "Clients", breadcrumb: "Client" }
+                data: { title: "Clients", breadcrumb: "Client" },
             },
             {
                 path: "productCrud",
                 loadChildren: "./views/product-crud/product-crud.module#ProductCrudModule",
-                data: { title: "Product Catalogue", breadcrumb: "" }
+                data: { title: "Product Catalogue", breadcrumb: "" },
             },
             {
                 path: "surveys",
@@ -443,6 +482,11 @@ var rootRouterConfig = [
                 path: "community",
                 loadChildren: "./views/community/community.module#CommunityModule",
                 data: { title: "Community", breadcrumb: "Community" }
+            },
+            {
+                path: "reporting",
+                loadChildren: "./views/reporting/reporting.module#ReportingModule",
+                data: { title: "Reporting", breadcrumb: "Reporting" },
             }
         ]
     },
@@ -897,7 +941,7 @@ module.exports = "<div id=\"app-customizer\">\r\n  <div class=\"handle\" *ngIf=\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "#app-customizer {\n  position: fixed;\n  z-index: 100;\n  bottom: 16px;\n  right: 24px; }\n  #app-customizer .handle {\n    float: right; }\n  #app-customizer .mat-card-content {\n    padding: 1rem 1.5rem 2rem; }\n  .pos-rel {\n  position: relative;\n  z-index: 99; }\n  .pos-rel .olay {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background: rgba(255, 255, 255, 0.5);\n    z-index: 100; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbXBvbmVudHMvY3VzdG9taXplci9EOlxcQ2xlYXJQaWN0dXJlXFxDUCBab25lXFxUQ19hdXRoZW50aWNhX2RldlxcSnVkaUF1dGhlbnRpY2EtRGV2L3NyY1xcYXBwXFxzaGFyZWRcXGNvbXBvbmVudHNcXGN1c3RvbWl6ZXJcXGN1c3RvbWl6ZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxlQUFlO0VBQ2YsWUFBWTtFQUNaLFlBQVk7RUFDWixXQUFXLEVBQUE7RUFKYjtJQU1JLFlBQVksRUFBQTtFQU5oQjtJQVNJLHlCQUF5QixFQUFBO0VBRzdCO0VBQ0Usa0JBQWtCO0VBQ2xCLFdBQVcsRUFBQTtFQUZiO0lBSUksa0JBQWtCO0lBQ2xCLFdBQVc7SUFDWCxZQUFZO0lBQ1osb0NBQW1DO0lBQ25DLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL2N1c3RvbWl6ZXIvY3VzdG9taXplci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIiNhcHAtY3VzdG9taXplciB7XHJcbiAgcG9zaXRpb246IGZpeGVkO1xyXG4gIHotaW5kZXg6IDEwMDtcclxuICBib3R0b206IDE2cHg7XHJcbiAgcmlnaHQ6IDI0cHg7XHJcbiAgLmhhbmRsZSB7XHJcbiAgICBmbG9hdDogcmlnaHQ7XHJcbiAgfVxyXG4gIC5tYXQtY2FyZC1jb250ZW50ICB7XHJcbiAgICBwYWRkaW5nOiAxcmVtIDEuNXJlbSAycmVtO1xyXG4gIH1cclxufVxyXG4ucG9zLXJlbCB7XHJcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gIHotaW5kZXg6IDk5O1xyXG4gIC5vbGF5IHtcclxuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgYmFja2dyb3VuZDogcmdiYSgyNTUsIDI1NSwgMjU1LCAuNSk7XHJcbiAgICB6LWluZGV4OiAxMDA7XHJcbiAgfVxyXG59Il19 */"
+module.exports = "#app-customizer {\n  position: fixed;\n  z-index: 100;\n  bottom: 16px;\n  right: 24px; }\n  #app-customizer .handle {\n    float: right; }\n  #app-customizer .mat-card-content {\n    padding: 1rem 1.5rem 2rem; }\n  .pos-rel {\n  position: relative;\n  z-index: 99; }\n  .pos-rel .olay {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    background: rgba(255, 255, 255, 0.5);\n    z-index: 100; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL2NvbXBvbmVudHMvY3VzdG9taXplci9EOlxcQ2xlYXJQaWN0dXJlXFxDUCBab25lXFxjcF9hdXRoZW50aWNhX2RldlxcRGV2LUp1ZGlBdXRoZW50aWNhLURldlxcSnVkaUF1dGhlbnRpY2EtRGV2L3NyY1xcYXBwXFxzaGFyZWRcXGNvbXBvbmVudHNcXGN1c3RvbWl6ZXJcXGN1c3RvbWl6ZXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxlQUFlO0VBQ2YsWUFBWTtFQUNaLFlBQVk7RUFDWixXQUFXLEVBQUE7RUFKYjtJQU1JLFlBQVksRUFBQTtFQU5oQjtJQVNJLHlCQUF5QixFQUFBO0VBRzdCO0VBQ0Usa0JBQWtCO0VBQ2xCLFdBQVcsRUFBQTtFQUZiO0lBSUksa0JBQWtCO0lBQ2xCLFdBQVc7SUFDWCxZQUFZO0lBQ1osb0NBQW1DO0lBQ25DLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL3NoYXJlZC9jb21wb25lbnRzL2N1c3RvbWl6ZXIvY3VzdG9taXplci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIiNhcHAtY3VzdG9taXplciB7XHJcbiAgcG9zaXRpb246IGZpeGVkO1xyXG4gIHotaW5kZXg6IDEwMDtcclxuICBib3R0b206IDE2cHg7XHJcbiAgcmlnaHQ6IDI0cHg7XHJcbiAgLmhhbmRsZSB7XHJcbiAgICBmbG9hdDogcmlnaHQ7XHJcbiAgfVxyXG4gIC5tYXQtY2FyZC1jb250ZW50ICB7XHJcbiAgICBwYWRkaW5nOiAxcmVtIDEuNXJlbSAycmVtO1xyXG4gIH1cclxufVxyXG4ucG9zLXJlbCB7XHJcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gIHotaW5kZXg6IDk5O1xyXG4gIC5vbGF5IHtcclxuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgYmFja2dyb3VuZDogcmdiYSgyNTUsIDI1NSwgMjU1LCAuNSk7XHJcbiAgICB6LWluZGV4OiAxMDA7XHJcbiAgfVxyXG59Il19 */"
 
 /***/ }),
 
@@ -1000,6 +1044,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../views/sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _helpers_local_storage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../helpers/local-storage */ "./src/app/shared/helpers/local-storage.ts");
+/* harmony import */ var app_shared_services_app_profile_interaction_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! app/shared/services/app-profile/interaction.service */ "./src/app/shared/services/app-profile/interaction.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1026,9 +1071,10 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var HeaderSideComponent = /** @class */ (function (_super) {
     __extends(HeaderSideComponent, _super);
-    function HeaderSideComponent(themeService, layout, translate, renderer, authService, router) {
+    function HeaderSideComponent(themeService, layout, translate, renderer, authService, router, _interactionService) {
         var _this = _super.call(this) || this;
         _this.themeService = themeService;
         _this.layout = layout;
@@ -1036,6 +1082,7 @@ var HeaderSideComponent = /** @class */ (function (_super) {
         _this.renderer = renderer;
         _this.authService = authService;
         _this.router = router;
+        _this._interactionService = _interactionService;
         _this.currentLang = "en";
         _this.availableLangs = [
             {
@@ -1050,9 +1097,17 @@ var HeaderSideComponent = /** @class */ (function (_super) {
         return _this;
     }
     HeaderSideComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.egretThemes = this.themeService.egretThemes;
         this.layoutConf = this.layout.layoutConf;
         this.translate.use(this.currentLang);
+        // ---------------------------------- UserProfile -------------------------------
+        this.currentuser = JSON.parse(localStorage.getItem('currentUser'));
+        this.userId = this.currentuser.userData.id;
+        this._interactionService.changeProfilePicture$.subscribe(function (url) {
+            _this.profileImg = url;
+        });
+        // ------------------------------------------------------------------------------
     };
     HeaderSideComponent.prototype.setLang = function (e) {
         console.log(e);
@@ -1110,7 +1165,8 @@ var HeaderSideComponent = /** @class */ (function (_super) {
             _ngx_translate_core__WEBPACK_IMPORTED_MODULE_3__["TranslateService"],
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["Renderer2"],
             _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
+            app_shared_services_app_profile_interaction_service__WEBPACK_IMPORTED_MODULE_7__["InteractionService"]])
     ], HeaderSideComponent);
     return HeaderSideComponent;
 }(_helpers_local_storage__WEBPACK_IMPORTED_MODULE_6__["LocalStorageHandler"]));
@@ -1126,7 +1182,7 @@ var HeaderSideComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'compact'\" mat-icon-button id=\"sidenavToggle\" (click)=\"toggleSidenav()\"\r\n    matTooltip=\"Toggle Hide/Open\">\r\n    <mat-icon>menu</mat-icon>\r\n  </button>\r\n  <!-- Sidenav toggle collapse -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'closed'\" mat-icon-button id=\"collapseToggle\" fxHide.lt-md=\"true\"\r\n    (click)=\"toggleCollapse()\" matTooltip=\"Toggle Collapse\" class=\"toggle-collapsed\">\r\n    <mat-icon>chevron_left</mat-icon>\r\n  </button>\r\n  <!-- Search form -->\r\n  <!-- <div\r\n  fxFlex\r\n  fxHide.lt-sm=\"true\"\r\n  class=\"search-bar\">\r\n    <form class=\"top-search-form\">\r\n      <mat-icon role=\"img\">search</mat-icon>\r\n      <input autofocus=\"true\" placeholder=\"Search\" type=\"text\">\r\n    </form>\r\n  </div> -->\r\n  <span fxFlex></span>\r\n  <!-- Language Switcher -->\r\n  <!-- <mat-select\r\n  placeholder=\"\"\r\n  id=\"langToggle\"\r\n  [style.width]=\"'auto'\"\r\n  name=\"currentLang\"\r\n  [(ngModel)]=\"currentLang\"\r\n  (selectionChange)=\"setLang($event)\">\r\n    <mat-option\r\n    *ngFor=\"let lang of availableLangs\"\r\n    [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n  </mat-select> -->\r\n  <!-- Theme Switcher -->\r\n  <button mat-icon-button id=\"schemeToggle\" [style.overflow]=\"'visible'\" matTooltip=\"Color Schemes\"\r\n    [matMenuTriggerFor]=\"themeMenu\" class=\"topbar-button-right\">\r\n    <mat-icon>format_color_fill</mat-icon>\r\n  </button>\r\n  <mat-menu #themeMenu=\"matMenu\">\r\n    <mat-grid-list class=\"theme-list\" cols=\"2\" rowHeight=\"48px\">\r\n      <mat-grid-tile *ngFor=\"let theme of egretThemes\" (click)=\"changeTheme(theme)\">\r\n        <div mat-menu-item [title]=\"theme.name\">\r\n          <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n          <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n        </div>\r\n      </mat-grid-tile>\r\n    </mat-grid-list>\r\n  </mat-menu>\r\n  <!-- Notification toggle button -->\r\n  <button mat-icon-button matTooltip=\"Notifications\" (click)=\"toggleNotific()\" [style.overflow]=\"'visible'\"\r\n    class=\"topbar-button-right\">\r\n    <mat-icon>notifications</mat-icon>\r\n    <span class=\"notification-number mat-bg-warn\">3</span>\r\n  </button>\r\n  <!-- Top left user menu -->\r\n  <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right img-button\">\r\n    <img src=\"{{currentUser.image}}\" alt=\"\">\r\n  </button>\r\n  <mat-menu #accountMenu=\"matMenu\">\r\n    <button mat-menu-item [routerLink]=\"['/profile/profile-settings']\">\r\n      <mat-icon>portrait</mat-icon>\r\n      <span>Profile Settings</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/account-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n      <mat-icon>work</mat-icon>\r\n      <span>Account Settings</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/general-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n      <mat-icon>settings</mat-icon>\r\n      <span>General Settings</span>\r\n    </button>\r\n    <!-- <button mat-menu-item>\r\n      <mat-icon>notifications_off</mat-icon>\r\n      <span>Disable alerts</span>\r\n    </button> -->\r\n    <a mat-menu-item href=\"sessions/signin\" (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </a>\r\n    <!-- <button mat-menu-item (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </button> -->\r\n  </mat-menu>\r\n</mat-toolbar>"
+module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'compact'\" mat-icon-button id=\"sidenavToggle\" (click)=\"toggleSidenav()\"\r\n    matTooltip=\"Hide/Show Side Bar\">\r\n    <mat-icon>menu</mat-icon>\r\n  </button>\r\n  <!-- Sidenav toggle collapse -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'closed'\" mat-icon-button id=\"collapseToggle\" fxHide.lt-md=\"true\" (click)=\"toggleCollapse()\"\r\n    matTooltip=\"Minimize/Maximize Side Bar\" class=\"toggle-collapsed\">\r\n    <mat-icon>chevron_left</mat-icon>\r\n  </button>\r\n  <!-- Search form -->\r\n  <!-- <div\r\n  fxFlex\r\n  fxHide.lt-sm=\"true\"\r\n  class=\"search-bar\">\r\n    <form class=\"top-search-form\">\r\n      <mat-icon role=\"img\">search</mat-icon>\r\n      <input autofocus=\"true\" placeholder=\"Search\" type=\"text\">\r\n    </form>\r\n  </div> -->\r\n  <span fxFlex></span>\r\n  <!-- Language Switcher -->\r\n  <!-- <mat-select\r\n  placeholder=\"\"\r\n  id=\"langToggle\"\r\n  [style.width]=\"'auto'\"\r\n  name=\"currentLang\"\r\n  [(ngModel)]=\"currentLang\"\r\n  (selectionChange)=\"setLang($event)\">\r\n    <mat-option\r\n    *ngFor=\"let lang of availableLangs\"\r\n    [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n  </mat-select> -->\r\n  <!-- Theme Switcher -->\r\n\r\n  <!------------------------------------- those are unnecessary for now--------------------------------------->\r\n  <!-- <button mat-icon-button id=\"schemeToggle\" [style.overflow]=\"'visible'\" matTooltip=\"Color Schemes\" [matMenuTriggerFor]=\"themeMenu\"\r\n    class=\"topbar-button-right\">\r\n    <mat-icon>format_color_fill</mat-icon>\r\n  </button>\r\n  <mat-menu #themeMenu=\"matMenu\">\r\n    <mat-grid-list class=\"theme-list\" cols=\"2\" rowHeight=\"48px\">\r\n      <mat-grid-tile *ngFor=\"let theme of egretThemes\" (click)=\"changeTheme(theme)\">\r\n        <div mat-menu-item [title]=\"theme.name\">\r\n          <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n          <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n        </div>\r\n      </mat-grid-tile>\r\n    </mat-grid-list>\r\n  </mat-menu> -->\r\n  <!-- Notification toggle button -->\r\n  <!-- <button mat-icon-button matTooltip=\"Notifications\" (click)=\"toggleNotific()\" [style.overflow]=\"'visible'\" class=\"topbar-button-right\">\r\n    <mat-icon>notifications</mat-icon>\r\n    <span class=\"notification-number mat-bg-warn\">3</span>\r\n  </button> -->\r\n  <!------------------------------------- those are unnecessary for now--------------------------------------->\r\n\r\n  <!-- Top left user menu -->\r\n  <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right img-button\">\r\n    <img src=\"{{this.profileImg}}\" alt=\"\">\r\n    <!-- <img src=\"{{this.authService.imgBaseURL + '/user/' + this.userId}}\" alt=\"\"> -->\r\n  </button>\r\n  <mat-menu #accountMenu=\"matMenu\">\r\n    <button mat-menu-item [routerLink]=\"['/profile/profile-settings']\">\r\n      <mat-icon>portrait</mat-icon>\r\n      <span>Profile Settings</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/account-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n      <mat-icon>work</mat-icon>\r\n      <span>Account Settings</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/general-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n      <mat-icon>settings</mat-icon>\r\n      <span>General Settings</span>\r\n    </button>\r\n    <!-- <button mat-menu-item>\r\n      <mat-icon>notifications_off</mat-icon>\r\n      <span>Disable alerts</span>\r\n    </button> -->\r\n    <a mat-menu-item href=\"sessions/signin\" (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </a>\r\n    <!-- <button mat-menu-item (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </button> -->\r\n  </mat-menu>\r\n</mat-toolbar>"
 
 /***/ }),
 
@@ -1137,7 +1193,7 @@ module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header-topnav mat-elevation-z2\">\r\n  <div class=\"container\">\r\n    <div class=\"topnav\">\r\n      <!-- App Logo -->\r\n      <div class=\"topbar-branding\">\r\n        <!-- <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\"> -->\r\n        <img src=\"assets/images/truverus/TruVerus_Logo_short.png\" alt=\"\" class=\"app-logo\">\r\n      </div>\r\n\r\n      <ul class=\"menu\" *ngIf=\"!layoutConf.isMobile\">\r\n        <li *ngFor=\"let item of menuItems; let i = index;\">\r\n          <div *ngIf=\"item.type !== 'separator'\" routerLinkActive=\"open\">\r\n            <a matRipple routerLink=\"/{{item.state}}\" *ngIf=\"item.type === 'link'\">\r\n              <mat-icon>{{item.icon}}</mat-icon>\r\n              {{item.name | translate}}\r\n            </a>\r\n            <div *ngIf=\"item.type === 'dropDown'\">\r\n              <label matRipple for=\"drop-{{i}}\" class=\"toggle\"><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</label>\r\n              <a matRipple><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</a>\r\n              <input type=\"checkbox\" id=\"drop-{{i}}\" />\r\n              <ul>\r\n                <li *ngFor=\"let itemLvL2 of item.sub; let j = index;\" routerLinkActive=\"open\">\r\n                  <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\"\r\n                  *ngIf=\"itemLvL2.type !== 'dropDown'\">\r\n                    <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>\r\n                    {{itemLvL2.name | translate}}\r\n                  </a>\r\n\r\n                  <div *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n                    <label matRipple for=\"drop-{{i}}{{j}}\" class=\"toggle\">{{itemLvL2.name | translate}}</label>\r\n                    <a matRipple><mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>  {{itemLvL2.name | translate}}</a>\r\n                    <input type=\"checkbox\" id=\"drop-{{i}}{{j}}\" />\r\n                    <!-- Level 3 -->\r\n                    <ul>\r\n                      <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" routerLinkActive=\"open\">\r\n                        <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\">\r\n                          <mat-icon *ngIf=\"itemLvL3.icon\">{{itemLvL3.icon}}</mat-icon>\r\n                          {{itemLvL3.name | translate}}\r\n                        </a>\r\n                      </li>\r\n                    </ul>\r\n                  </div>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n      <span fxFlex></span>\r\n      <!-- End Navigation -->\r\n\r\n      <!-- Language Switcher -->\r\n      <mat-select\r\n      *ngIf=\"!layoutConf.isMobile\"\r\n      placeholder=\"\"\r\n      id=\"langToggle\"\r\n      [style.width]=\"'auto'\"\r\n      name=\"currentLang\"\r\n      [(ngModel)]=\"currentLang\"\r\n      (selectionChange)=\"setLang()\"\r\n      class=\"topbar-button-right\">\r\n        <mat-option\r\n        *ngFor=\"let lang of availableLangs\"\r\n        [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n      </mat-select>\r\n      <!-- Theme Switcher -->\r\n      <button\r\n      mat-icon-button\r\n      id=\"schemeToggle\"\r\n      [style.overflow]=\"'visible'\"\r\n      matTooltip=\"Color Schemes\"\r\n      [matMenuTriggerFor]=\"themeMenu\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>format_color_fill</mat-icon>\r\n      </button>\r\n      <mat-menu #themeMenu=\"matMenu\">\r\n        <mat-grid-list\r\n        class=\"theme-list\"\r\n        cols=\"2\"\r\n        rowHeight=\"48px\">\r\n          <mat-grid-tile\r\n          *ngFor=\"let theme of egretThemes\"\r\n          (click)=\"changeTheme(theme)\">\r\n            <div mat-menu-item [title]=\"theme.name\">\r\n              <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n              <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </mat-menu>\r\n      <!-- Notification toggle button -->\r\n      <button\r\n      mat-icon-button\r\n      matTooltip=\"Notifications\"\r\n      (click)=\"toggleNotific()\"\r\n      [style.overflow]=\"'visible'\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>notifications</mat-icon>\r\n        <span class=\"notification-number mat-bg-warn\">3</span>\r\n      </button>\r\n      <!-- Top left user menu -->\r\n      <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right mr-1 img-button\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </button>\r\n      <mat-menu #accountMenu=\"matMenu\">\r\n        <button mat-menu-item [routerLink]=\"['/profile/profile-settings']\">\r\n          <mat-icon>portrait</mat-icon>\r\n          <span>Profile Settings</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/account-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n          <mat-icon>work</mat-icon>\r\n          <span>Account Settings</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/general-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n          <mat-icon>settings</mat-icon>\r\n          <span>General Settings</span>\r\n        </button>\r\n        <!-- <button mat-menu-item>\r\n          <mat-icon>notifications_off</mat-icon>\r\n          <span>Disable alerts</span>\r\n        </button> -->\r\n        <button mat-menu-item (click)=\"signOut()\" >\r\n          <mat-icon>exit_to_app</mat-icon>\r\n          <span>Sign out</span>\r\n        </button>\r\n      </mat-menu>\r\n      <!-- Mobile screen menu toggle -->\r\n      <button\r\n      mat-icon-button\r\n      class=\"mr-1\"\r\n      (click)=\"toggleSidenav()\"\r\n      *ngIf=\"layoutConf.isMobile\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"header-topnav mat-elevation-z2\">\r\n  <div class=\"container\">\r\n    <div class=\"topnav\">\r\n      <!-- App Logo -->\r\n      <div class=\"topbar-branding\">\r\n        <!-- <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\"> -->\r\n        <img src=\"assets/images/truverus/TruVerus_Logo_short.png\" alt=\"\" class=\"app-logo\">\r\n      </div>\r\n\r\n      <ul class=\"menu\" *ngIf=\"!layoutConf.isMobile\">\r\n        <li *ngFor=\"let item of menuItems; let i = index;\">\r\n          <div *ngIf=\"item.type !== 'separator'\" routerLinkActive=\"open\">\r\n            <a matRipple routerLink=\"/{{item.state}}\" *ngIf=\"item.type === 'link'\">\r\n              <mat-icon>{{item.icon}}</mat-icon>\r\n              {{item.name | translate}}\r\n            </a>\r\n            <div *ngIf=\"item.type === 'dropDown'\">\r\n              <label matRipple for=\"drop-{{i}}\" class=\"toggle\">\r\n                <mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}\r\n              </label>\r\n              <a matRipple>\r\n                <mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}\r\n              </a>\r\n              <input type=\"checkbox\" id=\"drop-{{i}}\" />\r\n              <ul>\r\n                <li *ngFor=\"let itemLvL2 of item.sub; let j = index;\" routerLinkActive=\"open\">\r\n                  <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\" *ngIf=\"itemLvL2.type !== 'dropDown'\">\r\n                    <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>\r\n                    {{itemLvL2.name | translate}}\r\n                  </a>\r\n\r\n                  <div *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n                    <label matRipple for=\"drop-{{i}}{{j}}\" class=\"toggle\">{{itemLvL2.name | translate}}</label>\r\n                    <a matRipple>\r\n                      <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon> {{itemLvL2.name | translate}}\r\n                    </a>\r\n                    <input type=\"checkbox\" id=\"drop-{{i}}{{j}}\" />\r\n                    <!-- Level 3 -->\r\n                    <ul>\r\n                      <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" routerLinkActive=\"open\">\r\n                        <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\">\r\n                          <mat-icon *ngIf=\"itemLvL3.icon\">{{itemLvL3.icon}}</mat-icon>\r\n                          {{itemLvL3.name | translate}}\r\n                        </a>\r\n                      </li>\r\n                    </ul>\r\n                  </div>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n      <span fxFlex></span>\r\n      <!-- End Navigation -->\r\n      <!------------------------------------- those are unnecessary for now--------------------------------------->\r\n      <!-- Language Switcher -->\r\n      <!-- <mat-select\r\n      *ngIf=\"!layoutConf.isMobile\"\r\n      placeholder=\"\"\r\n      id=\"langToggle\"\r\n      [style.width]=\"'auto'\"\r\n      name=\"currentLang\"\r\n      [(ngModel)]=\"currentLang\"\r\n      (selectionChange)=\"setLang()\"\r\n      class=\"topbar-button-right\">\r\n        <mat-option\r\n        *ngFor=\"let lang of availableLangs\"\r\n        [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n      </mat-select> -->\r\n      <!-- Theme Switcher -->\r\n      <!-- <button\r\n      mat-icon-button\r\n      id=\"schemeToggle\"\r\n      [style.overflow]=\"'visible'\"\r\n      matTooltip=\"Color Schemes\"\r\n      [matMenuTriggerFor]=\"themeMenu\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>format_color_fill</mat-icon>\r\n      </button>\r\n      <mat-menu #themeMenu=\"matMenu\">\r\n        <mat-grid-list\r\n        class=\"theme-list\"\r\n        cols=\"2\"\r\n        rowHeight=\"48px\">\r\n          <mat-grid-tile\r\n          *ngFor=\"let theme of egretThemes\"\r\n          (click)=\"changeTheme(theme)\">\r\n            <div mat-menu-item [title]=\"theme.name\">\r\n              <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n              <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </mat-menu> -->\r\n      <!-- Notification toggle button -->\r\n      <!-- <button\r\n      mat-icon-button\r\n      matTooltip=\"Notifications\"\r\n      (click)=\"toggleNotific()\"\r\n      [style.overflow]=\"'visible'\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>notifications</mat-icon>\r\n        <span class=\"notification-number mat-bg-warn\">3</span>\r\n      </button> -->\r\n      <!------------------------------------- those are unnecessary for now--------------------------------------->\r\n      <!-- Top left user menu -->\r\n      <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right mr-1 img-button\">\r\n        <!-- <img src=\"{{currentUser.image}}\" alt=\"\"> -->\r\n        <img src=\"{{this.authService.imgBaseURL + '/user/' + this.userId}}\" alt=\"\">\r\n      </button>\r\n      <mat-menu #accountMenu=\"matMenu\">\r\n        <button mat-menu-item [routerLink]=\"['/profile/profile-settings']\">\r\n          <mat-icon>portrait</mat-icon>\r\n          <span>Profile Settings</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/account-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n          <mat-icon>work</mat-icon>\r\n          <span>Account Settings</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/general-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n          <mat-icon>settings</mat-icon>\r\n          <span>General Settings</span>\r\n        </button>\r\n        <!-- <button mat-menu-item>\r\n          <mat-icon>notifications_off</mat-icon>\r\n          <span>Disable alerts</span>\r\n        </button> -->\r\n        <button mat-menu-item (click)=\"signOut()\">\r\n          <mat-icon>exit_to_app</mat-icon>\r\n          <span>Sign out</span>\r\n        </button>\r\n      </mat-menu>\r\n      <!-- Mobile screen menu toggle -->\r\n      <button mat-icon-button class=\"mr-1\" (click)=\"toggleSidenav()\" *ngIf=\"layoutConf.isMobile\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1232,6 +1288,10 @@ var HeaderTopComponent = /** @class */ (function (_super) {
             });
             _this.menuItems = mainItems;
         });
+        // ----------------------------- UserProfileImage -------------------------------
+        this.currentuser = JSON.parse(localStorage.getItem('currentUser'));
+        this.userId = this.currentuser.userData.id;
+        // ------------------------------------------------------------------------------
     };
     HeaderTopComponent.prototype.ngOnDestroy = function () {
         this.menuItemSub.unsubscribe();
@@ -1595,7 +1655,7 @@ var NotificationsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sidebar-panel\">\r\n  <div id=\"scroll-area\" class=\"navigation-hold\" fxLayout=\"column\">\r\n\r\n    <!-- App Logo -->\r\n    <!-- <div class=\"branding default-bg\"> -->\r\n    <div class=\"default-bg\">\r\n\r\n      <!-- <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\"> -->\r\n      <!-- Two different logos for dark and light themes -->\r\n      <!-- <img src=\"assets/images/clear-picture-logo.png\" alt=\"\" class=\"app-logo-text\"\r\n        *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\"> -->\r\n      <!-- <img src=\"assets/images/cp_logo_text.png\" alt=\"\" class=\"app-logo-text\"\r\n          *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n\r\n      <img *ngIf=\"layoutConf.sidebarStyle === 'compact'\" src=\"assets/images/truverus/TruVerus_Logo_short.png\" alt=\"\" class=\"app-logo\">\r\n      <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\">\r\n      <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\">\r\n      \r\n      \r\n      \r\n      <!-- <img src=\"https://about.canva.com/wp-content/uploads/sites/3/2015/01/concert_poster.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"https://www.acurax.com/wp-content/themes/acuraxsite/images/inner_page_bnr.jpg?x21789\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"https://marketplace.canva.com/MACq6ALcZxM/1/0/thumbnail_large/canva-blue-shapes-etsy-banner-MACq6ALcZxM.jpg\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"http://gdj.graphicdesignjunction.com/wp-content/uploads/2015/01/Free+Square+Poster+Mockup.jpg\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n\r\n\r\n\r\n\r\n\r\n    </div>\r\n    \r\n    <!-- Sidebar user -->\r\n    <div class=\"app-user\">\r\n      <div class=\"app-user-photo\">\r\n        <img src=\"{{currentUser.image}}\" alt=\"\">\r\n      </div>\r\n      <span class=\"app-user-name mb-05\">\r\n        <mat-icon class=\"icon-xs text-muted\">lock</mat-icon>\r\n        {{currentUser.accountName}}\r\n      </span>\r\n      <!-- Small buttons -->\r\n      <div class=\"app-user-controls\">\r\n        <button class=\"text-muted\" mat-icon-button mat-xs-button [matMenuTriggerFor]=\"appUserMenu\">\r\n          <mat-icon>settings</mat-icon>\r\n        </button>\r\n        <button class=\"text-muted\" mat-icon-button mat-xs-button matTooltip=\"Inbox\" routerLink=\"/inbox\">\r\n          <mat-icon>email</mat-icon>\r\n        </button>\r\n\r\n        <mat-menu #appUserMenu=\"matMenu\">\r\n          <!-- routerLink=\"/profile/overview\" -->\r\n          <button mat-menu-item routerLink=\"/profile/\">\r\n            <mat-icon>account_box</mat-icon>\r\n            <span>Profile</span>\r\n          </button>\r\n          <button mat-menu-item routerLink=\"/profile/settings\">\r\n            <mat-icon>settings</mat-icon>\r\n            <span>Account Settings</span>\r\n          </button>\r\n          <button mat-menu-item routerLink=\"/calendar\">\r\n            <mat-icon>date_range</mat-icon>\r\n            <span>Calendar</span>\r\n          </button>\r\n\r\n        </mat-menu>\r\n      </div>\r\n    </div>\r\n    <!-- Navigation -->\r\n    <app-sidenav [items]=\"menuItems\" [hasIconMenu]=\"hasIconTypeMenuItem\" [iconMenuTitle]=\"iconTypeMenuTitle\">\r\n    </app-sidenav>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"sidebar-panel\">\r\n  <div id=\"scroll-area\" class=\"navigation-hold\" fxLayout=\"column\">\r\n\r\n    <!-- App Logo -->\r\n    <!-- <div class=\"branding default-bg\"> -->\r\n    <div class=\"default-bg\">\r\n\r\n      <!-- <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\"> -->\r\n      <!-- Two different logos for dark and light themes -->\r\n      <!-- <img src=\"assets/images/clear-picture-logo.png\" alt=\"\" class=\"app-logo-text\"\r\n        *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\"> -->\r\n      <!-- <img src=\"assets/images/cp_logo_text.png\" alt=\"\" class=\"app-logo-text\"\r\n          *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n\r\n      <img *ngIf=\"layoutConf.sidebarStyle === 'compact'\" src=\"assets/images/truverus/TruVerus_Logo_short.png\" alt=\"\"\r\n        class=\"app-logo\">\r\n      <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\">\r\n      <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\">\r\n\r\n\r\n      <!-- <img src=\"https://about.canva.com/wp-content/uploads/sites/3/2015/01/concert_poster.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"https://www.acurax.com/wp-content/themes/acuraxsite/images/inner_page_bnr.jpg?x21789\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"https://marketplace.canva.com/MACq6ALcZxM/1/0/thumbnail_large/canva-blue-shapes-etsy-banner-MACq6ALcZxM.jpg\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"http://gdj.graphicdesignjunction.com/wp-content/uploads/2015/01/Free+Square+Poster+Mockup.jpg\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n\r\n    </div>\r\n\r\n    <!-- Sidebar user -->\r\n    <div class=\"app-user\">\r\n\r\n      <div class=\"app-user-photo\">\r\n        <img src=\"{{profileImg}}\" alt=\"\">\r\n      </div>\r\n\r\n      <span class=\"app-user-name mb-05\">\r\n        <mat-icon class=\"icon-xs text-muted\">lock</mat-icon>\r\n        {{this.userDisplayName}}\r\n      </span>\r\n\r\n\r\n      <!-- Small buttons -->\r\n      <div class=\"app-user-controls\">\r\n        <!-- commented this 2 section becouse those are not implement yet-->\r\n        <!-- <button class=\"text-muted\" mat-icon-button mat-xs-button [matMenuTriggerFor]=\"appUserMenu\">\r\n          <mat-icon>settings</mat-icon>\r\n        </button>\r\n        <button class=\"text-muted\" mat-icon-button mat-xs-button matTooltip=\"Inbox\" routerLink=\"/inbox\">\r\n          <mat-icon>email</mat-icon>\r\n        </button> -->\r\n\r\n        <mat-menu #appUserMenu=\"matMenu\">\r\n          <!-- routerLink=\"/profile/overview\" -->\r\n          <button mat-menu-item routerLink=\"/profile/\">\r\n            <mat-icon>account_box</mat-icon>\r\n            <span>Profile</span>\r\n          </button>\r\n          <!-- COMMENTED BECAUSE OF NOT USE OF THIS : RAVEEN 2019/07/31 -->\r\n          <!-- <button mat-menu-item routerLink=\"/profile/settings\">\r\n            <mat-icon>settings</mat-icon>\r\n            <span>Account Settings</span>\r\n          </button> -->\r\n          <button mat-menu-item routerLink=\"/calendar\">\r\n            <mat-icon>date_range</mat-icon>\r\n            <span>Calendar</span>\r\n          </button>\r\n\r\n        </mat-menu>\r\n      </div>\r\n    </div>\r\n    <!-- Navigation -->\r\n    <app-sidenav [items]=\"menuItems\" [hasIconMenu]=\"hasIconTypeMenuItem\" [iconMenuTitle]=\"iconTypeMenuTitle\">\r\n    </app-sidenav>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1616,6 +1676,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helpers_local_storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/local-storage */ "./src/app/shared/helpers/local-storage.ts");
 /* harmony import */ var _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../views/sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _services_layout_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services/layout.service */ "./src/app/shared/services/layout.service.ts");
+/* harmony import */ var app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! app/shared/services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
+/* harmony import */ var app_shared_services_app_profile_interaction_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/shared/services/app-profile/interaction.service */ "./src/app/shared/services/app-profile/interaction.service.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -1642,20 +1704,34 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
+
 var SidebarSideComponent = /** @class */ (function (_super) {
     __extends(SidebarSideComponent, _super);
-    function SidebarSideComponent(navService, themeService, authService, layout) {
+    function SidebarSideComponent(navService, themeService, authService, layout, errDialog, _interactionService) {
         var _this = _super.call(this) || this;
         _this.navService = navService;
         _this.themeService = themeService;
         _this.authService = authService;
         _this.layout = layout;
+        _this.errDialog = errDialog;
+        _this._interactionService = _interactionService;
         return _this;
     }
     SidebarSideComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.layoutConf = this.layout.layoutConf;
         this.iconTypeMenuTitle = this.navService.iconTypeMenuTitle;
+        // ---------------------------------- UserProfile -------------------------------
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.userDisplayName = this.currentUser.accountName;
+        this._interactionService.changeProfileDetails$.subscribe(function (userName) {
+            _this.userDisplayName = userName;
+        });
+        this._interactionService.changeProfilePicture$.subscribe(function (url) {
+            _this.profileImg = url;
+        });
+        // ------------------------------------------------------------------------------
         this.menuItemsSub = this.navService.menuItems$.subscribe(function (menuItem) {
             _this.menuItems = menuItem;
             // const removeItemList = this.authService.setComponetDisable();
@@ -1666,12 +1742,15 @@ var SidebarSideComponent = /** @class */ (function (_super) {
             //   }
             // });
             var activeItemList = _this.authService.getActiveComponet();
+            console.log('-------------- activeItemList', activeItemList);
             activeItemList.forEach(function (element) {
                 var index = _this.menuItems.findIndex(function (x) { return x.name === element; });
                 if (index >= 0) {
                     _this.menuItems[index].disabled = false;
                 }
+                _this.menuItems[index].disabled = false;
             });
+            console.log('-------------- this.menuItems', _this.menuItems);
             //Checks item list has any icon type.
             _this.hasIconTypeMenuItem = !!_this.menuItems.filter(function (item) { return item.type === "icon"; }).length;
         });
@@ -1700,7 +1779,9 @@ var SidebarSideComponent = /** @class */ (function (_super) {
         __metadata("design:paramtypes", [_shared_services_navigation_service__WEBPACK_IMPORTED_MODULE_1__["NavigationService"],
             _services_theme_service__WEBPACK_IMPORTED_MODULE_2__["ThemeService"],
             _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"],
-            _services_layout_service__WEBPACK_IMPORTED_MODULE_6__["LayoutService"]])
+            _services_layout_service__WEBPACK_IMPORTED_MODULE_6__["LayoutService"],
+            app_shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_7__["AppErrorService"],
+            app_shared_services_app_profile_interaction_service__WEBPACK_IMPORTED_MODULE_8__["InteractionService"]])
     ], SidebarSideComponent);
     return SidebarSideComponent;
 }(_helpers_local_storage__WEBPACK_IMPORTED_MODULE_4__["LocalStorageHandler"]));
@@ -2532,7 +2613,7 @@ var AppComfirmComponent = /** @class */ (function () {
     AppComfirmComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-confirm',
-            template: "<h1 matDialogTitle>{{ data.title }}</h1>\n    <div mat-dialog-content>{{ data.message }}</div>\n    <div mat-dialog-actions>\n    <button \n    type=\"button\" \n    mat-raised-button\n    color=\"primary\" \n    (click)=\"dialogRef.close(true)\">OK</button>\n    &nbsp;\n    <span fxFlex></span>\n    <button \n    type=\"button\"\n    color=\"accent\"\n    mat-raised-button \n    (click)=\"dialogRef.close(false)\">Cancel</button>\n    </div>",
+            template: "<h1 matDialogTitle>{{ data.title }}</h1>\n    <div mat-dialog-content align=\"center\">{{ data.message }}</div>\n    <div mat-dialog-actions class=\"mt-1\">\n    <button \n    type=\"button\" \n    mat-raised-button\n    color=\"primary\" \n    (click)=\"dialogRef.close(true)\">Yes</button>\n    &nbsp;\n    <span fxFlex></span>\n    <button \n    type=\"button\"\n    color=\"accent\"\n    mat-raised-button \n    (click)=\"dialogRef.close(false)\">No</button>\n    </div>",
         }),
         __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_0__["MAT_DIALOG_DATA"])),
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_0__["MatDialogRef"], Object])
@@ -2614,7 +2695,7 @@ module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n  <
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.error-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.error-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC1lcnJvci9EOlxcQ2xlYXJQaWN0dXJlXFxDUCBab25lXFxUQ19hdXRoZW50aWNhX2RldlxcSnVkaUF1dGhlbnRpY2EtRGV2L3NyY1xcYXBwXFxzaGFyZWRcXHNlcnZpY2VzXFxhcHAtZXJyb3JcXGFwcC1lcnJvci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx3REFBWTtBQUVaO0VBQ0UsZ0JBQWdCLEVBQUE7QUFHbEI7RUFDRSxvQkFBb0I7RUFDcEIsZUFBZTtFQUNmLG1CQUFtQjtFQUNuQixrQkFBa0IsRUFBQTtBQUdwQjtFQUNFLG9CQUFvQjtFQUNwQixlQUFlO0VBQ2Ysa0JBQWtCLEVBQUE7QUFHcEI7RUFDRSx5QkFBeUI7RUFDekIsWUFBWTtFQUNaLGVBQWUsRUFBQTtBQUdqQjtFQUNFLHlCQUF5QjtFQUN6QixZQUFZO0VBQ1osZUFBZSxFQUFBO0FBR2pCO0VBQ0Usa0JBQWtCO0VBQ2xCLG1CQUFtQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC1lcnJvci9hcHAtZXJyb3IuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IHVybCgnaHR0cHM6Ly9mb250cy5nb29nbGUuY29tL3NwZWNpbWVuL1BvcHBpbnMnKTtcclxuXHJcbi5tYXJnaW4tdG9wIHtcclxuICBtYXJnaW4tdG9wOiAyMHB4O1xyXG59XHJcblxyXG4uZXJyb3ItaGVhZGVyIHtcclxuICBmb250LWZhbWlseTogUG9wcGlucztcclxuICBmb250LXNpemU6IDI2cHg7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGRlcjtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5lcnJvci1tZXNzYWdlIHtcclxuICBmb250LWZhbWlseTogUG9wcGlucztcclxuICBmb250LXNpemU6IDE2cHg7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4ub2stYnRuIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZWY0MTM2O1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICBmb250LXNpemU6IDE2cHg7XHJcbn1cclxuXHJcbi5jbG9zZS1idG4ge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNlZjQxMzY7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxufVxyXG5cclxuLmFjdGlvbi1zZWN0aW9uIHtcclxuICBwYWRkaW5nLWxlZnQ6IDdyZW07XHJcbiAgcGFkZGluZy1yaWdodDogN3JlbTtcclxufVxyXG4iXX0= */"
+module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.error-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.error-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC1lcnJvci9EOlxcQ2xlYXJQaWN0dXJlXFxDUCBab25lXFxjcF9hdXRoZW50aWNhX2RldlxcRGV2LUp1ZGlBdXRoZW50aWNhLURldlxcSnVkaUF1dGhlbnRpY2EtRGV2L3NyY1xcYXBwXFxzaGFyZWRcXHNlcnZpY2VzXFxhcHAtZXJyb3JcXGFwcC1lcnJvci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx3REFBWTtBQUVaO0VBQ0UsZ0JBQWdCLEVBQUE7QUFHbEI7RUFDRSxvQkFBb0I7RUFDcEIsZUFBZTtFQUNmLG1CQUFtQjtFQUNuQixrQkFBa0IsRUFBQTtBQUdwQjtFQUNFLG9CQUFvQjtFQUNwQixlQUFlO0VBQ2Ysa0JBQWtCLEVBQUE7QUFHcEI7RUFDRSx5QkFBeUI7RUFDekIsWUFBWTtFQUNaLGVBQWUsRUFBQTtBQUdqQjtFQUNFLHlCQUF5QjtFQUN6QixZQUFZO0VBQ1osZUFBZSxFQUFBO0FBR2pCO0VBQ0Usa0JBQWtCO0VBQ2xCLG1CQUFtQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC1lcnJvci9hcHAtZXJyb3IuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IHVybCgnaHR0cHM6Ly9mb250cy5nb29nbGUuY29tL3NwZWNpbWVuL1BvcHBpbnMnKTtcclxuXHJcbi5tYXJnaW4tdG9wIHtcclxuICBtYXJnaW4tdG9wOiAyMHB4O1xyXG59XHJcblxyXG4uZXJyb3ItaGVhZGVyIHtcclxuICBmb250LWZhbWlseTogUG9wcGlucztcclxuICBmb250LXNpemU6IDI2cHg7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGRlcjtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5lcnJvci1tZXNzYWdlIHtcclxuICBmb250LWZhbWlseTogUG9wcGlucztcclxuICBmb250LXNpemU6IDE2cHg7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4ub2stYnRuIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZWY0MTM2O1xyXG4gIGNvbG9yOiB3aGl0ZTtcclxuICBmb250LXNpemU6IDE2cHg7XHJcbn1cclxuXHJcbi5jbG9zZS1idG4ge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNlZjQxMzY7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxufVxyXG5cclxuLmFjdGlvbi1zZWN0aW9uIHtcclxuICBwYWRkaW5nLWxlZnQ6IDdyZW07XHJcbiAgcGFkZGluZy1yaWdodDogN3JlbTtcclxufVxyXG4iXX0= */"
 
 /***/ }),
 
@@ -2977,7 +3058,8 @@ var errorMessages = {
         platformUserViewRequestUserNotExist: 'User does not exist!',
         platformUserUpdateRequestUserNotExist: 'User does not exist!',
         platformUserDeleteRequestUserDeleteFiledUserId: 'Could not delete user account!',
-        platformUserDeleteRequestUserNotExis: 'User does not exist!'
+        platformUserDeleteRequestUserNotExis: 'User does not exist!',
+        platformUserPasswordUpdateRequestCurrentPasswordDoesNotMatch: 'Current password does not match'
     },
     status: {
         platformUserUpdateRequestStatusCannotChange: 'You cannot change status! / The action cannot be completed!'
@@ -3052,7 +3134,7 @@ module.exports = "<!-- <mat-toolbar matDialogTitle class=\"m-0 info-title\">\r\n
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.info-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.info-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #2bb673;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC1pbmZvL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXFRDX2F1dGhlbnRpY2FfZGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHNoYXJlZFxcc2VydmljZXNcXGFwcC1pbmZvXFxhcHAtaW5mby5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx3REFBWTtBQUVaO0VBQ0UsZ0JBQWdCLEVBQUE7QUFHbEI7RUFDRSxvQkFBb0I7RUFDcEIsZUFBZTtFQUNmLG1CQUFtQjtFQUNuQixrQkFBa0IsRUFBQTtBQUdwQjtFQUNFLG9CQUFvQjtFQUNwQixlQUFlO0VBQ2Ysa0JBQWtCLEVBQUE7QUFHcEI7RUFDRSx5QkFBeUI7RUFDekIsWUFBWTtFQUNaLGVBQWUsRUFBQTtBQUdqQjtFQUNFLHlCQUF5QjtFQUN6QixZQUFZO0VBQ1osZUFBZSxFQUFBO0FBR2pCO0VBQ0Usa0JBQWtCO0VBQ2xCLG1CQUFtQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC1pbmZvL2FwcC1pbmZvLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCB1cmwoJ2h0dHBzOi8vZm9udHMuZ29vZ2xlLmNvbS9zcGVjaW1lbi9Qb3BwaW5zJyk7XHJcblxyXG4ubWFyZ2luLXRvcCB7XHJcbiAgbWFyZ2luLXRvcDogMjBweDtcclxufVxyXG5cclxuLmluZm8taGVhZGVyIHtcclxuICBmb250LWZhbWlseTogUG9wcGlucztcclxuICBmb250LXNpemU6IDI2cHg7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGRlcjtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5pbmZvLW1lc3NhZ2Uge1xyXG4gIGZvbnQtZmFtaWx5OiBQb3BwaW5zO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5vay1idG4ge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICMyYmI2NzM7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxufVxyXG5cclxuLmNsb3NlLWJ0biB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2VmNDEzNjtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgZm9udC1zaXplOiAxNnB4O1xyXG59XHJcblxyXG4uYWN0aW9uLXNlY3Rpb24ge1xyXG4gIHBhZGRpbmctbGVmdDogN3JlbTtcclxuICBwYWRkaW5nLXJpZ2h0OiA3cmVtO1xyXG59XHJcbiJdfQ== */"
+module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.info-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.info-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #2bb673;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC1pbmZvL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXGNwX2F1dGhlbnRpY2FfZGV2XFxEZXYtSnVkaUF1dGhlbnRpY2EtRGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHNoYXJlZFxcc2VydmljZXNcXGFwcC1pbmZvXFxhcHAtaW5mby5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx3REFBWTtBQUVaO0VBQ0UsZ0JBQWdCLEVBQUE7QUFHbEI7RUFDRSxvQkFBb0I7RUFDcEIsZUFBZTtFQUNmLG1CQUFtQjtFQUNuQixrQkFBa0IsRUFBQTtBQUdwQjtFQUNFLG9CQUFvQjtFQUNwQixlQUFlO0VBQ2Ysa0JBQWtCLEVBQUE7QUFHcEI7RUFDRSx5QkFBeUI7RUFDekIsWUFBWTtFQUNaLGVBQWUsRUFBQTtBQUdqQjtFQUNFLHlCQUF5QjtFQUN6QixZQUFZO0VBQ1osZUFBZSxFQUFBO0FBR2pCO0VBQ0Usa0JBQWtCO0VBQ2xCLG1CQUFtQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC1pbmZvL2FwcC1pbmZvLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCB1cmwoJ2h0dHBzOi8vZm9udHMuZ29vZ2xlLmNvbS9zcGVjaW1lbi9Qb3BwaW5zJyk7XHJcblxyXG4ubWFyZ2luLXRvcCB7XHJcbiAgbWFyZ2luLXRvcDogMjBweDtcclxufVxyXG5cclxuLmluZm8taGVhZGVyIHtcclxuICBmb250LWZhbWlseTogUG9wcGlucztcclxuICBmb250LXNpemU6IDI2cHg7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGRlcjtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5pbmZvLW1lc3NhZ2Uge1xyXG4gIGZvbnQtZmFtaWx5OiBQb3BwaW5zO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5vay1idG4ge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICMyYmI2NzM7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxufVxyXG5cclxuLmNsb3NlLWJ0biB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2VmNDEzNjtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgZm9udC1zaXplOiAxNnB4O1xyXG59XHJcblxyXG4uYWN0aW9uLXNlY3Rpb24ge1xyXG4gIHBhZGRpbmctbGVmdDogN3JlbTtcclxuICBwYWRkaW5nLXJpZ2h0OiA3cmVtO1xyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -3282,6 +3364,85 @@ var AppLoaderService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/shared/services/app-profile/interaction.service.ts":
+/*!********************************************************************!*\
+  !*** ./src/app/shared/services/app-profile/interaction.service.ts ***!
+  \********************************************************************/
+/*! exports provided: InteractionService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InteractionService", function() { return InteractionService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! environments/environment.prod */ "./src/environments/environment.prod.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var InteractionService = /** @class */ (function () {
+    function InteractionService(http) {
+        this.http = http;
+        this.imgBaseURL = environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].userApiUrl + 'downloads';
+        // ---------------------------------------------------------------------------------
+        this.changeProfileDetailsSource = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
+        this.changeProfileDetails$ = this.changeProfileDetailsSource.asObservable();
+        // ---------------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------------
+        this.changeProfilePictureSource = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Subject"]();
+        this.changeProfilePicture$ = this.changeProfilePictureSource.asObservable();
+    }
+    InteractionService.prototype.changeProfileDetails = function (userName) {
+        this.changeProfileDetailsSource.next(userName);
+    };
+    InteractionService.prototype.changeProfilePicture = function (userId) {
+        var _this = this;
+        this.getUserProfile(userId).subscribe(function (data) {
+            _this.createImageFromBlob(data);
+        }, function (error) {
+            _this.profileImg = "assets/images/cp_users/placeholder-user.png";
+            _this.changeProfilePictureSource.next(_this.profileImg);
+            console.log("---------------------- getUserProfile error", error);
+        });
+    };
+    InteractionService.prototype.getUserProfile = function (id) {
+        return this.http.get(this.imgBaseURL + "/user/" + id, { responseType: 'blob' });
+    };
+    InteractionService.prototype.createImageFromBlob = function (image) {
+        var _this = this;
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            _this.profileImg = event.target.result.replace("application", "image").replace("octet-stream", "webp");
+            _this.changeProfilePictureSource.next(_this.profileImg);
+        };
+        if (image) {
+            reader.readAsDataURL(image);
+        }
+    };
+    InteractionService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], InteractionService);
+    return InteractionService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared/services/app-warning/app-warning.component.html":
 /*!************************************************************************!*\
   !*** ./src/app/shared/services/app-warning/app-warning.component.html ***!
@@ -3300,7 +3461,7 @@ module.exports = "<mat-dialog-content class=\"mat-typography mt-0 mb-0\">\r\n   
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.warn-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.warn-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #2bb673;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC13YXJuaW5nL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXFRDX2F1dGhlbnRpY2FfZGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHNoYXJlZFxcc2VydmljZXNcXGFwcC13YXJuaW5nXFxhcHAtd2FybmluZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx3REFBWTtBQUVaO0VBQ0UsZ0JBQWdCLEVBQUE7QUFHbEI7RUFDRSxvQkFBb0I7RUFDcEIsZUFBZTtFQUNmLG1CQUFtQjtFQUNuQixrQkFBa0IsRUFBQTtBQUdwQjtFQUNFLG9CQUFvQjtFQUNwQixlQUFlO0VBQ2Ysa0JBQWtCLEVBQUE7QUFHcEI7RUFDRSx5QkFBeUI7RUFDekIsWUFBWTtFQUNaLGVBQWUsRUFBQTtBQUdqQjtFQUNFLHlCQUF5QjtFQUN6QixZQUFZO0VBQ1osZUFBZSxFQUFBO0FBR2pCO0VBQ0Usa0JBQWtCO0VBQ2xCLG1CQUFtQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC13YXJuaW5nL2FwcC13YXJuaW5nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCB1cmwoJ2h0dHBzOi8vZm9udHMuZ29vZ2xlLmNvbS9zcGVjaW1lbi9Qb3BwaW5zJyk7XHJcblxyXG4ubWFyZ2luLXRvcCB7XHJcbiAgbWFyZ2luLXRvcDogMjBweDtcclxufVxyXG5cclxuLndhcm4taGVhZGVyIHtcclxuICBmb250LWZhbWlseTogUG9wcGlucztcclxuICBmb250LXNpemU6IDI2cHg7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGRlcjtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi53YXJuLW1lc3NhZ2Uge1xyXG4gIGZvbnQtZmFtaWx5OiBQb3BwaW5zO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5vay1idG4ge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICMyYmI2NzM7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxufVxyXG5cclxuLmNsb3NlLWJ0biB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2VmNDEzNjtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgZm9udC1zaXplOiAxNnB4O1xyXG59XHJcblxyXG4uYWN0aW9uLXNlY3Rpb24ge1xyXG4gIHBhZGRpbmctbGVmdDogN3JlbTtcclxuICBwYWRkaW5nLXJpZ2h0OiA3cmVtO1xyXG59XHJcbiJdfQ== */"
+module.exports = "@import url(\"https://fonts.google.com/specimen/Poppins\");\n.margin-top {\n  margin-top: 20px; }\n.warn-header {\n  font-family: Poppins;\n  font-size: 26px;\n  font-weight: bolder;\n  text-align: center; }\n.warn-message {\n  font-family: Poppins;\n  font-size: 16px;\n  text-align: center; }\n.ok-btn {\n  background-color: #2bb673;\n  color: white;\n  font-size: 16px; }\n.close-btn {\n  background-color: #ef4136;\n  color: white;\n  font-size: 16px; }\n.action-section {\n  padding-left: 7rem;\n  padding-right: 7rem; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC13YXJuaW5nL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXGNwX2F1dGhlbnRpY2FfZGV2XFxEZXYtSnVkaUF1dGhlbnRpY2EtRGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHNoYXJlZFxcc2VydmljZXNcXGFwcC13YXJuaW5nXFxhcHAtd2FybmluZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx3REFBWTtBQUVaO0VBQ0UsZ0JBQWdCLEVBQUE7QUFHbEI7RUFDRSxvQkFBb0I7RUFDcEIsZUFBZTtFQUNmLG1CQUFtQjtFQUNuQixrQkFBa0IsRUFBQTtBQUdwQjtFQUNFLG9CQUFvQjtFQUNwQixlQUFlO0VBQ2Ysa0JBQWtCLEVBQUE7QUFHcEI7RUFDRSx5QkFBeUI7RUFDekIsWUFBWTtFQUNaLGVBQWUsRUFBQTtBQUdqQjtFQUNFLHlCQUF5QjtFQUN6QixZQUFZO0VBQ1osZUFBZSxFQUFBO0FBR2pCO0VBQ0Usa0JBQWtCO0VBQ2xCLG1CQUFtQixFQUFBIiwiZmlsZSI6InNyYy9hcHAvc2hhcmVkL3NlcnZpY2VzL2FwcC13YXJuaW5nL2FwcC13YXJuaW5nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCB1cmwoJ2h0dHBzOi8vZm9udHMuZ29vZ2xlLmNvbS9zcGVjaW1lbi9Qb3BwaW5zJyk7XHJcblxyXG4ubWFyZ2luLXRvcCB7XHJcbiAgbWFyZ2luLXRvcDogMjBweDtcclxufVxyXG5cclxuLndhcm4taGVhZGVyIHtcclxuICBmb250LWZhbWlseTogUG9wcGlucztcclxuICBmb250LXNpemU6IDI2cHg7XHJcbiAgZm9udC13ZWlnaHQ6IGJvbGRlcjtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi53YXJuLW1lc3NhZ2Uge1xyXG4gIGZvbnQtZmFtaWx5OiBQb3BwaW5zO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5vay1idG4ge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICMyYmI2NzM7XHJcbiAgY29sb3I6IHdoaXRlO1xyXG4gIGZvbnQtc2l6ZTogMTZweDtcclxufVxyXG5cclxuLmNsb3NlLWJ0biB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2VmNDEzNjtcclxuICBjb2xvcjogd2hpdGU7XHJcbiAgZm9udC1zaXplOiAxNnB4O1xyXG59XHJcblxyXG4uYWN0aW9uLXNlY3Rpb24ge1xyXG4gIHBhZGRpbmctbGVmdDogN3JlbTtcclxuICBwYWRkaW5nLXJpZ2h0OiA3cmVtO1xyXG59XHJcbiJdfQ== */"
 
 /***/ }),
 
@@ -3446,9 +3607,6 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-// import { environment } from "./../../../../environments/environment.prod";
-// import { Router } from "@angular/router";
-// import { AppLoaderService } from "./../app-loader/app-loader.service";
 var AddHeaderInterceptor = /** @class */ (function () {
     function AddHeaderInterceptor(authService, router, loader) {
         this.authService = authService;
@@ -3456,30 +3614,31 @@ var AddHeaderInterceptor = /** @class */ (function () {
         this.loader = loader;
         this.gloable_user = _auth_properties__WEBPACK_IMPORTED_MODULE_6__["authProperties"].gloable_user;
         this.gloable_secret = _auth_properties__WEBPACK_IMPORTED_MODULE_6__["authProperties"].gloable_secret;
-        this.storage_name = _auth_properties__WEBPACK_IMPORTED_MODULE_6__["authProperties"].storage_name;
+        // private storage_name = authProperties.storage_name;
+        this.publicUrls = [_environments_environment_prod__WEBPACK_IMPORTED_MODULE_8__["environment"].authTokenUrl + "api/downloads"];
         this.whiteListUrls = [_environments_environment_prod__WEBPACK_IMPORTED_MODULE_8__["environment"].userApiUrl];
-        this.userServiceblackListUrls = ["platform-users/activations/"];
-        this.whiteListUrl = [
-            { url: _environments_environment_prod__WEBPACK_IMPORTED_MODULE_8__["environment"].authTokenUrl + "oauth/token", type: "oauthToken" },
-            { url: _environments_environment_prod__WEBPACK_IMPORTED_MODULE_8__["environment"].userApiUrl, type: "userApiUrl" }
-        ];
+        this.userServiceBlackListUrls = ["platform-users/activations/"];
+        // private whiteListUrl = [
+        //   { url: environment.authTokenUrl + "oauth/token", type: "oauthToken" },
+        //   { url: environment.userApiUrl, type: "userApiUrl" }
+        // ];
         this.isRefreshingToken = false;
+        this.isTokenError = false;
         this.tokenSubject = new rxjs__WEBPACK_IMPORTED_MODULE_5__["BehaviorSubject"](null);
     }
     AddHeaderInterceptor.prototype.getRequest = function (request, token) {
         var isAuthToken = this.oauthTokenUrlValidate(request.url);
-        // console.log(token);
         if (isAuthToken) {
             request = request.clone({
                 headers: request.headers.set("Authorization", "Basic " + btoa(this.gloable_user + ":" + this.gloable_secret))
             });
-            console.log('--------------------------------------- request', request);
+            console.log('--------------------------------------- AddHeaderInterceptor : request', request);
         }
         else {
             var isTokenRequired = this.getWhiteListUrl(request.url);
-            // console.log('------------------------------- isTokenRequired', isTokenRequired);
             if (token) {
                 if (isTokenRequired) {
+                    console.log('---------------------------- AddHeaderInterceptor : refreshToken in header', token);
                     request = request.clone({
                         headers: request.headers.set("Authorization", "bearer " + token)
                     });
@@ -3494,9 +3653,9 @@ var AddHeaderInterceptor = /** @class */ (function () {
     AddHeaderInterceptor.prototype.intercept = function (request, next) {
         var _this = this;
         return next
-            .handle(this.getRequest(request, this.authService.getAuthToken()))
+            .handle(this.checkPublicUrl(request.url) ? request : this.getRequest(request, this.authService.getAuthToken()))
             .catch(function (error) {
-            console.log("--------------------------- error", error);
+            console.log("--------------------------- AddHeaderInterceptor : error", error);
             if (error instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpErrorResponse"]) {
                 switch (error.status) {
                     case 401:
@@ -3512,6 +3671,7 @@ var AddHeaderInterceptor = /** @class */ (function () {
     };
     AddHeaderInterceptor.prototype.handle401Error = function (req, next) {
         var _this = this;
+        console.log("------------------------- AddHeaderInterceptor : 01. handle401Error");
         if (!this.isRefreshingToken) {
             this.isRefreshingToken = true;
             // Reset here so that the following requests wait until the token
@@ -3520,20 +3680,33 @@ var AddHeaderInterceptor = /** @class */ (function () {
             return this.authService
                 .getNewToken()
                 .switchMap(function (newToken) {
+                console.log("------------------------- AddHeaderInterceptor : 02. getNewToken");
                 if (newToken) {
+                    console.log("------------------------- AddHeaderInterceptor : 03. newToken");
                     _this.tokenSubject.next(newToken);
-                    return next.handle(_this.getRequest(req, newToken));
+                    return next
+                        .handle(_this.getRequest(req, newToken))
+                        .catch(function (error) {
+                        console.log("------------------------- AddHeaderInterceptor : 04. recallUrlError");
+                        console.log(error);
+                        return rxjs_Rx__WEBPACK_IMPORTED_MODULE_4__["Observable"].throw(error);
+                    });
                 }
                 // If we don't get a new token, we are in trouble so logout.
-                console.log("------------------------- If we don't get a new token, we are in trouble so logout.");
+                console.log("------------------------- AddHeaderInterceptor : If we don't get a new token, we are in trouble so logout.");
                 return _this.logoutUser();
             })
                 .catch(function (error) {
-                // If there is an exception calling 'refreshToken', bad news so logout.
-                console.log("------------------------- If there is an exception calling 'refreshToken', bad news so logout.");
                 console.log(error);
-                if (error.error.error !== 'access_denied') {
-                    return _this.logoutUser();
+                if (error && error.url && error.error.error) {
+                    if (_this.oauthTokenUrlValidate(error.url) && error.error.error !== 'access_denied') {
+                        // If there is an exception calling 'refreshToken', bad news so logout.
+                        console.log("------------------------- AddHeaderInterceptor : If there is an exception calling 'refreshToken', bad news so logout.");
+                        return _this.logoutUser();
+                    }
+                }
+                else {
+                    return rxjs_Rx__WEBPACK_IMPORTED_MODULE_4__["Observable"].throw(error);
                 }
             })
                 .finally(function () {
@@ -3563,12 +3736,21 @@ var AddHeaderInterceptor = /** @class */ (function () {
             return false;
         }
     };
+    AddHeaderInterceptor.prototype.checkPublicUrl = function (url) {
+        for (var i = 0; i < this.publicUrls.length; i++) {
+            var isMatched = url.match(this.publicUrls[i]);
+            if (isMatched) {
+                return true;
+            }
+        }
+        return false;
+    };
     AddHeaderInterceptor.prototype.getWhiteListUrl = function (url) {
         for (var i = 0; i < this.whiteListUrls.length; i++) {
             var isMatched = url.match(this.whiteListUrls[i]);
             if (isMatched) {
-                for (var j = 0; j < this.userServiceblackListUrls.length; j++) {
-                    var blacklistMatched = url.match(this.userServiceblackListUrls[j]);
+                for (var j = 0; j < this.userServiceBlackListUrls.length; j++) {
+                    var blacklistMatched = url.match(this.userServiceBlackListUrls[j]);
                     if (blacklistMatched) {
                         return false;
                     }
@@ -3637,11 +3819,27 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var AuthGuard = /** @class */ (function () {
     function AuthGuard(router) {
         this.router = router;
-        this.isAuthenticated = true; // Set this value dynamically
+        this.loggedUserBlackListUrls = ['/sessions/signin'];
     }
     AuthGuard.prototype.canActivate = function (route, state) {
+        var url = this.router.url;
+        console.log('---------------------------------- AuthGuard : url -', url);
+        console.log('---------------------------------- AuthGuard : state.url - ', state.url);
         if (localStorage.getItem("currentUser")) {
-            // logged in so return true
+            if (this.loggedUserBlackListUrls.indexOf(state.url) === 0) {
+                if (url !== '/') {
+                    this.router.navigate([url]);
+                }
+                else {
+                    this.router.navigate(['/profile/profile-settings']);
+                }
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        if (state.url === "/sessions/signin") {
             return true;
         }
         this.router.navigate(["/sessions/signin"]);
@@ -4482,6 +4680,14 @@ var NavigationService = /** @class */ (function () {
                 state: "future-survey",
                 disabled: true
             },
+            {
+                name: "Analytics",
+                type: "link",
+                tooltip: "Analytics",
+                icon: "assessment",
+                state: "reporting",
+                disabled: true
+            },
             // ,
             // {
             //   name: "Interaction View",
@@ -5288,6 +5494,7 @@ var AuthenticationService = /** @class */ (function () {
         this.storage_name = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_6__["authProperties"].storage_name;
         this.componentList = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_6__["authProperties"].componentList;
         this.userApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_5__["environment"].userApiUrl;
+        this.imgBaseURL = environments_environment_prod__WEBPACK_IMPORTED_MODULE_5__["environment"].userApiUrl + 'downloads';
     }
     /*
      * User Login function
@@ -5356,7 +5563,7 @@ var AuthenticationService = /** @class */ (function () {
     //     console.log("--------------- setComponetDisable ----------------");
     //     console.log(userObj.userData.role.name);
     //     const roleName = userObj.userData.role.name;
-    //     if (roleName === "Super Administrator") { 
+    //     if (roleName === "Super Administrator") {
     //       arrayList = ["User Management"];
     //       return arrayList;
     //     } else if (roleName === "Admin") {
@@ -5481,7 +5688,8 @@ var environment = {
     // surveyApiURL: "https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/",
     // productimageUrl: "https://productzg4t4ks63a.hana.ondemand.com/product/",
     // evoteimageUrl : 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/',
-    frontEndBaseUrl: 'https://judedw.github.io/JudiAuthentica-Dev/',
+    // frontEndBaseUrl: 'https://judedw.github.io/JudiAuthentica-Dev/',
+    frontEndBaseUrl: "http://localhost:4200/",
 };
 
 
@@ -5543,7 +5751,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\ClearPicture\CP Zone\TC_authentica_dev\JudiAuthentica-Dev\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! D:\ClearPicture\CP Zone\cp_authentica_dev\Dev-JudiAuthentica-Dev\JudiAuthentica-Dev\src\main.ts */"./src/main.ts");
 
 
 /***/ })
