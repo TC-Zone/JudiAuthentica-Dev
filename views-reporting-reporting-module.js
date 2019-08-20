@@ -22,8 +22,8 @@ var Chart = /** @class */ (function () {
                 "merchandizers": 30,
                 "customer": 200,
                 "country": [
-                    { "name": "Canada", "code": "CA", "sale": 400 },
-                    { "name": "United States", "code": "US", "sale": 500 },
+                    { "name": "Canada", "code": "CA", "sale": "" },
+                    { "name": "United States", "code": "US", "sale": "" },
                 ]
             },
             {
@@ -73,8 +73,8 @@ var Chart = /** @class */ (function () {
                 "merchandizers": 62,
                 "customer": 400,
                 "region": [
-                    { "name": "Rome", "sale": 250 },
-                    { "name": "Verona", "sale": 450 }
+                    { "name": "Rome", "sale": "" },
+                    { "name": "Verona", "sale": "" }
                 ]
             },
             {
@@ -138,10 +138,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reporting_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../reporting.service */ "./src/app/views/reporting/reporting.service.ts");
 /* harmony import */ var ng2_charts__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ng2-charts */ "./node_modules/ng2-charts/index.js");
 /* harmony import */ var ng2_charts__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(ng2_charts__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _product_crud_product_crud_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../product-crud/product-crud.service */ "./src/app/views/product-crud/product-crud.service.ts");
-/* harmony import */ var _shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../shared/services/app-loader/app-loader.service */ "./src/app/shared/services/app-loader/app-loader.service.ts");
-/* harmony import */ var _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../shared/services/app-error/app-error.service */ "./src/app/shared/services/app-error/app-error.service.ts");
-/* harmony import */ var _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -158,17 +154,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
-
-
-
 var AuthCountCountryComponent = /** @class */ (function () {
-    function AuthCountCountryComponent(fb, prodService, loader, errDialog, authService, reportingService) {
+    function AuthCountCountryComponent(fb, reportingService) {
         this.fb = fb;
-        this.prodService = prodService;
-        this.loader = loader;
-        this.errDialog = errDialog;
-        this.authService = authService;
         this.reportingService = reportingService;
         this.proObj = null;
         this.countryObj = null;
@@ -212,33 +200,15 @@ var AuthCountCountryComponent = /** @class */ (function () {
         this.chart = new _shared_fake_db_chart__WEBPACK_IMPORTED_MODULE_4__["Chart"]();
     }
     AuthCountCountryComponent.prototype.ngOnInit = function () {
-        var userObj = this.authService.getLoggedUserDetail();
-        this.categories = userObj.userData.categories;
-        this.clientId = userObj.userData.client.id;
-        var predefinedStatus = userObj.userData.role.predefined;
-        this.predefined = predefinedStatus ? "1" : "0";
-        this.getAllProduct(this.clientId, this.categories, this.predefined);
-        // this.products = this.chart.products;
-        // this.getCountries = this.chart.country;
-        this.buildItemForm();
-    };
-    AuthCountCountryComponent.prototype.getAllProduct = function (clientId, categories, isPredefined) {
+        //----service subscription---//
+        //  this.reportingService.getAllProducts().subscribe(data => {
+        //       this.products = data.content;
+        //  });
         var _this = this;
-        var categoriesID = [];
-        categories.forEach(function (cat) {
-            categoriesID.push(cat.id);
-        });
-        this.getProductsSub = this.prodService
-            .getAllProductsByFilter(clientId, categoriesID, isPredefined)
-            .subscribe(function (successResp) {
-            _this.products = successResp.content;
-            console.log('THIS PRODUCT 3333333333333333333');
-            console.log(_this.products);
-            _this.filteredProducts = _this.itemForm.get("product").valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (value) { return _this._filterProduct(value); }));
-        }, function (error) {
-            _this.loader.close();
-            _this.errDialog.showError(error);
-        });
+        this.products = this.chart.products;
+        this.getCountries = this.chart.country;
+        this.buildItemForm();
+        this.filteredProducts = this.itemForm.get("product").valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (value) { return _this._filterProduct(value); }));
     };
     // -------------------------------------------------------------------------------------------------
     AuthCountCountryComponent.prototype.buildItemForm = function () {
@@ -258,25 +228,21 @@ var AuthCountCountryComponent = /** @class */ (function () {
     AuthCountCountryComponent.prototype.selectedProduct = function (event) {
         var _this = this;
         this.proObj = event.option.value;
-        var productId = this.proObj.id;
-        this.reportingService.getAuthCountByProductId(productId).subscribe(function (successResp) {
-            var dataSet = successResp.content;
-            _this.countries = dataSet.countries;
-            _this.chartupdate.data.length = 0;
-            _this.chartupdate.labels.length = 0;
-            _this.countries.forEach(function (element) {
-                _this.pieChartLabels.push(element.country);
-                _this.pieChartData.push(element.count);
-                _this.backgroundColor.push(_this.getRandomColor());
-            });
-            _this.pieChartColors = [{ backgroundColor: _this.backgroundColor }];
-            _this.chartupdate.chart.update();
-            _this.itemForm.get('countries').setValue('');
-            _this.filteredCountry = _this.itemForm.get("countries").valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (value) { return _this._filterCounty(value); }));
-        }, function (error) {
-            _this.loader.close();
-            _this.errDialog.showError(error);
+        this.statObj = this.proObj;
+        this.itemForm.get('countries').setValue('');
+        this.countries = this.proObj.country;
+        this.chartupdate.data.length = 0;
+        this.chartupdate.labels.length = 0;
+        this.proObj.country.forEach(function (element) {
+            _this.pieChartLabels.push(element.name);
+            _this.pieChartData.push(element.sale);
+            _this.backgroundColor.push(_this.getRandomColor());
         });
+        this.pieChartColors = [{ backgroundColor: this.backgroundColor }];
+        this.chartupdate.chart.update();
+        console.log(this.proObj);
+        console.log(this.countries);
+        this.filteredCountry = this.itemForm.get("countries").valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (value) { return _this._filterCounty(value); }));
     };
     AuthCountCountryComponent.prototype.selectedCountry = function (event) {
         var _this = this;
@@ -339,10 +305,6 @@ var AuthCountCountryComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./auth-count-country.component.scss */ "./src/app/views/reporting/auth-count-country/auth-count-country.component.scss")]
         }),
         __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
-            _product_crud_product_crud_service__WEBPACK_IMPORTED_MODULE_7__["ProductCrudService"],
-            _shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_8__["AppLoaderService"],
-            _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_9__["AppErrorService"],
-            _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_10__["AuthenticationService"],
             _reporting_service__WEBPACK_IMPORTED_MODULE_5__["ReportingService"]])
     ], AuthCountCountryComponent);
     return AuthCountCountryComponent;
@@ -582,16 +544,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _reporting_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./reporting.service */ "./src/app/views/reporting/reporting.service.ts");
 /* harmony import */ var _auth_count_country_auth_count_country_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./auth-count-country/auth-count-country.component */ "./src/app/views/reporting/auth-count-country/auth-count-country.component.ts");
-/* harmony import */ var _product_crud_product_crud_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../product-crud/product-crud.service */ "./src/app/views/product-crud/product-crud.service.ts");
-/* harmony import */ var _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
-
 
 
 
@@ -652,7 +610,7 @@ var ReportingModule = /** @class */ (function () {
                 _angular_forms__WEBPACK_IMPORTED_MODULE_12__["ReactiveFormsModule"],
             ],
             providers: [
-                _reporting_service__WEBPACK_IMPORTED_MODULE_13__["ReportingService"], _product_crud_product_crud_service__WEBPACK_IMPORTED_MODULE_15__["ProductCrudService"], _sessions_authentication_service__WEBPACK_IMPORTED_MODULE_16__["AuthenticationService"]
+                _reporting_service__WEBPACK_IMPORTED_MODULE_13__["ReportingService"]
             ]
         })
     ], ReportingModule);
@@ -755,7 +713,6 @@ var ReportingService = /** @class */ (function () {
     function ReportingService(http) {
         this.http = http;
         this.productApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].productApiURL + "products/";
-        this.reportApiUrl = environments_environment_prod__WEBPACK_IMPORTED_MODULE_3__["environment"].productApiURL + "analytic/";
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
                 "Content-Type": "application/json",
@@ -767,12 +724,8 @@ var ReportingService = /** @class */ (function () {
     ReportingService.prototype.getAllProducts = function () {
         return this.http.get(this.productApiUrl).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
-    ReportingService.prototype.getAuthCountByProductId = function (productId) {
-        return this.http
-            .get(this.reportApiUrl + "authCountByProduct/" + productId)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
     ReportingService.prototype.handleError = function (error) {
+        //console.log(error)
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(error);
     };
     ReportingService = __decorate([
@@ -793,7 +746,7 @@ var ReportingService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- First row -->\r\n<div class=\"pt-2\">\r\n  <mat-card class=\"p-0\" [@animate]=\"{ value: '*', params: { scale: '.9', delay: '300ms' } }\">\r\n    <div fxLayout=\"row wrap\">\r\n      <div fxFlex=\"50\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\">\r\n        <div class=\"text-center pt-1 pb-1 border-right-light\">\r\n          <mat-icon class=\"text-green\" color=\"warn\">show_chart</mat-icon>\r\n          <h4 class=\"m-0\">{{statObj === null ? 0 : (statObj.total_auth === null ? \"0\" : statObj.total_auth)}}</h4>\r\n          <small class=\"m-0 \">Total Authentication</small>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"50\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\">\r\n        <div class=\"text-center pt-1 pb-1 border-right-light\">\r\n          <mat-icon class=\"text-blue\">location_city</mat-icon>\r\n          <h4 class=\"m-0 \">{{statObj === null ? 0 : (statObj.factories === null ? \"0\" : statObj.factories)}}</h4>\r\n          <small class=\"m-0 \">Factories</small>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"50\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\">\r\n        <div class=\"text-center pt-1 pb-1 border-right-light\">\r\n          <mat-icon class=\"text-green\" color=\"primary\">shop</mat-icon>\r\n          <h4 class=\"m-0 \">{{statObj === null ? 0 : (statObj.merchandizers === null ? \"0\" : statObj.merchandizers)}}</h4>\r\n          <small class=\"m-0 \">Merchandizers</small>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"50\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\">\r\n        <div class=\"text-center pt-1 pb-1 border-right-light\">\r\n          <mat-icon class=\"text-blue\" color=\"accent\">person</mat-icon>\r\n          <h4 class=\"m-0 \">{{statObj === null ? 0 : (statObj.customer === null ? \"0\" : statObj.customer)}}</h4>\r\n          <small class=\"m-0 \">Customers</small>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </mat-card>\r\n</div>\r\n<!--/ End first row -->\r\n<div fxLayout=\"row wrap\" class=\"pt-2\">\r\n  <div fxFlex=\"50\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"25\">\r\n    <mat-card>\r\n      <form class=\"example-form\">\r\n\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput [formControl]=\"itemForm.controls['product']\" placeholder=\"Search Product\" [matAutocomplete]=\"autoProduct\">\r\n          <mat-autocomplete autoActiveFirstOption #autoProduct=\"matAutocomplete\" (optionSelected)=\"selectedProduct($event)\"\r\n            [displayWith]=\"displayFn\">\r\n            <mat-option *ngFor=\"let product of filteredProducts | async\" [value]=\"product\">\r\n              {{product.name}}\r\n            </mat-option>\r\n          </mat-autocomplete>\r\n        </mat-form-field>\r\n\r\n        <mat-form-field *ngIf=\"itemForm.controls['product'].value\" class=\"full-width\">\r\n          <input matInput [formControl]=\"itemForm.controls['countries']\" placeholder=\"Search Country\" [matAutocomplete]=\"auto\">\r\n          <mat-autocomplete autoActiveFirstOption #auto=\"matAutocomplete\" (optionSelected)=\"selectedCountry($event)\"\r\n            [displayWith]=\"displayFn\">\r\n            <mat-option *ngFor=\"let country of filteredCountry | async\" [value]=\"country\">\r\n              {{country.name}}\r\n            </mat-option>\r\n          </mat-autocomplete>\r\n        </mat-form-field>\r\n      </form>\r\n\r\n\r\n    </mat-card>\r\n  </div>\r\n  <div fxFlex=\"50\" fxFlex.gt-sm=\"75\" fxFlex.sm=\"75\">\r\n    <mat-card>\r\n      <mat-card-title class=\"\">\r\n        <div class=\"card-title-text\">Vertical Bar chart</div>\r\n        <mat-divider></mat-divider>\r\n      </mat-card-title>\r\n      <mat-card-content>\r\n        <canvas class=\"chart\" baseChart [data]=\"pieChartData\" [labels]=\"pieChartLabels\" [options]=\"doughnutOptions\"\r\n          [colors]=\"pieChartColors\" [chartType]=\"pieChartType\" (chartHover)=\"pieChartHovered($event)\" (chartClick)=\"pieChartClicked($event)\"></canvas>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div>"
+module.exports = "<!-- First row -->\r\n<div class=\"pt-2\">\r\n  <mat-card class=\"p-0\" [@animate]=\"{ value: '*', params: { scale: '.9', delay: '300ms' } }\">\r\n    <div fxLayout=\"row wrap\">\r\n      <div fxFlex=\"50\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\">\r\n        <div class=\"text-center pt-1 pb-1 border-right-light\">\r\n          <mat-icon class=\"text-green\" color=\"warn\">show_chart</mat-icon>\r\n          <h4 class=\"m-0\">{{statObj === null ? 0 : (statObj.total_auth === null ? \"0\" : statObj.total_auth)}}</h4>\r\n          <small class=\"m-0 \">Total Authentication</small>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"50\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\">\r\n        <div class=\"text-center pt-1 pb-1 border-right-light\">\r\n          <mat-icon class=\"text-blue\">location_city</mat-icon>\r\n          <h4 class=\"m-0 \">{{statObj === null ? 0 : (statObj.factories === null ? \"0\" : statObj.factories)}}</h4>\r\n          <small class=\"m-0 \">Factories</small>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"50\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\">\r\n        <div class=\"text-center pt-1 pb-1 border-right-light\">\r\n          <mat-icon class=\"text-green\" color=\"primary\">shop</mat-icon>\r\n          <h4 class=\"m-0 \">{{statObj === null ? 0 : (statObj.merchandizers === null ? \"0\" : statObj.merchandizers)}}</h4>\r\n          <small class=\"m-0 \">Merchandizers</small>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"50\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\">\r\n        <div class=\"text-center pt-1 pb-1 border-right-light\">\r\n          <mat-icon class=\"text-blue\" color=\"accent\">person</mat-icon>\r\n          <h4 class=\"m-0 \">{{statObj === null ? 0 : (statObj.customer === null ? \"0\" : statObj.customer)}}</h4>\r\n          <small class=\"m-0 \">Customers</small>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </mat-card>\r\n</div>\r\n<!--/ End first row -->\r\n<div fxLayout=\"row wrap\" class=\"pt-2\">\r\n  <div fxFlex=\"50\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"25\">\r\n    <mat-card>\r\n      <form class=\"example-form\">\r\n\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput [formControl]=\"itemForm.controls['product']\" placeholder=\"Search Product\" id=\"getProduct\"\r\n            (keyup)=\"emptyProduct($event)\" [matAutocomplete]=\"autoProduct\">\r\n          <mat-autocomplete autoActiveFirstOption #autoProduct=\"matAutocomplete\" (optionSelected)=\"selectedProduct($event)\"\r\n            [displayWith]=\"displayFn\">\r\n            <mat-option *ngFor=\"let product of filteredProducts | async\" [value]=\"product\">\r\n              {{product.name}}\r\n            </mat-option>\r\n          </mat-autocomplete>\r\n        </mat-form-field>\r\n\r\n\r\n\r\n        <mat-form-field *ngIf=\"noData && itemForm.controls['product'].value\" class=\"full-width\">\r\n          <input matInput [formControl]=\"itemForm.controls['countries']\" placeholder=\"Search Country\" (keyup)=\"emptyCountry($event)\"\r\n            [matAutocomplete]=\"auto\">\r\n          <mat-autocomplete autoActiveFirstOption #auto=\"matAutocomplete\" (optionSelected)=\"selectedCountry($event)\"\r\n            [displayWith]=\"displayFn\">\r\n            <mat-option *ngFor=\"let country of filteredCountry | async\" [value]=\"country\">\r\n              {{country.name}}\r\n            </mat-option>\r\n          </mat-autocomplete>\r\n        </mat-form-field>\r\n      </form>\r\n      <!-- {{noData}}\r\n      {{noDataSecond}} -->\r\n\r\n    </mat-card>\r\n  </div>\r\n  <div fxFlex=\"50\" fxFlex.gt-sm=\"75\" fxFlex.sm=\"75\">\r\n    <mat-card>\r\n      <mat-card-title class=\"\">\r\n        <div class=\"card-title-text\">Vertical Bar chart</div>\r\n        <mat-divider></mat-divider>\r\n      </mat-card-title>\r\n      <mat-card-content>\r\n        <canvas *ngIf=\"noData && noDataSecond\" class=\"chart\" baseChart [data]=\"pieChartData\" [labels]=\"pieChartLabels\"\r\n          [options]=\"doughnutOptions\" [colors]=\"pieChartColors\" [chartType]=\"pieChartType\" (chartHover)=\"pieChartHovered($event)\"\r\n          (chartClick)=\"pieChartClicked($event)\"></canvas>\r\n        <div *ngIf=\"!noData\" class=\"alert alert-warning\" role=\"alert\">\r\n          No sales identified for the selected product\r\n        </div>\r\n        <div *ngIf=\"!noDataSecond\" class=\"alert alert-warning\" role=\"alert\">\r\n          No sales identified for the selected country\r\n        </div>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -849,6 +802,10 @@ var SalesRegionComponent = /** @class */ (function () {
         this.proObj = null;
         this.countryObj = null;
         this.statObj = null;
+        // public selectCounty;
+        //public countryDet;
+        this.noData = true;
+        this.noDataSecond = true;
         this.pieChartType = 'pie';
         this.pieChartLabels = [];
         this.pieChartData = [];
@@ -915,39 +872,58 @@ var SalesRegionComponent = /** @class */ (function () {
     };
     SalesRegionComponent.prototype.selectedProduct = function (event) {
         var _this = this;
-        this.proObj = event.option.value;
-        this.statObj = this.proObj;
-        this.itemForm.get('countries').setValue('');
-        this.countries = this.proObj.country;
-        this.chartupdate.data.length = 0;
-        this.chartupdate.labels.length = 0;
-        this.proObj.country.forEach(function (element) {
-            _this.pieChartLabels.push(element.name);
-            _this.pieChartData.push(element.sale);
-            _this.backgroundColor.push(_this.getRandomColor());
-        });
-        this.pieChartColors = [{ backgroundColor: this.backgroundColor }];
-        this.chartupdate.chart.update();
-        console.log(this.proObj);
-        console.log(this.countries);
-        this.filteredCountry = this.itemForm.get("countries").valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (value) { return _this._filterCounty(value); }));
+        console.log(event);
+        if (event.option !== undefined) {
+            this.proObj = event.option.value;
+            this.statObj = this.proObj;
+            this.itemForm.get('countries').setValue('');
+            this.countries = this.proObj.country;
+            // this.chartupdate.data.length = 0;
+            // this.chartupdate.labels.length = 0;
+            this.pieChartLabels.length = 0;
+            this.pieChartData.length = 0;
+            this.proObj.country.forEach(function (element) {
+                _this.pieChartLabels.push(element.name);
+                _this.pieChartData.push(element.sale);
+                _this.backgroundColor.push(_this.getRandomColor());
+            });
+            this.pieChartData.forEach(function (element) {
+                if (element !== '') {
+                    _this.noData = true;
+                    _this.pieChartColors = [{ backgroundColor: _this.backgroundColor }];
+                    //this.chartupdate.chart.update();
+                    _this.filteredCountry = _this.itemForm.get("countries").valueChanges.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["startWith"])(''), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (value) { return _this._filterCounty(value); }));
+                }
+                else {
+                    _this.noData = false;
+                }
+            });
+        }
     };
     SalesRegionComponent.prototype.selectedCountry = function (event) {
         var _this = this;
+        console.log(event);
         this.countryObj = event.option.value;
         this.getCountries.forEach(function (country) {
             if (country.code === _this.countryObj.code) {
                 _this.statObj = country;
-                _this.chartupdate.data.length = 0;
-                _this.chartupdate.labels.length = 0;
+                _this.pieChartLabels.length = 0;
+                _this.pieChartData.length = 0;
                 country.region.forEach(function (region) {
                     console.log(region);
                     _this.pieChartLabels.push(region.name);
                     _this.pieChartData.push(region.sale);
                     _this.backgroundColor.push(_this.getRandomColor());
                 });
-                _this.pieChartColors = [{ backgroundColor: _this.backgroundColor }];
-                _this.chartupdate.chart.update();
+                _this.pieChartData.forEach(function (element) {
+                    if (element !== '') {
+                        _this.noDataSecond = true;
+                        _this.pieChartColors = [{ backgroundColor: _this.backgroundColor }];
+                    }
+                    else {
+                        _this.noDataSecond = false;
+                    }
+                });
             }
         });
     };
@@ -962,6 +938,33 @@ var SalesRegionComponent = /** @class */ (function () {
     SalesRegionComponent.prototype.displayFn = function (value) {
         console.log("displayfn" + value);
         return value ? value.name : value;
+    };
+    SalesRegionComponent.prototype.emptyCountry = function (event) {
+        var _this = this;
+        if (event) {
+            if (event.target.value === null || event.target.value === "") {
+                this.noData = true;
+                this.pieChartLabels.length = 0;
+                this.pieChartData.length = 0;
+                this.proObj.country.forEach(function (element) {
+                    _this.pieChartLabels.push(element.name);
+                    _this.pieChartData.push(element.sale);
+                    _this.backgroundColor.push(_this.getRandomColor());
+                });
+                this.pieChartColors = [{ backgroundColor: this.backgroundColor }];
+            }
+        }
+    };
+    SalesRegionComponent.prototype.emptyProduct = function (event) {
+        console.log(event);
+        if (event) {
+            if (event.target.value === null || event.target.value === "") {
+                this.noDataSecond = true;
+                this.pieChartLabels.length = 0;
+                this.pieChartData.length = 0;
+                this.chartupdate.chart.update();
+            }
+        }
     };
     /*
    * Pie Chart Options

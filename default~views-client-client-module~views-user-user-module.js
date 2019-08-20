@@ -33592,7 +33592,7 @@ var GlobalVariable = /** @class */ (function () {
                 confirmPasswordStatus: {
                     // false : { id: 0, value: "Passwords do not match!", style: "primary" },
                     false: { id: 0, value: "Passwords Mismatch!", style: "custom-text-red" },
-                    true: { id: 1, value: "Password OK!", style: "custom-text-green" }
+                    true: { id: 1, value: "Password Matches!", style: "custom-text-green" }
                 },
             }
         };
@@ -33648,11 +33648,33 @@ var ClientService = /** @class */ (function () {
     ClientService.prototype.getClients = function () {
         return this.http.get(this.clientUrl).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
+    ClientService.prototype.getClientsByFilter = function (name, pageSize, pageNumber) {
+        return this.http.get(this.clientUrl +
+            "?name=" +
+            name +
+            "&pageNumber=" +
+            pageNumber +
+            "&pageSize=" +
+            pageSize).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    ClientService.prototype.getUsers = function (clientId, keyword, pageSize, pageNumber, isSuperAdmin) {
+        return this.http.get(this.userUrl +
+            "?id=" +
+            clientId +
+            "&keyword=" +
+            keyword +
+            "&pageNumber=" +
+            pageNumber +
+            "&pageSize=" +
+            pageSize +
+            "&isSuperAdmin=" +
+            isSuperAdmin).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
+    };
+    // getUsers(id): Observable<any> {
+    //   return this.http.get(this.clientUrl + "/" + id).pipe(catchError(this.handleError));
+    // }
     ClientService.prototype.getClientsSuggestions = function () {
         return this.http.get(this.clientUrl + "/suggestions").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
-    };
-    ClientService.prototype.getUsers = function (id) {
-        return this.http.get(this.clientUrl + "/" + id).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));
     };
     ClientService.prototype.getRoles = function () {
         return this.http.get(this.roleUrl + "/suggestions").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(this.handleError));

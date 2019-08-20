@@ -8,15 +8,6 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./views/app-calendar/app-calendar.module": [
-		"./src/app/views/app-calendar/app-calendar.module.ts",
-		"common",
-		"views-app-calendar-app-calendar-module"
-	],
-	"./views/app-inbox/app-inbox.module": [
-		"./src/app/views/app-inbox/app-inbox.module.ts",
-		"views-app-inbox-app-inbox-module"
-	],
 	"./views/client/client.module": [
 		"./src/app/views/client/client.module.ts",
 		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
@@ -78,6 +69,7 @@ var map = {
 		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~51e1eb5e",
 		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
 		"default~views-community-community-module~views-evote-evote-module~views-product-crud-product-crud-mo~490929b2",
+		"default~views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
 		"views-product-crud-product-crud-module"
 	],
@@ -106,6 +98,7 @@ var map = {
 		"default~views-client-client-module~views-community-community-module~views-evote-evote-module~views-f~394087c7",
 		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~51e1eb5e",
 		"default~views-community-community-module~views-evote-evote-module~views-future-survey-future-survey-~45103431",
+		"default~views-product-crud-product-crud-module~views-survey-survey-module",
 		"common",
 		"views-survey-survey-module"
 	],
@@ -223,14 +216,17 @@ var AppComponent = /** @class */ (function () {
         this.router.events.subscribe(function (ev) {
             if (ev instanceof _angular_router__WEBPACK_IMPORTED_MODULE_2__["NavigationEnd"]) {
                 var url = _this.router.url;
-                console.log('---------------------------------- APP COMPONENT - ', url);
+                console.log('---------------------------------- AppComponent : APP COMPONENT - ', url);
+                // if (localStorage.getItem("currentUser") && this.loggedUserBlackListUrls.indexOf(url) === 0) {
+                //   this.router.navigate(["/profile/profile-settings"]);
+                // }
                 if (_this.updateProfile && _this.updateProfileImageBlackListUrls.indexOf(url) < 0) {
                     _this.changeProfilePicture();
-                    console.log('---------------------------------- UPDATE PROFILE PICTURE - FIRST TIME ');
+                    console.log('---------------------------------- AppComponent : UPDATE PROFILE PICTURE - FIRST TIME ');
                 }
                 else if (_this.updateProfileImageUrls.indexOf(url) >= 0) {
                     _this.changeProfilePicture();
-                    console.log('---------------------------------- UPDATE PROFILE PICTURE ');
+                    console.log('---------------------------------- AppComponent : UPDATE PROFILE PICTURE ');
                 }
             }
         });
@@ -319,12 +315,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ngx-translate/http-loader */ "./node_modules/@ngx-translate/http-loader/esm5/ngx-translate-http-loader.js");
 /* harmony import */ var _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _shared_services_auth_add_header_interceptor__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./shared/services/auth/add-header-interceptor */ "./src/app/shared/services/auth/add-header-interceptor.ts");
+/* harmony import */ var _shared_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./shared/services/auth/auth.guard */ "./src/app/shared/services/auth/auth.guard.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -368,6 +366,7 @@ var AppModule = /** @class */ (function () {
                 // ANGULAR MATERIAL SLIDER FIX
                 { provide: _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["HAMMER_GESTURE_CONFIG"], useClass: _angular_material__WEBPACK_IMPORTED_MODULE_4__["GestureConfig"] },
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_8__["HTTP_INTERCEPTORS"], useClass: _shared_services_auth_add_header_interceptor__WEBPACK_IMPORTED_MODULE_12__["AddHeaderInterceptor"], multi: true },
+                { provide: _shared_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_13__["AuthGuard"], useClass: _shared_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_13__["AuthGuard"] },
                 _views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_11__["AuthenticationService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
@@ -436,18 +435,19 @@ var rootRouterConfig = [
             {
                 path: "profile",
                 loadChildren: "./views/profile/profile.module#ProfileModule",
-                data: { title: "Profile", breadcrumb: "PROFILE" }
+                data: { title: "Profile", breadcrumb: "PROFILE" },
             },
-            {
-                path: "inbox",
-                loadChildren: "./views/app-inbox/app-inbox.module#AppInboxModule",
-                data: { title: "Inbox", breadcrumb: "INBOX" }
-            },
-            {
-                path: "calendar",
-                loadChildren: "./views/app-calendar/app-calendar.module#AppCalendarModule",
-                data: { title: "Calendar", breadcrumb: "CALENDAR" }
-            },
+            // {
+            //   path: "inbox",
+            //   loadChildren: "./views/app-inbox/app-inbox.module#AppInboxModule",
+            //   data: { title: "Inbox", breadcrumb: "INBOX" }
+            // },
+            // {
+            //   path: "calendar",
+            //   loadChildren:
+            //     "./views/app-calendar/app-calendar.module#AppCalendarModule",
+            //   data: { title: "Calendar", breadcrumb: "CALENDAR" }
+            // },
             {
                 path: "users",
                 loadChildren: "./views/user/user.module#UserModule",
@@ -456,12 +456,12 @@ var rootRouterConfig = [
             {
                 path: "clients",
                 loadChildren: "./views/client/client.module#ClientModule",
-                data: { title: "Clients", breadcrumb: "Client" }
+                data: { title: "Clients", breadcrumb: "Client" },
             },
             {
                 path: "productCrud",
                 loadChildren: "./views/product-crud/product-crud.module#ProductCrudModule",
-                data: { title: "Product Catalogue", breadcrumb: "" }
+                data: { title: "Product Catalogue", breadcrumb: "" },
             },
             {
                 path: "surveys",
@@ -486,7 +486,7 @@ var rootRouterConfig = [
             {
                 path: "reporting",
                 loadChildren: "./views/reporting/reporting.module#ReportingModule",
-                data: { title: "Reporting", breadcrumb: "Reporting" }
+                data: { title: "Reporting", breadcrumb: "Reporting" },
             }
         ]
     },
@@ -1182,7 +1182,7 @@ var HeaderSideComponent = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'compact'\" mat-icon-button id=\"sidenavToggle\" (click)=\"toggleSidenav()\"\r\n    matTooltip=\"Toggle Hide/Open\">\r\n    <mat-icon>menu</mat-icon>\r\n  </button>\r\n  <!-- Sidenav toggle collapse -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'closed'\" mat-icon-button id=\"collapseToggle\" fxHide.lt-md=\"true\"\r\n    (click)=\"toggleCollapse()\" matTooltip=\"Toggle Collapse\" class=\"toggle-collapsed\">\r\n    <mat-icon>chevron_left</mat-icon>\r\n  </button>\r\n  <!-- Search form -->\r\n  <!-- <div\r\n  fxFlex\r\n  fxHide.lt-sm=\"true\"\r\n  class=\"search-bar\">\r\n    <form class=\"top-search-form\">\r\n      <mat-icon role=\"img\">search</mat-icon>\r\n      <input autofocus=\"true\" placeholder=\"Search\" type=\"text\">\r\n    </form>\r\n  </div> -->\r\n  <span fxFlex></span>\r\n  <!-- Language Switcher -->\r\n  <!-- <mat-select\r\n  placeholder=\"\"\r\n  id=\"langToggle\"\r\n  [style.width]=\"'auto'\"\r\n  name=\"currentLang\"\r\n  [(ngModel)]=\"currentLang\"\r\n  (selectionChange)=\"setLang($event)\">\r\n    <mat-option\r\n    *ngFor=\"let lang of availableLangs\"\r\n    [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n  </mat-select> -->\r\n  <!-- Theme Switcher -->\r\n  <button mat-icon-button id=\"schemeToggle\" [style.overflow]=\"'visible'\" matTooltip=\"Color Schemes\"\r\n    [matMenuTriggerFor]=\"themeMenu\" class=\"topbar-button-right\">\r\n    <mat-icon>format_color_fill</mat-icon>\r\n  </button>\r\n  <mat-menu #themeMenu=\"matMenu\">\r\n    <mat-grid-list class=\"theme-list\" cols=\"2\" rowHeight=\"48px\">\r\n      <mat-grid-tile *ngFor=\"let theme of egretThemes\" (click)=\"changeTheme(theme)\">\r\n        <div mat-menu-item [title]=\"theme.name\">\r\n          <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n          <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n        </div>\r\n      </mat-grid-tile>\r\n    </mat-grid-list>\r\n  </mat-menu>\r\n  <!-- Notification toggle button -->\r\n  <button mat-icon-button matTooltip=\"Notifications\" (click)=\"toggleNotific()\" [style.overflow]=\"'visible'\"\r\n    class=\"topbar-button-right\">\r\n    <mat-icon>notifications</mat-icon>\r\n    <span class=\"notification-number mat-bg-warn\">3</span>\r\n  </button>\r\n  <!-- Top left user menu -->\r\n  <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right img-button\">\r\n    <img src=\"{{this.profileImg}}\" alt=\"\">\r\n    <!-- <img src=\"{{this.authService.imgBaseURL + '/user/' + this.userId}}\" alt=\"\"> -->\r\n  </button>\r\n  <mat-menu #accountMenu=\"matMenu\">\r\n    <button mat-menu-item [routerLink]=\"['/profile/profile-settings']\">\r\n      <mat-icon>portrait</mat-icon>\r\n      <span>Profile Settings</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/account-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n      <mat-icon>work</mat-icon>\r\n      <span>Account Settings</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/general-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n      <mat-icon>settings</mat-icon>\r\n      <span>General Settings</span>\r\n    </button>\r\n    <!-- <button mat-menu-item>\r\n      <mat-icon>notifications_off</mat-icon>\r\n      <span>Disable alerts</span>\r\n    </button> -->\r\n    <a mat-menu-item href=\"sessions/signin\" (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </a>\r\n    <!-- <button mat-menu-item (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </button> -->\r\n  </mat-menu>\r\n</mat-toolbar>"
+module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'compact'\" mat-icon-button id=\"sidenavToggle\" (click)=\"toggleSidenav()\"\r\n    matTooltip=\"Hide/Show Side Bar\">\r\n    <mat-icon>menu</mat-icon>\r\n  </button>\r\n  <!-- Sidenav toggle collapse -->\r\n  <button *ngIf=\"layoutConf.sidebarStyle !== 'closed'\" mat-icon-button id=\"collapseToggle\" fxHide.lt-md=\"true\" (click)=\"toggleCollapse()\"\r\n    matTooltip=\"Minimize/Maximize Side Bar\" class=\"toggle-collapsed\">\r\n    <mat-icon>chevron_left</mat-icon>\r\n  </button>\r\n  <!-- Search form -->\r\n  <!-- <div\r\n  fxFlex\r\n  fxHide.lt-sm=\"true\"\r\n  class=\"search-bar\">\r\n    <form class=\"top-search-form\">\r\n      <mat-icon role=\"img\">search</mat-icon>\r\n      <input autofocus=\"true\" placeholder=\"Search\" type=\"text\">\r\n    </form>\r\n  </div> -->\r\n  <span fxFlex></span>\r\n  <!-- Language Switcher -->\r\n  <!-- <mat-select\r\n  placeholder=\"\"\r\n  id=\"langToggle\"\r\n  [style.width]=\"'auto'\"\r\n  name=\"currentLang\"\r\n  [(ngModel)]=\"currentLang\"\r\n  (selectionChange)=\"setLang($event)\">\r\n    <mat-option\r\n    *ngFor=\"let lang of availableLangs\"\r\n    [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n  </mat-select> -->\r\n  <!-- Theme Switcher -->\r\n\r\n  <!------------------------------------- those are unnecessary for now--------------------------------------->\r\n  <!-- <button mat-icon-button id=\"schemeToggle\" [style.overflow]=\"'visible'\" matTooltip=\"Color Schemes\" [matMenuTriggerFor]=\"themeMenu\"\r\n    class=\"topbar-button-right\">\r\n    <mat-icon>format_color_fill</mat-icon>\r\n  </button>\r\n  <mat-menu #themeMenu=\"matMenu\">\r\n    <mat-grid-list class=\"theme-list\" cols=\"2\" rowHeight=\"48px\">\r\n      <mat-grid-tile *ngFor=\"let theme of egretThemes\" (click)=\"changeTheme(theme)\">\r\n        <div mat-menu-item [title]=\"theme.name\">\r\n          <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n          <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n        </div>\r\n      </mat-grid-tile>\r\n    </mat-grid-list>\r\n  </mat-menu> -->\r\n  <!-- Notification toggle button -->\r\n  <!-- <button mat-icon-button matTooltip=\"Notifications\" (click)=\"toggleNotific()\" [style.overflow]=\"'visible'\" class=\"topbar-button-right\">\r\n    <mat-icon>notifications</mat-icon>\r\n    <span class=\"notification-number mat-bg-warn\">3</span>\r\n  </button> -->\r\n  <!------------------------------------- those are unnecessary for now--------------------------------------->\r\n\r\n  <!-- Top left user menu -->\r\n  <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right img-button\">\r\n    <img src=\"{{this.profileImg}}\" alt=\"\">\r\n    <!-- <img src=\"{{this.authService.imgBaseURL + '/user/' + this.userId}}\" alt=\"\"> -->\r\n  </button>\r\n  <mat-menu #accountMenu=\"matMenu\">\r\n    <button mat-menu-item [routerLink]=\"['/profile/profile-settings']\">\r\n      <mat-icon>portrait</mat-icon>\r\n      <span>Profile Settings</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/account-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n      <mat-icon>work</mat-icon>\r\n      <span>Account Settings</span>\r\n    </button>\r\n    <button mat-menu-item [routerLink]=\"['/profile/general-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n      <mat-icon>settings</mat-icon>\r\n      <span>General Settings</span>\r\n    </button>\r\n    <!-- <button mat-menu-item>\r\n      <mat-icon>notifications_off</mat-icon>\r\n      <span>Disable alerts</span>\r\n    </button> -->\r\n    <a mat-menu-item href=\"sessions/signin\" (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </a>\r\n    <!-- <button mat-menu-item (click)=\"signOut()\">\r\n      <mat-icon>exit_to_app</mat-icon>\r\n      <span>Sign out</span>\r\n    </button> -->\r\n  </mat-menu>\r\n</mat-toolbar>"
 
 /***/ }),
 
@@ -1193,7 +1193,7 @@ module.exports = "<mat-toolbar class=\"topbar\">\r\n  <!-- Sidenav toggle button
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header-topnav mat-elevation-z2\">\r\n  <div class=\"container\">\r\n    <div class=\"topnav\">\r\n      <!-- App Logo -->\r\n      <div class=\"topbar-branding\">\r\n        <!-- <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\"> -->\r\n        <img src=\"assets/images/truverus/TruVerus_Logo_short.png\" alt=\"\" class=\"app-logo\">\r\n      </div>\r\n\r\n      <ul class=\"menu\" *ngIf=\"!layoutConf.isMobile\">\r\n        <li *ngFor=\"let item of menuItems; let i = index;\">\r\n          <div *ngIf=\"item.type !== 'separator'\" routerLinkActive=\"open\">\r\n            <a matRipple routerLink=\"/{{item.state}}\" *ngIf=\"item.type === 'link'\">\r\n              <mat-icon>{{item.icon}}</mat-icon>\r\n              {{item.name | translate}}\r\n            </a>\r\n            <div *ngIf=\"item.type === 'dropDown'\">\r\n              <label matRipple for=\"drop-{{i}}\" class=\"toggle\"><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</label>\r\n              <a matRipple><mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}</a>\r\n              <input type=\"checkbox\" id=\"drop-{{i}}\" />\r\n              <ul>\r\n                <li *ngFor=\"let itemLvL2 of item.sub; let j = index;\" routerLinkActive=\"open\">\r\n                  <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\"\r\n                  *ngIf=\"itemLvL2.type !== 'dropDown'\">\r\n                    <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>\r\n                    {{itemLvL2.name | translate}}\r\n                  </a>\r\n\r\n                  <div *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n                    <label matRipple for=\"drop-{{i}}{{j}}\" class=\"toggle\">{{itemLvL2.name | translate}}</label>\r\n                    <a matRipple><mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>  {{itemLvL2.name | translate}}</a>\r\n                    <input type=\"checkbox\" id=\"drop-{{i}}{{j}}\" />\r\n                    <!-- Level 3 -->\r\n                    <ul>\r\n                      <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" routerLinkActive=\"open\">\r\n                        <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\">\r\n                          <mat-icon *ngIf=\"itemLvL3.icon\">{{itemLvL3.icon}}</mat-icon>\r\n                          {{itemLvL3.name | translate}}\r\n                        </a>\r\n                      </li>\r\n                    </ul>\r\n                  </div>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n      <span fxFlex></span>\r\n      <!-- End Navigation -->\r\n\r\n      <!-- Language Switcher -->\r\n      <mat-select\r\n      *ngIf=\"!layoutConf.isMobile\"\r\n      placeholder=\"\"\r\n      id=\"langToggle\"\r\n      [style.width]=\"'auto'\"\r\n      name=\"currentLang\"\r\n      [(ngModel)]=\"currentLang\"\r\n      (selectionChange)=\"setLang()\"\r\n      class=\"topbar-button-right\">\r\n        <mat-option\r\n        *ngFor=\"let lang of availableLangs\"\r\n        [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n      </mat-select>\r\n      <!-- Theme Switcher -->\r\n      <button\r\n      mat-icon-button\r\n      id=\"schemeToggle\"\r\n      [style.overflow]=\"'visible'\"\r\n      matTooltip=\"Color Schemes\"\r\n      [matMenuTriggerFor]=\"themeMenu\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>format_color_fill</mat-icon>\r\n      </button>\r\n      <mat-menu #themeMenu=\"matMenu\">\r\n        <mat-grid-list\r\n        class=\"theme-list\"\r\n        cols=\"2\"\r\n        rowHeight=\"48px\">\r\n          <mat-grid-tile\r\n          *ngFor=\"let theme of egretThemes\"\r\n          (click)=\"changeTheme(theme)\">\r\n            <div mat-menu-item [title]=\"theme.name\">\r\n              <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n              <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </mat-menu>\r\n      <!-- Notification toggle button -->\r\n      <button\r\n      mat-icon-button\r\n      matTooltip=\"Notifications\"\r\n      (click)=\"toggleNotific()\"\r\n      [style.overflow]=\"'visible'\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>notifications</mat-icon>\r\n        <span class=\"notification-number mat-bg-warn\">3</span>\r\n      </button>\r\n      <!-- Top left user menu -->\r\n      <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right mr-1 img-button\">\r\n        <!-- <img src=\"{{currentUser.image}}\" alt=\"\"> -->\r\n        <img src=\"{{this.authService.imgBaseURL + '/user/' + this.userId}}\" alt=\"\">\r\n      </button>\r\n      <mat-menu #accountMenu=\"matMenu\">\r\n        <button mat-menu-item [routerLink]=\"['/profile/profile-settings']\">\r\n          <mat-icon>portrait</mat-icon>\r\n          <span>Profile Settings</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/account-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n          <mat-icon>work</mat-icon>\r\n          <span>Account Settings</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/general-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n          <mat-icon>settings</mat-icon>\r\n          <span>General Settings</span>\r\n        </button>\r\n        <!-- <button mat-menu-item>\r\n          <mat-icon>notifications_off</mat-icon>\r\n          <span>Disable alerts</span>\r\n        </button> -->\r\n        <button mat-menu-item (click)=\"signOut()\" >\r\n          <mat-icon>exit_to_app</mat-icon>\r\n          <span>Sign out</span>\r\n        </button>\r\n      </mat-menu>\r\n      <!-- Mobile screen menu toggle -->\r\n      <button\r\n      mat-icon-button\r\n      class=\"mr-1\"\r\n      (click)=\"toggleSidenav()\"\r\n      *ngIf=\"layoutConf.isMobile\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"header-topnav mat-elevation-z2\">\r\n  <div class=\"container\">\r\n    <div class=\"topnav\">\r\n      <!-- App Logo -->\r\n      <div class=\"topbar-branding\">\r\n        <!-- <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\"> -->\r\n        <img src=\"assets/images/truverus/TruVerus_Logo_short.png\" alt=\"\" class=\"app-logo\">\r\n      </div>\r\n\r\n      <ul class=\"menu\" *ngIf=\"!layoutConf.isMobile\">\r\n        <li *ngFor=\"let item of menuItems; let i = index;\">\r\n          <div *ngIf=\"item.type !== 'separator'\" routerLinkActive=\"open\">\r\n            <a matRipple routerLink=\"/{{item.state}}\" *ngIf=\"item.type === 'link'\">\r\n              <mat-icon>{{item.icon}}</mat-icon>\r\n              {{item.name | translate}}\r\n            </a>\r\n            <div *ngIf=\"item.type === 'dropDown'\">\r\n              <label matRipple for=\"drop-{{i}}\" class=\"toggle\">\r\n                <mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}\r\n              </label>\r\n              <a matRipple>\r\n                <mat-icon>{{item.icon}}</mat-icon> {{item.name | translate}}\r\n              </a>\r\n              <input type=\"checkbox\" id=\"drop-{{i}}\" />\r\n              <ul>\r\n                <li *ngFor=\"let itemLvL2 of item.sub; let j = index;\" routerLinkActive=\"open\">\r\n                  <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}/{{itemLvL2.state}}\" *ngIf=\"itemLvL2.type !== 'dropDown'\">\r\n                    <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon>\r\n                    {{itemLvL2.name | translate}}\r\n                  </a>\r\n\r\n                  <div *ngIf=\"itemLvL2.type === 'dropDown'\">\r\n                    <label matRipple for=\"drop-{{i}}{{j}}\" class=\"toggle\">{{itemLvL2.name | translate}}</label>\r\n                    <a matRipple>\r\n                      <mat-icon *ngIf=\"itemLvL2.icon\">{{itemLvL2.icon}}</mat-icon> {{itemLvL2.name | translate}}\r\n                    </a>\r\n                    <input type=\"checkbox\" id=\"drop-{{i}}{{j}}\" />\r\n                    <!-- Level 3 -->\r\n                    <ul>\r\n                      <li *ngFor=\"let itemLvL3 of itemLvL2.sub\" routerLinkActive=\"open\">\r\n                        <a matRipple routerLink=\"{{item.state ? '/'+item.state : ''}}{{itemLvL2.state ? '/'+itemLvL2.state : ''}}/{{itemLvL3.state}}\">\r\n                          <mat-icon *ngIf=\"itemLvL3.icon\">{{itemLvL3.icon}}</mat-icon>\r\n                          {{itemLvL3.name | translate}}\r\n                        </a>\r\n                      </li>\r\n                    </ul>\r\n                  </div>\r\n                </li>\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </li>\r\n      </ul>\r\n      <span fxFlex></span>\r\n      <!-- End Navigation -->\r\n      <!------------------------------------- those are unnecessary for now--------------------------------------->\r\n      <!-- Language Switcher -->\r\n      <!-- <mat-select\r\n      *ngIf=\"!layoutConf.isMobile\"\r\n      placeholder=\"\"\r\n      id=\"langToggle\"\r\n      [style.width]=\"'auto'\"\r\n      name=\"currentLang\"\r\n      [(ngModel)]=\"currentLang\"\r\n      (selectionChange)=\"setLang()\"\r\n      class=\"topbar-button-right\">\r\n        <mat-option\r\n        *ngFor=\"let lang of availableLangs\"\r\n        [value]=\"lang.code\" ngDefaultControl>{{ lang.name }}</mat-option>\r\n      </mat-select> -->\r\n      <!-- Theme Switcher -->\r\n      <!-- <button\r\n      mat-icon-button\r\n      id=\"schemeToggle\"\r\n      [style.overflow]=\"'visible'\"\r\n      matTooltip=\"Color Schemes\"\r\n      [matMenuTriggerFor]=\"themeMenu\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>format_color_fill</mat-icon>\r\n      </button>\r\n      <mat-menu #themeMenu=\"matMenu\">\r\n        <mat-grid-list\r\n        class=\"theme-list\"\r\n        cols=\"2\"\r\n        rowHeight=\"48px\">\r\n          <mat-grid-tile\r\n          *ngFor=\"let theme of egretThemes\"\r\n          (click)=\"changeTheme(theme)\">\r\n            <div mat-menu-item [title]=\"theme.name\">\r\n              <div [style.background]=\"theme.baseColor\" class=\"egret-swatch\"></div>\r\n              <mat-icon class=\"active-icon\" *ngIf=\"theme.isActive\">check</mat-icon>\r\n            </div>\r\n          </mat-grid-tile>\r\n        </mat-grid-list>\r\n      </mat-menu> -->\r\n      <!-- Notification toggle button -->\r\n      <!-- <button\r\n      mat-icon-button\r\n      matTooltip=\"Notifications\"\r\n      (click)=\"toggleNotific()\"\r\n      [style.overflow]=\"'visible'\"\r\n      class=\"topbar-button-right\">\r\n        <mat-icon>notifications</mat-icon>\r\n        <span class=\"notification-number mat-bg-warn\">3</span>\r\n      </button> -->\r\n      <!------------------------------------- those are unnecessary for now--------------------------------------->\r\n      <!-- Top left user menu -->\r\n      <button mat-icon-button [matMenuTriggerFor]=\"accountMenu\" class=\"topbar-button-right mr-1 img-button\">\r\n        <!-- <img src=\"{{currentUser.image}}\" alt=\"\"> -->\r\n        <img src=\"{{this.authService.imgBaseURL + '/user/' + this.userId}}\" alt=\"\">\r\n      </button>\r\n      <mat-menu #accountMenu=\"matMenu\">\r\n        <button mat-menu-item [routerLink]=\"['/profile/profile-settings']\">\r\n          <mat-icon>portrait</mat-icon>\r\n          <span>Profile Settings</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/account-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n          <mat-icon>work</mat-icon>\r\n          <span>Account Settings</span>\r\n        </button>\r\n        <button mat-menu-item [routerLink]=\"['/profile/general-settings']\" [roleAuthorization]=\"'isPredefined'\">\r\n          <mat-icon>settings</mat-icon>\r\n          <span>General Settings</span>\r\n        </button>\r\n        <!-- <button mat-menu-item>\r\n          <mat-icon>notifications_off</mat-icon>\r\n          <span>Disable alerts</span>\r\n        </button> -->\r\n        <button mat-menu-item (click)=\"signOut()\">\r\n          <mat-icon>exit_to_app</mat-icon>\r\n          <span>Sign out</span>\r\n        </button>\r\n      </mat-menu>\r\n      <!-- Mobile screen menu toggle -->\r\n      <button mat-icon-button class=\"mr-1\" (click)=\"toggleSidenav()\" *ngIf=\"layoutConf.isMobile\">\r\n        <mat-icon>menu</mat-icon>\r\n      </button>\r\n\r\n    </div>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -1655,7 +1655,7 @@ var NotificationsComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"sidebar-panel\">\r\n  <div id=\"scroll-area\" class=\"navigation-hold\" fxLayout=\"column\">\r\n\r\n    <!-- App Logo -->\r\n    <!-- <div class=\"branding default-bg\"> -->\r\n    <div class=\"default-bg\">\r\n\r\n      <!-- <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\"> -->\r\n      <!-- Two different logos for dark and light themes -->\r\n      <!-- <img src=\"assets/images/clear-picture-logo.png\" alt=\"\" class=\"app-logo-text\"\r\n        *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\"> -->\r\n      <!-- <img src=\"assets/images/cp_logo_text.png\" alt=\"\" class=\"app-logo-text\"\r\n          *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n\r\n      <img *ngIf=\"layoutConf.sidebarStyle === 'compact'\" src=\"assets/images/truverus/TruVerus_Logo_short.png\" alt=\"\"\r\n        class=\"app-logo\">\r\n      <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" class=\"app-logo-text\"\r\n        *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\">\r\n      <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" class=\"app-logo-text\"\r\n        *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\">\r\n\r\n\r\n      <!-- <img src=\"https://about.canva.com/wp-content/uploads/sites/3/2015/01/concert_poster.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"https://www.acurax.com/wp-content/themes/acuraxsite/images/inner_page_bnr.jpg?x21789\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"https://marketplace.canva.com/MACq6ALcZxM/1/0/thumbnail_large/canva-blue-shapes-etsy-banner-MACq6ALcZxM.jpg\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"http://gdj.graphicdesignjunction.com/wp-content/uploads/2015/01/Free+Square+Poster+Mockup.jpg\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n\r\n    </div>\r\n\r\n    <!-- Sidebar user -->\r\n    <div class=\"app-user\">\r\n\r\n      <div class=\"app-user-photo\">\r\n          <img src=\"{{profileImg}}\" alt=\"\">\r\n      </div>\r\n\r\n      <span class=\"app-user-name mb-05\">\r\n        <mat-icon class=\"icon-xs text-muted\">lock</mat-icon>\r\n        {{this.userDisplayName}}\r\n      </span>\r\n\r\n\r\n      <!-- Small buttons -->\r\n      <div class=\"app-user-controls\">\r\n        <button class=\"text-muted\" mat-icon-button mat-xs-button [matMenuTriggerFor]=\"appUserMenu\">\r\n          <mat-icon>settings</mat-icon>\r\n        </button>\r\n        <button class=\"text-muted\" mat-icon-button mat-xs-button matTooltip=\"Inbox\" routerLink=\"/inbox\">\r\n          <mat-icon>email</mat-icon>\r\n        </button>\r\n\r\n        <mat-menu #appUserMenu=\"matMenu\">\r\n          <!-- routerLink=\"/profile/overview\" -->\r\n          <button mat-menu-item routerLink=\"/profile/\">\r\n            <mat-icon>account_box</mat-icon>\r\n            <span>Profile</span>\r\n          </button>\r\n          <!-- COMMENTED BECAUSE OF NOT USE OF THIS : RAVEEN 2019/07/31 -->\r\n          <!-- <button mat-menu-item routerLink=\"/profile/settings\">\r\n            <mat-icon>settings</mat-icon>\r\n            <span>Account Settings</span>\r\n          </button> -->\r\n          <button mat-menu-item routerLink=\"/calendar\">\r\n            <mat-icon>date_range</mat-icon>\r\n            <span>Calendar</span>\r\n          </button>\r\n\r\n        </mat-menu>\r\n      </div>\r\n    </div>\r\n    <!-- Navigation -->\r\n    <app-sidenav [items]=\"menuItems\" [hasIconMenu]=\"hasIconTypeMenuItem\" [iconMenuTitle]=\"iconTypeMenuTitle\">\r\n    </app-sidenav>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"sidebar-panel\">\r\n  <div id=\"scroll-area\" class=\"navigation-hold\" fxLayout=\"column\">\r\n\r\n    <!-- App Logo -->\r\n    <!-- <div class=\"branding default-bg\"> -->\r\n    <div class=\"default-bg\">\r\n\r\n      <!-- <img src=\"assets/images/cp_logo.png\" alt=\"\" class=\"app-logo\"> -->\r\n      <!-- Two different logos for dark and light themes -->\r\n      <!-- <img src=\"assets/images/clear-picture-logo.png\" alt=\"\" class=\"app-logo-text\"\r\n        *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\"> -->\r\n      <!-- <img src=\"assets/images/cp_logo_text.png\" alt=\"\" class=\"app-logo-text\"\r\n          *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n\r\n      <img *ngIf=\"layoutConf.sidebarStyle === 'compact'\" src=\"assets/images/truverus/TruVerus_Logo_short.png\" alt=\"\"\r\n        class=\"app-logo\">\r\n      <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') !== -1\">\r\n      <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\">\r\n\r\n\r\n      <!-- <img src=\"https://about.canva.com/wp-content/uploads/sites/3/2015/01/concert_poster.png\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"https://www.acurax.com/wp-content/themes/acuraxsite/images/inner_page_bnr.jpg?x21789\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"https://marketplace.canva.com/MACq6ALcZxM/1/0/thumbnail_large/canva-blue-shapes-etsy-banner-MACq6ALcZxM.jpg\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n      <!-- <img src=\"http://gdj.graphicdesignjunction.com/wp-content/uploads/2015/01/Free+Square+Poster+Mockup.jpg\" alt=\"\" class=\"app-logo-text\" *ngIf=\"themeService.activatedTheme?.name?.indexOf('dark') === -1\"> -->\r\n\r\n    </div>\r\n\r\n    <!-- Sidebar user -->\r\n    <div class=\"app-user\">\r\n\r\n      <div class=\"app-user-photo\">\r\n        <img src=\"{{profileImg}}\" alt=\"\">\r\n      </div>\r\n\r\n      <span class=\"app-user-name mb-05\">\r\n        <mat-icon class=\"icon-xs text-muted\">lock</mat-icon>\r\n        {{this.userDisplayName}}\r\n      </span>\r\n\r\n\r\n      <!-- Small buttons -->\r\n      <div class=\"app-user-controls\">\r\n        <!-- commented this 2 section becouse those are not implement yet-->\r\n        <!-- <button class=\"text-muted\" mat-icon-button mat-xs-button [matMenuTriggerFor]=\"appUserMenu\">\r\n          <mat-icon>settings</mat-icon>\r\n        </button>\r\n        <button class=\"text-muted\" mat-icon-button mat-xs-button matTooltip=\"Inbox\" routerLink=\"/inbox\">\r\n          <mat-icon>email</mat-icon>\r\n        </button> -->\r\n\r\n        <mat-menu #appUserMenu=\"matMenu\">\r\n          <!-- routerLink=\"/profile/overview\" -->\r\n          <button mat-menu-item routerLink=\"/profile/\">\r\n            <mat-icon>account_box</mat-icon>\r\n            <span>Profile</span>\r\n          </button>\r\n          <!-- COMMENTED BECAUSE OF NOT USE OF THIS : RAVEEN 2019/07/31 -->\r\n          <!-- <button mat-menu-item routerLink=\"/profile/settings\">\r\n            <mat-icon>settings</mat-icon>\r\n            <span>Account Settings</span>\r\n          </button> -->\r\n          <button mat-menu-item routerLink=\"/calendar\">\r\n            <mat-icon>date_range</mat-icon>\r\n            <span>Calendar</span>\r\n          </button>\r\n\r\n        </mat-menu>\r\n      </div>\r\n    </div>\r\n    <!-- Navigation -->\r\n    <app-sidenav [items]=\"menuItems\" [hasIconMenu]=\"hasIconTypeMenuItem\" [iconMenuTitle]=\"iconTypeMenuTitle\">\r\n    </app-sidenav>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -2613,7 +2613,7 @@ var AppComfirmComponent = /** @class */ (function () {
     AppComfirmComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-confirm',
-            template: "<h1 matDialogTitle>{{ data.title }}</h1>\n    <div mat-dialog-content>{{ data.message }}</div>\n    <div mat-dialog-actions>\n    <button \n    type=\"button\" \n    mat-raised-button\n    color=\"primary\" \n    (click)=\"dialogRef.close(true)\">OK</button>\n    &nbsp;\n    <span fxFlex></span>\n    <button \n    type=\"button\"\n    color=\"accent\"\n    mat-raised-button \n    (click)=\"dialogRef.close(false)\">Cancel</button>\n    </div>",
+            template: "<h1 matDialogTitle>{{ data.title }}</h1>\n    <div mat-dialog-content align=\"center\">{{ data.message }}</div>\n    <div mat-dialog-actions class=\"mt-1\">\n    <button \n    type=\"button\" \n    mat-raised-button\n    color=\"primary\" \n    (click)=\"dialogRef.close(true)\">Yes</button>\n    &nbsp;\n    <span fxFlex></span>\n    <button \n    type=\"button\"\n    color=\"accent\"\n    mat-raised-button \n    (click)=\"dialogRef.close(false)\">No</button>\n    </div>",
         }),
         __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_0__["MAT_DIALOG_DATA"])),
         __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_0__["MatDialogRef"], Object])
@@ -3058,7 +3058,8 @@ var errorMessages = {
         platformUserViewRequestUserNotExist: 'User does not exist!',
         platformUserUpdateRequestUserNotExist: 'User does not exist!',
         platformUserDeleteRequestUserDeleteFiledUserId: 'Could not delete user account!',
-        platformUserDeleteRequestUserNotExis: 'User does not exist!'
+        platformUserDeleteRequestUserNotExis: 'User does not exist!',
+        platformUserPasswordUpdateRequestCurrentPasswordDoesNotMatch: 'Current password does not match'
     },
     status: {
         platformUserUpdateRequestStatusCannotChange: 'You cannot change status! / The action cannot be completed!'
@@ -3631,13 +3632,13 @@ var AddHeaderInterceptor = /** @class */ (function () {
             request = request.clone({
                 headers: request.headers.set("Authorization", "Basic " + btoa(this.gloable_user + ":" + this.gloable_secret))
             });
-            console.log('--------------------------------------- request', request);
+            console.log('--------------------------------------- AddHeaderInterceptor : request', request);
         }
         else {
             var isTokenRequired = this.getWhiteListUrl(request.url);
             if (token) {
                 if (isTokenRequired) {
-                    console.log('---------------------------- refreshToken in header', token);
+                    console.log('---------------------------- AddHeaderInterceptor : refreshToken in header', token);
                     request = request.clone({
                         headers: request.headers.set("Authorization", "bearer " + token)
                     });
@@ -3654,7 +3655,7 @@ var AddHeaderInterceptor = /** @class */ (function () {
         return next
             .handle(this.checkPublicUrl(request.url) ? request : this.getRequest(request, this.authService.getAuthToken()))
             .catch(function (error) {
-            console.log("--------------------------- error", error);
+            console.log("--------------------------- AddHeaderInterceptor : error", error);
             if (error instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpErrorResponse"]) {
                 switch (error.status) {
                     case 401:
@@ -3670,7 +3671,7 @@ var AddHeaderInterceptor = /** @class */ (function () {
     };
     AddHeaderInterceptor.prototype.handle401Error = function (req, next) {
         var _this = this;
-        console.log("------------------------- 01. handle401Error");
+        console.log("------------------------- AddHeaderInterceptor : 01. handle401Error");
         if (!this.isRefreshingToken) {
             this.isRefreshingToken = true;
             // Reset here so that the following requests wait until the token
@@ -3679,20 +3680,20 @@ var AddHeaderInterceptor = /** @class */ (function () {
             return this.authService
                 .getNewToken()
                 .switchMap(function (newToken) {
-                console.log("------------------------- 02. getNewToken");
+                console.log("------------------------- AddHeaderInterceptor : 02. getNewToken");
                 if (newToken) {
-                    console.log("------------------------- 03. newToken");
+                    console.log("------------------------- AddHeaderInterceptor : 03. newToken");
                     _this.tokenSubject.next(newToken);
                     return next
                         .handle(_this.getRequest(req, newToken))
                         .catch(function (error) {
-                        console.log("------------------------- 04. recallUrlError");
+                        console.log("------------------------- AddHeaderInterceptor : 04. recallUrlError");
                         console.log(error);
                         return rxjs_Rx__WEBPACK_IMPORTED_MODULE_4__["Observable"].throw(error);
                     });
                 }
                 // If we don't get a new token, we are in trouble so logout.
-                console.log("------------------------- If we don't get a new token, we are in trouble so logout.");
+                console.log("------------------------- AddHeaderInterceptor : If we don't get a new token, we are in trouble so logout.");
                 return _this.logoutUser();
             })
                 .catch(function (error) {
@@ -3700,9 +3701,12 @@ var AddHeaderInterceptor = /** @class */ (function () {
                 if (error && error.url && error.error.error) {
                     if (_this.oauthTokenUrlValidate(error.url) && error.error.error !== 'access_denied') {
                         // If there is an exception calling 'refreshToken', bad news so logout.
-                        console.log("------------------------- If there is an exception calling 'refreshToken', bad news so logout.");
+                        console.log("------------------------- AddHeaderInterceptor : If there is an exception calling 'refreshToken', bad news so logout.");
                         return _this.logoutUser();
                     }
+                }
+                else {
+                    return rxjs_Rx__WEBPACK_IMPORTED_MODULE_4__["Observable"].throw(error);
                 }
             })
                 .finally(function () {
@@ -3815,11 +3819,27 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var AuthGuard = /** @class */ (function () {
     function AuthGuard(router) {
         this.router = router;
-        this.isAuthenticated = true; // Set this value dynamically
+        this.loggedUserBlackListUrls = ['/sessions/signin'];
     }
     AuthGuard.prototype.canActivate = function (route, state) {
+        var url = this.router.url;
+        console.log('---------------------------------- AuthGuard : url -', url);
+        console.log('---------------------------------- AuthGuard : state.url - ', state.url);
         if (localStorage.getItem("currentUser")) {
-            // logged in so return true
+            if (this.loggedUserBlackListUrls.indexOf(state.url) === 0) {
+                if (url !== '/') {
+                    this.router.navigate([url]);
+                }
+                else {
+                    this.router.navigate(['/profile/profile-settings']);
+                }
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        if (state.url === "/sessions/signin") {
             return true;
         }
         this.router.navigate(["/sessions/signin"]);
@@ -5669,9 +5689,7 @@ var environment = {
     // productimageUrl: "https://productzg4t4ks63a.hana.ondemand.com/product/",
     // evoteimageUrl : 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/',
     // frontEndBaseUrl: 'https://judedw.github.io/JudiAuthentica-Dev/',
-    frontEndBaseUrl: 'https://tc-zone.github.io/JudiAuthentica-Dev/'
-    //  frontEndBaseUrl: "http://localhost:4200/",
-    //  frontEndBaseUrl: "https://www.clearpicturevote.com/"
+    frontEndBaseUrl: "http://localhost:4200/",
 };
 
 

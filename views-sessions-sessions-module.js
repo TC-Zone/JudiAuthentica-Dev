@@ -7046,6 +7046,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _error_error_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./error/error.component */ "./src/app/views/sessions/error/error.component.ts");
 /* harmony import */ var _user_activation_user_activation_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./user-activation/user-activation.component */ "./src/app/views/sessions/user-activation/user-activation.component.ts");
 /* harmony import */ var _unauthorized_unauthorized_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./unauthorized/unauthorized.component */ "./src/app/views/sessions/unauthorized/unauthorized.component.ts");
+/* harmony import */ var app_shared_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! app/shared/services/auth/auth.guard */ "./src/app/shared/services/auth/auth.guard.ts");
+
 
 
 
@@ -7060,11 +7062,12 @@ var SessionsRoutes = [
         children: [{
                 path: 'signup',
                 component: _signup_signup_component__WEBPACK_IMPORTED_MODULE_3__["SignupComponent"],
-                data: { title: 'Signup' }
+                data: { title: 'Signup' },
             }, {
                 path: 'signin',
                 component: _signin_signin_component__WEBPACK_IMPORTED_MODULE_2__["SigninComponent"],
-                data: { title: 'Signin' }
+                data: { title: 'Signin' },
+                canActivate: [app_shared_services_auth_auth_guard__WEBPACK_IMPORTED_MODULE_8__["AuthGuard"]]
             }, {
                 path: 'forgot-password',
                 component: _forgot_password_forgot_password_component__WEBPACK_IMPORTED_MODULE_0__["ForgotPasswordComponent"],
@@ -7103,7 +7106,7 @@ var SessionsRoutes = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <div class=\"page-wrap height-100 comman-background\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" style=\"width: 300px;\">\r\n          <p class=\"text-muted m-0\">Sign in to your account</p>\r\n          <small *ngIf=\"!result\" class=\" m-0 form-error-msg\"> Invalid Login Credentials ! </small>\r\n        </div>\r\n        <form [formGroup]=\"signinForm\" (ngSubmit)=\"signin()\">\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" [formControl]=\"signinForm.controls['username']\" placeholder=\"Username\" value=\"\">\r\n            </mat-form-field>\r\n            <small *ngIf=\"signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched\" class=\"form-error-msg\">\r\n            Username is required </small>\r\n          </div>\r\n\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"password\" name=\"password\" matInput [formControl]=\"signinForm.controls['password']\" placeholder=\"Password\" value=\"\">\r\n            </mat-form-field>\r\n            <small *ngIf=\"signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched\" class=\"form-error-msg\">\r\n            Password is required </small>\r\n          </div>\r\n\r\n          <div class=\"pb-1\">\r\n            <mat-checkbox name=\"rememberMe\" [formControl]=\"signinForm.controls['rememberMe']\" class=\"pb-1\">Remember this\r\n              computer</mat-checkbox>\r\n          </div>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"signinForm.invalid\">Sign in</button>\r\n          <div class=\"text-center\">\r\n            <a [routerLink]=\"'/sessions/forgot-password'\" class=\"mat-primary text-center full-width\">Forgot password</a>\r\n            <span fxFlex></span>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div> -->\r\n\r\n<form [formGroup]=\"signinForm\" id=\"user-login-view\"  (ngSubmit)=\"signin()\">\r\n  <div class=\"page-wrap height-100 signin-background\">\r\n    <div class=\"session-form-hold set-form-left\">\r\n      <mat-card id=\"login-card\">\r\n        <mat-card-content>\r\n          <div id=\"login-form\">\r\n            <div class=\"text-center pb-1\" id=\"login-form-logo\">\r\n              <img src=\"assets/images/truverus/Tru-Verus-Logo.png\" alt=\"\">\r\n              <p class=\"text-muted m-0\">Welcome, Please Signin to your Account.</p>\r\n              <small *ngIf=\"!result\" class=\" m-0 form-error-msg\"> Invalid Login Credentials ! </small>\r\n            </div>\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" [formControl]=\"signinForm.controls['username']\" placeholder=\"Username\"\r\n                value=\"\">\r\n            </mat-form-field>\r\n            <small\r\n              *ngIf=\"signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched\"\r\n              class=\"form-error-msg\">\r\n              Username is required </small>\r\n\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"password\" name=\"password\" matInput [formControl]=\"signinForm.controls['password']\"\r\n                placeholder=\"Password\" value=\"\">\r\n            </mat-form-field>\r\n            <small\r\n              *ngIf=\"signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched\"\r\n              class=\"form-error-msg\"> Password is required </small>\r\n\r\n            <div class=\"pb-1\">\r\n              <mat-checkbox name=\"rememberMe\" [formControl]=\"signinForm.controls['rememberMe']\" class=\"pb-1\">Remember\r\n                this computer</mat-checkbox>\r\n            </div>\r\n\r\n            <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"signinForm.invalid\">Sign\r\n              in</button>\r\n            <div class=\"text-center\">\r\n              <a [routerLink]=\"'/sessions/forgot-password'\" class=\"mat-primary text-center full-width\">Forgot\r\n                password</a>\r\n              <span fxFlex></span>\r\n            </div>\r\n          </div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>\r\n"
+module.exports = "<!-- <div class=\"page-wrap height-100 comman-background\">\r\n  <div class=\"session-form-hold\">\r\n    <mat-card>\r\n      <mat-card-content>\r\n        <div class=\"text-center pb-1\">\r\n          <img src=\"assets/images/truverus/TruVerus_Logo_small.png\" alt=\"\" style=\"width: 300px;\">\r\n          <p class=\"text-muted m-0\">Sign in to your account</p>\r\n          <small *ngIf=\"!result\" class=\" m-0 form-error-msg\"> Invalid Login Credentials ! </small>\r\n        </div>\r\n        <form [formGroup]=\"signinForm\" (ngSubmit)=\"signin()\">\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" [formControl]=\"signinForm.controls['username']\" placeholder=\"Username\" value=\"\">\r\n            </mat-form-field>\r\n            <small *ngIf=\"signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched\" class=\"form-error-msg\">\r\n            Username is required </small>\r\n          </div>\r\n\r\n          <div class=\"\">\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"password\" name=\"password\" matInput [formControl]=\"signinForm.controls['password']\" placeholder=\"Password\" value=\"\">\r\n            </mat-form-field>\r\n            <small *ngIf=\"signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched\" class=\"form-error-msg\">\r\n            Password is required </small>\r\n          </div>\r\n\r\n          <div class=\"pb-1\">\r\n            <mat-checkbox name=\"rememberMe\" [formControl]=\"signinForm.controls['rememberMe']\" class=\"pb-1\">Remember this\r\n              computer</mat-checkbox>\r\n          </div>\r\n\r\n          <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"signinForm.invalid\">Sign in</button>\r\n          <div class=\"text-center\">\r\n            <a [routerLink]=\"'/sessions/forgot-password'\" class=\"mat-primary text-center full-width\">Forgot password</a>\r\n            <span fxFlex></span>\r\n          </div>\r\n        </form>\r\n      </mat-card-content>\r\n    </mat-card>\r\n  </div>\r\n</div> -->\r\n\r\n<form [formGroup]=\"signinForm\" id=\"user-login-view\" (ngSubmit)=\"signin()\">\r\n  <div class=\"page-wrap height-100 signin-background\">\r\n    <div class=\"session-form-hold set-form-left\">\r\n      <mat-card id=\"login-card\">\r\n        <mat-card-content>\r\n          <div id=\"login-form\">\r\n            <div class=\"text-center pb-1\" id=\"login-form-logo\">\r\n              <img src=\"assets/images/truverus/Tru-Verus-Logo.png\" alt=\"\">\r\n              <p class=\"text-muted m-0\">Welcome, Please Sign in to your Account.</p>\r\n              <small *ngIf=\"!result\" class=\" m-0 form-error-msg\"> Invalid Login Credentials ! </small>\r\n            </div>\r\n            <mat-form-field class=\"full-width\">\r\n              <input matInput name=\"username\" [formControl]=\"signinForm.controls['username']\" placeholder=\"Username\"\r\n                value=\"\">\r\n            </mat-form-field>\r\n            <small *ngIf=\"signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched\"\r\n              class=\"form-error-msg\">\r\n              Username is required </small>\r\n\r\n            <mat-form-field class=\"full-width\">\r\n              <input type=\"password\" name=\"password\" matInput [formControl]=\"signinForm.controls['password']\"\r\n                placeholder=\"Password\" value=\"\">\r\n            </mat-form-field>\r\n            <small *ngIf=\"signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched\"\r\n              class=\"form-error-msg\"> Password is required </small>\r\n\r\n            <div class=\"pb-1\">\r\n              <mat-checkbox name=\"rememberMe\" [formControl]=\"signinForm.controls['rememberMe']\" class=\"pb-1\">Remember\r\n                this computer</mat-checkbox>\r\n            </div>\r\n\r\n            <button mat-raised-button class=\"mat-primary full-width mb-1\" [disabled]=\"signinForm.invalid\">Sign\r\n              in</button>\r\n            <div class=\"text-center\">\r\n              <a [routerLink]=\"'/sessions/forgot-password'\" class=\"mat-primary text-center full-width\">Forgot\r\n                password</a>\r\n              <span fxFlex></span>\r\n            </div>\r\n          </div>\r\n        </mat-card-content>\r\n      </mat-card>\r\n    </div>\r\n  </div>\r\n</form>"
 
 /***/ }),
 
@@ -7158,7 +7161,6 @@ var SigninComponent = /** @class */ (function () {
         this.signInUrl = "sessions/signin";
         this.result = true;
         this.storage_name = _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__["authProperties"].storage_name;
-        this.counter = 0;
     }
     SigninComponent.prototype.ngOnInit = function () {
         this.signinForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
@@ -7469,14 +7471,14 @@ var UserActivationComponent = /** @class */ (function () {
     };
     UserActivationComponent.prototype.buildActivationForm = function () {
         this.activationForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]("", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
+            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]("", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern('[A-Za-z\d$@$!%*?&].{5,}')])
         });
     };
     UserActivationComponent.prototype.activateUser = function () {
         var _this = this;
         console.log("CALLED activate");
         if (100 > this.activationForm.value.password.length &&
-            this.activationForm.value.password.length > 6) {
+            this.activationForm.value.password.length > 8) {
             this.authService
                 .activateUser(this.activationCode, this.activationForm.value)
                 .subscribe(function (response) {
@@ -7501,7 +7503,7 @@ var UserActivationComponent = /** @class */ (function () {
             });
         }
         else {
-            this.errorMsg = "The password must have more than 6 characters !";
+            this.errorMsg = "The password must have more than 8 characters !";
             this.result = true;
         }
     };
