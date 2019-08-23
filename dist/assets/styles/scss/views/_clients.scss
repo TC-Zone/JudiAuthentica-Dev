@@ -124,9 +124,8 @@
   }
 }
 
-// .cdk-overlay-container {
-//   mat-dialog-container {
-//     padding: 0px;
-//   }
-// }
+.user-role-custom-popup-body{
+  height: 350px; 
+  overflow-y: scroll !important
+}
 
