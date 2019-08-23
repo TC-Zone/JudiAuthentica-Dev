@@ -30,6 +30,9 @@ export class ProfileSettingsComponent implements OnInit {
   public profileSettingsForm: FormGroup;
   public passwordSettingsForm: FormGroup;
 
+  public imageChangedEvent: any = '';
+  public croppedImage: any = '';
+
   constructor(
     private fb: FormBuilder,
     private profileService: ProfileService,
@@ -76,13 +79,51 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   // File uploader validation and upload
-  onSelectFile(event) {
+  onSelectFile(event: any) {
     console.log(event);
 
+    this.imageChangedEvent = event;
 
-    if (event.target.files && event.target.files[0]) {
+    // if (event.target.files && event.target.files[0]) {
 
-      let file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
+    //   let file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
+    //   let pattern = /image-*/;
+    //   let reader = new FileReader();
+    //   if (!file.type.match(pattern)) {
+    //     this.snackBar.open(
+    //       "Invalid Format!",
+    //       "close",
+    //       { duration: 2000 }
+    //     );
+    //     return;
+    //   }
+    //   reader.onload = (event: any) => {
+    //     this.url = event.target.result;
+    //     this.imageName = file.name;
+    //   };
+
+    //   reader.readAsDataURL(file);
+
+    // } else {
+    //   this.snackBar.open(
+    //     "Can't upload",
+    //     "close",
+    //     { duration: 2000 }
+    //   );
+    // }
+
+  }
+
+  imageCropped(image: any) {
+    console.log(image);
+    console.log(this.imageChangedEvent);
+
+    this.url = "";
+    this.url = image.base64;
+
+    if (this.imageChangedEvent.target.files && this.imageChangedEvent.target.files[0]) {
+
+      let file = this.imageChangedEvent.dataTransfer ? this.imageChangedEvent.dataTransfer.files[0] : this.imageChangedEvent.target.files[0];
       let pattern = /image-*/;
       let reader = new FileReader();
       if (!file.type.match(pattern)) {
@@ -94,8 +135,10 @@ export class ProfileSettingsComponent implements OnInit {
         return;
       }
       reader.onload = (event: any) => {
-        this.url = event.target.result;
+        // this.url = event.target.result;
+        this.url;
         this.imageName = file.name;
+
       };
 
       reader.readAsDataURL(file);
@@ -108,6 +151,15 @@ export class ProfileSettingsComponent implements OnInit {
       );
     }
 
+
+
+
+  }
+  imageLoaded() {
+    // show cropper
+  }
+  loadImageFailed() {
+    // show message
   }
 
   removeSelectedImg() {
@@ -178,6 +230,7 @@ export class ProfileSettingsComponent implements OnInit {
     this.profileService.updateProfilePic(req).subscribe(
       response => {
         this.loader.close();
+        this.imageChangedEvent = "";
         this.snack.open("Profile Picture Updated!", "OK", { duration: 4000 });
         this._interactionService.changeProfilePicture(this.userId);
         this.imageName = null;

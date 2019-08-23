@@ -62,6 +62,7 @@ import { ProfileService } from "./profile.service";
     FileUploadModule,
     SharedModule,
     MatAutocompleteModule,
+    ImageCropperModule,
     RouterModule.forChild(ProfileRoutes)
   ],
   providers: [ProfileService],
