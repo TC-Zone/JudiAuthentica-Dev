@@ -226,6 +226,7 @@ export class ProfileSettingsComponent implements OnInit {
 
 
   updateProfilePic() {
+    this.loader.open();
     const req: userImageReq = new userImageReq(this.userId, this.url, this.imageName);
     this.profileService.updateProfilePic(req).subscribe(
       response => {
