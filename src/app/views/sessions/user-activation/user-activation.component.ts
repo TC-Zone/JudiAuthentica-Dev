@@ -5,6 +5,7 @@ import { AuthenticationService } from "../authentication.service";
 
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
+import { GlobalVariable } from "app/shared/helpers/global-variable";
 
 @Component({
   selector: "app-user-activation",
@@ -16,7 +17,8 @@ export class UserActivationComponent implements OnInit {
   activationCode: string;
   errorObj: any;
   public result = false;
-  public errorMsg = "The password must have more than 6 characters !";
+  public errorMsg = "Password field must have at least 8 characters including at least two letters, one number or special character !";
+  public regex = new GlobalVariable().validators.regex;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,16 +37,15 @@ export class UserActivationComponent implements OnInit {
 
   buildActivationForm() {
     this.activationForm = new FormGroup({
-      password: new FormControl("", [Validators.required, Validators.pattern('[A-Za-z\d$@$!%*?&].{5,}')])
+      password: new FormControl('', [Validators.required, Validators.pattern(this.regex._Password)])
     });
   }
 
+
   activateUser() {
     console.log("CALLED activate");
-    if (
-      100 > this.activationForm.value.password.length &&
-      this.activationForm.value.password.length > 8
-    ) {
+    let result = this.activationForm.value.password.match(this.regex._Password);
+    if (result && result.length > 0) {
       this.authService
         .activateUser(this.activationCode, this.activationForm.value)
         .subscribe(
@@ -61,10 +62,7 @@ export class UserActivationComponent implements OnInit {
               this.snack.open("User Activated !", "OK", { duration: 3000 });
               this.router.navigate(["sessions/signin"]);
             } else {
-              if (
-                error.error.validationFailures[0].code ===
-                "userActivationRequest.alreadyActivated"
-              ) {
+              if (error.error.validationFailures[0].code === "userActivationRequest.alreadyActivated") {
                 this.errorMsg = "User Already Activated !";
                 this.result = true;
               }
@@ -72,7 +70,7 @@ export class UserActivationComponent implements OnInit {
           }
         );
     } else {
-      this.errorMsg = "The password must have more than 8 characters !";
+      this.errorMsg = "Password field must have at least 8 characters including at least two letters, one number or special character !";
       this.result = true;
     }
   }

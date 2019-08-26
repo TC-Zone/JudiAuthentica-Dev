@@ -54,6 +54,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private renderer: Renderer2,
     private userService: AuthenticationService,
     private _interactionService: InteractionService,
+    private authService: AuthenticationService,
     @Inject(DOCUMENT) private document: Document
   ) {
 
@@ -63,10 +64,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
         let url = this.router.url;
         console.log('---------------------------------- AppComponent : APP COMPONENT - ', url);
-
-        // if (localStorage.getItem("currentUser") && this.loggedUserBlackListUrls.indexOf(url) === 0) {
-        //   this.router.navigate(["/profile/profile-settings"]);
-        // }
 
         if (this.updateProfile && this.updateProfileImageBlackListUrls.indexOf(url) < 0) {
           this.changeProfilePicture();
@@ -93,9 +90,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   changeProfilePicture() {
 
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (this.currentUser !== null && this.currentUser.id !== null) {
-      this._interactionService.changeProfilePicture(this.currentUser.id);
+    this.currentUser = this.authService.getLoggedUserDetail();
+    if (this.currentUser !== null && this.currentUser.userData.id !== null) {
+      this._interactionService.changeProfilePicture(this.currentUser.userData.id);
       this.updateProfile = false;
     }
 

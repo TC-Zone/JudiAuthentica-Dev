@@ -5,12 +5,15 @@ import {
   RouterStateSnapshot,
   Router
 } from "@angular/router";
+import { AuthenticationService } from "app/views/sessions/authentication.service";
+import { authProperties } from "./auth-properties";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
   private loggedUserBlackListUrls = ['/sessions/signin'];
   public authToken;
+  private storage_name = authProperties.storage_name;
 
   constructor(private router: Router) { }
 
@@ -20,7 +23,8 @@ export class AuthGuard implements CanActivate {
     console.log('---------------------------------- AuthGuard : url -', url);
     console.log('---------------------------------- AuthGuard : state.url - ', state.url);
 
-    if (localStorage.getItem("currentUser")) {
+    // if (this.authService.getLoggedUserDetail()) {
+    if (localStorage.getItem(this.storage_name)) {
       if (this.loggedUserBlackListUrls.indexOf(state.url) === 0) {
         if (url !== '/') {
           this.router.navigate([url]);

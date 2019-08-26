@@ -4,6 +4,10 @@ import { ProductFilterTableComponent } from './product-filter-table/product-filt
 
 export const ProductCrudRouts: Routes = [
     {
+        path: '',
+        redirectTo: 'show'
+    },
+    {
         path: 'show',
         component: ProductFilterTableComponent,
         data: { title: 'Product Section', breadcrumb: 'Product' }

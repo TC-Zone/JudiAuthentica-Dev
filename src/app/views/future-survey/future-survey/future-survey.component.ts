@@ -323,7 +323,7 @@ export class FutureSurveyComponent implements OnInit {
     // }
     // ----------------------------------------------------------------------------
 
-    // ---------------------------------------------------------------------------------~ HBH ~------------------
+    // ---------------------------------------------------------------------------------~ BUDDHI ~------------------
     // if anywhere in the survey has been used another language, set selected language value to text directly instead of whole value array.
     // ex: if selected language is italiano, change text values as shown below.
     // "text": "articolo1 A" instead of "text": { "default": "item1 A", "it": "articolo1 A" }.

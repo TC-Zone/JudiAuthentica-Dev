@@ -22,6 +22,8 @@ import {
   DefaultLangWrapper
 } from "../../../model/FutureSurvey.model";
 import { ClientService } from "../../client/client.service";
+import { authProperties } from "app/shared/services/auth/auth-properties";
+import { AuthenticationService } from "app/views/sessions/authentication.service";
 
 @Component({
   selector: "app-future-survey-config-popup",
@@ -47,6 +49,12 @@ export class FutureSurveyConfigPopupComponent
   // survey status error msg status
   public statusError;
 
+  // status of current user role (super admin or not)
+  public isSuperAdmin = false;
+
+  public currentUser;
+
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<FutureSurveyConfigPopupComponent>,
@@ -55,12 +63,18 @@ export class FutureSurveyConfigPopupComponent
     public snackBar: MatSnackBar,
     public errDialog: AppErrorService,
     public futureSurveyService: FutureSurveyService,
-    public loader: AppLoaderService
+    public loader: AppLoaderService,
+    private authService: AuthenticationService
   ) {
     super(clientService, errDialog, snackBar, futureSurveyService, loader);
   }
 
   ngOnInit() {
+    this.currentUser = this.authService.getLoggedUserDetail();
+    if(this.currentUser){
+      this.isSuperAdmin = this.currentUser.isAuthorized;
+    }
+
     this.getClientSuggestions();
     this.getAllSurveyLangs();
     this.buildConfigForm(this.data.payload);
@@ -81,26 +95,22 @@ export class FutureSurveyConfigPopupComponent
     this.statusError = false;
 
     if (this.data.isNew) {
-      isDisabled1 = false;
-      isDisabled2 = false;
+      isDisabled1 = isDisabled2 = false;
     } else if (fieldItem.status === 0 || fieldItem.status === 4) {
       isDisabled1 = true;
       isDisabled2 = false;
     } else if (fieldItem.status === 1) {
       this.statusError = true;
-      isDisabled1 = true;
-      isDisabled2 = true;
+      isDisabled1 = isDisabled2 = true;
     }
-
-    let defLang = "";
-    if (!this.data.isNew) {
-      const lang = JSON.parse(fieldItem.languageJson);
-      defLang = lang.def;
+    
+    if(!this.isSuperAdmin){
+      fieldItem.clientId = this.currentUser.userData.client.id;
     }
 
     this.configForm = this.fb.group({
       client: new FormControl(
-        { value: fieldItem.clientId || "", disabled: isDisabled1 },
+        { value: fieldItem.clientId || "", disabled: isDisabled1 || !this.isSuperAdmin},
         Validators.required
       ),
       title: new FormControl(
@@ -114,12 +124,9 @@ export class FutureSurveyConfigPopupComponent
       channel: new FormControl({
         value: fieldItem.channel,
         disabled: isDisabled1
-      }),
-      languageJson: new FormControl({
-        value: defLang,
-        disabled: isDisabled1
       })
     });
+
   }
 
   submitNew(isNew) {
@@ -127,7 +134,6 @@ export class FutureSurveyConfigPopupComponent
     let client = this.configForm.get("client").value;
     let origin = this.configForm.get("origin").value;
     let channel = this.configForm.get("channel").value;
-    // let lang = this.configForm.get("languageJson").value;
     let lang = "en";
     // RAVEEN :  compatibility feature defines survey types for device : SPRINT 10 - APRIL
     let compatibility = "1";

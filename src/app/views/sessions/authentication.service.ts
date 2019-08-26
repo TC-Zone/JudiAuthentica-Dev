@@ -52,8 +52,6 @@ export class AuthenticationService {
 
   logout() {
     // remove user from local storage to log user out
-    // localStorage.removeItem(this.storage_name);
-    // localStorage.removeItem(this.componentList);
     localStorage.clear();
     this.router.navigate(['/sessions/signin']);
   }
@@ -106,39 +104,11 @@ export class AuthenticationService {
       );
   }
 
-  /*
-   * Get Jwt refrsh token Expire or not
-   * Created by Prasad Kumara
-   * 15/02/2019
-   * Not working properly. Still lokking for solution
-   */
-
-  // setComponetDisable() {
-  //   const userObj = JSON.parse(localStorage.getItem(this.storage_name));
-  //   console.log('---------------------------------------- userObj', userObj);
-  //   let arrayList = [];
-  //   if (userObj) {
-  //     console.log("--------------- setComponetDisable ----------------");
-  //     console.log(userObj.userData.role.name);
-  //     const roleName = userObj.userData.role.name;
-  //     if (roleName === "Super Administrator") {
-  //       arrayList = ["User Management"];
-  //       return arrayList;
-  //     } else if (roleName === "Admin") {
-  //       arrayList = ["Client Management"];
-  //       return arrayList;
-  //     } else {
-  //       arrayList = ["Client Management", "User Management"];
-  //       return arrayList;
-  //     }
-  //   }
-  // }
-
   getActiveComponet() {
-    const userObj = JSON.parse(localStorage.getItem(this.storage_name));
+    const currentUser = JSON.parse(localStorage.getItem(this.storage_name));
     let arrayList = [];
-    if (userObj) {
-      userObj.userData.role.authorities.forEach(authority => {
+    if (currentUser) {
+      currentUser.userData.role.authorities.forEach(authority => {
         if (authority.type === "D") {
           arrayList.push(authority.section.name);
         }
@@ -148,36 +118,32 @@ export class AuthenticationService {
   }
 
   getAuthToken() {
-    const userObj: any = JSON.parse(localStorage.getItem(this.storage_name));
-    if (userObj) {
-      this.currentToken = userObj.token;
+    const currentUser = JSON.parse(localStorage.getItem(this.storage_name));
+    if (currentUser) {
+      this.currentToken = currentUser.token;
     }
     // console.log('---------------------------- currentToken', this.currentToken);
     return this.currentToken;
   }
 
   getNewToken(): Observable<string> {
-    const userObj: any = JSON.parse(localStorage.getItem(this.storage_name));
+    const currentUser = JSON.parse(localStorage.getItem(this.storage_name));
     const payload = new FormData();
-    if (userObj) {
+    if (currentUser) {
       payload.append("grant_type", "refresh_token");
-      payload.append("refresh_token", userObj.refreshToken);
+      payload.append("refresh_token", currentUser.refreshToken);
     }
 
+    console.log("---------------------------------- AddHeaderInterceptor : AuthenticationService - getNewToken");
     return this.http.post<any>(this.baseAuthUrl + "oauth/token", payload).pipe(
       share(),
       map(data => {
-        const userObj: any = JSON.parse(
-          localStorage.getItem(this.storage_name)
-        );
-        userObj.refreshToken = data.refresh_token;
-        userObj.token = data.access_token;
-        userObj.expires_in = data.expires_in;
-        localStorage.setItem(this.storage_name, JSON.stringify(userObj));
-        console.log(
-          "---------------------------- refreshToken",
-          data.refresh_token
-        );
+        const currentUser = JSON.parse(localStorage.getItem(this.storage_name));
+        currentUser.refreshToken = data.refresh_token;
+        currentUser.token = data.access_token;
+        currentUser.expires_in = data.expires_in;
+        this.setLoggedUserDetail(currentUser);
+        console.log("---------------------------------- refreshToken", data.refresh_token);
         return data.access_token;
       }),
       catchError(this.handleError)
@@ -189,12 +155,17 @@ export class AuthenticationService {
    */
   getLoggedUserDetail(): any {
     // Negotiating are we gonna use localstorage or cookie for this kind of repo function.
-    const userObj: any = JSON.parse(localStorage.getItem(this.storage_name));
-    if (userObj) {
-      return userObj;
+    const currentUser: any = JSON.parse(localStorage.getItem(this.storage_name));
+    if (currentUser) {
+      return currentUser;
     } else {
-      console.log("............LOGGED USER NOT FOUND..............");
-      // this.router.navigate(["sessions/signin"]);
+      this.logout();
+    }
+  }
+
+  setLoggedUserDetail(currentUser) {
+    if (currentUser) {
+      localStorage.setItem(this.storage_name, JSON.stringify(currentUser));
     }
   }
 
@@ -209,60 +180,4 @@ export class AuthenticationService {
     console.log('---------------------- decoded', decoded);
     console.log('---------------------- decoded', decoded.authorities);
   }
-
-
-
-  /*
-   * Get Jwt token Expire date
-   * Created by Prasad Kumara
-   * 14/02/2019
-   */
-  // getTokenExpirationDate(token: string): Date {
-  //   const decoded = jwt_decode(token);
-  //   if (decoded.exp === undefined) {
-  //     return null;
-  //   }
-  //   const date = new Date(0);
-  //   date.setUTCSeconds(1550476560);
-  //   return date;
-  // }
-
-  /*
-   * Get Jwt token Expire or not
-   * Created by Prasad Kumara
-   * 14/02/2019
-   */
-  // isTokenExpired(token?: string): boolean {
-  //   if (!token) {
-  //     token = "";
-  //   }
-  //   if (!token) {
-  //     return true;
-  //   }
-
-  //   const date = this.getTokenExpirationDate(token);
-  //   if (date === undefined || date === null) {
-  //     return false;
-  //   }
-  //   return !(date.valueOf() > new Date().valueOf());
-  // }
-
-  /*
-   * Get Jwt refrsh token Expire or not
-   * Created by Prasad Kumara
-   * 15/02/2019
-   */
-  // getUserRefreshToken(refreshToken) {
-  //   const payload = new FormData();
-  //   payload.append("grant_type", "refresh_token");
-  //   payload.append("refresh_token", refreshToken);
-
-  //   return this.http.post<any>(this.baseAuthUrl + "oauth/token", payload).pipe(
-  //     share(),
-  //     map(data => {
-  //       return data;
-  //     }),
-  //     catchError(this.handleError)
-  //   );
-  // }
 }

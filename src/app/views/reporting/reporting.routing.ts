@@ -12,6 +12,10 @@ export const ReportingRoute: Routes = [
         component: ReportingComponent,
         children: [
             {
+                path: '',
+                redirectTo: 'sales-region'
+            },
+            {
                 path: 'sales-region',
                 component: SalesRegionComponent,
                 data: { title: 'Sales by Region', breadcrumb: 'Sales by Region' }

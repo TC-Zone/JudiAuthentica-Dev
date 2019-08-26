@@ -114,7 +114,7 @@ export class UserEventComponent implements OnInit {
           );
           if (userObj) {
             if (isNew) {
-              res["createdUserId"] = userObj.id;
+              res["createdUserId"] = userObj.userData.id;
               res["client"] = {
                 id: userObj.userData.client.id
               };

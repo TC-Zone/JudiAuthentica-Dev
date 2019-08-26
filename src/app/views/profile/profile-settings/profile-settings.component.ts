@@ -10,6 +10,7 @@ import { egretAnimations } from "app/shared/animations/egret-animations";
 import { GlobalVariable } from 'app/shared/helpers/global-variable';
 import { Router } from '@angular/router';
 import { InteractionService } from 'app/shared/services/app-profile/interaction.service';
+import { AuthenticationService } from 'app/views/sessions/authentication.service';
 
 @Component({
   selector: 'app-profile-settings',
@@ -25,7 +26,9 @@ export class ProfileSettingsComponent implements OnInit {
   public imageName;
   public currentUser;
   public passwordStatus = null;
-  public statusArray = new GlobalVariable().common.matChip.confirmPasswordStatus;
+  public globalVariable: GlobalVariable = new GlobalVariable();
+  public statusArray = this.globalVariable.common.message.confirmPasswordStatus;
+  public regex = this.globalVariable.validators.regex;
 
   public profileSettingsForm: FormGroup;
   public passwordSettingsForm: FormGroup;
@@ -38,13 +41,14 @@ export class ProfileSettingsComponent implements OnInit {
     private errDialog: AppErrorService,
     public snackBar: MatSnackBar,
     public r: Router,
-    private _interactionService: InteractionService
+    private _interactionService: InteractionService,
+    private authService: AuthenticationService
 
   ) { }
 
   ngOnInit() {
 
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUser = this.authService.getLoggedUserDetail();
     this.userId = this.currentUser.userData.id;
     this.buildItemForm(this.currentUser.userData);
 
@@ -69,8 +73,8 @@ export class ProfileSettingsComponent implements OnInit {
 
     this.passwordSettingsForm = this.fb.group({
       currentPassword: new FormControl('', Validators.required),
-      password: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z\d$@$!%*?&].{7,}')]),
-      confirmPassword: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z\d$@$!%*?&].{7,}')])
+      password: new FormControl('', [Validators.required, Validators.pattern(this.regex._Password)]),
+      confirmPassword: new FormControl('', [Validators.required, Validators.pattern(this.regex._Password)])
     })
 
   }
@@ -125,7 +129,8 @@ export class ProfileSettingsComponent implements OnInit {
 
         this.currentUser.userData.accountName = this.currentUser.accountName = response.content.accountName;
         this.currentUser.userData.email = response.content.email;
-        localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+        this.authService.setLoggedUserDetail(this.currentUser);
+        // localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
         this.changeProfileDetails(response.content.accountName);
       },
       error => {
@@ -142,12 +147,43 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   checkConfirmPassword() {
-    const itemForm = this.passwordSettingsForm.value
-    if (itemForm.password !== null && itemForm.confirmPassword !== null && itemForm.password !== '' && itemForm.confirmPassword !== '') {
-      if (itemForm.password !== itemForm.confirmPassword) { this.passwordStatus = false; }
-      else { this.passwordStatus = true; }
-    } else {
+
+    const itemForm = this.passwordSettingsForm.value;
+
+    console.log('-------------------- ', itemForm.password === null ? "Null" : itemForm.password === '' ? "Empty" : itemForm.password);
+    console.log('-------------------- ', itemForm.confirmPassword === null ? "Null" : itemForm.confirmPassword === '' ? "Empty" : itemForm.confirmPassword);
+
+
+    if (itemForm.password !== '') {
+      // --
+      let result = itemForm.password.match(this.regex._Password);
+      if (result && result.length > 0) {
+        this.passwordStatus = null;
+      } else {
+        this.passwordStatus = 1; // Regex not match with password
+      }
+      // --
+    }
+
+    if (itemForm.confirmPassword !== '') {
+      if (this.passwordStatus === null) {
+        // --
+        let result = itemForm.password.match(this.regex._Password);
+        if (result && result.length > 0) {
+          this.passwordStatus = null;
+        } else {
+          this.passwordStatus = 1; // Regex not match with confirmPassword
+        }
+        // --
+      }
+    }
+
+    if (itemForm.password === '' && itemForm.confirmPassword === '') {
       this.passwordStatus = null;
+    }
+
+    if (itemForm.password !== '' && itemForm.confirmPassword !== '' && this.passwordStatus === null && itemForm.password !== itemForm.confirmPassword) {
+      this.passwordStatus = 2;
     }
 
   }

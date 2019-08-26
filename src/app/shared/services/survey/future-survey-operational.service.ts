@@ -15,7 +15,7 @@ export class FutureSurveyOperationalService {
   public extraLang;
 
   validateLocalizeSurveyRequest(jsonObject) {
-    // ---------------------------------------------------------------------------------~ HBH ~------------------
+    // ---------------------------------------------------------------------------------~ BUDDHI ~------------------
     // if anywhere in the survey has been used another language, set selected language value to text directly instead of whole value array.
     // ex: if selected language is italiano, change text values as shown below.
     // "text": "articolo1 A" instead of "text": { "default": "item1 A", "it": "articolo1 A" }.
@@ -158,7 +158,7 @@ export class FutureSurveyOperationalService {
   // --------------------------------- optionUnselect Start -------------------------------------------------------------------------------
 
   optionUnselect(Survey) {
-    // ---------------------------------------------------------------------------------~ HBH ~------------------
+    // ---------------------------------------------------------------------------------~ BUDDHI ~------------------
     // ---------------------------------------------------------------------------------- Option Unselect -------
     // after add this widget to Survey, all the Radio Button Groups can unselect.
     // ----------------------------------------------------------------------------------------------------------
@@ -210,7 +210,7 @@ export class FutureSurveyOperationalService {
   // --------------------------------- optionUnselectForRating Start -------------------------------------------------------------------------------
 
   optionUnselectForRating(Survey) {
-    // ---------------------------------------------------------------------------------~ HBH ~------------------
+    // ---------------------------------------------------------------------------------~ BUDDHI ~------------------
     // ---------------------------------------------------------------------------------- Option Unselect -------
     // after add this widget to Survey, all the Radio Button Groups can unselect.
     // ----------------------------------------------------------------------------------------------------------
@@ -265,7 +265,7 @@ export class FutureSurveyOperationalService {
   // --------------------------------- optionUnselectForMatrix Start -------------------------------------------------------------------------------
 
   optionUnselectForMatrix(Survey) {
-    // ---------------------------------------------------------------------------------~ HBH ~------------------
+    // ---------------------------------------------------------------------------------~ BUDDHI ~------------------
     // ---------------------------------------------------------------------------------- Option Unselect -------
     // ----------------------------------------------------------------------------------------------------------
     let optionUnselectForMatrixWidget = {

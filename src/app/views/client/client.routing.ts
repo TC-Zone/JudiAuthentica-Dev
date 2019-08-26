@@ -11,6 +11,10 @@ export const ClientRoute: Routes = [
     component: ClientComponent,
     children: [
       {
+        path: "",
+        redirectTo: "client-table",
+      },
+      {
         path: "client-table",
         component: ClientTableComponent,
         data: { title: "Clients", breadcrumb: "Clients" }

@@ -9,6 +9,10 @@ import { UserPromotionComponent } from './user-community/user-promotion/user-pro
 
 export const CommunityRouts: Routes = [
   {
+    path: '',
+    redirectTo: 'community-view'
+  },
+  {
     path: 'community-view',
     component: CommunityViewComponent,
     data: { title: 'Communities', breadcrumb: 'Communities' }

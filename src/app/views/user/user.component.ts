@@ -21,14 +21,6 @@ export class UserComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // if(JSON.parse(localStorage.getItem('currentUser'))){
-    //   const user = JSON.parse(localStorage.getItem('currentUser'));
-    //   console.log(user);
-    //   // this.id = user.client.id;
-    //   // this.name = user.client.name;
-    //   // this.url = client.clientLogo;
-    // }
-    
     const currentUser = this.authService.getLoggedUserDetail();
     this.clientId = currentUser.userData.client.id;
     this.name = currentUser.userData.client.name;

@@ -14,6 +14,7 @@ import { FutureSurveyLaunchComponent } from "../future-survey-launch/future-surv
 import { FutureSurveyInvitationLaunchComponent } from "../future-survey-invitation-launch/future-survey-invitation-launch.component";
 import { ClientService } from "../../client/client.service";
 import { GlobalVariable } from "app/shared/helpers/global-variable";
+import { AuthenticationService } from "app/views/sessions/authentication.service";
 
 @Component({
   selector: "app-future-survey-list",
@@ -29,11 +30,15 @@ export class FutureSurveyListComponent implements OnInit {
   public response: ResponseModel;
   public statusArray = new GlobalVariable().common.matChip.colorForSurveyStatus01;
 
+
   // pagination
-  pageNumber = 1;
-  pageSize = 10;
-  totalPages = [];
-  totalRecords = 0;
+  public clientId;
+  public roleId;
+  public keyword = '';
+  public pageNumber = 1;
+  public pageSize = 10;
+  public totalPages = [];
+  public totalRecords = 0;
 
   constructor(
     private futureSurveyService: FutureSurveyService,
@@ -43,17 +48,85 @@ export class FutureSurveyListComponent implements OnInit {
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
     private dialog: MatDialog,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit() {
-    this.getAllFutureSurveys();
-    this.getClientSuggestions();
+    let currentUser = this.authService.getLoggedUserDetail();
+    this.clientId = currentUser.userData.client.id;
+    this.roleId = currentUser.userData.role.id;
+    this.getSurveys(this.pageNumber);
+    // this.getAllFutureSurveys();
+    // this.getClientSuggestions();
   }
 
   ngOnDestroy() {
     if (this.getSurveysSub) {
       this.getSurveysSub.unsubscribe();
+    }
+  }
+
+
+  getSurveys(pageNumber) {
+
+    this.getClientSub = this.clientService.getClientsSuggestions().subscribe(data => {
+      this.response = data;
+      this.clients = this.response.content;
+
+      if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
+        this.pageNumber = pageNumber;
+
+        this.futureSurveyService
+          .getAllFutureSurveys(this.clientId, this.keyword, this.pageSize, this.pageNumber, this.roleId)
+          .subscribe(
+            successResp => {
+              
+              successResp.content.forEach(survey => {
+                this.clients.forEach(client => {
+                  if (client.id === survey.clientId) {
+                    survey['clientName'] = client.name;
+                  }
+                });
+
+              });
+              this.futureSurveys = successResp.content;
+
+              let totalPages = successResp.pagination.totalPages;
+              let totalPagesArray = [];
+
+              if (totalPages > 1) {
+                for (let i = 1; i <= totalPages; i++) {
+                  totalPagesArray.push(i);
+                }
+              }
+              this.totalPages = totalPagesArray;
+              this.totalRecords = successResp.pagination.totalRecords;
+            },
+            error => {
+              if (error) {
+                console.log('------------------------------- FutureSurveyListComponent : error - ', error);
+                console.log('------------------------------- FutureSurveyListComponent : error.status - ', error.status);
+                this.errDialog.showError(error);
+              }
+            }
+          );
+      }
+
+    });
+
+  }
+
+  changeValue() {
+    this.pageNumber = 1;
+    this.getSurveys(this.pageNumber);
+  }
+
+  updateFilter(event) {
+    if (event.keyCode === 13) {
+      this.keyword = event.target.value.toLowerCase();
+      this.pageNumber = 1;
+      this.getSurveys(this.pageNumber);
     }
   }
 
@@ -99,7 +172,7 @@ export class FutureSurveyListComponent implements OnInit {
         // if user press cancel.
         return;
       } else if (res === "OFFLINE") {
-        this.getAllFutureSurveys();
+        this.getSurveys(this.pageNumber);
         return;
       }
 
@@ -116,7 +189,7 @@ export class FutureSurveyListComponent implements OnInit {
           console.log("LAUNCH RESPONSE");
           console.log(response);
           // this.loader.close();
-          this.getAllFutureSurveys();
+    this.getSurveys(this.pageNumber);
         },
         error => {
           this.loader.close();
@@ -165,7 +238,7 @@ export class FutureSurveyListComponent implements OnInit {
             console.log("create invitation RESPONSE");
             console.log(response);
             this.loader.close();
-            this.getAllFutureSurveys();
+            this.getSurveys(this.pageNumber);
             this.snack.open("New Invitee Setings is Created ! ", "close", {
               duration: 3000
             });
@@ -231,7 +304,7 @@ export class FutureSurveyListComponent implements OnInit {
             response => {
               console.log("...............AFTER UPDATED.................");
               console.log(response);
-              this.getAllFutureSurveys();
+              this.getSurveys(this.pageNumber);
               this.loader.close();
               this.snack.open(`${res.title} Configurations Updated !`, "close", {
                 duration: 3000
@@ -248,21 +321,47 @@ export class FutureSurveyListComponent implements OnInit {
     });
   }
 
-  getAllFutureSurveys() {
-    this.getSurveysSub = this.futureSurveyService
-      .getAllFutureSurveys()
-      .subscribe(data => {
-        console.log(data);
-        this.futureSurveys = data.content;
-      });
-  }
+  // getAllFutureSurveys() {
 
-  getClientSuggestions() {
-    this.getClientSub = this.clientService.getClientsSuggestions().subscribe(data => {
-      this.response = data;
-      this.clients = this.response.content;
-    });
-  }
+  //   this.getClientSub = this.clientService.getClientsSuggestions().subscribe(data => {
+  //     this.response = data;
+  //     this.clients = this.response.content;
+  //     // console.log(this.clients);
+
+  //     this.getSurveysSub = this.futureSurveyService
+  //       .getAllFutureSurveys()
+  //       .subscribe(data => {
+  //         // console.log(data);
+
+  //         data.content.forEach(survey => {
+  //           this.clients.forEach(client => {
+  //             if (client.id === survey.clientId) {
+  //               survey['clientName'] = client.name;
+  //             }
+  //           });
+
+  //         });
+  //         this.futureSurveys = data.content;
+  //       });
+
+  //   });
+
+  //   // this.getSurveysSub = this.futureSurveyService
+  //   //   .getAllFutureSurveys()
+  //   //   .subscribe(data => {
+  //   //     console.log(data);
+  //   //     this.futureSurveys = data.content;
+  //   //   });
+  // }
+
+  // getClientSuggestions() {
+  //   this.getClientSub = this.clientService.getClientsSuggestions().subscribe(data => {
+  //     this.response = data;
+  //     this.clients = this.response.content;
+  //     console.log(this.clients);
+
+  //   });
+  // }
 
   navigateToSurveyEditor(res?: any) {
     if (res) {
@@ -297,7 +396,7 @@ export class FutureSurveyListComponent implements OnInit {
               this.snack.open(`${row.title} Deleted !`, "close", {
                 duration: 3000
               });
-              this.getAllFutureSurveys();
+              this.getSurveys(this.pageNumber);
               this.loader.close();
             },
             error => {

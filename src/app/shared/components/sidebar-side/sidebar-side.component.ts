@@ -9,6 +9,7 @@ import { LayoutService } from "../../services/layout.service";
 import { FutureSurveyOperationalService } from "app/shared/services/survey/future-survey-operational.service";
 import { AppErrorService } from "app/shared/services/app-error/app-error.service";
 import { InteractionService } from "app/shared/services/app-profile/interaction.service";
+import { authProperties } from "app/shared/services/auth/auth-properties";
 
 
 @Component({
@@ -29,8 +30,7 @@ export class SidebarSideComponent extends LocalStorageHandler
 
   public userId;
   public profileImg;
-
-
+  private storage_name = authProperties.storage_name;
 
   constructor(
     private navService: NavigationService,
@@ -51,8 +51,8 @@ export class SidebarSideComponent extends LocalStorageHandler
 
     // ---------------------------------- UserProfile -------------------------------
 
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.userDisplayName = this.currentUser.accountName;
+    this.currentUser = JSON.parse(localStorage.getItem(this.storage_name));
+    this.userDisplayName = this.currentUser.userData.accountName;
 
     this._interactionService.changeProfileDetails$.subscribe(
       userName => {

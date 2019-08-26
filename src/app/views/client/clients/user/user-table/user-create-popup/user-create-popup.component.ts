@@ -59,23 +59,16 @@ export class UserCreatePopupComponent implements OnInit {
   ngOnInit() {
     this.roles = this.data.roles;
     this.allCategories = JSON.parse(JSON.stringify(this.data.category));
-
     this.allCommunities = JSON.parse(JSON.stringify(this.data.community));
     this.buildItemForm()
   }
 
   buildItemForm() {
 
-    // this.userFormGroup = this.fb.group({
-    //   username: new FormControl(''),
-    //   password: new FormControl(''),
-    //   email: new FormControl(''),
-    //   role: new FormControl('')
-    // });
 
     this.userFormGroup = this.fb.group({
       username: new FormControl('', Validators.required),
-      password: new FormControl('', [Validators.required, Validators.pattern('[A-Za-z\d$@$!%*?&].{7,}')]),
+      password: new FormControl('', [Validators.required, Validators.pattern(this.regex._Password)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       role: new FormControl('', Validators.required)
     });

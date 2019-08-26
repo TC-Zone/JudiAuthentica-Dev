@@ -26,6 +26,7 @@ import * as jwt_decode from "jwt-decode";
 import { ClientCategoryPopupComponent } from "./client-category-popup/client-category-popup.component";
 import { ClientLicenseUpdatePopupComponent } from "./client-license-update-popup/client-license-update-popup.component";
 import { GlobalVariable } from "app/shared/helpers/global-variable";
+import { AuthenticationService } from "app/views/sessions/authentication.service";
 
 @Component({
   selector: "app-client-table",
@@ -57,12 +58,13 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     private clientService: ClientService,
     private loader: AppLoaderService,
     private errDialog: AppErrorService,
-    private router: Router
+    private router: Router,
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit() {
-    let currentuser = JSON.parse(localStorage.getItem('currentUser'));
-    this.clientId = currentuser.userData.client.id;
+    const currentUser = this.authService.getLoggedUserDetail();
+    this.clientId = currentUser.userData.client.id;
     this.getPageClient(this.pageNumber);
     this.getCategory();
     this.getCountry();
@@ -97,10 +99,11 @@ export class ClientTableComponent implements OnInit, OnDestroy {
             this.totalRecords = successResp.pagination.totalRecords;
           },
           error => {
-            this.loader.close();
-            console.log('------------------------------- ClentTableComponent : error - ', error);
-            console.log('------------------------------- ClentTableComponent : error.status - ', error.status);
-            this.errDialog.showError(error);
+            if (error) {
+              console.log('------------------------------- ClentTableComponent : error - ', error);
+              console.log('------------------------------- ClentTableComponent : error.status - ', error.status);
+              this.errDialog.showError(error);
+            }
           }
         );
     }

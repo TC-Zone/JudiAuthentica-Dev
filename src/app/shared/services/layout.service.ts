@@ -109,7 +109,7 @@ export class LayoutService {
 
 
 
-  // ------------------------------------------~ HBH ~----------------
+  // ------------------------------------------~ BUDDHI ~----------------
   // --------- Customized Code -----------------
   // adjust full width routes layout
   costomizedAdjustScreenOptions(options: IAdjustScreenOptions = {}) {
@@ -135,7 +135,7 @@ export class LayoutService {
         }
       });
 
-      // do not uncomment or remove this code (~ HBH ~)
+      // do not uncomment or remove this code (~ BUDDHI ~)
       // if (isFullSidebar) {
       //   this.publishLayoutChange({ sidebarStyle: 'full' });
       // }

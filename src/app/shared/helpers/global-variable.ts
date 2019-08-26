@@ -7,9 +7,13 @@
 
 export class GlobalVariable {
 
-
   public validators = {
-    regex: { _Letter: '^(?:[A-Za-z]+)(?:[A-Za-z _]*)$', _PosNumber: '^[+]?([1-9]+(?:[0-9]*)?|\.[0-9]+)$', _PosNumberAndLetter: '^(?:[A-Za-z0-9]+)(?:[A-Za-z0-9 ._-]*)$' }
+    regex: {
+      _Letter: '^(?:[A-Za-z]+)(?:[A-Za-z _]*)$',
+      _PosNumber: '^[+]?([1-9]+(?:[0-9]*)?|\\.[0-9]+)$',
+      _PosNumberAndLetter: '^(?:[A-Za-z0-9]+)(?:[A-Za-z0-9 ._-]*)$',
+      _Password : '(?=(.*[a-zA-Z].*){2,})((?=.*\\d.*)|(?=.*[$@$!%*?&].*))[a-zA-Z\\d$@$!%*?&\\S]{8,20}'
+    }
   }
 
 
@@ -47,12 +51,13 @@ export class GlobalVariable {
         0: { id: 0, status: "On Premise", style: "accent" },
         1: { id: 1, status: "Launched", style: "primary" },
         4: { id: 4, status: "Offline", style: "default" }
-      },
+      }
+    },
+    message: {
       confirmPasswordStatus: {
-        // false : { id: 0, value: "Passwords do not match!", style: "primary" },
-        false: { id: 0, value: "Passwords Mismatch!", style: "custom-text-red" },
-        true: { id: 1, value: "Password Matches!", style: "custom-text-green" }
-      },
+        1: { value: "Password field must have at least 8 characters including at least two letters, one number or special character!", style: "custom-text-accent" },
+        2: { value: "Passwords Mismatch!", style: "custom-text-warn" }
+      }
     }
 
   }

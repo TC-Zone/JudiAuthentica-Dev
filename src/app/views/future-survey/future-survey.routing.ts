@@ -13,6 +13,10 @@ export const FutureSurveyRoutes: Routes = [
     component: FutureSurveyBaseComponent,
     children: [
       {
+        path: "",
+        redirectTo: "sList"
+      },
+      {
         path: "sList",
         component: FutureSurveyListComponent,
         data: { title: "Survey List", breadcrumb: "Survey List" }

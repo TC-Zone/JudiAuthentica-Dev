@@ -79,7 +79,7 @@ export class CreateEventPopupComponent implements OnInit {
     });
     this.setStartDateMin();
     //edited by kushan
-    // this.imgBaseURL = this.userEventService.imageUrl;
+    this.imgBaseURL = this.userEventService.imageUrl;
   }
 
   /*

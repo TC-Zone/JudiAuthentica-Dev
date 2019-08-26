@@ -7,6 +7,7 @@ import { LayoutService } from "../../services/layout.service";
 import { AuthenticationService } from "../../../views/sessions/authentication.service";
 import { Router } from "@angular/router";
 import { LocalStorageHandler } from "../../helpers/local-storage";
+import { authProperties } from "app/shared/services/auth/auth-properties";
 
 @Component({
   selector: "app-header-top",
@@ -30,10 +31,11 @@ export class HeaderTopComponent extends LocalStorageHandler
     }
   ];
   @Input() notificPanel;
-  
+
   public currentuser;
   public userId;
   public profileImg;
+  private storage_name = authProperties.storage_name;
 
 
   constructor(
@@ -74,7 +76,7 @@ export class HeaderTopComponent extends LocalStorageHandler
 
 
     // ----------------------------- UserProfileImage -------------------------------
-    this.currentuser = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUser = JSON.parse(localStorage.getItem(this.storage_name));
     this.userId = this.currentuser.userData.id;
     // ------------------------------------------------------------------------------
   }
@@ -105,7 +107,7 @@ export class HeaderTopComponent extends LocalStorageHandler
   signOut() {
     console.log("sign out called HEADER TOP");
     this.authService.logout();
-    if (localStorage.getItem("currentUser")) {
+    if (localStorage.getItem(this.storage_name)) {
       console.log("NULL OI");
     }
 

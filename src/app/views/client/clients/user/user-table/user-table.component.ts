@@ -7,7 +7,7 @@ import { UserTablePopupComponent } from "../user-table/user-table-popup/user-tab
 import { Subscription } from "rxjs";
 import { egretAnimations } from "../../../../../shared/animations/egret-animations";
 import { AppErrorService } from "../../../../../shared/services/app-error/app-error.service";
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserCreateReq, ClientData, RoleData, CommunityData, CategoryData, UserUpdateReq, UserCategoryUpdateReq, UserCommunityUpdateRequest } from 'app/model/ClientModel.model';
 import { UserCategoryPopupComponent } from './user-category-popup/user-category-popup.component';
 import { UserCommunityPopupComponent } from './user-community-popup/user-community-popup.component';
@@ -41,6 +41,7 @@ export class UserTableComponent implements OnInit {
 
   public getItemSub: Subscription;
   constructor(
+    private router: Router,
     private dialog: MatDialog,
     private snack: MatSnackBar,
     private clientService: ClientService,
@@ -58,6 +59,8 @@ export class UserTableComponent implements OnInit {
       this.getClient();
       this.getPageUser(this.pageNumber);
       this.getClientCategories();
+    } else {
+      this.router.navigate(["clients/client-table"]);
     }
   }
 
@@ -114,7 +117,7 @@ export class UserTableComponent implements OnInit {
     }
   }
 
-  
+
   changeValue() {
     this.pageNumber = 1;
     this.getPageUser(this.pageNumber);

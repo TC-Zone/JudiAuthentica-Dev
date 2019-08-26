@@ -13,6 +13,7 @@ import { AuthenticationService } from "../../../views/sessions/authentication.se
 import { Router } from "@angular/router";
 import { LocalStorageHandler } from "../../helpers/local-storage";
 import { InteractionService } from "app/shared/services/app-profile/interaction.service";
+import { authProperties } from "app/shared/services/auth/auth-properties";
 
 @Component({
   selector: "app-header-side",
@@ -37,6 +38,7 @@ export class HeaderSideComponent extends LocalStorageHandler implements OnInit {
   public currentuser;
   public userId;
   public profileImg;
+  private storage_name = authProperties.storage_name;
 
   constructor(
     private themeService: ThemeService,
@@ -57,7 +59,7 @@ export class HeaderSideComponent extends LocalStorageHandler implements OnInit {
 
     // ---------------------------------- UserProfile -------------------------------
 
-    this.currentuser = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentuser = JSON.parse(localStorage.getItem(this.storage_name));
     this.userId = this.currentuser.userData.id;
 
     this._interactionService.changeProfilePicture$.subscribe(
@@ -118,7 +120,7 @@ export class HeaderSideComponent extends LocalStorageHandler implements OnInit {
   signOut() {
     console.log("sign out called HEADER SIDE");
     this.authService.logout();
-    if (localStorage.getItem("currentUser")) {
+    if (localStorage.getItem(this.storage_name)) {
       console.log("NULL OI");
     }
 

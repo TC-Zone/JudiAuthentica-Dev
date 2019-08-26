@@ -5,6 +5,7 @@ import { AuthenticationService } from "../authentication.service";
 import { Router } from "@angular/router";
 import { authProperties } from "./../../../shared/services/auth/auth-properties";
 import { interval } from "rxjs";
+import { CurrentUser } from "app/model/User.model";
 
 @Component({
   selector: "app-signin",
@@ -37,65 +38,59 @@ export class SigninComponent implements OnInit {
   }
 
   signin() {
-    const userObj = JSON.parse(localStorage.getItem(this.storage_name));
-    if (userObj) {
+    const currentUser = this.authService.getLoggedUserDetail();
+
+    if (currentUser) {
       localStorage.removeItem(this.storage_name);
     }
+
     const signinData = this.signinForm.value;
-
     this.submitButton.disabled = true;
-    // this.progressBar.mode = 'indeterminate';
-    this.authService.login(signinData)
-      .subscribe(response => {
-        console.log('---------------------------- response', response);
 
-        const tempUser = {
-          id: response.user_id,
-          username: "contactpkumara@gmail.com",
-          accountName: "Kushan Pabasara",
-          image: "assets/images/cp_users/placeholder-user.png",
-          token: response.access_token,
-          refreshToken: response.refresh_token,
-          company: "",
-          expires_in: response.expires_in,
-          userData: ""
-        };
-        localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
+    this.authService.login(signinData).subscribe(response => {
 
-        this.authService.getLoggedUserData(response.user_id).subscribe(
-          res => {
-            const viewData = res.content;
-            tempUser.username = viewData.userName;
-            tempUser.accountName = viewData.accountName;
-            tempUser.userData = res.content;
-            tempUser.company = viewData.client.name;
-            localStorage.setItem(this.storage_name, JSON.stringify(tempUser));
-            console.log('---------------------------- tempUser', tempUser);
-            // this.progressBar.mode = 'determinate';
-            this.router.navigate([this.successUrl]);
-            // const expireInMilliSecond = (response.expires_in - 2) * 1000;
-            // this.getRefreshToken(expireInMilliSecond);
-            // this.getRefreshToken(10000);
-          },
-          error => {
-            this.result = false;
-            // this.progressBar.mode = 'determinate';
-            localStorage.removeItem(this.storage_name);
-          }
-        );
-      },
+      console.log('---------------------------- response', response);
+      let currentUser: CurrentUser = new CurrentUser("", false , response.access_token, response.refresh_token, response.expires_in);
+      this.authService.setLoggedUserDetail(currentUser);
+      // localStorage.setItem(this.storage_name, JSON.stringify(currentUser));
+
+      this.authService.getLoggedUserData(response.user_id).subscribe(
+        res => {
+
+          // BASED ON ASSUMPTION : Below code may be change, if we got a better way to identify a super admin.
+          res.content.role.authorities.forEach(authority => {
+            if(authority.code === 'cm-a'){
+              currentUser.isAuthorized = true;
+            }
+          });
+
+          currentUser.userData = res.content;
+
+          this.authService.setLoggedUserDetail(currentUser);
+          // localStorage.setItem(this.storage_name, JSON.stringify(currentUser));
+          console.log('---------------------------- currentUser', currentUser);
+          this.router.navigate([this.successUrl]);
+
+        },
         error => {
+
           this.result = false;
-          if (error.status === 400) {
-            // this.progressBar.mode = 'determinate';
-            this.signinForm.reset();
-          } else {
-            // this.progressBar.mode = 'determinate';
-            this.signinForm.reset();
-            this.router.navigate([this.signInUrl]);
-          }
+          localStorage.removeItem(this.storage_name);
+
         }
       );
+
+    },
+      error => {
+        this.result = false;
+        if (error.status === 400) {
+          this.signinForm.reset();
+        } else {
+          this.signinForm.reset();
+          this.router.navigate([this.signInUrl]);
+        }
+      }
+    );
   }
 
 }

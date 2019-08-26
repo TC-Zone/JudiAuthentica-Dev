@@ -52,7 +52,7 @@ export class UserTableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = this.authService.getLoggedUserDetail();
     if (currentUser) {
       this.clientId = currentUser.userData.client.id;
 

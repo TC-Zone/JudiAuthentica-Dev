@@ -11,6 +11,7 @@ import { Observable, Subscription } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { CountryDB } from 'app/shared/helpers/countries';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { AuthenticationService } from 'app/views/sessions/authentication.service';
 
 @Component({
   selector: 'app-profile-license',
@@ -50,13 +51,14 @@ export class ProfileLicenseComponent implements OnInit {
     private profileService: ProfileService,
     private errDialog: AppErrorService,
     private loader: AppLoaderService,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private authService: AuthenticationService
   ) { }
 
 
   ngOnInit() {
-    let currentuser = JSON.parse(localStorage.getItem('currentUser'));
-    this.clientId = currentuser.userData.client.id;
+    let currentUser = this.authService.getLoggedUserDetail();
+    this.clientId = currentUser.userData.client.id;
     this.getCategory();
     this.getClientCategory();
     this.buildItemForm()

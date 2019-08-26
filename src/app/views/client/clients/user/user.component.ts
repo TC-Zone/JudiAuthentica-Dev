@@ -24,24 +24,5 @@ export class UserComponent implements OnInit {
       this.clientId = currentClient.id;
       this.clientName = currentClient.name;
     }
-
-    // this.activeRoute.queryParams.subscribe(params => {
-    //   console.log('------------------------------- params',params);
-    //   if( params["clientId"] !== undefined){
-    //     this.clientId = params["clientId"];
-    //     this.clientName = params["clientName"];
-    //   } else {
-    //     // this.router.navigate(["clients/client-table"]);
-    //   }
-    // });
-    
-    // const currentUser = this.authService.getLoggedUserDetail();
-    // if (currentUser) {
-    //   const client = currentUser.userData.client;
-    //   this.clientId = client.id;
-    //   this.name = client.name;
-    // } else {
-    //   this.router.navigate(["clients/client-table"]);
-    // }
   }
 }

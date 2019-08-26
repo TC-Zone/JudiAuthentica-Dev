@@ -1,5 +1,6 @@
 import { Directive, ElementRef, Renderer, OnInit, Input } from '@angular/core';
 import { authProperties } from "../shared/services/auth/auth-properties";
+import { AuthenticationService } from 'app/views/sessions/authentication.service';
 
 @Directive({
   selector: "[roleAuthorization]"
@@ -12,7 +13,9 @@ export class RoleAuthorization implements OnInit {
 
   @Input() roleAuthorization: string;
 
-  constructor(private el: ElementRef) {
+  constructor(
+    private el: ElementRef,
+  ) {
     let role = JSON.parse(localStorage.getItem(this.storage_name)).userData.role;
     this.predefined = role.predefined;
     this.userAuthorities = role.authorities;

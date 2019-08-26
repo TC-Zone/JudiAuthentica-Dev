@@ -10,6 +10,10 @@ export const UserRoutes: Routes = [
     data: { title: "User", breadcrumb: "User" },
     children: [
       {
+        path: "",
+        redirectTo: "user-table"
+      },
+      {
         path: "user-table",
         component: UserTableComponent,
         data: { title: "Users", breadcrumb: "Users" }

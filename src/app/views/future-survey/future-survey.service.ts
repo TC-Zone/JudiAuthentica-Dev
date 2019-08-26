@@ -65,10 +65,30 @@ export class FutureSurveyService {
       );
   }
 
-  getAllFutureSurveys(): Observable<any> {
-    return this.http
-      .get(this.surveyApiUrl + "surveys" + "/futureSurvey")
-      .pipe(catchError(this.handleError));
+  // getAllFutureSurveys(): Observable<any> {
+  //   return this.http
+  //     .get(this.surveyApiUrl + "surveys" + "/futureSurvey")
+  //     .pipe(catchError(this.handleError));
+  // }
+
+  getAllFutureSurveys(clientId, keyword, pageSize, pageNumber, roleId): Observable<any> {
+    // return this.http
+    //   .get(this.surveyApiUrl + "surveys" + "/futureSurvey")
+    //   .pipe(catchError(this.handleError));
+
+      return this.http.get(
+        this.surveyApiUrl + "surveys" + "/futureSurvey" +
+        "?id=" +
+        clientId +
+        "&keyword=" +
+        keyword +
+        "&pageNumber=" +
+        pageNumber +
+        "&pageSize=" +
+        pageSize +
+        "&roleId=" +
+        roleId
+      ).pipe(catchError(this.handleError));
   }
 
   deleteFutureSurvey(row): Observable<any> {

@@ -11,6 +11,7 @@ import { Observable, Subscription } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { CountryDB } from 'app/shared/helpers/countries';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { AuthenticationService } from 'app/views/sessions/authentication.service';
 
 @Component({
   selector: 'app-account-settings',
@@ -42,12 +43,13 @@ export class AccountSettingsComponent implements OnInit {
     private loader: AppLoaderService,
     private snack: MatSnackBar,
     private errDialog: AppErrorService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private authService: AuthenticationService
   ) { }
 
   ngOnInit() {
-    let currentuser = JSON.parse(localStorage.getItem('currentUser'));
-    this.clientId = currentuser.userData.client.id;
+    let currentUser = this.authService.getLoggedUserDetail();
+    this.clientId = currentUser.userData.client.id;
     this.buildItemForm();
     this.getClient();
     this.getCountry();

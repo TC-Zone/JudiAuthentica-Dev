@@ -65,9 +65,6 @@ export class GroupInviteesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const userObj: any = JSON.parse(
-      localStorage.getItem(authProperties.storage_name)
-    );
     this.activeRoute.queryParams.subscribe(params => {
       this.inviteeGroupId = params["inviteeGroupId"];
       this.inviteeGroupName = params["inviteeGroupName"];

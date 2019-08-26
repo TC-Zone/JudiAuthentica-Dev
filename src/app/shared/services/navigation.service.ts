@@ -397,25 +397,25 @@ export class NavigationService {
     {
       name: "User Management",
       type: "link",
-      tooltip: "Client management",
+      tooltip: "Client Management",
       icon: "person",
-      state: "users/user-table",
+      state: "users",
       disabled: true
     },
     {
       name: "Client Management",
       type: "link",
-      tooltip: "CliManagementent ",
+      tooltip: "Client Managementent ",
       icon: "person",
-      state: "clients/client-table",
+      state: "clients",
       disabled: true
     },
     {
       name: "Product Catalogue",
       type: "link",
-      tooltip: "Product management",
+      tooltip: "Product Management",
       icon: "assignment",
-      state: "productCrud/show",
+      state: "productCrud",
       disabled: true
     },
     // {
@@ -439,7 +439,7 @@ export class NavigationService {
       type: "link",
       tooltip: "Community",
       icon: "group",
-      state: "community/community-view",
+      state: "community",
       disabled: true
     },
     {
