@@ -67,7 +67,7 @@ export class CreatePromotionPopupComponent implements OnInit {
 
   @ViewChild('promotionImgs')
   eventImgsElemnt: ElementRef;
-  
+
   ngOnInit() {
     if (!this.data.isNew) {
       this.getPromotionById(this.data.payload.id);
@@ -99,9 +99,11 @@ export class CreatePromotionPopupComponent implements OnInit {
       promoPoster: ['']
     });
 
-    getBase64ImageFromUrl(this.imgBaseURL + promotionFormData.id)
-      .then(result => this.url = result)
-      .catch(err => console.error(err));
+    if (!this.data.isNew) {
+      getBase64ImageFromUrl(this.imgBaseURL + promotionFormData.id)
+        .then(result => this.url = result)
+        .catch(err => console.error(err));
+    }
   }
 
   /*
