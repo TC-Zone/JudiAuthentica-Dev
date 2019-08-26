@@ -35,6 +35,7 @@ import { ProfileLicenseComponent } from './profile-license/profile-license.compo
 import { ProfileBlankComponent } from './profile-blank/profile-blank.component';
 import { ProfileRoutes } from "./profile.routing";
 import { ProfileService } from "./profile.service";
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import { ProfileService } from "./profile.service";
     FileUploadModule,
     SharedModule,
     MatAutocompleteModule,
+    ImageCropperModule,
     RouterModule.forChild(ProfileRoutes)
   ],
   providers: [ProfileService],
