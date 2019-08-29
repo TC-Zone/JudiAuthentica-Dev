@@ -768,7 +768,7 @@ var UserCreatePopupComponent = /** @class */ (function () {
         // });
         this.userFormGroup = this.fb.group({
             username: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
-            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern('[A-Za-z\d$@$!%*?&].{7,}')]),
+            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(this.regex._Password)]),
             email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email]),
             role: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
         });
@@ -1053,7 +1053,7 @@ var UserTableComponent = /** @class */ (function () {
         this.totalRecords = 0;
     }
     UserTableComponent.prototype.ngOnInit = function () {
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        var currentUser = this.authService.getLoggedUserDetail();
         if (currentUser) {
             this.clientId = currentUser.userData.client.id;
             this.getClient();
@@ -1369,13 +1369,6 @@ var UserComponent = /** @class */ (function () {
         this.authService = authService;
     }
     UserComponent.prototype.ngOnInit = function () {
-        // if(JSON.parse(localStorage.getItem('currentUser'))){
-        //   const user = JSON.parse(localStorage.getItem('currentUser'));
-        //   console.log(user);
-        //   // this.id = user.client.id;
-        //   // this.name = user.client.name;
-        //   // this.url = client.clientLogo;
-        // }
         var currentUser = this.authService.getLoggedUserDetail();
         this.clientId = currentUser.userData.client.id;
         this.name = currentUser.userData.client.name;
@@ -1538,6 +1531,10 @@ var UserRoutes = [
         component: _user_component__WEBPACK_IMPORTED_MODULE_2__["UserComponent"],
         data: { title: "User", breadcrumb: "User" },
         children: [
+            {
+                path: "",
+                redirectTo: "user-table"
+            },
             {
                 path: "user-table",
                 component: _user_table_user_table_component__WEBPACK_IMPORTED_MODULE_0__["UserTableComponent"],

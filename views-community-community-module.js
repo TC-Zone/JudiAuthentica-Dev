@@ -13347,7 +13347,12 @@ __webpack_require__.r(__webpack_exports__);
 var GlobalVariable = /** @class */ (function () {
     function GlobalVariable() {
         this.validators = {
-            regex: { _Letter: '^(?:[A-Za-z]+)(?:[A-Za-z _]*)$', _PosNumber: '^[+]?([1-9]+(?:[0-9]*)?|\.[0-9]+)$', _PosNumberAndLetter: '^(?:[A-Za-z0-9]+)(?:[A-Za-z0-9 ._-]*)$' }
+            regex: {
+                _Letter: '^(?:[A-Za-z]+)(?:[A-Za-z _]*)$',
+                _PosNumber: '^[+]?([1-9]+(?:[0-9]*)?|\\.[0-9]+)$',
+                _PosNumberAndLetter: '^(?:[A-Za-z0-9]+)(?:[A-Za-z0-9 ._-]*)$',
+                _Password: '(?=(.*[a-zA-Z].*){2,})((?=.*\\d.*)|(?=.*[$@$!%*?&].*))[a-zA-Z\\d$@$!%*?&\\S]{8,20}'
+            }
         };
         /**
           * Client License Max Limits
@@ -13382,12 +13387,13 @@ var GlobalVariable = /** @class */ (function () {
                     0: { id: 0, status: "On Premise", style: "accent" },
                     1: { id: 1, status: "Launched", style: "primary" },
                     4: { id: 4, status: "Offline", style: "default" }
-                },
+                }
+            },
+            message: {
                 confirmPasswordStatus: {
-                    // false : { id: 0, value: "Passwords do not match!", style: "primary" },
-                    false: { id: 0, value: "Passwords Mismatch!", style: "custom-text-red" },
-                    true: { id: 1, value: "Password Matches!", style: "custom-text-green" }
-                },
+                    1: { value: "Password field must have at least 8 characters including at least two letters, one number or special character!", style: "custom-text-accent" },
+                    2: { value: "Passwords Mismatch!", style: "custom-text-warn" }
+                }
             }
         };
     }
@@ -14174,6 +14180,10 @@ __webpack_require__.r(__webpack_exports__);
 
 var CommunityRouts = [
     {
+        path: '',
+        redirectTo: 'community-view'
+    },
+    {
         path: 'community-view',
         component: _community_view_community_view_component__WEBPACK_IMPORTED_MODULE_0__["CommunityViewComponent"],
         data: { title: 'Communities', breadcrumb: 'Communities' }
@@ -14409,7 +14419,7 @@ var CreateEventPopupComponent = /** @class */ (function () {
         });
         this.setStartDateMin();
         //edited by kushan
-        // this.imgBaseURL = this.userEventService.imageUrl;
+        this.imgBaseURL = this.userEventService.imageUrl;
     };
     /*
     * Build Event Create and Update Form
@@ -14427,9 +14437,11 @@ var CreateEventPopupComponent = /** @class */ (function () {
             endDateTime: [eventformdata.endDateTime, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required],
             poster: ['']
         });
-        getBase64ImageFromUrl(this.imgBaseURL + eventformdata.id)
-            .then(function (result) { return _this.url = result; })
-            .catch(function (err) { return console.error(err); });
+        if (!this.data.isNew) {
+            getBase64ImageFromUrl(this.imgBaseURL + eventformdata.id)
+                .then(function (result) { return _this.url = result; })
+                .catch(function (err) { return console.error(err); });
+        }
         console.log(this.eventForm);
     };
     /*
@@ -14861,7 +14873,7 @@ var UserEventComponent = /** @class */ (function () {
         if (this.quotaExpire && isNew) {
             var infoData = {
                 title: "License",
-                message: "You subscribed number of events have expired!</br>" +
+                message: "Number of events you subscribed has exceeded!</br>" +
                     '<small class="text-muted">Do you like to extend the plan?</small>',
                 linkData: {
                     url: "https://www.google.com/gmail/",
@@ -14886,7 +14898,7 @@ var UserEventComponent = /** @class */ (function () {
                     var userObj = JSON.parse(localStorage.getItem(_shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__["authProperties"].storage_name));
                     if (userObj) {
                         if (isNew) {
-                            res["createdUserId"] = userObj.id;
+                            res["createdUserId"] = userObj.userData.id;
                             res["client"] = {
                                 id: userObj.userData.client.id
                             };
@@ -14957,7 +14969,7 @@ var UserEventComponent = /** @class */ (function () {
             else if (usage < tempQuoata && tempQuoata - usage === 1) {
                 var infoData = {
                     title: "License",
-                    message: "You subscribed number of events have expired!</br>" +
+                    message: "Number of events you subscribed has exceeded!</br>" +
                         '<small class="text-muted">Do you like to extend the plan?</small>',
                     linkData: {
                         url: "https://www.google.com/gmail/",
@@ -15449,7 +15461,7 @@ var UserEventService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"feedbackForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{this.data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"feedbackForm.controls['name']\" placeholder=\"Feedback Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-slide-toggle *ngIf=\"!data.isNew\" [formControl]=\"feedbackForm.controls['status']\">Activate Event\r\n        </mat-slide-toggle>\r\n      </div>\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"mt-1\">\r\n        <button mat-raised-button color=\"primary\" (click)=\"submit()\" [disabled]=\"feedbackForm.invalid\">Save</button>\r\n        <span fxFlex></span>\r\n        <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n</form>"
+module.exports = "<form [formGroup]=\"feedbackForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{this.data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"feedbackForm.controls['name']\" placeholder=\"Feedback Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-slide-toggle *ngIf=\"!data.isNew\" [formControl]=\"feedbackForm.controls['status']\">Activate Feedback\r\n        </mat-slide-toggle>\r\n      </div>\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"mt-1\">\r\n        <button mat-raised-button color=\"primary\" (click)=\"submit()\" [disabled]=\"feedbackForm.invalid\">Save</button>\r\n        <span fxFlex></span>\r\n        <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n</form>"
 
 /***/ }),
 
@@ -15662,7 +15674,7 @@ var UserFeedbackComponent = /** @class */ (function () {
             if (_this.quotaExpire && isNew) {
                 var infoData = {
                     title: "License",
-                    message: "You subscribed number of feedbacks have expired!</br>" +
+                    message: "Number of feedbacks you subscribed has exceeded!</br> " +
                         '<small class="text-muted">Do you like to extend the plan?</small>',
                     linkData: {
                         url: "https://www.google.com/gmail/",
@@ -15737,7 +15749,7 @@ var UserFeedbackComponent = /** @class */ (function () {
             else if (remain === 0) {
                 var infoData = {
                     title: "License",
-                    message: "You subscribed number of feedbacks have expired!</br>" +
+                    message: "Number of feedbacks you subscribed has exceeded!</br>" +
                         '<small class="text-muted">Do you like to extend the plan?</small>',
                     linkData: {
                         url: "https://www.google.com/gmail/",
@@ -16116,7 +16128,7 @@ var UserFeedbackService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"promotionForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"promotionForm.controls['name']\" placeholder=\"Promotion Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"promotionForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"start\" [min]=\"startDateMin\" [max]=\"startDateMax\" (dateChange)=\"validateDatePickerMinMax()\"\r\n            [matDatepicker]=\"picker1\" [formControl]=\"promotionForm.controls['startDate']\" required placeholder=\"Start Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker1\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker1></mat-datepicker>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"end\" [min]=\"endDateMin\" [max]=\"endDateMax\" (dateChange)=\"validateDatePickerMinMax()\"\r\n            [matDatepicker]=\"picker2\" [formControl]=\"promotionForm.controls['endDate']\" required placeholder=\"End Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker2\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker2></mat-datepicker>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"percentage\" [formControl]=\"promotionForm.controls['percentage']\" positiveNumberOnly\r\n            placeholder=\"Discount\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <!-- --------- hidden file input --------- -->\r\n        <input (change)=\"onSelectFile($event)\" #promotionImgs type=\"file\" [formControl]=\"promotionForm.controls['promoPoster']\"\r\n          multiple style=\"display: none\"/>\r\n        <!-- --------- file input click button --------- -->\r\n        <div layout-margin layout-padding>\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"promotionImgs.click()\" [disabled]=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n          (false) :\r\n          (this.currentTotalImageCount === this.maxUploadableFileCount)\"\r\n            type=\"button\">\r\n            Browse Images\r\n            <span *ngIf=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n            (false) :\r\n            (this.currentTotalImageCount > 0)\">\r\n              ({{this.currentTotalImageCount}} / {{this.maxUploadableFileCount}})</span>\r\n          </button>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\" *ngIf=\"!data.isNew\">\r\n        <mat-slide-toggle [formControl]=\"promotionForm.controls['status']\">Activate Event</mat-slide-toggle>\r\n      </div>\r\n      <!-- <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngFor='let url of urls; let i = index' fxFlex=\"100\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\" style=\"display: flex;\">\r\n        <mat-card class=\"p-0\">\r\n          <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"removeSelectedImg(i)\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n          <img [src]=\"url\">\r\n        </mat-card>\r\n      </div> -->\r\n      <!-- --------- start images preview container --------- -->\r\n      <div id=\"event_update_image_preview_container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\" layout-align=\"center\" class=\"mt-1\">\r\n\r\n        <!-- --------- start card --------- -->\r\n        <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngIf=\"url\" fxFlex=\"100\" style=\"display: flex;max-height: 200px\">\r\n          <mat-card class=\"p-0\">\r\n\r\n            <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n              <span fxFlex></span>\r\n              <button type=\"button\" class=\"close p-1\" aria-label=\"Close\" (click)=\"removeSelectedImg()\">\r\n                <span aria-hidden=\"true\">&times;</span>\r\n              </button>\r\n            </div>\r\n            <img [src]=\"url\">\r\n          </mat-card>\r\n        </div>\r\n        <!-- --------- end card --------- -->\r\n\r\n      </div>\r\n      <!-- --------- end images preview container --------- -->\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"mt-1\">\r\n        <button mat-raised-button color=\"primary\" (click)=\"promotionFormSubmit()\" [disabled]=\"promotionForm.invalid || this.url === null\">Save</button>\r\n        <span fxFlex></span>\r\n        <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n</form>"
+module.exports = "<form [formGroup]=\"promotionForm\">\r\n  <mat-toolbar matDialogTitle class=\"mat-primary m-0\">\r\n    <div fxFlex fxLayout=\"row\" fxLayoutAlign=\"space-between center\">\r\n      <span class=\"title dialog-title\">{{data.title}}</span>\r\n    </div>\r\n  </mat-toolbar>\r\n  <mat-dialog-content class=\"mat-typography mt-1\">\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"name\" [formControl]=\"promotionForm.controls['name']\" placeholder=\"Promotion Name\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <textarea matInput name=\"description\" placeholder=\"Description\" [formControl]=\"promotionForm.controls['description']\"></textarea>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"start\" [min]=\"startDateMin\" [max]=\"startDateMax\" (dateChange)=\"validateDatePickerMinMax()\"\r\n            [matDatepicker]=\"picker1\" [formControl]=\"promotionForm.controls['startDate']\" required placeholder=\"Start Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker1\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker1></mat-datepicker>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"end\" [min]=\"endDateMin\" [max]=\"endDateMax\" (dateChange)=\"validateDatePickerMinMax()\"\r\n            [matDatepicker]=\"picker2\" [formControl]=\"promotionForm.controls['endDate']\" required placeholder=\"End Date\">\r\n          <mat-datepicker-toggle matSuffix [for]=\"picker2\">\r\n            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>\r\n          </mat-datepicker-toggle>\r\n          <mat-datepicker #picker2></mat-datepicker>\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <mat-form-field class=\"full-width\">\r\n          <input matInput name=\"percentage\" [formControl]=\"promotionForm.controls['percentage']\" positiveNumberOnly\r\n            placeholder=\"Discount\">\r\n        </mat-form-field>\r\n      </div>\r\n      <div fxFlex=\"50\" class=\"pr-1\">\r\n        <!-- --------- hidden file input --------- -->\r\n        <input (change)=\"onSelectFile($event)\" #promotionImgs type=\"file\" [formControl]=\"promotionForm.controls['promoPoster']\"\r\n          multiple style=\"display: none\" />\r\n        <!-- --------- file input click button --------- -->\r\n        <div layout-margin layout-padding>\r\n          <button mat-raised-button class=\"mr-1\" (click)=\"promotionImgs.click()\" [disabled]=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n          (false) :\r\n          (this.currentTotalImageCount === this.maxUploadableFileCount)\"\r\n            type=\"button\">\r\n            Browse Images\r\n            <span *ngIf=\"this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?\r\n            (false) :\r\n            (this.currentTotalImageCount > 0)\">\r\n              ({{this.currentTotalImageCount}} / {{this.maxUploadableFileCount}})</span>\r\n          </button>\r\n        </div>\r\n      </div>\r\n      <div fxFlex=\"100\" class=\"pr-1\" *ngIf=\"!data.isNew\">\r\n        <mat-slide-toggle [formControl]=\"promotionForm.controls['status']\">Activate Promotion</mat-slide-toggle>\r\n      </div>\r\n      <!-- <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngFor='let url of urls; let i = index' fxFlex=\"100\" fxFlex.gt-sm=\"25\" fxFlex.sm=\"50\" style=\"display: flex;\">\r\n        <mat-card class=\"p-0\">\r\n          <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"removeSelectedImg(i)\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n          <img [src]=\"url\">\r\n        </mat-card>\r\n      </div> -->\r\n      <!-- --------- start images preview container --------- -->\r\n      <div id=\"event_update_image_preview_container\" fxLayout=\"row\" fxLayoutWrap=\"wrap\" layout-align=\"center\" class=\"mt-1\">\r\n\r\n        <!-- --------- start card --------- -->\r\n        <div [@animate]=\"{value:'*',params:{y:'50px',delay:'300ms'}}\" *ngIf=\"url\" fxFlex=\"100\" style=\"display: flex;max-height: 200px\">\r\n          <mat-card class=\"p-0\">\r\n\r\n            <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\">\r\n              <span fxFlex></span>\r\n              <button type=\"button\" class=\"close p-1\" aria-label=\"Close\" (click)=\"removeSelectedImg()\">\r\n                <span aria-hidden=\"true\">&times;</span>\r\n              </button>\r\n            </div>\r\n            <img [src]=\"url\">\r\n          </mat-card>\r\n        </div>\r\n        <!-- --------- end card --------- -->\r\n\r\n      </div>\r\n      <!-- --------- end images preview container --------- -->\r\n    </div>\r\n    <div fxLayout=\"row\" fxLayout.lt-sm=\"column\" fxLayoutWrap=\"wrap\" class=\"mt-1\">\r\n      <div fxFlex=\"100\" class=\"mt-1\">\r\n        <button mat-raised-button color=\"primary\" (click)=\"promotionFormSubmit()\" [disabled]=\"promotionForm.invalid || this.url === null\">Save</button>\r\n        <span fxFlex></span>\r\n        <button mat-button color=\"warn\" type=\"button\" (click)=\"dialogRef.close(false)\">Cancel</button>\r\n      </div>\r\n    </div>\r\n  </mat-dialog-content>\r\n</form>"
 
 /***/ }),
 
@@ -16257,9 +16269,11 @@ var CreatePromotionPopupComponent = /** @class */ (function () {
             endDate: [promotionFormData.endDate, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
             promoPoster: ['']
         });
-        getBase64ImageFromUrl(this.imgBaseURL + promotionFormData.id)
-            .then(function (result) { return _this.url = result; })
-            .catch(function (err) { return console.error(err); });
+        if (!this.data.isNew) {
+            getBase64ImageFromUrl(this.imgBaseURL + promotionFormData.id)
+                .then(function (result) { return _this.url = result; })
+                .catch(function (err) { return console.error(err); });
+        }
     };
     /*
     * Set start date min value
@@ -16678,7 +16692,7 @@ var UserPromotionComponent = /** @class */ (function () {
         if (this.quotaExpire && isNew) {
             var infoData = {
                 title: "License",
-                message: "You subscribed number of promotions have expired!</br>" +
+                message: "Number of promotions you subscribed has exceeded!</br>" +
                     '<small class="text-muted">Do you like to extend the plan?</small>',
                 linkData: {
                     url: "https://www.google.com/gmail/",
@@ -16772,7 +16786,7 @@ var UserPromotionComponent = /** @class */ (function () {
             else if (usage < tempQuoata && tempQuoata - usage === 1) {
                 var infoData = {
                     title: "License",
-                    message: "You subscribed number of promotions have expired!</br>" +
+                    message: "Number of promotions you subscribed has exceeded!</br>" +
                         '<small class="text-muted">Do you like to extend the plan?</small>',
                     linkData: {
                         url: "https://www.google.com/gmail/",

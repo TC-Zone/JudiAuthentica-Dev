@@ -649,6 +649,10 @@ var ReportingRoute = [
         component: _reporting_component__WEBPACK_IMPORTED_MODULE_0__["ReportingComponent"],
         children: [
             {
+                path: '',
+                redirectTo: 'sales-region'
+            },
+            {
                 path: 'sales-region',
                 component: _sales_region_sales_region_component__WEBPACK_IMPORTED_MODULE_1__["SalesRegionComponent"],
                 data: { title: 'Sales by Region', breadcrumb: 'Sales by Region' }
