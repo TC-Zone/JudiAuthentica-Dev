@@ -41,7 +41,6 @@ var ClientComponent = /** @class */ (function () {
         this.router = router;
     }
     ClientComponent.prototype.ngOnInit = function () {
-        // this.router.navigate(["clients/client-table"]);
     };
     ClientComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -226,6 +225,10 @@ var ClientRoute = [
         path: "",
         component: _client_component__WEBPACK_IMPORTED_MODULE_0__["ClientComponent"],
         children: [
+            {
+                path: "",
+                redirectTo: "client-table",
+            },
             {
                 path: "client-table",
                 component: _clients_client_table_component__WEBPACK_IMPORTED_MODULE_1__["ClientTableComponent"],
@@ -828,6 +831,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _client_category_popup_client_category_popup_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./client-category-popup/client-category-popup.component */ "./src/app/views/client/clients/client-category-popup/client-category-popup.component.ts");
 /* harmony import */ var _client_license_update_popup_client_license_update_popup_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./client-license-update-popup/client-license-update-popup.component */ "./src/app/views/client/clients/client-license-update-popup/client-license-update-popup.component.ts");
 /* harmony import */ var app_shared_helpers_global_variable__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! app/shared/helpers/global-variable */ "./src/app/shared/helpers/global-variable.ts");
+/* harmony import */ var app_views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! app/views/sessions/authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -850,14 +854,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ClientTableComponent = /** @class */ (function () {
-    function ClientTableComponent(dialog, snack, clientService, loader, errDialog, router) {
+    function ClientTableComponent(dialog, snack, clientService, loader, errDialog, router, authService) {
         this.dialog = dialog;
         this.snack = snack;
         this.clientService = clientService;
         this.loader = loader;
         this.errDialog = errDialog;
         this.router = router;
+        this.authService = authService;
         this.statusArray = new app_shared_helpers_global_variable__WEBPACK_IMPORTED_MODULE_12__["GlobalVariable"]().common.matChip.clientStatus;
         // pagination
         this.keyword = '';
@@ -867,8 +873,8 @@ var ClientTableComponent = /** @class */ (function () {
         this.totalRecords = 0;
     }
     ClientTableComponent.prototype.ngOnInit = function () {
-        var currentuser = JSON.parse(localStorage.getItem('currentUser'));
-        this.clientId = currentuser.userData.client.id;
+        var currentUser = this.authService.getLoggedUserDetail();
+        this.clientId = currentUser.userData.client.id;
         this.getPageClient(this.pageNumber);
         this.getCategory();
         this.getCountry();
@@ -897,10 +903,11 @@ var ClientTableComponent = /** @class */ (function () {
                 _this.totalPages = totalPagesArray;
                 _this.totalRecords = successResp.pagination.totalRecords;
             }, function (error) {
-                _this.loader.close();
-                console.log('------------------------------- ClentTableComponent : error - ', error);
-                console.log('------------------------------- ClentTableComponent : error.status - ', error.status);
-                _this.errDialog.showError(error);
+                if (error) {
+                    console.log('------------------------------- ClentTableComponent : error - ', error);
+                    console.log('------------------------------- ClentTableComponent : error.status - ', error.status);
+                    _this.errDialog.showError(error);
+                }
             });
         }
     };
@@ -1148,7 +1155,8 @@ var ClientTableComponent = /** @class */ (function () {
             _client_service__WEBPACK_IMPORTED_MODULE_1__["ClientService"],
             _shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_3__["AppLoaderService"],
             _shared_services_app_error_app_error_service__WEBPACK_IMPORTED_MODULE_7__["AppErrorService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"],
+            app_views_sessions_authentication_service__WEBPACK_IMPORTED_MODULE_13__["AuthenticationService"]])
     ], ClientTableComponent);
     return ClientTableComponent;
 }());
@@ -2254,15 +2262,9 @@ var UserCreatePopupComponent = /** @class */ (function () {
         this.buildItemForm();
     };
     UserCreatePopupComponent.prototype.buildItemForm = function () {
-        // this.userFormGroup = this.fb.group({
-        //   username: new FormControl(''),
-        //   password: new FormControl(''),
-        //   email: new FormControl(''),
-        //   role: new FormControl('')
-        // });
         this.userFormGroup = this.fb.group({
             username: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required),
-            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern('[A-Za-z\d$@$!%*?&].{7,}')]),
+            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(this.regex._Password)]),
             email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email]),
             role: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required)
         });
@@ -2528,7 +2530,8 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var UserTableComponent = /** @class */ (function () {
-    function UserTableComponent(dialog, snack, clientService, loader, errDialog, activeRoute, authService, confirmService) {
+    function UserTableComponent(router, dialog, snack, clientService, loader, errDialog, activeRoute, authService, confirmService) {
+        this.router = router;
         this.dialog = dialog;
         this.snack = snack;
         this.clientService = clientService;
@@ -2553,6 +2556,9 @@ var UserTableComponent = /** @class */ (function () {
             this.getClient();
             this.getPageUser(this.pageNumber);
             this.getClientCategories();
+        }
+        else {
+            this.router.navigate(["clients/client-table"]);
         }
     };
     UserTableComponent.prototype.ngOnDestroy = function () {
@@ -2814,7 +2820,8 @@ var UserTableComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./user-table.component.html */ "./src/app/views/client/clients/user/user-table/user-table.component.html"),
             animations: _shared_animations_egret_animations__WEBPACK_IMPORTED_MODULE_6__["egretAnimations"]
         }),
-        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"],
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"],
             _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatSnackBar"],
             _client_service__WEBPACK_IMPORTED_MODULE_1__["ClientService"],
             _shared_services_app_loader_app_loader_service__WEBPACK_IMPORTED_MODULE_3__["AppLoaderService"],
@@ -2880,23 +2887,6 @@ var UserComponent = /** @class */ (function () {
             this.clientId = currentClient.id;
             this.clientName = currentClient.name;
         }
-        // this.activeRoute.queryParams.subscribe(params => {
-        //   console.log('------------------------------- params',params);
-        //   if( params["clientId"] !== undefined){
-        //     this.clientId = params["clientId"];
-        //     this.clientName = params["clientName"];
-        //   } else {
-        //     // this.router.navigate(["clients/client-table"]);
-        //   }
-        // });
-        // const currentUser = this.authService.getLoggedUserDetail();
-        // if (currentUser) {
-        //   const client = currentUser.userData.client;
-        //   this.clientId = client.id;
-        //   this.name = client.name;
-        // } else {
-        //   this.router.navigate(["clients/client-table"]);
-        // }
     };
     UserComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({

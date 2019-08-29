@@ -492,6 +492,10 @@ __webpack_require__.r(__webpack_exports__);
 
 var ProductCrudRouts = [
     {
+        path: '',
+        redirectTo: 'show'
+    },
+    {
         path: 'show',
         component: _product_filter_table_product_filter_table_component__WEBPACK_IMPORTED_MODULE_0__["ProductFilterTableComponent"],
         data: { title: 'Product Section', breadcrumb: 'Product' }
