@@ -86,7 +86,7 @@ export class UserPromotionComponent implements OnInit {
       const infoData = {
         title: "License",
         message:
-          "You subscribed number of promotions have expired!</br>" +
+          "Number of promotions you subscribed has exceeded!</br>" +
           '<small class="text-muted">Do you like to extend the plan?</small>',
         linkData: {
           url: "https://www.google.com/gmail/",
@@ -190,7 +190,7 @@ export class UserPromotionComponent implements OnInit {
           const infoData = {
             title: "License",
             message:
-              "You subscribed number of promotions have expired!</br>" +
+              "Number of promotions you subscribed has exceeded!</br>" +
               '<small class="text-muted">Do you like to extend the plan?</small>',
             linkData: {
               url: "https://www.google.com/gmail/",
@@ -416,7 +416,7 @@ export class UserPromotionComponent implements OnInit {
       return;
     }
 
-    const rows = this.temPromotions.filter(function(data) {
+    const rows = this.temPromotions.filter(function (data) {
       for (let i = 0; i <= columns.length; i++) {
         const col = columns[i];
         if (
@@ -456,7 +456,7 @@ export class UserPromotionComponent implements OnInit {
       if (rem !== 0) {
         totalRec = totalRec + 10;
       }
-      for (let i = 10; i < totalRec; ) {
+      for (let i = 10; i < totalRec;) {
         tempArray.push(i);
         i = i + 10;
       }

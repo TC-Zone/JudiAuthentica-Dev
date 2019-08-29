@@ -117,7 +117,7 @@ export class UserFeedbackComponent implements OnInit {
         const infoData = {
           title: "License",
           message:
-            "You subscribed number of feedbacks have expired!</br>" +
+            "Number of feedbacks you subscribed has exceeded!</br> " +
             '<small class="text-muted">Do you like to extend the plan?</small>',
           linkData: {
             url: "https://www.google.com/gmail/",
@@ -202,7 +202,7 @@ export class UserFeedbackComponent implements OnInit {
         const infoData = {
           title: "License",
           message:
-            "You subscribed number of feedbacks have expired!</br>" +
+            "Number of feedbacks you subscribed has exceeded!</br>" +
             '<small class="text-muted">Do you like to extend the plan?</small>',
           linkData: {
             url: "https://www.google.com/gmail/",
