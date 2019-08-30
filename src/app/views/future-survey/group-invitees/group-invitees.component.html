@@ -5,10 +5,9 @@
       <span fxFlex></span>
       <p class="mat-select-lable"> Filter: </p>
       <mat-select class="mat-raised-select" [(ngModel)]="this.filterValue" (selectionChange)="filterOnChange()">
-          <mat-option *ngFor="let filterValue of filterValueArray" [value]="filterValue">{{filterValue}}</mat-option>
+        <mat-option *ngFor="let filterValue of filterValueArray" [value]="filterValue">{{filterValue}}</mat-option>
       </mat-select>
-      <button mat-raised-button class="mb-05 ml-05 mr-05 mt-05" color="accent"
-        routerLink="/future-survey/inviteeGroups">Back</button>
+      <button mat-raised-button class="mb-05 ml-05 mr-05 mt-05" color="accent" routerLink="/future-survey/inviteeGroups">Back</button>
       <mat-divider></mat-divider>
     </div>
 
@@ -21,8 +20,7 @@
         <button mat-icon-button matTooltip="Add Invitee" (click)="inviteePopUp({}, true)">
           <mat-icon>add_box</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll"
-          (click)="deleteSelectedInvitees()">
+        <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="deleteSelectedInvitees()">
           <mat-icon>delete</mat-icon>
         </button>
         <button mat-icon-button matTooltip="Delete" *ngIf="indeterminateState || selectAll" (click)="sendMail(true)">
@@ -43,12 +41,12 @@
           <mat-option *ngFor="let item of pageSizeArray" [value]="item">{{item}}</mat-option>
         </mat-select>
       </mat-toolbar>
-      <mat-accordion>
+      <mat-accordion *ngIf="invitees.length > 0;else nodata">
         <mat-expansion-panel *ngFor="let invitee of invitees" expanded="false" hideToggle="true">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <mat-checkbox (change)="selectToggleOne($event, invitee)" [checked]="invitee.selected"
-                (click)="stopProp($event)" class="mail-checkbox hide-on-open">
+              <mat-checkbox (change)="selectToggleOne($event, invitee)" [checked]="invitee.selected" (click)="stopProp($event)"
+                class="mail-checkbox hide-on-open">
               </mat-checkbox>
               <span class="hide-on-open">{{ invitee.name }}</span>
               <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start center" class="show-on-open">
@@ -65,8 +63,8 @@
                 <mat-chip mat-sm-chip color="{{emailSentStatus[invitee.futureSurveyInteraction.emailSentStatus].style}}"
                   [selected]="true"> {{emailSentStatus[invitee.futureSurveyInteraction.emailSentStatus].status}}
                 </mat-chip>
-                <mat-chip class="ml-1" mat-sm-chip
-                  color="{{responStatus[invitee.futureSurveyInteraction.responStatus].style}}" [selected]="true">
+                <mat-chip class="ml-1" mat-sm-chip color="{{responStatus[invitee.futureSurveyInteraction.responStatus].style}}"
+                  [selected]="true">
                   {{responStatus[invitee.futureSurveyInteraction.responStatus].status}} </mat-chip>
               </span>
               <span fxFlex></span>
@@ -77,8 +75,7 @@
                 <button mat-menu-item (click)="inviteePopUp(invitee, false)">
                   <mat-icon>edit</mat-icon> Edit
                 </button>
-                <button mat-menu-item (click)="sendMail(false, invitee.futureSurveyInteraction.id)"
-                  *ngIf="invitee.futureSurveyInteraction.emailSentStatus !== '1'">
+                <button mat-menu-item (click)="sendMail(false, invitee.futureSurveyInteraction.id)" *ngIf="invitee.futureSurveyInteraction.emailSentStatus !== '1'">
                   <mat-icon>email</mat-icon> Send Invitation
                 </button>
                 <button mat-menu-item (click)="deleteInvitee(invitee)">
@@ -153,6 +150,16 @@
           </div>
         </mat-expansion-panel>
       </mat-accordion>
+
+      <ng-template #nodata>
+        <mat-expansion-panel expanded="true">
+          <mat-panel-description>
+            <mat-chip mat-sm-chip class="mt-1" color="accent" [selected]="true" style="margin-left: auto;margin-right: auto">No
+              records found</mat-chip>
+          </mat-panel-description>
+        </mat-expansion-panel>
+      </ng-template>
+
       <mat-toolbar color="primary" class="inbox-toolbar" *ngIf="this.temInvitees.length > 0" style="font-size: 12px;">
         <!-- <div class="pagination">{{totalRecords}} Created,</div>
         <div class="pagination ml-1">{{quota}} Quota</div> -->

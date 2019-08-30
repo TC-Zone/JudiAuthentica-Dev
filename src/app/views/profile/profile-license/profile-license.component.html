@@ -1,4 +1,3 @@
-
 <mat-card class="p-0">
   <mat-tab-group>
 
@@ -80,24 +79,24 @@
                 {{category.name}}
                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
               </mat-chip>
-              <input matInput placeholder="Select category..." #categoryInput [formControl]="categoryCtrl" [matAutocomplete]="auto"
-                [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (focus) = "onFocusCategoryDD()"
-                (matChipInputTokenEnd)="add($event)" [matChipInputAddOnBlur]="addOnBlur" aria-label="Category">
-            </mat-chip-list>    
-        
+              <input matInput placeholder="Select category..." #categoryInput [formControl]="categoryCtrl"
+                [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (focus)="onFocusCategoryDD()" (matChipInputTokenEnd)="add($event)" [matChipInputAddOnBlur]="addOnBlur"
+                aria-label="Category">
+            </mat-chip-list>
+
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
               <mat-option *ngFor="let category of filteredCategories | async" [value]="category.id">
                 <span>{{category.name}}</span>
               </mat-option>
             </mat-autocomplete>
-        
+
           </mat-form-field>
 
           <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
             <div fxFlex="100" class="mt-1">
               <button mat-raised-button color="primary" matStepperNext [disabled]='categoryFormStatus' (click)="updateCategory()">Save</button>
               <span fxFlex></span>
-              <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
             </div>
           </div>
         </form>
