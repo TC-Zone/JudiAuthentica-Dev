@@ -38,7 +38,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   filteredCountries: Observable<string[]>;
 
   public clientId;
-  public clients: any[];
+  public clients: any[] = [];
   public category: any[];
   public sections: any[];
   public statusArray = new GlobalVariable().common.matChip.clientStatus;

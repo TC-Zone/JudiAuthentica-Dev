@@ -24,7 +24,7 @@
           <th width="150px" class="">Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody *ngIf="clients.length > 0;else nodata">
         <tr *ngFor="let row of clients;">
           <td class="pt-1 pb-1">{{ row?.name }}</td>
           <td class="pt-1 pb-1">{{ row?.description }}</td>
@@ -60,6 +60,14 @@
           </td>
         </tr>
       </tbody>
+      <ng-template #nodata>
+        <tr>
+          <td>
+            <mat-chip mat-sm-chip class="mt-1" color="accent" [selected]="true" style="margin-left: auto;margin-right: auto">No
+              records found</mat-chip>
+          </td>
+        </tr>
+      </ng-template>
       <tfoot>
         <tr>
           <nav aria-label="Page navigation example">

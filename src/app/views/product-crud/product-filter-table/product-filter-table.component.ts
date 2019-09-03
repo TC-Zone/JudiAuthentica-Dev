@@ -22,7 +22,7 @@ import { AppInfoService } from "../../../shared/services/app-info/app-info.servi
   animations: egretAnimations
 })
 export class ProductFilterTableComponent implements OnInit, OnDestroy {
-  rows: any[];
+  rows: any[] = [];
   columns = [];
   temp = [];
 

@@ -6,6 +6,7 @@ import { ProductCrudRouts } from "./product-crud.routing";
 import {
   MatInputModule,
   MatButtonModule,
+  MatChipsModule,
   MatCardModule,
   MatDialogModule,
   MatIconModule,
@@ -38,6 +39,7 @@ import { AppInfoService } from '../../shared/services/app-info/app-info.service'
     FlexLayoutModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatChipsModule,
     NgxDatatableModule,
     MatButtonModule,
     MatCardModule,
@@ -70,4 +72,4 @@ import { AppInfoService } from '../../shared/services/app-info/app-info.service'
   ],
   entryComponents: [ProductCrudPopupComponent]
 })
-export class ProductCrudModule {}
+export class ProductCrudModule { }
