@@ -98,6 +98,11 @@ export const rootRouterConfig: Routes = [
         path: "reporting",
         loadChildren: "./views/reporting/reporting.module#ReportingModule",
         data: { title: "Reporting", breadcrumb: "Reporting" },
+      },
+      {
+        path: "merchant",
+        loadChildren: "./views/merchant/merchant.module#MerchantModule",
+        data: { title: "Merchant", breadcrumb: "Merchant" },
       }
 
     ]

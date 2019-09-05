@@ -458,6 +458,14 @@ export class NavigationService {
       state: "reporting",
       disabled: true
     },
+    {
+      name: "Merchant",
+      type: "link",
+      tooltip: "Merchant",
+      icon: "face",
+      state: "merchant",
+      disabled: true
+    },
 
     // ,
     // {
