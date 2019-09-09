@@ -39,7 +39,7 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
   private globalVariable = new GlobalVariable();
   private clientId;
-  private clients: any[];
+  private clients: any[] = [];
   private category: any[];
   private sections: any[];
   private statusArray = this.globalVariable.common.matChip.clientStatus;

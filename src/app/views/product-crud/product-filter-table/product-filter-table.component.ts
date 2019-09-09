@@ -70,16 +70,12 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
   }
 
   getPageProduct(pageNumber) {
-    console.log('------------------------------------ test 1');
-    
-
     this.pageNumber = pageNumber;
 
     this.prodService
       .getPageProducts(this.keyword, this.pageNumber, this.pageSize, this.clientId, this.getCategoryIDs(this.categories), this.predefined)
       .subscribe(
         successResp => {
-          console.log('------------------------------------ test 2');
           this.products = successResp.content;
           this.length = successResp.pagination.totalRecords;
           console.log(this.products);
