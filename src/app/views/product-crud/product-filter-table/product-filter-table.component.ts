@@ -25,7 +25,7 @@ import { GlobalVariable } from "app/shared/helpers/global-variable";
 export class ProductFilterTableComponent implements OnInit, OnDestroy {
 
   private globalVariable = new GlobalVariable();
-  products: any[];
+  private products: any[] = [];
 
   // MatPaginator Inputs
   private keyword = '';
@@ -70,15 +70,20 @@ export class ProductFilterTableComponent implements OnInit, OnDestroy {
   }
 
   getPageProduct(pageNumber) {
+    console.log('------------------------------------ test 1');
+    
 
     this.pageNumber = pageNumber;
 
-    this.getProductsSub = this.prodService
+    this.prodService
       .getPageProducts(this.keyword, this.pageNumber, this.pageSize, this.clientId, this.getCategoryIDs(this.categories), this.predefined)
       .subscribe(
         successResp => {
+          console.log('------------------------------------ test 2');
           this.products = successResp.content;
           this.length = successResp.pagination.totalRecords;
+          console.log(this.products);
+          
         },
         error => {
           this.loader.close();

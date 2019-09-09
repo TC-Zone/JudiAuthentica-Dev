@@ -24,8 +24,8 @@
           <th width="150px" class="">Actions</th>
         </tr>
       </thead>
-      <tbody *ngIf="rows.length > 0;else nodata">
-        <tr *ngFor="let row of rows;">
+      <tbody *ngIf="products.length > 0;else nodata">
+        <tr *ngFor="let row of products;">
           <td class="pt-1 pb-1">{{ row?.name }}</td>
           <td class="pt-1 pb-1">{{ row?.description }}</td>
           <td class="pt-1 pb-1 text-cente">{{ row?.batchNumber }}</td>
