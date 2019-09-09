@@ -24,8 +24,8 @@
           <th width="150px" class="">Actions</th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let row of products;">
+      <tbody *ngIf="rows.length > 0;else nodata">
+        <tr *ngFor="let row of rows;">
           <td class="pt-1 pb-1">{{ row?.name }}</td>
           <td class="pt-1 pb-1">{{ row?.description }}</td>
           <td class="pt-1 pb-1 text-cente">{{ row?.batchNumber }}</td>
@@ -54,14 +54,23 @@
           </td>
         </tr>
       </tbody>
+      <ng-template #nodata>
+        <tr>
+          <td>
+            <mat-chip mat-sm-chip class="mt-1" color="accent" [selected]="true"
+              style="margin-left: auto;margin-right: auto">No
+              records found</mat-chip>
+          </td>
+        </tr>
+      </ng-template>
       <tfoot>
         <tr>
           <td colspan="7">
             <div class="m-333">
 
               <span fxFlex></span>
-              <mat-paginator [length]="length" [pageSize]="pageSize"
-                [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)">
+              <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+                (page)="onPageChange($event)">
               </mat-paginator>
 
             </div>

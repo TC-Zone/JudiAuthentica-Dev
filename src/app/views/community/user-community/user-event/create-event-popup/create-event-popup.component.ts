@@ -98,9 +98,11 @@ export class CreateEventPopupComponent implements OnInit {
       poster: ['']
     });
 
-    getBase64ImageFromUrl(this.imgBaseURL + eventformdata.id)
-      .then(result => this.url = result)
-      .catch(err => console.error(err));
+    if (!this.data.isNew) {
+      getBase64ImageFromUrl(this.imgBaseURL + eventformdata.id)
+        .then(result => this.url = result)
+        .catch(err => console.error(err));
+    }
 
     console.log(this.eventForm);
 

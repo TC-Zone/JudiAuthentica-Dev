@@ -6651,6 +6651,112 @@ exports.uuid = function (version) {
 
 /***/ }),
 
+/***/ "./src/app/model/User.model.ts":
+/*!*************************************!*\
+  !*** ./src/app/model/User.model.ts ***!
+  \*************************************/
+/*! exports provided: User, CurrentUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "User", function() { return User; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrentUser", function() { return CurrentUser; });
+var User = /** @class */ (function () {
+    function User() {
+    }
+    return User;
+}());
+
+var CurrentUser = /** @class */ (function () {
+    function CurrentUser(userData, isAuthorized, token, refreshToken, expires_in) {
+        this.userData = userData;
+        this.isAuthorized = isAuthorized;
+        this.token = token;
+        this.refreshToken = refreshToken;
+        this.expires_in = expires_in;
+    }
+    return CurrentUser;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/helpers/global-variable.ts":
+/*!***************************************************!*\
+  !*** ./src/app/shared/helpers/global-variable.ts ***!
+  \***************************************************/
+/*! exports provided: GlobalVariable */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GlobalVariable", function() { return GlobalVariable; });
+/**
+  * Buddhi
+  * DO NOT DELETE!
+  */
+var GlobalVariable = /** @class */ (function () {
+    function GlobalVariable() {
+        this.validators = {
+            regex: {
+                _Letter: '^(?:[A-Za-z]+)(?:[A-Za-z _]*)$',
+                _PosNumber: '^[+]?([1-9]+(?:[0-9]*)?|\\.[0-9]+)$',
+                _PosNumberAndLetter: '^(?:[A-Za-z0-9]+)(?:[A-Za-z0-9 ._-]*)$',
+                _Password: '(?=(.*[a-zA-Z].*){2,})((?=.*\\d.*)|(?=.*[$@$!%*?&].*))[a-zA-Z\\d$@$!%*?&\\S]{8,20}'
+            }
+        };
+        /**
+          * Client License Max Limits
+          */
+        this.client = {
+            license: { tagCount: 1000000, userCount: 1000, comunityCount: 100, feedbackCount: 1000, eventCount: 1000, promoCount: 1000 }
+        };
+        this.common = {
+            matChip: {
+                /**
+                * Colors
+                * primary / accent / warn / default
+                */
+                userStatusInUpdateUser: { true: "primary", false: "default" },
+                clientStatus: {
+                    A: { status: "Active", style: "primary", opposite: { value: "Inactive", icon: "block" } },
+                    I: { status: "Inactive", style: "accent", opposite: { value: "Active", icon: "beenhere" } },
+                    D: { status: "Deleted", style: "warn", opposite: { value: "Active", icon: "beenhere" } }
+                },
+                userStatus: {
+                    ACTIVE: { code: "A", display: "ACTIVE", style: "primary" },
+                    INACTIVE: { code: "I", display: "INACTIVE", style: "default" },
+                    DELETED: { code: "D", display: "DELETED", style: "warn" },
+                    PENDING_ACTIVATION: { code: "PEA", display: "PENDING", style: "default" },
+                    TEMP_LOCKED_BAD_CREDENTIALS: { code: "TELBC", display: "LOCKED", style: "accent" }
+                },
+                colorForStatus01: {
+                    'ACTIVE': "primary",
+                    'INACTIVE': "default"
+                },
+                colorForSurveyStatus01: {
+                    0: { id: 0, status: "On Premise", style: "accent" },
+                    1: { id: 1, status: "Launched", style: "primary" },
+                    4: { id: 4, status: "Offline", style: "default" }
+                }
+            },
+            message: {
+                confirmPasswordStatus: {
+                    1: { value: "Password field must have at least 8 characters including at least two letters, one number or special character!", style: "custom-text-accent" },
+                    2: { value: "Passwords Mismatch!", style: "custom-text-warn" }
+                }
+            }
+        };
+    }
+    return GlobalVariable;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/views/sessions/error/error.component.css":
 /*!**********************************************************!*\
   !*** ./src/app/views/sessions/error/error.component.css ***!
@@ -6732,7 +6838,7 @@ module.exports = "<!-- <div class=\"page-wrap height-100 comman-background\">\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".page-wrap {\n  display: flex;\n  padding: 0px; }\n\n.session-form-hold.set-form-left {\n  margin-left: 0px;\n  max-width: 100%; }\n\n#user-forgot-password-view .signin-background {\n  background-image: url('Truverus-Login-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n\n#user-forgot-password-view #login-card {\n  height: 100vh;\n  width: 33.3%;\n  opacity: 0.8;\n  background-color: #f1fcfe; }\n\n#user-forgot-password-view #login-card #login-form, #user-forgot-password-view #login-card #signin-form {\n    padding: 0px 90px 0px;\n    margin: 0;\n    position: absolute;\n    top: 20%; }\n\n#user-forgot-password-view #login-card #login-form #login-form-logo, #user-forgot-password-view #login-card #signin-form #login-form-logo {\n      padding: 30px 0px 50px !important;\n      max-width: 80%;\n      margin: auto; }\n\n#user-forgot-password-view .mat-card {\n  padding: 0px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvc2Vzc2lvbnMvZm9yZ290LXBhc3N3b3JkL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXGNwX2F1dGhlbnRpY2FfZGV2XFxEZXYtSnVkaUF1dGhlbnRpY2EtRGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHZpZXdzXFxzZXNzaW9uc1xcZm9yZ290LXBhc3N3b3JkXFxmb3Jnb3QtcGFzc3dvcmQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxhQUFhO0VBQ2IsWUFBWSxFQUFBOztBQUlkO0VBQ0UsZ0JBQWdCO0VBQ2hCLGVBQWUsRUFBQTs7QUFJakI7RUFHSSxpRUFBc0Y7RUFDdEYsaUNBQWlDO0VBQ2pDLHVDQUF1QyxFQUFBOztBQUwzQztFQVNJLGFBQWE7RUFDYixZQUFZO0VBQ1osWUFBWTtFQUNaLHlCQUF5QixFQUFBOztBQVo3QjtJQWVNLHFCQUFxQjtJQUNyQixTQUFTO0lBQ1Qsa0JBQWtCO0lBQ2xCLFFBQVEsRUFBQTs7QUFsQmQ7TUFxQlEsaUNBQWlDO01BQ2pDLGNBQWM7TUFDZCxZQUFZLEVBQUE7O0FBdkJwQjtFQStCSSxZQUFZLEVBQUEiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9zZXNzaW9ucy9mb3Jnb3QtcGFzc3dvcmQvZm9yZ290LXBhc3N3b3JkLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnBhZ2Utd3JhcCB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgcGFkZGluZzogMHB4O1xyXG4gIH1cclxuICBcclxuICAvLyBvdmVycmlkZSB0byBzZXQgaW52aXRlZSBpbmludGVyYWN0aW9uIGxvZ2luIHBvc3Rpb24gdG8gbGVmdFxyXG4gIC5zZXNzaW9uLWZvcm0taG9sZC5zZXQtZm9ybS1sZWZ0e1xyXG4gICAgbWFyZ2luLWxlZnQ6IDBweDtcclxuICAgIG1heC13aWR0aDogMTAwJTtcclxuICAgIC8vIHdpZHRoOiAxMDAlO1xyXG4gIH1cclxuXHJcbiAgI3VzZXItZm9yZ290LXBhc3N3b3JkLXZpZXcge1xyXG5cclxuICAgIC5zaWduaW4tYmFja2dyb3VuZCB7XHJcbiAgICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcImFzc2V0cy9pbWFnZXMvc2lnbmluL1RydXZlcnVzLUxvZ2luLUJhY2tncm91bmQuanBnXCIpICFpbXBvcnRhbnQ7XHJcbiAgICAgIGJhY2tncm91bmQtc2l6ZTogY292ZXIgIWltcG9ydGFudDtcclxuICAgICAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdCAhaW1wb3J0YW50O1xyXG4gICAgfVxyXG5cclxuICAgICNsb2dpbi1jYXJke1xyXG4gICAgICBoZWlnaHQ6IDEwMHZoO1xyXG4gICAgICB3aWR0aDogMzMuMyU7XHJcbiAgICAgIG9wYWNpdHk6IDAuODtcclxuICAgICAgYmFja2dyb3VuZC1jb2xvcjogI2YxZmNmZTtcclxuXHJcbiAgICAgICNsb2dpbi1mb3JtLCAjc2lnbmluLWZvcm17XHJcbiAgICAgICAgcGFkZGluZzogMHB4IDkwcHggMHB4O1xyXG4gICAgICAgIG1hcmdpbjogMDtcclxuICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICAgICAgdG9wOiAyMCU7XHJcblxyXG4gICAgICAgICNsb2dpbi1mb3JtLWxvZ297XHJcbiAgICAgICAgICBwYWRkaW5nOiAzMHB4IDBweCA1MHB4ICFpbXBvcnRhbnQ7XHJcbiAgICAgICAgICBtYXgtd2lkdGg6IDgwJTtcclxuICAgICAgICAgIG1hcmdpbjogYXV0bztcclxuICAgICAgICB9XHJcblxyXG4gICAgICB9XHJcblxyXG4gICAgfVxyXG5cclxuICAgIC5tYXQtY2FyZHtcclxuICAgICAgcGFkZGluZzogMHB4O1xyXG4gICAgfVxyXG5cclxuICB9Il19 */"
+module.exports = ".page-wrap {\n  display: -webkit-box;\n  display: flex;\n  padding: 0px; }\n\n.session-form-hold.set-form-left {\n  margin-left: 0px;\n  max-width: 100%; }\n\n#user-forgot-password-view .signin-background {\n  background-image: url('Truverus-Login-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n\n#user-forgot-password-view #login-card {\n  height: 100vh;\n  width: 33.3%;\n  opacity: 0.8;\n  background-color: #f1fcfe; }\n\n#user-forgot-password-view #login-card #login-form, #user-forgot-password-view #login-card #signin-form {\n    padding: 0px 90px 0px;\n    margin: 0;\n    position: absolute;\n    top: 20%; }\n\n#user-forgot-password-view #login-card #login-form #login-form-logo, #user-forgot-password-view #login-card #signin-form #login-form-logo {\n      padding: 30px 0px 50px !important;\n      max-width: 80%;\n      margin: auto; }\n\n#user-forgot-password-view .mat-card {\n  padding: 0px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvc2Vzc2lvbnMvZm9yZ290LXBhc3N3b3JkL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXFRDX2F1dGhlbnRpY2FfZGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHZpZXdzXFxzZXNzaW9uc1xcZm9yZ290LXBhc3N3b3JkXFxmb3Jnb3QtcGFzc3dvcmQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxvQkFBYTtFQUFiLGFBQWE7RUFDYixZQUFZLEVBQUE7O0FBSWQ7RUFDRSxnQkFBZ0I7RUFDaEIsZUFBZSxFQUFBOztBQUlqQjtFQUdJLGlFQUFzRjtFQUN0RixpQ0FBaUM7RUFDakMsdUNBQXVDLEVBQUE7O0FBTDNDO0VBU0ksYUFBYTtFQUNiLFlBQVk7RUFDWixZQUFZO0VBQ1oseUJBQXlCLEVBQUE7O0FBWjdCO0lBZU0scUJBQXFCO0lBQ3JCLFNBQVM7SUFDVCxrQkFBa0I7SUFDbEIsUUFBUSxFQUFBOztBQWxCZDtNQXFCUSxpQ0FBaUM7TUFDakMsY0FBYztNQUNkLFlBQVksRUFBQTs7QUF2QnBCO0VBK0JJLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3Nlc3Npb25zL2ZvcmdvdC1wYXNzd29yZC9mb3Jnb3QtcGFzc3dvcmQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucGFnZS13cmFwIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBwYWRkaW5nOiAwcHg7XHJcbiAgfVxyXG4gIFxyXG4gIC8vIG92ZXJyaWRlIHRvIHNldCBpbnZpdGVlIGluaW50ZXJhY3Rpb24gbG9naW4gcG9zdGlvbiB0byBsZWZ0XHJcbiAgLnNlc3Npb24tZm9ybS1ob2xkLnNldC1mb3JtLWxlZnR7XHJcbiAgICBtYXJnaW4tbGVmdDogMHB4O1xyXG4gICAgbWF4LXdpZHRoOiAxMDAlO1xyXG4gICAgLy8gd2lkdGg6IDEwMCU7XHJcbiAgfVxyXG5cclxuICAjdXNlci1mb3Jnb3QtcGFzc3dvcmQtdmlldyB7XHJcblxyXG4gICAgLnNpZ25pbi1iYWNrZ3JvdW5kIHtcclxuICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiYXNzZXRzL2ltYWdlcy9zaWduaW4vVHJ1dmVydXMtTG9naW4tQmFja2dyb3VuZC5qcGdcIikgIWltcG9ydGFudDtcclxuICAgICAgYmFja2dyb3VuZC1zaXplOiBjb3ZlciAhaW1wb3J0YW50O1xyXG4gICAgICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0ICFpbXBvcnRhbnQ7XHJcbiAgICB9XHJcblxyXG4gICAgI2xvZ2luLWNhcmR7XHJcbiAgICAgIGhlaWdodDogMTAwdmg7XHJcbiAgICAgIHdpZHRoOiAzMy4zJTtcclxuICAgICAgb3BhY2l0eTogMC44O1xyXG4gICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjFmY2ZlO1xyXG5cclxuICAgICAgI2xvZ2luLWZvcm0sICNzaWduaW4tZm9ybXtcclxuICAgICAgICBwYWRkaW5nOiAwcHggOTBweCAwcHg7XHJcbiAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgICAgICB0b3A6IDIwJTtcclxuXHJcbiAgICAgICAgI2xvZ2luLWZvcm0tbG9nb3tcclxuICAgICAgICAgIHBhZGRpbmc6IDMwcHggMHB4IDUwcHggIWltcG9ydGFudDtcclxuICAgICAgICAgIG1heC13aWR0aDogODAlO1xyXG4gICAgICAgICAgbWFyZ2luOiBhdXRvO1xyXG4gICAgICAgIH1cclxuXHJcbiAgICAgIH1cclxuXHJcbiAgICB9XHJcblxyXG4gICAgLm1hdC1jYXJke1xyXG4gICAgICBwYWRkaW5nOiAwcHg7XHJcbiAgICB9XHJcblxyXG4gIH0iXX0= */"
 
 /***/ }),
 
@@ -7117,7 +7223,7 @@ module.exports = "<!-- <div class=\"page-wrap height-100 comman-background\">\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".page-wrap {\n  display: flex;\n  padding: 0px; }\n\n.session-form-hold.set-form-left {\n  margin-left: 0px;\n  max-width: 100%; }\n\n#user-login-view .signin-background {\n  background-image: url('Truverus-Login-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n\n#user-login-view #login-card {\n  height: 100vh;\n  width: 33.3%;\n  opacity: 0.8;\n  background-color: #f1fcfe; }\n\n#user-login-view #login-card #login-form, #user-login-view #login-card #signin-form {\n    padding: 0px 90px 0px;\n    margin: 0;\n    position: absolute;\n    top: 20%; }\n\n#user-login-view #login-card #login-form #login-form-logo, #user-login-view #login-card #signin-form #login-form-logo {\n      padding: 30px 0px 50px !important;\n      max-width: 80%;\n      margin: auto; }\n\n#user-login-view .mat-card {\n  padding: 0px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvc2Vzc2lvbnMvc2lnbmluL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXGNwX2F1dGhlbnRpY2FfZGV2XFxEZXYtSnVkaUF1dGhlbnRpY2EtRGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHZpZXdzXFxzZXNzaW9uc1xcc2lnbmluXFxzaWduaW4uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxhQUFhO0VBQ2IsWUFBWSxFQUFBOztBQUlkO0VBQ0UsZ0JBQWdCO0VBQ2hCLGVBQWUsRUFBQTs7QUFJakI7RUFHSSxpRUFBc0Y7RUFDdEYsaUNBQWlDO0VBQ2pDLHVDQUF1QyxFQUFBOztBQUwzQztFQVNJLGFBQWE7RUFDYixZQUFZO0VBQ1osWUFBWTtFQUNaLHlCQUF5QixFQUFBOztBQVo3QjtJQWVNLHFCQUFxQjtJQUNyQixTQUFTO0lBQ1Qsa0JBQWtCO0lBQ2xCLFFBQVEsRUFBQTs7QUFsQmQ7TUFxQlEsaUNBQWlDO01BQ2pDLGNBQWM7TUFDZCxZQUFZLEVBQUE7O0FBdkJwQjtFQStCSSxZQUFZLEVBQUEiLCJmaWxlIjoic3JjL2FwcC92aWV3cy9zZXNzaW9ucy9zaWduaW4vc2lnbmluLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnBhZ2Utd3JhcCB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgcGFkZGluZzogMHB4O1xyXG4gIH1cclxuICBcclxuICAvLyBvdmVycmlkZSB0byBzZXQgaW52aXRlZSBpbmludGVyYWN0aW9uIGxvZ2luIHBvc3Rpb24gdG8gbGVmdFxyXG4gIC5zZXNzaW9uLWZvcm0taG9sZC5zZXQtZm9ybS1sZWZ0e1xyXG4gICAgbWFyZ2luLWxlZnQ6IDBweDtcclxuICAgIG1heC13aWR0aDogMTAwJTtcclxuICAgIC8vIHdpZHRoOiAxMDAlO1xyXG4gIH1cclxuXHJcbiAgI3VzZXItbG9naW4tdmlldyB7XHJcblxyXG4gICAgLnNpZ25pbi1iYWNrZ3JvdW5kIHtcclxuICAgICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiYXNzZXRzL2ltYWdlcy9zaWduaW4vVHJ1dmVydXMtTG9naW4tQmFja2dyb3VuZC5qcGdcIikgIWltcG9ydGFudDtcclxuICAgICAgYmFja2dyb3VuZC1zaXplOiBjb3ZlciAhaW1wb3J0YW50O1xyXG4gICAgICBiYWNrZ3JvdW5kLXJlcGVhdDogbm8tcmVwZWF0ICFpbXBvcnRhbnQ7XHJcbiAgICB9XHJcblxyXG4gICAgI2xvZ2luLWNhcmR7XHJcbiAgICAgIGhlaWdodDogMTAwdmg7XHJcbiAgICAgIHdpZHRoOiAzMy4zJTtcclxuICAgICAgb3BhY2l0eTogMC44O1xyXG4gICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZjFmY2ZlO1xyXG5cclxuICAgICAgI2xvZ2luLWZvcm0sICNzaWduaW4tZm9ybXtcclxuICAgICAgICBwYWRkaW5nOiAwcHggOTBweCAwcHg7XHJcbiAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgICAgICB0b3A6IDIwJTtcclxuXHJcbiAgICAgICAgI2xvZ2luLWZvcm0tbG9nb3tcclxuICAgICAgICAgIHBhZGRpbmc6IDMwcHggMHB4IDUwcHggIWltcG9ydGFudDtcclxuICAgICAgICAgIG1heC13aWR0aDogODAlO1xyXG4gICAgICAgICAgbWFyZ2luOiBhdXRvO1xyXG4gICAgICAgIH1cclxuXHJcbiAgICAgIH1cclxuXHJcbiAgICB9XHJcblxyXG4gICAgLm1hdC1jYXJke1xyXG4gICAgICBwYWRkaW5nOiAwcHg7XHJcbiAgICB9XHJcblxyXG4gIH0iXX0= */"
+module.exports = ".page-wrap {\n  display: -webkit-box;\n  display: flex;\n  padding: 0px; }\n\n.session-form-hold.set-form-left {\n  margin-left: 0px;\n  max-width: 100%; }\n\n#user-login-view .signin-background {\n  background-image: url('Truverus-Login-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n\n#user-login-view #login-card {\n  height: 100vh;\n  width: 33.3%;\n  opacity: 0.8;\n  background-color: #f1fcfe; }\n\n#user-login-view #login-card #login-form, #user-login-view #login-card #signin-form {\n    padding: 0px 90px 0px;\n    margin: 0;\n    position: absolute;\n    top: 20%; }\n\n#user-login-view #login-card #login-form #login-form-logo, #user-login-view #login-card #signin-form #login-form-logo {\n      padding: 30px 0px 50px !important;\n      max-width: 80%;\n      margin: auto; }\n\n#user-login-view .mat-card {\n  padding: 0px; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvc2Vzc2lvbnMvc2lnbmluL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXFRDX2F1dGhlbnRpY2FfZGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHZpZXdzXFxzZXNzaW9uc1xcc2lnbmluXFxzaWduaW4uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxvQkFBYTtFQUFiLGFBQWE7RUFDYixZQUFZLEVBQUE7O0FBSWQ7RUFDRSxnQkFBZ0I7RUFDaEIsZUFBZSxFQUFBOztBQUlqQjtFQUdJLGlFQUFzRjtFQUN0RixpQ0FBaUM7RUFDakMsdUNBQXVDLEVBQUE7O0FBTDNDO0VBU0ksYUFBYTtFQUNiLFlBQVk7RUFDWixZQUFZO0VBQ1oseUJBQXlCLEVBQUE7O0FBWjdCO0lBZU0scUJBQXFCO0lBQ3JCLFNBQVM7SUFDVCxrQkFBa0I7SUFDbEIsUUFBUSxFQUFBOztBQWxCZDtNQXFCUSxpQ0FBaUM7TUFDakMsY0FBYztNQUNkLFlBQVksRUFBQTs7QUF2QnBCO0VBK0JJLFlBQVksRUFBQSIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3Nlc3Npb25zL3NpZ25pbi9zaWduaW4uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIucGFnZS13cmFwIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBwYWRkaW5nOiAwcHg7XHJcbiAgfVxyXG4gIFxyXG4gIC8vIG92ZXJyaWRlIHRvIHNldCBpbnZpdGVlIGluaW50ZXJhY3Rpb24gbG9naW4gcG9zdGlvbiB0byBsZWZ0XHJcbiAgLnNlc3Npb24tZm9ybS1ob2xkLnNldC1mb3JtLWxlZnR7XHJcbiAgICBtYXJnaW4tbGVmdDogMHB4O1xyXG4gICAgbWF4LXdpZHRoOiAxMDAlO1xyXG4gICAgLy8gd2lkdGg6IDEwMCU7XHJcbiAgfVxyXG5cclxuICAjdXNlci1sb2dpbi12aWV3IHtcclxuXHJcbiAgICAuc2lnbmluLWJhY2tncm91bmQge1xyXG4gICAgICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCJhc3NldHMvaW1hZ2VzL3NpZ25pbi9UcnV2ZXJ1cy1Mb2dpbi1CYWNrZ3JvdW5kLmpwZ1wiKSAhaW1wb3J0YW50O1xyXG4gICAgICBiYWNrZ3JvdW5kLXNpemU6IGNvdmVyICFpbXBvcnRhbnQ7XHJcbiAgICAgIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQgIWltcG9ydGFudDtcclxuICAgIH1cclxuXHJcbiAgICAjbG9naW4tY2FyZHtcclxuICAgICAgaGVpZ2h0OiAxMDB2aDtcclxuICAgICAgd2lkdGg6IDMzLjMlO1xyXG4gICAgICBvcGFjaXR5OiAwLjg7XHJcbiAgICAgIGJhY2tncm91bmQtY29sb3I6ICNmMWZjZmU7XHJcblxyXG4gICAgICAjbG9naW4tZm9ybSwgI3NpZ25pbi1mb3Jte1xyXG4gICAgICAgIHBhZGRpbmc6IDBweCA5MHB4IDBweDtcclxuICAgICAgICBtYXJnaW46IDA7XHJcbiAgICAgICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgICAgIHRvcDogMjAlO1xyXG5cclxuICAgICAgICAjbG9naW4tZm9ybS1sb2dve1xyXG4gICAgICAgICAgcGFkZGluZzogMzBweCAwcHggNTBweCAhaW1wb3J0YW50O1xyXG4gICAgICAgICAgbWF4LXdpZHRoOiA4MCU7XHJcbiAgICAgICAgICBtYXJnaW46IGF1dG87XHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgfVxyXG5cclxuICAgIH1cclxuXHJcbiAgICAubWF0LWNhcmR7XHJcbiAgICAgIHBhZGRpbmc6IDBweDtcclxuICAgIH1cclxuXHJcbiAgfSJdfQ== */"
 
 /***/ }),
 
@@ -7137,6 +7243,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _shared_services_auth_auth_properties__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../../shared/services/auth/auth-properties */ "./src/app/shared/services/auth/auth-properties.ts");
+/* harmony import */ var app_model_User_model__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! app/model/User.model */ "./src/app/model/User.model.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7146,6 +7253,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -7171,54 +7279,39 @@ var SigninComponent = /** @class */ (function () {
     };
     SigninComponent.prototype.signin = function () {
         var _this = this;
-        var userObj = JSON.parse(localStorage.getItem(this.storage_name));
-        if (userObj) {
+        var currentUser = this.authService.getLoggedUserDetail();
+        if (currentUser) {
             localStorage.removeItem(this.storage_name);
         }
         var signinData = this.signinForm.value;
         this.submitButton.disabled = true;
-        // this.progressBar.mode = 'indeterminate';
-        this.authService.login(signinData)
-            .subscribe(function (response) {
+        this.authService.login(signinData).subscribe(function (response) {
             console.log('---------------------------- response', response);
-            var tempUser = {
-                id: response.user_id,
-                username: "contactpkumara@gmail.com",
-                accountName: "Kushan Pabasara",
-                image: "assets/images/cp_users/placeholder-user.png",
-                token: response.access_token,
-                refreshToken: response.refresh_token,
-                company: "",
-                expires_in: response.expires_in,
-                userData: ""
-            };
-            localStorage.setItem(_this.storage_name, JSON.stringify(tempUser));
+            var currentUser = new app_model_User_model__WEBPACK_IMPORTED_MODULE_6__["CurrentUser"]("", false, response.access_token, response.refresh_token, response.expires_in);
+            _this.authService.setLoggedUserDetail(currentUser);
+            // localStorage.setItem(this.storage_name, JSON.stringify(currentUser));
             _this.authService.getLoggedUserData(response.user_id).subscribe(function (res) {
-                var viewData = res.content;
-                tempUser.username = viewData.userName;
-                tempUser.accountName = viewData.accountName;
-                tempUser.userData = res.content;
-                tempUser.company = viewData.client.name;
-                localStorage.setItem(_this.storage_name, JSON.stringify(tempUser));
-                console.log('---------------------------- tempUser', tempUser);
-                // this.progressBar.mode = 'determinate';
+                // BASED ON ASSUMPTION : Below code may be change, if we got a better way to identify a super admin.
+                res.content.role.authorities.forEach(function (authority) {
+                    if (authority.code === 'cm-a') {
+                        currentUser.isAuthorized = true;
+                    }
+                });
+                currentUser.userData = res.content;
+                _this.authService.setLoggedUserDetail(currentUser);
+                // localStorage.setItem(this.storage_name, JSON.stringify(currentUser));
+                console.log('---------------------------- currentUser', currentUser);
                 _this.router.navigate([_this.successUrl]);
-                // const expireInMilliSecond = (response.expires_in - 2) * 1000;
-                // this.getRefreshToken(expireInMilliSecond);
-                // this.getRefreshToken(10000);
             }, function (error) {
                 _this.result = false;
-                // this.progressBar.mode = 'determinate';
                 localStorage.removeItem(_this.storage_name);
             });
         }, function (error) {
             _this.result = false;
             if (error.status === 400) {
-                // this.progressBar.mode = 'determinate';
                 _this.signinForm.reset();
             }
             else {
-                // this.progressBar.mode = 'determinate';
                 _this.signinForm.reset();
                 _this.router.navigate([_this.signInUrl]);
             }
@@ -7418,7 +7511,7 @@ module.exports = "<div class=\"page-wrap height-100 comman-background\">\r\n  <d
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".comman-background {\n  background-image: url('Truverus-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvc2Vzc2lvbnMvdXNlci1hY3RpdmF0aW9uL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXGNwX2F1dGhlbnRpY2FfZGV2XFxEZXYtSnVkaUF1dGhlbnRpY2EtRGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHZpZXdzXFxzZXNzaW9uc1xcdXNlci1hY3RpdmF0aW9uXFx1c2VyLWFjdGl2YXRpb24uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSwyREFBa0Y7RUFDbEYsaUNBQXFDO0VBQ3JDLHVDQUF5QyxFQUFBIiwiZmlsZSI6InNyYy9hcHAvdmlld3Mvc2Vzc2lvbnMvdXNlci1hY3RpdmF0aW9uL3VzZXItYWN0aXZhdGlvbi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jb21tYW4tYmFja2dyb3VuZHtcclxuICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcImFzc2V0cy9pbWFnZXMvdHJ1dmVydXMvVHJ1dmVydXMtQmFja2dyb3VuZC5qcGdcIikgIWltcG9ydGFudDtcclxuICAgIGJhY2tncm91bmQtc2l6ZTogICAgIGNvdmVyICFpbXBvcnRhbnQ7XHJcbiAgICBiYWNrZ3JvdW5kLXJlcGVhdDogICBuby1yZXBlYXQgIWltcG9ydGFudDtcclxufSJdfQ== */"
+module.exports = ".comman-background {\n  background-image: url('Truverus-Background.jpg') !important;\n  background-size: cover !important;\n  background-repeat: no-repeat !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvc2Vzc2lvbnMvdXNlci1hY3RpdmF0aW9uL0Q6XFxDbGVhclBpY3R1cmVcXENQIFpvbmVcXFRDX2F1dGhlbnRpY2FfZGV2XFxKdWRpQXV0aGVudGljYS1EZXYvc3JjXFxhcHBcXHZpZXdzXFxzZXNzaW9uc1xcdXNlci1hY3RpdmF0aW9uXFx1c2VyLWFjdGl2YXRpb24uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSwyREFBa0Y7RUFDbEYsaUNBQXFDO0VBQ3JDLHVDQUF5QyxFQUFBIiwiZmlsZSI6InNyYy9hcHAvdmlld3Mvc2Vzc2lvbnMvdXNlci1hY3RpdmF0aW9uL3VzZXItYWN0aXZhdGlvbi5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jb21tYW4tYmFja2dyb3VuZHtcclxuICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcImFzc2V0cy9pbWFnZXMvdHJ1dmVydXMvVHJ1dmVydXMtQmFja2dyb3VuZC5qcGdcIikgIWltcG9ydGFudDtcclxuICAgIGJhY2tncm91bmQtc2l6ZTogICAgIGNvdmVyICFpbXBvcnRhbnQ7XHJcbiAgICBiYWNrZ3JvdW5kLXJlcGVhdDogICBuby1yZXBlYXQgIWltcG9ydGFudDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -7437,6 +7530,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _authentication_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../authentication.service */ "./src/app/views/sessions/authentication.service.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var app_shared_helpers_global_variable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! app/shared/helpers/global-variable */ "./src/app/shared/helpers/global-variable.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7452,6 +7546,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var UserActivationComponent = /** @class */ (function () {
     function UserActivationComponent(route, authService, snack, router) {
         this.route = route;
@@ -7459,7 +7554,8 @@ var UserActivationComponent = /** @class */ (function () {
         this.snack = snack;
         this.router = router;
         this.result = false;
-        this.errorMsg = "The password must have more than 6 characters !";
+        this.errorMsg = "Password field must have at least 8 characters including at least two letters, one number or special character !";
+        this.regex = new app_shared_helpers_global_variable__WEBPACK_IMPORTED_MODULE_5__["GlobalVariable"]().validators.regex;
     }
     UserActivationComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -7471,14 +7567,14 @@ var UserActivationComponent = /** @class */ (function () {
     };
     UserActivationComponent.prototype.buildActivationForm = function () {
         this.activationForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
-            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]("", [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern('[A-Za-z\d$@$!%*?&].{5,}')])
+            password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].pattern(this.regex._Password)])
         });
     };
     UserActivationComponent.prototype.activateUser = function () {
         var _this = this;
         console.log("CALLED activate");
-        if (100 > this.activationForm.value.password.length &&
-            this.activationForm.value.password.length > 8) {
+        var result = this.activationForm.value.password.match(this.regex._Password);
+        if (result && result.length > 0) {
             this.authService
                 .activateUser(this.activationCode, this.activationForm.value)
                 .subscribe(function (response) {
@@ -7494,8 +7590,7 @@ var UserActivationComponent = /** @class */ (function () {
                     _this.router.navigate(["sessions/signin"]);
                 }
                 else {
-                    if (error.error.validationFailures[0].code ===
-                        "userActivationRequest.alreadyActivated") {
+                    if (error.error.validationFailures[0].code === "userActivationRequest.alreadyActivated") {
                         _this.errorMsg = "User Already Activated !";
                         _this.result = true;
                     }
@@ -7503,7 +7598,7 @@ var UserActivationComponent = /** @class */ (function () {
             });
         }
         else {
-            this.errorMsg = "The password must have more than 8 characters !";
+            this.errorMsg = "Password field must have at least 8 characters including at least two letters, one number or special character !";
             this.result = true;
         }
     };

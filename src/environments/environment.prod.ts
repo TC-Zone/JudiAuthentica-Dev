@@ -18,7 +18,6 @@ export const environment = {
   // authTokenUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user/",
   // userApiUrl: "https://authenticak84f365ea.ca1.hana.ondemand.com/user/api/",
 
-
   // LOCALE
   authTokenUrl:"http://localhost:10000/",
   userApiUrl: "http://localhost:10000/api/",
@@ -27,16 +26,14 @@ export const environment = {
   productimageUrl: "http://localhost:10001/",
   evoteimageUrl: "http://localhost:10002/",
 
-  // authTokenUrl:"https://userk84f365ea.ca1.hana.ondemand.com/user/",
-  // userApiUrl:"https://userk84f365ea.ca1.hana.ondemand.com/user/api/",
 
   // SAP OLD
   // productApiURL: "https://productzg4t4ks63a.hana.ondemand.com/product/api/",
   // surveyApiURL: "https://surveyzg4t4ks63a.hana.ondemand.com/survey/api/",
   // productimageUrl: "https://productzg4t4ks63a.hana.ondemand.com/product/",
-  // evoteimageUrl : 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/',
+  // evoteimageUrl : 'https://surveyzg4t4ks63a.hana.ondemand.com/survey/'
 
-  // frontEndBaseUrl: 'https://judedw.github.io/JudiAuthentica-Dev/',
-   frontEndBaseUrl: "http://localhost:4200/",
-  //  frontEndBaseUrl: "https://www.clearpicturevote.com/"
+  //  frontEndBaseUrl :'https://judedw.github.io/JudiAuthentica-Dev/',
+  // frontEndBaseUrl: "http://localhost:4200/",
+  frontEndBaseUrl: "https://tc-zone.github.io/JudiAuthentica-Dev/"
 };
