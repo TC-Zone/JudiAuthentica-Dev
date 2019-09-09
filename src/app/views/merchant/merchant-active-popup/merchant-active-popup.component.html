@@ -10,21 +10,20 @@
     </mat-card>
   </div>
   <div fxFlex="50" class="mt-1 ml-5">
-    <p>
+    <p *ngIf='merchant.user.accountName'>
       <mat-icon class="text-muted mat-icon notranslate material-icons mat-icon-no-color mr-1">person</mat-icon>{{merchant.user.accountName}}
     </p>
-    <p>
+    <p *ngIf='merchant.user.email'>
       <mat-icon class="text-muted mat-icon notranslate material-icons mat-icon-no-color mr-1">email</mat-icon>{{merchant.user.email}}
     </p>
-    <p>
+    <p *ngIf='merchant.mobileNumber'>
       <mat-icon class="text-muted mat-icon notranslate material-icons mat-icon-no-color mr-1">phone</mat-icon>{{merchant.mobileNumber}}
     </p>
-    <p>
+    <p *ngIf='merchant.address'>
       <mat-icon class="text-muted mat-icon notranslate material-icons mat-icon-no-color mr-1">add_location</mat-icon>{{merchant.address}}
     </p>
     <mat-slide-toggle>
-      Status : <mat-chip color="" selected>{{merchant.user.status}}
-      </mat-chip>
+      Status
     </mat-slide-toggle>
   </div>
 </mat-dialog-content>
