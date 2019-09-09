@@ -25,3 +25,17 @@
 .svd_commercial_container {
   display: none;
 }
+
+
+.input-bottom-msg{
+  font-size: 13px;
+  .custom-text-primary{
+    color: #0884c0;
+  }
+  .custom-text-warn{
+    color: #f44336;
+  }
+  .custom-text-accent{
+    color: #ffc107;
+  }
+}

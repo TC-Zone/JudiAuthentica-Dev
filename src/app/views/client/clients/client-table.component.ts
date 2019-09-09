@@ -34,24 +34,26 @@ import { AuthenticationService } from "app/views/sessions/authentication.service
   animations: egretAnimations
 })
 export class ClientTableComponent implements OnInit, OnDestroy {
-  public countries;
-  filteredCountries: Observable<string[]>;
+  private countries;
+  private filteredCountries: Observable<string[]>;
 
-  public clientId;
-  public clients: any[];
-  public category: any[];
-  public sections: any[];
-  public statusArray = new GlobalVariable().common.matChip.clientStatus;
+  private globalVariable = new GlobalVariable();
+  private clientId;
+  private clients: any[];
+  private category: any[];
+  private sections: any[];
+  private statusArray = this.globalVariable.common.matChip.clientStatus;
 
 
-  // pagination
-  public keyword = '';
-  public pageNumber = 1;
-  public pageSize = 10;
-  public totalPages = [];
-  public totalRecords = 0;
 
-  public getItemSub: Subscription;
+  // MatPaginator Inputs
+  private keyword = '';
+  private pageNumber = 1;
+  private length = 0;
+  private pageSize = 10;
+  private pageSizeOptions: number[] = this.globalVariable.common.pageSize.Option1;
+
+  private getItemSub: Subscription;
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
@@ -65,9 +67,9 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const currentUser = this.authService.getLoggedUserDetail();
     this.clientId = currentUser.userData.client.id;
-    this.getPageClient(this.pageNumber);
     this.getCategory();
     this.getCountry();
+    this.getPageClient(this.pageNumber);
     this.getDisplayAuthority();
   }
 
@@ -79,47 +81,24 @@ export class ClientTableComponent implements OnInit, OnDestroy {
 
   getPageClient(pageNumber) {
 
-    if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
-      this.pageNumber = pageNumber;
+    this.pageNumber = pageNumber;
 
-      this.clientService
-        .getClientsByFilter(this.keyword, this.pageSize, this.pageNumber)
-        .subscribe(
-          successResp => {
-            this.clients = successResp.content;
-            let totalPages = successResp.pagination.totalPages;
-            let totalPagesArray = [];
+    this.clientService.getClientsByFilter(this.keyword, this.pageSize, this.pageNumber).subscribe(
+      successResp => {
 
-            if (totalPages > 1) {
-              for (let i = 1; i <= totalPages; i++) {
-                totalPagesArray.push(i);
-              }
-            }
-            this.totalPages = totalPagesArray;
-            this.totalRecords = successResp.pagination.totalRecords;
-          },
-          error => {
-            if (error) {
-              console.log('------------------------------- ClentTableComponent : error - ', error);
-              console.log('------------------------------- ClentTableComponent : error.status - ', error.status);
-              this.errDialog.showError(error);
-            }
-          }
-        );
-    }
-  }
+        this.clients = successResp.content;
+        this.length = successResp.pagination.totalRecords;
 
-  changeValue() {
-    this.pageNumber = 1;
-    this.getPageClient(this.pageNumber);
-  }
+      },
+      error => {
+        if (error) {
+          console.log('------------------------------- ClentTableComponent : error - ', error);
+          console.log('------------------------------- ClentTableComponent : error.status - ', error.status);
+          this.errDialog.showError(error);
+        }
+      }
+    );
 
-  updateFilter(event) {
-    if (event.keyCode === 13) {
-      this.keyword = event.target.value.toLowerCase();
-      this.pageNumber = 1;
-      this.getPageClient(this.pageNumber);
-    }
   }
 
   getCategory() {
@@ -159,250 +138,204 @@ export class ClientTableComponent implements OnInit, OnDestroy {
     );
   }
 
-  clientUpdatePopUp(data: any = {}) {
-    this.clientService.getClient(data.id).subscribe(
-      successResp => {
-        let dialogRef: MatDialogRef<any> = this.dialog.open(
-          ClientUpdatePopupComponent,
-          {
-            width: "720px",
-            disableClose: true,
-            data: { payload: successResp.content, country: this.countries }
+  openPopUp(data: any = {}, component, width = "720px") {
+
+    return new Promise((resolve) => {
+      let dialogRef: MatDialogRef<any> = this.dialog.open(
+        component,
+        {
+          width: width,
+          disableClose: true,
+          data: data
+        }
+      );
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (!res) {
+          // If user press cancel
+          return null;
+        }
+
+        return resolve(res);
+
+      });
+    });
+
+  }
+
+
+  clientCreatePopUp() {
+
+    this.openPopUp({ category: this.category, section: this.sections }, ClientCreatePopupComponent, "900px").then((res: any) => {
+
+      if (res !== null) {
+
+        this.loader.open();
+
+        let authorities: AuthorityData[] = [];
+        res[5].forEach(element => {
+          authorities.push(new AuthorityData(element));
+        });
+        let role: AdminRoleData = new AdminRoleData('Admin role', 'Admin description', authorities);
+
+        let users: UserData[] = [];
+        users.push(new UserData(res[2].username, res[2].email, role));
+
+        let license: ClientLicenseData = new ClientLicenseData(
+          res[3].tagCount,
+          res[3].userCount,
+          res[3].communityCount,
+          res[3].feedbackCount,
+          res[3].eventCount,
+          res[3].promoCount
+        );
+
+        let categories: CategoryData[] = [];
+        res[4].forEach(element => {
+          categories.push(new CategoryData(element.id));
+        });
+
+        const req: ClientCreateReq = new ClientCreateReq(
+          res[0].name,
+          res[0].description,
+          res[1],
+          users,
+          categories,
+          license
+        );
+
+        this.clientService.addClient(req).subscribe(
+          response => {
+            this.clients = response;
+            this._handleSuccessResponse('CLIENT_CREATE');
+          },
+          error => {
+            this._handleErrorResponse(error);
           }
         );
 
-        dialogRef.afterClosed().subscribe(res => {
-          if (!res) {
-            // If user press cancel
-            return;
-          }
-          console.log(res);
-
-          this.loader.open();
-          const country: CountryData = new CountryData(res[2]);
-          const req: ClientUpdateReq = new ClientUpdateReq(
-            res[0].name,
-            res[0].description,
-            res[1],
-            res[0].contactNo,
-            res[0].addressLine1,
-            res[0].addressLine2,
-            res[0].city,
-            res[0].state,
-            res[0].zipCode,
-            country
-          );
-
-          this.clientService.updateClient(data.id, req).subscribe(
-            response => {
-              this.getPageClient(this.pageNumber);
-              this.loader.close();
-              this.snack.open("Client Updated!", "OK", { duration: 4000 });
-            },
-            error => {
-              this.loader.close();
-              this.errDialog.showError(error);
-            }
-          );
-        });
-      },
-      error => {
-        this.errDialog.showError(error);
-      }
-    );
-  }
-
-  clientCreatePopUp() {
-    let dialogRef: MatDialogRef<any> = this.dialog.open(
-      ClientCreatePopupComponent,
-      {
-        width: "900px",
-        disableClose: true,
-        data: { category: this.category, section: this.sections }
-      }
-    );
-
-    dialogRef.afterClosed().subscribe(res => {
-      console.log(res);
-
-      if (!res) {
-        // If user press cancel
-        return;
       }
 
-      this.loader.open();
-
-      let authorities: AuthorityData[] = [];
-      res[5].forEach(element => {
-        authorities.push(new AuthorityData(element));
-      });
-      let role: AdminRoleData = new AdminRoleData('Admin role', 'Admin description', authorities);
-
-      let users: UserData[] = [];
-      users.push(new UserData(res[2].username, res[2].email, role));
-
-      let license: ClientLicenseData = new ClientLicenseData(
-        res[3].tagCount,
-        res[3].userCount,
-        res[3].communityCount,
-        res[3].feedbackCount,
-        res[3].eventCount,
-        res[3].promoCount
-      );
-
-      let categories: CategoryData[] = [];
-      res[4].forEach(element => {
-        categories.push(new CategoryData(element.id));
-      });
-
-      const req: ClientCreateReq = new ClientCreateReq(
-        res[0].name,
-        res[0].description,
-        res[1],
-        users,
-        categories,
-        license
-      );
-
-      this.clientService.addClient(req).subscribe(
-        response => {
-          this.getPageClient(this.pageNumber);
-          this.clients = response;
-          this.loader.close();
-          this.snack.open("New Client added !", "OK", { duration: 4000 });
-        },
-        error => {
-          this.loader.close();
-          this.errDialog.showError(error);
-        }
-      );
     });
+
   }
 
-  categoryUpdatePopUp(data: any = {}) {
-    this.clientService.getClientCategories(data.id).subscribe(
+  clientUpdatePopUp(data: any = {}) {
+
+    this.clientService.getClient(data.id).subscribe(
       successResp => {
-        console.log(successResp);
 
-        this.clientService.getClientCategories(data.id).subscribe(successResp => {
-          console.log(successResp);
+        this.openPopUp({ payload: successResp.content, country: this.countries }, ClientUpdatePopupComponent).then((res: any) => {
 
-          let dialogRef: MatDialogRef<any> = this.dialog.open(
-            ClientCategoryPopupComponent,
-            {
-              width: "720px",
-              disableClose: true,
-              data: { category: this.category, selectedCategory: successResp }
-            }
-          );
-          dialogRef.afterClosed().subscribe(res => {
-            if (!res) {
-              // If user press cancel
-              return;
-            }
-            console.log(res);
-
-            let categories: CategoryData[] = [];
-            res.forEach(element => {
-              categories.push(new CategoryData(element.id));
-            });
-
-
-            const req: ClientCategoryUpdateReq = new ClientCategoryUpdateReq(categories);
+          if (res !== null) {
 
             this.loader.open();
-            this.clientService.updateClientCategory(this.clientId, req).subscribe(
+            const country: CountryData = new CountryData(res[2]);
+            const req: ClientUpdateReq = new ClientUpdateReq(
+              res[0].name,
+              res[0].description,
+              res[1],
+              res[0].contactNo,
+              res[0].addressLine1,
+              res[0].addressLine2,
+              res[0].city,
+              res[0].state,
+              res[0].zipCode,
+              country
+            );
+
+            this.clientService.updateClient(data.id, req).subscribe(
               response => {
-                this.loader.close();
-                this.snack.open("Client Category Updated!", "OK", { duration: 4000 });
+                this._handleSuccessResponse('CLIENT_UPDATE');
               },
               error => {
-                this.loader.close();
-                this.errDialog.showError({
-                  title: "Error",
-                  status: error.status,
-                  type: "http_error"
-                });
+                this._handleErrorResponse(error);
               }
             );
 
-          });
+          }
 
-          // this.loader.open();
-          // const country: CountryData = new CountryData('a65715e919d0995f361360cf0b8c2c03', 'Åland Islands', 'AX');
-          // const req: ClientUpdateReq = new ClientUpdateReq(
-          //   res[0].name, res[0].description, res[1], res[0].contactNo, res[0].addressLine1, res[0].addressLine2, res[0].city, res[0].state, res[0].zipCode, country
-          // );
-
-          // this.clientService.updateClient(data.id, req).subscribe(
-          //   response => {
-          //     this.getClients();
-          //     this.loader.close();
-          //     this.snack.open("Client Updated!", "OK", { duration: 4000 });
-          //   },
-          //   error => {
-          //     this.loader.close();
-          //     this.errDialog.showError(error);
-          //   }
-          // );
         });
+
       },
       error => {
         this.errDialog.showError(error);
       }
     );
   }
+
+  categoryUpdatePopUp(data: any = {}) {
+
+    this.clientService.getClientCategories(data.id).subscribe(
+      successResp => {
+
+        this.openPopUp({ category: this.category, selectedCategory: successResp }, ClientCategoryPopupComponent).then((res: any) => {
+
+          if (res !== null) {
+
+            let categories: CategoryData[] = [];
+            res.forEach(element => { categories.push(new CategoryData(element.id)); });
+            const req: ClientCategoryUpdateReq = new ClientCategoryUpdateReq(categories);
+            this.loader.open();
+            this.clientService.updateClientCategory(data.id, req).subscribe(
+
+              response => {
+                this._handleSuccessResponse('CATEGORY_UPDATE');
+              },
+              error => {
+                this._handleErrorResponse(error);
+              }
+
+            );
+
+          }
+
+        });
+
+      },
+      error => {
+        this.errDialog.showError(error);
+      }
+    );
+  }
+
 
   licenseUpdatePopUp(data: any = {}) {
     this.clientService.getClient(data.id).subscribe(
       successResp => {
         let resClient = successResp.content;
 
-        let dialogRef: MatDialogRef<any> = this.dialog.open(
-          ClientLicenseUpdatePopupComponent,
-          {
-            width: "720px",
-            disableClose: true,
-            data: { payload: resClient }
-          }
-        );
-        dialogRef.afterClosed().subscribe(res => {
-          if (!res) {
-            // If user press cancel
-            return;
-          }
-          console.log(res);
+        this.openPopUp({ payload: resClient }, ClientLicenseUpdatePopupComponent).then((res: any) => {
 
-          this.loader.open();
+          if (res !== null) {
 
-          let clientData: ClientData = new ClientData(resClient.id);
-          const req: LicenseUpdateReq = new LicenseUpdateReq(
-            res.tagCount,
-            res.userCount,
-            res.communityCount,
-            res.feedbackCount,
-            res.eventCount,
-            res.promoCount,
-            clientData
-          );
-
-          this.clientService
-            .updateClientLicense(resClient.license.id, req)
-            .subscribe(
-              response => {
-                this.getPageClient(this.pageNumber);
-                this.clients = response;
-                this.loader.close();
-                this.snack.open("License Data Updated !", "OK", {
-                  duration: 4000
-                });
-              },
-              error => {
-                this.loader.close();
-                this.errDialog.showError(error);
-              }
+            this.loader.open();
+            let clientData: ClientData = new ClientData(resClient.id);
+            const req: LicenseUpdateReq = new LicenseUpdateReq(
+              res.tagCount,
+              res.userCount,
+              res.communityCount,
+              res.feedbackCount,
+              res.eventCount,
+              res.promoCount,
+              clientData
             );
+            this.clientService
+              .updateClientLicense(resClient.license.id, req)
+              .subscribe(
+                response => {
+                  this.clients = response;
+                  this._handleSuccessResponse('LICENSE_UPDATE');
+                },
+                error => {
+                  this._handleErrorResponse(error);
+                }
+              );
+
+          }
+
         });
+
       },
       error => {
         this.errDialog.showError(error);
@@ -411,18 +344,55 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   }
 
   updateClientStatus(data: any = {}) {
+    this.loader.open();
     this.clientService.updateClientStatus(data.id).subscribe(
       successResp => {
-        console.log(successResp.content);
-        this.snack.open("Client Status Successfully Updated !", "OK", {
-          duration: 4000
-        });
-        this.getPageClient(this.pageNumber);
+        this._handleSuccessResponse('CLIENT_STATUS_UPDATE');
       },
       error => {
         this.errDialog.showError(error);
       }
     );
+  }
+
+
+
+  _handleSuccessResponse(name) {
+
+    this.loader.close();
+    this.getPageClient(this.pageNumber);
+
+    if (name === 'CLIENT_CREATE') {
+      this.snack.open("New Client added !", "OK", { duration: 4000 });
+    } else if (name === 'CLIENT_UPDATE') {
+      this.snack.open("Client Updated!", "OK", { duration: 4000 });
+    } else if (name === 'CATEGORY_UPDATE') {
+      this.snack.open("Client Category Updated!", "OK", { duration: 4000 });
+    } else if (name === 'LICENSE_UPDATE') {
+      this.snack.open("License Updated !", "OK", { duration: 4000 });
+    } else if (name === 'CLIENT_STATUS_UPDATE') {
+      this.snack.open("Client Status Successfully Updated !", "OK", { duration: 4000 });
+    }
+
+  }
+
+  _handleErrorResponse(error) {
+    this.loader.close();
+    this.errDialog.showError({ title: "Error", status: error.status, type: "http_error" });
+  }
+
+  onPageChange(event) {
+    if (event) {
+      this.pageSize = event.pageSize;
+      this.getPageClient(event.pageIndex + 1);
+    }
+  }
+
+  onSearch(event) {
+    if (event.keyCode === 13) {
+      this.keyword = event.target.value.toLowerCase();
+      this.getPageClient(1);
+    }
   }
 
   navigateUserTable(res: any) {
@@ -450,17 +420,3 @@ export class ClientTableComponent implements OnInit, OnDestroy {
   }
 }
 
-// Raveen : Buddi's code : 2019/04/11
-// this.clientService.getClient(res.id).subscribe(
-//     successResp => {
-//       console.log(successResp.content);
-//       localStorage.setItem(
-//         "currentClient",
-//         JSON.stringify(successResp.content)
-//       );
-//       this.router.navigate(["clients/user/user-table"]);
-//     },
-//     error => {
-//       this.errDialog.showError(error);
-//     }
-//   );

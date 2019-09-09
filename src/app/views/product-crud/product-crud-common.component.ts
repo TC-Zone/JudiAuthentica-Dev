@@ -14,9 +14,8 @@ import { ClientService } from "../client/client.service";
   template: ""
 })
 export class ProductCommonComponent {
-  public getCategoriesSub: Subscription;
-
-  public categories: any[];
+  private getCategoriesSub: Subscription;
+  private categories: any[];
 
   constructor(
     public surveyService: SurveyService,

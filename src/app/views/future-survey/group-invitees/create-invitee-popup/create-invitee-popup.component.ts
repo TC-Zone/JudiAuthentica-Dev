@@ -8,6 +8,7 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DatePipe } from '@angular/common';
 import { FutureSurveyService } from '../../future-survey.service';
 import { AppErrorService } from 'app/shared/services/app-error/app-error.service';
+import { GlobalVariable } from 'app/shared/helpers/global-variable';
 
 export const MY_FORMATS = {
   parse: {
@@ -36,6 +37,8 @@ export const MY_FORMATS = {
   ]
 })
 export class CreateInviteePopupComponent implements OnInit {
+  private globalVariable: GlobalVariable = new GlobalVariable();
+  private regex = this.globalVariable.validators.regex;
 
   public customFields;
   public length;
@@ -73,9 +76,9 @@ export class CreateInviteePopupComponent implements OnInit {
 
     let inviteeFormData = this.data.payload;
     this.inviteeForm = this.fb.group({
-      name: [inviteeFormData.name || '', Validators.required],
-      email: [inviteeFormData.email || '', Validators.required],
-      username: [inviteeFormData.username || '', Validators.required],
+      name: [inviteeFormData.name || '', [Validators.required, Validators.pattern(this.regex._Letter)]],
+      email: [inviteeFormData.email || '', [Validators.required, Validators.pattern(this.regex._Email)]],
+      username: [inviteeFormData.username || '', [Validators.required, Validators.pattern(this.regex._UserName)]],
       password: [inviteeFormData.password || '', Validators.required],
       customField1: [inviteeFormData.customField1 || '', Validators.required],
       customField2: [inviteeFormData.customField2 || '', Validators.required],

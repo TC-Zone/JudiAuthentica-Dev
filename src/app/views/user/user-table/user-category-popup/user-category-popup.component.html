@@ -29,7 +29,7 @@
 
   <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
     <div fxFlex="100" class="mt-1">
-      <button mat-raised-button color="primary" (click)="submit()">Save</button>
+      <button mat-raised-button color="primary" (click)="submit()" [disabled]="selectedCategories.length == 0">Save</button>
       <span fxFlex></span>
       <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
     </div>

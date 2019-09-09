@@ -15,21 +15,21 @@ import { autoCompletableCategory } from 'app/model/ClientModel.model';
   templateUrl: './user-category-popup.component.html'
 })
 export class UserCategoryPopupComponent implements OnInit {
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  categoryCtrl = new FormControl();
-  allCategories: autoCompletableCategory[] = [];
-  filteredCategories: Observable<autoCompletableCategory[]>;
-  selectedCategories: autoCompletableCategory[] = [];
+  private selectable = true;
+  private removable = true;
+  private addOnBlur = true;
+  private separatorKeysCodes: number[] = [ENTER, COMMA];
+  private categoryCtrl = new FormControl();
+  private allCategories: autoCompletableCategory[] = [];
+  private filteredCategories: Observable<autoCompletableCategory[]>;
+  private selectedCategories: autoCompletableCategory[] = [];
 
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<UserCategoryPopupComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<UserCategoryPopupComponent>,
     private fb: FormBuilder,
   ) {
     this.filteredCategories = this.categoryCtrl.valueChanges
@@ -59,7 +59,7 @@ export class UserCategoryPopupComponent implements OnInit {
 
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
-      const value = event.value;
+      // const value = event.value;
 
       // if we need to add custom texts as Chips,
       // Add our category

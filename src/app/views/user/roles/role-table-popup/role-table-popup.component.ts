@@ -12,28 +12,28 @@ import { AuthorityData, ClientData } from 'app/model/ClientModel.model';
 })
 export class RoleTablePopupComponent implements OnInit {
 
-  public clientID;
-  public predefined;
-  public isNew;
+  private clientID;
+  private predefined;
+  private isNew;
 
-  public allAuthority = [];
-  public allDisplayAuthority = [];
-  public adminRoleDisplayAuthority = [];
-  public newDisplayAuthority = [];
-  public removedDisplayAuthority = [];
-  public commonAndAdminAuthorities = [];
+  private allAuthority = [];
+  private allDisplayAuthority = [];
+  private adminRoleDisplayAuthority = [];
+  private newDisplayAuthority = [];
+  private removedDisplayAuthority = [];
+  private commonAndAdminAuthorities = [];
 
-  public selectedAuthorities = [];
-  public componentList = [];
-  public adminComponentList = [];
+  private selectedAuthorities = [];
+  private componentList = [];
+  private adminComponentList = [];
 
 
-  public authoritiesFormGroup: FormGroup;
-  public roleFormGroup: FormGroup;
+  private authoritiesFormGroup: FormGroup;
+  private roleFormGroup: FormGroup;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<RoleTablePopupComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<RoleTablePopupComponent>,
     private fb: FormBuilder,
     private clientService: ClientService,
   ) { }
@@ -92,7 +92,7 @@ export class RoleTablePopupComponent implements OnInit {
       section.authorities = authorities;
       section['selectAll'] = false;
       section['indeterminateState'] = false;
-      
+
     });
 
     roleData.splice(0, 0, displayAuthoritySection);
@@ -192,7 +192,7 @@ export class RoleTablePopupComponent implements OnInit {
 
   }
 
-  
+
   checkAllSelect() {
 
     this.componentList.forEach(section => {
@@ -215,7 +215,7 @@ export class RoleTablePopupComponent implements OnInit {
     });
 
   }
-  
+
   onChangeSelectAll(id, isChecked) {
 
     this.componentList.forEach(section => {

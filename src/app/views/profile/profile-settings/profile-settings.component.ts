@@ -18,32 +18,30 @@ import { AuthenticationService } from 'app/views/sessions/authentication.service
   animations: egretAnimations,
 })
 export class ProfileSettingsComponent implements OnInit {
-  public uploader: FileUploader = new FileUploader({ url: 'upload_url' });
-  public hasBaseDropZoneOver: boolean = false;
-  public clientId;
-  public userId;
-  public url;
-  public imageName;
-  public currentUser;
-  public passwordStatus = null;
-  public globalVariable: GlobalVariable = new GlobalVariable();
-  public statusArray = this.globalVariable.common.message.confirmPasswordStatus;
-  public regex = this.globalVariable.validators.regex;
 
-  public profileSettingsForm: FormGroup;
-  public passwordSettingsForm: FormGroup;
+  private userId;
+  private url;
+  private imageName;
+  private currentUser;
+  private passwordStatus = null;
+  private globalVariable: GlobalVariable = new GlobalVariable();
+  private statusArray = this.globalVariable.common.message.confirmPasswordStatus;
+  private regex = this.globalVariable.validators.regex;
+  private formInputMessage = this.globalVariable.common.message.formInput;
 
-  public imageChangedEvent: any = '';
-  public croppedImage: any = '';
+  private profileSettingsForm: FormGroup;
+  private passwordSettingsForm: FormGroup;
+
+  private imageChangedEvent: any = '';
 
   constructor(
+
     private fb: FormBuilder,
     private profileService: ProfileService,
     private loader: AppLoaderService,
     private snack: MatSnackBar,
     private errDialog: AppErrorService,
-    public snackBar: MatSnackBar,
-    public r: Router,
+    private snackBar: MatSnackBar,
     private _interactionService: InteractionService,
     private authService: AuthenticationService
 
@@ -52,6 +50,7 @@ export class ProfileSettingsComponent implements OnInit {
   ngOnInit() {
 
     this.currentUser = this.authService.getLoggedUserDetail();
+
     this.userId = this.currentUser.userData.id;
     this.buildItemForm(this.currentUser.userData);
 
@@ -70,8 +69,8 @@ export class ProfileSettingsComponent implements OnInit {
   buildItemForm(data) {
 
     this.profileSettingsForm = this.fb.group({
-      accountName: new FormControl(data.accountName || '', Validators.required),
-      email: new FormControl(data.email || '', [Validators.required, Validators.email]),
+      accountName: new FormControl(data.accountName || '', [Validators.required, Validators.pattern(this.regex._UserName)]),
+      email: new FormControl(data.email || '', [Validators.required, Validators.pattern(this.regex._Email)]),
     })
 
     this.passwordSettingsForm = this.fb.group({
@@ -82,45 +81,18 @@ export class ProfileSettingsComponent implements OnInit {
 
   }
 
+
+  // ----------------------------------- Kushan ------------------------------------------------------
+
   // File uploader validation and upload
   onSelectFile(event: any) {
-    console.log(event);
-
+    // console.log(event);
     this.imageChangedEvent = event;
-
-    // if (event.target.files && event.target.files[0]) {
-
-    //   let file = event.dataTransfer ? event.dataTransfer.files[0] : event.target.files[0];
-    //   let pattern = /image-*/;
-    //   let reader = new FileReader();
-    //   if (!file.type.match(pattern)) {
-    //     this.snackBar.open(
-    //       "Invalid Format!",
-    //       "close",
-    //       { duration: 2000 }
-    //     );
-    //     return;
-    //   }
-    //   reader.onload = (event: any) => {
-    //     this.url = event.target.result;
-    //     this.imageName = file.name;
-    //   };
-
-    //   reader.readAsDataURL(file);
-
-    // } else {
-    //   this.snackBar.open(
-    //     "Can't upload",
-    //     "close",
-    //     { duration: 2000 }
-    //   );
-    // }
-
   }
 
   imageCropped(image: any) {
-    console.log(image);
-    console.log(this.imageChangedEvent);
+    // console.log(image);
+    // console.log(this.imageChangedEvent);
 
     this.url = "";
     this.url = image.base64;
@@ -140,7 +112,6 @@ export class ProfileSettingsComponent implements OnInit {
       }
       reader.onload = (event: any) => {
         // this.url = event.target.result;
-        this.url;
         this.imageName = file.name;
 
       };
@@ -155,16 +126,17 @@ export class ProfileSettingsComponent implements OnInit {
       );
     }
 
-
-
-
   }
+
   imageLoaded() {
     // show cropper
   }
   loadImageFailed() {
     // show message
   }
+
+  // -------------------------------------------------------------------------------------------------
+
 
   removeSelectedImg() {
     this.url = null;
@@ -182,7 +154,6 @@ export class ProfileSettingsComponent implements OnInit {
         this.currentUser.userData.accountName = this.currentUser.accountName = response.content.accountName;
         this.currentUser.userData.email = response.content.email;
         this.authService.setLoggedUserDetail(this.currentUser);
-        // localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
         this.changeProfileDetails(response.content.accountName);
       },
       error => {
@@ -193,7 +164,6 @@ export class ProfileSettingsComponent implements OnInit {
 
   }
 
-
   changeProfileDetails(userName) {
     this._interactionService.changeProfileDetails(userName);
   }
@@ -202,40 +172,23 @@ export class ProfileSettingsComponent implements OnInit {
 
     const itemForm = this.passwordSettingsForm.value;
 
-    console.log('-------------------- ', itemForm.password === null ? "Null" : itemForm.password === '' ? "Empty" : itemForm.password);
-    console.log('-------------------- ', itemForm.confirmPassword === null ? "Null" : itemForm.confirmPassword === '' ? "Empty" : itemForm.confirmPassword);
+    if (itemForm.password === '' && itemForm.confirmPassword === '') {
 
+      this.passwordStatus = null;
 
-    if (itemForm.password !== '') {
-      // --
+    } else if (itemForm.password !== '' || itemForm.confirmPassword !== '') {
+
       let result = itemForm.password.match(this.regex._Password);
       if (result && result.length > 0) {
         this.passwordStatus = null;
       } else {
         this.passwordStatus = 1; // Regex not match with password
       }
-      // --
-    }
 
-    if (itemForm.confirmPassword !== '') {
-      if (this.passwordStatus === null) {
-        // --
-        let result = itemForm.password.match(this.regex._Password);
-        if (result && result.length > 0) {
-          this.passwordStatus = null;
-        } else {
-          this.passwordStatus = 1; // Regex not match with confirmPassword
-        }
-        // --
+      if (itemForm.password !== '' && itemForm.confirmPassword !== '' && this.passwordStatus === null && itemForm.password !== itemForm.confirmPassword) {
+        this.passwordStatus = 2;
       }
-    }
 
-    if (itemForm.password === '' && itemForm.confirmPassword === '') {
-      this.passwordStatus = null;
-    }
-
-    if (itemForm.password !== '' && itemForm.confirmPassword !== '' && this.passwordStatus === null && itemForm.password !== itemForm.confirmPassword) {
-      this.passwordStatus = 2;
     }
 
   }
@@ -245,37 +198,60 @@ export class ProfileSettingsComponent implements OnInit {
     const itemForm = this.passwordSettingsForm.value
 
     const req: passwordUpdateReq = new passwordUpdateReq(this.userId, itemForm.currentPassword, itemForm.confirmPassword);
+
     this.profileService.updateUserPassword(req).subscribe(
+
       response => {
+
         this.passwordSettingsForm.reset();
+
+        Object.keys(this.passwordSettingsForm.controls).forEach((name) => {
+          this.passwordSettingsForm.controls[name].setErrors(null);
+        });
+
         this.checkConfirmPassword();
         this.snack.open("Password Updated!", "OK", { duration: 4000 });
 
       },
       error => {
+
         console.log("------error", error.error);
         this.errDialog.showError(error);
+
       }
+
     );
 
   }
 
 
   updateProfilePic() {
+
     this.loader.open();
+
     const req: userImageReq = new userImageReq(this.userId, this.url, this.imageName);
+
     this.profileService.updateProfilePic(req).subscribe(
+
       response => {
+
         this.loader.close();
+
+        // ----------------------------------- Kushan ------------------------------------------------------
         this.imageChangedEvent = "";
+        this.imageName = null;
+        // -------------------------------------------------------------------------------------------------
         this.snack.open("Profile Picture Updated!", "OK", { duration: 4000 });
         this._interactionService.changeProfilePicture(this.userId);
-        this.imageName = null;
+
       },
       error => {
+
         this.loader.close();
         this.errDialog.showError(error);
+
       }
+
     );
 
   }

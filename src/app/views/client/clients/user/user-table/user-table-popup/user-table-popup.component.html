@@ -26,10 +26,13 @@
         </mat-form-field>
       </div>
       <div fxFlex="50" class="pt-1 pr-1">
-        <mat-slide-toggle color="primary" [formControl]="itemForm.controls['status']" [(ngModel)]="isActive" (change)="changeUserStatus()">
+        <mat-slide-toggle color="primary" [formControl]="itemForm.controls['status']" [(ngModel)]="isActive"
+          (change)="changeUserStatus()" class="mb-2">
           User Status : <mat-chip color="{{statusArray[userStatus].style}}" selected>
             {{statusArray[userStatus].display}}</mat-chip>
-        </mat-slide-toggle>
+        </mat-slide-toggle><br>
+        <span class="input-bottom-msg"><span *ngIf="this.userStatus === 'DELETED' &&  this.data.quotaExpire"
+            class="{{message.formInput.custom.userStatusError.style}}">{{message.formInput.custom.userStatusError.value}}</span></span>
       </div>
       <div fxFlex=" 100" class="mt-1">
         <button mat-raised-button color="primary" [disabled]="itemForm.invalid">Save</button>

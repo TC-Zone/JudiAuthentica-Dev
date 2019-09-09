@@ -1,15 +1,11 @@
 <div class="app-admin-wrap" [dir]='layoutConf.dir'>
   <!-- Header for top navigation layout -->
   <!-- ONLY REQUIRED FOR **TOP** NAVIGATION LAYOUT -->
-  <app-header-top 
-    *ngIf="layoutConf.navigationPos === 'top'" 
-    [notificPanel]="notificationPanel">
+  <app-header-top *ngIf="layoutConf.navigationPos === 'top'" [notificPanel]="notificationPanel">
   </app-header-top>
   <!-- Main Container -->
-  <mat-sidenav-container 
-  [dir]='layoutConf.dir'
-  class="app-admin-container app-side-nav-container mat-drawer-transition"
-  [ngClass]="{
+  <mat-sidenav-container [dir]='layoutConf.dir' class="app-admin-container app-side-nav-container mat-drawer-transition"
+    [ngClass]="{
     'navigation-top': layoutConf.navigationPos === 'top',
     'sidebar-full': layoutConf.sidebarStyle === 'full',
     'sidebar-compact': layoutConf.sidebarStyle === 'compact' && layoutConf.navigationPos === 'side',
@@ -19,21 +15,19 @@
     'sidebar-closed': layoutConf.sidebarStyle === 'closed',
     'fixed-topbar': layoutConf.topbarFixed && layoutConf.navigationPos === 'side'
   }">
-  <!-- SIDEBAR -->
-  <!-- ONLY REQUIRED FOR **SIDE** NAVIGATION LAYOUT -->
-  <app-sidebar-side *ngIf="layoutConf.navigationPos === 'side'"></app-sidebar-side>
-  
-  <!-- Top navigation layout (navigation for mobile screen) -->
-  <!-- ONLY REQUIRED FOR **TOP** NAVIGATION MOBILE LAYOUT -->
-  <app-sidebar-top *ngIf="layoutConf.navigationPos === 'top' && layoutConf.isMobile"></app-sidebar-top>
+    <!-- SIDEBAR -->
+    <!-- ONLY REQUIRED FOR **SIDE** NAVIGATION LAYOUT -->
+    <app-sidebar-side *ngIf="layoutConf.navigationPos === 'side'"></app-sidebar-side>
+
+    <!-- Top navigation layout (navigation for mobile screen) -->
+    <!-- ONLY REQUIRED FOR **TOP** NAVIGATION MOBILE LAYOUT -->
+    <app-sidebar-top *ngIf="layoutConf.navigationPos === 'top' && layoutConf.isMobile"></app-sidebar-top>
 
     <!-- App content -->
     <div class="main-content-wrap">
       <!-- Header for side navigation layout -->
       <!-- ONLY REQUIRED FOR **SIDE** NAVIGATION LAYOUT -->
-      <app-header-side 
-        *ngIf="layoutConf.navigationPos === 'side'"
-        [notificPanel]="notificationPanel">
+      <app-header-side *ngIf="layoutConf.navigationPos === 'side'" [notificPanel]="notificationPanel">
       </app-header-side>
 
       <div class="rightside-content-hold">
@@ -51,10 +45,9 @@
       </div>
     </div>
     <!-- View overlay for mobile navigation -->
-    <div class="sidebar-backdrop"
-    [ngClass]="{'visible': layoutConf.sidebarStyle !== 'closed' && layoutConf.isMobile}"
-    (click)="closeSidebar()"></div>
-    
+    <div class="sidebar-backdrop" [ngClass]="{'visible': layoutConf.sidebarStyle !== 'closed' && layoutConf.isMobile}"
+      (click)="closeSidebar()"></div>
+
     <!-- Notificaation bar -->
     <mat-sidenav #notificationPanel mode="over" class="" position="end">
       <div class="navigation-hold" fxLayout="column">
@@ -67,4 +60,5 @@
 
 <!-- Only for demo purpose -->
 <!-- Remove this from your production version -->
-<app-customizer></app-customizer>
+<!-- <app-customizer></app-customizer> -->
+<!-- Buddhi : I have to disable this component. -->

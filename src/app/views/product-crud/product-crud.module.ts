@@ -17,6 +17,7 @@ import {
   MatMenuModule,
   MatToolbarModule
 } from "../../../../node_modules/@angular/material";
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { ProductCrudService } from "./product-crud.service";
 import { ProductCrudPopupComponent } from "./product-filter-table/product-crud-popup/product-crud-popup.component";
@@ -52,7 +53,8 @@ import { AppInfoService } from '../../shared/services/app-info/app-info.service'
     MatProgressBarModule,
     SharedModule,
     MatToolbarModule,
-    RouterModule.forChild(ProductCrudRouts)
+    RouterModule.forChild(ProductCrudRouts),
+    MatPaginatorModule
   ],
   declarations: [
     ProductFilterTableComponent,

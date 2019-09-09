@@ -23,7 +23,6 @@ export class AuthGuard implements CanActivate {
     console.log('---------------------------------- AuthGuard : url -', url);
     console.log('---------------------------------- AuthGuard : state.url - ', state.url);
 
-    // if (this.authService.getLoggedUserDetail()) {
     if (localStorage.getItem(this.storage_name)) {
       if (this.loggedUserBlackListUrls.indexOf(state.url) === 0) {
         if (url !== '/') {

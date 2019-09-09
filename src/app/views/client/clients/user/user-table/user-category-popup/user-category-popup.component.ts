@@ -17,21 +17,21 @@ import { AppErrorService } from 'app/shared/services/app-error/app-error.service
 })
 export class UserCategoryPopupComponent implements OnInit {
 
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  categoryCtrl = new FormControl();
-  allCategories: autoCompletableCategory[] = [];
-  filteredCategories: Observable<autoCompletableCategory[]>;
-  selectedCategories: autoCompletableCategory[] = [];
+  private selectable = true;
+  private removable = true;
+  private addOnBlur = true;
+  private separatorKeysCodes: number[] = [ENTER, COMMA];
+  private categoryCtrl = new FormControl();
+  private allCategories: autoCompletableCategory[] = [];
+  private filteredCategories: Observable<autoCompletableCategory[]>;
+  private selectedCategories: autoCompletableCategory[] = [];
 
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<UserCategoryPopupComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<UserCategoryPopupComponent>,
     private fb: FormBuilder,
     private errDialog: AppErrorService,
     private loader: AppLoaderService,
@@ -45,7 +45,6 @@ export class UserCategoryPopupComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.allCategories = JSON.parse(JSON.stringify(this.data.category));
     this.selectedCategories = [];
     if (this.data.selectedCategory.length > 0) {
@@ -53,7 +52,6 @@ export class UserCategoryPopupComponent implements OnInit {
         this.addSelectedCategory(element.id)
       });
     }
-
   }
 
   submit() {
@@ -61,10 +59,9 @@ export class UserCategoryPopupComponent implements OnInit {
   }
 
   add(event: MatChipInputEvent): void {
-
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
-      const value = event.value;
+      // const value = event.value;
 
       // if we need to add custom texts as Chips,
       // Add our category

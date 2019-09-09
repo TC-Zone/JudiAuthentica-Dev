@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { CountryDB } from "../../../../shared/helpers/countries";
 import { egretAnimations } from "../../../../shared/animations/egret-animations";
 import { ClientService } from '../../client.service';
+import { GlobalVariable } from 'app/shared/helpers/global-variable';
 
 
 @Component({
@@ -15,24 +16,24 @@ import { ClientService } from '../../client.service';
 })
 export class ClientUpdatePopupComponent implements OnInit {
 
-  // public countryDB: CountryDB = new CountryDB();
-  // public countries = this.countryDB.countries;
+  private globalVariable: GlobalVariable = new GlobalVariable();
+  private regex = this.globalVariable.validators.regex;
+  
+  private countries;
+  private filteredCountries: Observable<string[]>;
+  private selectedCountry;
 
-  public countries;
-  filteredCountries: Observable<string[]>;
-  public selectedCountry;
-
-  public itemForm: FormGroup;
-  public formStatus = false;
-  public url;
-  public imgBaseURL : string;
+  private itemForm: FormGroup;
+  private formStatus = false;
+  private url;
+  private imgBaseURL : string;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ClientUpdatePopupComponent>,
-    public clientService : ClientService,
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<ClientUpdatePopupComponent>,
+    private clientService : ClientService,
     private fb: FormBuilder,
-    public snackBar: MatSnackBar
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -61,7 +62,7 @@ export class ClientUpdatePopupComponent implements OnInit {
     }
 
     this.itemForm = this.fb.group({
-      name: [item.name || '', Validators.required],
+      name: [item.name || '', [Validators.required, Validators.pattern(this.regex._Letter)]],
       description: [item.description || '', Validators.required],
       profilePic: [''],
       contactNo: [item.primaryContactNo || '', Validators.required],
@@ -69,7 +70,7 @@ export class ClientUpdatePopupComponent implements OnInit {
       addressLine2: [item.addressLine2 || '', Validators.required],
       city: [item.city || '', Validators.required],
       state: [item.state || '', Validators.required],
-      zipCode: [item.zipCode || '', Validators.required],
+      zipCode: [item.zipCode || ''],
       country: [country || '', Validators.required]
     })
 

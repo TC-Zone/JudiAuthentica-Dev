@@ -8,12 +8,9 @@
 
     <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
 
-
-
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
-          <!-- <input matInput [formControl]="productForm.controls['name']" required name="name" letterOnly placeholder="Product Name"> -->
-          <input matInput [formControl]="productForm.controls['name']" required name="name" pattern="[a-zA-Z\s]*" placeholder="Product Name">
+          <input matInput [formControl]="productForm.controls['name']" name="name" placeholder="Product Name">
         </mat-form-field>
       </div>
 
@@ -21,7 +18,7 @@
       <div fxFlex="34" class="pr-1">
 
         <mat-form-field class="full-width">
-          <mat-select [formControl]="productForm.controls['categoryId']" required placeholder="Select A Category">
+          <mat-select [formControl]="productForm.controls['categoryId']" placeholder="Select A Category">
             <mat-option>none</mat-option>
             <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
           </mat-select>
@@ -31,23 +28,14 @@
       <!-- Quantity Input -->
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
-          <input type="number" matInput name="quantity" [formControl]="productForm.controls['quantity']"  pattern="^[+]?\d+$" required placeholder="Quantity">
-        </mat-form-field>
-      </div>
-
-
-      <!-- Description Input -->
-      <div fxFlex="34" class="pr-1">
-        <mat-form-field class="full-width">
-          <input matInput name="desc" [formControl]="productForm.controls['description']" required name="description"
-            placeholder="Description">
+          <input matInput name="quantity" [formControl]="productForm.controls['quantity']" placeholder="Quantity" positiveNumberOnly>
         </mat-form-field>
       </div>
 
       <!-- Batch Number Input -->
-      <div fxFlex="33" class="pr-1">
+      <div fxFlex="34" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="batchNumber" [formControl]="productForm.controls['batchNumber']" required placeholder="Batch Number">
+          <input matInput name="batchNumber" [formControl]="productForm.controls['batchNumber']" placeholder="Batch Number" positiveNumberOnly>
         </mat-form-field>
       </div>
 
@@ -56,7 +44,7 @@
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
           <input matInput name="expireDate" [min]="tomorrow" [matDatepicker]="picker"
-            [formControl]="productForm.controls['expireDate']" required placeholder="Expire Date">
+            [formControl]="productForm.controls['expireDate']" placeholder="Expire Date">
           <mat-datepicker-toggle matSuffix [for]="picker">
             <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
           </mat-datepicker-toggle>
@@ -80,10 +68,19 @@
 
       </div>
 
+
+      <!-- Description Input -->
+      <div fxFlex="100" class="pr-1">
+        <mat-form-field class="full-width">
+          <textarea matInput name="desc" [formControl]="productForm.controls['description']" name="description"
+            placeholder="Description"></textarea>
+        </mat-form-field>
+      </div>
+
+
       <!-- Youtube Video URL Input -->
       <div fxFlex="33" class="pr-1">
         <mat-form-field class="full-width">
-          <!-- <input matInput name="videoUrl" [formControl]="productForm.controls['videoUrl']" placeholder="Youtube Video URL" type="text"> -->
           <input matInput name="videoUrl" [formControl]="productForm.controls['videoUrl']" placeholder="Youtube Video URL" type="text">
         </mat-form-field>
       </div>
@@ -98,7 +95,6 @@
 
 
       <!-- --------- file input click button --------- -->
-      <!-- *ngIf="data.isNew"  -->
       <div layout-margin layout-padding>
         <button mat-raised-button class="mr-1" (click)="productImgs.click()" [disabled]="this.maxUploadableFileCount === null || this.maxUploadableFileCount < 1 ?
         (false) :
@@ -137,7 +133,7 @@
 
   </mat-dialog-content>
 
-
+  <!-- {{productForm.invalid}} - {{urls.length}} -->
   <mat-dialog-actions align="end">
     <button mat-raised-button color="primary" [disabled]="productForm.invalid || urls.length === 0">Save</button>
     <span fxFlex></span>

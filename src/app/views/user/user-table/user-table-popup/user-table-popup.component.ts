@@ -9,17 +9,19 @@ import { GlobalVariable } from 'app/shared/helpers/global-variable';
 })
 export class UserTablePopupComponent implements OnInit {
 
-  public itemForm: FormGroup;
-  public roles: any[] = [];
-  public roleStatus = false;
-  public isActive;
-  public userStatus;
-  public oldUserStatus;
-  public statusArray = new GlobalVariable().common.matChip.userStatus;
+  private itemForm: FormGroup;
+  private roles: any[] = [];
+  private roleStatus = false;
+  private isActive;
+  private userStatus;
+  private oldUserStatus;
+  private globalVariable = new GlobalVariable();
+  private statusArray = this.globalVariable.common.matChip.userStatus;
+  private regex = this.globalVariable.validators.regex;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<UserTablePopupComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<UserTablePopupComponent>,
     private fb: FormBuilder,
   ) { }
 
@@ -39,8 +41,8 @@ export class UserTablePopupComponent implements OnInit {
     }
 
     this.itemForm = this.fb.group({
-      username: new FormControl(item.accountName || '', Validators.required),
-      email: new FormControl(item.email || '', [Validators.required, Validators.email]),
+      username: new FormControl(item.accountName || '', [Validators.required, Validators.pattern(this.regex._UserName)]),
+      email: new FormControl(item.email || '', [Validators.required, Validators.pattern(this.regex._Email)]),
       role: new FormControl(role, Validators.required),
       status: new FormControl(this.isActive)
     })

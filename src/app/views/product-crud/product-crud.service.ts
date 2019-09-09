@@ -56,9 +56,7 @@ export class ProductCrudService {
   }
 
 
-  // "?name=" +
-  // keyword +
-  // --------- BH ----------
+  // --------- BUDDHI ----------
   getPageProducts(keyword, pageNumber, pageSize, clientId, categories, predefined): Observable<any> {
     return this.http
       .get(
@@ -78,7 +76,7 @@ export class ProductCrudService {
       )
       .pipe(catchError(this.handleError));
   }
-  // --------- BH ----------
+  // --------- BUDDHI ----------
 
   /** RAVEEN SANKALPA - 2019/05/03
    * Filter products by client id and categories that assigned to user.

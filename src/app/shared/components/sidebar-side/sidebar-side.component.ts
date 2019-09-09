@@ -76,14 +76,6 @@ export class SidebarSideComponent extends LocalStorageHandler
     this.menuItemsSub = this.navService.menuItems$.subscribe(menuItem => {
       this.menuItems = menuItem;
 
-      // const removeItemList = this.authService.setComponetDisable();
-      // removeItemList.forEach(element => {
-      //   const index = this.menuItems.findIndex(x => x.name === element);
-      //   if (index >= 0) {
-      //     this.menuItems[index].disabled = true;
-      //   }
-      // });
-
       const activeItemList = this.authService.getActiveComponet();
       console.log('-------------- activeItemList', activeItemList);
 

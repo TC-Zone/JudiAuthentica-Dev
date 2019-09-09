@@ -1,27 +1,34 @@
 import { Directive, ElementRef, HostListener } from "@angular/core";
+import { GlobalVariable } from "app/shared/helpers/global-variable";
 
 @Directive({
   selector: "[positiveNumberAndLetterOnly]"
 })
 export class PositiveNumberAndLetterOnly {
-  // Allow positive number greater than 0
-  private regex: RegExp = new RegExp(/^(?:[A-Za-z0-9]+)(?:[A-Za-z0-9 ._-]*)$/);
-  // private regex: RegExp = new RegExp(/^[a-zA-Z0-9._-]+$/);
-  // Allow key codes for special events. Reflect :
-  // Backspace, tab, end, home
-  private specialKeys: Array<string> = ["Backspace", "Tab", "End", "Home", "Ctrl"];
+
+  private globalVariable: GlobalVariable = new GlobalVariable();
+
+  private regex: RegExp = new RegExp(this.globalVariable.validators.regex._PosNumberAndLetter);
+  private specialKeys: Array<string> = ["Backspace", "Tab", "End", "Home", "ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp"];
+  private shortcut: Array<string> = ["A", "a", "C", "c", "X", "x"];
 
   constructor(private el: ElementRef) { }
+
   @HostListener("keydown", ["$event"])
   onKeyDown(event: KeyboardEvent) {
-    // Allow Backspace, tab, end, and home keys
-    if (this.specialKeys.indexOf(event.key) !== -1) {
+    
+    // if specialKeys or shortcut
+    if (this.specialKeys.indexOf(event.key) !== -1 || ((this.shortcut.indexOf(event.key) !== -1) && event.ctrlKey)) {
       return;
     }
+
     let current: string = this.el.nativeElement.value;
     let next: string = current.concat(event.key);
+
     if (next && !String(next).match(this.regex)) {
       event.preventDefault();
     }
+
   }
+  
 }

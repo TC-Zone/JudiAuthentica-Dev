@@ -19,18 +19,18 @@ import { Router, ActivatedRoute } from "@angular/router";
   animations: egretAnimations
 })
 export class RoleTableComponent implements OnInit, OnDestroy {
-  public pageSize = 10;
+  private pageSize = 10;
 
-  public roles: any[];
-  public adminRoleId;
-  public adminRoleAuthorities;
-  public commonAndAdminAuthorities = [];
+  private roles: any[];
+  private adminRoleId;
+  private adminRoleAuthorities;
+  private commonAndAdminAuthorities = [];
 
-  public componentList = [];
-  public editRoleId: String;
-  public clientId;
+  private componentList = [];
+  private editRoleId: String;
+  private clientId;
 
-  public getItemSub: Subscription;
+  private getItemSub: Subscription;
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
@@ -87,6 +87,7 @@ export class RoleTableComponent implements OnInit, OnDestroy {
         });
       });
     });
+    console.log('----------------------------', this.commonAndAdminAuthorities);
   }
 
   openPopUp(roleData: any = {}, isNew?) {

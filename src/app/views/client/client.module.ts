@@ -29,6 +29,7 @@ import {
   MatMenuModule,
   MatAutocompleteModule
 } from "@angular/material";
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { SharedModule } from "../../shared/shared.module";
@@ -80,6 +81,7 @@ import { UserService } from "../user/user.service";
     MatMenuModule,
     MatAutocompleteModule,
     NgxIntlTelInputModule,
+    MatPaginatorModule
   ],
   declarations: [
     ClientComponent,

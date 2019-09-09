@@ -9,8 +9,8 @@ import { AuthenticationService } from "../../../sessions/authentication.service"
   animations: egretAnimations
 })
 export class UserComponent implements OnInit {
-  public clientId: string;
-  public clientName: string;
+  private clientId: string;
+  private clientName: string;
 
   constructor(
     private router: Router,

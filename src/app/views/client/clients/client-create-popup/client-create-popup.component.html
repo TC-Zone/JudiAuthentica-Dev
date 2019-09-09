@@ -3,33 +3,30 @@
     <span class="title dialog-title">Create Client</span>
   </div>
 </mat-toolbar>
+
+
 <mat-dialog-content class="mat-typography mt-1" id="client-create">
-
-
   <mat-horizontal-stepper [linear]="true">
 
     <mat-step [stepControl]="clientFormGroup">
-
       <form [formGroup]="clientFormGroup">
-
         <ng-template matStepLabel>Client</ng-template>
 
-
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
-
           <div fxFlex="100" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput name="clientName" letterOnly placeholder="Name" [formControl]="clientFormGroup.controls['name']">
+              <input matInput name="clientName" placeholder="Name" [formControl]="clientFormGroup.controls['name']">
             </mat-form-field>
           </div>
 
           <div fxFlex="100" class="pr-1">
             <mat-form-field class="full-width">
-              <textarea matInput name="description" placeholder="Description" [formControl]="clientFormGroup.controls['description']"></textarea>
+              <textarea matInput name="description" placeholder="Description"
+                [formControl]="clientFormGroup.controls['description']"></textarea>
             </mat-form-field>
           </div>
-
         </div>
+
 
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
           <div fxFlex="100" class="mt-1">
@@ -40,17 +37,15 @@
         </div>
 
       </form>
-
     </mat-step>
-
 
     <mat-step [stepControl]="profilePicFormGroup">
       <form [formGroup]="profilePicFormGroup">
         <ng-template matStepLabel>Profile Picture</ng-template>
 
         <!-- --------- hidden file input --------- -->
-        <input (change)="onSelectFile($event)" #productImgs type="file" style="display: none" [formControl]="profilePicFormGroup.controls['profilePic']"
-          base-sixty-four-input>
+        <input (change)="onSelectFile($event)" #productImgs type="file" style="display: none"
+          [formControl]="profilePicFormGroup.controls['profilePic']" base-sixty-four-input>
 
 
         <!-- --------- file input click button --------- -->
@@ -62,7 +57,8 @@
         <div layout-margin layout-padding class="mb-2 mt-1" align="center">
           <button mat-raised-button class="mr-1" (click)="productImgs.click()" type="button">
             Browse Images</button>
-          <button mat-raised-button class="mr-1" color="warn" (click)="removeSelectedImg()" type="button" *ngIf="clientProfilePic">
+          <button mat-raised-button class="mr-1" color="warn" (click)="removeSelectedImg()" type="button"
+            *ngIf="clientProfilePic">
             Clear Images</button>
         </div>
 
@@ -84,7 +80,8 @@
             </mat-card>
           </div> -->
 
-          <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngIf="clientProfilePic" fxFlex="100" style="display: flex;">
+          <div [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}" *ngIf="clientProfilePic" fxFlex="100"
+            style="display: flex;">
 
             <img class="clientProfilePic" [src]="clientProfilePic">
 
@@ -95,12 +92,16 @@
         <!-- --------- end images preview container --------- -->
 
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+
           <div fxFlex="100" class="mt-1">
+
             <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
             <button mat-raised-button color="primary" matStepperNext [disabled]="!clientProfilePic">Next</button>
             <span fxFlex></span>
             <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+
           </div>
+
         </div>
 
       </form>
@@ -115,8 +116,13 @@
 
           <div fxFlex="100" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput name="username" positiveNumberAndLetterOnly placeholder="Username" [formControl]="adminFormGroup.controls['username']">
+              <input matInput name="username" placeholder="Username"
+                [formControl]="adminFormGroup.controls['username']">
             </mat-form-field>
+            <!-- <span class="input-bottom-msg"><span
+                *ngIf="adminFormGroup.controls['username'].value.length && adminFormGroup.controls['username'].invalid && adminFormGroup.controls['username'].dirty"
+                class="{{this.formInputMessage.userName.Error.style}}">{{this.formInputMessage.userName.Error.value}}</span>
+            </span> -->
           </div>
 
           <div fxFlex="100" class="pr-1">
@@ -124,13 +130,13 @@
               <input matInput name="email" placeholder="Email" [formControl]="adminFormGroup.controls['email']">
             </mat-form-field>
           </div>
-          <!-- , module.moduleName, item.code, $event.checked) -->
 
           <div fxFlex="100" class="pr-1">
             <mat-card-subtitle>Give Permissions to</mat-card-subtitle>
             <div fxLayout="row" fxLayout.lt-sm="column" class="" fxLayoutWrap="wrap">
               <div fxFlex="50" class="pr-1" *ngFor="let item of allAuthorities">
-                <mat-checkbox (change)="onChange(item.id)" class="full-width" value="{{item.code}}">{{item.name}}</mat-checkbox>
+                <mat-checkbox (change)="onChange(item.id)" class="full-width" value="{{item.code}}">{{item.name}}
+                </mat-checkbox>
               </div>
             </div>
           </div>
@@ -145,7 +151,9 @@
             <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
           </div>
         </div>
+
       </form>
+
     </mat-step>
 
     <mat-step [stepControl]="categoryFormGroup">
@@ -153,7 +161,6 @@
         <ng-template matStepLabel>Category</ng-template>
 
         <mat-form-field class="matAutocomplete-chip-list">
-
           <mat-chip-list #chipList>
             <mat-chip *ngFor="let category of selectedCategories" [selectable]="selectable" [removable]="removable"
               (removed)="remove(category)">
@@ -162,7 +169,8 @@
             </mat-chip>
             <input matInput placeholder="Select category..." #categoryInput [formControl]="categoryCtrl"
               [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-              (matChipInputTokenEnd)="add($event)" [matChipInputAddOnBlur]="addOnBlur" aria-label="Category" [required]="this.selectedCategories.length === 0">
+              (matChipInputTokenEnd)="add($event)" [matChipInputAddOnBlur]="addOnBlur" aria-label="Category"
+              [required]="this.selectedCategories.length === 0">
           </mat-chip-list>
 
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
@@ -174,12 +182,15 @@
         </mat-form-field>
 
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+
           <div fxFlex="100" class="mt-1">
             <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
-            <button mat-raised-button color="primary" matStepperNext [disabled]='this.selectedCategories.length === 0'>Next</button>
+            <button mat-raised-button color="primary" matStepperNext
+              [disabled]='this.selectedCategories.length === 0'>Next</button>
             <span fxFlex></span>
             <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
           </div>
+
         </div>
       </form>
     </mat-step>
@@ -192,7 +203,8 @@
 
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput name="tagCount" placeholder="Tag Count" positiveNumberOnly [formControl]="licenseFormGroup.controls['tagCount']">
+              <input matInput name="tagCount" placeholder="Tag Count" positiveNumberOnly
+                [formControl]="licenseFormGroup.controls['tagCount']">
             </mat-form-field>
             <span *ngIf="licenseFormGroup.controls['tagCount'].hasError('max')" class="form-error-msg">
               {{this.license.tagCount}} max ! </span>
@@ -200,51 +212,56 @@
 
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput name="userCount" placeholder="User Count" positiveNumberOnly [formControl]="licenseFormGroup.controls['userCount']">
+              <input matInput name="userCount" placeholder="User Count" positiveNumberOnly
+                [formControl]="licenseFormGroup.controls['userCount']">
             </mat-form-field>
           </div>
 
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput name="communityCount" placeholder="Comunity Count" positiveNumberOnly [formControl]="licenseFormGroup.controls['communityCount']"
-                (blur)="validateLicense()" (focus)='setOldValue()'>
+              <input matInput name="communityCount" placeholder="Comunity Count" positiveNumberOnly
+                [formControl]="licenseFormGroup.controls['communityCount']" (blur)="validateLicense()"
+                (focus)='setOldValue()'>
             </mat-form-field>
           </div>
 
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput name="feedbackCount" placeholder="Feedback Count" positiveNumberOnly [formControl]="licenseFormGroup.controls['feedbackCount']"
-                (blur)="setDefaultValue('feedbackCount')">
+              <input matInput name="feedbackCount" placeholder="Feedback Count" positiveNumberOnly
+                [formControl]="licenseFormGroup.controls['feedbackCount']" (blur)="setDefaultValue('feedbackCount')">
             </mat-form-field>
           </div>
 
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput name="eventkCount" placeholder="Event Count" positiveNumberOnly [formControl]="licenseFormGroup.controls['eventCount']"
-                (blur)="setDefaultValue('eventCount')">
+              <input matInput name="eventkCount" placeholder="Event Count" positiveNumberOnly
+                [formControl]="licenseFormGroup.controls['eventCount']" (blur)="setDefaultValue('eventCount')">
             </mat-form-field>
           </div>
 
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput name="promoCount" placeholder="Promo Count" positiveNumberOnly [formControl]="licenseFormGroup.controls['promoCount']"
-                (blur)="setDefaultValue('promoCount')">
+              <input matInput name="promoCount" placeholder="Promo Count" positiveNumberOnly
+                [formControl]="licenseFormGroup.controls['promoCount']" (blur)="setDefaultValue('promoCount')">
             </mat-form-field>
           </div>
+
         </div>
 
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+
           <div fxFlex="100" class="mt-1">
             <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
-            <button mat-raised-button color="primary" (click)="submit()" [disabled]="licenseFormGroup.invalid">Submit</button>
+            <button mat-raised-button color="primary" (click)="submit()"
+              [disabled]="licenseFormGroup.invalid">Submit</button>
             <span fxFlex></span>
             <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
           </div>
+
         </div>
       </form>
     </mat-step>
 
   </mat-horizontal-stepper>
-
 
 </mat-dialog-content>

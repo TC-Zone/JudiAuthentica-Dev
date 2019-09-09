@@ -10,13 +10,15 @@ import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms'
 export class UserCommunityPopupComponent implements OnInit {
 
 
-  allCommunities = [];
-  selectedCommunities = [];
+  private allCommunities = [];
+  private selectedCommunities = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<UserCommunityPopupComponent>,
+
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<UserCommunityPopupComponent>,
     private fb: FormBuilder,
+    
   ) { }
 
   ngOnInit() {
@@ -24,6 +26,7 @@ export class UserCommunityPopupComponent implements OnInit {
     this.allCommunities = JSON.parse(JSON.stringify(this.data.community));
     this.selectedCommunities = this.data.selectedCommunity;
     this.allCommunities.forEach(element => {
+
       if (this.selectedCommunities.length > 0) {
         let status = false;
         this.selectedCommunities.forEach(community => {
@@ -33,24 +36,31 @@ export class UserCommunityPopupComponent implements OnInit {
           element['isChecked'] = status;
         });
       }
+
     });
     
   }
 
   onChange(event: MatCheckboxChange): void {
+    
     if (event.checked) {
+      
       this.allCommunities.forEach((item) => {
         if (item.id === event.source.value) {
           this.selectedCommunities.push(item);
         }
       });
+
     } else {
+
       this.selectedCommunities.forEach((item, index) => {
         if (item.id === event.source.value) {
           this.selectedCommunities.splice(index, 1);
         }
       });
+
     }
+
   }
 
   submit() {

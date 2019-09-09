@@ -12,8 +12,7 @@
 
         <div fxFlex="100" class="pr-1">
           <mat-form-field class="full-width">
-            <input matInput name="clientName" [formControl]="accountSettingsForm.controls['name']" letterOnly
-              placeholder="Name">
+            <input matInput name="clientName" [formControl]="accountSettingsForm.controls['name']" placeholder="Name">
           </mat-form-field>
         </div>
 
@@ -47,22 +46,19 @@
 
         <div fxFlex="50" class="pr-1">
           <mat-form-field class="full-width">
-            <input matInput name="city" [formControl]="accountSettingsForm.controls['city']" letterOnly
-              placeholder="City">
+            <input matInput name="city" [formControl]="accountSettingsForm.controls['city']" placeholder="City">
           </mat-form-field>
         </div>
 
         <div fxFlex="50" class="pr-1">
           <mat-form-field class="full-width">
-            <input matInput name="state" [formControl]="accountSettingsForm.controls['state']"
-              positiveNumberAndLetterOnly placeholder="State">
+            <input matInput name="state" [formControl]="accountSettingsForm.controls['state']" placeholder="State">
           </mat-form-field>
         </div>
 
         <div fxFlex="50" class="pr-1">
           <mat-form-field class="full-width">
-            <input matInput name="zipCode" [formControl]="accountSettingsForm.controls['zipCode']" positiveNumberOnly
-              placeholder="ZipCode" maxlength="6">
+            <input matInput name="zipCode" [formControl]="accountSettingsForm.controls['zipCode']" placeholder="ZipCode">
           </mat-form-field>
         </div>
 
@@ -85,14 +81,7 @@
 
 
         <!-- --------- file input click button --------- -->
-        <!-- <div fxFlex="50" class="pr-1">
-          <div layout-margin layout-padding>
-            <button mat-raised-button class="mr-1 mb-1" (click)="productImgs.click()" type="button">
-              Browse Images</button>
-          </div>
-        </div> -->
-
-        <div layout-margin layout-padding class="pr-1">
+        <div  fxFlex="50" class="pr-1">
           <button mat-raised-button class="mr-1" (click)="productImgs.click()" type="button">
             Browse Images</button>
           <button mat-raised-button class="mr-1" (click)="removeSelectedImg()" type="button" *ngIf="url">
@@ -117,7 +106,6 @@
 
       <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
         <div fxFlex="100" class="mt-1">
-          <!-- <button mat-raised-button type="submit" color="primary" [disabled]="">Save</button> -->
           <button mat-raised-button type="submit" color="primary" [disabled]="accountSettingsForm.invalid || !url">Save</button>
         </div>
       </div>

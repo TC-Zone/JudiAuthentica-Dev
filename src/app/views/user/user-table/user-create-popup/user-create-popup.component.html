@@ -19,14 +19,20 @@
 
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
-              <input matInput name="username" [formControl]="userFormGroup.controls['username']" placeholder="User Name">
+              <input matInput name="username" [formControl]="userFormGroup.controls['username']"
+                placeholder="User Name">
             </mat-form-field>
           </div>
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
               <input matInput name="password" type="password" [formControl]="userFormGroup.controls['password']"
-                placeholder="Password (Minimum 8 Characters)">
+                placeholder="Password">
             </mat-form-field>
+
+            <span class="input-bottom-msg"><span
+                *ngIf="userFormGroup.controls['password'].value.length > 0 && userFormGroup.controls['password'].invalid"
+                class="{{confirmPasswordStatus[1].style}}">{{confirmPasswordStatus[1].value}}</span>
+            </span>
           </div>
           <div fxFlex="50" class="pr-1">
             <mat-form-field class="full-width">
@@ -46,7 +52,7 @@
 
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
           <div fxFlex="100" class="mt-1">
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
+            <button mat-raised-button color="primary" matStepperNext [disabled]="userFormGroup.invalid">Next</button>
             <span fxFlex></span>
             <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
           </div>
@@ -70,7 +76,8 @@
             </mat-chip>
             <input matInput placeholder="Select category..." #categoryInput [formControl]="categoryCtrl"
               [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-              (matChipInputTokenEnd)="add($event)" [matChipInputAddOnBlur]="addOnBlur" aria-label="Category" [required]="this.selectedCategories.length === 0">
+              (matChipInputTokenEnd)="add($event)" [matChipInputAddOnBlur]="addOnBlur" aria-label="Category"
+              [required]="this.selectedCategories.length === 0">
           </mat-chip-list>
 
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
@@ -84,7 +91,8 @@
         <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
           <div fxFlex="100" class="mt-1">
             <button mat-raised-button color="accent" matStepperPrevious class="mr-1">Back</button>
-            <button mat-raised-button color="primary" matStepperNext [disabled]="this.selectedCategories.length == 0">Next</button>
+            <button mat-raised-button color="primary" matStepperNext
+              [disabled]="this.selectedCategories.length == 0">Next</button>
             <span fxFlex></span>
             <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
           </div>
@@ -100,7 +108,8 @@
 
           <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="" *ngIf="allCommunities.length !== 0">
             <div fxFlex="50" class="pr-1" *ngFor="let community of allCommunities">
-              <mat-checkbox [checked]="community.isChecked" (change)="onChange($event)" class="full-width" [value]="community.id">
+              <mat-checkbox [checked]="community.isChecked" (change)="onChange($event)" class="full-width"
+                [value]="community.id">
                 {{community.name}}</mat-checkbox>
             </div>
           </div>

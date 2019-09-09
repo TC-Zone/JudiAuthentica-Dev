@@ -16,38 +16,38 @@ import { autoCompletableCategory } from 'app/model/ClientModel.model';
 })
 export class UserCreatePopupComponent implements OnInit {
 
-  public globalVariable: GlobalVariable = new GlobalVariable();
-  public license = this.globalVariable.client.license;
-  public regex = this.globalVariable.validators.regex;
+  private globalVariable: GlobalVariable = new GlobalVariable();
+  private license = this.globalVariable.client.license;
+  private regex = this.globalVariable.validators.regex;
+  private confirmPasswordStatus = this.globalVariable.common.message.confirmPasswordStatus;
 
-  public userFormGroup: FormGroup;
-  public categoryFormGroup: FormGroup;
-  public communityFormGroup: FormGroup;
-  public licenseFormGroup: FormGroup;
-  // public formStatus = false;
+  private userFormGroup: FormGroup;
+  private categoryFormGroup: FormGroup;
+  private communityFormGroup: FormGroup;
+  private licenseFormGroup: FormGroup;
 
-  public roles;
+  private roles;
 
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  categoryCtrl = new FormControl();
-  allCategories: autoCompletableCategory[] = [];
-  filteredCategories: Observable<autoCompletableCategory[]>;
-  selectedCategories: autoCompletableCategory[] = [];
+  private selectable = true;
+  private removable = true;
+  private addOnBlur = true;
+  private separatorKeysCodes: number[] = [ENTER, COMMA];
+  private categoryCtrl = new FormControl();
+  private allCategories: autoCompletableCategory[] = [];
+  private filteredCategories: Observable<autoCompletableCategory[]>;
+  private selectedCategories: autoCompletableCategory[] = [];
 
-  allCommunities = [];
-  selectedCommunities = [];
+  private allCommunities = [];
+  private selectedCommunities = [];
 
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<UserCreatePopupComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<UserCreatePopupComponent>,
     private fb: FormBuilder,
-    public snackBar: MatSnackBar
+    private snackBar: MatSnackBar
   ) {
     this.filteredCategories = this.categoryCtrl.valueChanges
       .pipe(
@@ -59,7 +59,6 @@ export class UserCreatePopupComponent implements OnInit {
   ngOnInit() {
     this.roles = this.data.roles;
     this.allCategories = JSON.parse(JSON.stringify(this.data.category));
-
     this.allCommunities = JSON.parse(JSON.stringify(this.data.community));
     this.buildItemForm()
   }
@@ -74,9 +73,9 @@ export class UserCreatePopupComponent implements OnInit {
     // });
 
     this.userFormGroup = this.fb.group({
-      username: new FormControl('', Validators.required),
+      username: new FormControl('', [Validators.required, Validators.pattern(this.regex._UserName)]),
       password: new FormControl('', [Validators.required, Validators.pattern(this.regex._Password)]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [Validators.required, Validators.pattern(this.regex._Email)]),
       role: new FormControl('', Validators.required)
     });
     this.categoryFormGroup = this.fb.group({

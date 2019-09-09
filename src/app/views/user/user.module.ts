@@ -21,6 +21,7 @@ import {
   MatTabsModule,
   MatCheckboxModule
 } from '@angular/material';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedModule } from '../../shared/shared.module';
@@ -68,6 +69,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     MatToolbarModule,
     MatTabsModule,
     MatCheckboxModule,
+    MatPaginatorModule
   ],
   declarations: [
     UserComponent,

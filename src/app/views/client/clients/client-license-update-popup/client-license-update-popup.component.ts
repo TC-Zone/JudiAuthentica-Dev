@@ -12,20 +12,20 @@ import { GlobalVariable } from 'app/shared/helpers/global-variable';
 })
 export class ClientLicenseUpdatePopupComponent implements OnInit {
   
-  public globalVariable: GlobalVariable = new GlobalVariable();
-  public license = this.globalVariable.client.license;
-  public regex = this.globalVariable.validators.regex;
+  private globalVariable: GlobalVariable = new GlobalVariable();
+  private license = this.globalVariable.client.license;
+  private regex = this.globalVariable.validators.regex;
 
-  public licenseFormGroup: FormGroup;
-  public formStatus = false;
-  public url;
-  public oldestValue = 0;
+  private licenseFormGroup: FormGroup;
+  private formStatus = false;
+  private url;
+  private oldestValue = 0;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ClientLicenseUpdatePopupComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<ClientLicenseUpdatePopupComponent>,
     private fb: FormBuilder,
-    public snackBar: MatSnackBar
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {

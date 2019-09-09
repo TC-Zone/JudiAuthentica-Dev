@@ -59,6 +59,10 @@ export class ProfileService {
     return this.http.get(this.clientUrl + "/categories/" + id).pipe(catchError(this.handleError));
   }
 
+  getClientProfileImg(id): Observable<Blob> {
+    return this.http.get(this.imgBaseURL + "/client/" + id, { responseType: 'blob' });
+  }
+
   updateClientLicense(id, item): Observable<any> {
     return this.http
       .put<any>(this.licenseUrl + "/" + id, item)

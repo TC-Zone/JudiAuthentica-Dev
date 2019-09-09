@@ -16,43 +16,44 @@ import { autoCompletableCategory, roleAuthority } from 'app/model/ClientModel.mo
 })
 export class ClientCreatePopupComponent implements OnInit {
 
-  public globalVariable: GlobalVariable = new GlobalVariable();
-  public license = this.globalVariable.client.license;
-  public regex = this.globalVariable.validators.regex;
+  private globalVariable: GlobalVariable = new GlobalVariable();
+  private license = this.globalVariable.client.license;
+  private regex = this.globalVariable.validators.regex;
+  private formInputMessage = this.globalVariable.common.message.formInput;
 
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  categoryCtrl = new FormControl();
-  allCategories: autoCompletableCategory[] = [];
-  allAuthorities: roleAuthority[] = [];
-  selectedAuthorities: roleAuthority[] = [];
-  filteredCategories: Observable<autoCompletableCategory[]>;
-  selectedCategories: autoCompletableCategory[] = [];
-  categories: string[] = [];
-  // categoriesValue: string[] = [];
+  private selectable = true;
+  private removable = true;
+  private addOnBlur = true;
+  private separatorKeysCodes: number[] = [ENTER, COMMA];
+  private categoryCtrl = new FormControl();
+  private allCategories: autoCompletableCategory[] = [];
+  private allAuthorities: roleAuthority[] = [];
+  private selectedAuthorities: roleAuthority[] = [];
+  private filteredCategories: Observable<autoCompletableCategory[]>;
+  private selectedCategories: autoCompletableCategory[] = [];
+  private categories: string[] = [];
 
-  public oldestValue = 0;
+  private oldestValue = 0;
 
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
 
-  public clientFormGroup: FormGroup;
-  public profilePicFormGroup: FormGroup;
-  public adminFormGroup: FormGroup;
-  public categoryFormGroup: FormGroup;
-  public licenseFormGroup: FormGroup;
-  // public categoryFormStatus = true;
-  public clientProfilePic;
+  private clientFormGroup: FormGroup;
+  private profilePicFormGroup: FormGroup;
+  private adminFormGroup: FormGroup;
+  private categoryFormGroup: FormGroup;
+  private licenseFormGroup: FormGroup;
+  private clientProfilePic;
 
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ClientCreatePopupComponent>,
+
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<ClientCreatePopupComponent>,
     private fb: FormBuilder,
-    public snackBar: MatSnackBar
+    private snackBar: MatSnackBar
+
   ) {
     this.filteredCategories = this.categoryCtrl.valueChanges
       .pipe(
@@ -67,15 +68,17 @@ export class ClientCreatePopupComponent implements OnInit {
 
     console.log(this.data);
 
+    this.selectedAuthorities = [];
 
     this.data.section.forEach(section => {
       section.authorities.forEach(authority => {
-        if (authority.code !== 'cm-a') {
+        if (authority.code === 'um-a') {
+          this.selectedAuthorities.push(authority.id);
+        } else if (authority.code !== 'cm-a') {
           this.allAuthorities.push(authority);
         }
       });
     });
-    this.selectedAuthorities = [];
     this.buildItemForm()
   }
 
@@ -94,15 +97,15 @@ export class ClientCreatePopupComponent implements OnInit {
     // });
 
     this.clientFormGroup = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern(this.regex._Letter)]],
+      name: ['', [Validators.required, Validators.pattern(this.regex._PosNumberAndLetter)]],
       description: ['', Validators.required]
     });
     this.profilePicFormGroup = this.fb.group({
       profilePic: ["", Validators.required]
     });
     this.adminFormGroup = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]]
+      username: ['', [Validators.required, Validators.pattern(this.regex._UserName)]],
+      email: ['', [Validators.required, Validators.pattern(this.regex._Email)]]
     });
 
     this.categoryFormGroup = this.fb.group({
@@ -110,7 +113,7 @@ export class ClientCreatePopupComponent implements OnInit {
     });
 
     this.licenseFormGroup = this.fb.group({
-      tagCount: ['', [Validators.required, Validators.max(this.license.tagCount), Validators.min(0), Validators.pattern(this.regex._PosNumber)]],
+      tagCount: ['', [Validators.required, Validators.max(this.license.tagCount.max), Validators.min(this.license.tagCount.min), Validators.pattern(this.regex._PosNumber)]],
       userCount: ['', Validators.required],
       communityCount: ['1', Validators.required],
       feedbackCount: ['1', Validators.required],
@@ -137,27 +140,31 @@ export class ClientCreatePopupComponent implements OnInit {
         form.controls['eventCount'].setValue(+(form.get('eventCount').value) + diff);
         form.controls['promoCount'].setValue(+(form.get('promoCount').value) + diff);
       }
+
     } else {
       this.setDefaultValue('communityCount');
       this.setDefaultValue('feedbackCount');
       this.setDefaultValue('eventCount');
       this.setDefaultValue('promoCount');
     }
+
   }
 
   setDefaultValue(control) {
+
     let form = this.licenseFormGroup;
     let value = form.controls[control].value;
     if (value === '' || value === '0') {
-      form.controls[control].setValue(1);
+      form.controls[control].setValue(this.license.comunityCount.min);
     }
+
   }
 
   submit() {
-    let forms = [this.clientFormGroup.value, this.clientProfilePic, this.adminFormGroup.value, this.licenseFormGroup.value, this.selectedCategories, this.selectedAuthorities];
-    console.log(forms);
 
+    let forms = [this.clientFormGroup.value, this.clientProfilePic, this.adminFormGroup.value, this.licenseFormGroup.value, this.selectedCategories, this.selectedAuthorities];
     this.dialogRef.close(forms);
+
   }
 
 
@@ -195,14 +202,14 @@ export class ClientCreatePopupComponent implements OnInit {
 
   removeSelectedImg() {
     this.clientProfilePic = null;
-    this.profilePicFormGroup.controls['profilePic'].setValue('')
+    this.profilePicFormGroup.controls['profilePic'].setValue('');
   }
 
   add(event: MatChipInputEvent): void {
 
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
-      const value = event.value;
+      // const value = event.value;
 
       // if we need to add custom texts as Chips,
       // Add our category
@@ -217,6 +224,7 @@ export class ClientCreatePopupComponent implements OnInit {
 
       this.categoryCtrl.setValue(null);
     }
+
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
@@ -244,13 +252,15 @@ export class ClientCreatePopupComponent implements OnInit {
   }
 
   private _filterCategories(value: string): autoCompletableCategory[] {
+
     const filterValue = value.toLowerCase();
     return this.allCategories.filter(category => category.name.toLowerCase().indexOf(filterValue) === 0);
+
   }
 
 
   onChange(id) {
-    console.log(id);
+    
     if (this.selectedAuthorities.includes(id)) {
       this.selectedAuthorities.forEach((item, index) => {
         if (item === id) {

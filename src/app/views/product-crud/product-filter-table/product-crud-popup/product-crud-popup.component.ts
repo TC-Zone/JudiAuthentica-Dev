@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, ChangeDetectorRef } from "@angular/core";
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
@@ -30,6 +30,7 @@ import { AuthenticationService } from "../../../sessions/authentication.service"
 import { ComunityService } from "../../../community/community.service";
 import { AppInfoService } from "../../../../shared/services/app-info/app-info.service";
 import { ProductCreationRequest } from "app/model/ProductModel.model ";
+import { GlobalVariable } from "app/shared/helpers/global-variable";
 
 export const MY_FORMATS = {
   parse: {
@@ -56,54 +57,49 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
   ]
 })
-export class ProductCrudPopupComponent extends ProductCommonComponent
-  implements OnInit {
-  public productForm: FormGroup;
-  tomorrow: Date;
-  imageUrl: any = "assets/images/placeholder.jpg";
+export class ProductCrudPopupComponent extends ProductCommonComponent implements OnInit {
+
+  private globalVariable: GlobalVariable = new GlobalVariable();
+  private regex = this.globalVariable.validators.regex;
+
+
+  private productForm: FormGroup;
+  private tomorrow: Date;
 
   // image uploader related properties
-  public uploader: FileUploader = new FileUploader({ url: "upload_url" });
-  public hasBaseDropZoneOver: boolean = false;
-  imageObject: any;
-  //------- new --------
-  maxUploadableFileCount: number = 4; // IF THIS IS NULL, THERE IS NO IMAGE LIMIT FOR FILE UPLOADER
-  urls = [];
-  newlySelectedFileList = [];
-  remainImagesID = [];
-  currentTotalImageCount: number = 0;
+  private maxUploadableFileCount: number = 4; // IF THIS IS NULL, THERE IS NO IMAGE LIMIT FOR FILE UPLOADER
+  private urls = [];
+  private newlySelectedFileList = [];
+  private remainImagesID = [];
+  private currentTotalImageCount: number = 0;
 
-  public clientId: string;
+  private clientId: string;
 
-  public getClientCommunitySub: Subscription;
-  public communities: string[] = [];
-  public communityIDs: string[] = [];
-  public communityFilteredOption: Observable<string[]>;
-  public selectedCommunityId: string;
-
-  // .............REGEX for Youtube link validation...............
-  public youtubeRegex = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
-  public youTubeIdRegex = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\/)|(\?v=|\&v=))([^#\&\?]*).*/;
+  private communities: string[] = [];
+  private communityIDs: string[] = [];
+  private communityFilteredOption: Observable<string[]>;
+  private selectedCommunityId: string;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ProductCrudPopupComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<ProductCrudPopupComponent>,
     public clientService: ClientService,
     public surveyService: SurveyService,
-    public authService: AuthenticationService,
+    private authService: AuthenticationService,
     private fb: FormBuilder,
-    public snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     private communityService: ComunityService,
-    private appInfoService: AppInfoService
+    private appInfoService: AppInfoService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {
     super(surveyService, clientService);
   }
 
   ngOnInit() {
-    // validate back dates
+
     this.tomorrow = DateValidator.getTomorrow();
-    const detailObj = this.authService.getLoggedUserDetail();
-    this.clientId = detailObj.userData.client.id;
+    const currentUser = this.authService.getLoggedUserDetail();
+    this.clientId = currentUser.userData.client.id;
 
     this.getClientCategories(this.clientId);
 
@@ -179,36 +175,30 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
       youtubeUrl = isNew
         ? videoUrl
         : "https://www.youtube.com/watch?v=" + videoUrl;
-      console.log(youtubeUrl);
     }
 
     this.productForm = this.fb.group({
-      name: new FormControl(fieldItem.name || "", Validators.required),
-      description: new FormControl(
-        fieldItem.description || "",
-        Validators.required
-      ),
-      batchNumber: new FormControl(
-        fieldItem.batchNumber || "",
-        Validators.required
-      ),
-      quantity: new FormControl(fieldItem.quantity || "", [Validators.required, Validators.min(1)]),
-      expireDate: new FormControl(
-        fieldItem.expireDate || "",
-        Validators.required
-      ),
-
-      videoUrl: new FormControl(youtubeUrl || "", Validators.required),
+      name: new FormControl(fieldItem.name || "", [Validators.required, Validators.pattern(this.regex._PosNumberAndLetter)]),
+      description: new FormControl(fieldItem.description || "", Validators.required),
+      batchNumber: new FormControl(fieldItem.batchNumber || "", [Validators.required, Validators.pattern(this.regex._PosNumber)]),
+      quantity: new FormControl(fieldItem.quantity || "", [Validators.required, Validators.pattern(this.regex._PosNumber), Validators.min(1)]),
+      expireDate: new FormControl(fieldItem.expireDate || "", Validators.required),
+      videoUrl: new FormControl(youtubeUrl || "", [Validators.required, Validators.pattern(this.regex._YoutubeId)]),
       file: new FormControl(),
-      categoryId: new FormControl(
-        fieldItem.categoryId || "",
-        Validators.required
-      ),
-      communityId: new FormControl(
-        fieldItem.communityId || "",
-        Validators.required
-      )
+      categoryId: new FormControl(fieldItem.categoryId || "", Validators.required),
+      communityId: new FormControl(fieldItem.communityId || "", Validators.required)
     });
+
+    if(fieldItem.expireDate){
+      var d = new Date(fieldItem.expireDate);
+      if(d < this.tomorrow){
+        this.productForm.controls['expireDate'].markAsTouched();
+      }
+    }
+  }
+
+  ngAfterViewChecked() {
+    this.changeDetectorRef.detectChanges();
   }
 
   submit() {
@@ -246,9 +236,9 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
   }
 
   // image uploader related functions from here
-  public fileOverBase(e: any): void {
-    this.hasBaseDropZoneOver = e;
-  }
+  // public fileOverBase(e: any): void {
+  //   this.hasBaseDropZoneOver = e;
+  // }
 
   // --------- New Code -----------------
   // File uploader validation and upload
@@ -306,7 +296,7 @@ export class ProductCrudPopupComponent extends ProductCommonComponent
 
     let videoUrl = formvalue.videoUrl;
     if (videoUrl) {
-      let match = videoUrl.match(this.youTubeIdRegex);
+      let match = videoUrl.match(this.regex._YoutubeId);
       if (match && match[8].length == 11) {
         console.log("---------------- youtubeVideoId: - " + match[8]);
       }

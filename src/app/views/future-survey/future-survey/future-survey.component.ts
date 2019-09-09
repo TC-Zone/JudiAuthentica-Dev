@@ -116,9 +116,7 @@ export class FutureSurveyComponent implements OnInit {
             this.compatibility = response.content.compatibility;
             this.jsonContent = JSON.parse(response.content.jsonContent);
             let title = response.content.title;
-            this.snack.open("New " + title + " survey is loaded !", "OK", {
-              duration: 4000
-            });
+            this.snack.open("Survey is loaded !", "OK", { duration: 4000 });
             this.setuptheme();
             // this.setClients();
             this.setupProperty();
@@ -376,9 +374,7 @@ export class FutureSurveyComponent implements OnInit {
           response => {
             let title = response.title;
             this.loader.close();
-            this.snack.open(title + " survey has updated !", "OK", {
-              duration: 4000
-            });
+            this.snack.open("Survey updated !", "OK", { duration: 4000 });
           },
           error => {
             this.loader.close();

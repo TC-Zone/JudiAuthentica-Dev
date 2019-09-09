@@ -15,6 +15,8 @@ import { UserCommunityPopupComponent } from './user-community-popup/user-communi
 import { AuthenticationService } from 'app/views/sessions/authentication.service';
 import { GlobalVariable } from 'app/shared/helpers/global-variable';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
+import { AppInfoService } from 'app/shared/services/app-info/app-info.service';
+import { ComunityService } from 'app/views/community/community.service';
 
 @Component({
   selector: 'app-user-table',
@@ -23,23 +25,26 @@ import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.s
 })
 export class UserTableComponent implements OnInit {
 
-  public users: any[];
-  public roles: any[] = [];
-  public statusArray = new GlobalVariable().common.matChip.userStatus;
-  public clientId;
-  public name;
-  public url;
+  private globalVariable = new GlobalVariable();
+  private users: any[];
+  private roles: any[] = [];
+  private statusArray = this.globalVariable.common.matChip.userStatus;
+  private clientId;
 
-  public clientCategory;
+  private clientCategory;
 
-  // pagination
-  public keyword = '';
-  public pageNumber = 1;
-  public pageSize = 10;
-  public totalPages = [];
-  public totalRecords = 0;
+  // user license
+  private quota = 0;
+  private quotaExpire = true;
+  private usage = 0;
 
-  public getItemSub: Subscription;
+  // MatPaginator Inputs
+  private keyword = '';
+  private pageNumber = 1;
+  private length = 0;
+  private pageSize = 10;
+  private pageSizeOptions: number[] = this.globalVariable.common.pageSize.Option1;
+
   constructor(
     private dialog: MatDialog,
     private snack: MatSnackBar,
@@ -49,6 +54,8 @@ export class UserTableComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private authService: AuthenticationService,
     private confirmService: AppConfirmService,
+    private comunityService: ComunityService,
+    private appInfoService: AppInfoService
   ) { }
 
   ngOnInit() {
@@ -56,27 +63,26 @@ export class UserTableComponent implements OnInit {
     if (currentUser) {
       this.clientId = currentUser.userData.client.id;
 
-      this.getClient();
-      this.getPageUser(this.pageNumber);
+      this.getClientUserRole();
       this.getClientCategories();
+      this.getPageUser(this.pageNumber);
+
+      this.comunityService.licenseExpireState(this.clientId, "users").subscribe(response => {
+        console.log(response);
+        const tempRes: any = response;
+        this.quotaExpire = tempRes.content.expired;
+        this.quota = tempRes.content.quota;
+        this.usage = tempRes.content.usage;
+      });
     }
   }
 
-  ngOnDestroy() {
-    if (this.getItemSub) {
-      this.getItemSub.unsubscribe();
-    }
-  }
-
-
-  getClient() {
-    this.getItemSub = this.clientService.getClient(this.clientId).subscribe(successResp => {
-      // this.users = successResp.content.users;
-      // this.users.forEach((item, index) => {
-      //   if (item.role.name === "Super Administrator") this.users.splice(index, 1);
-      // });
+  getClientUserRole() {
+    this.clientService.getClient(this.clientId).subscribe(successResp => {
       successResp.content.roles.forEach((item) => {
-        this.roles.push(item);
+        if(item.predefined === 'false'){
+          this.roles.push(item);
+        }
       });
     },
       error => {
@@ -85,55 +91,26 @@ export class UserTableComponent implements OnInit {
     );
   }
 
+
   getPageUser(pageNumber) {
-
-    if (pageNumber === 1 || (0 < pageNumber && pageNumber <= this.totalPages.length)) {
-      this.pageNumber = pageNumber;
-
-      this.clientService
-        .getUsers(this.clientId, this.keyword, this.pageSize, this.pageNumber, false)
-        .subscribe(
-          successResp => {
-            this.users = successResp.content;
-            let totalPages = successResp.pagination.totalPages;
-            let totalPagesArray = [];
-
-            if (totalPages > 1) {
-              for (let i = 1; i <= totalPages; i++) {
-                totalPagesArray.push(i);
-              }
-            }
-            this.totalPages = totalPagesArray;
-            this.totalRecords = successResp.pagination.totalRecords;
-          },
-          error => {
-            this.loader.close();
-            console.log('------------------------------- UserTableComponent : error - ', error);
-            console.log('------------------------------- UserTableComponent : error.status - ', error.status);
-            this.errDialog.showError(error);
-          }
-        );
-    }
-  }
-
-
-  changeValue() {
-    this.pageNumber = 1;
-    this.getPageUser(this.pageNumber);
-  }
-
-  updateFilter(event) {
-    if (event.keyCode === 13) {
-      this.keyword = event.target.value.toLowerCase();
-      this.pageNumber = 1;
-      this.getPageUser(this.pageNumber);
-    }
+    this.pageNumber = pageNumber;
+    this.clientService
+      .getUsers(this.clientId, this.keyword, this.pageSize, this.pageNumber, false)
+      .subscribe(
+        successResp => {
+          this.users = successResp.content;
+          this.length = successResp.pagination.totalRecords;
+        },
+        error => {
+          this.loader.close();
+          this.errDialog.showError(error);
+        }
+      );
   }
 
   getClientCategories() {
-    this.getItemSub = this.clientService.getClientCategories(this.clientId).subscribe(successResp => {
+    this.clientService.getClientCategories(this.clientId).subscribe(successResp => {
       this.clientCategory = successResp.content;
-      console.log(this.clientCategory);
     },
       error => {
         this.errDialog.showError(error);
@@ -141,8 +118,17 @@ export class UserTableComponent implements OnInit {
     );
   }
 
+  openUserCreatePopup() {
+    this.getClientAndUserCommunities("UserCreatePopup");
+  }
+
+  openCommunityUpdatePopUp(data: any = {}) {
+    this.getClientAndUserCommunities("CommunityPopUp", data);
+  }
+
   getClientAndUserCommunities(popup, user?) {
-    this.getItemSub = this.clientService.getClientCommunities(this.clientId).subscribe(successResp => {
+
+    this.clientService.getClientCommunities(this.clientId).subscribe(successResp => {
       let clientCommunity = successResp.content;
 
       if (popup === 'UserCreatePopup') {
@@ -165,11 +151,7 @@ export class UserTableComponent implements OnInit {
         this.errDialog.showError(error);
       }
     );
-  }
 
-
-  openUserCreatePopup() {
-    this.getClientAndUserCommunities("UserCreatePopup");
   }
 
   userCreatePopup(clientCommunity) {
@@ -183,7 +165,6 @@ export class UserTableComponent implements OnInit {
     );
 
     dialogRef.afterClosed().subscribe(res => {
-      console.log(res);
 
       if (!res) {
         // If user press cancel
@@ -208,12 +189,9 @@ export class UserTableComponent implements OnInit {
       const req: UserCreateReq = new UserCreateReq(res[0].username, res[0].password, res[0].email, role, client, communities, categories);
 
       this.clientService.addUser(req).subscribe(
-        response => {
-          this.getPageUser(this.pageNumber);
-          this.loader.close();
-          this.snack.open("New User added !", "OK", { duration: 4000 });
-        },
+        response => { this._handleSuccessResponse('USER_CREATE'); },
         error => {
+          this.loader.close();
           this.errDialog.showError(error);
         }
       );
@@ -221,7 +199,7 @@ export class UserTableComponent implements OnInit {
     });
   }
 
-  openEditPopUp(data: any = {}) {
+  openUserUpdatePopUp(data: any = {}) {
     let dialogRef: MatDialogRef<any> = this.dialog.open(
       UserTablePopupComponent,
       {
@@ -243,9 +221,7 @@ export class UserTableComponent implements OnInit {
       this.loader.open();
       this.clientService.updateUser(data.id, req).subscribe(
         response => {
-          this.getPageUser(this.pageNumber);
-          this.loader.close();
-          this.snack.open("User Updated!", "OK", { duration: 4000 });
+          this._handleSuccessResponse('USER_UPDATE');
         },
         error => {
           this.loader.close();
@@ -257,9 +233,6 @@ export class UserTableComponent implements OnInit {
   }
 
 
-  openCommunityPopUp(data: any = {}) {
-    this.getClientAndUserCommunities("CommunityPopUp", data);
-  }
 
 
   communityPopup(userId, clientCommunities, userCommunities) {
@@ -285,12 +258,9 @@ export class UserTableComponent implements OnInit {
       const req: UserCommunityUpdateRequest = new UserCommunityUpdateRequest(community);
 
       this.loader.open();
-      this.clientService.updateUserCommunity(userId, req).subscribe(
-        response => {
-          this.getPageUser(this.pageNumber);
-          this.loader.close();
-          this.snack.open("User Community Updated!", "OK", { duration: 4000 });
-        },
+      this.clientService.updateUserCommunity(userId, req).subscribe(response => {
+        this._handleSuccessResponse('COMMUNITY_UPDATE');
+      },
         error => {
           this.loader.close();
           this.errDialog.showError({
@@ -304,9 +274,9 @@ export class UserTableComponent implements OnInit {
   }
 
 
-  openCategoryPopUp(data: any = {}) {
+  openCategoryUpdatePopUp(data: any = {}) {
 
-    this.getItemSub = this.clientService.getUser(data.id).subscribe(successResp => {
+    this.clientService.getUser(data.id).subscribe(successResp => {
       console.log(successResp);
       console.log(successResp.content.role.id);
 
@@ -336,8 +306,7 @@ export class UserTableComponent implements OnInit {
         this.loader.open();
         this.clientService.updateUserCategories(data.id, req).subscribe(
           response => {
-            this.loader.close();
-            this.snack.open("User Category Updated!", "OK", { duration: 4000 });
+            this._handleSuccessResponse('CATEGORY_UPDATE');
           },
           error => {
             this.loader.close();
@@ -363,12 +332,8 @@ export class UserTableComponent implements OnInit {
       .subscribe(res => {
         if (res) {
           this.clientService.deleteUser(data.id).subscribe(
-            successResp => {
-              console.log(successResp.content);
-              this.getPageUser(this.pageNumber);
-              this.snack.open("User Deleted!", "OK", {
-                duration: 4000
-              });
+            response => {
+              this._handleSuccessResponse('USER_DALETE');
             },
             error => {
               this.errDialog.showError(error);
@@ -378,5 +343,62 @@ export class UserTableComponent implements OnInit {
       });
 
   }
+
+  onPageChange(event) {
+    if (event) {
+      this.pageSize = event.pageSize;
+      this.getPageUser(event.pageIndex + 1);
+    }
+  }
+
+  onSearch(event) {
+    if (event.keyCode === 13) {
+      this.keyword = event.target.value.toLowerCase();
+      this.getPageUser(1);
+    }
+  }
+
+  _handleSuccessResponse(name) {
+
+    switch (name) {
+      case 'USER_CREATE': {
+        this.getPageUser(this.pageNumber);
+        this.loader.close();
+        this.snack.open("New User added !", "OK", { duration: 4000 });
+        break;
+      }
+      case 'USER_UPDATE': {
+        this.getPageUser(this.pageNumber);
+        this.loader.close();
+        this.snack.open("New User added !", "OK", { duration: 4000 });
+        break;
+      }
+      case 'COMMUNITY_UPDATE': {
+        this.getPageUser(this.pageNumber);
+        this.loader.close();
+        this.snack.open("User Community Updated!", "OK", { duration: 4000 });
+        break;
+      }
+      case 'CATEGORY_UPDATE': {
+        this.loader.close();
+        this.snack.open("User Category Updated!", "OK", { duration: 4000 });
+        break;
+      }
+      case 'USER_DELETE': {
+        this.getPageUser(this.pageNumber);
+        this.snack.open("User Deleted!", "OK", { duration: 4000 });
+        break;
+      }
+      default: {
+        //statements; 
+        break;
+      }
+    }
+  }
+
+  _handleErrorResponse() {
+
+  }
+
 
 }

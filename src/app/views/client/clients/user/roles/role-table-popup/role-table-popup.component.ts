@@ -10,34 +10,32 @@ import { ClientData, AuthorityData } from 'app/model/ClientModel.model';
   templateUrl: './role-table-popup.component.html'
 })
 export class RoleTablePopupComponent implements OnInit {
-  //Raveen : need to implement a custom directive for the pattern validation
-  //public codeRegex = '/^-?[0-9]+(\.[0-9]*){0,1}$/g';
 
-  public clientID;
-  public predefined;
-  public isNew;
+  private clientID;
+  private predefined;
+  private isNew;
 
-  public allAuthority = [];
-  public allDisplayAuthority = [];
-  public adminRoleDisplayAuthority = [];
-  public newDisplayAuthority = [];
-  public removedDisplayAuthority = [];
-  public commonAndAdminAuthorities = [];
+  private allAuthority = [];
+  private allDisplayAuthority = [];
+  private adminRoleDisplayAuthority = [];
+  private newDisplayAuthority = [];
+  private removedDisplayAuthority = [];
+  private commonAndAdminAuthorities = [];
 
-  public selectedAuthorities = [];
-  public componentList = [];
-  public adminComponentList = [];
+  private selectedAuthorities = [];
+  private componentList = [];
+  private adminComponentList = [];
 
   // TEMPORARY : SET USER DISPLAY AUTH DEFAULT
-  public userDisplayAuthority;
+  private userDisplayAuthority;
 
 
-  public authoritiesFormGroup: FormGroup;
-  public roleFormGroup: FormGroup;
+  private authoritiesFormGroup: FormGroup;
+  private roleFormGroup: FormGroup;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<RoleTablePopupComponent>,
+    @Inject(MAT_DIALOG_DATA) private data: any,
+    private dialogRef: MatDialogRef<RoleTablePopupComponent>,
     private fb: FormBuilder,
     private clientService: ClientService,
   ) { }
@@ -316,6 +314,8 @@ export class RoleTablePopupComponent implements OnInit {
       // Add Common Authorities --------------------------------------------------------------------------------
       this.commonAndAdminAuthorities.forEach(authority => {
         if (authority.type === 'C') {
+          console.log(authority.name);
+          
           this.selectedAuthorities.push(authority.id);
         }
       });

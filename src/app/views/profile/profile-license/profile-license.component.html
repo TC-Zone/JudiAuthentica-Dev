@@ -1,112 +1,59 @@
 
 <mat-card class="p-0">
+
   <mat-tab-group>
 
-
-
-
-    <!-- <mat-tab label="Update License">
-      <mat-card-content class="mt-3">
-        <form [formGroup]="licenseFormGroup"  (ngSubmit)="submitLicense()" class="">
-
-          <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class=" mt-1">
-
-            <div fxFlex="50" class="pr-1">
-              <mat-form-field class="full-width">
-                <input matInput name="tagCount" placeholder="Tag Count" positiveNumberOnly
-                  [formControl]="licenseFormGroup.controls['tagCount']">
-              </mat-form-field>
-              <span *ngIf="licenseFormGroup.controls['tagCount'].hasError('max')" class="form-error-msg">
-                {{this.license.tagCount}} max ! </span>
-            </div>
-
-            <div fxFlex="50" class="pr-1">
-              <mat-form-field class="full-width">
-                <input matInput name="userCount" placeholder="User Count" positiveNumberOnly
-                  [formControl]="licenseFormGroup.controls['userCount']">
-              </mat-form-field>
-            </div>
-
-            <div fxFlex="50" class="pr-1">
-              <mat-form-field class="full-width">
-                <input matInput name="communityCount" placeholder="Community Count" positiveNumberOnly
-                  [formControl]="licenseFormGroup.controls['communityCount']" (blur)="validateLicense()"
-                  (focus)='setOldValue()'>
-              </mat-form-field>
-            </div>
-
-            <div fxFlex="50" class="pr-1">
-              <mat-form-field class="full-width">
-                <input matInput name="feedbackCount" placeholder="Feedback Count" positiveNumberOnly
-                  [formControl]="licenseFormGroup.controls['feedbackCount']" (blur)="setDefaultValue('feedbackCount')">
-              </mat-form-field>
-            </div>
-
-            <div fxFlex="50" class="pr-1">
-              <mat-form-field class="full-width">
-                <input matInput name="eventkCount" placeholder="Event Count" positiveNumberOnly
-                  [formControl]="licenseFormGroup.controls['eventCount']" (blur)="setDefaultValue('eventCount')">
-              </mat-form-field>
-            </div>
-
-            <div fxFlex="50" class="pr-1">
-              <mat-form-field class="full-width">
-                <input matInput name="promoCount" placeholder="Promo Count" positiveNumberOnly
-                  [formControl]="licenseFormGroup.controls['promoCount']" (blur)="setDefaultValue('promoCount')">
-              </mat-form-field>
-            </div>
-          </div>
-
-          <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
-            <div fxFlex="100" class="mt-1">
-              <button mat-raised-button color="primary" [disabled]="licenseFormGroup.invalid" (click)="updateLicense()">Save</button>
-            </div>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-tab> -->
-
-
     <mat-tab label="Category">
+
       <mat-card-content class="mt-3">
+
         <form [formGroup]="categoryFormGroup">
+
           <ng-template matStepLabel>Category</ng-template>
 
           <mat-form-field class="matAutocomplete-chip-list">
 
             <mat-chip-list #chipList>
+
               <mat-chip *ngFor="let category of selectedCategories" [selectable]="selectable" [removable]="removable"
                 (removed)="remove(category)">
                 {{category.name}}
                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
               </mat-chip>
+
               <input matInput placeholder="Select category..." #categoryInput [formControl]="categoryCtrl" [matAutocomplete]="auto"
                 [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (focus) = "onFocusCategoryDD()"
                 (matChipInputTokenEnd)="add($event)" [matChipInputAddOnBlur]="addOnBlur" aria-label="Category">
+
             </mat-chip-list>    
         
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+
               <mat-option *ngFor="let category of filteredCategories | async" [value]="category.id">
                 <span>{{category.name}}</span>
               </mat-option>
+
             </mat-autocomplete>
         
           </mat-form-field>
 
           <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+
             <div fxFlex="100" class="mt-1">
+
               <button mat-raised-button color="primary" matStepperNext [disabled]='categoryFormStatus' (click)="updateCategory()">Save</button>
               <span fxFlex></span>
-              <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+              <button mat-button color="warn" type="button" (click)="restCategory()">Cancel</button>
+
             </div>
+            
           </div>
+
         </form>
+
       </mat-card-content>
+
     </mat-tab>
-
-
-
-
 
   </mat-tab-group>
 </mat-card>

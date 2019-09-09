@@ -13,14 +13,14 @@ import { CurrentUser } from "app/model/User.model";
   styleUrls: ["./signin.component.scss"]
 })
 export class SigninComponent implements OnInit {
+
   @ViewChild(MatButton)
-  submitButton: MatButton;
+  private submitButton: MatButton;
 
-  signinForm: FormGroup;
-
-  successUrl: string = "profile/profile-settings";
-  signInUrl: string = "sessions/signin";
-  result: boolean = true;
+  private signinForm: FormGroup;
+  private successUrl: string = "profile/profile-settings";
+  private signInUrl: string = "sessions/signin";
+  private result: boolean = true;
   private storage_name = authProperties.storage_name;
 
   constructor(
@@ -44,36 +44,35 @@ export class SigninComponent implements OnInit {
       localStorage.removeItem(this.storage_name);
     }
 
-    const signinData = this.signinForm.value;
     this.submitButton.disabled = true;
+    const signinData = this.signinForm.value;
 
     this.authService.login(signinData).subscribe(response => {
 
-      console.log('---------------------------- response', response);
-      let currentUser: CurrentUser = new CurrentUser("", false , response.access_token, response.refresh_token, response.expires_in);
+      console.log("---------------------------------- SigninComponent : authService.login - response - ", response);
+      let currentUser: CurrentUser = new CurrentUser("", false, response.access_token, response.refresh_token, response.expires_in);
+
       this.authService.setLoggedUserDetail(currentUser);
-      // localStorage.setItem(this.storage_name, JSON.stringify(currentUser));
+      this.authService.getLoggedUserData(response.user_id).subscribe(response => {
 
-      this.authService.getLoggedUserData(response.user_id).subscribe(
-        res => {
+        // BASED ON ASSUMPTION : Below code may be change, if we got a better way to identify a super admin.
+        response.content.role.authorities.forEach(authority => {
+          if (authority.code === 'cm-a') {
+            currentUser.isAuthorized = true;
+          }
+        });
 
-          // BASED ON ASSUMPTION : Below code may be change, if we got a better way to identify a super admin.
-          res.content.role.authorities.forEach(authority => {
-            if(authority.code === 'cm-a'){
-              currentUser.isAuthorized = true;
-            }
-          });
+        currentUser.userData = response.content;
 
-          currentUser.userData = res.content;
+        this.authService.setLoggedUserDetail(currentUser);
+        console.log("---------------------------------- SigninComponent : currentUser - ", currentUser);
 
-          this.authService.setLoggedUserDetail(currentUser);
-          // localStorage.setItem(this.storage_name, JSON.stringify(currentUser));
-          console.log('---------------------------- currentUser', currentUser);
-          this.router.navigate([this.successUrl]);
+        this.router.navigate([this.successUrl]);
 
-        },
+      },
         error => {
 
+          console.log("---------------------------------- SigninComponent : authService.getLoggedUserData - error - ", error);
           this.result = false;
           localStorage.removeItem(this.storage_name);
 
@@ -82,6 +81,7 @@ export class SigninComponent implements OnInit {
 
     },
       error => {
+        console.log("---------------------------------- SigninComponent : authService.login - error - ", error);
         this.result = false;
         if (error.status === 400) {
           this.signinForm.reset();

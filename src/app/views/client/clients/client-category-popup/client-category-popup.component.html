@@ -1,8 +1,9 @@
 <mat-toolbar matDialogTitle class="mat-primary m-0">
   <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
-    <span class="title dialog-title">Category</span>
+    <span class="title dialog-title">Category</span>    
   </div>
 </mat-toolbar>
+
 <mat-dialog-content class="mat-typography mt-1">
 
   <mat-form-field class="matAutocomplete-chip-list">
@@ -27,11 +28,13 @@
   </mat-form-field>
 
   <div fxLayout="row" fxLayout.lt-sm="column" fxLayoutWrap="wrap" class="mt-1">
+
     <div fxFlex="100" class="mt-1">
-      <button mat-raised-button color="primary" (click)="submit()">Save</button>
+      <button mat-raised-button color="primary" (click)="submit()" [disabled]='this.selectedCategories.length === 0'>Save</button>
       <span fxFlex></span>
       <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
     </div>
+
   </div>
 
 </mat-dialog-content>

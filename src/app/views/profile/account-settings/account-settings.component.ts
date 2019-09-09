@@ -12,6 +12,7 @@ import { startWith, map } from 'rxjs/operators';
 import { CountryDB } from 'app/shared/helpers/countries';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { AuthenticationService } from 'app/views/sessions/authentication.service';
+import { GlobalVariable } from 'app/shared/helpers/global-variable';
 
 @Component({
   selector: 'app-account-settings',
@@ -20,44 +21,48 @@ import { AuthenticationService } from 'app/views/sessions/authentication.service
 })
 export class AccountSettingsComponent implements OnInit {
 
-  public countries;
-  filteredCountries: Observable<string[]>;
-  public selectedCountry;
+  private globalVariable: GlobalVariable = new GlobalVariable();
+  private regex = this.globalVariable.validators.regex;
+  
+  private countries;
+  private filteredCountries: Observable<string[]>;
+  private selectedCountry;
 
-  public uploader: FileUploader = new FileUploader({ url: 'upload_url' });
+  private clientId;
+  private url;
 
-  public clientId;
-  public url;
-  imgBaseURL = 'http://localhost:10000/api/downloads/client/';
-
-  public accountSettingsForm: FormGroup;
-  filteredOptions: Observable<string[]>;
+  private accountSettingsForm: FormGroup;
 
 
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(
+
     private fb: FormBuilder,
     private profileService: ProfileService,
     private loader: AppLoaderService,
     private snack: MatSnackBar,
     private errDialog: AppErrorService,
-    public snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     private authService: AuthenticationService
+
   ) { }
 
   ngOnInit() {
+
     let currentUser = this.authService.getLoggedUserDetail();
     this.clientId = currentUser.userData.client.id;
     this.buildItemForm();
     this.getClient();
     this.getCountry();
+
   }
 
   buildItemForm() {
+
     this.accountSettingsForm = this.fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.pattern(this.regex._Letter)]],
       description: ['', Validators.required],
       profilePic: [''],
       contactNo: ['', Validators.required],
@@ -65,12 +70,14 @@ export class AccountSettingsComponent implements OnInit {
       addressLine2: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
-      zipCode: ['', Validators.required],
+      zipCode: [''],
       country: ['', Validators.required]
     })
+
   }
 
   getClient() {
+
     this.profileService.getClient(this.clientId).subscribe(successResp => {
       let data = successResp.content;
       this.accountSettingsForm.patchValue({
@@ -84,20 +91,47 @@ export class AccountSettingsComponent implements OnInit {
         zipCode: data.zipCode,
         country: data.country != null ? data.country.name : ''
       });
+
       this.selectedCountry = data.country != null ? data.country.id : '';
       this.onBlurCountry();
-      getBase64ImageFromUrl(this.imgBaseURL + this.clientId)
-        .then(result => this.url = result)
-        .catch(err => console.error(err));
+      this.setClientImg();
+
     },
       error => {
         this.errDialog.showError(error);
       }
     );
+
+  }
+
+  setClientImg() {
+
+    this.profileService.getClientProfileImg(this.clientId).subscribe(data => {
+      this.createImageFromBlob(data);
+    }, error => {
+      this.url = null;
+      console.log("---------------------- getClientProfile error", error);
+    });
+
+  }
+
+    
+  createImageFromBlob(image: Blob) {
+    
+    let reader = new FileReader();
+    reader.onload = (event: any) => {
+      this.url = event.target.result.replace("application", "image").replace("octet-stream", "webp");
+    };
+    
+    if (image) {
+      reader.readAsDataURL(image);
+    }
+    
   }
 
 
   getCountry() {
+
     this.profileService.getCountry().subscribe(successResp => {
       this.countries = successResp.content;
 
@@ -111,12 +145,15 @@ export class AccountSettingsComponent implements OnInit {
         this.errDialog.showError(error);
       }
     );
+
   }
 
 
   submit() {
+
     const country: CountryData = new CountryData(this.selectedCountry);
     const req: ClientUpdateReq = new ClientUpdateReq(
+
       this.accountSettingsForm.get('name').value,
       this.accountSettingsForm.get('description').value,
       this.url, this.accountSettingsForm.get('contactNo').value,
@@ -126,6 +163,7 @@ export class AccountSettingsComponent implements OnInit {
       this.accountSettingsForm.get('state').value,
       this.accountSettingsForm.get('zipCode').value,
       country
+      
     );
 
     this.profileService.updateClientDetails(this.clientId, req).subscribe(
@@ -137,8 +175,8 @@ export class AccountSettingsComponent implements OnInit {
         this.errDialog.showError(error);
       }
     );
-  }
 
+  }
 
 
   //  ----------------------- Account Setting ---------------------------------------------------------
@@ -167,12 +205,12 @@ export class AccountSettingsComponent implements OnInit {
       reader.onload = (event: any) => {
         this.url = event.target.result;
         console.log(this.url);
-
       };
 
       reader.readAsDataURL(file);
 
     } else {
+
       this.snackBar.open(
         "Can't upload",
         "close",
@@ -184,7 +222,7 @@ export class AccountSettingsComponent implements OnInit {
 
   removeSelectedImg() {
     this.url = null;
-    this.accountSettingsForm.controls['profilePic'].setValue('')
+    this.accountSettingsForm.controls['profilePic'].setValue('');
   }
 
   onBlurCountry(): void {
@@ -203,21 +241,4 @@ export class AccountSettingsComponent implements OnInit {
     }
   }
   //  -------------------------------------------------------------------------------------------------
-}
-
-async function getBase64ImageFromUrl(imageUrl) {
-  var res = await fetch(imageUrl);
-  var blob = await res.blob();
-
-  return new Promise((resolve, reject) => {
-    var reader = new FileReader();
-    reader.addEventListener("load", function () {
-      resolve(reader.result);
-    }, false);
-
-    reader.onerror = () => {
-      return reject(this);
-    };
-    reader.readAsDataURL(blob);
-  })
 }

@@ -13,32 +13,38 @@ import { autoCompletableCategory } from 'app/model/ClientModel.model';
   selector: 'app-client-category-popup',
   templateUrl: './client-category-popup.component.html'
 })
+
 export class ClientCategoryPopupComponent implements OnInit {
-  // visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
-  categoryCtrl = new FormControl();
-  allCategories: autoCompletableCategory[] = [];
-  filteredCategories: Observable<autoCompletableCategory[]>;
-  selectedCategories: autoCompletableCategory[] = [];
-  categories: string[] = [];
-  categoriesValue: string[] = [];
+  
+  
+  private selectable = true;
+  private removable = true;
+  private addOnBlur = true;
+  private separatorKeysCodes: number[] = [ENTER, COMMA];
+  private categoryCtrl = new FormControl();
+  private allCategories: autoCompletableCategory[] = [];
+  private filteredCategories: Observable<autoCompletableCategory[]>;
+  private selectedCategories: autoCompletableCategory[] = [];
+  private categories: string[] = [];
+  private categoriesValue: string[] = [];
 
   @ViewChild('categoryInput') categoryInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   constructor(
+
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ClientCategoryPopupComponent>,
     private fb: FormBuilder,
+
   ) {
+
     this.filteredCategories = this.categoryCtrl.valueChanges
       .pipe(
         startWith(''),
         map(category => category ? this._filterCategories(category) : this.allCategories.slice())
       );
+
   }
 
   ngOnInit() {
@@ -62,7 +68,7 @@ export class ClientCategoryPopupComponent implements OnInit {
 
     if (!this.matAutocomplete.isOpen) {
       const input = event.input;
-      const value = event.value;
+      // const value = event.value;
 
       // if we need to add custom texts as Chips,
       // Add our category
@@ -77,34 +83,44 @@ export class ClientCategoryPopupComponent implements OnInit {
 
       this.categoryCtrl.setValue(null);
     }
+
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
+
     this.addSelectedCategory(event.option.value);
     this.categoryInput.nativeElement.value = '';
     this.categoryCtrl.setValue(null);
+
   }
 
   addSelectedCategory(id){
+
     this.allCategories.forEach((item, index) => {
       if (item.id === id) {
         this.selectedCategories.push(item);
         this.allCategories.splice(index, 1);
       }
     });
+
   }
 
   remove(category: autoCompletableCategory): void {
+
     this.selectedCategories.forEach((item, index) => {
       if (item.id === category.id) {
         this.allCategories.push(category);
         this.selectedCategories.splice(index, 1);
       }
     });
+
   }
 
   private _filterCategories(value: string): autoCompletableCategory[] {
+
     const filterValue = value.toLowerCase();
     return this.allCategories.filter(category => category.name.toLowerCase().indexOf(filterValue) === 0);
+    
   }
+
 }

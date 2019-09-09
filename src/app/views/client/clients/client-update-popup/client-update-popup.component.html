@@ -1,9 +1,11 @@
 <form [formGroup]="itemForm" (ngSubmit)="submit()"  id="client-update">
+
   <mat-toolbar matDialogTitle class="mat-primary m-0">
     <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
       <span class="title dialog-title">Update Client</span>
     </div>
   </mat-toolbar>
+  
   <mat-dialog-content class="mat-typography mt-1">
 
 
@@ -11,14 +13,13 @@
 
       <div fxFlex="100" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="clientName" [formControl]="itemForm.controls['name']" letterOnly placeholder="Name">
+          <input matInput name="clientName" [formControl]="itemForm.controls['name']" placeholder="Name">
         </mat-form-field>
       </div>
 
       <div fxFlex="100" class="pr-1">
         <mat-form-field class="full-width">
-          <textarea matInput name="description" placeholder="Description"
-            [formControl]="itemForm.controls['description']"></textarea>
+          <textarea matInput name="description" placeholder="Description" [formControl]="itemForm.controls['description']"></textarea>
         </mat-form-field>
       </div>
 
@@ -30,27 +31,25 @@
 
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="addressLine1" [formControl]="itemForm.controls['addressLine1']"
-            placeholder="Address Line 1">
+          <input matInput name="addressLine1" [formControl]="itemForm.controls['addressLine1']" placeholder="Address Line 1">
         </mat-form-field>
       </div>
 
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="addressLine2" [formControl]="itemForm.controls['addressLine2']"
-            placeholder="Address Line 2">
+          <input matInput name="addressLine2" [formControl]="itemForm.controls['addressLine2']" placeholder="Address Line 2">
         </mat-form-field>
       </div>
 
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="city" [formControl]="itemForm.controls['city']" letterOnly placeholder="City">
+          <input matInput name="city" [formControl]="itemForm.controls['city']" placeholder="City">
         </mat-form-field>
       </div>
 
       <div fxFlex="50" class="pr-1">
         <mat-form-field class="full-width">
-          <input matInput name="state" [formControl]="itemForm.controls['state']" positiveNumberAndLetterOnly placeholder="State">
+          <input matInput name="state" [formControl]="itemForm.controls['state']" placeholder="State">
         </mat-form-field>
       </div>
 

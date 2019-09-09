@@ -1,9 +1,13 @@
 <div fxLayout="row" fxLayoutWrap="wrap">
+
   <div fxFlex="100" fxFlex.gt-md="300px" fxFlex.gt-sm="50">
+
     <mat-card class="profile-sidebar mb-1 pb-0">
+
       <div class="propic text-center">
         <img src="{{this.profileImg}}" alt="" />
       </div>
+
       <div class="profile-title text-center mb-1">
         <div class="main-title">{{this.userDisplayName}}</div>
         <div class="subtitle mb-05">{{ currentUser.company }}</div>
@@ -11,49 +15,36 @@
           Welcome on Truverus! Hope you're doing good today
         </div>
       </div>
-      <!-- <div class="profile-actions text-center mb-1">
-        <button color="primary" mat-raised-button="" class="mat-raised-button mat-primary mr-1">
-          <span class="mat-button-wrapper">Message</span>
-          <div class="mat-button-ripple mat-ripple" matripple=""></div>
-          <div class="mat-button-focus-overlay"></div>
-        </button><button color="accent" mat-raised-button="" class="mat-raised-button mat-accent">
-          <span class="mat-button-wrapper">Follow</span>
-          <div class="mat-button-ripple mat-ripple" matripple=""></div>
-          <div class="mat-button-focus-overlay"></div>
-        </button>
-      </div> -->
+
       <div class="profile-nav">
+
         <mat-nav-list>
-          <!--
-            <mat-list-item routerLink="/profile/overview" routerLinkActive="list-item-active">
-              <mat-icon>home</mat-icon>
-              Overview
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          -->
+
           <mat-list-item routerLink="/profile/profile-settings" routerLinkActive="list-item-active">
             <mat-icon>portrait</mat-icon>
             Profile Settings
           </mat-list-item>
+
           <mat-divider></mat-divider>
+
           <mat-list-item routerLink="/profile/account-settings" routerLinkActive="list-item-active" [roleAuthorization]="'isPredefined'">
             <mat-icon>work</mat-icon>
             Account Settings
           </mat-list-item>
+          
           <mat-divider></mat-divider>
 
           <mat-list-item routerLink="/profile/general-settings" routerLinkActive="list-item-active" [roleAuthorization]="'isPredefined'">
             <mat-icon>settings</mat-icon>
             General Settings
           </mat-list-item>
-          <!-- <mat-list-item routerLink="/profile/blank" routerLinkActive="list-item-active">
-            <mat-icon>content_paste</mat-icon>
-            Blank
-          </mat-list-item> -->
 
         </mat-nav-list>
+
       </div>
+
     </mat-card>
+
   </div>
 
   <!-- Profile Views -->
