@@ -18,9 +18,24 @@ export class MerchantService {
     }
 
 
-    getMerchants(): Observable<any> {
-        return this.http.get(this.merchantUrl).pipe(catchError(this.handleError));
+    // getMerchants(): Observable<any> {
+    //     return this.http.get(this.merchantUrl).pipe(catchError(this.handleError));
+    // }
+
+    getMerchants(name, status, pageSize, pageNumber): Observable<any> {
+        return this.http.get(
+            this.merchantUrl +
+            "?name=" +
+            name +
+            "&status=" +
+            status +
+            "&pageSize=" +
+            pageSize +
+            "&pageNumber=" +
+            pageNumber
+        ).pipe(catchError(this.handleError));
     }
+
     getMerchant(id): Observable<any> {
         return this.http.get(this.merchantUrl + "/" + id).pipe(catchError(this.handleError));
     }

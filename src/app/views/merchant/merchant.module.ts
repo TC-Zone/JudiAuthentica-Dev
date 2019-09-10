@@ -30,6 +30,7 @@ import {
   MatMenuModule,
   MatAutocompleteModule,
 } from "@angular/material";
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MerchantActivePopupComponent } from './merchant-active-popup/merchant-active-popup.component';
 
 @NgModule({
@@ -65,7 +66,8 @@ import { MerchantActivePopupComponent } from './merchant-active-popup/merchant-a
     MatMenuModule,
     MatAutocompleteModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatPaginatorModule
   ],
   entryComponents: [
     MerchantActivePopupComponent
