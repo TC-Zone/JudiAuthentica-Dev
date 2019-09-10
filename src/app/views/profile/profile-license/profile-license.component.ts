@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { AuthenticationService } from 'app/views/sessions/authentication.service';
+import { AppWarningService } from 'app/shared/services/app-warning/app-warning.service';
 
 @Component({
   selector: 'app-profile-license',
@@ -44,7 +45,8 @@ export class ProfileLicenseComponent implements OnInit {
     private errDialog: AppErrorService,
     private loader: AppLoaderService,
     private snack: MatSnackBar,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private appWarningService: AppWarningService
 
   ) { }
 
@@ -80,14 +82,16 @@ export class ProfileLicenseComponent implements OnInit {
 
   getClientCategory() {
 
-    this.profileService.getClientCategories(this.clientId).subscribe(successResp => {
-      successResp.content.forEach(element => {
-        this.addSelectedCategory(element.id);
-      });
-    },
+    this.profileService.getClientCategories(this.clientId).subscribe(
+      successResp => {
+        successResp.content.forEach(element => {
+          this.addSelectedCategory(element.id);
+        });
+      },
       error => {
         this.errDialog.showError(error);
-      });
+      }
+    );
 
   }
 
@@ -164,12 +168,38 @@ export class ProfileLicenseComponent implements OnInit {
   }
 
   remove(category: autoCompletableCategory): void {
-    this.selectedCategories.forEach((item, index) => {
-      if (item.id === category.id) {
-        this.allCategories.push(category);
-        this.selectedCategories.splice(index, 1);
+
+    this.profileService.getClientCategoryProductsCount(this.clientId, category.id).subscribe(
+      successResp => {
+
+        if (successResp.content > 0) {
+
+          const infoData = {
+            title: "Sorry!",
+            message:
+              "Cannot remove category!</br>" +
+              "<small class='text-muted'>You have already assigned " + successResp.content + " product(s) underneath of it.</small>"
+          };
+
+          this.appWarningService.showWarning(infoData);
+
+        } else {
+
+          this.selectedCategories.forEach((item, index) => {
+            if (item.id === category.id) {
+              this.allCategories.push(category);
+              this.selectedCategories.splice(index, 1);
+            }
+          });
+
+        }
+      },
+      error => {
+        this.errDialog.showError(error);
       }
-    });
+    );
+
+
   }
 
   restCategory() {

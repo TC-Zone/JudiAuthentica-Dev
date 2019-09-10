@@ -12,6 +12,7 @@ import { environment } from "environments/environment.prod";
 export class ProfileService {
 
   public userUrl: string = environment.userApiUrl + "platform-users";
+  public productUrl: string = environment.productApiURL;
   public userProfileUrl: string = environment.userApiUrl + "platform-user-profiles";
   public clientUrl: string = environment.userApiUrl + "clients";
   public licenseUrl: string = this.clientUrl + "/license";
@@ -56,7 +57,13 @@ export class ProfileService {
   }
 
   getClientCategories(id): Observable<any> {
-    return this.http.get(this.clientUrl + "/categories/" + id).pipe(catchError(this.handleError));
+    return this.http.get(this.clientUrl+ "/categories/" + id).pipe(catchError(this.handleError));
+  }
+  
+  getClientCategoryProductsCount(clientId, categoryId): Observable<any> {
+    return this.http.get(
+      this.productUrl + "products/category?clientId=" + clientId + "&categoryId=" + categoryId
+    ).pipe(catchError(this.handleError));
   }
 
   getClientProfileImg(id): Observable<Blob> {
